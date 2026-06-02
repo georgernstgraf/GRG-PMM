@@ -15,9 +15,21 @@ Each entry documents WHAT was decided and WHY.
 - **Choice**: The general part (Anlage 1) was downloaded from RIS alongside Anlage 1.28
 - **Reason**: Anlage 1.28 references Anlage 1 repeatedly (general subjects, didactics, school autonomy rules). Both are required for a complete legal basis.
 
-## 2026-06-02: School PDF Restored Alongside RIS PDF
-- **Choice**: The school's original PDF (`Lehrplan_TechnischesManagement.pdf`) is kept alongside the RIS-signed PDF in `docs/lehrplan/`
-- **Reason**: Both are byte-identical (383.232 bytes, CreationDate 17.09.2015), but provenance matters — the school PDF is the document the school uses, the RIS PDF is the legal reference. Keeping both ensures traceability.
+## 2026-06-02: Duplicate PDFs Consolidated
+- **Choice**: The byte-identical RIS PDF was removed; only the school-named PDF (`2015-09-17_Lehrplan_TechnischesManagement.pdf`) is kept
+- **Reason**: Both PDFs had identical content (383.232 bytes, CreationDate 17.09.2015). Keeping one avoids confusion and unnecessary duplication. The date prefix preserves chronological context.
+
+## 2026-06-02: Date Prefix Consistent for All Legal PDFs
+- **Choice**: School PDF uses `2015-09-17_` prefix to match the Anlage 1 PDF naming convention
+- **Reason**: Enables chronological sorting and consistent naming across `docs/lehrplan/`.
+
+## 2026-06-02: School Website Stundentafel as Reference
+- **Choice**: The Stundentafel published on spengergasse.at is documented in METADATA.md alongside the RIS version
+- **Reason**: The school has exercised school-autonomous adaptations (shifted hours from Anlagen-/Prüftechnik to Umwelttechnologie). Both versions must be understood when planning lessons.
+
+## 2026-06-02: Time Model for PMN Planning
+- **Choice**: Lesson plans target 15 double-periods (Doppelstunden) per semester
+- **Reason**: 18-20 theoretical double-periods minus admin/exam overhead yields ~15 net. All semester plans must accommodate this cadence.
 
 ## 2026-06-02: Language Policy
 - **Choice**: German for teaching materials and commit messages; English for AGENTS.md and technical docs

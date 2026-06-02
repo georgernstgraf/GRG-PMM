@@ -108,12 +108,31 @@ Die Anlage 1.28 verweist an mehreren Stellen auf **Anlage 1** (Allgemeiner Teil)
 
 **Beide PDFs (Anlage 1 und Anlage 1.28) sind daher für die vollständige rechtliche Grundlage erforderlich und in diesem Verzeichnis abgelegt.**
 
+## Schulautonome Stundentafel (HTL Spengergasse)
+
+Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentlichte Stundentafel weicht in mehreren Fächern von der RIS-Stundentafel ab. Die Schule hat im Rahmen der schulautonomen Lehrplanbestimmungen Stundenanteile verschoben:
+
+| Fach | RIS IV./V. | Schule IV./V. | Differenz |
+|------|-----------|---------------|-----------|
+| Informatik und Informationssysteme | 2(2) / 4(4) | 2 / 3 | Übungsanteile nicht ausgewiesen |
+| Anlagen- und Prüftechnik | 3 / 6 | 1 / 3 | -2 / -3 |
+| Umwelttechnologie | — | 2 / 3 | Neues Fach (+2 / +3) |
+| Prozessmanagement | 4(1) / 4(2) | 4 / 4 | Übungsanteile integriert |
+| Produktmanagement | 4(2) / 3(1) | 4 / 3 | Übungsanteile integriert |
+
+> Die Anpassung verschiebt den Schwerpunkt von Anlagen-/Prüftechnik hin zu Umwelttechnologie als eigenem Fach. Die generalistischen Fächer (Betriebstechnik, Prozessmanagement, Produktmanagement) bleiben in ihrem Kern unverändert.
+
+### Zeitmodell für PMN (4AHWIT / 5AHWIT)
+
+- **Theoretisch:** 18–20 Doppelstunden pro Semester (eine pro Schulwoche)
+- **Netto (praktisch):** ca. 15 Doppelstunden pro Semester nach Abzug von administrativen Terminen und Prüfungen
+- **Jahresplanung:** pro Semester sind 15 thematische Einheiten (Doppelstunden) einzuplanen
+
 ## Dateien in diesem Verzeichnis
 
 | Datei | Herkunft | Beschreibung |
 |-------|----------|-------------|
-| `Lehrplan_TechnischesManagement.pdf` | HTL Spengergasse (Original) | Fachspezifischer Lehrplan — das von der Schule bereitgestellte Dokument |
-| `2015-09-17_BGBl-II-262_Anlage-1.28_HTL-Wirtschaftsingenieure-TechnischesManagement.pdf` | RIS (signiert) | Fachspezifischer Lehrplan — signiertes Original aus dem Rechtsinformationssystem |
+| `2015-09-17_Lehrplan_TechnischesManagement.pdf` | HTL Spengergasse / RIS | Fachspezifischer Lehrplan — das Schul-PDF ist mit dem RIS-Original byte-identisch (383.232 Bytes, CreationDate 17.09.2015) |
 | `2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | RIS (signiert) | Allgemeiner Teil für alle HTL-Lehrpläne (Didaktik, Schulautonomie, allg. Fächer) |
 
-> **Hinweis:** Das Schul-PDF und das RIS-PDF der Anlage 1.28 sind byte-identisch (383.232 Bytes, CreationDate 17.09.2015, Autor: Hofer/Schober). Beide werden als gleichrangig autoritativ betrachtet und aus Gründen der Nachvollziehbarkeit der Herkunft getrennt aufbewahrt.
+> **Hinweis:** Das Schul-PDF (`2015-09-17_Lehrplan_TechnischesManagement.pdf`) und das signierte RIS-PDF der Anlage 1.28 sind byte-identisch. Es wird nur das Schul-PDF im Repository geführt.
