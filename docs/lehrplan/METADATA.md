@@ -110,7 +110,10 @@ Die Anlage 1.28 verweist an mehreren Stellen auf **Anlage 1** (Allgemeiner Teil)
 
 ## Dateien in diesem Verzeichnis
 
-| Datei | Beschreibung |
-|-------|-------------|
-| `2015-09-17_BGBl-II-262_Anlage-1.28_HTL-Wirtschaftsingenieure-TechnischesManagement.pdf` | Fachspezifischer Lehrplan (33 Seiten) |
-| `2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | Allgemeiner Teil für alle HTL-Lehrpläne (Didaktik, Schulautonomie, allg. Fächer) |
+| Datei | Herkunft | Beschreibung |
+|-------|----------|-------------|
+| `Lehrplan_TechnischesManagement.pdf` | HTL Spengergasse (Original) | Fachspezifischer Lehrplan — das von der Schule bereitgestellte Dokument |
+| `2015-09-17_BGBl-II-262_Anlage-1.28_HTL-Wirtschaftsingenieure-TechnischesManagement.pdf` | RIS (signiert) | Fachspezifischer Lehrplan — signiertes Original aus dem Rechtsinformationssystem |
+| `2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | RIS (signiert) | Allgemeiner Teil für alle HTL-Lehrpläne (Didaktik, Schulautonomie, allg. Fächer) |
+
+> **Hinweis:** Das Schul-PDF und das RIS-PDF der Anlage 1.28 sind byte-identisch (383.232 Bytes, CreationDate 17.09.2015, Autor: Hofer/Schober). Beide werden als gleichrangig autoritativ betrachtet und aus Gründen der Nachvollziehbarkeit der Herkunft getrennt aufbewahrt.
