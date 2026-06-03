@@ -1,26 +1,69 @@
 # Semesterplan 5AHWIT — Wintersemester
 
-Projektmanagement und Netzwerktechnik  
-KM 9a (RIS-Lehrplan BGBl. II Nr. 262/2015, Anlage 1.28)
+Prozessmanagement (PMM) — Maturafach WIT  
+KM 9a (RIS BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5)
 
-**Zeitmodell:** 15 Doppelstunden (ca. 50 % Netzwerke Enterprise, IS/BPMN, ERP-Vertrieb)
+**Zeitmodell:** 30 Doppelstunden (4 h/Woche)  
+**Schwerpunkte:** Industrielle Versuchsmethodik / DOE (23 E.) · Facility Management (5 E.) · Projekt (2 E.)  
+**Werkzeug:** R / RStudio
 
-| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (Übung + HÜ) | Scrum |
-|---|-------|---------------------|------------------------|-------|
-| 1 | **Scrum VI: Agile at Scale** | SAFe-Überblick, ScrumBan | SAFe-Konfiguration für Fallbeispiel skizzieren | Scrum |
-| 2 | **Enterprise Campus-Design** | Hierarchical, Spine-Leaf, Redundanz | Campus-Topologie entwerfen (Diagramm) | |
-| 3 | **Hochverfügbarkeit** | VRRP, Dual-WAN, Failover, Load-Balancing | VRRP+Failover auf MikroTik konfigurieren | |
-| 4 | **Cloud/DC-Networking** | Overlay-Protokolle (VXLAN), SDN-Grundlagen | MikroTik-Konfiguration via Script/API | |
-| 5 | **IT-Security-Management** | ISO 27001 Gap-Analyse, Pentesting-Tools | Gap-Analyse + Risikomatrix erstellen | |
-| 6 | **VoIP & Unified Comms** | SIP, QoS (DSCP), Jitter/Latenz | SIP-Trunk + QoS auf MikroTik, Jitter-Test | |
-| 7 | **Netzwerk-Dokumentation** | IPAM (NetBox), Rack-Diagramm, Change Mgmt | NetBox/IPAM aufsetzen, Rack befüllen | |
-| 8 | **Datenmodellierung (IS)** | ER-Modell für Geschäftsprozesse | ER-Modell für Vertriebsprozess, normalisieren | |
-| 9 | **BPMN I** | Pools, Lanes, Events, Gateways, Flows | BPMN-Diagramm für Bestellprozess zeichnen | |
-| 10 | **BPMN II: Ist-Analyse** | Schwachstellen, Kennzahlen | Ist-Prozess modellieren, Schwachstellen identifizieren | |
-| 11 | **BPMN III: Soll-Modellierung** | Optimierungspotenziale, Digitalisierung | Soll-Prozess modellieren, Kennzahlen vergleichen | |
-| 12 | **ERP SD I** | Kundenstamm, Konditionen, Anfrage, Angebot | Kunden anlegen, Konditionssätze, Angebot erstellen | |
-| 13 | **ERP SD II** | Kundenauftrag, Lieferung, Kommissionierung | Auftrag→Lieferung→Kommissionierung in SAP | |
-| 14 | **ERP SD III** | Faktura, Zahlungseingang, Mahnwesen | Faktura, Zahlung buchen, Mahnlauf | |
-| 15 | **Abschluss** | Prozess-Durchstich BPMN→IS→ERP SD | Prozess von Bestellung bis Zahlungsabschluss | |
+---
 
-**7 Netzwerke · 4 IS · 3 ERP SD · 1 Scrum**
+## Block A: DOE-Grundlagen (1–8)
+
+| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
+|---|-------|---------------------|---------------------|-----|
+| 1 | **DOE-Einführung** | Faktoren, Stufen, Antwortvariable, Randomisierung, Replikation | Warum DOE? Historisches Beispiel (Fisher) | Fragestellung formulieren |
+| 2 | **R-Pakete für DOE** | `DoE.base`, `FrF2`, `rsm`, `AlgDesign` | Pakete installieren, erste Pläne generieren | Paket-Cheatsheet |
+| 3 | **Vollfaktorielle 2^k-Pläne I** | 2² und 2³, Haupteffekte, `lm()` | 2³-Plan in R: `lm()`, `summary()` | Effekte interpretieren |
+| 4 | **Vollfaktorielle 2^k-Pläne II** | Wechselwirkungen, Interaction Plots | `interaction.plot()`, Effektdiagramme | Pareto-Chart der Effekte |
+| 5 | **Effektschätzung & ANOVA** | `DanielPlot()`, `halfnormal()`, Effekttabelle | Effekte visualisieren und testen | Effekttabelle |
+| 6 | **Vollfaktorielle 2^k: Praxis** | 2⁴-Plan auswerten, Modellreduktion | Nicht-signifikante Effekte entfernen | Modellvergleich |
+| 7 | **Zentrumspunkte & Krümmung** | Pure Error, Lack of Fit, Krümmungstest | Zentrumspunkt-Design in R | Krümmungstest |
+| 8 | **Übung Vollfaktoriell** | Komplettes 2⁴-Experiment durchführen | Eigenes Experiment in R | Vollständige Auswertung |
+
+## Block B: Teilfaktorielle & Erweiterte Pläne (9–16)
+
+| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
+|---|-------|---------------------|---------------------|-----|
+| 9 | **Teilfaktorielle Pläne: Confounding** | 2^(k-p), Auflösung, Design Generators | `FrF2()` für 2^(4-1) | Alias-Struktur |
+| 10 | **Resolution III/IV/V** | Auflösungsbegriff, `alias()`, Klassifizierung | `FrF2(resolution=4)` | Auflösungsvergleich |
+| 11 | **Blockbildung** | Blockfaktoren, Confounding mit Blöcken | `conf.set()` in `FrF2` | Block-Design |
+| 12 | **Split-Plot-Designs** | Hard-to-change Factors, REML | Split-Plot in R mit `lme4::lmer()` | Split-Plot-Auswertung |
+| 13 | **Plackett-Burman** | Screening-Designs für viele Faktoren | `pb()` — 12er-PB-Design | Screening-Bericht |
+| 14 | **D-optimale Designs** | Unregelmäßige Versuchsräume, Optimalitätskriterien | `AlgDesign::optFederov()` | D-optimales Design |
+| 15 | **Übung Teilfaktoriell** | Screening-Experiment komplett | 2^(7-3)-Plan auswerten | Bericht |
+| 16 | **DOE-Workshop I** | Problemstellung → Plan → R → Auswertung | Geleitetes Experiment | — |
+
+## Block C: Response Surface & Optimierung (17–23)
+
+| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
+|---|-------|---------------------|---------------------|-----|
+| 17 | **Response Surface I: CCD** | Central Composite Design, `ccd()`, `rsm()` | CCD planen und auswerten | RSM-Modell |
+| 18 | **Response Surface II: BBD** | Box-Behnken-Design, CCD vs. BBD | BBD in R, Vergleich der Designs | Design-Vergleich |
+| 19 | **RSM-Modellierung** | Quadratisches Modell, Kontur-/3D-Plots | `contour()`, `persp()` auf RSM | 3D-Oberfläche |
+| 20 | **Optimierung: Einzelziel** | Steepest Ascent, Maximum finden | `steepest()` in `rsm` | Optimum validieren |
+| 21 | **Mehrzieloptimierung** | Desirability-Funktion, Trade-offs | `desirability()` mit `rsm` | Pareto-Front |
+| 22 | **Robust Design (Taguchi)** | Noise Factors, S/N-Ratio, Inner/Outer Array | Taguchi-Design in `qualityTools` | S/N-Analyse |
+| 23 | **DOE-Workshop II** | Eigenes RSM-Experiment | Planen, durchführen, auswerten | Abschlussbericht |
+
+## Block D: Facility Management (24–28)
+
+| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
+|---|-------|---------------------|---------------------|-----|
+| 24 | **FM-Grundlagen** | DIN EN 15221, FM-Modell, Prozesse, Kennzahlen | Gebäudedaten analysieren | FM-Bestandsaufnahme |
+| 25 | **Technische Betriebsführung I** | Gebäudetechnik (TGA), Betriebsführung | Betriebskosten in R auswerten | Kostenanalyse |
+| 26 | **Technische Betriebsführung II** | Instandhaltungsstrategien, Wartungspläne | Wartungsplan in R visualisieren (`ganttrify`) | Instandhaltungsplan |
+| 27 | **RCM & Zuverlässigkeit** | Weibull-Modell, Ausfallanalyse, `survival` | `survreg()`, `flexsurvreg()` | Ausfallanalyse |
+| 28 | **Arbeitssicherheit** | ASchG, Evaluierung, Kennzahlen | Unfallstatistik in R auswerten | Sicherheitskennzahlen |
+
+## Block E: Integration & Abschluss (29–30)
+
+| # | Thema |
+|---|-------|
+| 29 | **Fallstudie**: DOE-Optimierung eines FM-Prozesses (z.B. Energieverbrauch) |
+| 30 | **Semesterabschluss & Leistungsfeststellung** |
+
+---
+
+**23 Statistik/R · 5 Facility · 2 Projekt**

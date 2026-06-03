@@ -1,25 +1,32 @@
 # Semesterplan 5AHWIT — Sommersemester
 
-Projektmanagement und Netzwerktechnik  
-KM 9b (RIS-Lehrplan BGBl. II Nr. 262/2015, Anlage 1.28)
+Prozessmanagement (PMM) — Maturafach WIT  
+KM 9b (RIS BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5)
 
-**Zeitmodell:** 10 Doppelstunden (Februar–April; theoretische Matura ab Anfang Mai)  
-**Schwerpunkt:** Netzwerke (60 %) · Geschäftsprozessmodellierung · ERP-Controlling
+**Zeitmodell:** 15 Doppelstunden (Februar–April; theoretische Matura ab Anfang Mai)  
+**Schwerpunkte:** Zuverlässigkeit (5 E.) · Energiemanagement (4 E.) · Prüfungsvorbereitung (3 E.) · Projekt (3 E.)  
+**Werkzeug:** R / RStudio
 
-| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (Übung + HÜ) |
-|---|-------|---------------------|------------------------|
-| 1 | **IT-Infrastrukturplanung** | Spezifikation, CAPEX/OPEX, Make-or-Buy | Infrastruktur für fiktives KMU planen + kalkulieren |
-| 2 | **ITIL 4** | Service Value System, Incident/Problem/Change | Incident/Problem/Change-Prozess durchspielen |
-| 3 | **RZ & Business Continuity** | Georedundanz, DRG, RTO/RPO | DRG-Konzept für 3 Standorte entwerfen |
-| 4 | **IPv6** | Adressierung, Dual-Stack, Tunneling (6to4, 6in4) | IPv6 auf MikroTik aktivieren, Dual-Stack-Betrieb |
-| 5 | **Netzwerk-Automation II** | Ansible für MikroTik, GitOps-Ansatz | Bulk-Konfiguration via Ansible Playbook |
-| 6 | **Netzwerk-Abschlussprojekt** | Design-Aufgabe: Netzwerk für fiktives Unternehmen | Eigenständige Planung, Dokumentation |
-| 7 | **GPM I: BPMN-Sollmodellierung** | Soll-Prozess, Simulation | Soll-Prozess modellieren und simulieren |
-| 8 | **GPM II: Simulation & Business Case** | Durchlaufzeit, Kostenvergleich, ROI | Business Case für Prozessoptimierung rechnen |
-| 9 | **ERP CO I** | Kostenarten, Kostenstellen, BAB, ILV | Kostenart/-stelle anlegen, BAB, ILV, Zuschlagssätze |
-| 10 | **ERP CO II** | Produktkalkulation, Maschinenstundensatz, Deckungsbeitrag | Vollkostenkalkulation, DB-Rechnung |
+---
 
-**6 Netzwerke · 2 GPM · 2 ERP CO**
+| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
+|---|-------|---------------------|---------------------|-----|
+| 1 | **Zuverlässigkeit: Grundbegriffe** | MTBF, MTTF, λ, Verfügbarkeit (A = MTBF/(MTBF+MTTR)) | `survival`-Paket, Ausfalldaten einlesen | Begriffe definieren |
+| 2 | **Weibull-Verteilung** | Parameter-Schätzung, Ausfallverhalten, Badewannenkurve | `fitdistrplus`, `flexsurv::flexsurvreg()` | Weibull-Parameter schätzen |
+| 3 | **Systemzuverlässigkeit** | Serien-, Parallel-, k-aus-n-Systeme, RBD | Zuverlässigkeit für Systeme berechnen | RBD für Beispielsystem |
+| 4 | **Kaplan-Meier & zensierte Daten** | Rechtszensierung, `survfit()`, `ggsurvplot()` | Survival-Kurven für zensierte Daten | zensierte vs. vollständige Daten |
+| 5 | **Reliability im Praxiskontext** | Fallstudie Pumpenausfälle, Badewannenkurve | Komplette Zuverlässigkeitsanalyse | Ausfallprognose |
+| 6 | **Energiemanagement I** | ISO 50001, Energieaudit, Endenergieverbrauch | Energiebilanz in R rechnen und plotten | Energieverbrauch erfassen |
+| 7 | **Energiemanagement II** | EnPI, Baseline, Regression für Prognose | Multiple Regression: `lm(log(Verbrauch) ~ Temperatur + ...)` | Energieprognose |
+| 8 | **Energiemanagement III** | Lastganganalyse, Spitzenlast-Management | Lastgang plotten, Spitzen identifizieren | Lastgangprofil |
+| 9 | **Energiemanagement IV** | Wirtschaftlichkeit: Amortisation, Kapitalwert | Investitionsrechnung für Energieprojekte | Business Case |
+| 10 | **Zuverlässigkeit & Energie** | Reliability im Energiekontext (Wind/PV) | R: Ausfallmuster erneuerbarer Anlagen | Integration |
+| 11 | **Projekt** | Eigenes R-Projekt: Zuverlässigkeit ODER Energieaudit | Selbstständige Arbeit | Projektabgabe |
+| 12 | **Prüfungsvorbereitung I** | Theorie-Wiederholung: Statistik, SPC, Prozessfähigkeit | Musterbeispiele rechnen | Übungsblatt |
+| 13 | **Prüfungsvorbereitung II** | Theorie-Wiederholung: DOE, Zuverlässigkeit | Musterbeispiele rechnen | Übungsblatt |
+| 14 | **Prüfungsvorbereitung III** | R-Prüfungssimulation, offene Fragen | Simulation unter Prüfungsbedingungen | — |
+| 15 | **Abschluss & Maturavorbereitung** | Zusammenfassung, Ausblick, letzte Fragen | — | — |
 
-> Diplomarbeit-Methodik wurde in 4AHWIT Sommersemester (Einheiten 14–15) vorgezogen.
-> Schüler arbeiten selbstständig an ihrer DA; keine eigenen PMN-Einheiten dafür eingeplant.
+---
+
+**5 Statistik/R · 4 Energie · 3 Prüfung · 3 Projekt**
