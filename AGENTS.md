@@ -12,6 +12,8 @@ This repository contains coursework for **Projektmanagement und Netzwerktechnik 
 
 - `4AHWIT/` — 4th year class materials, date-based folders (`YYYY-MM-DD_thema`)
 - `5AHWIT/` — 5th year class materials
+- `selbststudium/` — Self-study workspace for learning R and statistics (Teach skill)
+- `.opencode/skills/` — Project-local opencode skills
 - `Unterlagen/` — Reference materials and scripts
 - `docs/` — Central documents (curriculum, metadata, project specifications)
 - `docs/lehrplan/` — Legal curriculum documents from RIS (BGBl. II Nr. 262/2015)
@@ -72,6 +74,18 @@ Session context must be persisted via the `knowledge-persistence` skill. This sk
 | `ARCHITECTURE.md` | Living structural map |
 
 Run knowledge persistence during `/issue-commit` and `/issue-finish`.
+
+## 9. Self-Study (Teach Skill)
+
+The `selbststudium/` directory is a teaching workspace powered by the
+project-local `teach` skill (`.opencode/skills/teach/`). Use it when the
+user wants to learn R, statistics, or any PMM-relevant topic.
+
+- Invoke `/teach` to start a learning session
+- `MISSION.md` defines the learning goal (R + statistics for teaching PMM)
+- `RESOURCES.md` lists curated courses, books, and communities
+- `learning-records/` tracks progress across sessions
+- `lessons/` contains generated interactive HTML lessons
 
 ## Knowledge Bootstrap
 Before starting any task, read the following files in order:
