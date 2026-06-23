@@ -81,11 +81,12 @@ The `selbststudium/` directory is a teaching workspace powered by the
 project-local `teach` skill (`.opencode/skills/teach/`). Use it when the
 user wants to learn R, statistics, or any PMM-relevant topic.
 
-- Invoke `/teach` to start a learning session
-- `MISSION.md` defines the learning goal (R + statistics for teaching PMM)
-- `RESOURCES.md` lists curated courses, books, and communities
-- `learning-records/` tracks progress across sessions
-- `lessons/` contains generated interactive HTML lessons
+- Invoke `/teach` from anywhere in the project to start a learning session
+- The skill is hardwired to `selbststudium/` as the workspace root — no `cd` needed
+- `selbststudium/MISSION.md` defines the learning goal (R + statistics for teaching PMM)
+- `selbststudium/RESOURCES.md` lists curated courses, books, and communities
+- `selbststudium/learning-records/` tracks progress across sessions
+- `selbststudium/lessons/` contains generated interactive HTML lessons
 
 ## Knowledge Bootstrap
 Before starting any task, read the following files in order:
