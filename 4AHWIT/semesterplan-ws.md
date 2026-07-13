@@ -8,6 +8,14 @@ KM 7 (RIS BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5)
 **Werkzeug:** R / RStudio
 **Ordnerkonvention:** `NN-slug/` → `praesentation.html` + `hausaufgabe.md`
 
+> **Vorwissen aus JG3 (KM5+KM6):** Statistik startet laut Lehrplan in JG3, nicht
+> erst in JG4. Die Schüler sollten bereits Wahrscheinlichkeitsverteilungen,
+> Parameter/Schätzwerte, Zufallsstreu-/Vertrauensbereiche und
+> Lebensdauerverteilungen kennen. **Zu Schuljahresbeginn: Einstiegstest**
+> (siehe `docs/ai/HANDOFF.md`), um das tatsächliche Vorwissen zu überprüfen.
+> Bei Lücken muss KM7 kompensieren. Vollständiger PMM-Lehrplan JG1–JG5:
+> `docs/lehrplan/pmm-lehrplan-text.md`.
+
 ---
 
 ## UE 1–4: R-Grundlagen & deskriptive Statistik
@@ -15,7 +23,7 @@ KM 7 (RIS BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5)
 | UE | Thema | Lern-Lektion (Selbststudium) | Schüler-Präsentation |
 |----|-------|------------------------------|----------------------|
 | 1 | **R-Grundlagen & Datenstrukturen** | `selbststudium/lessons/0001-r-grundlagen-datenstrukturen.html` | `01-r-grundlagen-datenstrukturen/praesentation.html` |
-| 2 | **Daten einlesen & deskriptive Statistik** | (to build) | `02-daten-einlesen-deskriptiv/` |
+| 2 | **Daten einlesen & deskriptive Statistik** | `selbststudium/lessons/0002-daten-einlesen-deskriptiv.html` | `02-daten-einlesen-deskriptiv/` |
 | 3 | **Visualisierung mit ggplot2** | (to build) | `03-visualisierung-ggplot2/` |
 | 4 | **Wahrscheinlichkeit & Normalverteilung** | (to build) | `04-wahrscheinlichkeit-normalverteilung/` |
 
