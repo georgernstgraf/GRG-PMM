@@ -1,23 +1,39 @@
 # Project State
 
-Current status as of 2026-06-02.
+Current status as of 2026-07-12.
 
 ## Current Focus
-Repository initialization complete. Waiting on clarification of PMN subject mapping (Issue #1) before semester planning can proceed.
+Selbststudium (teach skill): Aufbau des KM-7-Kurses (4AHWIT WS).
+Lektionen 1–2 fertig, Lektion 1 ✅. Setup-Pitfall (Ubuntu/-dev-Header)
+dokumentiert. Lektion 3 als Nächstes.
 
 ## Completed (this cycle)
-- [x] Repository structure created (`docs/lehrplan/`, `Unterlagen/`, `4AHWIT/`, `5AHWIT/`, `docs/ai/`)
-- [x] Legal PDFs placed in `docs/lehrplan/` with ISO 8601 prefixes
-- [x] METADATA.md created with full RIS references
-- [x] README.md, AGENTS.md created
-- [x] Knowledge persistence files initialized
-- [x] Issue #1 created with open questions for semester planning
+- [x] Selbststudium-Workspace aufgebaut:
+  - `assets/style.css` (gemeinsamer Stil), `assets/quiz.js` (Quiz-Widget)
+  - `reference/glossar.html`, `reference/km7-verlauf.html` (Verlaufsmap, 30 Lektionen)
+  - `reference/r-setup-linux.html` (Ubuntu-Setup, verifizierte Paketliste)
+  - `learning-records/0001` (Vorwissen), `0002` (L1 gemeistert), `0003` (Setup-Pitfall)
+  - `lessons/0001-r-einfuehrung.html` ✅, `lessons/0002-datenstrukturen.html`
+- [x] Lektion 1 ✅: Vektor/Vektorisierung ins Glossar aufgenommen
+- [x] Pitfall festgehalten: tidyverse-Header auf Ubuntu 26.04
+      (`libfreetype-dev`, nicht `libfreetype6-dev`); in Lektion 1 verlinkt
 
 ## Pending
-- [ ] Create semester plans for 4AHWIT WS, 4AHWIT SS, 5AHWIT WS, 5AHWIT SS (blocked on Issue #1)
+- [ ] Lektion 2 durcharbeiten + Verständnis abholen → Glossar (data.frame,
+      factor, list, coercion) + Learning Record + ✅
+- [ ] Lektion 3: Daten einlesen & bereinigen (`read.csv`, `dplyr`:
+      filter/mutate/select, NA-Behandlung)
+- [ ] Lektionen 4–30 (Blöcke A–F)
+- [ ] Semesterpläne bleiben offen (blockiert auf Issue #1)
 
-## Blockers
-- Issue #1 (Offene Fragen zur Fachzuordnung) pending — need answers about which legal subjects PMN covers and the exact Stundenvolumen before planning
+## Notes
+- R 4.5 / Ubuntu 26.04: Header-Probleme nur bei `tidyverse`; Statistik-Pakete
+  sind reines R (kein Header nötig). `tidyverse` installiert & lädt jetzt
+  (v2.0.0). Rscript unter `/usr/bin/Rscript`.
+- Lernprofil: sicherer Coder, Statistik-Anfänger, R-Neuling; will Meisterschaft
+  + Didaktik; fragt nach Designgründen („warum").
+- Nicht committet; kein Issue für Selbststudium angelegt (nötig vor Commit).
 
 ## Next Session Suggestion
-Review answers to Issue #1, then create four semester directories with lesson plans aligned to the legal curriculum.
+Lernenden Lektion 2 abnehmen (besonders Factor-Falle). Wenn sitzt: Glossar
+erweitern, ✅ setzen, Lektion 3 (dplyr) bauen.

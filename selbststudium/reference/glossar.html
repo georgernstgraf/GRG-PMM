@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glossar — R &amp; industrielle Statistik</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<main>
+
+  <div class="breadcrumb">
+    <a href="km7-verlauf.html">KM 7 Verlauf</a>
+    <span class="sep">/</span> Glossar
+  </div>
+
+  <header class="lesson-head">
+    <div class="meta">Referenz · kanonische Sprache des Selbststudiums</div>
+    <h1>Glossar — R &amp; industrielle Statistik</h1>
+    <p class="lede">Die Begriffe, an die sich alle Lektionen und Learning Records
+      halten. Ein Begriff wird erst aufgenommen, wenn er verstanden wurde — nicht
+      beim ersten Vorstellen. Dieses Glossar wächst mit.</p>
+  </header>
+
+  <h2>Konventionen</h2>
+  <ul>
+    <li><strong>Sprache:</strong> Deutsch für Erklärtexte; R-/Statistik-Fachbegriffe
+      teils englisch (<em>data frame</em>, <em>p-value</em>, <em>ANOVA</em>).</li>
+    <li><strong>„Mittelwert“</strong> meint hier immer das <strong>arithmetische
+      Mittel</strong>, sofern nicht anders genannt.</li>
+    <li><strong>„Stichprobe“</strong> = Teilmenge einer Grundgesamtheit, gezogen
+      zur Untersuchung.</li>
+    <li><strong>p-Wert ≠ Wahrscheinlichkeit:</strong> ein p-Wert ist <em>keine</em>
+      Wahrscheinlichkeit, dass die Nullhypothese stimmt. (Wird bei Einführung
+      ergänzt.)</li>
+  </ul>
+
+  <h2>Statistik — Grundbegriffe</h2>
+  <dl class="terms">
+    <dt>Mittelwert (arithmetisches Mittel)</dt>
+    <dd>Summe aller Werte geteilt durch ihre Anzahl. Empfindlich gegenüber Ausreißern.</dd>
+    <dd class="avoid">Vermeide: „Durchschnitt“, „der Mean“.</dd>
+
+    <dt>Median</dt>
+    <dd>Wert, der eine der Größe nach sortierte Reihe genau halbiert. Robust
+      gegenüber Ausreißern. Bei gerader Anzahl: Mittel der beiden mittleren Werte.</dd>
+  </dl>
+
+  <h2>R &amp; Programmierung — Grundlagen</h2>
+  <dl class="terms">
+    <dt>Funktion</dt>
+    <dd>Benannter, wiederverwendbarer Code-Block, der Argumente aufnimmt und einen
+      Wert zurückgibt. In R: <code>name &lt;- function(arg) { … }</code>.</dd>
+
+    <dt>Variable</dt>
+    <dd>Ein Name, der an einen Wert gebunden ist. Zuweisung in R mit
+      <code>&lt;-</code>, z. B. <code>x &lt;- 5</code>.</dd>
+
+    <dt>Vektor</dt>
+    <dd>Geordnete Folge gleichartiger Werte — das Grundelement in R. Gebaut mit
+      <code>c()</code>. Selbst ein einzelner Wert ist ein Vektor der Länge 1.</dd>
+
+    <dt>Vektorisierung</dt>
+    <dd>Eigenschaft von R, Operationen automatisch elementweise auf ganze
+      Vektoren anzuwenden, ohne explizite Schleife (<code>c(1,2,3) * 2</code> →
+      <code>2 4 6</code>).</dd>
+
+    <dt>Paket (package / library)</dt>
+    <dd>Sammlung von Funktionen und Daten. Einmalig installiert mit
+      <code>install.packages("name")</code>, pro Sitzung geladen mit
+      <code>library(name)</code>.</dd>
+  </dl>
+
+  <div class="callout quelle">
+    <span class="label">Wachstum</span>
+    <p>Weitere Begriffe (<em>data frame</em>, <em>factor</em>, <em>Standardabweichung</em>,
+      <em>Quantil</em>, …) werden aufgenommen, sobald Verständnis nachgewiesen ist.</p>
+  </div>
+
+</main>
+<script src="../assets/quiz.js" defer></script>
+</body>
+</html>

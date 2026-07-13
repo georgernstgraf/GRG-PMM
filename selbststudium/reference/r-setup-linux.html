@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>R-Setup auf Ubuntu (Linux)</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<main>
+
+  <div class="breadcrumb">
+    <a href="km7-verlauf.html">KM 7 Verlauf</a>
+    <span class="sep">/</span>
+    Referenz · R-Setup
+  </div>
+
+  <header class="lesson-head">
+    <div class="meta">Referenz · Umgebung · Ubuntu / Debian</div>
+    <h1>R-Setup auf Ubuntu (Linux)</h1>
+    <p class="lede">Wenn <code>install.packages()</code> mit „fatal error: foo.h:
+      No such file or directory" abbricht, fehlen System-Header. Hier steht die
+      Lösung — und wie du sie selbst findest.</p>
+  </header>
+
+  <!-- ===================================================== SCHNELLLOESUNG -->
+  <h2>Schnelllösung — fehlende Header</h2>
+  <p>Für <code>tidyverse</code> auf Ubuntu (getestet Ubuntu 26.04, R 4.5):
+  </p>
+  <pre><code>sudo apt-get update
+sudo apt-get install -y \
+  libcurl4-openssl-dev \
+  libfontconfig1-dev \
+  libfreetype-dev \
+  libfribidi-dev \
+  libharfbuzz-dev \
+  libpng-dev libjpeg-dev libtiff-dev</code></pre>
+  <p>Danach in R einfach erneut:</p>
+  <pre><code>install.packages("tidyverse")</code></pre>
+
+  <!-- ===================================================== FALLE -->
+  <div class="callout achtung">
+    <span class="label">Falle: Paketnamen ändern sich</span>
+    <p>Die R-Fehlermeldung (<code>[ANTICONF]</code>) schlägt oft ältere Namen
+      vor. <strong>Auf Ubuntu 24.04+/26.04 existiert <code>libfreetype6-dev</code>
+      nicht mehr</strong> — richtig ist <code>libfreetype-dev</code> (ohne „6").
+      Immer prüfen mit:</p>
+    <pre><code>apt-cache policy &lt;paketname&gt;   <span class="cmt"># Candidate: (none) = existiert nicht</span>
+apt-cache search freetype        <span class="cmt"># nach dem echten Namen suchen</span></code></pre>
+  </div>
+
+  <!-- ===================================================== WARUM -->
+  <h2>Warum passiert das überhaupt?</h2>
+  <p>R-Pakete mit C/C++/Fortran-Code müssen <strong>kompiliert</strong> werden.
+    Auf Windows und macOS liefert CRAN fertige Binaries — ein Klick. Auf Linux
+    <em>kompiliert R aus dem Quelltext</em>, weil es für jede
+    Distribution/Version eigene Binaries bräuchte. Zum Kompilieren braucht R die
+    <strong>Entwickler-Header</strong> (die <code>-dev</code>-Pakete) der
+    Systembibliotheken, gegen die gelinkt wird.</p>
+
+  <table>
+    <tr><th>Paket</th><th>Liefert Header für …</th><th>R-Paket, das es braucht</th></tr>
+    <tr><td><code>libcurl4-openssl-dev</code></td><td>libcurl (HTTP)</td><td><code>curl</code> → <code>httr</code>, <code>rvest</code></td></tr>
+    <tr><td><code>libfontconfig1-dev</code></td><td>fontconfig</td><td><code>systemfonts</code></td></tr>
+    <tr><td><code>libfreetype-dev</code></td><td>freetype2</td><td><code>systemfonts</code>, <code>ragg</code></td></tr>
+    <tr><td><code>libfribidi-dev</code> + <code>libharfbuzz-dev</code></td><td>Bidi-/Text-Shaping</td><td><code>textshaping</code> → <code>ragg</code></td></tr>
+    <tr><td><code>libpng-dev</code> / <code>libjpeg-dev</code> / <code>libtiff-dev</code></td><td>Bildformate</td><td><code>ragg</code>, Grafik-Devices</td></tr>
+  </table>
+
+  <!-- ===================================================== LESEN -->
+  <h2>Die Fehlermeldung liest die Lösung schon vor</h2>
+  <p>Jeder configure-Abbruch enthält einen <strong><code>[ANTICONF]</code>-Block</strong>,
+    der genau sagt, welches Systempaket fehlt — inklusive der Distro-Zeile
+    (<code>deb: …</code> für Debian/Ubuntu, <code>rpm: …</code> für Fedora).
+    Gewöhne dir (und deine Schüler) an, diesen Block zu lesen, statt die Wand
+    aus Text zu überfliegen:</p>
+  <pre class="output">--------------------------- [ANTICONF] --------------------------------
+Configuration failed because libcurl was not found. Try installing:
+ * deb: libcurl4-openssl-dev (Debian, Ubuntu, etc)
+ * rpm: libcurl-devel (Fedora, CentOS, RHEL)
+----------------------------------------------------------------------</pre>
+  <p>Nur eine Einschränkung: der vorgeschlagene Name kann veraltet sein
+    (siehe <code>libfreetype6-dev</code>-Falle oben) — kurz mit
+    <code>apt-cache policy</code> gegenchecken.</p>
+
+  <!-- ===================================================== MUSTER -->
+  <h2>Lösmuster — immer dasselbe Rezept</h2>
+  <ol>
+    <li>Fehlermeldung lesen, <code>[ANTICONF]</code>-Block suchen.</li>
+    <li>Vorgeschlagenes <code>-dev</code>-Paket mit
+      <code>apt-cache policy</code> prüfen; nötigenfalls per
+      <code>apt-cache search</code> echten Namen finden.</li>
+    <li><code>sudo apt-get install -y &lt;paket&gt;</code></li>
+    <li>In R: <code>install.packages("&lt;fehlendes R-Paket&gt;")</code> neu
+      ausführen — es zieht automatisch alle dependents nach.</li>
+  </ol>
+
+  <!-- ===================================================== AUSBLICK -->
+  <h2>Ausblick — die späteren KM-7-Pakete</h2>
+  <p>Für den Statistik-Teil brauchst du u. a.:</p>
+  <table>
+    <tr><th>R-Paket</th><th>Kompiliert?</th><th>Hinweis</th></tr>
+    <tr><td><code>qcc</code></td><td>nein (reines R)</td><td>Regelkarten — kein System-Header nötig</td></tr>
+    <tr><td><code>FrF2</code>, <code>rsm</code></td><td>nein</td><td>DOE — reines R</td></tr>
+    <tr><td><code>AcceptanceSampling</code></td><td>nein</td><td>reines R</td></tr>
+    <tr><td><code>SixSigma</code></td><td>nein</td><td>reines R</td></tr>
+  </table>
+  <p>Fazit: die fiesen Header-Probleme konzentrieren sich auf <code>tidyverse</code>
+    (Grafik/HTTP). Die Industrie-Statistik-Pakete sind fast alle reines R und
+    installieren sofort.</p>
+
+  <!-- ===================================================== ALTERNATIVE -->
+  <div class="callout tipp">
+    <span class="label">Alternative: fertige Binaries</span>
+    <p>Wer gar nicht kompilieren will, konfiguriert einmalig den
+      <strong>Posit Public Package Manager</strong> als Binary-Repo. Für
+      <em>Ubuntu 26.04</em> liefert PPM aktuell noch keine Binaries — deshalb
+      ist hier der Klassiker-Weg (Header installieren) die robuste Lösung.
+      Auf älteren Ubuntus (22.04/24.04) lohnt sich PPM.</p>
+  </div>
+
+  <!-- ===================================================== QUELLE -->
+  <div class="callout quelle">
+    <span class="label">Quellen</span>
+    <p><a href="https://posit.co/download/rstudio-desktop/">R &amp; RStudio
+      Download</a> · <a href="https://cloud.r-project.org/">CRAN</a> ·
+      <a href="https://packagemanager.posit.co/client/">Posit PPM</a></p>
+  </div>
+
+</main>
+</body>
+</html>

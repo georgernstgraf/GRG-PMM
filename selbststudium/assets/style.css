@@ -1,0 +1,288 @@
+/* =========================================================================
+   PMM Selbststudium — shared course stylesheet
+   Tufte-inspired: serifen, schmale Spalte, grosszuegiger Weissraum.
+   Jede Lektion in ./lessons/ bindet diese Datei ein.
+   ========================================================================= */
+
+:root {
+  --ink:        #1a1a1a;
+  --ink-soft:   #4a4a4a;
+  --ink-faint:  #8a8a8a;
+  --rule:       #d8d4cc;
+  --paper:      #fdfcf9;
+  --paper-tint: #f5f2ea;
+  --accent:     #8a1538;   /* HTL-Spengergasse-nahe Tiefrot, als Akzent */
+  --accent-soft:#f3e7eb;
+  --code-bg:    #f4f1e8;
+  --code-ink:   #3a2e1f;
+
+  --ok:         #1f6f3f;
+  --ok-bg:      #e6f2ea;
+  --warn:       #8a5a00;
+  --warn-bg:    #fbf0d8;
+  --tip:        #2a4a8a;
+  --tip-bg:     #e9eef7;
+  --did-bg:     #f0ecf5;
+  --did-bd:     #6a4a8a;
+
+  --maxw: 720px;
+  --pad:  2.5rem;
+}
+
+/* ---------- reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", "URW Palladio L",
+               Palatino, "ETBemish", Charter, Georgia, serif;
+  font-size: 18px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- layout ---------- */
+main {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--pad) 6rem;
+}
+
+/* ---------- typography ---------- */
+h1, h2, h3, h4 {
+  font-family: "Iowan Old Style", Palatino, Georgia, serif;
+  line-height: 1.25;
+  color: var(--ink);
+  font-weight: 600;
+}
+h1 { font-size: 2.1rem; margin: 1.2rem 0 0.3rem; }
+h2 {
+  font-size: 1.45rem;
+  margin: 2.6rem 0 0.8rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--rule);
+}
+h3 { font-size: 1.15rem; margin: 1.8rem 0 0.5rem; }
+p  { margin: 0.8rem 0; }
+a  { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+a:hover { border-bottom-color: var(--accent); }
+small { color: var(--ink-faint); }
+ul, ol { padding-left: 1.4rem; }
+li { margin: 0.3rem 0; }
+strong { font-weight: 600; }
+hr { border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+
+/* ---------- lesson header ---------- */
+.lesson-head {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+.lesson-head .meta {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 0.4rem;
+}
+.lesson-head .meta a { color: var(--ink-faint); }
+.lesson-head h1 { margin-top: 0; }
+.lesson-head .lede {
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  font-style: italic;
+}
+
+/* ---------- top breadcrumb / nav ---------- */
+.breadcrumb {
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+  padding-top: 2rem;
+}
+.breadcrumb a { color: var(--ink-soft); }
+.breadcrumb .sep { margin: 0 0.4rem; }
+
+/* ---------- code ---------- */
+code {
+  font-family: "JetBrains Mono", "SFMono-Regular", "Source Code Pro",
+               Menlo, Consolas, monospace;
+  font-size: 0.88em;
+  background: var(--code-bg);
+  color: var(--code-ink);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+pre {
+  background: var(--code-bg);
+  color: var(--code-ink);
+  padding: 1rem 1.2rem;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  overflow-x: auto;
+  line-height: 1.5;
+  font-size: 0.85rem;
+}
+pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: 1em;
+}
+/* code output (R-Konsole) */
+pre.output {
+  background: #efece4;
+  border-left-color: var(--ink-faint);
+  color: var(--ink-soft);
+}
+/* inline comment token inside R blocks */
+pre .cmt { color: #8a7a55; font-style: italic; }
+
+/* ---------- tables ---------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  margin: 1.2rem 0;
+}
+th, td {
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+th {
+  font-weight: 600;
+  border-bottom: 2px solid var(--ink);
+  color: var(--ink);
+}
+tbody tr:last-child td { border-bottom: none; }
+
+/* ---------- callout boxes ---------- */
+.callout {
+  margin: 1.5rem 0;
+  padding: 0.9rem 1.1rem 0.9rem 1.2rem;
+  border-radius: 4px;
+  border-left: 4px solid;
+  font-size: 0.96rem;
+}
+.callout > :first-child { margin-top: 0; }
+.callout > :last-child  { margin-bottom: 0; }
+.callout .label {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.didaktik { background: var(--did-bg); border-left-color: var(--did-bd); }
+.didaktik .label { color: var(--did-bd); }
+.achtung { background: var(--warn-bg); border-left-color: var(--warn); }
+.achtung .label { color: var(--warn); }
+.tipp    { background: var(--tip-bg); border-left-color: var(--tip); }
+.tipp .label    { color: var(--tip); }
+.quelle  { background: var(--paper-tint); border-left-color: var(--ink-faint); }
+.quelle .label  { color: var(--ink-soft); }
+
+/* ---------- quiz ---------- */
+.quiz {
+  background: var(--paper-tint);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.2rem 1.4rem;
+  margin: 1.8rem 0;
+}
+.quiz .q-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent);
+}
+.quiz .question { font-weight: 600; margin: 0.3rem 0 0.9rem; }
+.quiz .options { list-style: none; padding: 0; margin: 0; }
+.quiz .options li {
+  margin: 0.4rem 0;
+  padding: 0.55rem 0.8rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+.quiz .options li:hover { background: #fff; border-color: var(--ink-faint); }
+.quiz .options li.correct {
+  background: var(--ok-bg);
+  border-color: var(--ok);
+  color: var(--ok);
+  font-weight: 600;
+}
+.quiz .options li.wrong {
+  background: #f9e7e7;
+  border-color: #b03a3a;
+  color: #b03a3a;
+}
+.quiz .feedback {
+  margin-top: 0.8rem;
+  font-size: 0.92rem;
+  display: none;
+}
+.quiz .feedback.show { display: block; }
+
+/* ---------- footer ---------- */
+.lesson-foot {
+  margin-top: 3rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.lesson-foot .nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.lesson-foot .nav .next { margin-left: auto; }
+
+.ask {
+  margin-top: 2rem;
+  padding: 1rem 1.2rem;
+  background: var(--accent-soft);
+  border-radius: 5px;
+  border-left: 4px solid var(--accent);
+}
+.ask .label {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* ---------- glossary / reference styling ---------- */
+dl.terms dt { font-weight: 600; margin-top: 0.9rem; }
+dl.terms dd { margin: 0.15rem 0 0.4rem 1.2rem; color: var(--ink-soft); }
+dl.terms dd.avoid { color: var(--ink-faint); font-style: italic; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  main { padding: 0 1.2rem 4rem; }
+  :root { --pad: 1.2rem; }
+}
+
+/* ---------- print ---------- */
+@media print {
+  body { background: #fff; font-size: 11pt; color: #000; }
+  main { max-width: none; padding: 0; }
+  a { color: #000; border-bottom: none; }
+  .quiz .options li { background: none; border: 1px solid #ccc; }
+  .callout { break-inside: avoid; }
+  h2 { break-after: avoid; }
+  .no-print { display: none; }
+}
