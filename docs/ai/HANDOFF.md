@@ -2,8 +2,18 @@
 
 ## Open Tasks
 
-### Einstiegstest 4AHWIT — JG3-Wissen (KM5+KM6) überprüfen
-**Priority:** high
-**Context:** Statistics starts in JG3 (KM5+KM6), not JG4. When Georg takes over 4AHWIT in autumn 2026, the students should already have covered probability distributions, parameters/estimators, confidence intervals, and lifetime distributions. An entry test at the start of the school year is needed to assess what the previous teacher actually covered.
-**Action:** Create an entry test covering KM5+KM6 topics (Wahrscheinlichkeitsverteilungen, Parameter/Schätzwerte, Zufallsstreu-/Vertrauensbereiche, Prüfergebnisse, Lebensdauerverteilungen). Use the `knowledge-exam` skill. Adapt KM7 lesson plan based on results — if KM5/KM6 is weak, KM7 must compensate.
+### Einstiegstest 4AHWIT — JG3-Wissen (KM5+KM6) überprüfen: ERLEDIGT (2026-07-13)
+**Status:** completed
+**Result:** Entry test generated and pushed to separate test repo
+[georgernstgraf/GRG-PMM-T](https://github.com/georgernstgraf/GRG-PMM-T) (commit `55bade9`,
+issue [#1](https://github.com/georgernstgraf/GRG-PMM-T/issues/1)). Local path:
+`/home/georg/repos/georgernstgraf/GRG-PMM-T/4ahwit/`.
+Files: `knowledge_4ahwit_2026-09-07.md` (students) +
+`knowledge_4ahwit_2026-09-07_solutions.md` (teacher).
+50 multiple-choice questions (Multiple-Correct, 4 points each, 200 total) across
+5 topics x 10: Wahrscheinlichkeitsverteilungen, Parameter/Schätzwerte,
+Zufallsstreu-/Vertrauensbereiche, Prüfergebnis-Darstellung, Lebensdauerverteilungen.
+**Next action (after test graded):** Use `knowledge-assessment` skill from the
+GRG-PMM-T working directory (NOT a git repo context) to grade submissions, then
+adapt the KM7 lesson plan — if KM5/KM6 is weak, KM7 must compensate.
 **Reference:** `docs/lehrplan/pmm-lehrplan-text.md` — full PMM curriculum JG1–JG5.

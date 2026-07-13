@@ -34,6 +34,9 @@ Semesterpläne und Konventionen auf 15 DS korrigiert.
 - [ ] UE 2: Daten einlesen & deskriptive Statistik (Lern-Lektion +
       Praesentation + HA)
 - [ ] UE 3–15 fortlaufend (je 3 Artefakte)
+- [x] Einstiegstest 4AHWIT (JG3-Vorwissen KM5+KM6) im Test-Repo GRG-PMM-T
+      angelegt und gepusht (commit 55bade9, Issue #1 dort). Pruefungstermin
+      2026-09-07. Nach Korrektur KM7-Plan adaptieren.
 - [ ] Issue #1: Kommentar beim Commit (Stundenvolumen geklart; Fachzuordnung
       offen)
 - [ ] Kein Issue fuer Selbststudium angelegt (noetig vor Commit per AGENTS.md)
