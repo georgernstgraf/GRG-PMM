@@ -19,17 +19,28 @@
   --pmm-code-ink:   #3a2e1f;
   --pmm-ok:         #1f6f3f;
   --pmm-warn:       #8a5a00;
+  --pmm-tip:        #2a4a8a;
 }
+
+/* ---------- Box-Modell global reparieren (anti horizontal-scroll) ---------- */
+.reveal *,
+.reveal *::before,
+.reveal *::after { box-sizing: border-box; }
 
 /* ---------- Grundtypo ---------- */
 .reveal {
   font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Charter,
                Georgia, serif;
-  font-size: 32px;
+  font-size: 30px;
   color: var(--pmm-ink);
 }
 .reveal .slides { text-align: left; }
-.reveal section { padding: 0 0.2rem; }
+
+/* Großzügiger Innenrand pro Folie — dort war previously ~0 */
+.reveal .slides > section,
+.reveal .slides > section > section {
+  padding: 0.6em 1.8em;
+}
 
 .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
   font-family: "Iowan Old Style", Palatino, Georgia, serif;
@@ -38,50 +49,74 @@
   letter-spacing: 0;
   font-weight: 600;
   line-height: 1.2;
+  margin-top: 0;
 }
-.reveal h1 { font-size: 2.0em; margin-bottom: 0.4em; }
-.reveal h2 { font-size: 1.4em; margin-bottom: 0.4em; }
-.reveal h3 { font-size: 1.1em; color: var(--pmm-accent); }
+.reveal h1 { font-size: 1.9em; margin-bottom: 0.5em; }
+.reveal h2 {
+  font-size: 1.35em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.15em;
+  border-bottom: 1px solid var(--pmm-rule);
+}
+.reveal h3 { font-size: 1.05em; color: var(--pmm-accent); }
 
 .reveal a { color: var(--pmm-accent); border-bottom: 1px solid transparent; }
 .reveal a:hover { border-bottom-color: var(--pmm-accent); }
 .reveal p, .reveal li { line-height: 1.45; }
-.reveal ul, .reveal ol { margin-left: 1.1em; }
+.reveal ul, .reveal ol { margin-left: 1.1em; margin-top: 0.3em; }
 .reveal strong { font-weight: 600; color: var(--pmm-ink); }
 
-/* ---------- Titelseite ---------- */
+/* ---------- Titelseite (zentriert, großzügig) ---------- */
+.reveal .title-slide {
+  text-align: center;
+  vertical-align: middle;
+}
 .reveal .title-slide h1 {
-  font-size: 2.4em;
+  font-size: 2.3em;
   border-bottom: 3px solid var(--pmm-ink);
-  padding-bottom: 0.2em;
-  margin-bottom: 0.3em;
+  padding-bottom: 0.25em;
+  margin: 0 auto 0.4em auto;
+  display: inline-block;
 }
 .reveal .title-slide .subtitle {
-  font-size: 1.1em;
+  font-size: 1.05em;
   color: var(--pmm-ink-soft);
   font-style: italic;
+  margin: 0 auto;
+  max-width: 28em;
 }
 .reveal .title-slide .meta {
-  font-size: 0.7em;
-  letter-spacing: 0.08em;
+  font-size: 0.65em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--pmm-ink-faint);
-  margin-top: 1.5em;
+  margin-top: 2.5em;
 }
 
-/* ---------- Code ---------- */
+/* ---------- Code (anti horizontal-scroll) ---------- */
 .reveal pre {
   font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
-  font-size: 0.55em;
-  line-height: 1.35;
+  font-size: 0.5em;
+  line-height: 1.4;
   background: var(--pmm-code-bg);
   color: var(--pmm-code-ink);
   border-left: 3px solid var(--pmm-accent);
   border-radius: 0 4px 4px 0;
-  padding: 0.6em 0.9em;
+  padding: 0.55em 0.85em;
   margin: 0.4em 0;
+  display: block;
   width: 100%;
+  max-width: 100%;
+  overflow-x: auto;          /* lange Zeilen scrollen INNERHALB des Blocks */
   box-shadow: none;
+  white-space: pre;
+}
+.reveal pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  white-space: pre;
+  word-break: normal;
 }
 .reveal code {
   font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
@@ -90,60 +125,75 @@
   padding: 0.05em 0.3em;
   border-radius: 3px;
 }
-.reveal pre code { background: none; padding: 0; color: inherit; }
 .reveal .cmt  { color: #8a7a55; font-style: italic; }   /* R-Kommentar */
 .reveal .out  { color: var(--pmm-ink-soft); }            /* Output-Hinweis */
 
-/* ---------- Tabellen ---------- */
+/* ---------- Tabellen (passen immer in die Folie) ---------- */
 .reveal table {
-  font-size: 0.7em;
+  font-size: 0.65em;
   border-collapse: collapse;
-  margin: 0.4em 0;
+  margin: 0.5em 0;
   width: 100%;
+  max-width: 100%;
+  table-layout: auto;
 }
 .reveal th, .reveal td {
   border-bottom: 1px solid var(--pmm-rule);
-  padding: 0.35em 0.6em;
+  padding: 0.35em 0.55em;
   text-align: left;
   vertical-align: top;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 .reveal th { border-bottom: 2px solid var(--pmm-ink); font-weight: 600; }
 
-/* ---------- Callouts (wie in der Lern-Lektion) ---------- */
+/* ---------- Callouts ---------- */
 .reveal .callout {
   border-left: 4px solid var(--pmm-accent);
   background: var(--pmm-accent-soft);
-  padding: 0.5em 0.8em;
+  padding: 0.5em 0.85em;
   border-radius: 4px;
-  font-size: 0.75em;
-  margin: 0.5em 0;
+  font-size: 0.72em;
+  margin: 0.6em 0;
+  max-width: 100%;
 }
 .reveal .callout .label {
   display: block;
-  font-size: 0.8em;
+  font-size: 0.78em;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 700;
   color: var(--pmm-accent);
+  margin-bottom: 0.2em;
+}
+.reveal .callout pre {
+  font-size: 0.95em;          /* relativ zur Callout-Schrift */
+  margin: 0.3em 0;
 }
 .reveal .achtung { background: #fbf0d8; border-left-color: var(--pmm-warn); }
 .reveal .achtung .label { color: var(--pmm-warn); }
-.reveal .tipp    { background: #e9eef7; border-left-color: #2a4a8a; }
-.reveal .tipp .label { color: #2a4a8a; }
+.reveal .tipp    { background: #e9eef7; border-left-color: var(--pmm-tip); }
+.reveal .tipp .label { color: var(--pmm-tip); }
 
 /* ---------- Hinweis-Folie ---------- */
 .reveal .hint-slide { text-align: center; }
-.reveal .hint-slide h2 { color: var(--pmm-accent); }
+.reveal .hint-slide h2 {
+  color: var(--pmm-accent);
+  border-bottom: none;
+}
 
-/* ---------- Footer (Folgienr. etc. via reveal slideNumber) ---------- */
+/* ---------- Foliennummer ---------- */
 .reveal .slide-number {
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.5em;
+  font-size: 0.45em;
   color: var(--pmm-ink-faint);
+  right: 1em !important;
+  bottom: 0.6em !important;
 }
 
 /* ---------- Druck ---------- */
 @media print {
   .reveal { font-size: 16pt; color: #000; }
-  .reveal pre { border: 1px solid #ccc; }
+  .reveal pre { border: 1px solid #ccc; overflow: visible; }
+  .reveal .slides > section { padding: 0.3em 0.8em; }
 }

@@ -134,5 +134,6 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 |-------|----------|-------------|
 | `2015-09-17_Lehrplan_TechnischesManagement.pdf` | HTL Spengergasse / RIS | Fachspezifischer Lehrplan — das Schul-PDF ist mit dem RIS-Original byte-identisch (383.232 Bytes, CreationDate 17.09.2015) |
 | `2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | RIS (signiert) | Allgemeiner Teil für alle HTL-Lehrpläne (Didaktik, Schulautonomie, allg. Fächer) |
+| `pmm-lehrplan-text.md` | Extrakt aus dem Schul-PDF | Abschnitt 5 (Prozessmanagement) als durchsuchbarer Markdown-Text — alle 5 Jahrgänge mit Bildungs-/Lehraufgabe + Lehrstoff |
 
 > **Hinweis:** Das Schul-PDF (`2015-09-17_Lehrplan_TechnischesManagement.pdf`) und das signierte RIS-PDF der Anlage 1.28 sind byte-identisch. Es wird nur das Schul-PDF im Repository geführt.

@@ -10,6 +10,20 @@ Business rules and domain relationships not obvious from code.
 - **Fach**: 9 legally mandated specialized subjects in Abschnitt B, plus general subjects in Abschnitt A
 - **Pflichtpraktikum**: 8 weeks before entering V. Jahrgang
 
+### PMM Curriculum — Three Phases (JG1–JG5)
+
+PMM (Prozessmanagement) spans all 5 years. The subject evolves through three distinct phases:
+
+| Phase | Jahrgang | KM | Bereich | Content | R/Stats? |
+|-------|----------|----|---------|---------|----------|
+| **Process Mgmt** | JG1 | — | Prozessmanagement | Process fundamentals, quality concepts, process diagrams, CVP | no |
+| **Process Mgmt** | JG2 | 3+4 | Prozessmanagement | Process maps, management systems (Lean, TQM, norms), risk analysis, KPIs | no |
+| **Statistics** | JG3 | 5+6 | Statistische Methoden | Probability distributions, parameters/estimators, confidence intervals, lifetime distributions | **yes** |
+| **Statistics + Environment** | JG4 | 7+8 | Stat. Methods + Umweltmgmt | Statistical tests, acceptance sampling, SPC, process capability; environmental audit, material flow, LCA | yes |
+| **Statistics + Facility** | JG5 | 9 | Stat. Methods + Facility Mgmt | Design of experiments (DoE), reliability; facility management, energy management | yes |
+
+**Key insight**: Statistics does NOT start in JG4 — it starts in JG3 (KM5). Students entering 4AHWIT (JG4, KM7) should already have KM5+KM6 statistics. An entry test is needed to verify the previous teacher's coverage.
+
 ### Rules
 - KM 3 = II. Jahrgang / 3. Semester; KM 9 = V. Jahrgang / 9.+10. Semester
 - School-autonomous adaptations allowed within IV. Abschnitt, but no autonomous focus areas (Schwerpunktsetzungen)

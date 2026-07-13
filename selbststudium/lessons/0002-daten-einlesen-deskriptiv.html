@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UE2 — Daten einlesen &amp; deskriptive Statistik</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<main>
+
+  <div class="breadcrumb">
+    <a href="../reference/km7-verlauf.html">KM 7 Verlauf</a>
+    <span class="sep">/</span>
+    UE 2
+  </div>
+
+  <header class="lesson-head">
+    <div class="meta">
+      KM 7 · UE 2 &nbsp;·&nbsp; 📊 🎯 &nbsp;·&nbsp;
+      <a href="../../4AHWIT/semesterplan-ws.md">Semesterplan</a> &nbsp;·&nbsp;
+      <a href="../reference/glossar.html">Glossar</a> &nbsp;·&nbsp;
+      <a href="0001-r-grundlagen-datenstrukturen.html">UE 1</a>
+    </div>
+    <h1>Daten einlesen &amp; deskriptive Statistik</h1>
+    <p class="lede">Teil 1 geht flott — <code>dplyr</code> ist SQL für Dataframes. Teil 2
+      ist dein eigentliches Fundament: Lagemaße, Streuungsmaße, und warum eine
+      Zahl allein eine Verteilung nie beschreibt. Wer das durchschaut, versteht
+      jeden t-Test und jede Regelkarte, die folgt.</p>
+  </header>
+
+  <!-- ========================================================= WARUM -->
+  <h2>Warum diese Einheit</h2>
+  <p>UE 1 hat dir die Sprache und ihre Bausteine gegeben. Jetzt kommt das, wofür
+    R existiert: <strong>Daten laden, bearbeiten, beschreiben</strong>. In Teil 1
+    lernst du die fünf <code>dplyr</code>-Verben — für dich als Programmierer eine
+    Sache von Minuten. Teil 2 ist deine eigentliche Lücke: <strong>deskriptive
+    Statistik von Grund auf</strong>. Mittelwert, Median, Varianz,
+    Standardabweichung, Quantile. Diese Konzepte brauchst du für jeden Test,
+    jede Regelkarte, jede Prozessfähigkeitsanalyse im ganzen Curriculum.</p>
+
+  <div class="callout tipp">
+    <span class="label">Der Datensatz für diese Lektion</span>
+    <p>Wir arbeiten durchgehend mit <code>iris</code> — Andersons Schwertlilien-
+      Messungen (150 Blumen, 4 Maße, 3 Arten). Eingebaut in R, klein genug zum
+      Überblicken, groß genug für echte Statistik. Im echten Unterricht lädst du
+      deine eigenen CSVs — das Einlesen ist dieselbe Zeile.</p>
+  </div>
+
+  <!-- ===================================================== TEIL 1 -->
+  <h2>Teil 1 · Daten einlesen &amp; mit dplyr bearbeiten</h2>
+
+  <!-- ---------------------------------------- EINLESEN -->
+  <h3>CSV-Dateien einlesen</h3>
+  <p>Eine CSV (comma-separated values) ist die universelle Tabellen-Datei.
+    R liefert zwei Funktionen:</p>
+  <pre><code><span class="cmt"># Base R — funktioniert immer, ohne Paket</span>
+meine_daten &lt;- read.csv("messwerte.csv")
+
+<span class="cmt"># tidyverse — schneller, bessere Typ-Erkennung, gibt tibble</span>
+library(readr)
+meine_daten &lt;- read_csv("messwerte.csv")</code></pre>
+  <p>Für Excel-Dateien: <code>readxl::read_excel("datei.xlsx")</code>. Die Syntax
+    ist dieselbe — Pfad rein, Dataframe raus.</p>
+
+  <div class="callout tipp">
+    <span class="label">read.csv vs. read_csv — welcher Punkt?</span>
+    <p><code>read.csv()</code> (Punkt) ist Base R. <code>read_csv()</code>
+      (Unterstrich) ist <code>readr</code> aus dem tidyverse. Der Unterstrich ist
+      die tidyverse-Namenskonvention. <code>read_csv</code> ist schneller, gibt
+      einen <code>tibble</code> (ein moderner Dataframe, der sich schöner druckt),
+      und rät Spaltentypen besser. Für den Unterricht: <strong>beide funktionieren;
+      wir nutzen Base R wo möglich, tidyverse wo es hilft.</strong></p>
+  </div>
+
+  <!-- ---------------------------------------- INSPEKTION -->
+  <h3>Erste Inspektion — immer dasselbe Ritual</h3>
+  <p>Neue Daten geladen? Drei Befehle, jedes Mal:</p>
+  <pre><code>str(iris)         <span class="cmt"># Struktur: 150 Zeilen, 5 Spalten, Typ jeder Spalte</span>
+head(iris)        <span class="cmt"># ersten 6 Zeilen als Vorschau</span>
+summary(iris)     <span class="cmt"># Min/1st Qu./Median/Mean/3rd Qu./Max pro Spalte</span></code></pre>
+  <details><summary>Output von summary(iris)</summary>
+  <pre class="output">  Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+ Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+ 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+ Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+ Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+ 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+ Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+       Species  
+ setosa    :50  
+ versicolor:50  
+ virginica :50</pre>
+  <p>Für die numeric-Spalten: 6 Kennzahlen. Für die Factor-Spalte
+    <code>Species</code>: Häufigkeiten. Das ist <strong>deskriptive Statistik in
+    einer Zeile</strong> — der Themata von Teil 2, automatisch.</p>
+  </details>
+
+  <!-- ---------------------------------------- PIPE -->
+  <h3>Die Pipe — <code>|&gt;</code></h3>
+  <p>Das wichtigste Syntax-Konzept in R-modernem Code: die <strong>Pipe</strong>.
+    Sie nimmt das Ergebnis links und gibt es als erstes Argument rechts ein.
+    Wie eine Pipeline in der Shell — <code>|</code> — nur in R.</p>
+
+  <pre><code><span class="cmt"># Ohne Pipe — verschachtelt, von innen nach außen zu lesen:</span>
+summarise(filter(iris, Sepal.Length &gt; 5), m = mean(Sepal.Length))
+
+<span class="cmt"># Mit Pipe — linear, von oben nach unten zu lesen:</span>
+iris |&gt;
+  filter(Sepal.Length &gt; 5) |&gt;
+  summarise(m = mean(Sepal.Length))</code></pre>
+
+  <div class="callout tipp">
+    <span class="label">Zwei Pipes in freier Wildbahn</span>
+    <p><code>|&gt;</code> ist der <strong>native Pipe</strong> (R 4.1+, kein Paket
+      nötig). <code>%&gt;%</code> ist der <strong>magrittr-Pipe</strong> (aus
+      tidyverse, älter, immer noch überall). Für einfache Ketten sind sie
+      identisch. Wir nutzen <code>|&gt;</code> — moderner, keine Abhängigkeit.</p>
+  </div>
+
+  <!-- ---------------------------------------- DPLYR -->
+  <h3>Die fünf dplyr-Verben</h3>
+  <p>Für dich als Coder: <code>dplyr</code> ist SQL für Dataframes. Fünf Verben
+    decken 90 % aller Datenmanipulation ab:</p>
+
+  <table>
+    <tr><th>Verb</th><th>Was es macht</th><th>SQL-Äquivalent</th></tr>
+    <tr><td><code>select()</code></td><td>Spalten auswählen</td><td><code>SELECT col</code></td></tr>
+    <tr><td><code>filter()</code></td><td>Zeilen nach Bedingung</td><td><code>WHERE</code></td></tr>
+    <tr><td><code>mutate()</code></td><td>neue Spalte berechnen</td><td><code>col = expr</code></td></tr>
+    <tr><td><code>arrange()</code></td><td>Zeilen sortieren</td><td><code>ORDER BY</code></td></tr>
+    <tr><td><code>summarise()</code></td><td>zu einer Zahl zusammenfassen</td><td><code>AGGREGATE</code></td></tr>
+  </table>
+
+  <pre><code>library(dplyr)
+
+<span class="cmt"># 1. select — Spalten auswählen</span>
+iris |&gt; select(Sepal.Length, Species) |&gt; head(3)
+
+<span class="cmt"># 2. filter — Zeilen nach Bedingung</span>
+iris |&gt; filter(Sepal.Length &gt; 5.5)         <span class="cmt"># → 91 Zeilen</span>
+
+<span class="cmt"># 3. mutate — neue Spalte (z. B. cm → Zoll)</span>
+iris |&gt; mutate(SL_inch = Sepal.Length / 2.54) |&gt; head(3)
+
+<span class="cmt"># 4. arrange — sortieren (desc = absteigend)</span>
+iris |&gt; arrange(desc(Sepal.Length)) |&gt; head(3)
+
+<span class="cmt"># 5. summarise — zu einer Zahl zusammenfassen</span>
+iris |&gt; summarise(mittel = mean(Sepal.Length))   <span class="cmt"># → 5.843</span></code></pre>
+
+  <details><summary>Outputs</summary>
+  <pre class="output">  Sepal.Length Species
+1          5.1  setosa
+2          4.9  setosa
+3          4.7  setosa
+
+  Sepal.Length SL_inch Species
+1          5.1   2.008  setosa
+2          4.9   1.929  setosa
+3          4.7   1.850  setosa
+
+  Sepal.Length   Species
+1          7.9 virginica
+2          7.7 virginica
+3          7.7 virginica
+
+     mittel
+1 5.843333</pre>
+  </details>
+
+  <!-- QUIZ 1 -->
+  <div class="quiz">
+    <div class="q-label">dplyr-Verben</div>
+    <div class="question">Welches Verb wählt <em>Zeilen</em> nach einer Bedingung aus?</div>
+    <ul class="options">
+      <li data-correct="true">filter tut das</li>
+      <li data-correct="false">select tut das</li>
+      <li data-correct="false">mutate tut das</li>
+      <li data-correct="false">arrange tut das</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. <code>filter()</code> hält
+      Zeilen, die eine Bedingung erfüllen — wie SQL <code>WHERE</code>.
+      <code>select()</code> wählt Spalten, nicht Zeilen.</div>
+    <div class="feedback" data-for="wrong">Falsch. <code>filter()</code> wählt
+      Zeilen nach Bedingung. <code>select()</code> wählt Spalten.</div>
+  </div>
+
+  <!-- ---------------------------------------- NA -->
+  <h3>NA-Werte — fehlende Messwerte</h3>
+  <p>In echten Daten fehlen Werte — kaputter Sensor, fehlende Messung,
+    Tippfehler. R kennzeichnet diese mit <code>NA</code> (Not Available).
+    Das ist <em>kein</em> Null, kein leerer String — es ist ein eigener
+    logischer Zustand.</p>
+
+  <pre><code>x &lt;- c(1, 2, NA, 4, 5)
+mean(x)               <span class="cmt"># → NA! Ein fehlender Wert steckt alles an</span>
+mean(x, na.rm = TRUE) <span class="cmt"># → 3  (na.rm = "NA remove")</span>
+is.na(x)              <span class="cmt"># → FALSE FALSE TRUE FALSE FALSE</span></code></pre>
+
+  <div class="callout achtung">
+    <span class="label">Die wichtigste Faustregel</span>
+    <p><code>NA</code> ist <strong>ansteckend</strong>: jede Rechenoperation, die
+      ein <code>NA</code> berührt, ergibt <code>NA</code>. Das ist gewollt — R
+      zwingt dich, fehlende Daten bewusst zu entscheiden. Die Lösung:
+      <code>na.rm = TRUE</code> als Argument („nimm NA aus der Berechnung raus").
+      Aber <strong>nur</strong>, wenn du verstanden hast, <em>warum</em> Werte
+      fehlen — blindes Wegwerfen kann Ergebnisse verzerren.</p>
+  </div>
+
+  <pre><code><span class="cmt"># Zeilen mit NA komplett entfernen (Dataframe)</span>
+clean &lt;- na.omit(meine_daten)
+
+<span class="cmt"># Wie viele NAs hat jede Spalte?</span>
+colSums(is.na(iris))</code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">Sepal.Length  Sepal.Width Petal.Length  Petal.Width     Species 
+           0            0            0            0            0</pre>
+  <p><code>iris</code> ist sauber — null NAs. Echte Daten sehen anders aus.</p>
+  </details>
+
+  <!-- QUIZ 2 -->
+  <div class="quiz">
+    <div class="q-label">NA-Verhalten</div>
+    <div class="question">Was liefert <code>mean(c(1, 2, NA, 4))</code> standardmäßig?</div>
+    <ul class="options">
+      <li data-correct="true">NA kommt heraus</li>
+      <li data-correct="false">2.33 kommt heraus</li>
+      <li data-correct="false">Fehler wird geworfen</li>
+      <li data-correct="false">Null kommt heraus</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. <code>NA</code> ist
+      ansteckend — ohne <code>na.rm = TRUE</code> steckt es das ganze Ergebnis
+      an. R zwingt dich, Stellung zu fehlenden Werten zu beziehen.</div>
+    <div class="feedback" data-for="wrong">Falsch. Jede Operation, die ein
+      <code>NA</code> berührt, ergibt <code>NA</code> — R propagiert fehlende
+      Werte, bis du <code>na.rm = TRUE</code> setzt.</div>
+  </div>
+
+  <hr>
+
+  <!-- ===================================================== TEIL 2 -->
+  <h2>Teil 2 · Deskriptive Statistik</h2>
+
+  <p>Hier beginnt deine eigentliche Statistik-Lücke. Die Konzepte sind nicht
+    schwer — aber sie sind das <strong>Fundament für alles Folgende</strong>.
+    Jeder t-Test vergleicht Mittelwerte. Jede Regelkarte überwacht Streuung.
+    Jede Prozessfähigkeitsanalyse rechnet mit der Standardabweichung. Wer
+    <em>versteht</em>, was Mittelwert und Standardabweichung <em>bedeuten</em>,
+    nicht nur wie man sie rechnet, der unterrichtet souverän.</p>
+
+  <div class="callout tipp">
+    <span class="label">Deskriptiv vs. Inferenz — die Grenze</span>
+    <p><strong>Deskriptive Statistik</strong> beschreibt die Daten, die man hat
+      (Mittelwert, Grafik, Tabelle). <strong>Inferenzstatistik</strong> schließt
+      von einer Stichprobe auf eine Grundgesamtheit (Tests, Konfidenzintervalle).
+      UE 2 ist rein deskriptiv — „was haben wir?". Ab UE 6 (t-Tests) beginnt die
+      Inferenz — „was bedeutet das?".</p>
+  </div>
+
+  <!-- ---------------------------------------- LAGEMASSE -->
+  <h3>Lagemaße — wo liegt die Verteilung?</h3>
+  <p>Ein Lagemaß (measure of central tendency) fasst eine ganze Spalte in einer
+    einzigen Zahl zusammen: „wo in der Mitte liegen die Werte?" Zwei sind
+    entscheidend:</p>
+
+  <table>
+    <tr><th>Maß</th><th>Definition</th><th>Intuition</th></tr>
+    <tr><td><strong>Mittelwert</strong><br><code>mean(x)</code></td>
+        <td>Summe / Anzahl</td>
+        <td>Der <strong>Schwerpunkt</strong> — wo die Waage balanciert</td></tr>
+    <tr><td><strong>Median</strong><br><code>median(x)</code></td>
+        <td>Der mittlere Wert (sortiert)</td>
+        <td>Halbiert die Daten — 50 % drüber, 50 % darunter</td></tr>
+  </table>
+
+  <pre><code>mean(iris$Sepal.Length)     <span class="cmt"># → 5.843333</span>
+median(iris$Sepal.Length)   <span class="cmt"># → 5.8</span></code></pre>
+
+  <div class="callout didaktik">
+    <span class="label">Mittelwert = Schwerpunkt (die beste Intuition)</span>
+    <p>Stell dir einen Balkenwaage vor: an jeder Position eines Messwertes liegt
+      ein gleich schweres Gewicht. Der Mittelwert ist die Stelle, an der du den
+      Balken unterstützen musst, damit er balanciert — der physikalische
+      Schwerpunkt. Ein einziger sehr hoher Wert (Ausreißer) verschiebt ihn stark
+      nach rechts. <strong>Darum ist der Mittelwert empfindlich gegenüber
+      Ausreißern.</strong></p>
+  </div>
+
+  <div class="callout didaktik">
+    <span class="label">Median = halbiert die Daten</span>
+    <p>Sortiere alle Werte der Größe nach. Der Median ist der Wert in der Mitte.
+      Bei 5 Werten: der 3. Bei 150 Werten: Durchschnitt aus dem 75. und 76.
+      Ein Ausreißer ganz rechts ändert den Median kaum — er rutscht höchstens um
+      einen Platz. <strong>Darum ist der Median robust gegenüber Ausreißern.</strong></p>
+  </div>
+
+  <!-- ---------------------------------------- WANN MEAN VS MEDIAN -->
+  <h3>Wann Mittelwert, wann Median? — Die Schiefe</h3>
+  <p>Der Vergleich von Mittelwert und Median verrät die <strong>Form</strong>
+    einer Verteilung:</p>
+
+  <table>
+    <tr><th>Verhältnis</th><th>Form</th><th>Beispiel</th></tr>
+    <tr><td>Mittel ≈ Median</td>
+        <td>symmetrisch</td>
+        <td>Körpergröße, Messrauschen</td></tr>
+    <tr><td>Mittel &gt; Median</td>
+        <td><strong>rechtssteil</strong> (right-skewed) — langer Schwanz nach rechts</td>
+        <td>Einkommen, Maschinen-Ausfallzeiten</td></tr>
+    <tr><td>Mittel &lt; Median</td>
+        <td><strong>linkssteil</strong> (left-skewed) — langer Schwanz nach links</td>
+        <td>Noten (viele hohe, einige niedrige)</td></tr>
+  </table>
+
+  <div class="callout didaktik">
+    <span class="label">Die Eselsbrücke für die Schiefe</span>
+    <p>Der Mittelwert wird in Richtung des Schwanzes gezogen — wie ein Hund, der
+      an der Leine zieht. Ist der Schwanz rechts (hohe Ausreißer), zieht der
+      Mittelwert nach rechts: <strong>Mittel &gt; Median → rechtssteil</strong>.
+      Der Median widersteht, er bleibt wo die Masse ist.</p>
+  </div>
+
+  <p>Klassisches Beispiel: in einer Firma mit 9 Angestellten (je € 3.000) und
+    einem Chef (€ 30.000) liegt der Mittelwert bei € 5.700, der Median bei
+    € 3.000. Welcher beschreibt die „typische" Situation besser? Der Median.
+    <strong>Bei schiefen Verteilungen ist der Median ehrlicher.</strong></p>
+
+  <!-- QUIZ 3 -->
+  <div class="quiz">
+    <div class="q-label">Schiefe erkennen</div>
+    <div class="question">Wenn Mittelwert &gt; Median — dann ist die Verteilung…</div>
+    <ul class="options">
+      <li data-correct="true">Rechtssteil (= right-skewed)</li>
+      <li data-correct="false">Linkssteil (= left-skewed)</li>
+      <li data-correct="false">Symmetrisch (= symmetric)</li>
+      <li data-correct="false">Glockenform (= bell-shaped)</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. Der Mittelwert wird in
+      Richtung des Schwanzes gezogen. Lange Leine rechts = Ausreißer oben =
+      Mittel &gt; Median = rechtssteil.</div>
+    <div class="feedback" data-for="wrong">Falsch. Ist der Mittelwert größer
+      als der Median, wurde er nach rechts gezogen — der Schwanz geht nach rechts:
+      <strong>rechtssteil</strong>.</div>
+  </div>
+
+  <!-- ---------------------------------------- STREUUNG -->
+  <h3>Streuungsmaße — wie weit streuen die Daten?</h3>
+
+  <div class="callout tipp">
+    <span class="label">Warum Streuung genauso wichtig ist wie Lage</span>
+    <p>Zwei Beispiele machen es klar:</p>
+    <pre><code>gruppe_a &lt;- c(48, 49, 50, 51, 52)       <span class="cmt"># eng beisammen</span>
+gruppe_b &lt;- c(0, 25, 50, 75, 100)      <span class="cmt"># weit verstreut</span>
+
+mean(gruppe_a)   <span class="cmt"># → 50</span>
+mean(gruppe_b)   <span class="cmt"># → 50</span></code></pre>
+    <p><strong>Beide haben denselben Mittelwert 50!</strong> Aber die Gruppen
+      könnten verschiedener nicht sein. Der Mittelwert allein ist unvollständig.
+      Du brauchst ein Maß für die <em>Streuung</em>.</p>
+  </div>
+
+  <table>
+    <tr><th>Maß</th><th>Formel / Definition</th><th>Intuition</th><th>Robust?</th></tr>
+    <tr><td><strong>Varianz</strong><br><code>var(x)</code></td>
+        <td>mittlere quadratische Abweichung vom Mittelwert</td>
+        <td>„durchschnittlich wie weit weg" — aber quadriert</td>
+        <td>nein</td></tr>
+    <tr><td><strong>Standardabweichung</strong><br><code>sd(x)</code></td>
+        <td>Wurzel aus der Varianz</td>
+        <td>die „typische Entfernung vom Mittel"</td>
+        <td>nein</td></tr>
+    <tr><td><strong>Spannweite</strong><br><code>diff(range(x))</code></td>
+        <td>Maximum − Minimum</td>
+        <td>„wie weit auseinander liegen Extremwerte"</td>
+        <td>nein</td></tr>
+    <tr><td><strong>IQR</strong><br><code>IQR(x)</code></td>
+        <td>Q3 − Q1 (75 %−25 % Quantil)</td>
+        <td>„wo liegen die mittleren 50 %"</td>
+        <td><strong>ja</strong></td></tr>
+  </table>
+
+  <pre><code>sd(iris$Sepal.Length)    <span class="cmt"># → 0.828</span>
+var(iris$Sepal.Length)   <span class="cmt"># → 0.686</span>
+IQR(iris$Sepal.Length)   <span class="cmt"># → 1.3</span>
+range(iris$Sepal.Length) <span class="cmt"># → 4.3  7.9</span></code></pre>
+
+  <div class="callout didaktik">
+    <span class="label">Warum quadriert die Varianz? (die Frage, die kommen wird)</span>
+    <p>Nähme man einfach die durchschnittliche Abweichung, würden positive und
+      negative Abweichungen einander aufheben — das Ergebnis wäre immer 0 (das
+      ist die Definition des Mittelwerts!). Quadrieren macht alles positiv.
+      Aber quadrieren verdoppelt die Einheit: <code>cm²</code> statt <code>cm</code>.
+      Darum zieht man die Wurzel und bekommt die <strong>Standardabweichung</strong>
+      zurück in den originalen Einheiten. <code>sd = √varianz</code>. Die sd ist
+      die Zahl, die du <em>interpretieren</em> kannst: „typischerweise weichen die
+      Werte um 0.83 cm vom Mittel ab."</p>
+  </div>
+
+  <div class="callout didaktik">
+    <span class="label">Warum n−1, nicht n? (Stichprobe vs. Grundgesamtheit)</span>
+    <p>Die R-Funktion <code>sd()</code> teilt durch <code>n−1</code>, nicht durch
+      <code>n</code>. Warum? Weil wir fast immer eine <strong>Stichprobe</strong>
+      haben, nicht die gesamte Grundgesamtheit. Die Stichprobe streut systematisch
+      etwas weniger als die Population — weil sie sich selbst zum Mittel nimmt,
+      nicht den wahren Populationsmittelwert. Die Korrektur <code>n−1</code>
+      (Bessel-Korrektur) gleicht das aus. Im Unterricht: <strong>kurz erwähnen,
+      nicht vertiefen</strong> — Schüler sollen <code>sd()</code> nutzen und
+      wissen, dass es „das richtige Maß für Stichproben" ist.</p>
+  </div>
+
+  <div class="callout tipp">
+    <span class="label">Die 68-95-Regel (Vorgriff auf UE 4)</span>
+    <p>Bei einer <em>Normalverteilung</em> (Glockenkurve) liegen:</p>
+    <ul>
+      <li>~68 % der Werte innerhalb ±1 Standardabweichung</li>
+      <li>~95 % der Werte innerhalb ±2 Standardabweichungen</li>
+      <li>~99,7 % der Werte innerhalb ±3 Standardabweichungen</li>
+    </ul>
+    <p>Diese Regel brauchst du für Regelkarten (KM 8): die ±3σ-Warn- und
+      Eingriffsgrenzen basieren genau darauf.</p>
+  </div>
+
+  <!-- ---------------------------------------- QUANTILE -->
+  <h3>Quantile — die Verteilung in Schnitte zerlegen</h3>
+  <p>Ein Quantil teilt sortierte Daten in Anteile. Das 25 %-Quantil (Q1) ist
+    der Wert, unterhalb dessen 25 % der Daten liegen. Der Median ist das
+    50 %-Quantil. <code>quantile()</code> gibt die Standard-Fünf:</p>
+
+  <pre><code>quantile(iris$Sepal.Length)</code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">  0%  25%  50%  75% 100% 
+ 4.3  5.1  5.8  6.4  7.9</pre>
+  <table>
+    <tr><th>Quantil</th><th>Wert</th><th>Bedeutung</th></tr>
+    <tr><td>0 % (Min)</td><td>4.3</td><td>kleinster Wert</td></tr>
+    <tr><td>25 % (Q1)</td><td>5.1</td><td>25 % der Blumen sind kleiner</td></tr>
+    <tr><td>50 % (Median)</td><td>5.8</td><td>die Hälfte ist kleiner</td></tr>
+    <tr><td>75 % (Q3)</td><td>6.4</td><td>75 % sind kleiner</td></tr>
+    <tr><td>100 % (Max)</td><td>7.9</td><td>größter Wert</td></tr>
+  </table>
+  </details>
+
+  <p>Der <strong>IQR</strong> (Interquartilbereich) ist <code>Q3 − Q1 = 6.4 − 5.1 = 1.3</code>.
+    Er beschreibt die Spannweite der mittleren 50 % der Daten — und ist, anders
+    als die Gesamt-Spannweite, <strong>robust gegenüber Ausreißern</strong>.</p>
+
+  <!-- ---------------------------------------- SUMMARY -->
+  <h3>summary() — der 5-Zahlen-Spruch in einer Funktion</h3>
+  <p>Die Funktion <code>summary()</code> fasst alles zusammen, was Teil 2
+    gebracht hat — die sogenannte <strong>Fünf-Punkte-Zusammenfassung</strong>
+    (five-number summary) plus der Mittelwert:</p>
+
+  <pre><code>summary(iris$Sepal.Length)</code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   4.300    5.100    5.800    5.843    6.400    7.900</pre>
+  <p>Sechs Zahlen, das ist die gesamte deskriptive Statistik einer Spalte. Im
+    echten Leben: <code>summary()</code> aufrufen, hingeucken, fertig.</p>
+  </details>
+
+  <!-- ---------------------------------------- GROUP_BY -->
+  <h3>Gruppierte Statistik — group_by() + summarise()</h3>
+  <p>Die mächtigste Kombination in <code>dplyr</code>: Daten nach einer Gruppe
+    aufteilen und pro Gruppe Kennzahlen berechnen. Wie SQL
+    <code>GROUP BY</code> + <code>AVG()</code>:</p>
+
+  <pre><code>iris |&gt;
+  group_by(Species) |&gt;
+  summarise(
+    anzahl     = n(),
+    mittel_SL  = mean(Sepal.Length),
+    median_SL  = median(Sepal.Length),
+    sd_SL      = sd(Sepal.Length)
+  )</code></pre>
+
+  <details><summary>Output</summary>
+  <pre class="output"># A tibble: 3 × 5
+  Species    anzahl mittel_SL median_SL sd_SL
+  &lt;fct&gt;       &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+1 setosa         50      5.01       5    0.352
+2 versicolor     50      5.94       5.9  0.516
+3 virginica      50      6.59       6.5  0.636</pre>
+  <p>Jetzt siehst du: <code>setosa</code> hat die kürzesten Kelchblätter
+    (Mittel 5.01), <code>virginica</code> die längsten (6.59). Die Streuung
+    (<code>sd_SL</code>) steigt ebenfalls. <strong>Eine kurze Pipe zeigt mehr
+    als jede Tabelle — das ist die Stärke von R.</strong></p>
+  </details>
+
+  <!-- QUIZ 4 -->
+  <div class="quiz">
+    <div class="q-label">Streuungs-Konzept</div>
+    <div class="question">Zwei Datensätze mit identischem Mittelwert — was MUSS unterschiedlich sein können?</div>
+    <ul class="options">
+      <li data-correct="true">Die Streuung kann weichen</li>
+      <li data-correct="false">Der Mittel kann weichen</li>
+      <li data-correct="false">Die Anzahl muss weichen</li>
+      <li data-correct="false">Der Name muss weichen</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. Gleicher Mittelwert
+      schließt verschiedene Streuung nicht aus — darum braucht es immer beide:
+      <em>Lage</em> und <em>Streuung</em>.</div>
+    <div class="feedback" data-for="wrong">Falsch. Bei gleichem Mittelwert kann
+      die Streuung beliebig verschieden sein (eng beisammen vs. weit verstreut).
+      Nur die Streuungsmaße (sd, IQR) machen den Unterschied sichtbar.</div>
+  </div>
+
+  <!-- QUIZ 5 -->
+  <div class="quiz">
+    <div class="q-label">group_by-Verständnis</div>
+    <div class="question">Was liefert <code>iris |&gt; group_by(Species) |&gt; summarise(m = mean(Sepal.Length))</code>?</div>
+    <ul class="options">
+      <li data-correct="true">Mittelwert pro Art</li>
+      <li data-correct="false">Einen globalen Mittelwert</li>
+      <li data-correct="false">Die erste Beobachtung</li>
+      <li data-correct="false">Eine sortierte Tabelle</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. <code>group_by()</code>
+      teilt die Daten nach <code>Species</code>, <code>summarise()</code> berechnet
+      dann <em>pro Gruppe</em> den Mittelwert — also drei Mittelwerte (eine pro
+      Schwertlilienart).</div>
+    <div class="feedback" data-for="wrong">Falsch. <code>group_by(Species)</code>
+      teilt in Gruppen, dann rechnet <code>summarise()</code> <em>pro Gruppe</em>.
+      Das Ergebnis ist drei Zeilen — ein Mittelwert pro Art.</div>
+  </div>
+
+  <!-- ===================================================== DIDAKTIK -->
+  <h2>Didaktik — Schülern diesen Stoff erklären</h2>
+
+  <div class="callout didaktik">
+    <span class="label">Teil 1 (dplyr) — drei Stolpersteine</span>
+    <ol>
+      <li><strong>Pfeil <code>|&gt;</code> lesen lernen.</strong> Schüler lesen
+          die Pipe oft „rückwärts". Übung: jeden Schritt einzeln zeigen, dann
+          verketten. Vergleiche mit <code>|</code> in der Shell.</li>
+      <li><strong><code>filter</code> vs. <code>select</code> verwechseln.</strong>
+          Filter = Zeilen (Bedingung), Select = Spalten (Name). Klassische
+          Verwechslung. Tafel-Notiz: <code>filter = WHERE, select = SELECT
+          col</code>.</li>
+      <li><strong><code>NA</code> ist nicht Null.</strong> Schüler setzen
+          <code>na.rm = TRUE</code> ohne nachzudenken. Pflicht-Frage: „Warum
+          fehlen die Werte?" — bevor man sie wegwirft.</li>
+    </ol>
+  </div>
+
+  <div class="callout didaktik">
+    <span class="label">Teil 2 (Statistik) — drei Lehr-Entscheidungen</span>
+    <ol>
+      <li><strong>Immer beide Maße gleichzeitig zeigen.</strong> Niemals nur
+          Mittelwert ohne Streuung unterrichten. Das Beispiel „zwei Gruppen,
+          gleicher Mittelwert" prägt sich tiefer ein als jede Formel.</li>
+      <li><strong>Mittelwert als Waage-Balken visualisieren.</strong> Die
+          Schwerpunkt-Metapher macht verständlich, warum Ausreißer den Mittelwert
+          ziehen, den Median aber nicht.</li>
+      <li><strong>Varianz kurz, Standardabweichung ausführlich.</strong> Schüler
+          rechnen mit sd, nicht mit Varianz. Die Varianz ist Zwischenschritt und
+          Quadrate-Einheit — erwähnen, nicht vertiefen.</li>
+    </ol>
+  </div>
+
+  <div class="callout didaktik">
+    <span class="label">Prüfungsfalle: Mittelwert vs. Median wählen</span>
+    <p>„Ein Unternehmen hat 10 Mitarbeiter (€ 2.500) und einen Chef (€ 25.000).
+      Berechne Mittelwert und Median. Welcher ist aussagekräftiger?" — Der
+      Klassiker. Mittelwert ≈ € 4.773 (verzerrt durch Ausreißer), Median =
+      € 2.500 (ehrlich). Antwort: Median, weil die Verteilung rechtssteil ist.</p>
+  </div>
+
+  <!-- ===================================================== HUE -->
+  <h2>Hausübung (für dich — Selbststudium)</h2>
+  <ol>
+    <li>Lade <code>iris</code> und führe <code>summary(iris)</code> aus. Notiere
+      für <code>Sepal.Length</code>: Mittelwert, Median, Q1, Q3. Vergleiche — ist
+      die Verteilung symmetrisch oder schief?</li>
+    <li>Berechne <code>sd(iris$Sepal.Length)</code> und <code>IQR(iris$Sepal.Length)</code>.
+      Beide beschreiben Streuung. Was ist der Interpretations-Unterschied?</li>
+    <li>Schreibe eine Pipe, die für jede <code>Species</code> den Mittelwert und
+      die Standardabweichung von <code>Petal.Width</code> berechnet. Welche Art
+      streut am meisten?</li>
+    <li>Erzeuge einen Vektor mit einem Ausreißer:
+      <code>x &lt;- c(48, 49, 50, 51, 52, 200)</code>. Berechne Mittelwert und
+      Median. Welcher reagiert stärker auf den Ausreißer? Erkläre mit der
+      Schwerpunkt-Metapher.</li>
+    <li>NA-Übung: <code>y &lt;- c(5, 7, NA, 9, 10)</code>. Berechne den Mittelwert
+      (a) ohne Argument, (b) mit <code>na.rm = TRUE</code>. Vergleiche.</li>
+    <li>Erkläre mit eigenen Worten (ohne zu googeln): warum teilt die
+      Standardabweichung durch <code>n−1</code> und nicht durch <code>n</code>?</li>
+  </ol>
+
+  <!-- ===================================================== QUELLE -->
+  <div class="callout quelle">
+    <span class="label">Primärquellen zum Vertiefen</span>
+    <p><a href="https://r4ds.hadley.nz">R for Data Science (2e)</a> — Kapitel
+      „Data transformation" (dplyr) und „Exploratory Data Analysis" (kostenlos,
+      Wickham). Statistik-Intuition: <a href="https://openstax.org/details/books/introductory-statistics-2e">OpenStax
+      Introductory Statistics</a> (kostenlos, englisch, Kapitel 2 „Descriptive
+      Statistics"). Deutsch: <a href="https://www.youtube.com/playlist?list=PL8+z9X2Mm7m9z2Mm8mD_8Qz3Q3J3J3J3">Statistik
+      mit R — YouTube-Kurs</a> (verschiedene Anbieter).</p>
+  </div>
+
+  <!-- ===================================================== ASK -->
+  <div class="ask">
+    <span class="label">Fragen? Unklarheiten?</span>
+    <p>Zum Beispiel: „Warum ist IQR robuster als die Spannweite?", „Wie
+      interpretiere ich <code>sd = 0.83</code> in Worten?", oder „Zeig mir, wie
+      <code>group_by</code> mit mehr als einer Gruppe funktioniert." Frag mich
+      einfach.</p>
+  </div>
+
+  <!-- ===================================================== FOOT -->
+  <div class="lesson-foot">
+    <p>UE 2 von <a href="../reference/km7-verlauf.html">KM 7</a> (15 UE).
+       Nächste Einheit: <strong>UE 3 — Visualisierung mit ggplot2</strong>
+       (Grammatik der Grafiken: <code>geom_histogram</code>,
+       <code>geom_boxplot</code>, <code>geom_point</code>, layers und
+       aesthetics — was du visuell siehst, nachdem UE 2 es numerisch beschrieben
+       hat).</p>
+    <div class="nav">
+      <a class="prev" href="0001-r-grundlagen-datenstrukturen.html">← UE 1</a>
+      <a class="next" href="0003-visualisierung-ggplot2.html">UE 3 →</a>
+    </div>
+  </div>
+
+</main>
+<script src="../assets/quiz.js" defer></script>
+</body>
+</html>

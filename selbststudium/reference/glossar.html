@@ -69,12 +69,40 @@
     <dd>Sammlung von Funktionen und Daten. Einmalig installiert mit
       <code>install.packages("name")</code>, pro Sitzung geladen mit
       <code>library(name)</code>.</dd>
+
+    <dt>Coercion (Typ-Erzwingung)</dt>
+    <dd>Wenn R Werte unterschiedlichen Typs in <code>c()</code> kombiniert, werden
+      alle auf den höchsten Typ der Hierarchie
+      <code>logical &lt; integer &lt; double &lt; character</code> angepasst.
+      Ein <code>"a"</code> zwingt alles zu character.</dd>
+
+    <dt>matrix</dt>
+    <dd>2D-Struktur, <em>homogen</em> — alle Elemente ein Typ. Füllt
+      standardmäßig spaltenweise (<code>byrow = FALSE</code>).</dd>
+
+    <dt>data.frame</dt>
+    <dd>2D-Tabelle: Zeilen = Beobachtungen, Spalten = Variablen. Jede Spalte
+      ist ein eigener Vektor mit eigenem Typ — <em>heterogen</em>. Der tägliche
+      Arbeitsplatz in R.</dd>
+
+    <dt>list</dt>
+    <dd>1D-Container, <em>beliebige</em> Typen pro Element (auch weitere
+      Strukturen). Zugriff: <code>[</code> = Box behalten (Liste bleibt Liste),
+      <code>[[</code> = Box öffnen (Inhalt heraus). Box-Metapher:
+      <code>l[1]</code> = „die Box aus Fach 1", <code>l[[1]]</code> = „öffne die
+      Box, gib den Inhalt".</dd>
+
+    <dt>factor</dt>
+    <dd>Kategoriale Variable — äußerlich Text, <em>intern</em> Integer-Vektor
+      mit Labels („levels"). Levels werden alphabetisch geordnet. Braucht ANOVA,
+      χ²-Test, Regelkarten für Gruppierungen.</dd>
   </dl>
 
   <div class="callout quelle">
     <span class="label">Wachstum</span>
-    <p>Weitere Begriffe (<em>data frame</em>, <em>factor</em>, <em>Standardabweichung</em>,
-      <em>Quantil</em>, …) werden aufgenommen, sobald Verständnis nachgewiesen ist.</p>
+    <p>Weitere Begriffe (<em>Standardabweichung</em>, <em>Quantil</em>,
+      <em>IQR</em>, <em>pipe</em>, …) werden aufgenommen, sobald Verständnis
+      nachgewiesen ist.</p>
   </div>
 
 </main>

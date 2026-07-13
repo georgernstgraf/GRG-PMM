@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>UE2 — Daten einlesen &amp; deskriptive Statistik</title>
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/theme/white.css">
+  <link rel="stylesheet" href="../assets/slides.css">
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+  <!-- ============================================================ TITEL -->
+  <section class="title-slide">
+    <div class="meta">KM 7 · UE 2 · Prozessmanagement</div>
+    <h1>Daten einlesen &amp;<br>deskriptive Statistik</h1>
+    <p class="subtitle">Daten laden, mit dplyr bearbeiten,<br>
+      und mit Lage- und Streuungsmaßen beschreiben.</p>
+    <div class="meta">4AHWIT · Wintersemester · 2. Doppelstunde</div>
+  </section>
+
+  <!-- ============================================================ AGENDA -->
+  <section>
+    <h2>Heute — in 90 Minuten</h2>
+    <ol>
+      <li>CSV-Dateien einlesen</li>
+      <li>Die Pipe <code>|&gt;</code> — Daten fließen lassen</li>
+      <li>Die fünf <code>dplyr</code>-Verben</li>
+      <li><code>NA</code>-Werte — fehlende Messwerte</li>
+      <li>Lagemaße: Mittelwert &amp; Median</li>
+      <li>Streuungsmaße: sd, Varianz, IQR, Spannweite</li>
+      <li><code>group_by()</code> + <code>summarise()</code></li>
+    </ol>
+  </section>
+
+  <!-- ============================================================ EINLESEN -->
+  <section>
+    <h2>CSV einlesen</h2>
+    <p>Eine CSV-Datei = Tabelle als Text, Werte getrennt durch Kommas.</p>
+    <pre><code class="language-r"><span class="cmt"># Base R — funktioniert immer</span>
+daten &lt;- read.csv("messwerte.csv")
+
+<span class="cmt"># tidyverse — schneller, moderner</span>
+library(readr)
+daten &lt;- read_csv("messwerte.csv")</code></pre>
+    <p>Excel-Dateien: <code>readxl::read_excel("datei.xlsx")</code></p>
+    <div class="callout">
+      <span class="label">Erstes Ritual</span>
+      <p>Geladen? <strong>Drei Befehle:</strong> <code>str()</code> ·
+        <code>head()</code> · <code>summary()</code></p>
+    </div>
+  </section>
+
+  <!-- ============================================================ PIPE -->
+  <section>
+    <h2>Die Pipe <code>|&gt;</code></h2>
+    <p>Nimmt das Ergebnis links und gibt es als erstes Argument rechts ein.</p>
+    <pre><code class="language-r"><span class="cmt"># Ohne Pipe — verschachtelt, schwer zu lesen</span>
+summarise(filter(iris, Sepal.Length &gt; 5), m = mean(Sepal.Length))
+
+<span class="cmt"># Mit Pipe — linear, natürlich zu lesen</span>
+iris |&gt;
+  filter(Sepal.Length &gt; 5) |&gt;
+  summarise(m = mean(Sepal.Length))</code></pre>
+    <p class="fragment">Wie eine Pipeline in der Shell — Schritt für Schritt.</p>
+  </section>
+
+  <!-- ============================================================ DPLYR -->
+  <section>
+    <h2>Die fünf dplyr-Verben</h2>
+    <table>
+      <tr><th>Verb</th><th>Macht</th><th>SQL</th></tr>
+      <tr><td><code>select()</code></td><td>Spalten auswählen</td><td><code>SELECT</code></td></tr>
+      <tr><td><code>filter()</code></td><td>Zeilen nach Bedingung</td><td><code>WHERE</code></td></tr>
+      <tr><td><code>mutate()</code></td><td>neue Spalte berechnen</td><td>berechnete Spalte</td></tr>
+      <tr><td><code>arrange()</code></td><td>Zeilen sortieren</td><td><code>ORDER BY</code></td></tr>
+      <tr><td><code>summarise()</code></td><td>zu einer Zahl zusammenfassen</td><td><code>AGGREGATE</code></td></tr>
+    </table>
+  </section>
+
+  <!-- ============================================================ DPLYR-BSP -->
+  <section>
+    <h2>dplyr in Aktion — mit <code>iris</code></h2>
+    <pre><code class="language-r">library(dplyr)
+
+<span class="cmt"># select — Spalten auswählen</span>
+iris |&gt; select(Sepal.Length, Species) |&gt; head(3)
+
+<span class="cmt"># filter — Zeilen nach Bedingung</span>
+iris |&gt; filter(Sepal.Length &gt; 5.5)     <span class="out"># → 91 Zeilen</span>
+
+<span class="cmt"># mutate — neue Spalte</span>
+iris |&gt; mutate(SL_inch = Sepal.Length / 2.54) |&gt; head(3)
+
+<span class="cmt"># arrange — sortieren</span>
+iris |&gt; arrange(desc(Sepal.Length)) |&gt; head(3)</code></pre>
+  </section>
+
+  <!-- ============================================================ NA -->
+  <section>
+    <h2>NA — fehlende Messwerte</h2>
+    <p><code>NA</code> = Not Available. <strong>Nicht</strong> Null, nicht leer —
+      ein eigener Zustand.</p>
+    <pre><code class="language-r">x &lt;- c(1, 2, NA, 4, 5)
+mean(x)               <span class="out"># → NA!  (ansteckend)</span>
+mean(x, na.rm = TRUE) <span class="out"># → 3   (NA entfernt)</span>
+is.na(x)              <span class="out"># → FALSE FALSE TRUE FALSE FALSE</span></code></pre>
+    <div class="callout achtung">
+      <span class="label">Wichtig</span>
+      <p><code>NA</code> steckt jede Rechnung an. <code>na.rm = TRUE</code>
+        entfernt es — aber frage zuerst: <em>warum</em> fehlen Werte?</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ STATISTIK INTRO -->
+  <section>
+    <h2>Deskriptive Statistik</h2>
+    <p><strong>Beschreiben</strong>, was man hat — nicht schließen.</p>
+    <p>Zwei Fragen stehen im Zentrum:</p>
+    <ol>
+      <li><strong>Lage:</strong> Wo liegen die Werte? (Mittelwert, Median)</li>
+      <li><strong>Streuung:</strong> Wie weit streuen sie? (sd, IQR)</li>
+    </ol>
+    <p class="fragment">Beides braucht man — eine Zahl allein reicht nie.</p>
+  </section>
+
+  <!-- ============================================================ LAGEMASSE -->
+  <section>
+    <h2>Lagemaße — wo liegt die Verteilung?</h2>
+    <table>
+      <tr><th>Maß</th><th>Definition</th><th>Intuition</th></tr>
+      <tr><td><strong>Mittelwert</strong><br><code>mean(x)</code></td>
+          <td>Summe / Anzahl</td>
+          <td>Schwerpunkt — wo die Waage balanciert</td></tr>
+      <tr><td><strong>Median</strong><br><code>median(x)</code></td>
+          <td>mittlerer Wert (sortiert)</td>
+          <td>halbiert die Daten — 50% drüber, 50% darunter</td></tr>
+    </table>
+    <pre><code class="language-r">mean(iris$Sepal.Length)     <span class="out"># → 5.843</span>
+median(iris$Sepal.Length)   <span class="out"># → 5.8</span></code></pre>
+  </section>
+
+  <!-- ============================================================ MEAN VS MEDIAN -->
+  <section>
+    <h2>Mittelwert vs. Median — die Schiefe</h2>
+    <table>
+      <tr><th>Verhältnis</th><th>Form</th><th>Beispiel</th></tr>
+      <tr><td>Mittel ≈ Median</td><td>symmetrisch</td><td>Körpergröße</td></tr>
+      <tr><td>Mittel &gt; Median</td><td><strong>rechtssteil</strong></td><td>Einkommen</td></tr>
+      <tr><td>Mittel &lt; Median</td><td><strong>linkssteil</strong></td><td>Noten</td></tr>
+    </table>
+    <div class="callout tipp">
+      <span class="label">Eselsbrücke</span>
+      <p>Der Mittelwert wird in Richtung des <em>Schwanzes</em> gezogen.
+        Schwanz rechts → Mittel &gt; Median → <strong>rechtssteil</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ AUSREISSER -->
+  <section>
+    <h2>Ausreißer — wem traut man?</h2>
+    <p>9 Angestellte (€ 3.000) + 1 Chef (€ 30.000):</p>
+    <table>
+      <tr><th>Maß</th><th>Wert</th><th>Ehrlich?</th></tr>
+      <tr><td>Mittelwert</td><td>€ 5.700</td><td>❌ vom Chef verzerrt</td></tr>
+      <tr><td>Median</td><td>€ 3.000</td><td>✅ „typisch"</td></tr>
+    </table>
+    <div class="callout">
+      <span class="label">Faustregel</span>
+      <p>Bei schiefen Verteilungen / Ausreißern: <strong>Median</strong>.<br>
+        Bei symmetrischen Verteilungen: <strong>Mittelwert</strong>.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ STREUUNG WARUM -->
+  <section>
+    <h2>Warum Streuung genauso wichtig ist</h2>
+    <pre><code class="language-r">gruppe_a &lt;- c(48, 49, 50, 51, 52)    <span class="out"># eng</span>
+gruppe_b &lt;- c(0, 25, 50, 75, 100)    <span class="out"># weit</span>
+
+mean(gruppe_a)   <span class="out"># → 50</span>
+mean(gruppe_b)   <span class="out"># → 50</span></code></pre>
+    <p><strong>Beide haben Mittelwert 50!</strong> Völlig verschiedene Verteilungen.</p>
+    <p class="fragment">→ Eine Zahl allein beschreibt eine Verteilung nie.</p>
+  </section>
+
+  <!-- ============================================================ STREUUNGSMASS -->
+  <section>
+    <h2>Streuungsmaße</h2>
+    <table>
+      <tr><th>Maß</th><th>Intuition</th><th>Robust?</th></tr>
+      <tr><td><strong>Varianz</strong> <code>var(x)</code></td>
+          <td>mittlere quadrierte Abweichung (Einheit²)</td><td>nein</td></tr>
+      <tr><td><strong>Standardabweichung</strong> <code>sd(x)</code></td>
+          <td>√Varianz — „typische Entfernung vom Mittel"</td><td>nein</td></tr>
+      <tr><td><strong>Spannweite</strong> <code>range()</code></td>
+          <td>Max − Min</td><td>nein</td></tr>
+      <tr><td><strong>IQR</strong> <code>IQR(x)</code></td>
+          <td>Q3 − Q1 — mittlere 50%</td><td><strong>ja</strong></td></tr>
+    </table>
+    <pre><code class="language-r">sd(iris$Sepal.Length)    <span class="out"># → 0.828</span>
+IQR(iris$Sepal.Length)   <span class="out"># → 1.3</span>
+range(iris$Sepal.Length) <span class="out"># → 4.3  7.9</span></code></pre>
+  </section>
+
+  <!-- ============================================================ SD INTUITION -->
+  <section>
+    <h2>Standardabweichung — die Intuition</h2>
+    <div class="callout tipp">
+      <span class="label">Warum quadriert die Varianz?</span>
+      <p>Einfache Abweichungen heben sich auf (positiv vs. negativ = 0).
+        Quadrieren macht alles positiv. Aber: <code>cm²</code> statt <code>cm</code>.
+        Wurzel ziehen → <strong>Standardabweichung</strong> zurück in Original-Einheiten.</p>
+    </div>
+    <div class="callout">
+      <span class="label">68-95-Regel (bei Normalverteilung)</span>
+      <p>~68% innerhalb ±1 sd · ~95% innerhalb ±2 sd · ~99,7% innerhalb ±3 sd</p>
+      <p>Darauf basieren später die Regelkarten-Grenzen (KM 8).</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ QUANTILE -->
+  <section>
+    <h2>Quantile — Daten in Schnitte zerlegen</h2>
+    <pre><code class="language-r">quantile(iris$Sepal.Length)</code></pre>
+    <table style="font-size:0.7em">
+      <tr><th>Quantil</th><th>Wert</th><th>Bedeutung</th></tr>
+      <tr><td>0% (Min)</td><td>4.3</td><td>kleinster Wert</td></tr>
+      <tr><td>25% (Q1)</td><td>5.1</td><td>25% sind kleiner</td></tr>
+      <tr><td>50% (Median)</td><td>5.8</td><td>die Hälfte ist kleiner</td></tr>
+      <tr><td>75% (Q3)</td><td>6.4</td><td>75% sind kleiner</td></tr>
+      <tr><td>100% (Max)</td><td>7.9</td><td>größter Wert</td></tr>
+    </table>
+    <p><strong>IQR</strong> = Q3 − Q1 = 6.4 − 5.1 = <strong>1.3</strong></p>
+  </section>
+
+  <!-- ============================================================ SUMMARY -->
+  <section>
+    <h2>summary() — alles in einer Funktion</h2>
+    <pre><code class="language-r">summary(iris$Sepal.Length)</code></pre>
+    <pre><code class="language-r" style="font-size:0.8em">   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   4.300    5.100    5.800    5.843    6.400    7.900</code></pre>
+    <p>Sechs Zahlen = die gesamte deskriptive Statistik einer Spalte.<br>
+      <strong>Die Fünf-Punkte-Zusammenfassung + Mittelwert.</strong></p>
+  </section>
+
+  <!-- ============================================================ GROUP_BY -->
+  <section>
+    <h2>group_by() + summarise()</h2>
+    <p>Pro Gruppe eine Kennzahl — wie SQL <code>GROUP BY</code>.</p>
+    <pre><code class="language-r">iris |&gt;
+  group_by(Species) |&gt;
+  summarise(
+    anzahl    = n(),
+    mittel_SL = mean(Sepal.Length),
+    sd_SL     = sd(Sepal.Length)
+  )</code></pre>
+    <table style="font-size:0.65em">
+      <tr><th>Species</th><th>anzahl</th><th>mittel_SL</th><th>sd_SL</th></tr>
+      <tr><td>setosa</td><td>50</td><td>5.01</td><td>0.352</td></tr>
+      <tr><td>versicolor</td><td>50</td><td>5.94</td><td>0.516</td></tr>
+      <tr><td>virginica</td><td>50</td><td>6.59</td><td>0.636</td></tr>
+    </table>
+  </section>
+
+  <!-- ============================================================ ZUSAMMENFASSUNG -->
+  <section>
+    <h2>Zusammenfassung</h2>
+    <table>
+      <tr><th>Konzept</th><th>Das Wichtigste</th></tr>
+      <tr><td>Pipe <code>|&gt;</code></td><td>Ergebnis links → erstes Argument rechts</td></tr>
+      <tr><td><code>filter</code> vs <code>select</code></td><td>Zeilen vs Spalten</td></tr>
+      <tr><td><code>NA</code></td><td>Ansteckend — <code>na.rm = TRUE</code> entfernt</td></tr>
+      <tr><td>Mittelwert</td><td>Schwerpunkt — empfindlich bei Ausreißern</td></tr>
+      <tr><td>Median</td><td>Mitte (sortiert) — robust bei Ausreißern</td></tr>
+      <tr><td>Standardabweichung</td><td>„typische Entfernung vom Mittel"</td></tr>
+      <tr><td>IQR</td><td>Q3 − Q1 — robuste Streuung (mittlere 50%)</td></tr>
+      <tr><td><code>summary()</code></td><td>Min/Q1/Median/Mean/Q3/Max in einem</td></tr>
+      <tr><td><code>group_by()</code></td><td>Pro Gruppe separat zusammenfassen</td></tr>
+    </table>
+  </section>
+
+  <!-- ============================================================ HAUSAUFGABE -->
+  <section class="hint-slide">
+    <h2>Hausaufgabe</h2>
+    <p style="font-size:1.3em">➜ <a href="hausaufgabe.md"><code>hausaufgabe.md</code></a></p>
+    <p>(liegt im selben Ordner — einfach anklicken)</p>
+    <p style="margin-top:1.5em; font-size:0.8em">6 Aufgaben: iris untersuchen · sd vs IQR vergleichen ·<br>
+      group_by-Pipe · Ausreißer-Effekt · NA-Behandlung · n−1 erklären</p>
+  </section>
+
+</div></div>
+
+<script src="https://cdn.revealjs.com/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'slide',
+  width: 1280,
+  height: 800,
+  margin: 0.08,
+  center: true,
+  controlsLayout: 'edges'
+});
+</script>
+</body>
+</html>

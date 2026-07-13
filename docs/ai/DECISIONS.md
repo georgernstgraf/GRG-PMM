@@ -54,3 +54,14 @@ Each entry documents WHAT was decided and WHY.
 
 - **Choice**: Before teaching dates are fixed, class materials live in `NN-slug/` folders (e.g., `01-r-grundlagen-datenstrukturen/`). Renamed to `YYYY-MM-DD_slug/` when the actual teaching date is known.
 - **Reason**: Curriculum preparation happens before semester scheduling. NN-slug preserves ordering and enables date assignment later without folder restructuring. Documented in AGENTS.md and 4AHWIT/README.md.
+
+## 2026-07-13: Statistics Starts in JG3 (KM5), Not JG4
+
+- **Finding**: The PMM curriculum has three distinct phases. JG1+JG2 (KM3+KM4) are purely process/quality management — no statistics, no R. **Statistics begins in JG3 (KM5+KM6)** with "Statistische Methoden" (probability distributions, parameters/estimators, confidence intervals, lifetime distributions). JG4+JG5 continue with tests, sampling, SPC, DoE, reliability.
+- **Implication**: When Georg takes over 4AHWIT (JG4, KM7), the students should already have KM5+KM6 statistics from JG3. An entry test at the start of the school year is needed to assess what the previous teacher covered. If JG3 coverage is weak, KM7 must compensate.
+- **Action**: PMM curriculum extracted to `docs/lehrplan/pmm-lehrplan-text.md` for reference.
+
+## 2026-07-13: PMM Curriculum Text Extracted to Markdown
+
+- **Choice**: The PMM-relevant section (Abschnitt 5) of the legal curriculum PDF was extracted to `docs/lehrplan/pmm-lehrplan-text.md`.
+- **Reason**: The PDF is not machine-searchable in this workflow. A Markdown extract enables quick reference and grep across all 5 Jahrgänge without running pdftotext each time. Only the PMM section was extracted (not the full 33-page document) to keep it focused.
