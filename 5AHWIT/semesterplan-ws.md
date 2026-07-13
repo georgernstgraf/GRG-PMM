@@ -3,67 +3,49 @@
 Prozessmanagement (PMM) — Maturafach WIT  
 KM 9a (RIS BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5)
 
-**Zeitmodell:** 30 Doppelstunden (4 h/Woche)  
-**Schwerpunkte:** Industrielle Versuchsmethodik / DOE (23 E.) · Facility Management (5 E.) · Projekt (2 E.)  
+**Zeitmodell:** 15 Doppelstunden (1 DS/Woche)  
+**Schwerpunkte:** Industrielle Versuchsmethodik / DOE (8 UE) · Response Surface & Optimierung (4 UE) · Facility Management (2 UE) · Abschluss (1 UE)  
 **Werkzeug:** R / RStudio
 
 ---
 
-## Block A: DOE-Grundlagen (1–8)
+## UE 1–4: Vollfaktorielle Versuchsplanung
 
-| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
-|---|-------|---------------------|---------------------|-----|
-| 1 | **DOE-Einführung** | Faktoren, Stufen, Antwortvariable, Randomisierung, Replikation | Warum DOE? Historisches Beispiel (Fisher) | Fragestellung formulieren |
-| 2 | **R-Pakete für DOE** | `DoE.base`, `FrF2`, `rsm`, `AlgDesign` | Pakete installieren, erste Pläne generieren | Paket-Cheatsheet |
-| 3 | **Vollfaktorielle 2^k-Pläne I** | 2² und 2³, Haupteffekte, `lm()` | 2³-Plan in R: `lm()`, `summary()` | Effekte interpretieren |
-| 4 | **Vollfaktorielle 2^k-Pläne II** | Wechselwirkungen, Interaction Plots | `interaction.plot()`, Effektdiagramme | Pareto-Chart der Effekte |
-| 5 | **Effektschätzung & ANOVA** | `DanielPlot()`, `halfnormal()`, Effekttabelle | Effekte visualisieren und testen | Effekttabelle |
-| 6 | **Vollfaktorielle 2^k: Praxis** | 2⁴-Plan auswerten, Modellreduktion | Nicht-signifikante Effekte entfernen | Modellvergleich |
-| 7 | **Zentrumspunkte & Krümmung** | Pure Error, Lack of Fit, Krümmungstest | Zentrumspunkt-Design in R | Krümmungstest |
-| 8 | **Übung Vollfaktoriell** | Komplettes 2⁴-Experiment durchführen | Eigenes Experiment in R | Vollständige Auswertung |
+| UE | Thema | Bemerkung |
+|----|-------|-----------|
+| 1 | **DOE-Einführung & R-Pakete** | Faktoren, Stufen, Antwortvariable, Randomisierung; `DoE.base`, `FrF2`, `rsm` |
+| 2 | **Vollfaktorielle 2^k I: 2² & 2³** | Haupteffekte, `lm()`, Effekttabelle; `interaction.plot()` |
+| 3 | **Vollfaktorielle 2^k II: Wechselwirkungen & Effektschätzung** | `DanielPlot()`, `halfnormal()`, Pareto-Chart; Wechselwirkungen interpretieren |
+| 4 | **Vollfaktoriell Praxis & Krümmung** | Modellreduktion, Zentrumspunkte, Pure Error vs. Lack of Fit; komplettes 2⁴-Experiment |
 
-## Block B: Teilfaktorielle & Erweiterte Pläne (9–16)
+## UE 5–8: Teilfaktorielle & fortgeschrittene Pläne
 
-| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
-|---|-------|---------------------|---------------------|-----|
-| 9 | **Teilfaktorielle Pläne: Confounding** | 2^(k-p), Auflösung, Design Generators | `FrF2()` für 2^(4-1) | Alias-Struktur |
-| 10 | **Resolution III/IV/V** | Auflösungsbegriff, `alias()`, Klassifizierung | `FrF2(resolution=4)` | Auflösungsvergleich |
-| 11 | **Blockbildung** | Blockfaktoren, Confounding mit Blöcken | `conf.set()` in `FrF2` | Block-Design |
-| 12 | **Split-Plot-Designs** | Hard-to-change Factors, REML | Split-Plot in R mit `lme4::lmer()` | Split-Plot-Auswertung |
-| 13 | **Plackett-Burman** | Screening-Designs für viele Faktoren | `pb()` — 12er-PB-Design | Screening-Bericht |
-| 14 | **D-optimale Designs** | Unregelmäßige Versuchsräume, Optimalitätskriterien | `AlgDesign::optFederov()` | D-optimales Design |
-| 15 | **Übung Teilfaktoriell** | Screening-Experiment komplett | 2^(7-3)-Plan auswerten | Bericht |
-| 16 | **DOE-Workshop I** | Problemstellung → Plan → R → Auswertung | Geleitetes Experiment | — |
+| UE | Thema |
+|----|-------|
+| 5 | **Teilfaktorielle Pläne: Confounding & Auflösung** | 2^(k-p), Design Generators, `FrF2()`, Resolution III/IV/V, `alias()` |
+| 6 | **Blockbildung, Split-Plot, Plackett-Burman** | Blockfaktoren (`conf.set()`), Hard-to-change-factors (`lme4::lmer()`), Screening (`pb()`) |
+| 7 | **D-optimale Designs & DOE-Workshop I** | Unregelmäßige Versuchsräume, `AlgDesign::optFederov()`; geführtes Experiment |
+| 8 | **Response Surface I: CCD & BBD** | Central Composite Design (`ccd()`), Box-Behnken, Einführung in `rsm()` |
 
-## Block C: Response Surface & Optimierung (17–23)
+## UE 9–12: RSM & Optimierung
 
-| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
-|---|-------|---------------------|---------------------|-----|
-| 17 | **Response Surface I: CCD** | Central Composite Design, `ccd()`, `rsm()` | CCD planen und auswerten | RSM-Modell |
-| 18 | **Response Surface II: BBD** | Box-Behnken-Design, CCD vs. BBD | BBD in R, Vergleich der Designs | Design-Vergleich |
-| 19 | **RSM-Modellierung** | Quadratisches Modell, Kontur-/3D-Plots | `contour()`, `persp()` auf RSM | 3D-Oberfläche |
-| 20 | **Optimierung: Einzelziel** | Steepest Ascent, Maximum finden | `steepest()` in `rsm` | Optimum validieren |
-| 21 | **Mehrzieloptimierung** | Desirability-Funktion, Trade-offs | `desirability()` mit `rsm` | Pareto-Front |
-| 22 | **Robust Design (Taguchi)** | Noise Factors, S/N-Ratio, Inner/Outer Array | Taguchi-Design in `qualityTools` | S/N-Analyse |
-| 23 | **DOE-Workshop II** | Eigenes RSM-Experiment | Planen, durchführen, auswerten | Abschlussbericht |
+| UE | Thema |
+|----|-------|
+| 9 | **Response Surface II: Modellierung & Optimierung** | Quadratische Modelle, Kontur-/3D-Plots; `steepest()`, Maximum finden |
+| 10 | **Mehrzieloptimierung & Robust Design** | Desirability-Funktion, Pareto-Front; Taguchi S/N-Ratio, Inner/Outer Array |
+| 11 | **DOE-Workshop II** | Eigenes RSM-Experiment: planen, durchführen, auswerten — Abschlussbericht |
+| 12 | **Facility Management: Grundlagen & Betriebsführung** | DIN EN 15221, FM-Modell, TGA, Betriebskosten in R; Instandhaltungsstrategien |
 
-## Block D: Facility Management (24–28)
+## UE 13–15: Zuverlässigkeit, Sicherheit & Abschluss
 
-| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
-|---|-------|---------------------|---------------------|-----|
-| 24 | **FM-Grundlagen** | DIN EN 15221, FM-Modell, Prozesse, Kennzahlen | Gebäudedaten analysieren | FM-Bestandsaufnahme |
-| 25 | **Technische Betriebsführung I** | Gebäudetechnik (TGA), Betriebsführung | Betriebskosten in R auswerten | Kostenanalyse |
-| 26 | **Technische Betriebsführung II** | Instandhaltungsstrategien, Wartungspläne | Wartungsplan in R visualisieren (`ganttrify`) | Instandhaltungsplan |
-| 27 | **RCM & Zuverlässigkeit** | Weibull-Modell, Ausfallanalyse, `survival` | `survreg()`, `flexsurvreg()` | Ausfallanalyse |
-| 28 | **Arbeitssicherheit** | ASchG, Evaluierung, Kennzahlen | Unfallstatistik in R auswerten | Sicherheitskennzahlen |
-
-## Block E: Integration & Abschluss (29–30)
-
-| # | Thema |
-|---|-------|
-| 29 | **Fallstudie**: DOE-Optimierung eines FM-Prozesses (z.B. Energieverbrauch) |
-| 30 | **Semesterabschluss & Leistungsfeststellung** |
+| UE | Thema |
+|----|-------|
+| 13 | **RCM & Arbeitssicherheit** | Weibull-Modell, Ausfallanalyse (`survival`/`flexsurvreg`); ASchG, Evaluierung, Sicherheitskennzahlen |
+| 14 | **Fallstudie**: DOE-Optimierung eines FM-Prozesses (z. B. Energieverbrauch minimieren) |
+| 15 | **Semesterabschluss & Leistungsfeststellung** |
 
 ---
 
-**23 Statistik/R · 5 Facility · 2 Projekt**
+**Schwerpunkte:** 12 UE Statistik/R · 2 UE Facility · 1 UE Abschluss
+
+(Überarbeitet 2026-07 — korrigiert auf 15 Doppelstunden, 1 DS/Woche, zuvor fälschlich „30 Doppelstunden (4 h/Woche)" angenommen.)

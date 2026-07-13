@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UE1 — R-Grundlagen &amp; Datenstrukturen</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<main>
+
+  <div class="breadcrumb">
+    <a href="../reference/km7-verlauf.html">KM 7 Verlauf</a>
+    <span class="sep">/</span>
+    UE 1
+  </div>
+
+  <header class="lesson-head">
+    <div class="meta">
+      KM 7 · UE 1 &nbsp;·&nbsp; ⚡ 🎯 &nbsp;·&nbsp;
+      <a href="../../4AHWIT/semesterplan-ws.md">Semesterplan</a> &nbsp;·&nbsp;
+      <a href="../reference/glossar.html">Glossar</a> &nbsp;·&nbsp;
+      <a href="../reference/r-setup-linux.html">R-Setup (Linux)</a>
+    </div>
+    <h1>R-Grundlagen &amp; Datenstrukturen</h1>
+    <p class="lede">Die eine Idee, die R von deiner bisherigen Sprache unterscheidet — plus
+      die fünf Strukturen, auf denen jede Zeile in PMM beruht. Wer die durchschaut,
+      liest jeden Code und unterrichtet souverän.</p>
+  </header>
+
+  <!-- ========================================================= WARUM -->
+  <h2>Warum diese Einheit</h2>
+  <p>Ab Herbst 2026 unterrichtest du Prozessmanagement in R. Bevor ein Statistik-
+    Konzept drankommt, brauchst du R als Sprache. In Teil 1 geht es um das
+    <strong>mentale Modell</strong> (Vektorisierung, REPL, Zuweisung, Hilfe,
+    Pakete). In Teil 2 bekommst du die <strong>fünf Datenstrukturen</strong>
+    (<code>vector</code>, <code>matrix</code>, <code>data.frame</code>,
+    <code>list</code>, <code>factor</code>), die du für jede ANOVA, jeden
+    χ²-Test und jede Regelkarte brauchst.</p>
+
+  <!-- ===================================================== TEIL 1 -->
+  <h2>Teil 1 · R trifft auf Vektoren</h2>
+
+  <div class="callout tipp">
+    <span class="label">Die eine Idee</span>
+    <p>In R ist das <strong>Grundelement kein einzelner Wert, sondern ein
+      Vektor</strong>. Fast jede Operation wirkt automatisch elementweise auf den
+      ganzen Vektor. Wer das verstanden hat, versteht 80 % des R-Codes, den er
+      jemals liest.</p>
+  </div>
+
+  <!-- ---------------------------------------- INSTALL -->
+  <h3>Schritt 0 — R &amp; RStudio installieren</h3>
+  <p>Diese Lektion zeigt Code und Outputs, zum Durcharbeiten im Browser. Um selbst
+    zu tippen, brauchst du zwei Dinge auf deiner Maschine:</p>
+  <ol>
+    <li><strong>R</strong> von <a href="https://cran.r-project.org/">cran.r-project.org</a> — die Sprache.</li>
+    <li><strong>RStudio</strong> von <a href="https://posit.co/download/rstudio-desktop/">posit.co/download/rstudio-desktop</a> — die IDE.</li>
+  </ol>
+
+  <div class="callout achtung">
+    <span class="label">Reihenfolge wichtig</span>
+    <p>Erst R installieren, dann RStudio. RStudio ist nur die Hülle; die
+      Rechenmaschine darunter ist R.</p>
+  </div>
+
+  <div class="callout achtung">
+    <span class="label">Linux: <code>install.packages("tidyverse")</code> bricht ab?</span>
+    <p>Auf Ubuntu/Debian kompiliert R Pakete aus dem Quelltext und braucht dafür
+      System-Header (<code>-dev</code>-Pakete). Wenn du einen <code>fatal error:
+      curl/curl.h</code> oder ähnlich siehst: die vollständige, für Ubuntu 26.04
+      geprüfte Anleitung in der Referenz
+      <a href="../reference/r-setup-linux.html">R-Setup auf Ubuntu</a>.</p>
+  </div>
+
+  <!-- ---------------------------------------- KONSOLE -->
+  <h3>Die Konsole — R als Taschenrechner</h3>
+  <p>In RStudio findest du unten links die <strong>Konsole</strong> mit dem Prompt
+    <code>&gt;</code>. R ist eine <strong>REPL</strong>: Ausdruck eingeben, Enter,
+    R wertet aus und druckt das Ergebnis — wie Python.</p>
+
+  <pre><code><span class="cmt"># Grundrechnen</span>
+2 + 3 * 4</code></pre>
+  <details><summary>R-Ergebnis zeigen (erst selbst rechnen!)</summary>
+  <pre class="output">[1] 14</pre>
+  </details>
+
+  <div class="callout didaktik">
+    <span class="label">Didaktik — typischer Schülerirrtum</span>
+    <p>Die <code>[1]</code> vor der 14 ist <em>kein</em> Array-Index oder Teil
+      der Antwort. Sie bedeutet: „das ist das erste Element der Ausgabe". Bei
+      langen Vektoren erscheinen weitere Zähler (<code>[19] [22] …</code>) am
+      Zeilenanfang. Kläre das beim allerersten Output — sonst hängt es
+      wochenlang fest.</p>
+  </div>
+
+  <!-- ---------------------------------------- VEKTOREN -->
+  <h3>Das Wichtigste: alles ist ein Vektor</h3>
+  <p>In den meisten Sprachen bildest du eine Liste über Schleifen. In R baust du
+    einen Vektor mit <code>c()</code> (<em>c</em>ombine) und rechnest damit als
+    Ganzes:</p>
+
+  <pre><code><span class="cmt"># Einen Vektor bauen</span>
+c(1, 2, 3)
+<span class="cmt"># Und jetzt: Operationen wirken ELEMENTWEISE</span>
+c(1, 2, 3) * 2</code></pre>
+  <details><summary>Erst vorhersagen, dann zeigen</summary>
+  <pre class="output">[1] 1 2 3
+[1] 2 4 6</pre>
+  <p>Keine Schleife. R multipliziert jedes Element. Das ist
+    <strong>Vektorisierung</strong> — das Herzstück von R.</p>
+  </details>
+
+  <p>Zwei weitere Vektor-Bauer, die du ständig brauchst:</p>
+  <pre><code><span class="cmt"># Folgen</span>
+1:6
+seq(0, 10, by = 2)
+<span class="cmt"># Wiederholungen</span>
+rep(c(1, 2), times = 3)
+rep(c(1, 2), each  = 3)</code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">[1] 1 2 3 4 5 6
+[1] 0 2 4 6 8 10
+[1] 1 2 1 2 1 2
+[1] 1 1 1 2 2 2</pre>
+  <p><code>times</code> (ganz wiederholt) vs. <code>each</code> (jedes einzeln) —
+    klassische Verwechslung. <code>1:3</code> ist R-idiomatisch für
+    aufeinanderfolgende Ganzzahlen (der Colon-Operator, schneller als
+    <code>seq(1,3)</code>, kürzer als <code>c(1,2,3)</code>).</p>
+  </details>
+
+  <h3>Vektor trifft Vektor &amp; Recycling</h3>
+  <pre><code>c(10, 20, 30) * c(1, 2, 3)       <span class="cmt"># Element für Element</span></code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">[1] 10 40 90</pre>
+  </details>
+
+  <div class="callout tipp">
+    <span class="label">Recycling</span>
+    <p>Sind die Vektoren unterschiedlich lang, <strong>recyclet</strong> R den
+      kürzeren — solange die Längen sauber aufeinanderpassen:</p>
+    <pre><code>c(1, 2, 3, 4) + c(10, 100)   <span class="cmt"># 10,100 wird zu 10,100,10,100</span></code></pre>
+    <p>Ergebnis: <code>11 102 13 104</code>. Praktisch, aber eine häufige
+      Fehlerquelle, wenn die Längen <em>nicht</em> aufgehen (Warnung).</p>
+  </div>
+
+  <!-- QUIZ 1 -->
+  <div class="quiz">
+    <div class="q-label">Verständnisfrage</div>
+    <div class="question">Was liefert <code>c(1, 2, 3) + 1</code> in R?</div>
+    <ul class="options">
+      <li data-correct="false">Ein Fehler entsteht</li>
+      <li data-correct="true">Zwei drei vier kommt</li>
+      <li data-correct="false">Eins zwei drei bleibt</li>
+      <li data-correct="false">Drei zwei eins kommt</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. <code>1</code> wird auf die
+      Länge 3 recyclet und zu jedem Element addiert — vektorisiert.</div>
+    <div class="feedback" data-for="wrong">Falsch. R recyclet den Skalar
+      <code>1</code> zu <code>c(1,1,1)</code> und addiert elementweise:
+      <code>2 3 4</code>.</div>
+  </div>
+
+  <!-- ---------------------------------------- ZUWEISUNG -->
+  <h3>Werte speichern — Zuweisung mit &lt;-</h3>
+  <p>Ergebnisse benennst du mit dem Zuweisungsoperator <code>&lt;-</code>.
+    In RStudio: <kbd>Alt</kbd>+<kbd>-</kbd> legt ihn an.</p>
+
+  <pre><code>messwerte &lt;- c(8.1, 7.9, 8.0, 8.2, 7.8)
+messwerte               <span class="cmt"># Namen eintippen = Wert ausgeben</span>
+mean(messwerte)         <span class="cmt"># eine Funktion: Mittelwert</span></code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">[1] 8.1 7.9 8.0 8.2 7.8
+[1] 8</pre>
+  </details>
+
+  <div class="callout didaktik">
+    <span class="label">Didaktik — = vs &lt;- </span>
+    <p>Funktional geht auch <code>messwerte = c(...)</code>, aber der
+      <strong>idiomatische R-Code</strong> verwendet <code>&lt;-</code> für
+      Zuweisung und <code>=</code> nur für Argumente in Funktionen
+      (<code>seq(0, 10, by = 2)</code>). So vermeiden Schüler die Verwechslung
+      mit dem Vergleichsoperator <code>==</code>.</p>
+  </div>
+
+  <div class="callout didaktik">
+    <span class="label">OOP-Fremdkörper: Zuweisung an eine Funktion</span>
+    <p><code>names(df) &lt;- c("a","b")</code> wirkt für OOP-Umsteiger wie ein
+      Syntaxfehler. In Wirklichkeit ruft R die Funktion
+      `` `names<-`(df, c("a","b")) `` auf — R erlaubt Funktionsnamen, die auf
+      <code>&lt;-</code> enden („replacement functions"). Dasselbe Prinzip steckt
+      hinter <code>class(x) &lt;- "factor"</code>,
+      <code>x[1] &lt;- 5</code> und <code>rownames(df) &lt;- c(...)</code>.
+      Keine Magie — nur eine Funktion mit seltsamem Namen.</p>
+  </div>
+
+  <!-- QUIZ 2 -->
+  <div class="quiz">
+    <div class="q-label">Konvention</div>
+    <div class="question">Womit weist man in R idiomatisch einen Wert zu?</div>
+    <ul class="options">
+      <li data-correct="true">Mit dem Pfeil</li>
+      <li data-correct="false">Mit Doppelpunkt</li>
+      <li data-correct="false">Mit Gleichheitszeichen</li>
+      <li data-correct="false">Mit dem Pfeil rechts</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. <code>&lt;-</code> ist der
+      R-Standard für Zuweisung.</div>
+    <div class="feedback" data-for="wrong">Die Konvention ist der Pfeil
+      <code>&lt;-</code>. <code>=</code> reserviert man besser für
+      Funktionsargumente.</div>
+  </div>
+
+  <!-- ---------------------------------------- HILFE -->
+  <h3>Hilfe finden — <code>?</code> und <code>??</code></h3>
+  <p>Die beste eingebaute Doku, die du kennst — direkt in der Konsole:</p>
+  <pre><code>?mean        <span class="cmt"># Hilfeseite zur Funktion mean()</span>
+??regression <span class="cmt"># Suche ueber ALLE installierten Pakete</span></code></pre>
+
+  <!-- ---------------------------------------- PAKETE -->
+  <h3>Pakete — R erweitern</h3>
+  <p>Was R für die industrielle Statistik stark macht, sind <strong>
+    Pakete</strong>. Zwei Schritte, die Anfänger ständig verwechseln:</p>
+  <pre><code>install.packages("qcc")   <span class="cmt"># EINMAL: laedt aus dem Internet</span>
+library(qcc)              <span class="cmt"># JEDE Sitzung: aktiviert es im Speicher</span></code></pre>
+
+  <div class="callout achtung">
+    <span class="label">Klassischer Fehler</span>
+    <p><code>install.packages()</code> braucht <strong>Anführungszeichen</strong>,
+      <code>library()</code> nicht. Installieren einmal pro Rechner, Laden
+      einmal pro Sitzung.</p>
+  </div>
+
+  <p>Für KM 7 wirst du u. a. brauchen:</p>
+  <table>
+    <tr><th>Paket</th><th>Wofür</th></tr>
+    <tr><td><code>tidyverse</code></td><td>Daten bearbeiten (<code>dplyr</code>), Grafiken (<code>ggplot2</code>)</td></tr>
+    <tr><td><code>qcc</code></td><td>Regelkarten, Prozessfähigkeit (KM 8)</td></tr>
+    <tr><td><code>AcceptanceSampling</code></td><td>Annahmeprüfung (Block / UE 10–12)</td></tr>
+  </table>
+
+  <hr>
+
+  <!-- ===================================================== TEIL 2 -->
+  <h2>Teil 2 · Die fünf Datenstrukturen</h2>
+
+  <p>In Teil 1 hast du Vektoren als Grundelement kennengelernt. Jetzt erweitern
+    wir das Spektrum: <strong>matrix</strong>, <strong>data.frame</strong>,
+    <strong>list</strong> und <strong>factor</strong> kommen dazu. Dein täglicher
+    Arbeitsplatz ist die <code>data.frame</code>; <code>factor</code> ist deine
+    häufigste Fehlerquelle; <code>list</code> triffst du in jedem Modell-Ergebnis.</p>
+
+  <!-- ---------------------------------------- UEBERBLICK -->
+  <h3>Die fünf Strukturen auf einen Blick</h3>
+  <table>
+    <tr><th>Struktur</th><th>Dimension</th><th>Typ</th><th>Wofür</th></tr>
+    <tr><td><code>vector</code></td><td>1D</td><td>gleichartig (homogen)</td><td>Messreihe, Spalte</td></tr>
+    <tr><td><code>matrix</code></td><td>2D</td><td>homogen</td><td>rein numerische Matrizen</td></tr>
+    <tr><td><code>data.frame</code></td><td>2D</td><td>Spalten je ein Typ</td><td><strong>Tabellen — dein Alltag</strong></td></tr>
+    <tr><td><code>list</code></td><td>1D</td><td>beliebig</td><td>Modell-Ergebnisse, verschachtelte Daten</td></tr>
+    <tr><td><code>factor</code></td><td>1D</td><td>kategorial (intern integer)</td><td>Gruppen, Nominal-/Ordinalskalen</td></tr>
+  </table>
+
+  <div class="callout tipp">
+    <span class="label">Die Regel, die alles erklärt</span>
+    <p><strong>Homogen</strong> (vector, matrix) erzwingt <em>einen</em> Typ —
+      mischst du, zwängt R alles in den „gemeinsamen Nenner".
+      <strong>Heterogen</strong> (data.frame, list) erlaubt gemischte Typen.</p>
+  </div>
+
+  <!-- ---------------------------------------- COERCION -->
+  <h3>Typ-Erzwingung (Coercion)</h3>
+  <p>Wenn du unterschiedliche Typen in <code>c()</code> steckst, entscheidet R
+    über eine feste Hierarchie:</p>
+  <p><strong>logical &lt; integer &lt; double &lt; character</strong></p>
+  <pre><code>c(1, "a")        <span class="cmt"># alles wird character</span>
+c(1, TRUE)      <span class="cmt"># TRUE wird zu 1</span>
+c(TRUE, "a")    <span class="cmt"># alles wird character</span></code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">[1] "1" "a"
+[1] 1 1
+[1] "TRUE" "a"</pre>
+  </details>
+
+  <!-- QUIZ 3 -->
+  <div class="quiz">
+    <div class="q-label">Vorhersage</div>
+    <div class="question">Welchen Typ hat <code>c(1, "a", TRUE)</code> nach der Coercion?</div>
+    <ul class="options">
+      <li data-correct="true">Zeichenkette am Ende</li>
+      <li data-correct="false">Ganzzahl bleibt bestehen</li>
+      <li data-correct="false">Wahrheitswert bleibt</li>
+      <li data-correct="false">Fehler wird geworfen</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. <code>character</code> steht
+      in der Hierarchie ganz oben — alles wird zu Text.</div>
+    <div class="feedback" data-for="wrong">Falsch. Die Hierarchie ist
+      logical &lt; integer &lt; double &lt; character.</div>
+  </div>
+
+  <!-- ---------------------------------------- VECTOR (recap) -->
+  <h3>1. Vector — das Grundelement</h3>
+  <p>Bekannt aus Teil 1: gleichartig, 1D, gebaut mit <code>c()</code>. Vier
+    atomare Typen: <code>logical</code>, <code>integer</code>, <code>double</code>,
+    <code>character</code>.</p>
+  <pre><code>x &lt;- c(8.1, 7.9, 8.0)
+class(x); length(x)</code></pre>
+
+  <!-- ---------------------------------------- MATRIX -->
+  <h3>2. Matrix — 2D, aber homogen</h3>
+  <p>Eine Matrix ist ein Vektor mit <code>dim</code>-Attribut. Nur <em>ein</em>
+    Typ — mischst du Zahlen und Text, wird alles Text. Füllt standardmäßig
+    <strong>spaltenweise</strong> — das überrascht Python-Nutzer.</p>
+  <pre><code>matrix(1:6, nrow = 2, ncol = 3)
+matrix(1:6, nrow = 2, ncol = 3, byrow = TRUE)</code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6</pre>
+  </details>
+
+  <!-- ---------------------------------------- DATA.FRAME -->
+  <h3>3. data.frame — dein täglicher Arbeitsplatz</h3>
+  <p>Eine <code>data.frame</code> ist eine Tabelle: Zeilen = Beobachtungen,
+    Spalten = Variablen. Jede Spalte ist ein eigener Vektor mit eigenem Typ —
+    <strong>heterogen</strong>, genau wie reale Messdaten.</p>
+
+  <pre><code>df &lt;- data.frame(
+  id      = 1:3,
+  messung = c(8.1, 7.9, 8.2),
+  maschine = c("A", "A", "B")
+)
+df
+str(df)         <span class="cmt"># die wichtigste Inspektionsfunktion</span></code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">  id messung maschine
+1  1     8.1        A
+2  2     7.9        A
+3  3     8.2        B
+'data.frame':	3 obs. of  3 variables:
+ $ id     : int  1 2 3
+ $ messung: num  8.1 7.9 8.2
+ $ maschine: chr  "A" "A" "B"</pre>
+  <p><code>str()</code> zeigt Struktur + Typ jeder Spalte — <strong>immer
+    zuerst</strong> aufrufen, wenn neue Daten geladen werden.</p>
+  </details>
+
+  <div class="callout achtung">
+    <span class="label">Seit R 4.0</span>
+    <p>Früher wurden Textspalten in <code>data.frame</code> automatisch zu
+      <code>factor</code>. Seit R 4.0 sind sie <code>character</code>. Schüler
+      mit alten Lehrbüchern wundern sich.</p>
+  </div>
+
+  <!-- QUIZ 4 -->
+  <div class="quiz">
+    <div class="q-label">Verständnis</div>
+    <div class="question">Welche Struktur hält Spalten mit unterschiedlichem Typ?</div>
+    <ul class="options">
+      <li data-correct="true">data.frame genügt</li>
+      <li data-correct="false">matrix genügt auch</li>
+      <li data-correct="false">vector reicht aus</li>
+      <li data-correct="false">factor passt immer</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. Eine <code>data.frame</code>
+      erlaubt pro Spalte einen eigenen Typ — darum der Standard für Tabellen.</div>
+    <div class="feedback" data-for="wrong">Falsch. <code>matrix</code> ist
+      homogen; nur <code>data.frame</code> erlaubt gemischte Spaltentypen.</div>
+  </div>
+
+  <!-- ---------------------------------------- LIST -->
+  <h3>4. list — der Allzweck-Container</h3>
+  <p>Eine <code>list</code> ist wie ein Vektor, aber jedes Element darf ein
+    <em>anderer</em> Typ und jede Struktur sein — sogar weitere Listen. Darin
+    liegen Modell-Ergebnisse, API-Antworten, komplexe Objekte.</p>
+
+  <pre><code>modell &lt;- list(
+  koeffizient = c(7.8, 0.3),
+  p_wert      = 0.012,
+  daten       = df
+)
+modell$koeffizient       <span class="cmt"># Zugriff per Namen ($)</span>
+modell[[1]]              <span class="cmt"># Zugriff per Position</span>
+modell[1]                <span class="cmt"># Einfach vs. doppelt — was ist anders?</span></code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">[1] 7.8 0.3
+[1] 7.8 0.3
+$koeffizient
+[1] 7.8 0.3</pre>
+  <p>Optisch sehen <code>modell[1]</code> und <code>modell[[1]]</code> auf den
+    ersten Blick gleich aus — aber <strong>der Typ des Ergebnisses ist
+    verschieden</strong>:</p>
+  </details>
+
+  <pre><code>class(modell[1])     <span class="cmt"># "list"     <- eine Liste bleibt eine Liste</span>
+class(modell[[1]])   <span class="cmt"># "numeric"  <- Inhalt ist der Vektor selbst</span>
+length(modell[1])    <span class="cmt"># 1          <- ein Listenelement</span>
+length(modell[[1]])  <span class="cmt"># 2          <- der Vektor hat zwei Werte</span></code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">[1] "list"
+[1] "numeric"
+[1] 1
+[1] 2</pre>
+  </details>
+
+  <div class="callout tipp">
+    <span class="label">Deine Metapher: „Im Fach liegt eine Box"</span>
+    <p>Stell dir <code>modell</code> als <strong>Regal mit Fächern</strong> vor.
+      In jedem Fach liegt eine <strong>Box</strong>, und in der Box steckt der
+      eigentliche <strong>Inhalt</strong> (Vektor, Skalar, …):</p>
+    <table>
+      <tr><th>Schreibweise</th><th>Sprache</th><th>Ergebnis</th></tr>
+      <tr><td><code>modell[1]</code></td><td>„Gib mir die <strong>Box</strong> aus Fach 1"</td><td><strong>Liste</strong> (die Box) — Inhalt noch verpackt</td></tr>
+      <tr><td><code>modell[[1]]</code></td><td>„Öffne die Box aus Fach 1, gib mir den <strong>Inhalt</strong>"</td><td><strong>nackter Wert</strong> (numeric, …)</td></tr>
+      <tr><td><code>modell$koeffizient</code></td><td>Kurzform für <code>[[</code> per Namen</td><td>Inhalt, identisch mit <code>modell[[1]]</code></td></tr>
+    </table>
+    <p>Die doppelte Klammer greift eine Ebene tiefer — sie durchstößt die
+      Boxwand. Darum: <code>[</code> = Form behalten, <code>[[</code> = Inhalt
+      holen. Ein schöner Beweis:</p>
+    <pre><code>identical(modell[1][[1]], modell[[1]])   <span class="cmt"># TRUE</span></code></pre>
+    <p>Erst die Box (<code>[1]</code>), dann öffnen (<code>[[1]]</code>) —
+      identisch mit direktem Öffnen. <code>[</code> ist darum auch die häufigste
+      Fehlerquelle: <code>mean(modell[1])</code> → Fehler,
+      <code>mean(modell[[1]])</code> → 4.05.</p>
+  </div>
+
+  <!-- ---------------------------------------- FACTOR -->
+  <h3>5. factor — kategorial, und die große Falle</h3>
+  <p>Ein <code>factor</code> speichert kategoriale Werte: äußerlich sieht er aus
+    wie Text, <strong>intern ist er ein Integer-Vektor mit Labels</strong> (den
+    „levels"). Für Statistik unverzichtbar — ANOVA, χ²-Test und Regelkarten
+    brauchen <code>factor</code> für Gruppierungen. Das Innere:</p>
+
+  <pre><code>f &lt;- factor(c("gut", "schlecht", "gut", "mittel"))
+f                     <span class="cmt"># das SIEHST du</span>
+as.integer(f)         <span class="cmt"># das LIEGT DRUNTER: 2 3 2 1</span>
+unclass(f)            <span class="cmt"># nackt: Integer + attr("levels")</span></code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">[1] gut      schlecht gut      mittel
+Levels: gut mittel schlecht
+[1] 2 3 2 1
+[1] 2 3 2 1
+attr(,"levels")
+[1] "gut"      "mittel"   "schlecht"</pre>
+  <p>Die Levels werden <strong>alphabetisch</strong> geordnet — Codes sind
+    <code>1=gut, 2=mittel, 3=schlecht</code>. Die OOP-Entsprechung: ein
+    <strong>Enum</strong>, das seine Ordinals hat (<code>GUT.ordinal()==0</code>
+    in Java). Nur sortiert R die Labels alphabetisch, nicht nach Definition.</p>
+  </details>
+
+  <div class="callout achtung">
+    <span class="label">Die klassische Falle</span>
+    <p>Hast du Zahlen als Text gespeichert und wandelst sie über
+      <code>factor</code> zurück, bekommst du <em>nicht</em> die Zahlen:</p>
+    <pre><code>as.numeric(factor(c("10", "20", "30")))   <span class="cmt"># NICHT 10 20 30</span></code></pre>
+    <p>Ergebnis: <code>1 2 3</code> — die Factor-Codes. Korrekt:
+      <code>as.numeric(as.character(...))</code> — aber <strong>nur</strong>,
+      wenn die Labels echte Zahlen-als-Text sind!</p>
+    <p><strong>Regel:</strong> Normale Kategorie-Wörter (<code>"gut"</code>,
+      <code>"A"</code>, <code>"Maschine1"</code>) <strong>nie</strong> in
+      Zahlen wandeln — der Factor bleibt Factor. <code>as.numeric("gut")</code>
+      ergibt <code>NA</code>. Nur wenn Labels selbst Messwerte sind
+      (<code>"10"</code>, <code>"3.5"</code>), die fälschlich als Text landeten,
+      dann: <code>as.numeric(as.character(f))</code>.</p>
+  </div>
+
+  <!-- QUIZ 5 -->
+  <div class="quiz">
+    <div class="q-label">Die Falle</div>
+    <div class="question">Was liefert <code>as.numeric(factor(c("10","20","30")))</code>?</div>
+    <ul class="options">
+      <li data-correct="true">Eins zwei drei kommt</li>
+      <li data-correct="false">Zehn zwanzig dreissig</li>
+      <li data-correct="false">Fehler wird geworfen</li>
+      <li data-correct="false">Text bleibt erhalten</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. <code>factor</code> legt
+      Codes 1, 2, 3 an (alphabetisch sortierte Levels) — und
+      <code>as.numeric()</code> holt diese Codes, nicht die Werte.</div>
+    <div class="feedback" data-for="wrong">Falsch. Der Factor speichert
+      <em>intern</em> Integer-Codes. <code>as.numeric()</code> gibt die Codes
+      <code>1 2 3</code>, nicht <code>10 20 30</code>.</div>
+  </div>
+
+  <h3>Ordnung mitbringen: ordered factor</h3>
+  <p>Nominalskalen (A, B, C) sind unsortiert. Ordinalskalen
+    (niedrig &lt; mittel &lt; hoch) brauchen Reihenfolge:</p>
+  <pre><code>quali_o &lt;- factor(c("niedrig","mittel","hoch"),
+                  levels = c("niedrig","mittel","hoch"),
+                  ordered = TRUE)
+quali_o
+quali_o[1] &lt; quali_o[2]   <span class="cmt"># TRUE — Vergleich möglich</span></code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">[1] niedrig mittel  hoch
+Levels: niedrig &lt; mittel &lt; hoch
+[1] TRUE</pre>
+  </details>
+
+  <!-- ---------------------------------------- INSPEKTION -->
+  <h3>Inspektion — das Handwerkszeug</h3>
+  <p>Dieselben Funktionen, jedes Mal. Immer zuerst <code>str()</code> — dann
+    alles andere. Nutze den eingebauten <code>mtcars</code>-Datensatz
+    (32 Autos, 11 Variablen):</p>
+  <table>
+    <tr><th>Funktion</th><th>Liefert</th></tr>
+    <tr><td><code>class(x)</code></td><td>die Strukturklasse („data.frame")</td></tr>
+    <tr><td><code>str(x)</code></td><td>Struktur + Typ jeder Spalte <strong>(immer zuerst!)</strong></td></tr>
+    <tr><td><code>dim(x)</code></td><td>Zeilen- und Spaltenzahl</td></tr>
+    <tr><td><code>head(x)</code></td><td>die ersten 6 Zeilen (die Autonamen links sind <em>rownames</em> — Metadaten, keine Spalte!)</td></tr>
+    <tr><td><code>rownames(x)</code></td><td>Zeilennamen als Vektor</td></tr>
+    <tr><td><code>names(x)</code></td><td>Spaltennamen</td></tr>
+    <tr><td><code>summary(x)</code></td><td>pro Spalte: Min/Median/Mean/Max</td></tr>
+  </table>
+
+  <pre><code>str(mtcars)
+dim(mtcars)          <span class="cmt"># 32 11 — nicht 32 12 (rownames zaehlen NICHT)</span>
+head(mtcars)</code></pre>
+
+  <!-- ===================================================== DIDAKTIK GROSS -->
+  <h2>Didaktik — Schülern diesen Stoff erklären</h2>
+
+  <div class="callout didaktik">
+    <span class="label">Teil 1 (R-Einstieg) — drei Stolpersteine</span>
+    <ol>
+      <li><strong>Indizes beginnen bei 1</strong>, nicht bei 0.
+          <code>x[1]</code> ist das <em>erste</em> Element.</li>
+      <li><strong>Vektorisierung statt Schleifen.</strong> Schüler schreiben oft
+          <code>for</code>-Schleifen, wo <code>x * 2</code> genügt. Zeig früh
+          das R-Denken: Vektoroperationen, nicht Iterationen.</li>
+      <li><strong><code>&lt;-</code> vs <code>=</code> vs <code>==</code>.</code></strong>
+          Drei verschiedene Dinge; in Python nur zwei. Früh trennen.</li>
+    </ol>
+  </div>
+
+  <div class="callout didaktik">
+    <span class="label">Teil 1 — wie man den Einstieg rüberbringt</span>
+    <p>Beginne die allererste R-Stunde nicht mit Installation, sondern mit der
+      Konsole als „Taschenrechner", dann sofort <code>c(1,2,3) * 2</code> — der
+      Aha-Moment der Vektorisierung. <em>Danach</em> Installation und
+      RStudio. So hat der Taschenrechner schon gezeigt, warum sich Installieren
+      lohnt.</p>
+  </div>
+
+  <div class="callout didaktik">
+    <span class="label">Teil 2 (Datenstrukturen) — drei Lehr-Entscheidungen</span>
+    <ol>
+      <li><strong>factor als eigene kleine Sektion.</strong> Zeige zuerst den
+          Integer-unter-der-Haube-Effekt (<code>as.numeric(factor("10"))</code>
+          → 1), <em>bevor</em> ANOVA eingeführt wird. Sonst verwechseln Schüler
+          Factor-Codes mit Messwerten.</li>
+      <li><strong>matrix vs. data.frame kontrastieren.</strong> Ein einziger
+          Versuch — <code>matrix(c(1,"a"))</code> wird zu character — prägt
+          sich tiefer ein als jede Erklärung.</li>
+      <li><strong><code>str()</code> zur Pflicht machen.</strong> „Erst
+          <code>str()</code>, dann alles andere" als Routine einführen.
+          Verhindert 80 % der Folgefehler.</li>
+    </ol>
+  </div>
+
+  <div class="callout didaktik">
+    <span class="label">Prüfungsfalle: factor in Zahlen zurückwandeln</span>
+    <p>„Wandle die Factor-Spalte <code>note</code> (Werte „1", „2", „3") in
+      numerisch um." — wer <code>as.numeric(note)</code> schreibt, bekommt
+      <code>1 2 3</code> als Codes statt als Noten. Richtig:
+      <code>as.numeric(as.character(note))</code>. Klassische
+      Aufgabenstellung.</p>
+  </div>
+
+  <!-- ===================================================== HUE -->
+  <h2>Hausübung (für dich — Selbststudium)</h2>
+  <ol>
+    <li>Installiere R und RStudio auf deiner Maschine. Falls tidyverse auf
+      Linux streikt → <a href="../reference/r-setup-linux.html">R-Setup auf
+      Ubuntu</a>.</li>
+    <li>Tippe in der Konsole <code>x &lt;- 1:10</code> und dann
+      <code>x * x</code>. Notiere das Ergebnis.</li>
+    <li>Vorhersage (ohne R): was gibt <code>mean(1:100)</code>? Dann prüfen.</li>
+    <li>Lade <code>mtcars</code> und führe <code>str(mtcars)</code> aus.
+        Welche Spalten sind numeric, welche sinnvoll als <code>factor</code>
+        (Tipp: <code>cyl</code>, <code>gear</code>)?</li>
+    <li>Vorhersage (ohne R): <code>as.numeric(factor(c("5","5","10")))</code> —
+        dann prüfen und erklären.</li>
+    <li>Baue eine <code>data.frame</code> mit einer numeric-, einer character-
+        und einer factor-Spalte. Rufe <code>summary()</code> auf und vergleiche,
+        wie die drei Spalten unterschiedlich zusammengefasst werden.</li>
+    <li>Baue eine <code>list</code>, die einen Vektor, eine data.frame und
+        einen Skalar enthält. Beweise die Box-Metapher:
+        <code>identical(dein_list[1][[1]], dein_list[[1]])</code>.</li>
+  </ol>
+
+  <!-- ===================================================== QUELLE -->
+  <div class="callout quelle">
+    <span class="label">Primärquellen zum Vertiefen</span>
+    <p><a href="https://open.hpi.de/courses/programmieren-r2022">openHPI —
+      Programmieren mit R für Einsteiger</a> (Deutsch, kostenlos — erste Woche
+      deckt diesen Stoff). Begleitend: <a href="https://swirlstats.com">swirl</a>
+      für Muskelgedächtnis. Datenstrukturen in Referenz-Tiefe:
+      <a href="https://adv-r.hadley.nz/vectors-chap.html">Advanced R — Vectors</a>
+      (Wickham, kostenlos).</p>
+  </div>
+
+  <!-- ===================================================== ASK -->
+  <div class="ask">
+    <span class="label">Fragen? Unklarheiten?</span>
+    <p>Zum Beispiel: „Warum füllt <code>matrix()</code> spaltenweise?", „Wann
+      brauche ich ordered factor wirklich?", oder „Zeig mir, wie
+      <code>factor</code> in einer ANOVA wirkt." Frag mich einfach.</p>
+  </div>
+
+  <!-- ===================================================== FOOT -->
+  <div class="lesson-foot">
+    <p>UE 1 von <a href="../reference/km7-verlauf.html">KM 7</a> (15 UE).
+       Nächste Einheit: <strong>UE 2 — Daten einlesen &amp; deskriptive
+       Statistik</strong> (<code>read.csv()</code>, <code>dplyr</code>,
+       Lage-/Streuungsmaße, NA-Behandlung).</p>
+    <div class="nav">
+      <span class="prev"></span>
+      <a class="next" href="0002-daten-einlesen-deskriptiv.html">UE 2 →</a>
+    </div>
+  </div>
+
+</main>
+<script src="../assets/quiz.js" defer></script>
+</body>
+</html>

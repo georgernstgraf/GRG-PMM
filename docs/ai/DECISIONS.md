@@ -34,3 +34,23 @@ Each entry documents WHAT was decided and WHY.
 ## 2026-06-02: Language Policy
 - **Choice**: German for teaching materials and commit messages; English for AGENTS.md and technical docs
 - **Reason**: Matches the established conventions in GRG-WMC and GRG-INFI repositories.
+
+## 2026-07: Semester Plans Corrected to 15 Double-Periods
+
+- **Choice**: All four semester plans rewritten from 30→15 Doppelstunden each.
+- **Reason**: The 2026-06-02 time-model decision correctly stated 15 DS/semester, but three of four plans erroneously listed 30 DS (4 h/Woche). KM9b was already correct. Corrected to match reality: 1 Doppelstunde/week per class.
+
+## 2026-07: Self-Study Curriculum Compressed to 15 Teaching Units
+
+- **Choice**: KM7 selbststudium lessons consolidated from 30→15 Unterrichtseinheiten (UE), each binding ~2 old topics; depth kept.
+- **Reason**: Consistency between self-study learning and actual 15-Doppelstunden teaching budget. Each UE maps 1:1 to one Doppelstunde.
+
+## 2026-07: Three Artifacts Per Teaching Unit
+
+- **Choice**: Each UE produces (1) a Lern-Lektion for Georg (teach skill, Meisterschaft+Didaktik), (2) a Schueler-Praesentation (reveal.js via CDN), and (3) a Hausaufgabe (markdown).
+- **Reason**: Georg learns and prepares-to-teach simultaneously. Students clone the repo and get slides+homework in-browser, always online (CDN for reveal.js).
+
+## 2026-07: Prep-Numbered Folder Convention (NN-slug)
+
+- **Choice**: Before teaching dates are fixed, class materials live in `NN-slug/` folders (e.g., `01-r-grundlagen-datenstrukturen/`). Renamed to `YYYY-MM-DD_slug/` when the actual teaching date is known.
+- **Reason**: Curriculum preparation happens before semester scheduling. NN-slug preserves ordering and enables date assignment later without folder restructuring. Documented in AGENTS.md and 4AHWIT/README.md.

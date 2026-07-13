@@ -30,3 +30,5 @@ KM 9b (RIS BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5)
 ---
 
 **5 Statistik/R · 4 Energie · 3 Prüfung · 3 Projekt**
+
+(KM9b war bereits korrekt auf 15 Doppelstunden gesetzt — Matura-Semester.)

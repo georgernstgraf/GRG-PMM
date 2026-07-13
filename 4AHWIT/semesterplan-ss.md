@@ -3,67 +3,49 @@
 Prozessmanagement (PMM) — Maturafach WIT  
 KM 8 (RIS BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5)
 
-**Zeitmodell:** 30 Doppelstunden (4 h/Woche)  
-**Schwerpunkte:** SPC / Prozessfähigkeit (20 E.) · Umweltrecht & Methoden (8 E.) · Fallstudie (2 E.)  
+**Zeitmodell:** 15 Doppelstunden (1 DS/Woche)  
+**Schwerpunkte:** SPC (6 UE) · Prozessfähigkeit (4 UE) · Umwelt & IMS (3 UE) · Abschluss (2 UE)  
 **Werkzeug:** R / RStudio
 
 ---
 
-## Block A: Grundlagen SPC (1–6)
+## UE 1–6: SPC (Statistische Prozesslenkung)
 
-| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
-|---|-------|---------------------|---------------------|-----|
-| 1 | **SPC-Prinzipien & Shewhart** | Common Cause vs. Special Cause, `qcc()`-Paket | Erste x̄-R-Karte plotten | Regelkartentypen recherchieren |
-| 2 | **x̄-R-Karte** | Berechnung, Kontrollgrenzen, Interpretation | `qcc()` auf Produktionsdaten, Grenzen anpassen | OC-Kurve für x̄-Karte |
-| 3 | **x̄-s-Karte** | Unterschied zu x̄-R, Anwendung bei n > 10 | x̄-s im Vergleich zu x̄-R | Vergleich dokumentieren |
-| 4 | **Einzelwert- & MR-Karte** | I-MR-Karte, gleitende Spannweite | Anwendung bei Einzelmessungen | I-MR aus realen Daten |
-| 5 | **Attributive Karten I** | p-Karte, np-Karte — Fehleranteile | `qcc(type="p")`, `qcc(type="np")` | Fehleranteil überwachen |
-| 6 | **Attributive Karten II** | c-Karte, u-Karte — Fehler pro Einheit | `qcc(type="c")`, `qcc(type="u")` | Attribut-Karten vergleichen |
+| UE | Thema | Bemerkung |
+|----|-------|-----------|
+| 1 | **SPC-Prinzipien & Variablenkarten** | Shewhart, Common/Special Cause, `qcc()`; x̄-R & x̄-s-Karte |
+| 2 | **Einzelwert- & attributive Karten** | I-MR; p-, np-, c-, u-Karte in `qcc` |
+| 3 | **Regelkarten-Performance & Mustererkennung** | OC/ARL (Average Run Length), Western-Electric- & Nelson-Regeln, `runs.test()` |
+| 4 | **CUSUM & EWMA** | Empfindliche Karten für kleine Shifts; `qcc(type="cusum")`, `qcc(type="ewma")` |
+| 5 | **SPC-Spezialfälle** | Multivariate T²-Karte (`mqcc`), Short-Run-SPC, Box-Cox-Transformation für nicht-normalverteilte Daten |
+| 6 | **SPC-Werkzeuge & Dashboard** | RMarkdown, `flexdashboard`; Automatisierte Regelkarten-Dashboards |
 
-## Block B: SPC Vertiefung (7–13)
+## UE 7–10: Prozessfähigkeit
 
-| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
-|---|-------|---------------------|---------------------|-----|
-| 7 | **OC & ARL für Regelkarten** | Average Run Length, ATS | ARL für verschiedene Shift-Größen | ARL-Tabelle |
-| 8 | **CUSUM & EWMA** | Empfindliche Karten für kleine Shifts | `qcc(type="cusum")`, `qcc(type="ewma")` | CUSUM vs. Shewhart |
-| 9 | **Western-Electric & Nelson-Regeln** | Mustererkennung, Runs-Test | `runs.test()`, Zonen-Regeln in R | Musteranalyse-Protokoll |
-| 10 | **Multivariate SPC** | Hotelling-T², Grundprinzip | `mqcc`-Paket: T²-Karte | PCA-Vorbereitung |
-| 11 | **Short-Run-SPC** | Kurze Serien, standardisierte Karten | `qcc()` mit standardisierten Daten | Kurzserien-Szenario |
-| 12 | **SPC für nicht-normalverteilte Daten** | Box-Cox-Transformation, nichtparametrische Karten | Transformation mit `MASS::boxcox()` | Vorher-nachher-Vergleich |
-| 13 | **Automatisierte SPC-Dashboards** | RMarkdown, `flexdashboard` | Live-Dashboard für Regelkarten | Dashboard deployen |
+| UE | Thema |
+|----|-------|
+| 7 | **Cp/Cpk & Pp/Ppk** | Toleranz vs. Streuung, `SixSigma`-Paket; kurz- vs. langfristige Streuung |
+| 8 | **Maschinenfähigkeit & Cpm** | Cm/Cmk-Abgrenzung; Cpm (Taguchi-Loss, Zielwert-basierte Fähigkeit) |
+| 9 | **Nicht-normalverteilte Fähigkeit & MSA** | Quantil-Methode, Johnson-Transformation (`fitdistrplus`); Gage R&R (`SixSigma::ss.rr()`) |
+| 10 | **Fähigkeitsbericht** | Nach ISO 22514; vollständiger Bericht in RMarkdown |
 
-## Block C: Prozessfähigkeit (14–20)
+## UE 11–13: Umwelt & integrierte Systeme
 
-| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
-|---|-------|---------------------|---------------------|-----|
-| 14 | **Cp & Cpk** | Toleranz vs. Streuung, `SixSigma`-Paket | Cp und Cpk aus Produktionsdaten | Cpk-Bericht |
-| 15 | **Pp & Ppk** | Gesamtstreuung vs. kurzfristige Streuung | Pp/Ppk berechnen, vs. Cp/Cpk | Unterschied erklären |
-| 16 | **Maschinenfähigkeit Cm/Cmk** | Abgrenzung zur Prozessfähigkeit | Maschinenfähigkeitsanalyse | Cmk-Protokoll |
-| 17 | **Nicht-normalverteilte Fähigkeit** | Quantil-Methode, Johnson-Transformation | Fähigkeit mit `fitdistrplus` | Verteilungsauswahl |
-| 18 | **Cpm (Taguchi-Loss)** | Verlustfunktion, Zielwert-basierte Fähigkeit | Cpm berechnen und interpretieren | Taguchi vs. klassisch |
-| 19 | **Messsystemanalyse (MSA)** | Gage R&R, Wiederholbarkeit, Reproduzierbarkeit | `SixSigma::ss.rr()` | MSA-Protokoll |
-| 20 | **Fähigkeitsbericht nach Norm** | ISO 22514, vollständiger Bericht | Kompletter Fähigkeitsbericht in RMarkdown | Fähigkeitsbericht abgeben |
+| UE | Thema |
+|----|-------|
+| 11 | **Umweltrecht & ISO 14001 Planung** | UVP-G, AWG 2002, WRG 1959; Umweltaspekte, bindende Verpflichtungen, Signifikanz |
+| 12 | **ISO 14001 Umsetzung & Umweltkennzahlen** | Umweltprogramm, Audit, Management Review; EnPI, EMAS, Reporting-Dashboards |
+| 13 | **Integrierte Managementsysteme & MFCA** | ISO 9001+14001 High Level Structure; Materialflusskostenrechnung nach ISO 14051 |
 
-## Block D: Umweltmanagement (21–26)
+## UE 14–15: Abschluss
 
-| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
-|---|-------|---------------------|---------------------|-----|
-| 21 | **Umweltrecht I** | UVP-G, AWG 2002, Systematik | Rechtstext-Analyse: Anwendungsfall | Geltungsbereich skizzieren |
-| 22 | **Umweltrecht II** | WRG 1959, Emissionsgrenzwerte, Compliance | Grenzwertüberwachung in R plotten | Compliance-Report |
-| 23 | **ISO 14001: Kontext & Planung** | Umweltaspekte, bindende Verpflichtungen, Risiken | Aspektbewertung mit Signifikanzmatrix | Bewertungsmatrix |
-| 24 | **ISO 14001: Umsetzung & Betrieb** | Umweltprogramm, Kennzahlen, Dokumentation | Kennzahlen-Dashboard in R | Umweltprogramm |
-| 25 | **ISO 14001: Audit & Verbesserung** | Internes Audit, Management Review, Korrekturmaßnahmen | Audit-Checkliste in RMarkdown | Audit-Fragenkatalog |
-| 26 | **Umweltkennzahlen & Reporting** | EnPI, EMAS, Nachhaltigkeitsbericht | Dashboard mit `flexdashboard` | Kennzahlenbericht |
-
-## Block E: Integrierte Managementsysteme & Abschluss (27–30)
-
-| # | Thema | Halbzeit 1 (Vortrag) | Halbzeit 2 (R-Übung) | HÜ |
-|---|-------|---------------------|---------------------|-----|
-| 27 | **IMS: ISO 9001 + 14001** | High Level Structure, Integration, PDCA | Gap-Analyse zwischen Systemen | Gap-Identifikation |
-| 28 | **Materialflusskostenrechnung** | MFCA nach ISO 14051, Methode | MFCA in R rechnen | MFCA-Beispiel |
-| 29 | **Fallstudie**: SPC + Prozessfähigkeit + ISO 14001-Audit (durchgängig) |
-| 30 | **Semesterabschluss & Leistungsfeststellung** |
+| UE | Thema |
+|----|-------|
+| 14 | **Fallstudie**: SPC + Prozessfähigkeit + ISO 14001-Audit (durchgängig) |
+| 15 | **Semesterabschluss & Leistungsfeststellung** |
 
 ---
 
-**20 Statistik/R · 8 Umwelt · 2 Projekt**
+**Schwerpunkte:** 10 UE Statistik/R · 3 UE Umwelt/IMS · 2 UE Abschluss
+
+(Überarbeitet 2026-07 — korrigiert auf 15 Doppelstunden, 1 DS/Woche, zuvor fälschlich „30 Doppelstunden (4 h/Woche)" angenommen.)

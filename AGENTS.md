@@ -10,8 +10,8 @@ This repository contains coursework for **Projektmanagement und Netzwerktechnik 
 
 ## 2. Directory Structure
 
-- `4AHWIT/` — 4th year class materials, date-based folders (`YYYY-MM-DD_thema`)
-- `5AHWIT/` — 5th year class materials
+- `4AHWIT/` — 4th year class materials, date-based folders (`YYYY-MM-DD_thema`) and prep-numbered folders (`NN-slug/` for curriculum preparation before teaching dates are fixed)
+- `5AHWIT/` — 5th year class materials, same folder conventions
 - `selbststudium/` — Self-study workspace for learning R and statistics (Teach skill)
 - `.opencode/skills/` — Project-local opencode skills
 - `Unterlagen/` — Reference materials and scripts
@@ -21,6 +21,9 @@ This repository contains coursework for **Projektmanagement und Netzwerktechnik 
 ## 3. File Naming Conventions
 
 - Class lesson folders: `YYYY-MM-DD_thema/` (e.g., `2025-09-15_einfuehrung/`)
+  - During curriculum preparation (before teaching dates are known):
+    `NN-slug/` (e.g., `01-r-grundlagen-datenstrukturen/`). Rename to
+    `YYYY-MM-DD_slug/` when the teaching date is fixed.
 - Lowercase with hyphens for multi-word names
 - ISO 8601 date prefix for all dated documents
 
