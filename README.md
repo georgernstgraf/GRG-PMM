@@ -5,6 +5,28 @@ HTL Spengergasse — Abteilung Technisches Management & Umwelt
 
 ---
 
+## Beurteilung
+
+Die Note setzt sich aus drei gleich gewerteten Bereichen zusammen:
+
+| Bereich | Gewicht |
+|---|---|
+| PLF (Praxis-Leistungs-Feststellung) | 1/3 |
+| Hausübungen | 1/3 |
+| Mitarbeit | 1/3 |
+
+Mitarbeit umfasst auch Schulübungen und Stundenwiederholungen; deren Qualität und
+Intensität werden von der Lehrperson beurteilt.
+
+## Hausübungen
+
+- **Abgabe:** spätestens am nächsten Unterrichtstag **00:00 Uhr** (in der Regel eine Woche später).
+- **Nachreichung:** jederzeit möglich – die erreichte Punktezahl zählt **75 %**.
+- **Cutoff:** Genau **eine Woche vor dem Notenschluss, 00:00 Uhr**, ist Endtermin.
+  Danach werden die Repos automatisiert ausgewertet.
+
+---
+
 ## Übersicht
 
 PMM ist das Maturafach der WIT-Abteilung. Es verbindet **statistische Datenanalyse mit R** und **betriebliches Umwelt- und Facility Management** zur ganzheitlichen Prozessoptimierung.
