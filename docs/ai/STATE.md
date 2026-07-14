@@ -3,9 +3,12 @@
 Current status as of 2026-07-12.
 
 ## Current Focus
-Selbststudium (teach skill): Aufbau des KM-7-Kurses (4AHWIT WS).
-Pilot-Runde (UE1) komplett: Lern-Lektion gemergt, Präsentation + Hausaufgabe
-gebaut. Nächstes: UE 2 (Daten einlesen & deskriptive Statistik).
+Selbststudium (teach skill): **Phase 0 — JG3-Vorwissen (KM5+KM6)**.
+Mission um Phase 0 erweitert (vor KM7); 3 Tracks, 13 Lektionen (L0003–0015)
+in `selbststudium/reference/jg3-verlauf.html`. Track 1 L0003 (Zufallsvariablen)
+erstellt; Georg arbeitet sie durch. KM7-Ausbau (UE 2–15) pausiert, bis JG3
+gemeistert ist — JG3 ist Georgs eigene Zone der proximalen Entwicklung
+(Statistik-Anfänger, LR 0001).
 Semesterpläne und Konventionen auf 15 DS korrigiert.
 
 ## Completed (this cycle)
@@ -31,15 +34,19 @@ Semesterpläne und Konventionen auf 15 DS korrigiert.
       Paket.
 
 ## Pending
-- [ ] UE 2: Daten einlesen & deskriptive Statistik (Lern-Lektion +
-      Praesentation + HA)
-- [ ] UE 3–15 fortlaufend (je 3 Artefakte)
+- [ ] JG3 Track 1: L0004–0006 (Diskrete Verteilungen, Normalverteilung,
+      Exponentialverteilung) — je 1 Lektion/Session
+- [ ] JG3 Track 2: L0007–0011 (Schätzen & Inferenz)
+- [ ] JG3 Track 3: L0012–0015 (Anwendung & Lebensdauer)
+- [ ] KM7 UE 2–15 fortlaufend (pausiert bis JG3 sitzt; UE 4–5 werden danach
+      Review statt Erstkontakt)
+- [x] JG3 Phase-0-Setup: MISSION erweitert, jg3-verlauf.html, LR 0006,
+      Glossar-JG3-Begriffe, L0003 erstellt
 - [x] Einstiegstest 4AHWIT (JG3-Vorwissen KM5+KM6) im Test-Repo GRG-PMM-T
       angelegt und gepusht (commit 55bade9, Issue #1 dort). Pruefungstermin
       2026-09-07. Nach Korrektur KM7-Plan adaptieren.
 - [ ] Issue #1: Kommentar beim Commit (Stundenvolumen geklart; Fachzuordnung
       offen)
-- [ ] Kein Issue fuer Selbststudium angelegt (noetig vor Commit per AGENTS.md)
 
 ## Notes
 - R 4.5 / Ubuntu 26.04. tidyverse installiert (v2.0.0). Rscript: /usr/bin/Rscript.
@@ -51,6 +58,6 @@ Semesterpläne und Konventionen auf 15 DS korrigiert.
 - Nicht committet.
 
 ## Next Session Suggestion
-Georg Lektion 1 (UE1) abnehmen (falls noch nicht vollstaendig erledigt).
-Wenn sitzt: UE 2 (Daten einlesen & deskriptive Statistik) mit allen drei
-Artefakten bauen.
+Georg L0003 (Zufallsvariablen) abnehmen. Wenn Quizzes sitzen: Learning Record
+für L0003-Meisterschaft schreiben, dann **L0004 — Diskrete Verteilungen
+(Binomial, Hypergeometrisch, Poisson)** mit d/p/q/r-Praxis bauen.

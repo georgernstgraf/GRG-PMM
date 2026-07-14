@@ -26,7 +26,12 @@
 
 ## Lernstrategie
 
-- Empfohlene Start-Reihenfolge:
+- **Phase 0 (JG3-Vorwissen KM5+KM6) zuerst.** Curriculum-Map:
+  `reference/jg3-verlauf.html`. 3 Tracks, 13 Lektionen (0003–0015):
+  (1) Verteilungen, (2) Schätzen & Inferenz, (3) Anwendung & Lebensdauer.
+  JG3 ist das Fundament, auf dem KM7 aufbaut — und deckt exakt den Einstiegstest
+  im Test-Repo GRG-PMM-T ab.
+- Empfohlene Start-Reihenfolge (ab KM7-Vertiefung):
   1. openHPI "Programmieren mit R" (Deutsch, kostenlos) + swirl fuer Muskelgedaechtnis
   2. Coursera Duke "Statistics with R" (Audit) fuer Statistik-Tiefe
   3. R for Data Science (r4ds.hadley.nz) als Begleitbuch
@@ -37,3 +42,7 @@
 - Bevorzugt interaktive, gamifizierte Lernplaetze (wie boot.dev, brilliant.org).
 - Hat Programmiererfahrung (lehrt bereits andere Informatik-Faecher).
 - Selbststudium; keine formelle Schulung eingeplant.
+- **Quiz-Antworten immer gut mischen.** Korrekte Position (A/B/C/D) über
+  aufeinanderfolgende Fragen rotieren — nie darf ein Muster entstehen wie „C ist
+  immer richtig" oder „D immer falsch". Siehe auch
+  `docs/ai/CONVENTIONS.md` → „Quizzes & Prüfungsfragen".

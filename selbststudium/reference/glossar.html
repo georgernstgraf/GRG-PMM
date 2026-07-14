@@ -35,15 +35,57 @@
       ergänzt.)</li>
   </ul>
 
-  <h2>Statistik — Grundbegriffe</h2>
+<h2>Statistik — Grundbegriffe</h2>
   <dl class="terms">
     <dt>Mittelwert (arithmetisches Mittel)</dt>
     <dd>Summe aller Werte geteilt durch ihre Anzahl. Empfindlich gegenüber Ausreißern.</dd>
-    <dd class="avoid">Vermeide: „Durchschnitt“, „der Mean“.</dd>
+    <dd class="avoid">Vermeide: „Durchschnitt", „der Mean".</dd>
 
     <dt>Median</dt>
     <dd>Wert, der eine der Größe nach sortierte Reihe genau halbiert. Robust
       gegenüber Ausreißern. Bei gerader Anzahl: Mittel der beiden mittleren Werte.</dd>
+  </dl>
+
+  <h3>Wahrscheinlichkeit &amp; Verteilungen (Track 1)</h3>
+  <dl class="terms">
+    <dt>Zufallsvariable (X)</dt>
+    <dd>Ein Größe, die jedem Ausgang eines Zufallsexperiments eine Zahl zuordnet.
+      Wir reden danach über die Zahlen statt über Ausgänge — und können rechnen.</dd>
+    <dd class="avoid">Vermeide: „Zufallsgröße" wenn Verwirrung droht (im PMM-Kontext
+      gilt „Zufallsvariable" als kanonisch).</dd>
+
+    <dt>diskret</dt>
+    <dd>Eine Zufallsvariable nimmt <em>abzählbar</em> viele Werte an (Würfel,
+      „Anzahl defekter Stücke"). P(X = x) kann für einzelne Werte &gt; 0 sein.</dd>
+
+    <dt>stetig</dt>
+    <dd>Eine Zufallsvariable nimmt <em>überabzählbar</em> viele Werte in einem
+      Intervall an (Durchmesser, Lebensdauer). P(X = x) = 0; Wahrscheinlichkeiten
+      entstehen nur über Intervalle (Fläche unter der Dichte).</dd>
+
+    <dt>Wahrscheinlichkeitsfunktion f(x) — nur diskret</dt>
+    <dd>Ordnet jedem Wert seine Wahrscheinlichkeit zu: f(x) = P(X = x). Summe
+      über alle Werte ist 1.</dd>
+
+    <dt>Dichtefunktion f(x) — nur stetig</dt>
+    <dd>Ein Kurvenwert, der <em>keine</em> Wahrscheinlichkeit ist (darf &gt; 1
+      sein). Erst die <em>Fläche</em> unter der Kurve über einem Intervall
+      liefert P(a ≤ X ≤ b). f ist die Ableitung der Verteilungsfunktion F.</dd>
+    <dd class="avoid">Vermeide: „Punktegl.<2;4;2;dung der Dichte" — Dichte ≠ Wkeit.</dd>
+
+    <dt>Verteilungsfunktion F(x)</dt>
+    <dd>F(x) = P(X ≤ x) — die kumulierte Wahrscheinlichkeit bis x. Gilt für
+      <em>diskret und stetig</em>; steigt monoton von 0 nach 1. Bei stetig ist
+      F das Integral über die Dichte f; f ist die Ableitung von F.</dd>
+    <dd class="avoid">Vermeide: Verwechslung mit f(x) — f = an einem Punkt,
+      F = alles bis zum Punkt.</dd>
+
+    <dt>d/p/q/r (R-Präfixe)</dt>
+    <dd>Für jede benannte Verteilung hält R vier Funktionen bereit:
+      <code>d</code> = Dichte/Wahrscheinlichkeit f(x),
+      <code>p</code> = Verteilungsfunktion F(x),
+      <code>q</code> = Quantil (Umkehrung von F),
+      <code>r</code> = Zufallszahlen (simulieren).</dd>
   </dl>
 
   <h2>R &amp; Programmierung — Grundlagen</h2>

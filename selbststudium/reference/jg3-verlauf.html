@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JG3 — Verlaufsmap (KM5+KM6 · 3 Tracks)</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<main>
+
+  <div class="breadcrumb">
+    <a href="glossar.html">Glossar</a>
+    <span class="sep">/</span> JG3 Verlauf
+  </div>
+
+  <header class="lesson-head">
+    <div class="meta">Phase 0 · JG3 (3. Jahrgang) · KM 5 + KM 6 · 3 Tracks · 13 Lektionen</div>
+    <h1>JG3 — Verlaufsmap (Vorwissen vor KM7)</h1>
+    <p class="lede">Drei Lern-Tracks, die das statistische Fundament legen, bevor
+      KM 7 im Jahrgang 4 beginnt.       Quelle:
+      <a href="../../docs/lehrplan/pmm-lehrplan-text.md">pmm-lehrplan-text.md</a>
+      (Abschnitt III). Mission: <a href="../MISSION.md">R + Statistik beherrschen,
+      um zu unterrichten</a>.</p>
+  </header>
+
+  <div class="callout tipp">
+    <span class="label">Lernprofil & Score</span>
+    <p><strong>Phase 0</strong> der Mission. Lernprofil: sicherer Programmierer,
+      Statistik-Anfänger, lernt JG3-Theorie von Grund auf — mit R-Praxis parallel.
+      Die Lektionen nummerieren weiter als <code>0003</code>–<code>0015</code>
+      (an <code>0001</code>/<code>0002</code> = R-Mechanik &amp; deskriptive Statistik
+      aus KM 7-Vorbereitung anknüpfend).</p>
+  </div>
+
+  <div class="callout achtung">
+    <span class="label">Bezug zum Einstiegstest</span>
+    <p>Diese 3 Tracks decken exakt die 5 Themencluster des Einstiegstests ab, der
+      zu Schuljahresbeginn 2026/27 im Test-Repo
+      <a href="https://github.com/georgernstgraf/GRG-PMM-T">GRG-PMM-T</a> liegt
+      (<code>4ahwit/knowledge_4ahwit_2026-09-07.md</code>). Wer diesen Stoff hier
+      in jedem Track meisternt, kann den Einstiegstest selbst souverän korrigieren
+      und weiss, welches Vorwissen bei den Schülern vorausgesetzt wird.</p>
+  </div>
+
+  <div class="callout quelle">
+    <span class="label">Curriculare Verankerung</span>
+    <p><strong>KM5</strong> (5. Semester): „Statistische Grundlagen der
+      Qualitätssicherung, Parameter statistischer Verteilungen und ihre
+      Schätzwerte." <strong>KM6</strong> (6. Semester): „Zufallsstreu- und
+      Vertrauensbereiche, Auswertung und Darstellung von Prüfergebnissen,
+      Lebensdauerverteilungen." Volltext:
+      <a href="../../docs/lehrplan/pmm-lehrplan-text.md">pmm-lehrplan-text.md</a>
+      Abschnitt III.</p>
+  </div>
+
+  <h2>Track 1 — Wahrscheinlichkeitsverteilungen (KM5)</h2>
+  <p>Das Vokabular allerfolgenden Statistik: Zufallsvariablen, diskret vs.
+    stetig, Wahrscheinlichkeits- und Dichtefunktion, Verteilungsfunktion,
+    Standardisierung. Darauf bauen die konkreten Verteilungen (Binomial, Poisson,
+    Normal, Exponential).</p>
+  <table>
+    <tr><th>L</th><th>Thema</th><th>Profil</th><th>Lektion</th><th>Status</th></tr>
+    <tr><td>0003</td><td>Zufallsvariablen &amp; Wahrscheinlichkeit (diskret vs. stetig, f(x) vs. F(x))</td><td>📊 🎯</td><td><a href="../lessons/0003-zufallsvariablen-wahrscheinlichkeit.html">Lektion</a></td><td>➤</td></tr>
+    <tr><td>0004</td><td>Diskrete Verteilungen: Binomial, Hypergeometrisch, Poisson</td><td>📊 🎯</td><td>—</td><td>☐</td></tr>
+    <tr><td>0005</td><td>Normalverteilung &amp; Standardisierung (μ/σ, 68-95-99,7, z-Transformation)</td><td>📊 🎯</td><td>—</td><td>☐</td></tr>
+    <tr><td>0006</td><td>Exponentialverteilung (Rate λ, Gedächtnislosigkeit)</td><td>📊 🎯</td><td>—</td><td>☐</td></tr>
+  </table>
+
+  <h2>Track 2 — Schätzen &amp; Inferenz (KM5+KM6)</h2>
+  <p>Vom rein Beschreiben (Track 1) zum Schließen: Lage- und Streumaße,
+    Parameter der Grundgesamtheit vs. Stichprobenschätzwerte, Erwartungstreue und
+    Bessel-Korrektur, Standardfehler, Konfidenzintervalle (z, t, χ²).</p>
+  <table>
+    <tr><th>L</th><th>Thema</th><th>Profil</th><th>Lektion</th><th>Status</th></tr>
+    <tr><td>0007</td><td>Lage- &amp; Streumaße (Mittelwert/Median/Modus, Varianz/Std/Spannweite)</td><td>📊 🎯</td><td>—</td><td>☐</td></tr>
+    <tr><td>0008</td><td>Parameter vs. Schätzwerte, Erwartungstreue, Bessel n−1, Gesetz große Zahlen</td><td>📊 🎯</td><td>—</td><td>☐</td></tr>
+    <tr><td>0009</td><td>Standardfehler &amp; KI für μ bei bekanntem σ (SE=σ/√n, z=1,96, Breite)</td><td>📊 🎯</td><td>—</td><td>☐</td></tr>
+    <tr><td>0010</td><td>t-Verteilung &amp; KI bei unbekanntem σ (df, dickere Ränder, Konvergenz)</td><td>📊 🎯</td><td>—</td><td>☐</td></tr>
+    <tr><td>0011</td><td>χ²-Verteilung &amp; KI für σ² (Goodness-of-Fit-Vorgriff)</td><td>📊 🎯</td><td>—</td><td>☐</td></tr>
+  </table>
+
+  <h2>Track 3 — Anwendung &amp; Lebensdauer (KM6)</h2>
+  <p>Theorie wird Werkzeug: Prüfergebnisse sichtbar machen (Histogramm, Boxplot,
+    QQ-Plot, Streudiagramm), Kennzahlen und Ausreißer erkennen, und schließlich
+    Lebensdauer modellieren (Zuverlässigkeitsfunktion, Ausfallrate, Weibull- &
+    Exponentialverteilung, Badewannenkurve, MTBF/MTTF).</p>
+  <table>
+    <tr><th>L</th><th>Thema</th><th>Profil</th><th>Lektion</th><th>Status</th></tr>
+    <tr><td>0012</td><td>Prüfergebnisse darstellen (Histogramm, Boxplot, QQ-Plot, Streudiagramm)</td><td>📊 🎯</td><td>—</td><td>☐</td></tr>
+    <tr><td>0013</td><td>Kennzahlen &amp; Ausreißer (IQR, 1,5·IQR-Regel, Schiefe/Wölbung)</td><td>📊 🎯</td><td>—</td><td>☐</td></tr>
+    <tr><td>0014</td><td>Lebensdauer-Grundlagen (R(t), Ausfallrate λ(t), Badewannenkurve)</td><td>📊 🎯</td><td>—</td><td>☐</td></tr>
+    <tr><td>0015</td><td>Weibull- &amp; Exponentialverteilung als Lebensdauer (β/η, MTBF/MTTF, 63,2 %)</td><td>📊 🎯</td><td>—</td><td>☐</td></tr>
+  </table>
+
+  <h2>Pacing-Profil (Legende)</h2>
+  <table>
+    <tr><th>Marker</th><th>Bedeutung</th></tr>
+    <tr><td>⚡</td><td><strong>Coder-Tempo</strong> — Programmier-Konzept bekannt; Fokus auf R-Spezifika</td></tr>
+    <tr><td>📊</td><td><strong>Statistik-Tiefe</strong> — Konzept von Grund auf</td></tr>
+    <tr><td>🎯</td><td><strong>Kern</strong> für die Mission (R + Statistik + Annahmeprüfung)</td></tr>
+    <tr><td>✅</td><td>abgeschlossen (Learning Record geschrieben)</td></tr>
+    <tr><td>☐</td><td>offen — noch nicht gestartet</td></tr>
+  </table>
+
+  <div class="callout quelle">
+    <span class="label">Eine Lektion pro Session</span>
+    <p>Die Tracks sind <em>nicht</em> Module zum Durch Hetzen. Jede Lektion ist
+      eine selbst­enthaltende Einheit in der Zone der proximalen Entwicklung mit
+      Quiz und R-Praxis. Pro Session eine Lektion; nachgewiesenes Verständnis wird
+      in einem Learning Record festgehalten. Track 2 baut auf Track 1 auf, Track 3
+      auf beiden.</p>
+  </div>
+
+  <div class="lesson-foot">
+    <p>Phase 0 von <a href="../MISSION.md">Mission: R &amp; Statistik</a>.
+      Anschluss: <a href="km7-verlauf.html">KM 7 — Verlaufsmap (15 UE)</a> baut auf
+      diesem Vorwissen auf.</p>
+  </div>
+
+</main>
+<script src="../assets/quiz.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>L0003 — Zufallsvariablen &amp; Wahrscheinlichkeit</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<main>
+
+  <div class="breadcrumb">
+    <a href="../reference/jg3-verlauf.html">JG3 Verlauf</a>
+    <span class="sep">/</span>
+    Track 1 · L0003
+  </div>
+
+  <header class="lesson-head">
+    <div class="meta">
+      Phase 0 · Track 1 (Verteilungen, KM5) &nbsp;·&nbsp; 📊 🎯 &nbsp;·&nbsp;
+      <a href="../reference/jg3-verlauf.html">Verlaufsmap</a> &nbsp;·&nbsp;
+      <a href="../reference/glossar.html">Glossar</a>
+    </div>
+    <h1>Zufallsvariablen &amp; Wahrscheinlichkeit</h1>
+    <p class="lede">Das Vokabular, ohne das keine Verteilung, kein Konfidenzintervall
+      und kein t-Test funktioniert: Was ist eine Zufallsvariable, was unterscheidet
+      diskret von stetig, und warum ist eine Dichte <em>keine</em> Wahrscheinlichkeit?
+      Wer das sicher hat, liest jede Statistik-Formel.</p>
+  </header>
+
+  <!-- ========================================================= WARUM -->
+  <h2>Warum diese Lektion</h2>
+  <p>Die gesamte Statistik — vom Einstiegstest bis zur Zuverlässigkeitsanalyse im
+    JG5 — baut auf einem einzigen Begriff auf: der <strong>Zufallsvariable</strong>.
+    In Track 1 lernst du die Verteilungen (Binomial, Poisson, Normal,
+    Exponential) kennen. Bevor eine davon drankommt, brauchst du das
+    <strong>Gerüst</strong>: diskret vs. stetig, Wahrscheinlichkeitsfunktion vs.
+    Dichtefunktion, und die Verteilungsfunktion F(x) als gemeinsame Sprache. Das
+    ist diese Lektion.</p>
+
+  <div class="callout tipp">
+    <span class="label">Die eine Idee</span>
+    <p>Eine <strong>Zufallsvariable</strong> ordnet jedem Ausgang eines
+      Zufallsexperiments eine Zahl zu. Der Trick der Statistik: Wir beschreiben
+      nicht mehr jeden Ausgang einzeln, sondern die <em>Verteilung</em> der
+      Zahlen — über zwei Funktionen, <strong>f(x)</strong> und
+      <strong>F(x)</strong>. Wer den Unterschied dieser beiden Funktionen
+      verstanden hat, hat 80 % des Formal-Zeugs gemeistert, das im Einstiegstest
+      abgefragt wird.</p>
+  </div>
+
+  <!-- ===================================================== ZUFALLSVARIABLE -->
+  <h2>Was ist eine Zufallsvariable?</h2>
+  <p>Ein Zufallsexperiment (Würfeln, Bauteil auf Lebensdauer prüfen, Messen eines
+    Durchmessers) hat Ausgänge. Eine <strong>Zufallsvariable X</strong> ist eine
+    Vorschrift, die jedem Ausgang eine <em>Zahl</em> zuordnet:</p>
+
+  <table>
+    <tr><th>Experiment</th><th>Ausgang</th><th>Zufallsvariable X</th></tr>
+    <tr><td>Würfel werfen</td><td>1, 2, 3, 4, 5, 6</td><td>gewürfelte Augenzahl</td></tr>
+    <tr><td>Bauteil prüfen</td><td>funktioniert / defekt</td><td>1 = defekt, 0 = i.O.</td></tr>
+    <tr><td>Durchmesser messen</td><td>jeder reelle Wert um den Sollwert</td><td>gemessener Wert (mm)</td></tr>
+    <tr><td>Bauteil betreiben</td><td>Zeit bis Ausfall</td><td>Lebensdauer (h)</td></tr>
+  </table>
+
+  <p>Der Gewinn: Statt über Ausgänge reden wir über <strong>Zahlen</strong> und
+    können rechnen — Mittelwert, Streuung, Wahrscheinlichkeiten für
+    Wertebereiche.</p>
+
+  <!-- ===================================================== DISKRET/STETIG -->
+  <h2>Diskret vs. stetig — die entscheidende Gabelung</h2>
+  <p>Zufallsvariablen kommen in zwei Geschmacksrichtungen, und <strong>fast jede
+    Formel ändert sich</strong> je nachdem:</p>
+
+  <table>
+    <tr><th></th><th>diskret</th><th>stetig</th></tr>
+    <tr><td>Werte</td><td>abzählbar (1, 2, 3, …)</td><td>überabzählbar (jeder reelle Wert in einem Intervall)</td></tr>
+    <tr><td>Beispiele</td><td>Würfel, „Anzahl defekter Stücke"</td><td>Durchmesser, Lebensdauer, Reaktionszeit</td></tr>
+    <tr><td>P(X = x)</td><td>kann &gt; 0 sein</td><td><strong>stets 0</strong> für jeden einzelnen Wert</td></tr>
+    <tr><td>Funktion f(x)</td><td><strong>Wahrscheinlichkeitsfunktion</strong>: f(x) = P(X = x)</td><td><strong>Dichtefunktion</strong>: f(x) ist <em>keine</em> Wahrscheinlichkeit</td></tr>
+  </table>
+
+  <div class="callout achtung">
+    <span class="label">Der Schock für Anfänger</span>
+    <p>Bei einer <strong>stetigen</strong> Zufallsvariable ist die Wahrscheinlichkeit,
+      <em>genau</em> einen Wert zu treffen (z. B. Durchmesser = 10,000000 mm),
+      <strong>null</strong>. Das klingt paradox — natürlich ist der gemessene Wert
+      irgendeine Zahl. Aber es gibt unendlich viele mögliche Zahlen, und jede
+      einzelne trägt davon null Gewicht. <strong>Wahrscheinlichkeiten entstehen
+      erst über Intervalle</strong> — als Fläche unter der Dichtefunktion.</p>
+  </div>
+
+  <!-- DIAGRAMM: diskret vs stetig -->
+  <h3>Im Bild: Punkte vs. Fläche</h3>
+  <svg viewBox="0 0 460 170" style="width:100%;max-width:460px;display:block;margin:1rem auto;" aria-label="diskret: Punkte vs. stetig: Fläche">
+    <!-- diskret: Punkte -->
+    <text x="60" y="20" font-size="12" fill="#4a4a4a">diskret — Punkte</text>
+    <line x1="30" y1="140" x2="150" y2="140" stroke="#8a8a8a"/>
+    <g fill="#8a1538">
+      <circle cx="50"  cy="110" r="5"/>
+      <circle cx="75"  cy="85"  r="5"/>
+      <circle cx="100" cy="60"  r="5"/>
+      <circle cx="125" cy="95"  r="5"/>
+    </g>
+    <text x="45"  y="155" font-size="10" fill="#8a8a8a">1</text>
+    <text x="70"  y="155" font-size="10" fill="#8a8a8a">2</text>
+    <text x="95"  y="155" font-size="10" fill="#8a8a8a">3</text>
+    <text x="120" y="155" font-size="10" fill="#8a8a8a">4</text>
+    <text x="50"  y="103" font-size="9"  fill="#4a4a4a">0,2</text>
+    <text x="100" y="53"  font-size="9"  fill="#4a4a4a">0,4</text>
+
+    <!-- stetig: Dichtekurve + Fläche -->
+    <text x="270" y="20" font-size="12" fill="#4a4a4a">stetig — Fläche = Wkeit</text>
+    <line x1="250" y1="140" x2="440" y2="140" stroke="#8a8a8a"/>
+    <path d="M250 140 Q345 30 440 140" fill="#f3e7eb" stroke="#8a1538" stroke-width="2"/>
+    <path d="M300 140 L300 100 Q345 55 390 100 L390 140 Z" fill="#8a1538" fill-opacity="0.45"/>
+    <text x="320" y="135" font-size="9" fill="#4a4a4a">P(a ≤ X ≤ b) = Fläche</text>
+  </svg>
+
+  <p>Links: bei einer <strong>diskreten</strong> Verteilung sitzen
+    Wahrscheinlichkeiten als <em>Punkte</em> (Balken) auf den einzelnen Werten.
+    Rechts: bei einer <strong>stetigen</strong> Verteilung ist die
+    Wahrscheinlichkeit die <em>Fläche</em> unter der Kurve zwischen zwei Werten —
+    ein einzelner Punkt hat keine Fläche, also P(X = x) = 0.</p>
+
+  <!-- QUIZ 1 -->
+  <div class="quiz">
+    <div class="q-label">Verständnis</div>
+    <div class="question">Eine stetige Zufallsvariable: was gilt für P(X = x)?</div>
+    <ul class="options">
+      <li data-correct="true">P(X=x) ist stets null</li>
+      <li data-correct="false">P(X=x) ist stets eins</li>
+      <li data-correct="false">P(X=x) ist stets klein</li>
+      <li data-correct="false">P(X=x) ist stets gross</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. Bei stetigen ZV hat ein
+      einzelner Wert keine Fläche — die Wahrscheinlichkeit steckt in
+      <em>Intervallen</em>, nicht in Punkten.</div>
+    <div class="feedback" data-for="wrong">Falsch. Bei stetigen ZV ist
+      P(X = x) = 0 für jeden einzelnen Wert; Wahrscheinlichkeiten entstehen erst
+      über Intervalle (Fläche unter der Dichte).</div>
+  </div>
+
+  <!-- QUIZ 2 -->
+  <div class="quiz">
+    <div class="q-label">Gegenprobe</div>
+    <div class="question">Eine diskrete Zufallsvariable …</div>
+    <ul class="options">
+      <li data-correct="true">nimmt abzählbar Werte an</li>
+      <li data-correct="false">nimmt stetig Werte an</li>
+      <li data-correct="false">nimmt keine Werte an</li>
+      <li data-correct="false">nimmt alle Werte an</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. „Abzählbar" heißt: die
+      Werte lassen sich aufzählen (1, 2, 3, …). Beim Würfel sind es sechs, bei
+      „Anzahl defekter Stücke" jede nichtnegative ganze Zahl.</div>
+    <div class="feedback" data-for="wrong">Falsch. Diskret = abzählbar viele
+      Werte (z. B. 1–6 beim Würfel). Stetig = überabzählbar, jeder Wert in einem
+      Intervall.</div>
+  </div>
+
+  <!-- ===================================================== DIE ZWEI FUNKTIONEN -->
+  <h2>Die zwei Funktionen: f(x) und F(x)</h2>
+  <p>Jede Verteilung wird durch zwei Funktionen beschrieben. Sie werden im
+    Einstiegstest (Frage 8) direkt abgefragt — und in jeder Folgelektion
+    vorausgesetzt.</p>
+
+  <h3>f(x) — Wahrscheinlichkeits- bzw. Dichtefunktion</h3>
+  <p><strong>Diskret:</strong> f(x) = P(X = x). Das ist direkt eine
+    Wahrscheinlichkeit — z. B. f(3) = 1/6 beim Würfel.</p>
+  <p><strong>Stetig:</strong> f(x) ist die <em>Dichtefunktion</em>. Sie ist
+    <strong>keine</strong> Wahrscheinlichkeit und darf sogar größer als 1 sein.
+    Erst das <em>Integral</em> (die Fläche) über ein Intervall liefert eine
+    Wahrscheinlichkeit:</p>
+  <p style="text-align:center"><code>P(a ≤ X ≤ b) = ∫ f(x) dx&nbsp;&nbsp;(von a bis b)</code></p>
+
+  <h3>F(x) — die Verteilungsfunktion</h3>
+  <p>Die Verteilungsfunktion <strong>gilt für diskret UND stetig</strong> und
+    ist der große Vereiniger:</p>
+  <p style="text-align:center"><code>F(x) = P(X ≤ x)</code></p>
+  <p>Bei einer <strong>stetigen</strong> ZV ist F(x) das Integral über die
+    Dichte von −∞ bis x. Und die Dichte ist die <em>Ableitung</em> von F(x):</p>
+  <p style="text-align:center"><code>F(x) = ∫ f(t) dt&nbsp;&nbsp;⇒&nbsp;&nbsp;f(x) = F'(x)</code></p>
+
+  <div class="callout tipp">
+    <span class="label">Eselsbrücke — Kleiner-als</span>
+    <p>Das <strong>F</strong> steht für die <em>kumulierte</em> Wahrscheinlichkeit
+      „bis <em>kleiner-gleich</em> x": F(x) = P(X ≤ x). Die Funktion
+      <strong>steigt</strong> monoton von 0 (ganz links) nach 1 (ganz rechts) —
+      mehr geht nicht, weil Wahrscheinlichkeiten maximal 1 sind.</p>
+  </div>
+
+  <div class="callout didaktik">
+    <span class="label">Didaktik — typischer Schülerirrtum</span>
+    <p>Schüler verwechseln f(x) und F(x) regelmäßig. Die Frage „P(X ≤ 5)"
+      verlangt <strong>F(5)</strong>, nicht f(5). Trenne schon hier scharf:
+      <em>f</em> = Dichte/Wahrscheinlichkeit an einem Punkt, <em>F</em> = alles
+      <em>bis</em> zu diesem Punkt. Im Einstiegstest (Frage 8) ist genau diese
+      Unterscheidung Teil der korrekten Antwort.</p>
+  </div>
+
+  <!-- QUIZ 3 -->
+  <div class="quiz">
+    <div class="q-label">Verständnis</div>
+    <div class="question">Die Verteilungsfunktion F(x) gibt an …</div>
+    <ul class="options">
+      <li data-correct="true">P(X ≤ x) direkt an</li>
+      <li data-correct="false">P(X = x) direkt an</li>
+      <li data-correct="false">P(X &gt; x) direkt an</li>
+      <li data-correct="false">P(X ≠ x) direkt an</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. F(x) = P(X ≤ x) — die
+      kumulierte Wahrscheinlichkeit bis zum Wert x. Funktioniert für diskrete
+      wie stetige ZV.</div>
+    <div class="feedback" data-for="wrong">Falsch. F(x) = P(X ≤ x). Für
+      P(X = x) brauchst du f(x) (diskret) bzw. es ist 0 (stetig).</div>
+  </div>
+
+  <!-- QUIZ 4 -->
+  <div class="quiz">
+    <div class="q-label">Falle</div>
+    <div class="question">Die Dichtefunktion f(x) einer stetigen ZV ist …</div>
+    <ul class="options">
+      <li data-correct="true">keine Wahrscheinlichkeit direkt</li>
+      <li data-correct="false">direkt eine Wahrscheinlichkeit</li>
+      <li data-correct="false">stets eine Konstante null</li>
+      <li data-correct="false">immer unendlich gross</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. f(x) selbst ist keine
+      Wahrscheinlichkeit (darf sogar &gt; 1 sein). Erst die <em>Fläche</em> unter
+      f über einem Intervall ist P(a ≤ X ≤ b).</div>
+    <div class="feedback" data-for="wrong">Falsch. Die Dichte f(x) ist kein
+      Wahrscheinlichkeits­wert. Die Wahrscheinlichkeit steckt in der
+      <em>Fläche</em> unter der Kurve, nicht im Kurvenwert selbst.</div>
+  </div>
+
+  <!-- ===================================================== R-PRAXIS -->
+  <h2>R-Praxis — eine Zufallsvariable simulieren</h2>
+  <p>Bevor wir in den nächsten Lektionen die <em>konkreten</em> Verteilungen mit
+    R berechnen, simulieren wir hier eine <strong>diskrete</strong> ZV direkt:
+    den Würfel. Die Funktion <code>sample()</code> zieht zufällig aus einer
+    Menge — unser erstes echtes Zufallsexperiment in R.</p>
+
+  <pre><code><span class="cmt"># 100-mal wuerfeln: Ziehen MIT Zuruecklegen aus 1:6</span>
+set.seed(42)                       <span class="cmt"># reproduzierbar — gleiche Zufallszahlen</span>
+wurf &lt;- sample(1:6, size = 100, replace = TRUE)
+head(wurf, 10)                     <span class="cmt"># die ersten 10 Ergebnisse</span></code></pre>
+  <details><summary>R-Ergebnis zeigen (erst selbst vorhersagen)</summary>
+  <pre class="output"> [1] 1 5 2 5 6 4 3 3 6 4</pre>
+  </details>
+
+  <p>Jetzt zählen wir, wie oft jede Augenzahl kam — das ist die
+    <strong>empirische</strong> Häufigkeitsverteilung, ein Schatten der
+    <em>theoretischen</em> Wahrscheinlichkeitsfunktion f(x):</p>
+
+  <pre><code>table(wurf)                       <span class="cmt"># absolute Haeufigkeit je Wert</span>
+table(wurf) / 100                 <span class="cmt"># relative Haeufigkeit ≈ P(X = x)</span></code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">wurf
+ 1  2  3  4  5  6
+16 18 18 22 13 13
+
+        1    2    3    4    5    6
+     0.16 0.18 0.18 0.22 0.13 0.13</pre>
+  <p>Die relativen Häufigkeiten pendeln um 1/6 ≈ 0,167 — das ist das
+    <strong>Gesetz der großen Zahlen</strong> im Kleinen (kommt ausführlich in
+    L0008). Mit 10 000 Würfen würde es noch viel enger um 0,167 liegen.</p>
+  </details>
+
+  <div class="callout tipp">
+    <span class="label">Vorschau: das d/p/q/r-Schema</span>
+    <p>Für jede benannte Verteilung (Binomial, Poisson, Normal, …) hält R vier
+      Funktionen bereit, die alle gleich aufgebaut sind — mit einem
+      <em>Buchstaben-Prefix</em>:</p>
+    <table>
+      <tr><th>Prefix</th><th>liefert</th><th>Beispiel (Normal)</th></tr>
+      <tr><td><code>d</code></td><td>Dichte/Wahrscheinlichkeit f(x)</td><td><code>dnorm(0)</code> → f(0)</td></tr>
+      <tr><td><code>p</code></td><td>Verteilungsfunktion F(x) = P(X ≤ x)</td><td><code>pnorm(0)</code> → 0,5</td></tr>
+      <tr><td><code>q</code></td><td>Quantil — Umkehrung von F</td><td><code>qnorm(0,975)</code> → 1,96</td></tr>
+      <tr><td><code>r</code></td><td>Zufallszahlen (simulieren)</td><td><code>rnorm(5)</code></td></tr>
+    </table>
+    <p>Merkregel: <strong>d = density, p = probability (cumul.), q = quantile,
+      r = random</strong>. Ab L0004 wenden wir das auf konkrete Verteilungen an;
+      <code>sample()</code> oben war der „handgemachte" Vorläufer von
+      <code>r</code>.</p>
+  </div>
+
+  <div class="callout didaktik">
+    <span class="label">Didaktik — warum sample() vor den Prefixen</span>
+    <p>Im Unterricht lohnt es sich, den Würfel <em>erst</em> mit
+      <code>sample()</code> zu simulieren, bevor <code>rbinom()</code> kommt.
+      So sehen Schüler, dass eine Verteilung ein <em>Zufallsexperiment</em> ist,
+      das sie selbst bauen können — und die <code>d/p/q/r</code>-Prefixe sind
+      dann nur noch Komfortfunktionen für dasselbe Prinzip.</p>
+  </div>
+
+  <!-- QUIZ 5 -->
+  <div class="quiz">
+    <div class="q-label">R-Praxis</div>
+    <div class="question">Was liefert <code>table(sample(1:6, 100, replace = TRUE))</code>?</div>
+    <ul class="options">
+      <li data-correct="true">Haeufigkeit je Augenzahl</li>
+      <li data-correct="false">Summe aller Augenzahlen</li>
+      <li data-correct="false">Mittelwert der Augenzahl</li>
+      <li data-correct="false">Maximum der Augenzahlen</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. <code>sample(1:6, 100,
+      replace = TRUE)</code> würfelt 100-mal, <code>table()</code> zählt je
+      Wert — die empirische Häufigkeitsverteilung.</div>
+    <div class="feedback" data-for="wrong">Falsch. <code>table()</code> zählt
+      die <em>Häufigkeit</em> je Wert. Für die Summe bräuchtest du
+      <code>sum()</code>, für den Mittelwert <code>mean()</code>.</div>
+  </div>
+
+  <!-- ===================================================== ZUSAMMENFASSUNG -->
+  <h2>Mitnehmen — der Kompakt-Kasten</h2>
+  <table>
+    <tr><th>Begriff</th><th>Ein Satz</th></tr>
+    <tr><td>Zufallsvariable X</td><td>Ordnet jedem Ausgang eines Zufallsexperiments eine Zahl zu.</td></tr>
+    <tr><td>diskret</td><td>Abzählbar viele Werte; P(X = x) kann &gt; 0 sein; f(x) = P(X = x).</td></tr>
+    <tr><td>stetig</td><td>Überabzählbar; P(X = x) = 0; Wkeit nur über Intervalle (Fläche).</td></tr>
+    <tr><td>Dichte f(x)</td><td>Bei stetig: kein Wahrscheinlichkeitswert; <em>Fläche</em> = Wkeit. f = F'.</td></tr>
+    <tr><td>Verteilungsfunktion F(x)</td><td>P(X ≤ x), gilt für diskret UND stetig; steigt von 0 nach 1.</td></tr>
+    <tr><td>R-Schema</td><td><code>d</code>=f(x), <code>p</code>=F(x), <code>q</code>=Quantil, <code>r</code>=Zufall.</td></tr>
+  </table>
+
+  <!-- ===================================================== HUE -->
+  <h2>Hausübung (für dich — Selbststudium)</h2>
+  <ol>
+    <li>Simuliere <code>sample(1:6, 1000, replace = TRUE)</code> und vergleiche
+      die relativen Häufigkeiten mit 1/6. Werden sie näher an 0,167 als bei 100
+      Würfen? (Gesetz der großen Zahlen —Vorgriff auf L0008.)</li>
+    <li>Erkläre mit eigenen Worten, warum bei einer <em>stetigen</em>
+      Zufallsvariable P(X = x) = 0 gilt, obwohl der gemessene Wert eine konkrete
+      Zahl ist.</li>
+    <li>Welche der beiden Funktionen — f(x) oder F(x) — würdest du verwenden, um
+      „P(X ≤ 5)" zu berechnen? Begründe.</li>
+    <li>Teste in R: <code>pnorm(0)</code> und <code>dnorm(0)</code>. Welcher
+      Wert ist eine Wahrscheinlichkeit, welcher nicht? (Die Normalverteilung
+      kommt in L0005 — hier nur „schnuppern".)</li>
+    <li>Vorhersage: Ist <code>dnorm(0)</code> größer oder kleiner als 1? Prüfe
+      und erkläre mit „Dichte ist keine Wahrscheinlichkeit".</li>
+  </ol>
+
+  <!-- ===================================================== QUELLE -->
+  <div class="callout quelle">
+    <span class="label">Primärquelle zum Vertiefen</span>
+    <p><a href="https://learningstatisticswithr.com/">Danielle Navarro —
+      Learning Statistics with R</a> (kostenlos), Kapitel zur
+      Wahrscheinlichkeit &amp; Zufallsvariablen — konversationell, ehrlich, genau
+      für Statistik-Einsteiger geschrieben. Deutschsprachig ergänzend:
+      <a href="https://open.hpi.de/courses/programmieren-r2022">openHPI —
+      Programmieren mit R</a> (Woche zu Wahrscheinlichkeit). Siehe auch
+      <a href="../RESOURCES.md">RESOURCES.md</a>.</p>
+  </div>
+
+  <!-- ===================================================== ASK -->
+  <div class="ask">
+    <span class="label">Fragen? Unklarheiten?</span>
+    <p>Zum Beispiel: „Warum darf eine Dichte größer als 1 sein?", „Wie hängen
+      f und F bei einer <em>diskreten</em> ZV zusammen?", oder „Zeig mir, wie
+      <code>sample()</code> mit Wahrscheinlichkeiten gewichtet." Frag mich
+      einfach — ich bin dein Lehrer.</p>
+  </div>
+
+  <!-- ===================================================== FOOT -->
+  <div class="lesson-foot">
+    <p>Track 1 · Lektion 1 von 4.
+       Nächste Einheit: <strong>L0004 — Diskrete Verteilungen (Binomial,
+       Hypergeometrisch, Poisson)</strong> — die <code>d/p/q/r</code>-Prefixe
+       im Ernstfall. Siehe <a href="../reference/jg3-verlauf.html">Verlaufsmap</a>.</p>
+    <div class="nav">
+      <a class="prev" href="0002-daten-einlesen-deskriptiv.html">← L0002</a>
+      <a class="next" href="../reference/jg3-verlauf.html">Verlaufsmap →</a>
+    </div>
+  </div>
+
+</main>
+<script src="../assets/quiz.js" defer></script>
+</body>
+</html>
