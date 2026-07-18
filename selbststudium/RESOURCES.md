@@ -47,13 +47,22 @@
 ### Buecher (kostenlos online)
 
 - [R for Data Science (2nd Ed.) — Hadley Wickham](https://r4ds.hadley.nz/)
-  DAS Standardwerk. Kostenlos online. Vom tidyverse-Erfinder. Kompletter Data-Science-Workflow.
+  DAS Standardwerk. Kostenlos online (CC BY-NC-ND 3.0). Vom tidyverse-Erfinder. Kompletter Data-Science-Workflow. **Hauptmaterial fuer die R-Toolchain (KM7 UE 1-3).**
+
+- [R4DS — Solutions to Exercises (offiziell, WIP)](https://mine-cetinkaya-rundel.github.io/r4ds-solutions)
+  Musterloesungen zu allen Buch-Uebungen der 2e. Ideal zur Selbstkontrolle und Unterrichtsvorbereitung.
+
+- [NIST/SEMATECH e-Handbook of Statistical Methods](https://www.itl.nist.gov/div898/handbook/)
+  US-Government-Handbuch (gemeinfrei, Zitat mit Quellenangabe). Kap. 1 EDA · Kap. 2 Messprozess (Gage R&R) · Kap. 3 Prozesscharakterisierung (Faehigkeit) · Kap. 5 DoE/RSM · Kap. 6 SPC + Acceptance Sampling · Kap. 7 Vergleichstests · Kap. 8 Zuverlaessigkeit/Weibull. **Faktisch das PMM-Handbuch: deckt KM8/KM9 ab.**
+
+- [ModernDive — Statistical Inference via Data Science (2e)](https://moderndive.com/v2/)
+  Kostenlos (CC BY-NC-SA 4.0). Inferenz tidyverse-konsistent: Sampling/CLT (Kap. 7), Bootstrap & Konfidenzintervalle (Kap. 8), Hypothesentests (Kap. 9), t-Test-Beispiele in Anhang B. **Bruecke KM5/KM6 -> KM7-Tests.**
+
+- [Learning Statistics with R — Danielle Navarro](https://learningstatisticswithr.com/)
+  Kostenlos (CC BY-SA 4.0). Speziell fuer Statistik-Einsteiger geschrieben. Konversationeller, ehrlicher Ton. Kap. 9 Wahrscheinlichkeit · 10 Schaetzen · 11 Hypothesentests · 12 Chi-Quadrat · 13 t-Test · 14/16 ANOVA. **Deckt KM5-Kern + KM7-Tests ab.**
 
 - [An Introduction to Statistical Learning (ISLR)](https://www.statlearning.com/)
   Kostenloses PDF. Regression, Klassifikation, Resampling, Regularisierung, Baeume, SVM. Jedes Kapitel mit R-Labs.
-
-- [Learning Statistics with R — Danielle Navarro](https://learningstatisticswithr.com/)
-  Kostenlos. Speziell fuer Statistik-Einsteiger geschrieben. Konversationeller, ehrlicher Ton.
 
 - [Advanced R (2nd Ed.) — Hadley Wickham](https://adv-r.hadley.nz/)
   Kostenlos. Wie R unter der Haube funktioniert: Environments, OO, Functional Programming. Macht R-Nutzer zu R-Programmierern.
@@ -77,5 +86,5 @@
 
 ## Gaps
 
-- Kein deutsches kostenpflichtiges Online-Seminal gefunden, das spezifisch SPC, DOE und Prozessfaehigkeit mit R deckt (statistik-seminare.de deckt Grundlagen ab, ist aber InPraesenz).
-- Keine R-Kurse gefunden, die oesterreichische Normen (OENORM) in der Annahmestichprobenpruefung behandeln.
+- Kein deutsches kostenpflichtiges Online-Seminal gefunden, das spezifisch SPC, DOE und Prozessfaehigkeit mit R deckt (statistik-seminare.de deckt Grundlagen ab, ist aber InPraesenz). → **Teilweise geschlossen (englisch):** NIST e-Handbook Kap. 2/3/5/6 deckt SPC, Faehigkeit, MSA, DoE/RSM fachlich ab (siehe `docs/lehrplan/r4ds-abdeckung.md`).
+- Keine R-Kurse gefunden, die oesterreichische Normen (OENORM) in der Annahmestichprobenpruefung behandeln. → **Bleibt Eigenmaterial:** ISO 2859/3951-Spezifika (AQL/LTPD, Tabellen) mit `AcceptanceSampling`.
