@@ -24,8 +24,9 @@ Parallel laeuft weiterhin: JG3-Selbststudium Phase 0 (L0003 in Arbeit).
 - [x] Recherche Community-Übersetzung: offizieller Weg dokumentiert
       (O'Reilly-Freigabe pro Sprache, hadley/r4ds#955 → #1711/#1783);
       deutsche Anfrage #1414 unbeantwortet seit 2023-04, kein DE-Repo
-- [x] Kommentar-Entwurf für hadley/r4ds#1414 erstellt (als Kommentar
-      auf #6 abgelegt; Georg postet ihn selbst)
+- [x] Kommentar-Entwurf für hadley/r4ds#1414 erstellt und **von Georg
+      freigegeben am 2026-07-18 gepostet** (via gh, Account georgernstgraf):
+      https://github.com/hadley/r4ds/issues/1414#issuecomment-5012984740
 - [x] Issue-Kommentar Phase-1-Bericht auf #6
 
 ## Pending
@@ -35,7 +36,9 @@ Parallel laeuft weiterhin: JG3-Selbststudium Phase 0 (L0003 in Arbeit).
       UE 1–3; ggf. Ordner-Umbenennung)
 - [ ] Phase 4: Stil in `selbststudium/NOTES.md` + CONVENTIONS.md verankern,
       AGENTS.md-Verweis
-- [ ] Georg: #1414-Kommentar auf hadley/r4ds posten (Entwurf liegt auf #6)
+- [ ] Warten auf Antwort von Hadley/petzi53 auf hadley/r4ds#1414
+      (O'Reilly-Freigabe DE); nach 2–3 Wochen ohne Antwort: höfliches
+      Follow-up; parallel max. 1 privates Musterkapitel (Kap. 1)
 - [ ] JG3 Phase 0: L0003 abnehmen → LR Meisterschaft → L0004 (Diskrete
       Verteilungen mit d/p/q/r) bauen; danach L0005–0015 fortlaufend
 - [ ] Einstiegstest 4AHWIT (2026-09-07, GRG-PMM-T): nach Korrektur

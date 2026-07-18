@@ -42,7 +42,10 @@ GRG-PMM-T-Arbeitsverzeichnis korrigieren; bei KM5/KM6-Lücken KM7-Plan
 kompensieren (mit #6-Matrix abstimmen).
 
 ## Blocked / Waiting
-- **Phase 6 (#6):** DE-Community-Übersetzung wartet auf Hadley/O'Reilly-
-  Freigabe via hadley/r4ds#1414. Georg postet den Kommentar selbst
-  (Entwurf = Kommentar auf #6). Vor Freigabe: max. 1 privates
-  Musterkapitel (ND — keine Veröffentlichung).
+- **Phase 6 (#6):** DE-Community-Übersetzung — Kommentar ist seit
+  2026-07-18 auf hadley/r4ds#1414 gepostet
+  (comment-5012984740, Account georgernstgraf; Entwurf-Text auch als
+  Kommentar auf #6 archiviert). Warten auf Hadley (O'Reilly-Freigabe DE)
+  bzw. petzi53. Nach 2–3 Wochen ohne Antwort: höfliches Follow-up im
+  selben Thread. Vor Freigabe: max. 1 privates Musterkapitel
+  (ND — keine Veröffentlichung).
