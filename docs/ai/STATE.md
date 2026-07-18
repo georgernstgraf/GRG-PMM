@@ -1,63 +1,61 @@
 # Project State
 
-Current status as of 2026-07-12.
+Current status as of 2026-07-18.
 
 ## Current Focus
-Selbststudium (teach skill): **Phase 0 — JG3-Vorwissen (KM5+KM6)**.
-Mission um Phase 0 erweitert (vor KM7); 3 Tracks, 13 Lektionen (L0003–0015)
-in `selbststudium/reference/jg3-verlauf.html`. Track 1 L0003 (Zufallsvariablen)
-erstellt; Georg arbeitet sie durch. KM7-Ausbau (UE 2–15) pausiert, bis JG3
-gemeistert ist — JG3 ist Georgs eigene Zone der proximalen Entwicklung
-(Statistik-Anfänger, LR 0001).
-Semesterpläne und Konventionen auf 15 DS korrigiert.
+**Issue #6 — R4DS als Hauptmaterial.** Phase 1 (Abdeckungsmatrix +
+RESOURCES-Update) ist erledigt, committet und gepusht (`fd81240`).
+Kernbefund: R4DS deckt die R-Toolchain voll ab (KM7 UE 1–3, KM6
+„Prüfergebnisse darstellen"), 0 % des Industrie-Statistik-Kerns →
+Komplement-Kanon: Navarro LSR (CC BY-SA), ModernDive (CC BY-NC-SA),
+NIST e-Handbook (US-Gov), Paket-Vignetten. Lizenz-Grundregel:
+„link, don't copy" — eigene Texte sind Originale (R4DS = CC BY-NC-ND 3.0).
+Parallel laeuft weiterhin: JG3-Selbststudium Phase 0 (L0003 in Arbeit).
 
 ## Completed (this cycle)
-- [x] Selbststudium-Workspace Phase 0 (style.css, quiz.js, glossar.html,
-      r-setup-linux.html)
-- [x] Stundenvolumen-Korrektur: 30 → 15 Doppelstunden pro Semester
-- [x] KM7-Verlaufsmap als 15-UE-Map neu geschrieben
-- [x] UE1 Lern-Lektion: `0001-r-grundlagen-datenstrukturen.html` (L1+L2 gemergt
-      in eine Datei; alte 0001/0002 geloescht). Inkl. Box-Metapher, Linux-Setup,
-      5 Quizzes, Didaktik.
-- [x] UE1 Schueler-Material: `4AHWIT/01-r-grundlagen-datenstrukturen/`
-      mit `praesentation.html` (reveal.js via CDN, 20 Folien) und
-      `hausaufgabe.md` (5 Aufgaben).
-- [x] `4AHWIT/assets/slides.css` — reveal.js Theme-Overlay (PMM-Farben).
-- [x] Alle vier Semesterpläne auf 15 DS umgeschrieben (KM7/KM8/KM9a: 30→15;
-      KM9b bereits korrekt).
-- [x] AGENTS.md + 4AHWIT/README.md: NN-slug-Konvention dokumentiert.
-- [x] Knowledge persistence: DECISIONS.md erweitert (4 neue Eintraege),
-      LR-0004 (Stundenvolumen), STATE.md aktualisiert.
-- [x] Learning records: 0001 (Vorwissen), 0002 (L1 gemeistert), 0003
-      (tidyverse-Pitfall, fix verifiziert), 0004 (Stundenvolumen-Korrektur).
-- [x] Glossar: Mittelwert, Median, Funktion, Variable, Vektor, Vektorisierung,
-      Paket.
+- [x] Issue #6 angelegt (R4DS-Hauptmaterial: Abdeckung, Stil, Retrofit,
+      DE-Übersetzung) mit Phasen-Checkliste
+- [x] `docs/lehrplan/r4ds-abdeckung.md` — Abdeckungsmatrix KM5–KM9b ↔
+      R4DS (29 Kap.) ↔ Komplemente, inkl. Lizenz-Tabelle (alle verifiziert:
+      R4DS CC BY-NC-ND 3.0, penguins CC0, ModernDive CC BY-NC-SA,
+      Navarro CC BY-SA, NIST US-Gov)
+- [x] `selbststudium/RESOURCES.md` — r4ds-solutions, NIST e-Handbook,
+      ModernDive ergänzt; Gaps-Sektion aktualisiert
+- [x] Recherche Community-Übersetzung: offizieller Weg dokumentiert
+      (O'Reilly-Freigabe pro Sprache, hadley/r4ds#955 → #1711/#1783);
+      deutsche Anfrage #1414 unbeantwortet seit 2023-04, kein DE-Repo
+- [x] Kommentar-Entwurf für hadley/r4ds#1414 erstellt (als Kommentar
+      auf #6 abgelegt; Georg postet ihn selbst)
+- [x] Issue-Kommentar Phase-1-Bericht auf #6
 
 ## Pending
-- [ ] JG3 Track 1: L0004–0006 (Diskrete Verteilungen, Normalverteilung,
-      Exponentialverteilung) — je 1 Lektion/Session
-- [ ] JG3 Track 2: L0007–0011 (Schätzen & Inferenz)
-- [ ] JG3 Track 3: L0012–0015 (Anwendung & Lebensdauer)
-- [ ] KM7 UE 2–15 fortlaufend (pausiert bis JG3 sitzt; UE 4–5 werden danach
-      Review statt Erstkontakt)
-- [x] JG3 Phase-0-Setup: MISSION erweitert, jg3-verlauf.html, LR 0006,
-      Glossar-JG3-Begriffe, L0003 erstellt
-- [x] Einstiegstest 4AHWIT (JG3-Vorwissen KM5+KM6) im Test-Repo GRG-PMM-T
-      angelegt und gepusht (commit 55bade9, Issue #1 dort). Pruefungstermin
-      2026-09-07. Nach Korrektur KM7-Plan adaptieren.
-- [ ] Issue #1: Kommentar beim Commit (Stundenvolumen geklart; Fachzuordnung
-      offen)
+- [ ] Phase 2: Georg reviewed `docs/lehrplan/r4ds-abdeckung.md`
+- [ ] Phase 3: `docs/stil-leitfaden.md` + Retrofit UE 1–2 (Buch-Reihenfolge:
+      ggplot zuerst; Folien+Hausaufgaben; slides.css-Callouts; Semesterplan
+      UE 1–3; ggf. Ordner-Umbenennung)
+- [ ] Phase 4: Stil in `selbststudium/NOTES.md` + CONVENTIONS.md verankern,
+      AGENTS.md-Verweis
+- [ ] Georg: #1414-Kommentar auf hadley/r4ds posten (Entwurf liegt auf #6)
+- [ ] JG3 Phase 0: L0003 abnehmen → LR Meisterschaft → L0004 (Diskrete
+      Verteilungen mit d/p/q/r) bauen; danach L0005–0015 fortlaufend
+- [ ] Einstiegstest 4AHWIT (2026-09-07, GRG-PMM-T): nach Korrektur
+      KM7-Plan adaptieren
+- [ ] Issue #1: Kommentar beim Commit (Stundenvolumen geklärt;
+      Fachzuordnung offen)
+
+## Blockers
+- Phase 3 wartet auf Georgs Review der Abdeckungsmatrix (Phase 2).
+- Phase 6 (DE-Übersetzung) wartet auf Hadley/O'Reilly-Freigabe;
+  vorher max. 1 privates Musterkapitel (ND).
 
 ## Notes
-- R 4.5 / Ubuntu 26.04. tidyverse installiert (v2.0.0). Rscript: /usr/bin/Rscript.
-- 1 Doppelstunde/Woche pro Klasse → ~15 DS/Semester/KM. Georg allein fuer
-  KM7–9b verantwortlich.
+- R 4.5 / Ubuntu 26.04, tidyverse 2.0.0, Rscript: /usr/bin/Rscript.
+- 1 Doppelstunde/Woche pro Klasse → ~15 DS/Semester/KM.
 - Drei Artefakte pro UE: Lern-Lektion (selbststudium/lessons/00NN),
-  Praesentation+HA (4AHWIT/NN-slug/), reveal.js via CDN, .md-Hausaufgabe.
+  Praesentation+HA (4AHWIT/NN-slug/), reveal.js via CDN.
 - NN-slug/ wird zu YYYY-MM-DD_slug/ umbenannt, wenn Unterrichtsdaten feststehen.
-- Nicht committet.
 
 ## Next Session Suggestion
-Georg L0003 (Zufallsvariablen) abnehmen. Wenn Quizzes sitzen: Learning Record
-für L0003-Meisterschaft schreiben, dann **L0004 — Diskrete Verteilungen
-(Binomial, Hypergeometrisch, Poisson)** mit d/p/q/r-Praxis bauen.
+Wenn Georg die Matrix abgenommen hat: Phase 3 starten —
+`docs/stil-leitfaden.md` schreiben, dann UE 1 Retrofit (Buch-Reihenfolge,
+R4DS-Stimme, Lektüre-Box). Sonst: JG3-L0003-Abnahme wie bisher.

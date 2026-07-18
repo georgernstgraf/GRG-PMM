@@ -65,3 +65,21 @@ Each entry documents WHAT was decided and WHY.
 
 - **Choice**: The PMM-relevant section (Abschnitt 5) of the legal curriculum PDF was extracted to `docs/lehrplan/pmm-lehrplan-text.md`.
 - **Reason**: The PDF is not machine-searchable in this workflow. A Markdown extract enables quick reference and grep across all 5 Jahrgänge without running pdftotext each time. Only the PMM section was extracted (not the full 33-page document) to keep it focused.
+
+## 2026-07-18: R4DS as Main Material for the R Toolchain (#6)
+
+- **Choice**: "R for Data Science" (2e) becomes the primary teaching material where the curriculum allows — concretely KM7 UE 1–3 (R toolchain) and KM6 "Prüfergebnisse darstellen" (Kap. 11, 28–29). Coverage analysis: `docs/lehrplan/r4ds-abdeckung.md`.
+- **Reason**: Georg values the book's tone and didactics; analysis shows R4DS covers ~100 % of the toolchain strand but 0 % of the industrial-statistics core. Gap is closed by Navarro LSR (CC BY-SA, KM5/KM7 tests), ModernDive (CC BY-NC-SA, KM6 inference), NIST e-Handbook (US-gov, KM8/KM9: SPC, capability, MSA, DoE, reliability, acceptance sampling), package vignettes, and own materials for ISO/OENORM specifics.
+- **Tradeoff**: R4DS is CC BY-NC-ND 3.0 — own materials must be original German text adopting the didactic pattern only ("link, don't copy"); no translated passages.
+
+## 2026-07-18: UE 1–3 Aligned to Book Order, English Reading Assigned (#6)
+
+- **Choice**: UE 1–3 will be restructured along R4DS "whole game" order (visualization with ggplot2 before formal syntax/data structures). Students read the English original chapters (no German chapter bridges).
+- **Reason**: Maximizes coherence with the assigned book; English reading serves the curriculum's Business-English target (B1+ end of JG4, B2 end of JG5).
+- **Consequence**: Existing UE 1–2 (slides + homework) get a full retrofit in Phase 3 of issue #6; semester plan rows UE 1–3 will be updated; NN-slug folders may be renamed (no dates fixed yet).
+
+## 2026-07-18: Optional Long-Term German Community Translation (Phase 6, #6)
+
+- **Choice**: Pursue an LLM-assisted German translation of R4DS 2e with Georg as human reviewer, via the official community-translation channel: revive hadley/r4ds#1414 (German request, unanswered since 2023-04), wait for Hadley/O'Reilly permission (precedent: #955 Portuguese, ES/PT/VI listings), then translate chapter-wise in a public fork with automated QA (anchor/code diffs, quarto render) and per-chapter review PRs.
+- **Reason**: Solves the ND constraint legitimately instead of circumventing it; machine support makes a solo-plus-reviewer effort feasible (~1 chapter per 1–2 weeks).
+- **Tradeoff**: Permission latency/denial risk (Hadley never answered #1414); pre-permission work limited to one private sample chapter (private creation of an adaptation is not distribution). Not needed for Sept 2026 — students read English regardless.
