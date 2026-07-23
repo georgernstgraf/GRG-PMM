@@ -1,6 +1,6 @@
 # Architecture
 
-Living structural map of the system as of 2026-07-18.
+Living structural map of the system as of 2026-07-23.
 Overwritten when structural changes occur during a session.
 
 ## Overview
@@ -11,11 +11,12 @@ GRG-PMN is a teaching repository for the subject Projektmanagement und Netzwerkt
 
 | Path | Purpose |
 |------|---------|
-| `docs/lehrplan/` | Legal curriculum PDFs from RIS (BGBl. II Nr. 262/2015), METADATA.md, `pmm-lehrplan-text.md` (PMM extract JG1–JG5), `r4ds-abdeckung.md` (coverage matrix: Lehrplan ↔ R4DS ↔ open-source complements, #6) |
+| `docs/lehrplan/` | Legal curriculum PDFs from RIS (BGBl. II Nr. 262/2015), METADATA.md, `pmm-lehrplan-text.md` (PMM extract JG1–JG5), `r4ds-abdeckung.md` (R4DS coverage analysis + licenses, #6), `ressourcen-matrix.md` (topic-centric matrix: Lehrplan-Thema ↔ free resources, #6) |
 | `docs/ai/` | Structured knowledge files for AI agent persistence |
+| `kompetenzmodule/` | Didactic KM-Steckbriefe (km3–km9b + README): module meaning, practice relevance, Wissen/Verstehen/Können (#6) |
 | `Unterlagen/` | Teaching reference materials and scripts |
-| `4AHWIT/` | 4th year class — lesson folders (`NN-slug/` during prep, `YYYY-MM-DD_thema` once dated) + `assets/slides.css` |
-| `5AHWIT/` | 5th year class — same folder conventions |
+| `4HWIT/` | 4th year class (generic label, covers parallel classes like 4AHWIT/4BHWIT) — lesson folders (`NN-slug/` during prep, `YYYY-MM-DD_thema` once dated) + `assets/slides.css` |
+| `5HWIT/` | 5th year class — same folder conventions |
 | `selbststudium/` | Self-study workspace (teach skill): `MISSION.md`, `RESOURCES.md`, `NOTES.md`, `lessons/`, `learning-records/`, `reference/`, `assets/` |
 | `.opencode/skills/` | Project-local opencode skills (teach, grill-me, grilling, handoff, writing-great-skills) |
 
@@ -41,6 +42,6 @@ GRG-PMN is a teaching repository for the subject Projektmanagement und Netzwerkt
 
 ## Key Flows
 
-- Lehrplan (docs/lehrplan) → Semesterpläne (`4AHWIT|5AHWIT/semesterplan-*.md`) → UE-Material (`NN-slug/praesentation.html` + `hausaufgabe.md`)
+- Lehrplan (docs/lehrplan) → KM-Steckbriefe (`kompetenzmodule/`) → Semesterpläne (`4HWIT|5HWIT/semesterplan-*.md`) → UE-Material (`NN-slug/praesentation.html` + `hausaufgabe.md`)
 - Semesterpläne → Selbststudium-Lektionen (`selbststudium/lessons/`) → Learning Records (`learning-records/`)
 - Open-Source-Material-Kanon (`r4ds-abdeckung.md`, `RESOURCES.md`) → Lektüre-Zuweisungen in UE- und Lern-Materialien („link, don't copy", #6)

@@ -29,34 +29,34 @@ Ressourcen-Wahl).
 
 ## Matrix
 
-### JG1 (kein KM) — kein R-Bezug
+### JG1 (1. Klasse, Sem. 1–2, kein KM) — kein R-Bezug · nicht von Georg unterrichtet
 
 | Key | R4DS 2e | Navarro LSR | ModernDive | NIST e-Handbook | R-Umsetzung |
 |---|---|---|---|---|---|
 | `JG1-prozessgrundlagen` · Prozessgrundlagen, Qualitätsbegriffe, Prozessdarstellung, KVP | — | — | — | — | — |
 
-### KM3 (3./4. Sem.) — kein R-Bezug
+### KM3 (2. Klasse, 3. Sem., WS) — kein R-Bezug · nicht von Georg unterrichtet
 
 | Key | R4DS 2e | Navarro LSR | ModernDive | NIST e-Handbook | R-Umsetzung |
 |---|---|---|---|---|---|
 | `KM3-prozessmanagement` · Prozessbeschreibung, Prozesslandkarte, Prozessketten | — | — | — | — | — |
 | `KM3-managementsysteme` · Regelwerke, Lean, TQM, Normenwesen | — | — | — | — | — |
 
-### KM4 (4. Sem.) — kein R-Bezug
+### KM4 (2. Klasse, 4. Sem., SS) — kein R-Bezug · nicht von Georg unterrichtet
 
 | Key | R4DS 2e | Navarro LSR | ModernDive | NIST e-Handbook | R-Umsetzung |
 |---|---|---|---|---|---|
 | `KM4-kennzahlen` · Leistungsfähigkeit von Prozessen, Kennzahlensysteme | — | — | — | — | — |
 | `KM4-risiko` · Risikoevaluierung, Maßnahmenpläne, Abweichungsmanagement | — | — | — | — | — |
 
-### KM5 (5. Sem.) — Statistische Methoden
+### KM5 (3. Klasse, 5. Sem., WS) — Statistische Methoden · nicht von Georg unterrichtet (Vorwissen für KM7!)
 
 | Key | R4DS 2e | Navarro LSR | ModernDive | NIST e-Handbook | R-Umsetzung |
 |---|---|---|---|---|---|
 | `KM5-verteilungen` · Statistische Grundlagen der QS; Verteilungen (diskret/stetig), Normalverteilung | — | Kap. 9–10 | Kap. 7 (teilw.) | Kap. 1 (EDA) | `d/p/q/r`-Familie; `dbinom`, `pnorm`, `rpois`, … |
 | `KM5-schaetzer` · Parameter statistischer Verteilungen und ihre Schätzwerte | — | Kap. 10 | Kap. 7 (Sampling, CLT) | — | `mean`, `sd`; `infer` (Resampling) |
 
-### KM6 (6. Sem.) — Statistische Methoden
+### KM6 (3. Klasse, 6. Sem., SS) — Statistische Methoden · nicht von Georg unterrichtet (Vorwissen für KM7!)
 
 | Key | R4DS 2e | Navarro LSR | ModernDive | NIST e-Handbook | R-Umsetzung |
 |---|---|---|---|---|---|
@@ -64,7 +64,7 @@ Ressourcen-Wahl).
 | `KM6-darstellung` · Auswertung und Darstellung von Prüfergebnissen | **Kap. 11, 28–29** | — | Kap. 2–5 (teilw.) | Kap. 1 (EDA) | `ggplot2`; Quarto |
 | `KM6-lebensdauer` · Lebensdauerverteilungen | — | — | — | Kap. 8 (Assessing Product Reliability) | `fitdistrplus` (Weibull-Fit); `survival` |
 
-### KM7 (7. Sem.) — Statistische Methoden + Umweltmanagement
+### KM7 (4HWIT, 7. Sem., WS) — Statistische Methoden + Umweltmanagement · **von Georg unterrichtet**
 
 | Key | R4DS 2e | Navarro LSR | ModernDive | NIST e-Handbook | R-Umsetzung |
 |---|---|---|---|---|---|
@@ -74,7 +74,7 @@ Ressourcen-Wahl).
 | `KM7-stofffluss-oekobilanz` · Stoffflussanalyse und Ökobilanzen | — | — | — | — | `networkD3` (Sankey) |
 | `KM7-umwelt-anforderungen` · Anforderungen an Umwelt-, Ressourcen- und Abfallmanagement | — | — | — | — | — |
 
-### KM8 (8. Sem.) — Statistische Methoden + Umweltmanagement
+### KM8 (4HWIT, 8. Sem., SS) — Statistische Methoden + Umweltmanagement · **von Georg unterrichtet**
 
 | Key | R4DS 2e | Navarro LSR | ModernDive | NIST e-Handbook | R-Umsetzung |
 |---|---|---|---|---|---|
@@ -83,7 +83,7 @@ Ressourcen-Wahl).
 | `KM8-umweltrecht` · Umweltrecht | — | — | — | — | — |
 | `KM8-umweltmethoden` · Werkzeuge und Methoden des Umweltmanagements | — | — | — | — | — |
 
-### KM9a (9. Sem.) — Statistische Methoden + Facility Management
+### KM9a (5HWIT, 9. Sem., WS) — Statistische Methoden + Facility Management · **von Georg unterrichtet**
 
 | Key | R4DS 2e | Navarro LSR | ModernDive | NIST e-Handbook | R-Umsetzung |
 |---|---|---|---|---|---|
@@ -91,7 +91,7 @@ Ressourcen-Wahl).
 | `KM9a-rsm` · Response Surface Methodology | — | — | — | Kap. 4 + 5 (Process Modeling, RSM) | `rsm` |
 | `KM9a-betriebsfuehrung` · Technische Betriebsführung, Instandhaltungsstrategien, Arbeitssicherheit | — | — | — | — | — |
 
-### KM9b (10. Sem.) — Statistische Methoden + Energiemanagement
+### KM9b (5HWIT, 10. Sem., SS) — Statistische Methoden + Energiemanagement · **von Georg unterrichtet**
 
 | Key | R4DS 2e | Navarro LSR | ModernDive | NIST e-Handbook | R-Umsetzung |
 |---|---|---|---|---|---|
@@ -102,9 +102,33 @@ Ressourcen-Wahl).
 
 ## Eigenbedarf-Übersicht
 
-### Vollständiger Eigenbedarf (alle Ressourcen `—`)
-Für diese Themen gibt es keine direkte Abdeckung in den verfügbaren freien Ressourcen.
-Eigenmaterial (Folien, Übungen, Lesetexte) muss komplett selbst erstellt werden:
+### Von Georg unterrichtet (KM7–KM9b) — Material-Backlog
+
+**Vollständiger Eigenbedarf** (alle Ressourcen `—` — Folien, Übungen,
+Lesetexte komplett selbst erstellen):
+
+| Key | Bereich |
+|---|---|
+| `KM7-annahme` (ISO 2859/3951-Spezifika) | Norm-Tabellen, OC-Kurven, AQL/LTPD |
+| `KM7-umweltpruefung` | Umweltprüfung Grundlagen |
+| `KM7-umwelt-anforderungen` | Umwelt-/Ressourcen-/Abfallmanagement |
+| `KM8-umweltrecht` | Umweltrecht |
+| `KM8-umweltmethoden` | Werkzeuge/Methoden Umweltmanagement |
+| `KM9a-betriebsfuehrung` | Betriebsführung, Instandhaltung |
+
+**Teilweiser Eigenbedarf** (R-Implementierung als Anker, aber kein
+eigenständiges Kapitel in den freien Büchern):
+
+| Key | R-Umsetzung | Lücke |
+|---|---|---|
+| `KM7-stofffluss-oekobilanz` | `networkD3` (Sankey) | kein Buch zu Stofffluss-/Ökobilanz-Methodik |
+| `KM9b-energiemanagement` | `networkD3` (Sankey) optional | kein Buch zu Energiemanagement in R |
+
+### Nicht von Georg unterrichtet (JG1–KM6) — nur der Vollständigkeit halber
+
+Diese Themen haben ebenfalls keine freie Ressourcen-Abdeckung, werden
+aber von Kolleg:innen unterrichtet — **kein Material-Backlog für Georg**
+(KM5/KM6 relevant nur für Einstiegstest-Kompensation und Georgs Selbststudium):
 
 | Key | Bereich |
 |---|---|
@@ -113,21 +137,6 @@ Eigenmaterial (Folien, Übungen, Lesetexte) muss komplett selbst erstellt werden
 | `KM3-managementsysteme` | Lean, TQM, Normenwesen |
 | `KM4-kennzahlen` | Kennzahlensysteme, Prozessleistung |
 | `KM4-risiko` | Risikoevaluierung, Maßnahmenpläne |
-| `KM7-umweltpruefung` | Umweltprüfung Grundlagen |
-| `KM7-umwelt-anforderungen` | Umwelt-/Ressourcen-/Abfallmanagement |
-| `KM8-umweltrecht` | Umweltrecht |
-| `KM8-umweltmethoden` | Werkzeuge/Methoden Umweltmanagement |
-| `KM9a-betriebsfuehrung` | Betriebsführung, Instandhaltung |
-| `KM7-annahme` (ISO 2859/3951-Spezifika) | Norm-Tabellen, OC-Kurven, AQL/LTPD |
-
-### Teilweiser Eigenbedarf (R-Umsetzung vorhanden, keine Buchlektüre)
-Diese Themen haben eine R-Implementierung (Paket/Funktion) als Anker, aber kein
-eigenständiges Kapitel in den freien Büchern:
-
-| Key | R-Umsetzung | Lücke |
-|---|---|---|
-| `KM7-stofffluss-oekobilanz` | `networkD3` (Sankey) | kein Buch zu Stofffluss-/Ökobilanz-Methodik |
-| `KM9b-energiemanagement` | `networkD3` (Sankey) optional | kein Buch zu Energiemanagement in R |
 
 ---
 

@@ -1,4 +1,4 @@
-# Semesterplan 5AHWIT — Sommersemester
+# Semesterplan 5HWIT — Sommersemester
 
 Prozessmanagement (PMM) — Maturafach WIT  
 KM 9b (RIS BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5)

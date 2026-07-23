@@ -1,4 +1,4 @@
-# 5AHWIT — 5. Klasse
+# 5HWIT — 5. Klasse
 
 Projektmanagement und Netzwerktechnik im 5. Jahrgang des Ausbildungszweigs Wirtschaftsingenieure – Technisches Management.
 

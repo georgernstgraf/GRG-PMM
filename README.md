@@ -46,8 +46,9 @@ Der Lehrplan folgt **BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5** —
 
 | Verzeichnis | Inhalt |
 |-------------|--------|
-| `4AHWIT/` | 4. Jahrgang — Semesterpläne, Übungen, Projekte |
-| `5AHWIT/` | 5. Jahrgang — Semesterpläne, Maturavorbereitung |
+| `4HWIT/` | 4. Jahrgang — Semesterpläne, Übungen, Projekte |
+| `5HWIT/` | 5. Jahrgang — Semesterpläne, Maturavorbereitung |
+| `kompetenzmodule/` | Didaktische Steckbriefe je Kompetenzmodul (KM3–KM9b) |
 | `Unterlagen/` | Thematische Referenzmaterialien und Skripten |
 | `docs/` | Zentrale Dokumente (Lehrplan, Metadaten, Projektangaben) |
 
@@ -65,7 +66,7 @@ Der Lehrplan folgt **BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5** —
 
 | Klasse | Wintersemester | Sommersemester |
 |--------|----------------|----------------|
-| 4AHWIT | Statistische Tests, Stichprobenprüfung, Umwelt-Grundlagen | SPC, Prozessfähigkeit, Umweltrecht & -methoden |
-| 5AHWIT | Industrielle Versuchsmethodik (DOE), Facility Management | Zuverlässigkeit, Energiemanagement, Maturavorbereitung |
+| 4HWIT | Statistische Tests, Stichprobenprüfung, Umwelt-Grundlagen | SPC, Prozessfähigkeit, Umweltrecht & -methoden |
+| 5HWIT | Industrielle Versuchsmethodik (DOE), Facility Management | Zuverlässigkeit, Energiemanagement, Maturavorbereitung |
 
 > **Hinweis:** Dieses Repository ist öffentlich. Es enthält **keine** Test-Angaben.

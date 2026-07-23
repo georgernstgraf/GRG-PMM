@@ -2,19 +2,18 @@
 
 ## Open Tasks
 
-### Issue #6: R4DS als Hauptmaterial — Phase 3 (Vorgespräch ausständig)
+### Issue #6: Phase 3 — Stil-Leitfaden + Retrofit UE 1–2 (nächster Schritt)
 **Priority:** high
-**Context:** Phase 1 (Abdeckungsmatrix) ✅. Phase 2 (Georgs Review) ✅.
-Phase 6 (DE-Übersetzung) ❌ — Hadley antwortete am 2026-07-22, O'Reilly
-hat Verlagsdeal mit deutschem Verlag, keine Community-Übersetzung.
-Thread freundlich geschlossen. Phase 3 ist als nächstes dran:
-`docs/stil-leitfaden.md` (R4DS-Stimme auf Deutsch: Einstiegsfrage →
-Ziel-Artefakt → inkrementeller Aufbau → „Jetzt du!"-Übungen → typische
-Fehler → Zusammenfassung/Ausblick; Lektüre-Box mit Kapitel-Link) +
-Retrofit UE 1–2 an Buch-Reihenfolge (ggplot vor Syntax) + Semesterplan
-UE 1–3 anpassen. Danach Phase 4 (NOTES.md/CONVENTIONS.md/AGENTS.md).
-**Action:** Georg kündigt Vorgespräch zu Phase 3 an — danach:
-Stil-Leitfaden schreiben, dann UE-1-2-Retrofit umsetzen.
+**Context:** Semesterpläne Sem 7+9 sind jetzt korrekt (13 UE + 2 Reserve,
+R4DS-Buchreihenfolge, Ressourcen-Anker pro UE). `kompetenzmodule/` mit
+Steckbriefen km3–km9b steht (km7/km9a voll). Matrix repariert
+(KM3-Fix, Klassen-Angaben, Eigenbedarf nach Unterrichtszuständigkeit).
+Ordner 4HWIT/5HWIT umbenannt (generisch, deckt Parallelklassen ab).
+**Action:** `docs/stil-leitfaden.md` schreiben (R4DS-Stimme auf Deutsch:
+Einstiegsfrage → Ziel-Artefakt → inkrementeller Aufbau → „Jetzt du!"-
+Übungen → typische Fehler → Zusammenfassung/Ausblick; Lektüre-Box mit
+Kapitel-Link), dann Retrofit `4HWIT/01-…`, `02-…` auf Buch-Reihenfolge
+(ggplot zuerst). Danach Phase 4 (NOTES.md/CONVENTIONS.md/AGENTS.md).
 
 ### JG3-Lern-Tracks (Phase 0) fortsetzen
 **Priority:** high
@@ -28,24 +27,15 @@ schreiben, dann L0004 (Diskrete Verteilungen: Binomial/Hypergeom/Poisson
 mit `dbinom`/`pbinom`/`rbinom`) bauen — eine Lektion pro Session. Danach
 L0005–0015 fortlaufend.
 
-### Wintersemester 4AHWIT + 5AHWIT: detaillierte Planung (13 UE interaktiv)
-**Priority:** medium (zurückgestellt bis Phase-3-Vorgespräch)
-**Context:** Georg möchte das Wintersemester 2026/27 für beide Klassen
-separat durchplanen: genau 13 „echte" Unterrichtseinheiten zu je einer
-Doppelstunde (nach Abzug von Admin/Test/Exkursion). Basis: die
-Ressourcen-Matrix (`docs/lehrplan/ressourcen-matrix.md`) und die UE-Struktur
-aus Phase 3.
-**Action:** Nächste Session: mit Georg interaktiv jede UE planen
-(Thema, Ressourcen, Artefakte). Nicht selbstständig vorher ausführen.
-
-### Einstiegstest 4AHWIT — nach Korrektur KM7-Plan adaptieren
+### Einstiegstest 4HWIT — nach Korrektur KM7-Plan adaptieren
 **Priority:** medium (fällig nach 2026-09-07)
 **Context:** Entry test liegt im Test-Repo
 [georgernstgraf/GRG-PMM-T](https://github.com/georgernstgraf/GRG-PMM-T)
-(commit `55bade9`, dort Issue #1). Prüfungstermin 2026-09-07.
+(commit `55bade9`, dort Issue #1). Prüfungstermin 2026-09-07 (reservierte
+DS 1 im neuen Semesterplan 4HWIT).
 **Action:** Nach der Prüfung mit dem `knowledge-assessment`-Skill
-korrigieren; bei KM5/KM6-Lücken KM7-Plan kompensieren (mit #6-Matrix
-abstimmen).
+korrigieren; bei KM5/KM6-Lücken Bonus-UE im Semesterplan aktivieren
+(Verteilungs-Vertiefung) bzw. UE 4–5 anpassen.
 
 ## Blocked / Waiting
 - **Phase 6 (#6):** ❌ **ABGEBROCHEN.** O'Reilly hat Verlagsdeal mit

@@ -10,11 +10,11 @@
 
 - Das PMM-Curriculum basiert auf BGBl. II Nr. 262/2015, Anlage 1.28 (Wirtschaftsingenieure — Technisches Management).
 - 4 Semester Statistik/Prozessmanagement:
-  - KM7 (4AHWIT WS): R-Grundlagen, deskriptive Statistik, Verteilungen, statistische Tests, Annahmestichprobenpruefung
-  - KM8 (4AHWIT SS): SPC/Regelkarten, CUSUM, EWMA, Prozessfaehigkeit (Cp, Cpk), Gage R&R, ISO 14001
-  - KM9a (5AHWIT WS): DOE (2^k, teilfaktoriell), Response Surface Methodology, Taguchi
-  - KM9b (5AHWIT SS): Zuverlaessigkeit, Weibull, Energiemanagement, Maturavorbereitung
-- Die Semesterplaene in `4AHWIT/` und `5AHWIT/` sind die konkreten Lehrziele.
+  - KM7 (4HWIT WS): R-Grundlagen, deskriptive Statistik, Verteilungen, statistische Tests, Annahmestichprobenpruefung
+  - KM8 (4HWIT SS): SPC/Regelkarten, CUSUM, EWMA, Prozessfaehigkeit (Cp, Cpk), Gage R&R, ISO 14001
+  - KM9a (5HWIT WS): DOE (2^k, teilfaktoriell), Response Surface Methodology, Taguchi
+  - KM9b (5HWIT SS): Zuverlaessigkeit, Weibull, Energiemanagement, Maturavorbereitung
+- Die Semesterplaene in `4HWIT/` und `5HWIT/` sind die konkreten Lehrziele.
 - Zeitmodell: ca. 15 Doppelstunden pro Semester (nach Abzug von Pruefungen/admin).
 
 ## Werkzeug-Entscheidung

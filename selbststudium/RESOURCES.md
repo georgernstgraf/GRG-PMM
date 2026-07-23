@@ -70,6 +70,27 @@
 - [Tidy Modeling with R — Max Kuhn & Julia Silge](https://www.tmwr.org/)
   Kostenlos. Modernes ML mit R (tidymodels-Framework).
 
+### R-DSLs (Domain-Specific Languages)
+
+R hat mehrere **interne DSLs** – sie sind nicht als separate Parser mit BNF/Grammatik realisiert,
+sondern nutzen R's eigenen Parser + Non-Standard Evaluation (NSE) und fangen Ausdruecke als
+ungepruefte R-Syntax ab (`enquo()`, Data Masks, Formulae), die erst spaeter im Kontext der
+Daten ausgewertet werden. Die "Grammatik" steckt also im Verhalten der R-Funktionen, nicht in
+einem separaten Parser.
+
+| DSL | Syntax-Beispiel | Zweck |
+|-----|-----------------|-------|
+| **Formel-Interface** | `y ~ x + z` | `lm()`, `glm()`, `lme4`, `aggregate()`, `aov()` |
+| **ggplot2 (Grammar of Graphics)** | `aes(x, y)` + Layer | Visualisierung |
+| **dplyr / Tidy Eval** | `filter(df, x > 3)`, `{{ }}`, `!!` | Datenmanipulation |
+| **data.table** | `DT[i, j, by]` | Alternative zu dplyr, extrem schnell |
+| **rlang (Meta-DSL)** | Quosures, Data Masks, `enquo()` | Basis-Engine hinter den obigen |
+
+Relevante Kapitel:
+- **Advanced R:** [Metaprogramming (Kap. 17–21)](https://adv-r.hadley.nz/metaprogramming.html) – Expressions, Quasiquotation, Evaluation
+- **Advanced R:** [Domain-Specific Languages (Kap. 22)](https://adv-r.hadley.nz/dsl.html) – Wie diese DSLs gebaut werden
+- **rlang Vignette:** `vignette("tidy-eval")` – Data Masks und Tidy Evaluation im Detail
+
 ## Wisdom (Communities)
 
 - [Posit Community (ehemals RStudio Community)](https://community.rstudio.com)

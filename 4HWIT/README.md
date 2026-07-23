@@ -1,4 +1,4 @@
-# 4AHWIT — 4. Klasse
+# 4HWIT — 4. Klasse
 
 Projektmanagement und Netzwerktechnik im 4. Jahrgang des Ausbildungszweigs Wirtschaftsingenieure – Technisches Management.
 

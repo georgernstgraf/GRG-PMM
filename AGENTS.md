@@ -10,8 +10,9 @@ This repository contains coursework for **Projektmanagement und Netzwerktechnik 
 
 ## 2. Directory Structure
 
-- `4AHWIT/` — 4th year class materials, date-based folders (`YYYY-MM-DD_thema`) and prep-numbered folders (`NN-slug/` for curriculum preparation before teaching dates are fixed)
-- `5AHWIT/` — 5th year class materials, same folder conventions
+- `4HWIT/` — 4th year class materials (generic year label, covers any parallel class like 4AHWIT/4BHWIT), date-based folders (`YYYY-MM-DD_thema`) and prep-numbered folders (`NN-slug/` during preparation)
+- `5HWIT/` — 5th year class materials, same folder conventions
+- `kompetenzmodule/` — Didactic KM-Steckbriefe (one Markdown file per Kompetenzmodul, KM3–KM9b): what the module means, why it matters in practice, Wissen/Verstehen/Können
 - `selbststudium/` — Self-study workspace for learning R and statistics (Teach skill)
 - `.opencode/skills/` — Project-local opencode skills
 - `Unterlagen/` — Reference materials and scripts

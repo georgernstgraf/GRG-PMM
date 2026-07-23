@@ -1,4 +1,4 @@
-# Semesterplan 4AHWIT — Sommersemester
+# Semesterplan 4HWIT — Sommersemester
 
 Prozessmanagement (PMM) — Maturafach WIT  
 KM 8 (RIS BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5)

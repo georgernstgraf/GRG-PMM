@@ -122,7 +122,7 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 
 > Die Anpassung verschiebt den Schwerpunkt von Anlagen-/Prüftechnik hin zu Umwelttechnologie als eigenem Fach. Die generalistischen Fächer (Betriebstechnik, Prozessmanagement, Produktmanagement) bleiben in ihrem Kern unverändert.
 
-### Zeitmodell für PMN (4AHWIT / 5AHWIT)
+### Zeitmodell für PMN (4HWIT / 5HWIT)
 
 - **Theoretisch:** 18–20 Doppelstunden pro Semester (eine pro Schulwoche)
 - **Netto (praktisch):** ca. 15 Doppelstunden pro Semester nach Abzug von administrativen Terminen und Prüfungen

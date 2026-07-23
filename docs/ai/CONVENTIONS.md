@@ -25,7 +25,8 @@ Follow these without question. Do not deviate unless explicitly told.
 - Legal documents: `docs/lehrplan/`
 - Knowledge persistence: `docs/ai/`
 - Reference materials: `Unterlagen/`
-- Class materials: `4AHWIT/`, `5AHWIT/`
+- Class materials: `4HWIT/`, `5HWIT/`
+- KM-Steckbriefe (didaktisch): `kompetenzmodule/`
 - Each class folder may have its own `README.md`
 
 ## Date Format

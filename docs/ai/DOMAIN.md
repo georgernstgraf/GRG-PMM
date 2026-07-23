@@ -22,7 +22,7 @@ PMM (Prozessmanagement) spans all 5 years. The subject evolves through three dis
 | **Statistics + Environment** | JG4 | 7+8 | Stat. Methods + Umweltmgmt | Statistical tests, acceptance sampling, SPC, process capability; environmental audit, material flow, LCA | yes |
 | **Statistics + Facility** | JG5 | 9 | Stat. Methods + Facility Mgmt | Design of experiments (DoE), reliability; facility management, energy management | yes |
 
-**Key insight**: Statistics does NOT start in JG4 — it starts in JG3 (KM5). Students entering 4AHWIT (JG4, KM7) should already have KM5+KM6 statistics. An entry test is needed to verify the previous teacher's coverage.
+**Key insight**: Statistics does NOT start in JG4 — it starts in JG3 (KM5). Students entering 4HWIT (JG4, KM7) should already have KM5+KM6 statistics. An entry test is needed to verify the previous teacher's coverage.
 
 ### Rules
 - KM 3 = II. Jahrgang / 3. Semester; KM 9 = V. Jahrgang / 9.+10. Semester

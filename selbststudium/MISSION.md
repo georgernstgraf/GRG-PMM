@@ -32,7 +32,7 @@ muss KM7 kompensieren.
 - Vollfaktorielle und teilfaktorielle Versuchsplaene (`FrF2`) inklusive Auswertung erstellen
 - Response Surface Methodology (`rsm`) inklusive Optimierung anwenden
 - Annahmestichprobenplaene (ISO 2859) mit R berechnen
-- Die Semesterplaene in `4AHWIT/` und `5AHWIT/` mit echtem Wissen hinterfuellen
+- Die Semesterplaene in `4HWIT/` und `5HWIT/` mit echtem Wissen hinterfuellen
 - Studenten-Fragen souveraen beantworten
 
 ## Constraints
