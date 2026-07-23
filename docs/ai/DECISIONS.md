@@ -83,3 +83,10 @@ Each entry documents WHAT was decided and WHY.
 - **Choice**: Pursue an LLM-assisted German translation of R4DS 2e with Georg as human reviewer, via the official community-translation channel: revive hadley/r4ds#1414 (German request, unanswered since 2023-04), wait for Hadley/O'Reilly permission (precedent: #955 Portuguese, ES/PT/VI listings), then translate chapter-wise in a public fork with automated QA (anchor/code diffs, quarto render) and per-chapter review PRs.
 - **Reason**: Solves the ND constraint legitimately instead of circumventing it; machine support makes a solo-plus-reviewer effort feasible (~1 chapter per 1–2 weeks).
 - **Tradeoff**: Permission latency/denial risk (Hadley never answered #1414); pre-permission work limited to one private sample chapter (private creation of an adaptation is not distribution). Not needed for Sept 2026 — students read English regardless.
+
+## 2026-07-23: Phase 6 (DE-Community-Übersetzung) Abgebrochen (#6)
+
+- **Auslöser:** Hadley antwortete auf [#1414](https://github.com/hadley/r4ds/issues/1414#issuecomment-5045752767): O'Reilly hat bereits einen Übersetzungsvertrag mit einem deutschen Verlag abgeschlossen → keine Community-Freigabe möglich.
+- **Konsequenz:** Phase 6 von Issue #6 ist endgültig gestrichen. Thread am 23.07. freundlich geschlossen (Dank + Hinweis auf englisches Original).
+- **Unverändert:** R4DS 2e bleibt Hauptmaterial (online englisch). Eigene deutsche Unterrichtsmaterialien (Originaltext, "link, don't copy") sind weiterhin erlaubt.
+- **Zu beobachten:** Offizielle kommerzielle DE-Ausgabe von O'Reillys deutschem Verlag — falls sie erscheint, optionale Print-Ergänzung.
