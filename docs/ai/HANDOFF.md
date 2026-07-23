@@ -28,6 +28,16 @@ schreiben, dann L0004 (Diskrete Verteilungen: Binomial/Hypergeom/Poisson
 mit `dbinom`/`pbinom`/`rbinom`) bauen — eine Lektion pro Session. Danach
 L0005–0015 fortlaufend.
 
+### Wintersemester 4AHWIT + 5AHWIT: detaillierte Planung (13 UE interaktiv)
+**Priority:** medium (zurückgestellt bis Phase-3-Vorgespräch)
+**Context:** Georg möchte das Wintersemester 2026/27 für beide Klassen
+separat durchplanen: genau 13 „echte" Unterrichtseinheiten zu je einer
+Doppelstunde (nach Abzug von Admin/Test/Exkursion). Basis: die
+Ressourcen-Matrix (`docs/lehrplan/ressourcen-matrix.md`) und die UE-Struktur
+aus Phase 3.
+**Action:** Nächste Session: mit Georg interaktiv jede UE planen
+(Thema, Ressourcen, Artefakte). Nicht selbstständig vorher ausführen.
+
 ### Einstiegstest 4AHWIT — nach Korrektur KM7-Plan adaptieren
 **Priority:** medium (fällig nach 2026-09-07)
 **Context:** Entry test liegt im Test-Repo
