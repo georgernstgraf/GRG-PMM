@@ -38,6 +38,7 @@ GRG-PMN is a teaching repository for the subject Projektmanagement und Netzwerkt
 | File | Purpose |
 |------|---------|
 | `README.md` | Public project overview, directory table, RIS references |
+| `GLOSSAR.md` | Abbreviations & domain terms with repo context, grouped by domain (school, statistics, DoE, environment/norms, R, licenses, project conventions) |
 | `AGENTS.md` | AI agent guidelines, issue workflow, knowledge persistence |
 
 ## Key Flows

@@ -47,6 +47,7 @@ betreffende Semester konkret plant.
 
 ## Verknüpfte Dokumente
 
+- `GLOSSAR.md` (Root) — Abkürzungen & Fachbegriffe mit Repo-Kontext
 - `docs/lehrplan/ressourcen-matrix.md` — Lehrplan-Thema ↔ freie Ressource
   (mit Eigenbedarf-Übersicht)
 - `docs/lehrplan/r4ds-abdeckung.md` — R4DS-Abdeckung & Lizenzen

@@ -49,6 +49,7 @@ Der Lehrplan folgt **BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5** —
 | `4HWIT/` | 4. Jahrgang — Semesterpläne, Übungen, Projekte |
 | `5HWIT/` | 5. Jahrgang — Semesterpläne, Maturavorbereitung |
 | `kompetenzmodule/` | Didaktische Steckbriefe je Kompetenzmodul (KM3–KM9b) |
+| `GLOSSAR.md` | Abkürzungen & Fachbegriffe (AQL, DoE, R4DS, KM, …) |
 | `Unterlagen/` | Thematische Referenzmaterialien und Skripten |
 | `docs/` | Zentrale Dokumente (Lehrplan, Metadaten, Projektangaben) |
 
