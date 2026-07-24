@@ -51,6 +51,17 @@ pattern a student could exploit. Specifically:
 Applies to: `knowledge-exam` outputs (Multiple-Correct, `*_solutions.md`) AND
 teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
 
+## Glossar & UE-Verweise (#6)
+
+- `GLOSSAR.md` (Root) ist die zentrale Abkürzungs-/Begriffsdatei. Neue
+  Begriffe bei erster Verwendung dort eintragen (passende Domänen-Tabelle,
+  3 Spalten: Begriff | Bedeutung | Kurzerklärung mit Kontext).
+- **UE-Verweise immer vollqualifiziert:** `UE n (KMx, Klasse WS/SS)` —
+  UE-Nummern sind nur innerhalb eines Semesterplans eindeutig
+  (UE 5 in KM7 ≠ UE 5 in KM9a). Einträge ohne konkrete UE (noch nicht
+  geplante Semester) nennen nur das KM (`KM8`, `KM9b`).
+- Gilt repo-weit: Glossar, Semesterpläne, KM-Steckbriefe, Knowledge-Files.
+
 ## Open-Source-Lehrmaterial & Lizenzen (#6)
 
 - **"Link, don't copy".** Lektüre wird immer per URL/Kapitelangabe zugewiesen,
