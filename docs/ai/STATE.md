@@ -1,9 +1,9 @@
 # Project State
 
-Current status as of 2026-07-23.
+Current status as of 2026-08-09.
 
 ## Current Focus
-**Issue #6 — R4DS als Hauptmaterial.** Die Struktur steht jetzt:
+**Phase 3 (#6) — Stil-Leitfaden + UE-Retrofit.** Die Struktur steht:
 `ressourcen-matrix.md` (themen-zentriert, repariert) + `kompetenzmodule/`
 (Steckbriefe km3–km9b, km7/km9a voll) + korrekte Semesterpläne Sem 7+9
 (13 echte UE + 2 Reserve, R4DS-Buchreihenfolge, Ressourcen-Anker pro UE).
@@ -12,6 +12,10 @@ Phase 6 (DE-Übersetzung) endgültig ❌ (O'Reilly-Verlagsdeal, Hadley
 2026-07-22). Nächster Schritt: Phase 3 (Stil-Leitfaden + UE-1–2-Retrofit).
 
 ## Completed (this cycle)
+- [x] **Einstiegstest 5HWIT erstellt** (2026-08-09, GRG-PMM-T #2): 50 MC-Fragen
+      (200 Punkte) analog zum 4AHWIT-Einstiegstest; 5 Blöcke (R-Toolchain,
+      Statistische Tests, Annahmestichprobenprüfung, SPC, Prozessfähigkeit);
+      Schüler-Version + Lehrer-Version mit Lösungen und Begründungen
 - [x] Phase 1+2: Abdeckungsmatrix + Georgs Review (2026-07-23)
 - [x] Phase 6: abgebrochen nach Hadleys Antwort (O'Reilly-DE-Deal);
       Thread auf hadley/r4ds#1414 freundlich geschlossen
@@ -25,7 +29,7 @@ Phase 6 (DE-Übersetzung) endgültig ❌ (O'Reilly-Verlagsdeal, Hadley
       alle Markdown-Referenzen (README, AGENTS, docs/ai, METADATA,
       Unterlagen, selbststudium) aktualisiert
 - [x] **Semesterplan Sem 7 neu** (`4HWIT/semesterplan-ws.md`): 13 UE +
-      2 Reserve (Einstiegstest, LF/Admin) + optionale Bonus-UE;
+      2 Reserve (Einstiegstest, Leistungsfeststellung/Admin) + optionale Bonus-UE;
       UE 1–3 R4DS-Whole-Game; Bestandsordner 01/02 als Retrofit-vermerkt
 - [x] **Semesterplan Sem 9 neu** (`5HWIT/semesterplan-ws.md`): 13 UE +
       2 Reserve (2× LF); Weibull-Statistik nach KM9b verschoben (war
@@ -42,6 +46,8 @@ Phase 6 (DE-Übersetzung) endgültig ❌ (O'Reilly-Verlagsdeal, Hadley
       Verteilungen mit d/p/q/r) bauen; danach L0005–0015 fortlaufend
 - [ ] Einstiegstest 4HWIT (2026-09-07, GRG-PMM-T): nach Korrektur
       Bonus-UE aktivieren bzw. UE 4–5 anpassen
+- [ ] Einstiegstest 5HWIT (2026-09-08, GRG-PMM-T): nach Korrektur
+      DOE-Block (UE 1–8) an Vorwissensstand anpassen
 - [ ] Issue #1: Kommentar beim Commit (Stundenvolumen geklärt;
       Fachzuordnung offen)
 
