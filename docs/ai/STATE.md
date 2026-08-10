@@ -42,8 +42,10 @@ Phase 6 (DE-Übersetzung) endgültig ❌ (O'Reilly-Verlagsdeal, Hadley
       dabei mit auf 4HWIT/5HWIT-Bezeichnung
 - [ ] Phase 4: Stil in `selbststudium/NOTES.md` + CONVENTIONS.md verankern,
       AGENTS.md-Verweis
-- [ ] JG3 Phase 0: L0003 abnehmen → LR Meisterschaft → L0004 (Diskrete
-      Verteilungen mit d/p/q/r) bauen; danach L0005–0015 fortlaufend
+- [x] **JG3 Phase 0: L0003 abgenommen** (2026-08-09): LR 0007 geschrieben,
+      Verlaufsmap L0003 → ✅ (Fragen 1–6, alle 5 Hausübungs-Aufgaben)
+- [ ] JG3 Phase 0: L0004 (Diskrete Verteilungen: Binomial/Hypergeometrisch/
+      Poisson mit d/p/q/r) bauen; danach L0005–0015 fortlaufend
 - [ ] Einstiegstest 4HWIT (2026-09-07, GRG-PMM-T): nach Korrektur
       Bonus-UE aktivieren bzw. UE 4–5 anpassen
 - [ ] Einstiegstest 5HWIT (2026-09-08, GRG-PMM-T): nach Korrektur
