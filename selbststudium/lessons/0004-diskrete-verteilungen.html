@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>L0004 — Diskrete Verteilungen: Binomial, Hypergeometrisch, Poisson</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<main>
+
+  <div class="breadcrumb">
+    <a href="../reference/jg3-verlauf.html">JG3 Verlauf</a>
+    <span class="sep">/</span>
+    Track 1 · L0004
+  </div>
+
+  <header class="lesson-head">
+    <div class="meta">
+      Phase 0 · Track 1 (Verteilungen, KM5) &nbsp;·&nbsp; 📊 🎯 &nbsp;·&nbsp;
+      <a href="../reference/jg3-verlauf.html">Verlaufsmap</a> &nbsp;·&nbsp;
+      <a href="../reference/glossar.html">Glossar</a>
+    </div>
+    <h1>Diskrete Verteilungen: Binomial, Hypergeometrisch, Poisson</h1>
+    <p class="lede">Die Antwort auf die wichtigste Qualitätsfrage überhaupt: „Wie viele
+      defekte Stücke stecken in dieser Stichprobe?" — drei Verteilungen, drei
+      Zieh-Szenarien, ein gemeinsames d/p/q/r-Schema aus L0003 im Ernstfall.</p>
+  </header>
+
+  <!-- ========================================================= WARUM -->
+  <h2>Warum diese Lektion</h2>
+  <p>In L0003 hast du das Gerüst gebaut: Zufallsvariable, diskret vs. stetig,
+    f(x) vs. F(x) und das d/p/q/r-Schema. Jetzt kommt das erste echte Fleisch —
+    und es ist genau das, was die <strong>Annahmestichprobenprüfung</strong>
+    (ISO 2859, ein Kern von KM7) in R braucht. Die Grundfrage überall gleich:
+    <em>„Ich prüfe n Stücke aus einer Lieferung. Wie groß ist die
+    Wahrscheinlichkeit, x defekte zu finden?"</em> Je nachdem, <strong>wie</strong>
+    die Stücke zustande kommen, antwortet eine andere diskrete Verteilung.</p>
+
+  <div class="callout tipp">
+    <span class="label">Die eine Idee</span>
+    <p>Drei diskrete Verteilungen, drei „Zieh-Geschichten": <strong>Binomial</strong> =
+      n unabhängige Würfe mit konstanter Erfolgswahrscheinlichkeit p (mit Zurücklegen).
+      <strong>Hypergeometrisch</strong> = Ziehen ohne Zurücklegen aus einem endlichen
+      Los (die echte Annahmeprüfung). <strong>Poisson</strong> = seltene Ereignisse
+      pro Zeit/Fläche, gezählt statt geprüft. Alle drei nutzen exakt dieselben
+      vier R-Funktionen: <code>d</code>, <code>p</code>, <code>q</code>,
+      <code>r</code>.</p>
+  </div>
+
+  <!-- ===================================================== BINOMIAL -->
+  <h2>1. Binomialverteilung — „n unabhängige Versuche"</h2>
+  <p>Ein einzelnes Stück ist entweder i.O. oder defekt — das ist ein
+    <strong>Bernoulli-Experiment</strong>. Prüfst du n Stücke, die alle
+    <em>unabhängig</em> mit derselben Wahrscheinlichkeit p defekt sind, ist die
+    Zahl der Defekten binomialverteilt: <code>X ~ Bin(n, p)</code>.</p>
+
+  <table>
+    <tr><th></th><th>Werte</th><th>Beispiel (Qualität)</th></tr>
+    <tr><td>n</td><td>Anzahl Versuche</td><td>100 geprüfte Stücke</td></tr>
+    <tr><td>p</td><td>Erfolgswsk je Versuch</td><td>p = 0,02 (2 % defekt)</td></tr>
+    <tr><td>X</td><td>Anzahl Erfolge</td><td>Anzahl defekter Stücke</td></tr>
+  </table>
+
+  <p>Die Wahrscheinlichkeitsfunktion — zähl aus, auf wie viele Arten man x
+    Erfolge auf n Plätze verteilen kann:</p>
+  <p style="text-align:center"><code>f(x) = C(n, x) · pˣ · (1−p)ⁿ⁻ˣ</code></p>
+  <p>mit <code>C(n,x) = n! / (x! · (n−x)!)</code> — in R: <code>choose(n, x)</code>.
+    Der Erwartungswert (kommt in Track 2 formal, hier schon die Regel):
+    <code>E(X) = n·p</code>.</p>
+
+  <h3>R-Praxis — Annahmeprüfung: n = 100 Stück, p = 0,02</h3>
+  <pre><code><span class="cmt"># d = f(x): Wahrscheinlichkeit fuer GENAU x defekte</span>
+dbinom(0, size = 100, prob = 0.02)   <span class="cmt"># P(0 defekt) ≈ 0,133</span>
+dbinom(1, size = 100, prob = 0.02)   <span class="cmt"># P(1 defekt) ≈ 0,271</span>
+dbinom(2, size = 100, prob = 0.02)   <span class="cmt"># P(2 defekt) ≈ 0,273</span>
+
+<span class="cmt"># p = F(x): kumuliert — BIS zueglich x defekte</span>
+pbinom(2, size = 100, prob = 0.02)   <span class="cmt"># P(X ≤ 2) ≈ 0,677</span>
+
+<span class="cmt"># q = Quantil: kleinste Zahl, bis zu der ≥ 95 % der Faelle liegen</span>
+qbinom(0.95, size = 100, prob = 0.02) <span class="cmt"># 5 → P(X ≤ 5) = 0,985 ≥ 0,95 (P(X ≤ 4) = 0,949)</span>
+
+<span class="cmt"># Erwartungswert: im Mittel n·p = 2 defekte</span>
+100 * 0.02                           <span class="cmt"># 2</span></code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">[1] 0.1326196
+[1] 0.2706522
+[1] 0.2734139
+[1] 0.6766856
+[1] 5
+[1] 2</pre>
+  <p>Gegenprobe von Hand: <code>dbinom(0,100,0.02) = 0,98¹⁰⁰</code> — alle 100
+    Stücke müssen gut sein, Wahrscheinlichkeit je Stück 0,98. Das Komplement
+    „mindestens 1 defekt" ist <code>1 − 0,133 = 0,867</code>.</p>
+  </details>
+
+  <div class="callout achtung">
+    <span class="label">Wichtige Voraussetzung</span>
+    <p>Binomial setzt <strong>konstantes p</strong> und <strong>Unabhängigkeit</strong>
+      voraus — gedanklich „mit Zurücklegen": Jedes Stück hat dieselbe Fehlerchance,
+      egal was vorher kam. Bei einem <em>endlichen Los</em>, das man Stück für Stück
+      ohne Zurücklegen zieht, verändert sich die Defektquote mit jedem Zug — genau
+      dafür gibt es die Hypergeometrische Verteilung.</p>
+  </div>
+
+  <!-- QUIZ 1 -->
+  <div class="quiz">
+    <div class="q-label">Verständnis</div>
+    <div class="question">Ein Betrieb prüft n Stück aus einer laufenden Produktion
+      (praktisch unendliche Grundgesamtheit). Welche Verteilung für die Anzahl der
+      Defekten?</div>
+    <ul class="options">
+      <li data-correct="false">Hypergeometrisch, ohne Zurücklegen</li>
+      <li data-correct="true">Binomial, mit konstantem p</li>
+      <li data-correct="false">Poisson, über die Zeit</li>
+      <li data-correct="false">Stetig, wie die Dichte</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. Aus praktisch unendlicher
+      Produktion ändert das Prüfen das p nicht — Unabhängigkeit, konstantes p,
+      also Binomial.</div>
+    <div class="feedback" data-for="wrong">Falsch. Bei laufender Produktion (kein
+      endliches Los) bleibt die Defektquote konstant → Binomial. Hypergeometrisch
+      wäre es bei einem endlichen Los ohne Zurücklegen.</div>
+  </div>
+
+  <!-- QUIZ 2 -->
+  <div class="quiz">
+    <div class="q-label">R-Praxis</div>
+    <div class="question">Was berechnet <code>pbinom(2, 100, 0.02)</code>?</div>
+    <ul class="options">
+      <li data-correct="false">P(X = 2) — genau zwei defekte</li>
+      <li data-correct="false">P(X ≥ 2) — mindestens zwei defekte</li>
+      <li data-correct="true">P(X ≤ 2) — höchstens zwei defekte</li>
+      <li data-correct="false">Den Erwartungswert 2</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. <code>p</code> = Verteilungsfunktion
+      F(x) = P(X ≤ x). Genau x liefert <code>dbinom</code>, mindestens x braucht
+      <code>lower.tail = FALSE</code>.</div>
+    <div class="feedback" data-for="wrong">Falsch. <code>p</code>-Präfix = kumuliert
+      = „höchstens x" (P(X ≤ x)). Für „genau 2" wäre es <code>dbinom</code>.</div>
+  </div>
+
+  <!-- ===================================================== HYPERGEOMETRISCH -->
+  <h2>2. Hypergeometrische Verteilung — „Ziehen ohne Zurücklegen"</h2>
+  <p>Jetzt die <strong>exakte Annahmeprüfungssituation</strong> (ISO 2859): Eine
+    Lieferung von N Stücken liegt, M davon sind defekt. In der Praxis ist M
+    <em>unbekannt</em> — genau das soll die Prüfung ja schätzen; für die Rechnung
+    setzt man einen angenommenen Wert an (hier M = 10). Du ziehst n
+    Stück <em>ohne Zurücklegen</em> — jedes gezogene defekte Stück reduziert die
+    verbliebene Defektquote. Drei Parameter:</p>
+
+  <table>
+    <tr><th>Parameter</th><th>Bedeutung</th><th>Beispiel</th></tr>
+    <tr><td>N</td><td>Losgröße (Grundgesamtheit)</td><td>200 Stück im Los</td></tr>
+    <tr><td>M</td><td>Defekte im Los</td><td>10 defekt</td></tr>
+    <tr><td>n</td><td>Stichprobenumfang</td><td>20 gezogen</td></tr>
+  </table>
+
+  <p style="text-align:center"><code>f(x) = C(M, x) · C(N−M, n−x) / C(N, n)</code></p>
+  <p>Zähler: x der M defekten und n−x der N−M guten Stücke wählen. Nenner: alle
+    Möglichkeiten, n aus N zu ziehen. In R heißt die Reihenfolge anders als man
+    denkt:</p>
+
+  <pre><code><span class="cmt"># dhyper(x, m, n, k) mit:  m = M (defekte im Los),
+#                          n = N-M (gute im Los),
+#                          k = n (gezogene Stichprobe)</span>
+dhyper(0, m = 10, n = 190, k = 20)  <span class="cmt"># P(0 defekt) ≈ 0,340</span>
+dhyper(1, m = 10, n = 190, k = 20)  <span class="cmt"># P(1 defekt) ≈ 0,397</span>
+dhyper(2, m = 10, n = 190, k = 20)  <span class="cmt"># P(2 defekt) ≈ 0,198</span></code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">[1] 0.3397744
+[1] 0.3973969
+[1] 0.1975432</pre>
+  <p>Die häufigste Antwort ist „1 defekt" — weil 10 von 200 defekt sind und die
+    Stichprobe 20 beträgt (Erwartungswert n·M/N = 20·10/200 = 1).</p>
+  </details>
+
+  <div class="callout tipp">
+    <span class="label">Wann Binomial statt Hypergeometrisch?</span>
+    <p>Ist die Stichprobe <strong>klein gegen das Los</strong> (Faustregel
+      <code>n/N ≤ 5 %</code>), ändert das Ziehen die Defektquote kaum — die
+      Hypergeometrische und die Binomialverteilung liefern fast gleiche Werte.
+      Dann darf man mit der einfacheren Binomialformel rechnen. Beispiel N=2000,
+      M=100 (5 %), n=20: <code>dhyper(0,100,1900,20) ≈ 0,358</code> vs.
+      <code>dbinom(0,20,0.05) ≈ 0,358</code> — praktisch identisch.</p>
+  </div>
+
+  <!-- QUIZ 3 -->
+  <div class="quiz">
+    <div class="q-label">Gegenprobe</div>
+    <div class="question">Eine Lieferung von N = 100 Stück enthält M = 5 defekte.
+      Du prüfst n = 20 ohne Zurücklegen. Welche R-Funktion zählt die Defekten?</div>
+    <ul class="options">
+      <li data-correct="true">dhyper(x, 5, 95, 20)</li>
+      <li data-correct="false">dbinom(x, 20, 0.05)</li>
+      <li data-correct="false">dpois(x, 1)</li>
+      <li data-correct="false">rbinom(20, 100, 0.05)</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. Ziehen ohne Zurücklegen aus
+      endlichem Los → hypergeometrisch: m = 5 (defekte), n = 95 (gute), k = 20
+      (Stichprobe).</div>
+    <div class="feedback" data-for="wrong">Falsch. Ohne Zurücklegen aus einem
+      endlichen Los → <code>dhyper(x, m, n, k)</code>. Binomial wäre nur die
+      Näherung, wenn n/N ≤ 5 %.</div>
+  </div>
+
+  <!-- ===================================================== POISSON -->
+  <h2>3. Poissonverteilung — „seltene Ereignisse pro Einheit"</h2>
+  <p>Manchmal zählst du nicht geprüfte Stücke, sondern <strong>Ereignisse pro
+    Zeit oder Fläche</strong>: Kratzer pro m², Anrufe pro Stunde, Ausfälle pro
+    Woche. Die Ereignisse sind selten, unabhängig und im Durchschnitt kommt
+    <code>λ</code> pro Einheit vor:</p>
+  <p style="text-align:center"><code>f(x) = e^(−λ) · λˣ / x!</code></p>
+  <p>Besonderheit: Erwartungswert <strong>und</strong> Varianz sind beide gleich
+    λ. Es gibt keinen Parameter n — die Zahl der Möglichkeiten ist unbegrenzt.</p>
+
+  <pre><code><span class="cmt"># dpois(x, lambda): Kratzer pro m², im Schnitt 2</span>
+dpois(0, lambda = 2)               <span class="cmt"># P(0 Kratzer) ≈ 0,135</span>
+dpois(1, lambda = 2)               <span class="cmt"># P(1 Kratzer) ≈ 0,271</span>
+dpois(2, lambda = 2)               <span class="cmt"># P(2 Kratzer) ≈ 0,271</span>
+ppois(2, lambda = 2)               <span class="cmt"># P(X ≤ 2) ≈ 0,677</span></code></pre>
+  <details><summary>Output</summary>
+  <pre class="output">[1] 0.1353353
+[1] 0.2706706
+[1] 0.2706706
+[1] 0.6766764</pre>
+  </details>
+
+  <div class="callout tipp">
+    <span class="label">Binomial-Grenzfall</span>
+    <p>Wird n groß und p klein (seltene Ereignisse), läuft die Binomialverteilung
+      in die Poissonverteilung mit <strong>λ = n·p</strong> über. Nimm die
+      Annahmeprüfung mit n = 100, p = 0,02 (λ = 2):</p>
+    <table>
+      <tr><th>P(X = x)</th><th>Binomial</th><th>Poisson (λ=2)</th></tr>
+      <tr><td>x = 0</td><td>0,133</td><td>0,135</td></tr>
+      <tr><td>x = 1</td><td>0,271</td><td>0,271</td></tr>
+      <tr><td>x = 2</td><td>0,273</td><td>0,271</td></tr>
+    </table>
+    <p>Beinahe gleich. Faustregel: Binomial als Poisson nähern, wenn n groß
+      (≥ 20) und p klein (≤ 0,05) ist.</p>
+  </div>
+
+  <!-- QUIZ 4 -->
+  <div class="quiz">
+    <div class="q-label">Verständnis</div>
+    <div class="question">Warum eignet sich die Poissonverteilung für „Kratzer pro
+      m² auf einer lackierten Fläche" besonders gut?</div>
+    <ul class="options">
+      <li data-correct="false">Weil Kratzer immer gleich verteilt sind</li>
+      <li data-correct="false">Weil die Fläche stetig gemessen wird</li>
+      <li data-correct="false">Weil es genau n Versuche gibt</li>
+      <li data-correct="true">Weil Ereignisse selten und unabhängig sind</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. Seltene, unabhängige Ereignisse
+      pro Fläche/Zeit — genau das Grundszenario von Poisson, gezählt statt geprüft,
+      ohne festes n.</div>
+    <div class="feedback" data-for="wrong">Falsch. Poisson passt, weil Kratzer
+      <em>selten</em> und <em>unabhängig</em> sind. Ein festes n (Anzahl Versuche)
+      ist das Binomial-Szenario.</div>
+  </div>
+
+  <!-- QUIZ 5 -->
+  <div class="quiz">
+    <div class="q-label">R-Praxis</div>
+    <div class="question">λ = 3 Ausfälle pro Woche. Welcher Wert ist
+      <code>qpois(0.95, lambda = 3)</code>?</div>
+    <ul class="options">
+      <li data-correct="false">Die Wahrscheinlichkeit für 3 Ausfälle</li>
+      <li data-correct="true">Das 95 %-Quantil — Grenze der Ausfälle</li>
+      <li data-correct="false">Der Erwartungswert der Ausfälle</li>
+      <li data-correct="false">Die Dichte an der Stelle 3</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. <code>q</code> = Umkehrung von
+      F: die Zahl x, bei der P(X ≤ x) ≈ 0,95 erreicht wird — „in 95 % der Wochen
+      fallen höchstens so viele aus".</div>
+    <div class="feedback" data-for="wrong">Falsch. <code>q</code> liefert das Quantil
+      (Grenzwert), nicht die Wahrscheinlichkeit (das wäre <code>ppois</code>) und
+      nicht f(x) (das wäre <code>dpois</code>).</div>
+  </div>
+
+  <!-- ===================================================== VERGLEICH -->
+  <h2>Die drei im Überblick</h2>
+  <table>
+    <tr><th></th><th>Binomial</th><th>Hypergeometrisch</th><th>Poisson</th></tr>
+    <tr><td>Zieh-Geschichte</td><td>n Würfe, p konstant</td><td>n aus N ohne Zurücklegen</td><td>Ereignisse pro Zeit/Fläche</td></tr>
+    <tr><td>Parameter</td><td>n, p</td><td>N, M, n</td><td>λ</td></tr>
+    <tr><td>E(X)</td><td>n·p</td><td>n·M/N</td><td>λ</td></tr>
+    <tr><td>R d-Funktion</td><td><code>dbinom(x, n, p)</code></td><td><code>dhyper(x, M, N−M, n)</code></td><td><code>dpois(x, λ)</code></td></tr>
+    <tr><td>Typische Frage</td><td>Laufende Produktion</td><td>Endliches Los (ISO 2859)</td><td>Fehlerstellen, Ausfälle/Zeit</td></tr>
+  </table>
+
+  <div class="callout tipp">
+    <span class="label">Vertiefung — was q bedeutet (am Würfel)</span>
+    <p><code>q</code> ist die <strong>Umkehrung von <code>p</code></strong>: p
+      fragt „Wie viel Fläche liegt links von x?", q fragt „Bis wohin muss ich
+      gehen, um diese Fläche zu erreichen?". Bei einer <em>stetigen</em>
+      Verteilung ist die Antwort exakt (z. B. <code>qnorm(0.975)</code> =
+      1,96); bei einer <em>diskreten</em> ist es die <strong>erste ganze Zahl</strong>,
+      die die Schwelle erreicht. Der Würfel aus L0003 macht das greifbar:
+      Würfle 100-mal und zähle die Sechsen (<code>X ~ Bin(100, 1/6)</code>).</p>
+    <pre><code><span class="cmt"># q = Umkehrung von F: erste Zahl, die 95 % erreicht</span>
+qbinom(0.95, size = 100, prob = 1/6)  <span class="cmt"># 23</span>
+pbinom(22, size = 100, prob = 1/6)     <span class="cmt"># 0,937 — noch unter 0,95</span>
+pbinom(23, size = 100, prob = 1/6)     <span class="cmt"># 0,962 — Schwelle erreicht</span></code></pre>
+    <details><summary>Output</summary>
+    <pre class="output">[1] 23
+[1] 0.9369497
+[1] 0.9621356</pre>
+    </details>
+    <p>„In 95 % der 100er-Würfe kommen höchstens 23 Sechsen" — das Quantil 23
+      ist die erste Zahl, bei der P(X ≤ x) ≥ 0,95 wird. Exakt wie bei
+      <code>qnorm</code>, nur mit ganzzahligen Antworten. (Der faire Würfel ist
+      übrigens ein Bernoulli-Experiment: „Sechs gewürfelt" = Erfolg mit p = 1/6 —
+      damit ist <code>qbinom</code> das korrekte Würfel-Pendant zu
+      <code>qnorm</code>.)</p>
+  </div>
+
+  <div class="callout didaktik">
+    <span class="label">Didaktik — die Zieh-Metapher als Unterrichtsanker</span>
+    <p>Im Unterricht reicht ein einziger Entscheidungsbaum: <em>„Ist die Menge
+      endlich?"</em> Ja → Hypergeometrisch. Nein (laufende Produktion) →
+      Binomial. <em>„Zähle ich Ereignisse statt Stücke?"</em> → Poisson. Die
+      Schüler müssen nicht Formeln memorieren, sondern die <em>Geschichte</em>
+      des Ziehens erkennen — der Rest ist <code>dbinom/dhyper/dpois</code>.</p>
+  </div>
+
+  <!-- QUIZ 6 -->
+  <div class="quiz">
+    <div class="q-label">Transfer</div>
+    <div class="question">Ein Prüfstand zählt Brüche pro 1000 km einer Bauteilgruppe
+      (im Schnitt 0,5). Welche Verteilung ist die richtige Wahl?</div>
+    <ul class="options">
+      <li data-correct="true">Poisson, λ = 0,5</li>
+      <li data-correct="false">Binomial, n = 1000</li>
+      <li data-correct="false">Hypergeometrisch, N = 1000</li>
+      <li data-correct="false">Stetig mit Dichte</li>
+    </ul>
+    <div class="feedback" data-for="correct">Richtig. Seltene, unabhängige Ereignisse
+      pro zurückgelegter Einheit → Poisson. Ein festes n gibt es hier nicht.</div>
+    <div class="feedback" data-for="wrong">Falsch. Ereignisse pro Strecke = Poisson.
+      n/p (Binomial) oder N/M/n (Hypergeometrisch) passen nur zum Stück-Prüfen.</div>
+  </div>
+
+  <!-- ===================================================== ZUSAMMENFASSUNG -->
+  <h2>Mitnehmen — der Kompakt-Kasten</h2>
+  <table>
+    <tr><th>Begriff</th><th>Ein Satz</th></tr>
+    <tr><td>Bernoulli-Experiment</td><td>Ein Versuch mit zwei Ausgängen (i.O./defekt), Erfolgswsk p.</td></tr>
+    <tr><td>Binomial Bin(n, p)</td><td>n unabhängige Versuche, konstantes p; f(x) = C(n,x)·pˣ·(1−p)ⁿ⁻ˣ; E = n·p.</td></tr>
+    <tr><td>Hypergeometrisch</td><td>Ziehen ohne Zurücklegen aus endlichem Los (N, M, n); exakt für ISO 2859; R: dhyper(x, M, N−M, n).</td></tr>
+    <tr><td>Poisson(λ)</td><td>Seltene Ereignisse pro Zeit/Fläche; f(x) = e^(−λ)·λˣ/x!; E = Var = λ.</td></tr>
+    <tr><td>Näherungen</td><td>Hypergeo ≈ Binomial, wenn n/N ≤ 5 %. Binomial ≈ Poisson, wenn n groß, p ≤ 0,05 (λ = n·p).</td></tr>
+    <tr><td>R-Schema</td><td>d = f(x), p = F(x), q = Quantil, r = Zufall — für alle drei identisch.</td></tr>
+  </table>
+
+  <!-- ===================================================== HUE -->
+  <h2>Hausübung (für dich — Selbststudium)</h2>
+  <ol>
+    <li>Los N = 500, unbekannte Defektquote. Du prüfst n = 25 ohne Zurücklegen und
+      findest x = 3 defekte. Berechne <code>dhyper(3, 25, 475, 25)</code> und
+      vergleiche mit <code>dbinom(3, 25, 0.05)</code>. Wie groß ist der Unterschied
+      (n/N = 5 %)?</li>
+    <li>Eine Maschine produziert Ausschuss mit p = 0,01. Berechne mit
+      <code>qbinom(0.90, 200, 0.01)</code> die Grenze für 90 % der Lose (200 Stück).
+      Was bedeutet der Wert in eigenen Worten?</li>
+    <li>Poisson: Im Schnitt λ = 4 Fehler pro Bauteil. Wie groß ist die
+      Wahrscheinlichkeit für höchstens 2 Fehler? (Tipp: <code>ppois(2, 4)</code>
+      und die Summe von Hand gegenprüfen.)</li>
+    <li>Entscheidungsfrage: „Prüfst du <em>Stücke</em> aus einer Lieferung" vs.
+      „zählst du <em>Ausfälle pro Woche</em>" — welche Verteilung jeweils und
+      warum?</li>
+    <li>Begründe, warum die Hypergeometrische Verteilung die ehrlichere Rechnung
+      für ISO-2859-Annahmeprüfung ist als die Binomialverteilung — und wann man
+      die Binomialform trotzdem nutzen darf.</li>
+  </ol>
+
+  <!-- ===================================================== QUELLE -->
+  <div class="callout quelle">
+    <span class="label">Primärquelle zum Vertiefen</span>
+    <p><a href="https://learningstatisticswithr.com/">Danielle Navarro —
+      Learning Statistics with R</a>, Kapitel 9 (Wahrscheinlichkeit) — die
+      diskreten Verteilungen konversationell erklärt. Für die industrielle Seite:
+      <a href="https://www.itl.nist.gov/div898/handbook/pmc/section2/pmc22.htm">NIST
+      e-Handbook Kap. 6.2</a> (Acceptance Sampling) — genau die ISO-2859-Mathematik.
+      Siehe auch <a href="../RESOURCES.md">RESOURCES.md</a>.</p>
+  </div>
+
+  <!-- ===================================================== ASK -->
+  <div class="ask">
+    <span class="label">Fragen? Unklarheiten?</span>
+    <p>Zum Beispiel: „Warum ist <code>dhyper(x, m, n, k)</code> so benannt?",
+      „Wie entscheide ich im Einstiegstest, welche Verteilung gefragt ist?",
+      oder „Zeig mir, wie <code>rbinom</code> eine ganze Produktionsschicht
+      simuliert." Frag mich einfach — ich bin dein Lehrer.</p>
+  </div>
+
+  <!-- ===================================================== FOOT -->
+  <div class="lesson-foot">
+    <p>Track 1 · Lektion 2 von 4.
+       Nächste Einheit: <strong>L0005 — Normalverteilung &amp; Standardisierung</strong>
+       (μ/σ, 68-95-99,7-Regel, z-Transformation) — die wichtigste stetige Verteilung
+       überhaupt, Grundlage für SPC und Prozessfähigkeit (Cp/Cpk). Siehe
+       <a href="../reference/jg3-verlauf.html">Verlaufsmap</a>.</p>
+    <div class="nav">
+      <a class="prev" href="0003-zufallsvariablen-wahrscheinlichkeit.html">← L0003</a>
+      <a class="next" href="../reference/jg3-verlauf.html">Verlaufsmap →</a>
+    </div>
+  </div>
+
+</main>
+<script src="../assets/quiz.js" defer></script>
+</body>
+</html>
