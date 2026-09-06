@@ -38,7 +38,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | BLVG | Bundeslehrer-Lehrverpflichtungsgesetz | Ermächtigungsgrundlage des Lehrplans (§ 7) |
 | BMBF | Bundesministerium für Bildung und Frauen | Einbringende Stelle des Lehrplans (2015) |
 | Doppelstunde | 2 Schulstunden am Stück | Grundeinheit der Planung: 1 DS/Woche pro Klasse |
-| ELI | European Legislation Identifier | Eindeutige URI für Rechtsdokumente; RIS-Verweise in `docs/lehrplan/METADATA.md` |
+| ELI | European Legislation Identifier | Eindeutige URI für Rechtsdokumente; RIS-Verweise in `lehrplan/METADATA.md` |
 | GER | Gemeinsamer Europäischer Referenzrahmen (Sprachen) | Zielniveaus: B1+ Ende JG4, B2 Ende JG5 — englische R4DS-Lektüre bedient das |
 | HTL | Höhere Technische Lehranstalt | Schulform; hier: HTL Spengergasse, Wien |
 | HÜ | Hausübung | Beurteilungsdrittel (PLF / HÜ / Mitarbeit), siehe Root-README |
@@ -178,7 +178,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | L0003 … | — | Lektions-Nummern im Selbststudium (`selbststudium/lessons/`) |
 | Lern-Lektion | — | Interaktive HTML-Lektion für Georg (teach skill), Artefakt 1 von 3 pro UE |
 | LR | Learning Record | Lernprotokoll nach jeder Selbststudium-Einheit — ⚠ Kollision, s.o. |
-| Matrix-Key | — | Slug je Lehrplan-Thema in `docs/lehrplan/ressourcen-matrix.md` (z.B. `KM7-tests`) |
+| Matrix-Key | — | Slug je Lehrplan-Thema in `lehrplan/ressourcen-matrix.md` (z.B. `KM7-tests`) |
 | Meisterschaft | — | Lernziel-Status im teach skill (LR mit voller Punktzahl) |
 | NN-slug | — | Ordner-Schema vor Datumsfixierung (z.B. `01-r-grundlagen-datenstrukturen/`) → wird `YYYY-MM-DD_slug/` |
 | YYYY-MM-DD | ISO 8601 | Datumsformat für alle Unterrichtsordner und datierten Dokumente |

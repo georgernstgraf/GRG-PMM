@@ -9,7 +9,7 @@ Semester und Kompetenzmodul (KM7, KM8, KM9a, KM9b).
 
 - Selbstauskunft des Lernenden: „Ich habe initial einen Fehler gemacht. Ich
   habe **eine** Doppelstunde pro Woche, sowohl in der 4. als auch der 5. Klasse."
-- `docs/lehrplan/METADATA.md` Zeitmodell: 15 Doppelstunden netto pro Semester
+- `lehrplan/METADATA.md` Zeitmodell: 15 Doppelstunden netto pro Semester
   — das had already stated the correct number, confirming the user's correction.
 - `docs/ai/DECISIONS.md` (2026-06-02): „Lesson plans target 15 double-periods
   per semester" — die Entscheidung war richtig, die Umsetzung (30 im Plan) war

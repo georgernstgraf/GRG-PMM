@@ -67,7 +67,7 @@ einem kompakten Block **Facility Management** (Lehrplan-Bereich 2).
 
 ## Ressourcen
 
-Matrix-Keys (Details: `docs/lehrplan/ressourcen-matrix.md`):
+Matrix-Keys (Details: `lehrplan/ressourcen-matrix.md`):
 `KM9a-doe` · `KM9a-rsm` · `KM9a-betriebsfuehrung`
 
 | Strang | Lektüre | R-Umsetzung |

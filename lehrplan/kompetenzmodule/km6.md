@@ -23,4 +23,4 @@ Matrix-Keys: `KM6-konfidenz`, `KM6-darstellung`, `KM6-lebensdauer`
 Lektüre-Anker: ModernDive Kap. 8 (Bootstrap/CI) · **R4DS Kap. 11, 28–29**
 (Darstellung!) · NIST Kap. 8 (Lebensdauer)
 R-Umsetzung: `infer`, `ggplot2`, Quarto, `fitdistrplus`
-(Details: `docs/lehrplan/ressourcen-matrix.md`)
+(Details: `lehrplan/ressourcen-matrix.md`)

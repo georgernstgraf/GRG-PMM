@@ -28,4 +28,4 @@ zensierte Daten, beschleunigte Tests)
 R-Umsetzung: `fitdistrplus` (Weibull-Fit), `survival`;
 `networkD3` (Sankey für Energiebilanzen) optional
 Eigenbedarf: Energiemanagement weitgehend
-(Details: `docs/lehrplan/ressourcen-matrix.md`)
+(Details: `lehrplan/ressourcen-matrix.md`)

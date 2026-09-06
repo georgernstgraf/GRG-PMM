@@ -46,20 +46,21 @@ Der Lehrplan folgt **BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5** —
 
 | Verzeichnis | Inhalt |
 |-------------|--------|
-| `4HWIT/` | 4. Jahrgang — Semesterpläne, Übungen, Projekte |
-| `5HWIT/` | 5. Jahrgang — Semesterpläne, Maturavorbereitung |
-| `kompetenzmodule/` | Didaktische Steckbriefe je Kompetenzmodul (KM3–KM9b) |
+| `lehrplan/` | Lehrplan-Konvention des Unterrichts-Skills (PDFs, METADATA, Extrakte) |
+| `lehrplan/4HWIT/` | 4. Jahrgang — Semesterpläne, Übungen, Projekte |
+| `lehrplan/5HWIT/` | 5. Jahrgang — Semesterpläne, Maturavorbereitung |
+| `lehrplan/kompetenzmodule/` | Didaktische Steckbriefe je Kompetenzmodul (KM3–KM9b) |
 | `GLOSSAR.md` | Abkürzungen & Fachbegriffe (AQL, DoE, R4DS, KM, …) |
 | `Unterlagen/` | Thematische Referenzmaterialien und Skripten |
-| `docs/` | Zentrale Dokumente (Lehrplan, Metadaten, Projektangaben) |
+| `docs/` | Zentrale Dokumente (Projektangaben, AI-Wissensdateien) |
 
 ### Rechtliche Grundlagen
 
 | Datei | Beschreibung |
 |-------|-------------|
-| `docs/lehrplan/2015-09-17_Lehrplan_TechnischesManagement.pdf` | Fachspezifischer Lehrplan (RIS Anlage 1.28, 33 S.) |
-| `docs/lehrplan/2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | Allgemeiner Teil aller HTL-Lehrpläne |
-| `docs/lehrplan/METADATA.md` | RIS-Verweise, Änderungshistorie, schulautonome Stundentafel |
+| `lehrplan/2015-09-17_Lehrplan_TechnischesManagement.pdf` | Fachspezifischer Lehrplan (RIS Anlage 1.28, 33 S.) |
+| `lehrplan/2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | Allgemeiner Teil aller HTL-Lehrpläne |
+| `lehrplan/METADATA.md` | RIS-Verweise, Änderungshistorie, schulautonome Stundentafel |
 
 ---
 

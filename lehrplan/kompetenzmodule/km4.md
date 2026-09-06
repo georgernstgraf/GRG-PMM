@@ -21,4 +21,4 @@
 
 Matrix-Keys: `KM4-kennzahlen`, `KM4-risiko`
 (kein R-Bezug, keine freie Abdeckung — Details:
-`docs/lehrplan/ressourcen-matrix.md`)
+`lehrplan/ressourcen-matrix.md`)

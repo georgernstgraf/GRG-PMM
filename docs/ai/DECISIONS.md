@@ -8,7 +8,7 @@ Each entry documents WHAT was decided and WHY.
 - **Reason**: Enables chronological sorting and immediate identification of publication date; matches the `YYYY-MM-DD_thema/` convention used in class lesson folders.
 
 ## 2026-06-02: Separate Legal Framework Folder
-- **Choice**: Legal documents live in `docs/lehrplan/`, instructional materials in `Unterlagen/`
+- **Choice**: Legal documents live in `lehrplan/`, instructional materials in `Unterlagen/`
 - **Reason**: Clear separation between binding legal texts and teacher-created content; follows GRG-WMC/GRG-INFI pattern of `docs/` for central documents.
 
 ## 2026-06-02: Download Anlage 1 (Allgemeiner Teil)
@@ -21,7 +21,7 @@ Each entry documents WHAT was decided and WHY.
 
 ## 2026-06-02: Date Prefix Consistent for All Legal PDFs
 - **Choice**: School PDF uses `2015-09-17_` prefix to match the Anlage 1 PDF naming convention
-- **Reason**: Enables chronological sorting and consistent naming across `docs/lehrplan/`.
+- **Reason**: Enables chronological sorting and consistent naming across `lehrplan/`.
 
 ## 2026-06-02: School Website Stundentafel as Reference
 - **Choice**: The Stundentafel published on spengergasse.at is documented in METADATA.md alongside the RIS version
@@ -59,16 +59,16 @@ Each entry documents WHAT was decided and WHY.
 
 - **Finding**: The PMM curriculum has three distinct phases. JG1+JG2 (KM3+KM4) are purely process/quality management — no statistics, no R. **Statistics begins in JG3 (KM5+KM6)** with "Statistische Methoden" (probability distributions, parameters/estimators, confidence intervals, lifetime distributions). JG4+JG5 continue with tests, sampling, SPC, DoE, reliability.
 - **Implication**: When Georg takes over 4AHWIT (JG4, KM7), the students should already have KM5+KM6 statistics from JG3. An entry test at the start of the school year is needed to assess what the previous teacher covered. If JG3 coverage is weak, KM7 must compensate.
-- **Action**: PMM curriculum extracted to `docs/lehrplan/pmm-lehrplan-text.md` for reference.
+- **Action**: PMM curriculum extracted to `lehrplan/pmm-lehrplan-text.md` for reference.
 
 ## 2026-07-13: PMM Curriculum Text Extracted to Markdown
 
-- **Choice**: The PMM-relevant section (Abschnitt 5) of the legal curriculum PDF was extracted to `docs/lehrplan/pmm-lehrplan-text.md`.
+- **Choice**: The PMM-relevant section (Abschnitt 5) of the legal curriculum PDF was extracted to `lehrplan/pmm-lehrplan-text.md`.
 - **Reason**: The PDF is not machine-searchable in this workflow. A Markdown extract enables quick reference and grep across all 5 Jahrgänge without running pdftotext each time. Only the PMM section was extracted (not the full 33-page document) to keep it focused.
 
 ## 2026-07-18: R4DS as Main Material for the R Toolchain (#6)
 
-- **Choice**: "R for Data Science" (2e) becomes the primary teaching material where the curriculum allows — concretely KM7 UE 1–3 (R toolchain) and KM6 "Prüfergebnisse darstellen" (Kap. 11, 28–29). Coverage analysis: `docs/lehrplan/r4ds-abdeckung.md`.
+- **Choice**: "R for Data Science" (2e) becomes the primary teaching material where the curriculum allows — concretely KM7 UE 1–3 (R toolchain) and KM6 "Prüfergebnisse darstellen" (Kap. 11, 28–29). Coverage analysis: `lehrplan/r4ds-abdeckung.md`.
 - **Reason**: Georg values the book's tone and didactics; analysis shows R4DS covers ~100 % of the toolchain strand but 0 % of the industrial-statistics core. Gap is closed by Navarro LSR (CC BY-SA, KM5/KM7 tests), ModernDive (CC BY-NC-SA, KM6 inference), NIST e-Handbook (US-gov, KM8/KM9: SPC, capability, MSA, DoE, reliability, acceptance sampling), package vignettes, and own materials for ISO/OENORM specifics.
 - **Tradeoff**: R4DS is CC BY-NC-ND 3.0 — own materials must be original German text adopting the didactic pattern only ("link, don't copy"); no translated passages.
 
@@ -91,9 +91,12 @@ Each entry documents WHAT was decided and WHY.
 - **Unverändert:** R4DS 2e bleibt Hauptmaterial (online englisch). Eigene deutsche Unterrichtsmaterialien (Originaltext, "link, don't copy") sind weiterhin erlaubt.
 - **Zu beobachten:** Offizielle kommerzielle DE-Ausgabe von O'Reillys deutschem Verlag — falls sie erscheint, optionale Print-Ergänzung.
 
-## 2026-08-09: Einstiegstest-Format für 5HWIT (analog 4HWIT)
+## 2026-08-21: Einstiegstest-Formate 4HWIT und 5HWIT überarbeitet (#3)
 
-- **Choice:** Einstiegstest 5HWIT im GRG-PMM-T Repo mit identischem Format wie 4HWIT: 50 Multiple-Choice-Fragen à 4 Punkte = 200 Punkte, 5 Blöcke à 10 Fragen, separate Schüler-/Lehrer-Version.
-- **Reason:** Konsistenz zwischen den Jahrgängen erleichtert Erstellung und Auswertung. Das Format hat sich beim 4AHWIT-Einstiegstest bewährt (ehrliche Bestandsaufnahme, keine Benotung, mehrere richtige Antworten pro Frage möglich).
-- **Inhalt:** Block 1 (R-Toolchain, KM7), Block 2 (Statistische Tests, KM7), Block 3 (Annahmestichprobenprüfung, KM7), Block 4 (SPC & Regelkarten, KM8), Block 5 (Prozessfähigkeit, KM8).
-- **Ablage:** `5hwit/knowledge_5hwit_2026-09-08.md` + `_solutions.md` im GRG-PMM-T Repo.
+- **Choice:** 4HWIT bleibt bei 50 Fragen / 200 Punkten; 5HWIT wird auf 60 Fragen / 240 Punkte erweitert. Beide Tests haben jetzt 6 Blöcke (5HWIT) bzw. 5 Blöcke (4HWIT) und eine Mischung aus 0/1/2/3/4-korrekt-Fragen.
+- **Reason:** Die Überprüfung gegen den Lehrplan (BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5) ergab: (a) 5HWIT-Test fehlte der komplette Bereich *Umweltmanagement* (KM7+KM8 laut Lehrplan verpflichtend), obwohl in den Hinweisen angekündigt — behoben durch Block 6 (F51–F60). (b) Beide Tests verletzten die CONVENTIONS-Regeln zum Answer-Shuffling (keine 0/1/2-korrekt-Fragen, Distraktor-Cluster, A-Cluster bei 4HWIT Q15–Q23).
+- **Inhalt 4HWIT:** 50 Fragen, 5 Blöcke (Verteilungen, Parameter/Schätzwerte, Vertrauensbereiche, Prüfergebnisse, Lebensdauer). Ziel-Mix korrekte Anzahl: 4/4/8/20/14 (0/1/2/3/4). Distraktor bei 3-korrekt: 5/5/5/5.
+- **Inhalt 5HWIT:** 60 Fragen, 6 Blöcke (R-Toolchain, Tests, Annahmeprüfung, SPC, Prozessfähigkeit, Umweltmanagement). Ziel-Mix: 5/5/10/24/16 (0/1/2/3/4). Distraktor bei 3-korrekt: 6/6/6/6.
+- **Korrektur F44 (5HWIT):** Option C „Cpm ≤ Cpk" war inhaltlich falsch → korrigiert auf „Cpm ≤ Cp" (Gleichheit nur bei μ = T, da dann Cpm = Cpk = Cp).
+- **Verify-Skript:** `verify_quiz.py` (in `/tmp/opencode/verify-quiz/`) prüft Konsistenz, Verteilung korrekte Anzahl, Distraktor-Position, Cluster-Länge. Vor jedem Commit laufen lassen (CONVENTIONS Z. 47–49).
+- **Ablage:** `4ahwit/knowledge_4ahwit_2026-09-07.md` + `_solutions.md` und `5hwit/knowledge_5hwit_2026-09-08.md` + `_solutions.md` im GRG-PMM-T Repo.

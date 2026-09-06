@@ -23,4 +23,4 @@
 Matrix-Keys: `KM5-verteilungen`, `KM5-schaetzer`
 Lektüre-Anker: Navarro Kap. 9–10 · ModernDive Kap. 7 · NIST Kap. 1 (EDA)
 R-Umsetzung: `d/p/q/r`-Familie, `mean`, `sd`, `infer`
-(Details: `docs/lehrplan/ressourcen-matrix.md`)
+(Details: `lehrplan/ressourcen-matrix.md`)

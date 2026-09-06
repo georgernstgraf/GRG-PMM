@@ -22,7 +22,7 @@ Follow these without question. Do not deviate unless explicitly told.
 - Push only the current branch
 
 ## Repo Structure
-- Legal documents: `docs/lehrplan/`
+- Legal documents: `lehrplan/`
 - Knowledge persistence: `docs/ai/`
 - Reference materials: `Unterlagen/`
 - Class materials: `4HWIT/`, `5HWIT/`
@@ -72,6 +72,6 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
 - Verifizierte Lizenzen des Material-Kanons: palmerpenguins CC0 1.0 ·
   ModernDive CC BY-NC-SA 4.0 · Navarro LSR CC BY-SA 4.0 · NIST e-Handbook
   US-Gov (Zitat mit Quellenangabe). Kanon + Abdeckung:
-  `docs/lehrplan/r4ds-abdeckung.md`.
+  `lehrplan/r4ds-abdeckung.md`.
 - Bei jeder UE, die auf Buchkapitel aufbaut: Lektüre-Box mit
   Kapitel-Verlinkung (englisch) am Folienanfang bzw. Lektionsanfang.

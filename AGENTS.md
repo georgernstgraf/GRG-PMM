@@ -10,14 +10,17 @@ This repository contains coursework for **Projektmanagement und Netzwerktechnik 
 
 ## 2. Directory Structure
 
-- `4HWIT/` — 4th year class materials (generic year label, covers any parallel class like 4AHWIT/4BHWIT), date-based folders (`YYYY-MM-DD_thema`) and prep-numbered folders (`NN-slug/` during preparation)
-- `5HWIT/` — 5th year class materials, same folder conventions
-- `kompetenzmodule/` — Didactic KM-Steckbriefe (one Markdown file per Kompetenzmodul, KM3–KM9b): what the module means, why it matters in practice, Wissen/Verstehen/Können
+- `lehrplan/` — Everything curriculum-related (mirrors the `unterricht` skill convention):
+  - `4HWIT/` — 4th year class materials (generic year label, covers any parallel class like 4AHWIT/4BHWIT), date-based folders (`YYYY-MM-DD_thema`) and prep-numbered folders (`NN-slug/` during preparation)
+  - `5HWIT/` — 5th year class materials, same folder conventions
+  - `kompetenzmodule/` — Didactic KM-Steckbriefe (one Markdown file per Kompetenzmodul, KM3–KM9b): what the module means, why it matters in practice, Wissen/Verstehen/Können
+  - `METADATA.md` — Legal basis, RIS references, amendment history, class mapping
+  - `pmm-lehrplan-text.md` — Complete curriculum extract (all Jahrgänge)
+  - `YYYY-MM-DD_*.pdf` — Legal curriculum PDFs from RIS (BGBl. II Nr. 262/2015)
 - `selbststudium/` — Self-study workspace for learning R and statistics (Teach skill)
 - `.opencode/skills/` — Project-local opencode skills
 - `Unterlagen/` — Reference materials and scripts
-- `docs/` — Central documents (curriculum, metadata, project specifications)
-- `docs/lehrplan/` — Legal curriculum documents from RIS (BGBl. II Nr. 262/2015)
+- `docs/` — Central documents (project specifications, AI knowledge files)
 
 ## 3. File Naming Conventions
 
@@ -48,7 +51,7 @@ The legally mandated curriculum is Anlage 1.28 of BGBl. II Nr. 262/2015. Key str
 - Semester-based Kompetenzmodule (KM 3–9) starting from year 2
 - Year 1 and year 5 each treated as a single block (no semester split in KM)
 - School-autonomous adaptations allowed within IV. Abschnitt, but no autonomous focus areas
-- Reference: `docs/lehrplan/METADATA.md` for full legal details
+- Reference: `lehrplan/METADATA.md` for full legal details
 
 ## 7. Issue Workflow
 

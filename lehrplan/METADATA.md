@@ -122,7 +122,19 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 
 > Die Anpassung verschiebt den Schwerpunkt von Anlagen-/Prüftechnik hin zu Umwelttechnologie als eigenem Fach. Die generalistischen Fächer (Betriebstechnik, Prozessmanagement, Produktmanagement) bleiben in ihrem Kern unverändert.
 
-### Zeitmodell für PMN (4HWIT / 5HWIT)
+### Klassen-Zuordnung
+
+| Jahrgang | Kompetenzmodule | Klassenname |
+|----------|-----------------|-------------|
+| II. | KM 3 + KM 4 | — (nicht unterrichtet) |
+| III. | KM 5 + KM 6 | — (nicht unterrichtet, Vorwissen) |
+| IV. | KM 7 + KM 8 | `4HWIT` (generisch, deckt 4AHWIT/4BHWIT ab) |
+| V. | KM 9 | `5HWIT` (generisch, deckt 5AHWIT/5BHWIT ab) |
+
+> Das Fach PMM ist im II. und III. Jahrgang laut Stundenkontingent vertreten
+> (Kontext für Vorwissen), wird aber erst ab dem IV. Jahrgang unterrichtet.
+
+## Zeitmodell für PMN (4HWIT / 5HWIT)
 
 - **Theoretisch:** 18–20 Doppelstunden pro Semester (eine pro Schulwoche)
 - **Netto (praktisch):** ca. 15 Doppelstunden pro Semester nach Abzug von administrativen Terminen und Prüfungen

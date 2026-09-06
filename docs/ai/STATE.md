@@ -1,73 +1,54 @@
 # Project State
 
-Current status as of 2026-08-09.
+Current status as of 2026-09-06.
 
 ## Current Focus
-**Phase 3 (#6) — Stil-Leitfaden + UE-Retrofit.** Die Struktur steht:
-`ressourcen-matrix.md` (themen-zentriert, repariert) + `kompetenzmodule/`
-(Steckbriefe km3–km9b, km7/km9a voll) + korrekte Semesterpläne Sem 7+9
-(13 echte UE + 2 Reserve, R4DS-Buchreihenfolge, Ressourcen-Anker pro UE).
-Ordner generisch umbenannt: 4HWIT/5HWIT (deckt Parallelklassen ab).
-Phase 6 (DE-Übersetzung) endgültig ❌ (O'Reilly-Verlagsdeal, Hadley
-2026-07-22). Nächster Schritt: Phase 3 (Stil-Leitfaden + UE-1–2-Retrofit).
+**Repo-Struktur auf `lehrplan/`-Konvention des `unterricht`-Skills migriert
+(#8).** Klassenordner, KM-Steckbriefe, METADATA, PDFs und Extrakte liegen
+jetzt zentral unter `lehrplan/`. `AGENTS.md`/`README.md` auf neue Pfade
+umgestellt. Klassen-Zuordnung (Jahrgang ↔ Klassenname) in METADATA.md
+ergänzt.
 
 ## Completed (this cycle)
-- [x] **Einstiegstest 5HWIT erstellt** (2026-08-09, GRG-PMM-T #2): 50 MC-Fragen
-      (200 Punkte) analog zum 4AHWIT-Einstiegstest; 5 Blöcke (R-Toolchain,
-      Statistische Tests, Annahmestichprobenprüfung, SPC, Prozessfähigkeit);
-      Schüler-Version + Lehrer-Version mit Lösungen und Begründungen
-- [x] Phase 1+2: Abdeckungsmatrix + Georgs Review (2026-07-23)
-- [x] Phase 6: abgebrochen nach Hadleys Antwort (O'Reilly-DE-Deal);
-      Thread auf hadley/r4ds#1414 freundlich geschlossen
-- [x] **Matrix repariert:** KM3-Header-Fix (war „3./4. Sem."), Klassen-
-      Angaben pro KM (4HWIT/5HWIT), Eigenbedarf nach Unterrichts-
-      zuständigkeit gesplittet (von Georg vs. nicht von Georg)
-- [x] **`kompetenzmodule/` neu an Root:** README (Semester↔Klasse↔KM-
-      Mapping, Zeitmodell 13+2) + km3–km9b Steckbriefe (km7/km9a voll
-      mit Wissen/Verstehen/Können, Rest Gerüst mit Lehrplan-Fakten)
-- [x] **Ordner-Rename:** `git mv 4AHWIT→4HWIT`, `5AHWIT→5HWIT` +
-      alle Markdown-Referenzen (README, AGENTS, docs/ai, METADATA,
-      Unterlagen, selbststudium) aktualisiert
-- [x] **Semesterplan Sem 7 neu** (`4HWIT/semesterplan-ws.md`): 13 UE +
-      2 Reserve (Einstiegstest, Leistungsfeststellung/Admin) + optionale Bonus-UE;
-      UE 1–3 R4DS-Whole-Game; Bestandsordner 01/02 als Retrofit-vermerkt
-- [x] **Semesterplan Sem 9 neu** (`5HWIT/semesterplan-ws.md`): 13 UE +
-      2 Reserve (2× LF); Weibull-Statistik nach KM9b verschoben (war
-      fälschlich vorweggenommen); D-optimal in Workshop I integriert
+- [x] **Migration `lehrplan/` (#8)**: `4HWIT/`, `5HWIT/`,
+      `kompetenzmodule/` (Top-Level) und `docs/lehrplan/` nach
+      `lehrplan/` verschoben (reine Umbenennungen)
+- [x] **AGENTS.md/README.md** auf neue Pfade umgestellt; alle
+      `docs/lehrplan/`-Referenzen in Markdown ersetzt
+      (`docs/ai/` historisch belassen)
+- [x] **Klassen-Zuordnung** in `lehrplan/METADATA.md` ergänzt
+      (IV. → 4HWIT, V. → 5HWIT, generisch)
 
 ## Pending
-- [ ] **Phase 3 (#6):** `docs/stil-leitfaden.md` (R4DS-Stimme auf Deutsch)
-      + Retrofit `4HWIT/01-…`, `02-…` auf Buch-Reihenfolge (ggplot zuerst);
-      generierte HTMLs (praesentation.html, selbststudium-Lessons) ziehen
-      dabei mit auf 4HWIT/5HWIT-Bezeichnung
-- [ ] Phase 4: Stil in `selbststudium/NOTES.md` + CONVENTIONS.md verankern,
-      AGENTS.md-Verweis
-- [x] **JG3 Phase 0: L0003 abgenommen** (2026-08-09): LR 0007 geschrieben,
-      Verlaufsmap L0003 → ✅ (Fragen 1–6, alle 5 Hausübungs-Aufgaben)
-- [ ] JG3 Phase 0: L0004 (Diskrete Verteilungen: Binomial/Hypergeometrisch/
-      Poisson mit d/p/q/r) bauen; danach L0005–0015 fortlaufend
-- [ ] Einstiegstest 4HWIT (2026-09-07, GRG-PMM-T): nach Korrektur
+- [ ] **Task C (Unterrichts-Skill), Stufe 3:** jahrgangsspezifische
+      Extrakte `lehrplan/4HWIT/4HWIT.lehrplan.md` (KM7+KM8) und
+      `lehrplan/5HWIT/5HWIT.lehrplan.md` (KM9) aus
+      `pmm-lehrplan-text.md` erstellen
+- [ ] **Task B (Unterrichts-Skill):** RIS-Novellen-Check (letzte
+      12 Monate) — noch nie dokumentiert durchgeführt
+- [ ] **Einstiegstest 4HWIT** (2026-09-07, GRG-PMM-T): nach Korrektur
       Bonus-UE aktivieren bzw. UE 4–5 anpassen
-- [ ] Einstiegstest 5HWIT (2026-09-08, GRG-PMM-T): nach Korrektur
-      DOE-Block (UE 1–8) an Vorwissensstand anpassen
-- [ ] Issue #1: Kommentar beim Commit (Stundenvolumen geklärt;
-      Fachzuordnung offen)
+- [ ] **Einstiegstest 5HWIT** (2026-09-08, GRG-PMM-T): nach Korrektur
+      DOE-Block anpassen + Umwelt-Vorwissen auswerten
+- [ ] **Phase 3 (#6):** `docs/stil-leitfaden.md` + Retrofit
+      `4HWIT/01-…`, `02-…` auf Buch-Reihenfolge (ggplot zuerst)
+- [ ] **JG3 Phase 0: L0004 bauen** (Diskrete Verteilungen); danach
+      L0005–0015
 
 ## Blockers
-- Keine akuten. Phase 3 ist entblockt (Semesterpläne fixiert).
+- Keine akuten.
 
 ## Notes
 - R 4.5 / Ubuntu 26.04, tidyverse 2.0.0, Rscript: /usr/bin/Rscript.
-- Zeitmodell: 18 Schulwochen offiziell → 13 echte UE + 2 reservierte DS
-  (Ausfälle einkalkuliert); Bonus-UE bei Glücksfall.
-- Drei Artefakte pro UE: Lern-Lektion (selbststudium/lessons/00NN),
-  Praesentation+HA (4HWIT/NN-slug/), reveal.js via CDN.
-- NN-slug/ wird zu YYYY-MM-DD_slug/ umbenannt, wenn Unterrichtsdaten feststehen.
-- Klassen-Ordner generisch (4HWIT/5HWIT) — Parallelklassen-sicher.
+- Zeitmodell: 18 Schulwochen offiziell → 13 echte UE + 2 reservierte DS.
+- Klassen-Ordner generisch (`lehrplan/4HWIT`, `lehrplan/5HWIT`) —
+  Parallelklassen-sicher.
+- **Verify-Workflow für künftige Tests:** `verify_quiz.py` nach jeder
+  Test-Generierung laufen lassen. Skript in `GRG-PMM-T/tools/`.
+- Historische Pfad-Referenzen in `docs/ai/` (z. B. `docs/lehrplan/`)
+  wurden bewusst NICHT ersetzt — Archiv-Charakter.
 
 ## Next Session Suggestion
-Phase 3 starten: `docs/stil-leitfaden.md` schreiben (R4DS-Stimme auf
-Deutsch: Einstiegsfrage → Ziel-Artefakt → inkrementeller Aufbau →
-„Jetzt du!"-Übungen → typische Fehler → Zusammenfassung/Ausblick;
-Lektüre-Box), dann UE-1–Retrofit (ggplot zuerst, R4DS Kap. 1–2).
-Danach: JG3 L0003-Abnahme.
+Task C abschließen: `4HWIT.lehrplan.md` und `5HWIT.lehrplan.md`
+extrahieren, dann Task B (Novellen-Check) — beides mit dem
+`unterricht`-Skill.
