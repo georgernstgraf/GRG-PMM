@@ -17,13 +17,25 @@
 - **Konsolidierte Fassung (Geltendes Recht):** [Gesetzesnummer 20009288](https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20009288)
 - **Anlage 1.28 (konsolidiert):** [NOR40234889](https://www.ris.bka.gv.at/Dokumente/Bundesnormen/NOR40234889/NOR40234889.html)
 - **Anlage 1 (Allgemeiner Teil):** [COO_2026_100_2_1135479](https://www.ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2015_II_262/COO_2026_100_2_1135479.html)
+- **Novelle BGBl. II Nr. 250/2021 (Ethik):** [`https://www.ris.bka.gv.at/eli/bgbl/II/2021/250/20210607`](https://www.ris.bka.gv.at/eli/bgbl/II/2021/250/20210607)
 
 ## Änderungshistorie
 
 | Datum | Änderung | Betrifft |
 |-------|----------|----------|
 | 17.09.2015 | Stammfassung (BGBl. II Nr. 262/2015) | Gesamtes Lehrplanpaket |
-| 01.09.2021 | Änderung Art. 1 § 1 (BGBl. II Nr. 74/2017) | Nur Ergänzung einer weiteren Fachrichtung; **Anlage 1.28 unverändert** |
+| 10.12.2019 | Bekanntmachung (BGBl. II Nr. 395/2019, Evangelischer Religionsunterricht) | Nur Bekanntmachungen der Religionslehrpläne; Anlage 1.28 unverändert |
+| 07.06.2021 | Novelle (BGBl. II Nr. 250/2021, Artikel 1); Abschnitte I und VII der Anlagen treten jahrgangsweise ab 01.09.2021 in Kraft | Anlage 1.28: Stundentafel Abschnitt A — Pflichtgegenstand „Religion/Ethik"; neue Fußnote 10 (Ethik-Pflichtgegenstand); Abschnitt VII Unterabschnitt A — „Ethik" in Geografie/Geschichte/PB und Naturwissenschaften. **Abschnitt 5 (Prozessmanagement) unverändert** — Extrakte ohne Re-Extraktion gültig |
+
+> RIS-Status abgefragt am 2026-09-06: „BGBl. II Nr. 262/2015 zuletzt geändert
+> durch BGBl. II Nr. 250/2021." — keine weiteren Novellen, insbesondere keine
+> in den letzten 12 Monaten.
+>
+> Historische Notiz: Eine frühere Tabellenzeile attribuierte eine Änderung
+> zum 01.09.2021 auf „BGBl. II Nr. 74/2017". Das war falsch: BGBl. II Nr.
+> 74/2017 ist die IngG-Fachrichtungsverordnung (Ingenieurgesetz) und berührt
+> BGBl. II Nr. 262/2015 nicht. Die korrekte Novelle zum 01.09.2021 ist
+> BGBl. II Nr. 250/2021 (siehe oben).
 
 ## Ermächtigungsgrundlagen
 
@@ -147,5 +159,6 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 | `2015-09-17_Lehrplan_TechnischesManagement.pdf` | HTL Spengergasse / RIS | Fachspezifischer Lehrplan — das Schul-PDF ist mit dem RIS-Original byte-identisch (383.232 Bytes, CreationDate 17.09.2015) |
 | `2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | RIS (signiert) | Allgemeiner Teil für alle HTL-Lehrpläne (Didaktik, Schulautonomie, allg. Fächer) |
 | `pmm-lehrplan-text.md` | Extrakt aus dem Schul-PDF | Abschnitt 5 (Prozessmanagement) als durchsuchbarer Markdown-Text — alle 5 Jahrgänge mit Bildungs-/Lehraufgabe + Lehrstoff |
+| `2021-06-07_BGBl-II-250_Novelle-Ethik.pdf` | RIS (signiert) | Novelle 2021 (Ethik): Anlage 1.28 betrifft Stundentafel (Religion/Ethik) + Abschnitt VII A; Abschnitt 5 (Prozessmanagement) unverändert |
 
 > **Hinweis:** Das Schul-PDF (`2015-09-17_Lehrplan_TechnischesManagement.pdf`) und das signierte RIS-PDF der Anlage 1.28 sind byte-identisch. Es wird nur das Schul-PDF im Repository geführt.

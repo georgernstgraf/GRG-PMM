@@ -2,7 +2,7 @@
 
 Projektmanagement und Netzwerktechnik im 5. Jahrgang des Ausbildungszweigs Wirtschaftsingenieure – Technisches Management.
 
-Der Unterricht folgt dem Semesterplan und orientiert sich am Kompetenzmodul 9 des Lehrplans (BGBl. II Nr. 262/2015, Anlage 1.28).
+Der Unterricht folgt dem Semesterplan und orientiert sich am Kompetenzmodul 9 des Lehrplans (BGBl. II Nr. 262/2015, Anlage 1.28). Rechtlicher Wortlaut: [`5HWIT.lehrplan.md`](5HWIT.lehrplan.md).
 
 Der 5. Jahrgang umfasst das Pflichtpraktikum (mindestens 8 Wochen vor Eintritt in den V. Jahrgang) sowie die Vorbereitung auf die Reife- und Diplomprüfung.
 
