@@ -7,7 +7,9 @@
 **Context:** Semesterpläne Sem 7+9 korrekt (13 UE + 2 Reserve,
 R4DS-Buchreihenfolge). `lehrplan/kompetenzmodule/` steht. UE-Ordner
 liegen jetzt unter `lehrplan/4HWIT/`. Unterrichts-Skill ist durch
-(#8): Migration, Extrakte, Novellen-Check erledigt.
+(#8): Migration, Extrakte, Novellen-Check erledigt. Skill-Erkenntnisse
+(NOR-Kopf-Methode etc.) wurden in den globalen Skill persistiert
+(opencode-helpers 5333f09).
 **Action:** `docs/stil-leitfaden.md` schreiben, dann Retrofit
 `lehrplan/4HWIT/01-…`, `02-…` auf Buch-Reihenfolge (ggplot zuerst).
 Danach Phase 4 (NOTES.md/CONVENTIONS.md/AGENTS.md).
@@ -16,30 +18,24 @@ Danach Phase 4 (NOTES.md/CONVENTIONS.md/AGENTS.md).
 **Priority:** high
 **Context:** Georg lernt das JG3-Vorwissen (KM5+KM6) selbst, bevor er KM7
 unterrichtet — er ist Statistik-Anfänger (LR 0001). Track 1 L0003
-(Zufallsvariablen) **abgeschlossen** (LR 0007).
-**Action:** L0004 (Diskrete Verteilungen: Binomial/Hypergeometrisch/
-Poisson mit `dbinom`/`pbinom`/`qbinom`/`rbinom`, `dhyper`, `dpois`)
-bauen — eine Lektion pro Session. Danach L0005–0015 fortlaufend.
+(Zufallsvariablen) **abgeschlossen** (LR 0007). L0004 (Diskrete
+Verteilungen) ist bereits **gebaut und committet** (e732369, #5).
+**Action:** L0004 **durcharbeiten** (teach-Session, eine Lektion pro
+Session) — Binomial/Hypergeometrisch/Poisson mit
+`dbinom`/`pbinom`/`qbinom`/`rbinom`, `dhyper`, `dpois`; L0004 mit LR
+dokumentieren. Danach L0005 bauen (eine Lektion pro Session) und
+L0005–0015 fortlaufend.
 
 ### Einstiegstest 4HWIT — nach Korrektur KM7-Plan adaptieren
-**Priority:** medium (fällig nach 2026-09-07)
+**Priority:** medium (fällig nach der Prüfung)
 **Context:** Einstiegstests überarbeitet und committet (GRG-PMM-T #3,
 commit cbafecd, 2026-08-21): 4HWIT 50/200 verify-konform, 5HWIT 60/240
-mit Block 6 Umweltmanagement. Prüfungstermine 2026-09-07 (4HWIT) und
-2026-09-08 (5HWIT).
+mit Block 6 Umweltmanagement. **Termine: diese Woche, nach dem
+Konferenztag 2026-09-07** — konkrete DS lt. Stundenplan, noch offen
+(georg, 2026-09-07).
 **Action:** Nach der Prüfung mit dem `knowledge-assessment`-Skill
 korrigieren; bei KM5/KM6-Lücken Bonus-UE im Semesterplan aktivieren.
 Für 5HWIT: Umwelt-Vorwissen auswerten (Block 6) und ggf. UE 12 anpassen.
-
-### 30-MB-PDF ohne Konventionsname (klein)
-**Priority:** low
-**Context:** Commit `ab7259c` („ACP") legte
-`Unterlagen/Skriptum_Grundlagen der Statistik und Stochastik_2026.pdf`
-(30 MB) ohne ISO-Datumspräfix ab.
-**Action:** Bei Gelegenheit umbenennen auf
-`2026_Skriptum-grundlagen-statistik-stochastik.pdf` oder in `lehrplan/`
-mit `YYYY-MM-DD_`-Präfix verschieben — oder in Unterlagen belassen und
-AGENTS.md-Konvention dort bewusst ausnehmen.
 
 ## Blocked / Waiting
 - **Phase 6 (#6):** ❌ **ABGEBROCHEN.** O'Reilly hat Verlagsdeal mit

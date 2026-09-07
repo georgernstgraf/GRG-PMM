@@ -1,11 +1,11 @@
 # Project State
 
-Current status as of 2026-09-06.
+Current status as of 2026-09-07.
 
 ## Current Focus
-**Unterrichts-Skill durchgearbeitet (#8):** Migration auf
-`lehrplan/`-Konvention, jahrgangsspezifische Extrakte und RIS-Novellen-Check
-sind abgeschlossen.
+**Unterrichts-Skill durchgearbeitet (#8)** und docs/ai aufgeräumt (#9):
+Migration auf `lehrplan/`-Konvention, jahrgangsspezifische Extrakte und
+RIS-Novellen-Check abgeschlossen; Handoff-Drift bereinigt.
 
 ## Completed (this cycle)
 - [x] **Migration `lehrplan/` (#8)**: `4HWIT/`, `5HWIT/`,
@@ -24,18 +24,24 @@ sind abgeschlossen.
       entfernt (74/2017 = IngG-Fachrichtungsverordnung, berührt 262/2015
       nicht); 395/2019 (Bekanntmachung Religionslehrpläne) + 250/2021
       belegt eingetragen
+- [x] **docs/ai aufgeräumt (#9):** Einstiegstest-Termine „diese Woche"
+      (07.09. = Konferenztag), JG3-Task auf „L0004 durcharbeiten"
+      korrigiert, PDF-Task entfernt (Präfix nur für Gesetzestexte)
 
 ## Pending
 - [ ] **Phase 3 (#6):** `docs/stil-leitfaden.md` + Retrofit
       `lehrplan/4HWIT/01-…`, `02-…` (ggplot zuerst)
-- [ ] **JG3 Phase 0: L0004 bauen** (Diskrete Verteilungen); danach
-      L0005–0015
-- [ ] **Einstiegstest 4HWIT** (2026-09-07, GRG-PMM-T): nach Korrektur
-      Bonus-UE bzw. UE 4–5 anpassen
-- [ ] **Einstiegstest 5HWIT** (2026-09-08, GRG-PMM-T): DOE-Block anpassen
-      + Umwelt-Vorwissen auswerten
-- [ ] Klein: 30-MB-PDF `Unterlagen/Skriptum_…2026.pdf` (commit ab7259c)
-      umbenennen/verschieben oder Konventionsausnahme dokumentieren
+- [ ] **JG3 Phase 0: L0004 durcharbeiten** (teach-Session; L0004 ist
+      gebaut/committet, e732369); danach L0005 bauen und L0005–0015
+      fortlaufend
+- [ ] **Einstiegstest 4HWIT** (diese Woche, nach Konferenztag 2026-09-07;
+      konkrete DS offen, GRG-PMM-T): nach Korrektur Bonus-UE bzw. UE 4–5
+      anpassen
+- [ ] **Einstiegstest 5HWIT** (diese Woche, konkret offen, GRG-PMM-T):
+      DOE-Block anpassen + Umwelt-Vorwissen auswerten
+- [ ] Klein: ISO-Datumspräfix in AGENTS.md auf RIS-Gesetzestexte
+      präzisieren (Kundmachungsdatum = Fetch-Frische); Referenz-PDFs in
+      `Unterlagen/` sind ausgenommen (#9)
 
 ## Blockers
 - Keine.
@@ -50,6 +56,9 @@ sind abgeschlossen.
   nicht ersetzt — Archiv-Charakter.
 - RIS-Nachweis Novellen-Check: NOR40234889-Kopf (abgefragt 2026-09-06)
   + Artikel 1 von BGBl. II Nr. 250/2021 (SS 81–83 betreffen Anlage 1.28).
+- Unterrichts-Skill-Erkenntnisse (NOR-Kopf, ELI/BgblAuth-Kette) sind in
+  den globalen Skill persistiert (opencode-helpers, 5333f09) — nicht
+  projektspezifisch.
 
 ## Next Session Suggestion
 Phase 3 (#6) starten: `docs/stil-leitfaden.md` schreiben, dann UE-1–2-
