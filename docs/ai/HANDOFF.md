@@ -2,17 +2,17 @@
 
 ## Open Tasks
 
-### Issue #6: Phase 3 — Stil-Leitfaden + Retrofit UE 1–2
-**Priority:** high
-**Context:** Semesterpläne Sem 7+9 korrekt (13 UE + 2 Reserve,
-R4DS-Buchreihenfolge). `lehrplan/kompetenzmodule/` steht. UE-Ordner
-liegen jetzt unter `lehrplan/4HWIT/`. Unterrichts-Skill ist durch
-(#8): Migration, Extrakte, Novellen-Check erledigt. Skill-Erkenntnisse
-(NOR-Kopf-Methode etc.) wurden in den globalen Skill persistiert
-(opencode-helpers 5333f09).
-**Action:** `docs/stil-leitfaden.md` schreiben, dann Retrofit
-`lehrplan/4HWIT/01-…`, `02-…` auf Buch-Reihenfolge (ggplot zuerst).
-Danach Phase 4 (NOTES.md/CONVENTIONS.md/AGENTS.md).
+### Phase 4 (#6): Stil verankern + Selbststudium-Synchronisation
+**Priority:** medium (Phase 3 ist erledigt, 2026-09-07)
+**Context:** `docs/stil-leitfaden.md` steht und ist in CONVENTIONS
+verlinkt. UE 1–3 geretrofit (ggplot zuerst). Die Selbststudium-Lektionen
+0001/0002 (und `km7-verlauf.html` UE-Übersicht) beziehen sich noch auf
+die alte UE-Struktur (Vektoren zuerst) — bewusst nicht angetastet
+(georgs Lernhistorie, LR 0005).
+**Action:** Stil in `selbststudium/NOTES.md` verankern; entscheiden, ob
+km7-verlauf.html auf die 13-UE-Struktur umgebaut oder als Archiv
+markiert wird; AGENTS.md-Verweis auf den Stil-Leitfaden (erledigt in
+CONVENTIONS, AGENTS.md-Link offen).
 
 ### JG3-Lern-Tracks (Phase 0) fortsetzen
 **Priority:** high

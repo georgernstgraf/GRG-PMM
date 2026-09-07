@@ -6,7 +6,7 @@ Der Unterricht folgt dem Semesterplan und orientiert sich an den Kompetenzmodule
 
 ## Struktur
 
-**Vorbereitung (noch ohne Unterrichtsdaten):** `NN-slug/` (z. B. `01-r-grundlagen-datenstrukturen/`), jede UE enthält `praesentation.html` und `hausaufgabe.md`.
+**Vorbereitung (noch ohne Unterrichtsdaten):** `NN-slug/` (z. B. `01-datenvisualisierung-ggplot/`), jede UE enthält `praesentation.html` und `hausaufgabe.md`.
 
 **Abhaltung (ab Herbst 2026):** `YYYY-MM-DD_thema/` (z. B. `2026-09-15_r-grundlagen/`), für echte Unterrichtterminen mit Aufgaben, Übungen und Schülerabgaben.
 

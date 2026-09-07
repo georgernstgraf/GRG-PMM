@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>UE2 — Daten transformieren &amp; Workflow (dplyr)</title>
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/theme/white.css">
+  <link rel="stylesheet" href="../assets/slides.css">
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+  <!-- ============================================================ TITEL -->
+  <section class="title-slide">
+    <div class="meta">KM 7 · UE 2 · Prozessmanagement</div>
+    <h1>Daten transformieren<br>&amp; Workflow</h1>
+    <p class="subtitle">Die dplyr-Verben und die Pipe —<br>
+      Daten so zurechtbiegen, dass die Frage zeichenbar wird.</p>
+    <div class="meta">4HWIT · Wintersemester · 2. Doppelstunde</div>
+  </section>
+
+  <!-- ============================================================ LEKTÜRE -->
+  <section>
+    <div class="callout tipp">
+      <span class="label">Lektüre</span>
+      <p>R4DS 2e (englisch): <a href="https://r4ds.hadley.nz/data-transform.html">Kap. 3 — Data transformation</a>,
+         <a href="https://r4ds.hadley.nz/workflow-style.html">Kap. 4 — Workflow: code style</a>,
+         <a href="https://r4ds.hadley.nz/data-tidy.html">Kap. 5 — Data tidying</a> und
+         <a href="https://r4ds.hadley.nz/workflow-scripts.html">Kap. 6 — Workflow: scripts and projects</a>.
+         Kap. 3 ist Pflicht, 4–6 beschreiben den Handwerksstil.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ EINSTIEGSFRAGE -->
+  <section>
+    <h2>Einstiegsfrage</h2>
+    <p style="font-size:1.2em">Welche Pinguin-<strong>Art</strong> auf welcher
+      <strong>Insel</strong> wiegt im Schnitt am meisten — und wie streut das Gewicht?</p>
+    <p class="fragment">Vom letzten Plot zur Antwort: 344 Zeilen, 3 Arten, 3 Inseln.
+      Die Antwort ist keine einzige Zahl — <strong>es ist eine Tabelle</strong>.</p>
+    <p class="fragment">Genau für Tabellen-aus-Daten gibt es <code>dplyr</code>.</p>
+  </section>
+
+  <!-- ============================================================ ZIEL-ARTEFAKT -->
+  <section>
+    <h2>Das Ziel: eine Antwort-Tabelle</h2>
+    <pre><code class="language-r">penguins |&gt;
+  group_by(species, island) |&gt;
+  summarise(
+    n    = n(),
+    gram = mean(body_mass_g, na.rm = TRUE),
+    sd_g = sd(body_mass_g, na.rm = TRUE),
+    .groups = "drop"
+  )</code></pre>
+    <table style="font-size:0.65em">
+      <tr><th>species</th><th>island</th><th>n</th><th>gram</th><th>sd_g</th></tr>
+      <tr><td>Adelie</td><td>Biscoe</td><td>44</td><td>3710</td><td>488</td></tr>
+      <tr><td>Adelie</td><td>Dream</td><td>56</td><td>3688</td><td>455</td></tr>
+      <tr><td>Adelie</td><td>Torgersen</td><td>52</td><td>3706</td><td>445</td></tr>
+      <tr><td>Chinstrap</td><td>Dream</td><td>68</td><td>3733</td><td>384</td></tr>
+      <tr><td>Gentoo</td><td>Biscoe</td><td>124</td><td>5076</td><td>504</td></tr>
+    </table>
+    <p class="fragment">Gentoo auf Biscoe: 5,1 kg — Kopf und Schulter über allen anderen.
+      <strong>Heute bauen wir diese Pipe Zeile für Zeile.</strong></p>
+  </section>
+
+  <!-- ============================================================ PIPE -->
+  <section>
+    <h2>Die Pipe <code>|&gt;</code> — lesen wie einen Satz</h2>
+    <pre><code class="language-r"><span class="cmt"># Ohne Pipe — von innen nach außen, rückwärts denken</span>
+summarise(
+  filter(penguins, species == "Gentoo"),
+  gram = mean(body_mass_g, na.rm = TRUE)
+)
+
+<span class="cmt"># Mit Pipe — von oben nach unten, wie ein Rezept</span>
+penguins |&gt;
+  filter(species == "Gentoo") |&gt;
+  summarise(gram = mean(body_mass_g, na.rm = TRUE))</code></pre>
+    <p class="fragment"><code>|&gt;</code> reicht das linke Ergebnis als
+      <strong>erstes Argument</strong> nach rechts. Eine Daten-Pipeline — Schritt für Schritt.</p>
+  </section>
+
+  <!-- ============================================================ DPLYR -->
+  <section>
+    <h2>Die fünf dplyr-Verben</h2>
+    <table>
+      <tr><th>Verb</th><th>Macht</th><th>Vorsicht</th></tr>
+      <tr><td><code>filter()</code></td><td><strong>Zeilen</strong> nach Bedingung</td><td>Verwechslungs-Klassiker mit select</td></tr>
+      <tr><td><code>select()</code></td><td><strong>Spalten</strong> auswählen</td><td>dito</td></tr>
+      <tr><td><code>mutate()</code></td><td>neue Spalte <strong>berechnen</strong></td><td>überschreibt gleiche Namen</td></tr>
+      <tr><td><code>arrange()</code></td><td>Zeilen <strong>sortieren</strong></td><td><code>desc()</code> für absteigend</td></tr>
+      <tr><td><code>summarise()</code></td><td>zu <strong>einer Zeile</strong> zusammenfassen</td><td><code>na.rm = TRUE</code>!</td></tr>
+    </table>
+    <p>Verben hängen an der Pipe — <strong>ein Verb pro Schritt, lesbar.</strong></p>
+  </section>
+
+  <!-- ============================================================ FILTER SELECT -->
+  <section>
+    <h2>filter() &amp; select() — die Unterscheidung</h2>
+    <pre><code class="language-r"><span class="cmt"># Zeilen: nur Gentoo (Vergleich ==, nicht =)</span>
+penguins |&gt; filter(species == "Gentoo")     <span class="out"># → 124 Zeilen</span>
+
+<span class="cmt"># Zeilen: Gentoo UND schwerer als 5 kg (Komma = und)</span>
+penguins |&gt; filter(species == "Gentoo", body_mass_g &gt; 5000)
+
+<span class="cmt"># Spalten: nur das, was interessiert</span>
+penguins |&gt; select(species, island, body_mass_g)</code></pre>
+    <div class="callout achtung">
+      <span class="label">Der Klassiker</span>
+      <p><code>filter</code> = Zeilen (logisch: behalten/weglassen) ·
+        <code>select</code> = Spalten (bilden: „wähle die Spalten").
+        Vertauschen ist der häufigste Fehler in dieser UE.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ MUTATE ARRANGE -->
+  <section>
+    <h2>mutate() &amp; arrange() — rechnen und ordnen</h2>
+    <pre><code class="language-r"><span class="cmt"># Gramm → Kilogramm: neue Spalte, Einheiten sauber</span>
+penguins |&gt;
+  mutate(kg = body_mass_g / 1000) |&gt;
+  select(species, kg) |&gt;
+  head(3)
+
+<span class="cmt"># Sortieren: die schwersten zuerst</span>
+penguins |&gt;
+  select(species, body_mass_g) |&gt;
+  arrange(desc(body_mass_g)) |&gt;
+  head(3)</code></pre>
+    <p><code>mutate()</code> behält alle Spalten und fügt eine hinzu —
+      Rechenregeln gehören in <strong>eine</strong> Spalte, Klartext im Namen
+      (<code>kg</code>, <code>sd_g</code>).</p>
+  </section>
+
+  <!-- ============================================================ NA -->
+  <section>
+    <h2>NA — fehlende Messwerte</h2>
+    <p><code>NA</code> = Not Available. <strong>Nicht</strong> Null, nicht leer —
+      ein eigener Zustand.</p>
+    <pre><code class="language-r">x &lt;- c(3750, 3800, NA, 3250)
+mean(x)                <span class="out"># → NA!  (ansteckend)</span>
+mean(x, na.rm = TRUE)  <span class="out"># → 3600  (NA entfernt)</span>
+is.na(x)               <span class="out"># → FALSE FALSE TRUE FALSE</span></code></pre>
+    <div class="callout achtung">
+      <span class="label">Wichtig</span>
+      <p><code>NA</code> steckt jede Rechnung an. Die Pinguine haben echte
+        <code>NA</code> — deshalb steht in <strong>unserer Zieltabelle überall
+        <code>na.rm = TRUE</code></strong>. Fragen aber zuerst: <em>warum</em> fehlt ein Wert?</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ GROUP_BY -->
+  <section>
+    <h2>group_by() + summarise() — die Antwort-Maschine</h2>
+    <pre><code class="language-r">penguins |&gt;
+  group_by(species) |&gt;
+  summarise(
+    n    = n(),
+    gram = mean(body_mass_g, na.rm = TRUE),
+    sd_g = sd(body_mass_g, na.rm = TRUE)
+  )</code></pre>
+    <table style="font-size:0.7em">
+      <tr><th>species</th><th>n</th><th>gram</th><th>sd_g</th></tr>
+      <tr><td>Adelie</td><td>152</td><td>3701</td><td>459</td></tr>
+      <tr><td>Chinstrap</td><td>68</td><td>3733</td><td>384</td></tr>
+      <tr><td>Gentoo</td><td>124</td><td>5076</td><td>504</td></tr>
+    </table>
+    <p>Eine Gruppe = eine Zeile. <code>n()</code> zählt, <code>mean()</code>/<code>sd()</code>
+      fassen zusammen. <strong>Genau das war unser Ziel-Artefakt.</strong></p>
+  </section>
+
+  <!-- ============================================================ CODE STYLE -->
+  <section>
+    <h2>Code-Stil — lesbar ist wartbar (Kap. 4)</h2>
+    <pre><code class="language-r"><span class="cmt"># Guter Stil: snake_case, Leerzeichen, kurze Zeilen</span>
+body_mass_kg &lt;- penguins |&gt;   <span class="cmt"># Pipe am ZEILENENDE</span>
+  filter(species == "Gentoo") |&gt;
+  mutate(kg = body_mass_g / 1000)</code></pre>
+    <table>
+      <tr><th>Regel</th><th>Warum</th></tr>
+      <tr><td>Namen: <code>snake_case</code></td><td>keine Rätsel über Groß-/Kleinschreibung</td></tr>
+      <tr><td>Leerzeichen um Operatoren</td><td><code>kg = g / 1000</code> statt <code>kg=g/1000</code></td></tr>
+      <tr><td><code>|&gt;</code> ans Zeilenende</td><td>ggplot-<code>+</code>-Regel — gleiche Logik</td></tr>
+    </table>
+    <p>Stil ist <strong>kein Ästhetik-Thema</strong>: du liest deinen Code in drei
+      Wochen wieder — schreibe für dieses Du.</p>
+  </section>
+
+  <!-- ============================================================ SCRIPTS PROJECTS -->
+  <section>
+    <h2>Skripte &amp; Projekte (Kap. 6)</h2>
+    <p>Jede Woche ein <strong>RStudio-Projekt</strong> (eigenes Verzeichnis) —
+      dann stimmen alle Pfade von selbst.</p>
+    <pre><code class="language-r">pmm-ue02/            <span class="cmt"># ein Ordner = ein Projekt</span>
+  pmm-ue02.Rproj     <span class="cmt"># File → New Project → New Directory</span>
+  analyse.R          <span class="cmt"># dein Skript</span>
+  messwerte.csv      <span class="cmt"># Daten liegen daneben</span></code></pre>
+    <div class="callout">
+      <span class="label">Faustregel</span>
+      <p>Projekt-Ordner = Wurzel. Relative Pfade (<code>"messwerte.csv"</code>)
+        statt absoluter (<code>"C:/Users/…"</code>). Dann läuft dein Skript
+        auch auf dem Rechner der Kollegin.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ JETZT DU -->
+  <section>
+    <h2>Jetzt du!</h2>
+    <ol>
+      <li>Wie viele Pinguine wiegen <strong>mehr als 4,5 kg</strong>? (Pipe:
+        <code>filter</code> + <code>nrow()</code>)</li>
+      <li>Wie groß ist die <strong>spannendste Insel</strong> — Zeilen pro
+        <code>island</code> zählen?</li>
+      <li>Errate <strong>vorher</strong>: Was liefert
+        <code>penguins |&gt; filter(species == "Adelie") |&gt; nrow()</code>?
+        Und was, wenn du <code>select</code> statt <code>filter</code> schreibst?</li>
+    </ol>
+  </section>
+
+  <!-- ============================================================ FEHLER -->
+  <section>
+    <h2>Typische Fehler</h2>
+    <pre><code class="language-r"><span class="cmt"># 1. = statt == beim filtern — Zuweisung statt Vergleich</span>
+penguins |&gt; filter(species = "Gentoo")    <span class="out"># Fehler!</span>
+
+<span class="cmt"># 2. na.rm vergessen — eine Zahl raus, aber die falsche (NA)</span>
+penguins |&gt; summarise(gram = mean(body_mass_g))   <span class="out"># → NA</span>
+
+<span class="cmt"># 3. group_by ohne summarise — biegt die Grafik verbogen</span>
+penguins |&gt; group_by(species) |&gt; ggplot(aes(x = body_mass_g)) +
+  geom_histogram()     <span class="out"># Zeichnet VIEL zu viele kleine Grafiken!</span></code></pre>
+    <p class="fragment">Merksatz: <strong><code>=</code> übergibt, <code>==</code> vergleicht.</strong></p>
+  </section>
+
+  <!-- ============================================================ ZUSAMMENFASSUNG -->
+  <section>
+    <h2>Zusammenfassung</h2>
+    <table>
+      <tr><th>Konzept</th><th>Das Wichtigste</th></tr>
+      <tr><td>Pipe <code>|&gt;</code></td><td>Ergebnis links → erstes Argument rechts — Rezept statt Verschachtelung</td></tr>
+      <tr><td><code>filter</code> vs <code>select</code></td><td>Zeilen vs. Spalten</td></tr>
+      <tr><td><code>mutate()</code></td><td>Rechnen in eigene Spalte, klare Namen</td></tr>
+      <tr><td><code>NA</code></td><td>Ansteckend — <code>na.rm = TRUE</code> (und fragen, <em>warum</em>)</td></tr>
+      <tr><td><code>group_by() + summarise()</code></td><td>Eine Gruppe = eine Zeile — Antwort-Tabellen</td></tr>
+      <tr><td>Stil &amp; Projekte</td><td><code>|&gt;</code> ans Zeilenende · <code>snake_case</code> · ein Projekt pro Ordner</td></tr>
+    </table>
+    <p class="fragment"><strong>Ausblick:</strong> 344 Pinguine kamen per
+      <code>data()</code> ins R. Echte Betriebsdaten kommen als CSV/Excel.
+      Wie die herein kommen — und wie man sie <em>ausfragt</em>: nächste Woche.</p>
+  </section>
+
+  <!-- ============================================================ HAUSAUFGABE -->
+  <section class="hint-slide">
+    <h2>Hausaufgabe</h2>
+    <p style="font-size:1.3em">➜ <a href="hausaufgabe.md"><code>hausaufgabe.md</code></a></p>
+    <p>(liegt im selben Ordner — einfach anklicken)</p>
+    <p style="margin-top:1.5em; font-size:0.8em">5 Aufgaben: Pipes bauen ·
+      Vorhersagen · group_by-Tabelle ·<br>Code-Stil-Review · Projekt anlegen</p>
+  </section>
+
+</div></div>
+
+<script src="https://cdn.revealjs.com/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'slide',
+  width: 1280,
+  height: 800,
+  margin: 0.08,
+  center: true,
+  controlsLayout: 'edges'
+});
+</script>
+</body>
+</html>

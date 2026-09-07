@@ -3,6 +3,24 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-09-07: Phase 3 umgesetzt — Stil-Leitfaden + UE 1–3 Retrofit (#6)
+- **Choice**: `docs/stil-leitfaden.md` verbindlich (R4DS-Stimme auf Deutsch:
+  Einstiegsfrage → Ziel-Artefakt → inkrementeller Aufbau → „Jetzt du!" →
+  typische Fehler → Zusammenfassung/Ausblick + Lektüre-Box). UE 1–3
+  umgebaut: `01-datenvisualisierung-ggplot` (neu), `02-daten-transformieren-dplyr`
+  (aus Alt-UE 2), `03-daten-einlesen-deskriptiv` (Alt-UE 2-Rest). Alt-UE 1
+  (Vektoren/Factor) ist absorbiert: Inspektion-Ritual in UE 1, Coercion/
+  Factor-Falle in UE 3-HA (Vorhersage-Aufgaben).
+- **Reason**: R4DS-Buchreihenfolge (ggplot zuerst, „Whole Game") war
+  beschlossene Sache (2026-07-23), aber Bestands-UE folgten noch der alten
+  Syntax-vor-Visualisierung-Reihenfolge. Leitfaden zuerst, dann Umschreiben
+  — so ist die Didaktik-Messlatte konsistent dokumentiert, bevor Material
+  entsteht.
+- **Tradeoff**: Vektor-Detailwissen (Coercion, `list[[ ]]`, factor-Codes)
+  rutscht tiefer — vertreten durch UE 3-HA + KM8-Anwendung (factor in
+  Regelkarten-Daten). Lern-Lektionen 0001/0002 im Selbststudium bleiben auf
+  den alten UE-Bezug (historisch).
+
 ## 2026-06-02: ISO 8601 Prefix for Legal Documents
 - **Choice**: Legal PDFs are named `YYYY-MM-DD_BGBl-II-NNN_Anlage-…pdf`
 - **Reason**: Enables chronological sorting and immediate identification of publication date; matches the `YYYY-MM-DD_thema/` convention used in class lesson folders.

@@ -26,7 +26,7 @@ This repository contains coursework for **Projektmanagement und Netzwerktechnik 
 
 - Class lesson folders: `YYYY-MM-DD_thema/` (e.g., `2025-09-15_einfuehrung/`)
   - During curriculum preparation (before teaching dates are known):
-    `NN-slug/` (e.g., `01-r-grundlagen-datenstrukturen/`). Rename to
+    `NN-slug/` (e.g., `01-datenvisualisierung-ggplot/`). Rename to
     `YYYY-MM-DD_slug/` when the teaching date is fixed.
 - Lowercase with hyphens for multi-word names
 - ISO 8601 date prefix for all dated documents

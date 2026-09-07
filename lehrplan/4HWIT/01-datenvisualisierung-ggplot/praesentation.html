@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>UE1 — Daten visualisieren (ggplot zuerst)</title>
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/theme/white.css">
+  <link rel="stylesheet" href="../assets/slides.css">
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+  <!-- ============================================================ TITEL -->
+  <section class="title-slide">
+    <div class="meta">KM 7 · UE 1 · Prozessmanagement</div>
+    <h1>Daten visualisieren</h1>
+    <p class="subtitle">Das „Whole Game“: Wir starten mit einem fertigen Bild —<br>
+      bevor auch nur eine Syntax-Regel erklärt wird.</p>
+    <div class="meta">4HWIT · Wintersemester · 1. Doppelstunde</div>
+  </section>
+
+  <!-- ============================================================ LEKTÜRE -->
+  <section>
+    <div class="callout tipp">
+      <span class="label">Lektüre</span>
+      <p>R4DS 2e (englisch): <a href="https://r4ds.hadley.nz/data-visualize.html">Kap. 1 — Data visualization</a>
+         und <a href="https://r4ds.hadley.nz/workflow-basics.html">Kap. 2 — Workflow: basics</a>.
+         Lies beide vor der Hausaufgabe — die Aufgaben beziehen sich auf die Kapitel.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ EINSTIEGSFRAGE -->
+  <section>
+    <h2>Einstiegsfrage</h2>
+    <p style="font-size:1.25em">Pinguine: Lange Flosse → schwerer Körper?<br>
+      Wie würdest du das <strong>ohne eine einzige Formel</strong> beantworten?</p>
+    <p class="fragment">Wir haben 344 gemessene Pinguine, 3 Arten, 11 Merkmale.</p>
+    <p class="fragment">Zeichnen. <strong>Die Antwort ist ein Bild</strong> — und R kann es zeichnen.</p>
+  </section>
+
+  <!-- ============================================================ ZIEL-ARTEFAKT -->
+  <section>
+    <h2>Das Ziel: ein Bild, das die Frage beantwortet</h2>
+    <pre><code class="language-r">library(tidyverse)
+library(palmerpenguins)
+
+ggplot(penguins,
+       aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point() +
+  labs(x = "Flossengröße (mm)", y = "Körpermasse (g)",
+       title = "Lange Flosse, schwerer Körper")</code></pre>
+    <p class="fragment"><strong>Was das Bild zeigt:</strong> Jeder Punkt = ein Pinguin.
+      Punkte wandern nach rechts oben — längere Flosse, höhere Masse.
+      Drei Farbgruppen schichten sich sauber übereinander.</p>
+    <p class="fragment">Heute bauen wir dieses Bild Schritt für Schritt auf.</p>
+  </section>
+
+  <!-- ============================================================ SETUP -->
+  <section>
+    <h2>Setup — einmalig, dann nie wieder</h2>
+    <pre><code class="language-r"><span class="cmt"># einmal pro Rechner (Anführungszeichen!)</span>
+install.packages("tidyverse")
+install.packages("palmerpenguins")
+
+<span class="cmt"># einmal pro Sitzung (ohne Anführungszeichen!)</span>
+library(tidyverse)
+library(palmerpenguins)</code></pre>
+    <p><strong>tidyverse</strong> = ein Paket-Paket: <code>ggplot2</code> (Grafik),
+      <code>dplyr</code> (Daten) und Freunde. Unser Werkzeugkasten das ganze Semester.</p>
+    <p><strong>palmerpenguins</strong> = unsere Pinguine (344 Beobachtungen, CC0 — frei nutzbar).</p>
+  </section>
+
+  <!-- ============================================================ ERSTES RITUAL -->
+  <section>
+    <h2>Erstes Ritual: Daten anschauen, bevor du sie nutzt</h2>
+    <pre><code class="language-r">glimpse(penguins)   <span class="out"># Struktur + Typ jeder Spalte</span>
+head(penguins)      <span class="out"># die ersten 6 Zeilen</span></code></pre>
+    <table style="font-size:0.7em">
+      <tr><th>Spalte</th><th>Typ</th><th>Bedeutung</th></tr>
+      <tr><td><code>species</code></td><td>fct</td><td>Adélie / Chinstrap / Gentoo</td></tr>
+      <tr><td><code>flipper_length_mm</code></td><td>int</td><td>Flossengröße</td></tr>
+      <tr><td><code>body_mass_g</code></td><td>int</td><td>Körpermasse</td></tr>
+    </table>
+    <div class="callout">
+      <span class="label">Regel Nummer 1</span>
+      <p>Neue Daten? <strong>Zuerst <code>glimpse()</code></strong>. Dann weißt du, womit du arbeitest.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ SKELETT -->
+  <section>
+    <h2>Das Skelett: drei Bausteine</h2>
+    <pre><code class="language-r">ggplot(penguins,
+       aes(x = flipper_length_mm, y = body_mass_g))</code></pre>
+    <table>
+      <tr><th>Baustein</th><th>Was er sagt</th></tr>
+      <tr><td><code>ggplot(penguins)</code></td><td>mit welchen <strong>Daten</strong></td></tr>
+      <tr><td><code>aes(x = …, y = …)</code></td><td>welche <strong>Zuordnung</strong> (Mapping) — Spalte → Position</td></tr>
+      <tr><td><code>+ geom_…()</code></td><td><strong>wie gezeichnet</strong> wird</td></tr>
+    </table>
+    <p class="fragment">Führe es aus: Nur ein leeres Koordinatensystem erscheint.
+      <strong>R kennt die Zuordnung — aber noch nicht, <em>wie</em> es zeichnen soll.</strong></p>
+  </section>
+
+  <!-- ============================================================ GEOM -->
+  <section>
+    <h2>Schritt 2: sagen, wie gezeichnet wird</h2>
+    <pre><code class="language-r">ggplot(penguins,
+       aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()</code></pre>
+    <p><code>geom_point()</code> = ein Punkt pro Beobachtung → Streudiagramm.</p>
+    <p class="fragment">Der <code>+</code> kombiniert Schichten — wie eine Folge von
+      „und dann …”. <strong>Und das Koordinatensystem ist da.</strong></p>
+  </section>
+
+  <!-- ============================================================ AES MAPPING -->
+  <section>
+    <h2>Schritt 3: Farbe als Information</h2>
+    <pre><code class="language-r">ggplot(penguins,
+       aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point() +
+  labs(x = "Flossengröße (mm)", y = "Körpermasse (g)")</code></pre>
+    <p><code>color = species</code> — die Spalte <code>species</code> wird zur
+      Farbe <strong>gemappt</strong>. Die Legende entsteht von allein, pro Art eine Farbe.</p>
+    <div class="callout tipp">
+      <span class="label">Das Prinzip</span>
+      <p>Werte aus den Daten → äußerliche Eigenschaft des Plot-Elements.
+        <code>color = species</code> (Mapping, in <code>aes()</code>) ≠
+        <code>color = "red"</code> (Einstellung, in <code>geom_…()</code>).</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ FACETTEN -->
+  <section>
+    <h2>Facetten — drei Bilder statt drei Farben</h2>
+    <pre><code class="language-r">ggplot(penguins,
+       aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point() +
+  facet_wrap(~ species)</code></pre>
+    <p><code>facet_wrap(~ species)</code> = eine Mini-Grafik pro Art.</p>
+    <p class="fragment">Faustregel: <strong>Farbe zum Vergleichen</strong>,
+      Facetten zum <em>Gegeneinanderstellen</em>. Beides beantwortet unterschiedliche Fragen.</p>
+  </section>
+
+  <!-- ============================================================ GEOM GALERIE -->
+  <section>
+    <h2>Die Gleitschicht: geom_smooth()</h2>
+    <pre><code class="language-r">ggplot(penguins,
+       aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point() +
+  geom_smooth() +
+  labs(x = "Flossengröße (mm)", y = "Körpermasse (g)")</code></pre>
+    <p><code>geom_smooth()</code> legt einen Trend-Schleier über die Punkte —
+      <strong>für jede Art eine eigene Linie</strong>, weil <code>color</code> gemappt ist.</p>
+    <p class="fragment">Alle drei Arten steigen: mehr Flosse, mehr Masse.
+      <strong>Unsere Einstiegsfrage ist beantwortet — mit einem Bild statt einer Formel.</strong></p>
+  </section>
+
+  <!-- ============================================================ GEOM HIST -->
+  <section>
+    <h2>Andere Frage, anderer Geom</h2>
+    <pre><code class="language-r"><span class="cmt"># Verteilung: Wie hoch wiegen die Pinguine?</span>
+ggplot(penguins, aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 250) +
+  labs(x = "Körpermasse (g)", y = "Anzahl Pinguine")
+
+<span class="cmt"># Kategorien: Wie viele pro Art?</span>
+ggplot(penguins, aes(x = species)) +
+  geom_bar()</code></pre>
+    <p>Ein Geom = eine Frage-Typ. <strong>Nicht das Werkzeug wählen und dann
+      die Frage verbiegen — umgekehrt.</strong></p>
+  </section>
+
+  <!-- ============================================================ WORKFLOW -->
+  <section>
+    <h2>Workflow: Skript statt Konsole (Kap. 2)</h2>
+    <p>RStudio: 4 Fenster. <strong>Oben links schreibt man das Skript</strong>,
+      unten links antwortet die Konsole.</p>
+    <pre><code class="language-r"><span class="cmt"># Skript = dein Labortagebuch: lesbar, wiederholbar, startbar</span>
+gewicht &lt;- c(3750, 3800, 3250)   <span class="cmt"># &lt;- speichert (nicht = !)</span>
+mean(gewicht)                     <span class="out"># → 3600</span></code></pre>
+    <div class="callout">
+      <span class="label">RStudio-Shortcuts</span>
+      <p><code>Alt + -</code> tippt <code>&lt;-</code> ·
+        <code>Ctrl + Enter</code> führt die aktuelle Zeile aus ·
+        <code>Ctrl + Shift + S</code> startet das ganze Skript.</p>
+    </div>
+    <p class="fragment">Konsole = Nachfragen. Skript = Nachvollziehen. <strong>Alles, was du
+      heute tust, landet im Skript.</strong></p>
+  </section>
+
+  <!-- ============================================================ JETZT DU -->
+  <section>
+    <h2>Jetzt du! (im Skript, Ctrl+Enter zeilenweise)</h2>
+    <ol>
+      <li>Wie hoch wiegen Pinguine im Schnitt? Streudiagramm
+        <code>body_mass_g</code> gegen <code>bill_length_mm</code> — was fällt dir auf?</li>
+      <li>Färbe denselben Plot nach <code>island</code>. Welche Insel hat nur eine Art?</li>
+      <li>Errate <strong>vorher</strong>, dann ausführen:
+        <code>ggplot(penguins, aes(x = species, y = body_mass_g)) + geom_point()</code> —
+        ist das lesbar? Was wäre besser? (Tipp: <code>geom_boxplot()</code>)</li>
+    </ol>
+  </section>
+
+  <!-- ============================================================ FEHLER -->
+  <section>
+    <h2>Typische Fehler — heute schon garantiert</h2>
+    <pre><code class="language-r"><span class="cmt"># 1. Das + am Zeilenanfang — R sucht vergeblich das Vorherige</span>
+ggplot(penguins, aes(x = body_mass_g))
+  + geom_point()          <span class="out"># → Fehler! Plus gehört ans ZEILENENDE</span>
+
+<span class="cmt"># 2. aes vergessen — R weiß nicht, was wohin soll</span>
+ggplot(penguins) + geom_point(aes(y = body_mass_g))   <span class="out"># kein x → nichts zu sehen</span>
+
+<span class="cmt"># 3. Farbe festgenagelt statt gemappt</span>
+geom_point(color = "red")   <span class="out"># ALLE Punkte rot — keine Information, keine Legende</span></code></pre>
+  </section>
+
+  <!-- ============================================================ ZUSAMMENFASSUNG -->
+  <section>
+    <h2>Zusammenfassung</h2>
+    <table>
+      <tr><th>Konzept</th><th>Das Wichtigste</th></tr>
+      <tr><td><code>glimpse()</code></td><td>Immer zuerst — Daten anschauen, dann nutzen</td></tr>
+      <tr><td>ggplot-Skelett</td><td>Daten (<code>ggplot()</code>) · Zuordnung (<code>aes()</code>) · Zeichnung (<code>geom_…()</code>)</td></tr>
+      <tr><td>Mapping vs. Einstellung</td><td><code>color = species</code> (Info) ≠ <code>color = "red"</code> (Deko)</td></tr>
+      <tr><td><code>facet_wrap()</code></td><td>Eine Mini-Grafik pro Gruppe — Vergleiche werden sichtbar</td></tr>
+      <tr><td>Geoms</td><td>Ein Geom = ein Fragetyp (Streuung, Verteilung, Kategorie)</td></tr>
+      <tr><td>Skript</td><td><code>&lt;-</code> speichert · <code>Ctrl+Enter</code> führt aus — alles bleibt nachvollziehbar</td></tr>
+    </table>
+    <p class="fragment"><strong>Ausblick:</strong> 344 Zeilen, 3 Arten — was, wenn du erst
+      <em>filtern</em> oder <em>zusammenfassen</em> müsstest, bevor du plottest?
+      Genau dafür lernen wir nächste Woche <code>dplyr</code>.</p>
+  </section>
+
+  <!-- ============================================================ HAUSAUFGABE -->
+  <section class="hint-slide">
+    <h2>Hausaufgabe</h2>
+    <p style="font-size:1.3em">➜ <a href="hausaufgabe.md"><code>hausaufgabe.md</code></a></p>
+    <p>(liegt im selben Ordner — einfach anklicken)</p>
+    <p style="margin-top:1.5em; font-size:0.8em">4 Aufgaben: Plots bauen (Kap. 1) ·
+      Vorhersagen · Mapping vs. Einstellung ·<br>Workflow-Skript (Kap. 2)</p>
+  </section>
+
+</div></div>
+
+<script src="https://cdn.revealjs.com/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'slide',
+  width: 1280,
+  height: 800,
+  margin: 0.08,
+  center: true,
+  controlsLayout: 'edges'
+});
+</script>
+</body>
+</html>

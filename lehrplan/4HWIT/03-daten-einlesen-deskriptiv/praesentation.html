@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>UE3 — Daten einlesen &amp; deskriptive Statistik</title>
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/theme/white.css">
+  <link rel="stylesheet" href="../assets/slides.css">
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+  <!-- ============================================================ TITEL -->
+  <section class="title-slide">
+    <div class="meta">KM 7 · UE 3 · Prozessmanagement</div>
+    <h1>Daten einlesen &amp;<br>deskriptive Statistik</h1>
+    <p class="subtitle">Echte Betriebsdaten nach R holen —<br>
+      und aus 20 Zahlen eine Geschichte machen.</p>
+    <div class="meta">4HWIT · Wintersemester · 3. Doppelstunde</div>
+  </section>
+
+  <!-- ============================================================ LEKTÜRE -->
+  <section>
+    <div class="callout tipp">
+      <span class="label">Lektüre</span>
+      <p>R4DS 2e (englisch): <a href="https://r4ds.hadley.nz/data-import.html">Kap. 7 — Data import</a>,
+         <a href="https://r4ds.hadley.nz/EDA.html">Kap. 10 — Exploratory data analysis</a> und
+         <a href="https://r4ds.hadley.nz/spreadsheets.html">Kap. 20 — Spreadsheets</a>.
+         Kap. 7 + 10 sind Pflicht; Kap. 20, wenn deine Daten in Excel leben.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ EINSTIEGSFRAGE -->
+  <section>
+    <h2>Einstiegsfrage</h2>
+    <p style="font-size:1.2em">Die Fertigung schickt dir <code>messwerte.csv</code> —
+      20 Stückmaße einer Charge, Sollwert 10,0 mm.</p>
+    <p class="fragment">Zwei Fragen, bevor irgendein Test oder eine Regelkarte
+      (KM 8) dran darf:</p>
+    <ol class="fragment">
+      <li>Kommen die Daten <strong>unverfälscht</strong> nach R?</li>
+      <li>Was ist <strong>typisch</strong> — und wie stark <strong>streut</strong> der Prozess?</li>
+    </ol>
+  </section>
+
+  <!-- ============================================================ ZIEL-ARTEFAKT -->
+  <section>
+    <h2>Das Ziel: Lesen + Kennzahlen in einem Atemzug</h2>
+    <pre><code class="language-r">library(tidyverse)
+messwerte &lt;- read_csv("messwerte.csv")   <span class="cmt"># 20 Zeilen, Sollwert 10,0</span>
+
+messwerte |&gt;
+  summarise(
+    n     = n(),
+    mitte = mean(mass_mm, na.rm = TRUE),
+    mitte_med = median(mass_mm, na.rm = TRUE),
+    streu = sd(mass_mm, na.rm = TRUE),
+    iqr   = IQR(mass_mm, na.rm = TRUE)
+  )</code></pre>
+    <p class="fragment">Und daneben: das <strong>Histogramm</strong> der Verteilung.
+      Zahl + Bild zusammen — erst ab da reden wir seriös über einen Prozess.</p>
+  </section>
+
+  <!-- ============================================================ EINLESEN -->
+  <section>
+    <h2>CSV einlesen — und der Unterschied zählt</h2>
+    <pre><code class="language-r"><span class="cmt"># tidyverse (readr) — errät Typen sauber, bemitleidet dich weniger</span>
+messwerte &lt;- read_csv("messwerte.csv")
+
+<span class="cmt"># Base R — funktioniert auch, rät aber anders (z. B. factor statt text)</span>
+messwerte &lt;- read.csv("messwerte.csv")
+
+<span class="cmt"># Excel — readxl gehört nicht zum tidyverse-Kern</span>
+messwerte &lt;- readxl::read_excel("messwerte.xlsx")</code></pre>
+    <div class="callout">
+      <span class="label">Projekt-Aufwärmung (Kap. 6/7)</span>
+      <p>Wenn das Projekt aktiv ist, reicht der <strong>Dateiname</strong> —
+        kein Pfad-Wust. Datei liegt daneben? Dann heisst der Weg
+        <code>"messwerte.csv"</code> und sonst nichts.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ RITUAL -->
+  <section>
+    <h2>Erstes Ritual: was ist eigentlich gelandet?</h2>
+    <pre><code class="language-r">glimpse(messwerte)    <span class="out"># Zeilen × Spalten, Typ je Spalte</span>
+head(messwerte)       <span class="out"># Muster: sehen, wie die Daten aussehen</span>
+summary(messwerte)    <span class="out"># Min/Q1/Median/Mean/Q3/Max je Zahlspalte</span></code></pre>
+    <table style="font-size:0.7em">
+      <tr><th>Frage</th><th>Befehl</th></tr>
+      <tr><td>Ist die Spalte Zahl oder Text?</td><td><code>glimpse()</code></td></tr>
+      <tr><td>Sieht eine Zeile so aus wie erwartet?</td><td><code>head()</code></td></tr>
+      <tr><td>Gibt es Extremwerte/NA?</td><td><code>summary()</code></td></tr>
+    </table>
+    <p class="fragment">Import <strong>ist</strong> ein Daten-Prüfvorgang —
+      nicht eine Transportsache.</p>
+  </section>
+
+  <!-- ============================================================ EDA -->
+  <section>
+    <h2>Exploratory Data Analysis (Kap. 10): zwei große Fragen</h2>
+    <ol>
+      <li><strong>Variation:</strong> Was ist <em>typisch</em> für eine Spalte,
+        und wie weicht sie davon ab?</li>
+      <li><strong>Kovariation:</strong> Wie hängen Spalten <em>miteinander</em> zusammen?</li>
+    </ol>
+    <p class="fragment">Werkzeuge pro Frage:</p>
+    <table>
+      <tr><th>Frage</th><th>Werkzeug</th><th>R</th></tr>
+      <tr><td>Variation einer Zahl</td><td>Histogramm</td><td><code>geom_histogram()</code></td></tr>
+      <tr><td>Variation nach Gruppe</td><td>Boxplot</td><td><code>geom_boxplot()</code></td></tr>
+      <tr><td>Kennzahlen</td><td>Five-Number-Table</td><td><code>summarise()</code></td></tr>
+    </table>
+    <p class="fragment">Achtung: <strong>explorativ ≠ beweisend.</strong> EDA erzeugt
+      Hypothesen — Bestätigen kommt später (Tests, UE 6–8).</p>
+  </section>
+
+  <!-- ============================================================ HISTOGRAMM -->
+  <section>
+    <h2>Variation anschauen: das Histogramm</h2>
+    <pre><code class="language-r">ggplot(messwerte, aes(x = mass_mm)) +
+  geom_histogram(binwidth = 0.05, fill = "grey70", color = "white") +
+  geom_vline(xintercept = 10, linetype = "dashed") +
+  labs(x = "Maß (mm)", y = "Anzahl Teile",
+       title = "Charge 47 — Sollwert 10,0 mm")</code></pre>
+    <p>Der gestrichelte Strich = Sollwert. Das Auge sagt sofort:
+      <strong>liegt der Prozess mittig? Wie viele Teile wandern nach rechts raus?</strong></p>
+    <p class="fragment">Mit <code>binwidth</code> experimentieren — die Bin-Größe
+      steuert, <em>wie grob</em> du die Verteilung siehst.</p>
+  </section>
+
+  <!-- ============================================================ LAGEMASSE -->
+  <section>
+    <h2>Lagemaße — wo liegt die Verteilung?</h2>
+    <table>
+      <tr><th>Maß</th><th>Definition</th><th>Intuition</th></tr>
+      <tr><td><strong>Mittelwert</strong><br><code>mean(x)</code></td>
+          <td>Summe / Anzahl</td>
+          <td>Schwerpunkt — wo die Waage balanciert</td></tr>
+      <tr><td><strong>Median</strong><br><code>median(x)</code></td>
+          <td>mittlerer Wert (sortiert)</td>
+          <td>halbiert die Daten — 50% drüber, 50% darunter</td></tr>
+    </table>
+    <div class="callout tipp">
+      <span class="label">Eselsbrücke: der Schwanz zieht den Mittelwert</span>
+      <p>Mittel ≈ Median → symmetrisch · Mittel &gt; Median → <strong>rechtssteil</strong>
+        (Schwanz rechts, z. B. Fertigungszeiten) · Mittel &lt; Median → linkssteil.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ AUSREISSER -->
+  <section>
+    <h2>Ausreißer — wem traut man?</h2>
+    <p>19 Teile bei ~10,0 mm, ein Teil bei 10,8 mm (Verschub):</p>
+    <pre><code class="language-r">x &lt;- c(rep(9.95, 4), rep(10.0, 8), rep(10.05, 7), 10.8)
+mean(x)     <span class="out"># → 10.04  (verzerrt)</span>
+median(x)   <span class="out"># → 10.00  (unbeeindruckt)</span></code></pre>
+    <div class="callout">
+      <span class="label">Faustregel</span>
+      <p>Schiefe Verteilung / Ausreißer → <strong>Median</strong>.
+        Symmetrisch und sauber → <strong>Mittelwert</strong>.
+        Aber: erst <strong>gucken</strong> (Histogramm!), dann wählen.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ STREUUNG -->
+  <section>
+    <h2>Streuungsmaße — zwei Prozesse, gleicher Mittelwert</h2>
+    <pre><code class="language-r">gruppe_a &lt;- c(9.9, 9.95, 10.0, 10.05, 10.1)   <span class="out"># eng</span>
+gruppe_b &lt;- c(9.5, 9.75, 10.0, 10.25, 10.5)   <span class="out"># weit</span>
+mean(gruppe_a); mean(gruppe_b)   <span class="out"># beide → 10</span></code></pre>
+    <table>
+      <tr><th>Maß</th><th>Intuition</th><th>Robust?</th></tr>
+      <tr><td><strong>Varianz</strong> <code>var(x)</code></td>
+          <td>mittlere quadrierte Abweichung (Einheit²)</td><td>nein</td></tr>
+      <tr><td><strong>Standardabweichung</strong> <code>sd(x)</code></td>
+          <td>√Varianz — „typische Entfernung vom Mittel"</td><td>nein</td></tr>
+      <tr><td><strong>IQR</strong> <code>IQR(x)</code></td>
+          <td>Q3 − Q1 — die mittlere 50%</td><td><strong>ja</strong></td></tr>
+    </table>
+    <div class="callout tipp">
+      <span class="label">Brücke zu KM 8</span>
+      <p>~68% aller Werte innerhalb ±1 sd, ~95% innerhalb ±2 sd (bei
+        glockenförmiger Verteilung) — <strong>darauf bauen später die
+        Regelkarten-Grenzen.</strong></p>
+    </div>
+  </section>
+
+  <!-- ============================================================ QUANTILE -->
+  <section>
+    <h2>Quantile &amp; Boxplot — dieselbe Info, zweimal gelesen</h2>
+    <pre><code class="language-r"><span class="cmt"># Ausreißer-Beispiel von oben: x</span>
+summary(x)                                    <span class="out"># five numbers + mean</span>
+ggplot(data.frame(mass = x), aes(y = mass)) +
+  geom_boxplot()</code></pre>
+    <table style="font-size:0.7em">
+      <tr><th>Quantil</th><th>Wert</th><th>Bedeutung</th></tr>
+      <tr><td>0% (Min)</td><td>9.95</td><td>kleinster Wert</td></tr>
+      <tr><td>25% (Q1)</td><td>10.00</td><td>25% kleiner</td></tr>
+      <tr><td>50% (Median)</td><td>10.00</td><td>die Hälfte kleiner</td></tr>
+      <tr><td>75% (Q3)</td><td>10.05</td><td>75% kleiner</td></tr>
+      <tr><td>100% (Max)</td><td>10.80</td><td>größter Wert (der verschobene)</td></tr>
+    </table>
+    <p>Im Boxplot sind genau diese Zahlen die Kasten-Grenzen und der Strich.
+      <strong>Kennzahlen und Plot erzählen dieselbe Geschichte.</strong></p>
+  </section>
+
+  <!-- ============================================================ GROUP_BY -->
+  <section>
+    <h2>Nach Gruppe fragen: Charge ↔ Charge</h2>
+    <pre><code class="language-r">messwerte |&gt;
+  group_by(Charge) |&gt;
+  summarise(
+    n    = n(),
+    mitte = mean(mass_mm, na.rm = TRUE),
+    streu = sd(mass_mm, na.rm = TRUE)
+  )</code></pre>
+    <p>Deskriptiv pro Gruppe — <strong>bevor</strong> ein Test fragt:
+      „ist der Unterschied echt oder Zufallsstreu?" (UE 6).</p>
+  </section>
+
+  <!-- ============================================================ JETZT DU -->
+  <section>
+    <h2>Jetzt du! (mit penguins)</h2>
+    <ol>
+      <li>Zeige die Verteilung von <code>body_mass_g</code> als Histogramm
+        (Kap. 10-Style). Welche <code>binwidth</code> liest sich am besten?</li>
+      <li>Vergleiche <code>mean()</code> und <code>median()</code> von
+        <code>body_mass_g</code> — symmetrisch oder schief?</li>
+      <li>Boxplot von <code>body_mass_g</code> je <code>species</code> —
+        welche Art streut am stärksten, und wie liest du das am Boxplot ab?</li>
+    </ol>
+  </section>
+
+  <!-- ============================================================ FEHLER -->
+  <section>
+    <h2>Typische Fehler</h2>
+    <pre><code class="language-r"><span class="cmt"># 1. Text-Spalte, die Zahlen enthält (z. B. "10,05" — Komma!)</span>
+messwerte &lt;- read_csv("messwerte.csv")   <span class="out"># mass_mm = chr statt dbl</span>
+<span class="cmt"># → zuerst glimpse(); R-Deckname: deutsches Excel-Komma</span>
+
+<span class="cmt"># 2. Binwidth schludrig — im Breitband sieht alles "normal" aus</span>
+geom_histogram()                     <span class="out"># Standard-Bins verzerren gern</span>
+geom_histogram(binwidth = 0.05)      <span class="out"># bewusst wählen, mehrfach testen</span>
+
+<span class="cmt"># 3. sd ohne na.rm — ein NA und die Streuung ist weg</span>
+summarise(streu = sd(mass_mm))       <span class="out"># → NA</span></code></pre>
+  </section>
+
+  <!-- ============================================================ ZUSAMMENFASSUNG -->
+  <section>
+    <h2>Zusammenfassung</h2>
+    <table>
+      <tr><th>Konzept</th><th>Das Wichtigste</th></tr>
+      <tr><td>Import</td><td><code>read_csv()</code>/<code>read_excel()</code> in einem Projekt-Ordner, Pfade relativ</td></tr>
+      <tr><td>Erstes Ritual</td><td><code>glimpse()</code> · <code>head()</code> · <code>summary()</code> — jede geladene Datei</td></tr>
+      <tr><td>EDA-Fragen</td><td>Variation (Histogramm) · Kovariation (Boxplot/Gruppen)</td></tr>
+      <tr><td>Lage</td><td>Mittelwert = Schwerpunkt, Median = Mitte — Schwanz-Regel</td></tr>
+      <tr><td>Streuung</td><td><code>sd</code> (empfindlich) vs. <code>IQR</code> (robust) — 68-95-Brücke zu KM 8</td></tr>
+      <tr><td>Quantile</td><td>summary ↔ Boxplot: dieselbe Geschichte zweimal</td></tr>
+    </table>
+    <p class="fragment"><strong>Ausblick:</strong> Bisher nur <em>beschreiben</em>.
+      Nächste UE: Verteilungen — und die Frage, ob ein Unterschied
+      <strong>echt</strong> ist oder nur Zufallsstreu. Dann sind wir bei den
+      statistischen Tests, dem Herzstück von KM 7.</p>
+  </section>
+
+  <!-- ============================================================ HAUSAUFGABE -->
+  <section class="hint-slide">
+    <h2>Hausaufgabe</h2>
+    <p style="font-size:1.3em">➜ <a href="hausaufgabe.md"><code>hausaufgabe.md</code></a></p>
+    <p>(liegt im selben Ordner — einfach anklicken)</p>
+    <p style="margin-top:1.5em; font-size:0.8em">5 Aufgaben: CSV einlesen (Kap. 7) ·
+      EDA mit Kennzahlen (Kap. 10) ·<br>Boxplot-Vergleich · Vorhersagen ·
+      Kapitel-Check</p>
+  </section>
+
+</div></div>
+
+<script src="https://cdn.revealjs.com/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'slide',
+  width: 1280,
+  height: 800,
+  margin: 0.08,
+  center: true,
+  controlsLayout: 'edges'
+});
+</script>
+</body>
+</html>

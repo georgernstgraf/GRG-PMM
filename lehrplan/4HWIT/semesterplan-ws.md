@@ -9,7 +9,7 @@ Ausfälle durch Feiertage/Krankheit sind einkalkuliert; bei Glücksfall
 Bonus-UE (siehe unten).
 **Werkzeug:** R / RStudio · **Didaktik:** R4DS-„Whole Game" —
 Visualisierung vor Syntax (UE 1–3 in Buch-Reihenfolge)
-**KM-Steckbrief:** `kompetenzmodule/km7.md` · **Ressourcen-Anker:**
+**KM-Steckbrief:** `lehrplan/kompetenzmodule/km7.md` · **Ressourcen-Anker:**
 `lehrplan/ressourcen-matrix.md`
 
 > **Vorwissen aus JG3 (KM5+KM6):** Statistik beginnt laut Lehrplan in der
@@ -22,16 +22,14 @@ Visualisierung vor Syntax (UE 1–3 in Buch-Reihenfolge)
 
 ## UE 1–3: R-Toolchain (schulautonom, R4DS-Whole-Game)
 
-| UE | Thema | Lektüre-Anker | R |
-|----|-------|---------------|---|
-| 1 | **Datenvisualisierung zuerst** — ggplot2-Grammatik, aes/geoms, penguins | R4DS Kap. 1–2 | `ggplot2` |
-| 2 | **Daten transformieren & Workflow** — filter/select/mutate/summarise, Pipe | R4DS Kap. 3–6 | `dplyr` |
-| 3 | **Daten einlesen & deskriptive Statistik** — CSV/Excel, EDA | R4DS Kap. 7, 10, 20 | `readr`/`readxl` |
+| UE | Thema | Lektüre-Anker | R | Ordner |
+|----|-------|---------------|---|--------|
+| 1 | **Datenvisualisierung zuerst** — ggplot2-Grammatik, aes/geoms, penguins | R4DS Kap. 1–2 | `ggplot2` | `01-datenvisualisierung-ggplot/` |
+| 2 | **Daten transformieren & Workflow** — filter/select/mutate/summarise, Pipe | R4DS Kap. 3–6 | `dplyr` | `02-daten-transformieren-dplyr/` |
+| 3 | **Daten einlesen & deskriptive Statistik** — CSV/Excel, EDA | R4DS Kap. 7, 10, 20 | `readr`/`readxl` | `03-daten-einlesen-deskriptiv/` |
 
-> **Retrofit ausständig (Phase 3, #6):** Die Bestandsordner
-> `01-r-grundlagen-datenstrukturen/` und `02-daten-einlesen-deskriptiv/`
-> folgen noch der alten Reihenfolge (Syntax vor Visualisierung) und werden
-> auf diese UE 1–3 umgebaut.
+> Stil-Leitfaden für alle drei (und künftige) UE: `docs/stil-leitfaden.md`
+> (R4DS-Stimme auf Deutsch, „link, don't copy").
 
 ## UE 4–5: Verteilungen & Inferenz (KM5/KM6-Recap)
 
@@ -73,7 +71,7 @@ Visualisierung vor Syntax (UE 1–3 in Buch-Reihenfolge)
 
 | DS | Inhalt |
 |----|--------|
-| R1 | **Einstiegstest** (KM5/KM6-Vorwissen; Repo GRG-PMM-T, Termin 2026-09-07) |
+| R1 | **Einstiegstest** (KM5/KM6-Vorwissen; Repo GRG-PMM-T, Termin diese Woche — konkret lt. Stundenplan, 2026-09-07 ist schulfrei/Konferenz) |
 | R2 | **Leistungsfeststellung / Semester-Admin** |
 
 ---
@@ -84,4 +82,6 @@ Umweltmanagement (UE 12) — alle übrigen UE haben freie Lektüre-Anker.
 
 (Umgeschrieben 2026-07-23: 13 echte UE + 2 Reserve; R4DS-Buchreihenfolge
 für UE 1–3; Ressourcen-Anker aus `ressourcen-matrix.md`. Zuvor: 15 UE,
-alte Toolchain-Reihenfolge.)
+alte Toolchain-Reihenfolge. Retrofit UE 1–3 umgesetzt am 2026-09-07
+(Phase 3, #6): Ordner umbenannt/neu — `01-datenvisualisierung-ggplot`,
+`02-daten-transformieren-dplyr`, `03-daten-einlesen-deskriptiv`.)

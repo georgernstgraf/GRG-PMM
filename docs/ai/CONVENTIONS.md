@@ -25,9 +25,10 @@ Follow these without question. Do not deviate unless explicitly told.
 - Legal documents: `lehrplan/`
 - Knowledge persistence: `docs/ai/`
 - Reference materials: `Unterlagen/`
-- Class materials: `4HWIT/`, `5HWIT/`
-- KM-Steckbriefe (didaktisch): `kompetenzmodule/`
+- Class materials: `lehrplan/4HWIT/`, `lehrplan/5HWIT/`
+- KM-Steckbriefe (didaktisch): `lehrplan/kompetenzmodule/`
 - Each class folder may have its own `README.md`
+- UE material style: `docs/stil-leitfaden.md` (R4DS-Stimme, #6)
 
 ## Date Format
 - All dates in filenames: ISO 8601 (`YYYY-MM-DD`)
