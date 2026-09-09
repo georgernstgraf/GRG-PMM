@@ -16,7 +16,7 @@ This repository contains coursework for **Projektmanagement und Netzwerktechnik 
   - `kompetenzmodule/` — Didactic KM-Steckbriefe (one Markdown file per Kompetenzmodul, KM3–KM9b): what the module means, why it matters in practice, Wissen/Verstehen/Können
   - `METADATA.md` — Legal basis, RIS references, amendment history, class mapping
   - `pmm-lehrplan-text.md` — Complete curriculum extract (all Jahrgänge)
-  - `YYYY-MM-DD_*.pdf` — Legal curriculum PDFs from RIS (BGBl. II Nr. 262/2015)
+  - `RIS/` — Legal curriculum PDFs from RIS (BGBl. II Nr. 262/2015), named `YYYY-MM-DD_*.pdf` with ISO-date prefix (Kundmachungsdatum)
 - `selbststudium/` — Self-study workspace for learning R and statistics (Teach skill)
 - `.opencode/skills/` — Project-local opencode skills
 - `Unterlagen/` — Reference materials and scripts

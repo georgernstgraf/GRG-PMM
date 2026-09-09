@@ -22,7 +22,7 @@ Follow these without question. Do not deviate unless explicitly told.
 - Push only the current branch
 
 ## Repo Structure
-- Legal documents: `lehrplan/`
+- Legal documents: `lehrplan/RIS/` (RIS law-text PDFs only, ISO-date prefix)
 - Knowledge persistence: `docs/ai/`
 - Reference materials: `Unterlagen/`
 - Class materials: `lehrplan/4HWIT/`, `lehrplan/5HWIT/`

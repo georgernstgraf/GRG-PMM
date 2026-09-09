@@ -118,7 +118,7 @@ Die Anlage 1.28 verweist an mehreren Stellen auf **Anlage 1** (Allgemeiner Teil)
 - Abschnitt VI (Lehrpläne für den Religionsunterricht): «Siehe Anlage 1»
 - Deutsch, Englisch, Geografie/Geschichte/Politische Bildung, Naturwissenschaften: «Siehe Anlage 1»
 
-**Beide PDFs (Anlage 1 und Anlage 1.28) sind daher für die vollständige rechtliche Grundlage erforderlich und in diesem Verzeichnis abgelegt.**
+**Beide PDFs (Anlage 1 und Anlage 1.28) sind daher für die vollständige rechtliche Grundlage erforderlich und im Unterordner `RIS/` abgelegt.**
 
 ## Schulautonome Stundentafel (HTL Spengergasse)
 
@@ -156,9 +156,13 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 
 | Datei | Herkunft | Beschreibung |
 |-------|----------|-------------|
-| `2015-09-17_Lehrplan_TechnischesManagement.pdf` | HTL Spengergasse / RIS | Fachspezifischer Lehrplan — das Schul-PDF ist mit dem RIS-Original byte-identisch (383.232 Bytes, CreationDate 17.09.2015) |
-| `2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | RIS (signiert) | Allgemeiner Teil für alle HTL-Lehrpläne (Didaktik, Schulautonomie, allg. Fächer) |
+| `RIS/2015-09-17_Lehrplan_TechnischesManagement.pdf` | HTL Spengergasse / RIS | Fachspezifischer Lehrplan — das Schul-PDF ist mit dem RIS-Original byte-identisch (383.232 Bytes, CreationDate 17.09.2015) |
+| `RIS/2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | RIS (signiert) | Allgemeiner Teil für alle HTL-Lehrpläne (Didaktik, Schulautonomie, allg. Fächer) |
 | `pmm-lehrplan-text.md` | Extrakt aus dem Schul-PDF | Abschnitt 5 (Prozessmanagement) als durchsuchbarer Markdown-Text — alle 5 Jahrgänge mit Bildungs-/Lehraufgabe + Lehrstoff |
-| `2021-06-07_BGBl-II-250_Novelle-Ethik.pdf` | RIS (signiert) | Novelle 2021 (Ethik): Anlage 1.28 betrifft Stundentafel (Religion/Ethik) + Abschnitt VII A; Abschnitt 5 (Prozessmanagement) unverändert |
+| `RIS/2021-06-07_BGBl-II-250_Novelle-Ethik.pdf` | RIS (signiert) | Novelle 2021 (Ethik): Anlage 1.28 betrifft Stundentafel (Religion/Ethik) + Abschnitt VII A; Abschnitt 5 (Prozessmanagement) unverändert |
 
-> **Hinweis:** Das Schul-PDF (`2015-09-17_Lehrplan_TechnischesManagement.pdf`) und das signierte RIS-PDF der Anlage 1.28 sind byte-identisch. Es wird nur das Schul-PDF im Repository geführt.
+> **Hinweis:** Gesetzestext-PDFs liegen im Unterordner `RIS/` (ISO-Datum =
+> Kundmachungsdatum als Präfix). Das Schul-PDF
+> (`RIS/2015-09-17_Lehrplan_TechnischesManagement.pdf`) und das signierte
+> RIS-PDF der Anlage 1.28 sind byte-identisch. Es wird nur das Schul-PDF
+> im Repository geführt.

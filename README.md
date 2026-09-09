@@ -58,8 +58,8 @@ Der Lehrplan folgt **BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5** —
 
 | Datei | Beschreibung |
 |-------|-------------|
-| `lehrplan/2015-09-17_Lehrplan_TechnischesManagement.pdf` | Fachspezifischer Lehrplan (RIS Anlage 1.28, 33 S.) |
-| `lehrplan/2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | Allgemeiner Teil aller HTL-Lehrpläne |
+| `lehrplan/RIS/2015-09-17_Lehrplan_TechnischesManagement.pdf` | Fachspezifischer Lehrplan (RIS Anlage 1.28, 33 S.) |
+| `lehrplan/RIS/2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | Allgemeiner Teil aller HTL-Lehrpläne |
 | `lehrplan/METADATA.md` | RIS-Verweise, Änderungshistorie, schulautonome Stundentafel |
 
 ---

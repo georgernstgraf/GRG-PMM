@@ -11,7 +11,8 @@ GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturaf
 
 | Path | Purpose |
 |------|---------|
-| `lehrplan/` | Alles Lehrplan-Bezogene (Konvention des `unterricht`-Skills, seit 2026-09-06, #8): RIS-PDFs (BGBl. II Nr. 262/2015), `METADATA.md` (Rechtsgrundlage, RIS-Verweise, Änderungshistorie, Klassen-Zuordnung), `pmm-lehrplan-text.md` (Komplett-Extrakt JG1–JG5), `r4ds-abdeckung.md` (#6), `ressourcen-matrix.md` (#6) |
+| `lehrplan/` | Alles Lehrplan-Bezogene (Konvention des `unterricht`-Skills, seit 2026-09-06, #8): `RIS/` (Gesetzestext-PDFs, BGBl. II Nr. 262/2015, ISO-Datum-Präfix), `METADATA.md` (Rechtsgrundlage, RIS-Verweise, Änderungshistorie, Klassen-Zuordnung), `pmm-lehrplan-text.md` (Komplett-Extrakt JG1–JG5), `r4ds-abdeckung.md` (#6), `ressourcen-matrix.md` (#6) |
+| `lehrplan/RIS/` | Gesetzestext-PDFs aus dem Rechtsinformationssystem (Lehrplanpaket, Novellen) — einziger Ablageort für RIS-PDFs |
 | `lehrplan/4HWIT/` | 4. Jahrgang (generisch, deckt 4AHWIT/4BHWIT ab) — `semesterplan-ws/ss.md`, UE-Ordner (`NN-slug/` in Vorbereitung, `YYYY-MM-DD_thema` mit Datum), `assets/` |
 | `lehrplan/5HWIT/` | 5. Jahrgang — gleiche Ordnerkonventionen |
 | `lehrplan/kompetenzmodule/` | Didaktische KM-Steckbriefe (km3–km9b + README): Modul-Bedeutung, Praxisrelevanz, Wissen/Verstehen/Können (#6) |
