@@ -161,6 +161,7 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 | `RIS/2015-09-17_Lehrplan_TechnischesManagement.pdf` | HTL Spengergasse / RIS | Fachspezifischer Lehrplan — das Schul-PDF ist mit dem RIS-Original byte-identisch (383.232 Bytes, CreationDate 17.09.2015) |
 | `RIS/2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | RIS (signiert) | Allgemeiner Teil für alle HTL-Lehrpläne (Didaktik, Schulautonomie, allg. Fächer) |
 | `pmm-hwit/LEHRPLAN.md` | Extrakt aus dem Schul-PDF | Abschnitt 5 (Prozessmanagement) als durchsuchbarer Markdown-Text — alle 5 Jahrgänge mit Bildungs-/Lehraufgabe + Lehrstoff |
+| `pmm-hwit/RIS.md` | RIS-Recherche | Rechtsstand (BGBl. II Nr. 262/2015 idF 250/2021), Fundstellen, Novellen-Historie, Stundentafel-Zeile PMM — Abschnitt 5 unverändert seit 2015; nächster Re-Check Sommer 2027 |
 | `RIS/2021-06-07_BGBl-II-250_Novelle-Ethik.pdf` | RIS (signiert) | Novelle 2021 (Ethik): Anlage 1.28 betrifft Stundentafel (Religion/Ethik) + Abschnitt VII A; Abschnitt 5 (Prozessmanagement) unverändert |
 | `pmm-hwit/4HWIT/4HWIT.lehrplan.md`, `pmm-hwit/5HWIT/5HWIT.lehrplan.md` | Extrakt | Klassen-relevante Extrakte (IV./V. Jahrgang) |
 | `pmm-hwit/kompetenzmodule/` | Didaktik | KM-Steckbriefe km3–km9b + README |
@@ -178,3 +179,16 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 > (`jg4-/jg5-semesterplan-{ws,ss}.md`), UE-Ordner (`01-…`/`02-…`/`03-…`) und
 > `assets/` wanderten nach `unterricht/HWIT-PMM/` (Unterrichts-Ebene,
 > Repo-Root).
+
+> **Einheiten-Rolle (Nutzer-Entscheidung 2026-09-10, DECISIONS):** Dieses Repo
+> führt **keine** separaten `jgN-einheiten.md`-Dateien — die vier Semesterpläne
+> unter `unterricht/HWIT-PMM/` decken die Lehrstoffverteilungs-Rolle
+> („Einheiten") vollständig ab. Ein fehlender Einheiten-Befund im
+> Konformitäts-Check ist hier konform.
+
+> **Root-Klassenordner `5ahwit/`:** Der klein geschriebene Klassenordner am
+> Repo-Root ist konforme **Kohorten-Ablage** (Einstiegspunkt für die aktuelle
+> 5AHWIT-Kohorte; archiviert am Schuljahresende) — nicht zu verwechseln mit den
+> GROSSBUCHSTABEN-Klassenordnern unter `lehrplan/pmm-hwit/` (Lehrplan-Extrakte).
+> Inhalt: klassenbezogene Ablage, derzeit Setup-Log der Kohorte
+> (`5ahwit/README.md`).

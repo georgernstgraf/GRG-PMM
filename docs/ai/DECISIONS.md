@@ -3,6 +3,12 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-09-10: Semesterpläne decken die Einheiten-Rolle ab (#11)
+
+- **Choice**: GRG-PMM führt keine separaten `jgN-einheiten.md`-Dateien. Die vier Semesterpläne (`unterricht/HWIT-PMM/jg4-/jg5-semesterplan-{ws,ss}.md`) übernehmen die Rolle der Lehrstoffverteilung („Einheiten"): UE-Tabellen nach thematischen Blöcken mit KM/Lernziel-Bezug, Lektüre-Ankern und reservierten DS.
+- **Reason**: Der lehrplan-Skill sieht `jgN-einheiten.md` (Ist-Doku) und `jgN-semesterplan-{ws,ss}.md` (Plan) als getrennte Dateien vor. Für PMM ist die Trennung ohne Mehrwert: Die Ist-Doku-Pflege ist seit SJ 2025/26 in den Semesterplänen aufgegangen — eine separate Einheiten-Datei pro Jahrgang wäre eine drift-gefährdete Duplikat-Kopie derselben UE-Tabellen.
+- **Consequence**: Der Konformitäts-Check meldet fehlende `jgN-einheiten.md` nicht als Befund (dokumentierte Nutzer-Entscheidung, in `lehrplan/METADATA.md` vermerkt). Der zukünftige Unterricht-Skill fasst die Semesterpläne als Einheiten-Quelle auf.
+
 ## 2026-09-07: Phase 3 umgesetzt — Stil-Leitfaden + UE 1–3 Retrofit (#6)
 - **Choice**: `docs/stil-leitfaden.md` verbindlich (R4DS-Stimme auf Deutsch:
   Einstiegsfrage → Ziel-Artefakt → inkrementeller Aufbau → „Jetzt du!" →
