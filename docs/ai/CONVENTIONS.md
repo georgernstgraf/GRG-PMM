@@ -25,8 +25,8 @@ Follow these without question. Do not deviate unless explicitly told.
 - Legal documents: `lehrplan/RIS/` (RIS law-text PDFs only, ISO-date prefix)
 - Knowledge persistence: `docs/ai/`
 - Reference materials: `Unterlagen/`
-- Class materials: `lehrplan/4HWIT/`, `lehrplan/5HWIT/`
-- KM-Steckbriefe (didaktisch): `lehrplan/kompetenzmodule/`
+- Class extracts: `lehrplan/pmm-hwit/4HWIT/`, `lehrplan/pmm-hwit/5HWIT/`
+- KM-Steckbriefe (didaktisch): `lehrplan/pmm-hwit/kompetenzmodule/`
 - Each class folder may have its own `README.md`
 - UE material style: `docs/stil-leitfaden.md` (R4DS-Stimme, #6)
 
@@ -73,6 +73,6 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
 - Verifizierte Lizenzen des Material-Kanons: palmerpenguins CC0 1.0 ·
   ModernDive CC BY-NC-SA 4.0 · Navarro LSR CC BY-SA 4.0 · NIST e-Handbook
   US-Gov (Zitat mit Quellenangabe). Kanon + Abdeckung:
-  `lehrplan/r4ds-abdeckung.md`.
+  `lehrplan/pmm-hwit/r4ds-abdeckung.md`.
 - Bei jeder UE, die auf Buchkapitel aufbaut: Lektüre-Box mit
   Kapitel-Verlinkung (englisch) am Folienanfang bzw. Lektionsanfang.

@@ -6,7 +6,7 @@ Science* (2e, Wickham/Çetinkaya-Rundel/Grolemund, r4ds.hadley.nz)
 übernommen, der **Wortlaut nie**. Gilt für KM7-UE 1–3 (4HWIT WS) und alle
 künftigen Eigenmaterialien (KM8, KM9, 5HWIT).
 
-Grundlage: Issue #6 (Phase 3) · Lizenzen: `lehrplan/r4ds-abdeckung.md` ·
+Grundlage: Issue #6 (Phase 3) · Lizenzen: `lehrplan/pmm-hwit/r4ds-abdeckung.md` ·
 Kernregel aus `docs/ai/CONVENTIONS.md`: **„Link, don't copy"** — R4DS 2e
 ist CC BY-NC-ND 3.0; wir verlinken Kapitel, schreiben aber jeden Satz
 selbst. Didaktik ist nicht schützbar, Übersetzung schon.

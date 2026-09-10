@@ -4,7 +4,7 @@
 >
 > **Rechtsgrundlage:** Anlage 1.28, BGBl. II Nr. 262/2015 — Abschnitt 5 (Prozessmanagement), Höhere Lehranstalt für Wirtschaftsingenieure – Technisches Management
 >
-> **Quelle:** Auszug aus `lehrplan/pmm-lehrplan-text.md` (Extrakt aus `2015-09-17_Lehrplan_TechnischesManagement.pdf`, Seiten 19–22)
+> **Quelle:** Auszug aus `lehrplan/pmm-hwit/LEHRPLAN.md` (Extrakt aus `2015-09-17_Lehrplan_TechnischesManagement.pdf`, Seiten 19–22)
 >
 > **Extraktionsdatum:** 2026-09-06
 

@@ -28,4 +28,4 @@ Lektüre-Anker: NIST Kap. 6.1+6.3 (Regelkarten) · NIST Kap. 3+6.1 (Fähigkeit)
 · NIST Kap. 2 (MSA)
 R-Umsetzung: `qcc` (Regelkarten + Capability)
 Eigenbedarf: Umweltrecht/Methoden komplett
-(Details: `lehrplan/ressourcen-matrix.md`)
+(Details: `lehrplan/pmm-hwit/ressourcen-matrix.md`)

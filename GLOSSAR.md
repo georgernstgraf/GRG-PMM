@@ -178,7 +178,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | L0003 … | — | Lektions-Nummern im Selbststudium (`selbststudium/lessons/`) |
 | Lern-Lektion | — | Interaktive HTML-Lektion für Georg (teach skill), Artefakt 1 von 3 pro UE |
 | LR | Learning Record | Lernprotokoll nach jeder Selbststudium-Einheit — ⚠ Kollision, s.o. |
-| Matrix-Key | — | Slug je Lehrplan-Thema in `lehrplan/ressourcen-matrix.md` (z.B. `KM7-tests`) |
+| Matrix-Key | — | Slug je Lehrplan-Thema in `lehrplan/pmm-hwit/ressourcen-matrix.md` (z.B. `KM7-tests`) |
 | Meisterschaft | — | Lernziel-Status im teach skill (LR mit voller Punktzahl) |
 | NN-slug | — | Ordner-Schema vor Datumsfixierung (z.B. `01-datenvisualisierung-ggplot/`) → wird `YYYY-MM-DD_slug/` |
 | YYYY-MM-DD | ISO 8601 | Datumsformat für alle Unterrichtsordner und datierten Dokumente |

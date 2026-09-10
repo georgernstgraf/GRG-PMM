@@ -7,7 +7,7 @@ KM 9a (RIS BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5)
 (2× Leistungsfeststellung/Admin). Offiziell 18 Schulwochen — Ausfälle
 durch Feiertage/Krankheit sind einkalkuliert.
 **Werkzeug:** R / RStudio · **KM-Steckbrief:** `kompetenzmodule/km9a.md` ·
-**Ressourcen-Anker:** `lehrplan/ressourcen-matrix.md`
+**Ressourcen-Anker:** `lehrplan/pmm-hwit/ressourcen-matrix.md`
 
 > **Vorwissen:** KM7 (Tests, ANOVA) und KM8 (SPC, Prozessfähigkeit) aus der
 > 4. Klasse werden vorausgesetzt — DoE baut direkt auf ANOVA/`lm()` auf.

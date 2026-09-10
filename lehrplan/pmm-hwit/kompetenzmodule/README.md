@@ -4,7 +4,7 @@ Didaktische Steckbriefe zu den Kompetenzmodulen des Faches
 **Prozessmanagement** (PMM, Maturafach WIT) — je ein Markdown-File pro KM.
 
 Rechtsgrundlage: BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5
-(Volltext-Extrakt: `lehrplan/pmm-lehrplan-text.md`).
+(Volltext-Extrakt: `lehrplan/pmm-hwit/LEHRPLAN.md`).
 
 ## Semester ↔ Klasse ↔ KM
 
@@ -48,7 +48,7 @@ betreffende Semester konkret plant.
 ## Verknüpfte Dokumente
 
 - `GLOSSAR.md` (Root) — Abkürzungen & Fachbegriffe mit Repo-Kontext
-- `lehrplan/ressourcen-matrix.md` — Lehrplan-Thema ↔ freie Ressource
+- `lehrplan/pmm-hwit/ressourcen-matrix.md` — Lehrplan-Thema ↔ freie Ressource
   (mit Eigenbedarf-Übersicht)
-- `lehrplan/r4ds-abdeckung.md` — R4DS-Abdeckung & Lizenzen
+- `lehrplan/pmm-hwit/r4ds-abdeckung.md` — R4DS-Abdeckung & Lizenzen
 - `4HWIT/semesterplan-ws.md`, `5HWIT/semesterplan-ws.md` — konkrete Semesterpläne

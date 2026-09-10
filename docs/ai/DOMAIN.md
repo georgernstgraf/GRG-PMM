@@ -29,7 +29,7 @@ PMM (Prozessmanagement) spans all 5 years. The subject evolves through three dis
 - School-autonomous adaptations allowed within IV. Abschnitt, but no autonomous focus areas (Schwerpunktsetzungen)
 - Business English: B1+ target by end of year 4, B2 by end of year 5 (GER)
 - The name "Projektmanagement und Netzwerktechnik" does not appear in the legal curriculum — it is a school-level naming convention at HTL Spengergasse. It is also not listed on the public [spengergasse.at](https://www.spengergasse.at/?page_id=2153) page for Technisches Management.
-- Relevance mapping: PMN likely draws from Informatik und Informationssysteme (Netzwerke, ERP, Informationssysteme) — the subject with the most PMN-relevant content in years 4 and 5
+- Relevance mapping: the legacy school-level name PMN suggests drawing from Informatik und Informationssysteme (Netzwerke, ERP, Informationssysteme); the legal subject is Prozessmanagement (PMM), Anlage 1.28 Abschnitt 5 — years 4 and 5
 
 ### School-Autonomous Stundentafel (spengergasse.at)
 
@@ -40,7 +40,7 @@ Key deviations from RIS in years 4 and 5:
 - Übungsanteile (Klammerwerte) in Prozessmanagement and Produktmanagement are integrated, not listed separately
 
 ### Time Model
-- PMN: one Doppelstunde per week per class
+- PMM: one Doppelstunde per week per class
 - Theoretical: 18-20 Doppelstunden per semester
 - Net (after admin/exams): ~15 Doppelstunden per semester
 - Semester plan files should accommodate 15 thematic units each

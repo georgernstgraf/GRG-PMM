@@ -107,5 +107,5 @@ Relevante Kapitel:
 
 ## Gaps
 
-- Kein deutsches kostenpflichtiges Online-Seminal gefunden, das spezifisch SPC, DOE und Prozessfaehigkeit mit R deckt (statistik-seminare.de deckt Grundlagen ab, ist aber InPraesenz). → **Teilweise geschlossen (englisch):** NIST e-Handbook Kap. 2/3/5/6 deckt SPC, Faehigkeit, MSA, DoE/RSM fachlich ab (siehe `lehrplan/r4ds-abdeckung.md`).
+- Kein deutsches kostenpflichtiges Online-Seminal gefunden, das spezifisch SPC, DOE und Prozessfaehigkeit mit R deckt (statistik-seminare.de deckt Grundlagen ab, ist aber InPraesenz). → **Teilweise geschlossen (englisch):** NIST e-Handbook Kap. 2/3/5/6 deckt SPC, Faehigkeit, MSA, DoE/RSM fachlich ab (siehe `lehrplan/pmm-hwit/r4ds-abdeckung.md`).
 - Keine R-Kurse gefunden, die oesterreichische Normen (OENORM) in der Annahmestichprobenpruefung behandeln. → **Bleibt Eigenmaterial:** ISO 2859/3951-Spezifika (AQL/LTPD, Tabellen) mit `AcceptanceSampling`.

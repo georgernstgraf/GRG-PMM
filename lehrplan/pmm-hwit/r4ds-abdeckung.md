@@ -4,7 +4,7 @@
 *R for Data Science* (2e) ab — und welche Open-Source-Materialien füllen die
 Restlücke? Entscheidungsgrundlage für „Buch als Hauptmaterial, wo es geht".
 
-Erstellt: 2026-07-18 · Issue: #6 · Lehrplan-Quelle: `lehrplan/pmm-lehrplan-text.md`
+Erstellt: 2026-07-18 · Issue: #6 · Lehrplan-Quelle: `lehrplan/pmm-hwit/LEHRPLAN.md`
 
 ---
 

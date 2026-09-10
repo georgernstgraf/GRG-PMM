@@ -45,7 +45,7 @@ Each entry documents WHAT was decided and WHY.
 - **Choice**: The Stundentafel published on spengergasse.at is documented in METADATA.md alongside the RIS version
 - **Reason**: The school has exercised school-autonomous adaptations (shifted hours from Anlagen-/Prüftechnik to Umwelttechnologie). Both versions must be understood when planning lessons.
 
-## 2026-06-02: Time Model for PMN Planning
+## 2026-06-02: Time Model for PMM Planning
 - **Choice**: Lesson plans target 15 double-periods (Doppelstunden) per semester
 - **Reason**: 18-20 theoretical double-periods minus admin/exam overhead yields ~15 net. All semester plans must accommodate this cadence.
 

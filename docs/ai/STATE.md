@@ -47,7 +47,7 @@ ist vollständig in der neuen Struktur.
 - R 4.5 / Ubuntu 26.04, tidyverse 2.0.0, **palmerpenguins neu installiert**;
   Rscript: /usr/bin/Rscript.
 - Zeitmodell: 18 Schulwochen offiziell → 13 echte UE + 2 reservierte DS.
-- Klassen-Ordner generisch (`lehrplan/4HWIT`, `lehrplan/5HWIT`).
+- Klassen-Extrakte generisch (`lehrplan/pmm-hwit/4HWIT/`, `lehrplan/pmm-hwit/5HWIT/`); Semesterpläne unter `unterricht/HWIT-PMM/`.
 - **Verify-Workflow für künftige Tests:** `verify_quiz.py` in
   `GRG-PMM-T/tools/` nach jeder Test-Generierung.
 - Historische Pfad-Referenzen in `docs/ai/` (`docs/lehrplan/`) bewusst

@@ -1,22 +1,20 @@
 # AGENTS.md
 
-This document contains operational guidelines for AI agents working in the `GRG-PMN` repository.
+This document contains operational guidelines for AI agents working in the `GRG-PMM` repository.
 
 ---
 
 ## 1. Project Overview
 
-This repository contains coursework for **Projektmanagement und Netzwerktechnik (PMN)** at HTL Spengergasse, Abteilung Wirtschaftsingenieure (Technisches Management & Umwelt).
+This repository contains coursework for **Prozessmanagement (PMM)** at HTL Spengergasse, Abteilung Wirtschaftsingenieure (Technisches Management & Umwelt). (Legacy school-level name: „Projektmanagement und Netzwerktechnik (PMN)" — not the legal subject name.)
 
 ## 2. Directory Structure
 
-- `lehrplan/` — Everything curriculum-related (mirrors the `unterricht` skill convention):
-  - `4HWIT/` — 4th year class materials (generic year label, covers any parallel class like 4AHWIT/4BHWIT), date-based folders (`YYYY-MM-DD_thema`) and prep-numbered folders (`NN-slug/` during preparation)
-  - `5HWIT/` — 5th year class materials, same folder conventions
-  - `kompetenzmodule/` — Didactic KM-Steckbriefe (one Markdown file per Kompetenzmodul, KM3–KM9b): what the module means, why it matters in practice, Wissen/Verstehen/Können
-  - `METADATA.md` — Legal basis, RIS references, amendment history, class mapping
-  - `pmm-lehrplan-text.md` — Complete curriculum extract (all Jahrgänge)
+- `lehrplan/` — Everything curriculum-related (lehrplan skill convention, zweig-based layout):
+  - `pmm-hwit/` — Zweig folder (HWIT, Anlage 1.28): `LEHRPLAN.md` complete extract (all Jahrgänge), class extracts `4HWIT/` + `5HWIT/`, `kompetenzmodule/` (didactic KM-Steckbriefe KM3–KM9b), `ressourcen-matrix.md`, `r4ds-abdeckung.md`
   - `RIS/` — Legal curriculum PDFs from RIS (BGBl. II Nr. 262/2015), named `YYYY-MM-DD_*.pdf` with ISO-date prefix (Kundmachungsdatum)
+  - `METADATA.md` — Legal basis, RIS references, amendment history, class mapping
+- `unterricht/` — Teaching layer (repo root): `HWIT-PMM/` with semester plans (`jg4-/jg5-semesterplan-{ws,ss}.md`), lesson folders (`NN-slug/` during preparation, `YYYY-MM-DD_thema` once dated) and `assets/`
 - `selbststudium/` — Self-study workspace for learning R and statistics (Teach skill)
 - `.opencode/skills/` — Project-local opencode skills
 - `Unterlagen/` — Reference materials and scripts
@@ -24,7 +22,7 @@ This repository contains coursework for **Projektmanagement und Netzwerktechnik 
 
 ## 3. File Naming Conventions
 
-- Class lesson folders: `YYYY-MM-DD_thema/` (e.g., `2025-09-15_einfuehrung/`)
+- Class lesson folders: `unterricht/HWIT-PMM/YYYY-MM-DD_thema/` (e.g., `2025-09-15_einfuehrung/`)
   - During curriculum preparation (before teaching dates are known):
     `NN-slug/` (e.g., `01-datenvisualisierung-ggplot/`). Rename to
     `YYYY-MM-DD_slug/` when the teaching date is fixed.

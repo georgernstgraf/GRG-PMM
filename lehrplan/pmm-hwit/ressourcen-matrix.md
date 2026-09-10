@@ -5,8 +5,8 @@ KM3–KM9b) zu verfügbaren freien Ressourcen. Leere Zellen (`—`) zeigen,
 wo Eigenmaterial erstellt werden muss.
 
 Erstellt: 2026-07-23 · Issue: [#6](https://github.com/georgernstgraf/GRG-PMM/issues/6) · basiert auf
-`lehrplan/pmm-lehrplan-text.md` (Lehrplan-Extrakt) und
-`lehrplan/r4ds-abdeckung.md` (Lizenzprüfungen, Begründung der
+`lehrplan/pmm-hwit/LEHRPLAN.md` (Lehrplan-Extrakt) und
+`lehrplan/pmm-hwit/r4ds-abdeckung.md` (Lizenzprüfungen, Begründung der
 Ressourcen-Wahl).
 
 ## Legende
@@ -143,9 +143,9 @@ aber von Kolleg:innen unterrichtet — **kein Material-Backlog für Georg**
 ## Verweise
 
 - **Lizenzprüfungen und Begründung der Ressourcen-Wahl:**
-  `lehrplan/r4ds-abdeckung.md`
+  `lehrplan/pmm-hwit/r4ds-abdeckung.md`
 - **Lehrplan-Volltext (PMM-Auszug):**
-  `lehrplan/pmm-lehrplan-text.md`
+  `lehrplan/pmm-hwit/LEHRPLAN.md`
 - **Ressourcen für Georgs Selbststudium:**
   `selbststudium/RESOURCES.md`
 

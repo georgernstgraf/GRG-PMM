@@ -46,10 +46,11 @@ Der Lehrplan folgt **BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5** —
 
 | Verzeichnis | Inhalt |
 |-------------|--------|
-| `lehrplan/` | Lehrplan-Konvention des Unterrichts-Skills (PDFs, METADATA, Extrakte) |
-| `lehrplan/4HWIT/` | 4. Jahrgang — Semesterpläne, Übungen, Projekte |
-| `lehrplan/5HWIT/` | 5. Jahrgang — Semesterpläne, Maturavorbereitung |
-| `lehrplan/kompetenzmodule/` | Didaktische Steckbriefe je Kompetenzmodul (KM3–KM9b) |
+| `lehrplan/` | Lehrplan-Konvention des lehrplan-Skills (PDFs, METADATA, Extrakte) |
+| `lehrplan/pmm-hwit/` | Zweig-Ordner (HWIT, Anlage 1.28): `LEHRPLAN.md`, Klassen-Extrakte `4HWIT/`+`5HWIT/`, `kompetenzmodule/`, Ressourcen-Dateien |
+| `lehrplan/RIS/` | Gesetzestext-PDFs (BGBl. II Nr. 262/2015, ISO-Datum-Präfix) |
+| `lehrplan/METADATA.md` | Rechtsgrundlage, RIS-Verweise, Änderungshistorie, Klassen-Zuordnung |
+| `unterricht/HWIT-PMM/` | Unterrichts-Ebene: `jg<N>-semesterplan-{ws,ss}.md`, UE-Ordner, `assets/` |
 | `GLOSSAR.md` | Abkürzungen & Fachbegriffe (AQL, DoE, R4DS, KM, …) |
 | `Unterlagen/` | Thematische Referenzmaterialien und Skripten |
 | `docs/` | Zentrale Dokumente (Projektangaben, AI-Wissensdateien) |

@@ -21,4 +21,4 @@
 
 Matrix-Keys: `KM3-prozessmanagement`, `KM3-managementsysteme`
 (kein R-Bezug, keine freie Abdeckung — Details:
-`lehrplan/ressourcen-matrix.md`)
+`lehrplan/pmm-hwit/ressourcen-matrix.md`)

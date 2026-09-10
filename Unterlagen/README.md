@@ -1,6 +1,6 @@
 # Unterlagen
 
-Thematische Referenzmaterialien und Skripten für den PMN-Unterricht.
+Thematische Referenzmaterialien und Skripten für den PMM-Unterricht.
 
 ## Verwendung
 

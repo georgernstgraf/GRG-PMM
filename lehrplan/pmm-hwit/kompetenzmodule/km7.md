@@ -70,7 +70,7 @@ und danach durchgehend genutzt. Plus ein kompakter Block
 
 ## Ressourcen
 
-Matrix-Keys (Details: `lehrplan/ressourcen-matrix.md`):
+Matrix-Keys (Details: `lehrplan/pmm-hwit/ressourcen-matrix.md`):
 `KM7-tests` · `KM7-annahme` · `KM7-umweltpruefung` ·
 `KM7-stofffluss-oekobilanz` · `KM7-umwelt-anforderungen`
 
