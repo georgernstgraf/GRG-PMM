@@ -1,29 +1,29 @@
 # Project State
 
-Current status as of 2026-09-07.
+Current status as of 2026-09-10.
 
 ## Current Focus
-**Phase 3 (#6) umgesetzt:** Stil-Leitfaden geschrieben, UE 1–3 auf
-R4DS-Buchreihenfolge geretrofit (ggplot zuerst). Das 4HWIT-Wintermaterial
-ist vollständig in der neuen Struktur.
+**lehrplan-Skill-Konformität vollständig (#10, #11, #12):** Retrofit
+(pmm-hwit + unterricht/HWIT-PMM), Infrastruktur (RIS.md, Einheiten-Rolle,
+5ahwit-Doku) und die komplette Erläuterungs-Ebene sind abgeschlossen —
+der Skill ist in diesem Repo vollständig ausgeführt.
 
 ## Completed (this cycle)
-- [x] **Unterrichts-Skill durchgearbeitet (#8)**: `lehrplan/`-Migration,
-      Extrakte 4HWIT/5HWIT, Novellen-Check (keine Novellen in den letzten
-      12 Monaten; 250/2021 betrifft PMM nicht), METADATA-Korrektur
-- [x] **docs/ai aufgeräumt (#9)**: Termine entstaled, JG3-Stand korrigiert
-- [x] **Phase 3 (#6):** `docs/stil-leitfaden.md` (6 Bausteine + Lektüre-Box
-      + Code-Stil + HA-Format + Self-Check); R4DS-Kapitel-URLs verifiziert
-      (EDA.html mit Großschreibung!)
-- [x] **UE-Retrofit:** Ordner umgebaut (git mv) —
-      `01-datenvisualisierung-ggplot` (neu), `02-daten-transformieren-dplyr`
-      (aus Alt-UE2), `03-daten-einlesen-deskriptiv` (Alt-UE2-Rest); alle
-      drei Decks + HAs im R4DS-Stimm-Muster neu geschrieben
-- [x] **Zahlen verifiziert:** penguins-Gruppenkennzahlen per R gerechnet
-      (palmerpenguins installiert); Torgersen/Dream-Werte in UE-2-Tabelle
-      korrigiert (3688/455, 3706/445)
-- [x] **Semesterplan aktualisiert:** UE-Tabelle mit Ordner-Spalte, Retroft-
-      Hinweis entfernt, R1-Termin „diese Woche", Pfadfixes
+- [x] **Layout-Retrofit (#10, a140b1c):** Zweig-Ordner `lehrplan/pmm-hwit/`
+      angelegt; Unterrichts-Ebene nach `unterricht/HWIT-PMM/` getrennt
+- [x] **Infrastruktur (#11, 3bdb8de):** `pmm-hwit/RIS.md` (Rechtsstand
+      262/2015 idF 250/2021, Abschnitt 5 unverändert, Re-Check Sommer 2027);
+      DECISIONS: Semesterpläne decken Einheiten-Rolle ab; METADATA:
+      Einheiten-Vermerk, Root-Klassenordner `5ahwit/`, RIS.md-Inventar
+- [x] **Erläuterungs-Ebene (#12, 9353925):** `lehrplan-annotator`-Subagent
+      (glm-5.3 non-flash, globaler Agent aus opencode-helpers #70) hat alle
+      drei Extrakte annotiert — 1068 Insertions, 0 Deletions (Gesetzestext
+      byte-identisch); LEHRPLAN.md 19/19 Bullet-Erläuterungen + 7 Überblicke
+      + 15 Lehrstoff-Erläuterungen; 4HWIT (11) und 5HWIT (10) spiegeln den
+      Komplett-Extrakt wortidentisch
+- [x] **lehrplan-Skill erweitert (opencode-helpers #71, 3bb3138):**
+      Root-Klassenordner-Konvention (klein = Kohorten-Ablage am Repo-Root)
+      dokumentiert + Konformitäts-Check-Punkt ergänzt
 
 ## Pending
 - [ ] **Phase 4 (#6):** Stil in `selbststudium/NOTES.md` verankern;
@@ -48,6 +48,11 @@ ist vollständig in der neuen Struktur.
   Rscript: /usr/bin/Rscript.
 - Zeitmodell: 18 Schulwochen offiziell → 13 echte UE + 2 reservierte DS.
 - Klassen-Extrakte generisch (`lehrplan/pmm-hwit/4HWIT/`, `lehrplan/pmm-hwit/5HWIT/`); Semesterpläne unter `unterricht/HWIT-PMM/`.
+- **Erläuterungs-Ebene (seit #12):** Annotationen werden vom globalen
+  `lehrplan-annotator`-Subagent geschrieben (opencode-helpers `agents/`,
+  Symlink `~/.config/opencode/agents`); Review-Praxis: Diff muss 0
+  Deletions im Gesetzestext zeigen; Klassen-Extrakte spiegeln
+  LEHRPLAN.md wortidentisch.
 - **Verify-Workflow für künftige Tests:** `verify_quiz.py` in
   `GRG-PMM-T/tools/` nach jeder Test-Generierung.
 - Historische Pfad-Referenzen in `docs/ai/` (`docs/lehrplan/`) bewusst

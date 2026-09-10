@@ -2,6 +2,15 @@
 
 ## Open Tasks
 
+### Nächster RIS-Re-Check: Sommer 2027 (#11)
+**Priority:** low (jährlicher Rhythmus)
+**Context:** `lehrplan/pmm-hwit/RIS.md` dokumentiert den Rechtsstand
+(2026-09-06: „262/2015 zuletzt geändert durch 250/2021" — Abschnitt 5/PMM
+unverändert seit 2015). Erläuterungs-Ebene komplett (#12).
+**Action:** NOR-Kopf der Anlage 1.28 auf neue „zuletzt geändert durch"-Zeile
+prüfen; bei Berührung von Abschnitt 5 Re-Extraktion + Re-Annotation via
+`lehrplan-annotator`.
+
 ### Phase 4 (#6): Stil verankern + Selbststudium-Synchronisation
 **Priority:** medium (Phase 3 ist erledigt, 2026-09-07)
 **Context:** `docs/stil-leitfaden.md` steht und ist in CONVENTIONS
