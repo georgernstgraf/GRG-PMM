@@ -18,4 +18,5 @@
 
 **Hausübung** R installieren, optional Rstudio, Git installieren, GitHub-Account erstellen, GitHub-Repository klonen, RStudio-Projekt öffnen, Lektionen in RStudio öffnen und R-Code ausführen.
 
-Tip: "winget" im Terminal.
+Tip: "winget" im Terminal. "winget install openjs.nodejs.lts"
+dann kann man auch opencode installieren.
