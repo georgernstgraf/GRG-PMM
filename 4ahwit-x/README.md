@@ -10,3 +10,8 @@
 ## 2026-09-15
 
 - Ordner angelegt (Kohorten-Teilung)
+- Teach-Workspace aufgesetzt: MISSION, RESOURCES, NOTES, Assets
+  (`assets/lesson.css`, `assets/quiz.js`)
+- Lektionen gebaut: `lessons/0001-daten-visualisieren-ggplot.html`
+  (UE 1), `lessons/0002-daten-transformieren-dplyr.html` (UE 2);
+  R-Code verifiziert (palmerpenguins 344 Zeilen)
