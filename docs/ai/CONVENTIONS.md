@@ -76,3 +76,18 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   `lehrplan/pmm-hwit/r4ds-abdeckung.md`.
 - Bei jeder UE, die auf Buchkapitel aufbaut: Lektüre-Box mit
   Kapitel-Verlinkung (englisch) am Folienanfang bzw. Lektionsanfang.
+
+## Kohorten-Ablagen am Repo-Root (#13)
+- Klein geschriebene Klassenordner am Repo-Root = Kohorten-Ablagen
+  (`5ahwit/`, `4ahwit-x/`, `4ahwit-y/`); GROSSBUCHSTABEN unter
+  `lehrplan/pmm-hwit/` = Lehrplan-Extrakte. Nie mischen.
+- Kohorten-Teilungen großer Klassen: Suffix `-x`/`-y`.
+- Kohorten-Dirs dürfen nur kohorten-spezifisches Material halten;
+  gemeinsames Material bleibt in `unterricht/HWIT-PMM/`.
+- Teach-Workspace in einer Kohorten-Ablage folgt dem teach-Skill-Layout:
+  `MISSION.md`, `RESOURCES.md`, `NOTES.md`, `assets/` (lesson.css,
+  quiz.js wiederverwendbar), `lessons/000N-slug.html`.
+- Lektionen sind self-contained HTML ohne CDN-Abhängigkeiten (Offline-
+  fähig auf Schul-Laptops); Quiz-Antworten mit gleicher Wortzahl.
+- Quiz-Richtige-Position rotiert (CONVENTIONS Answer-Shuffling gilt auch
+  für Kohorten-Lektionen, nicht nur selbststudium/).

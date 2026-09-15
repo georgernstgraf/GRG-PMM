@@ -124,3 +124,18 @@ Each entry documents WHAT was decided and WHY.
 - **Korrektur F44 (5HWIT):** Option C „Cpm ≤ Cpk" war inhaltlich falsch → korrigiert auf „Cpm ≤ Cp" (Gleichheit nur bei μ = T, da dann Cpm = Cpk = Cp).
 - **Verify-Skript:** `verify_quiz.py` (in `/tmp/opencode/verify-quiz/`) prüft Konsistenz, Verteilung korrekte Anzahl, Distraktor-Position, Cluster-Länge. Vor jedem Commit laufen lassen (CONVENTIONS Z. 47–49).
 - **Ablage:** `4ahwit/knowledge_4ahwit_2026-09-07.md` + `_solutions.md` und `5hwit/knowledge_5hwit_2026-09-08.md` + `_solutions.md` im GRG-PMM-T Repo.
+
+## 2026-09-15: Kohorten-Ablagen 4ahwit-x/ und 4ahwit-y/ am Repo-Root (#13)
+
+- **Choice**: Die 4AHWIT-Klasse wird wegen Klassengröße in zwei Kohorten
+  geteilt; Ablagen sind `4ahwit-x/` und `4ahwit-y/` am Repo-Root
+  (kleingeschrieben, konform mit der Root-Klassenordner-Konvention wie
+  `5ahwit/`).
+- **Reason**: Die 2(1)-Wochenstunden von KM7 laufen kohortenweise different;
+  kohorten-spezifisches Unterrichtsmaterial braucht eigenen Ablageort.
+- **Tradeoff**: Zwei Ordner statt einem = kleine Duplicierungsgefahr;
+  README verweist deshalb auf das gemeinsame Material unter
+  `unterricht/HWIT-PMM/` (nur Kohorten-spezifisches landet in den Dirs).
+- **Umsetzung**: READMEs nach 5ahwit-Muster; METADATA.md Root-Klassenordner-
+  Absatz erweitert; Kohorte x ist zugleich Teach-Workspace
+  (MISSION/RESOURCES/NOTES/assets/lessons) für Lektionen im R4DS-Stil.

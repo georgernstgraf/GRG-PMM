@@ -1,6 +1,6 @@
 # Architecture
 
-Living structural map of the system as of 2026-09-06.
+Living structural map of the system as of 2026-09-15.
 Overwritten when structural changes occur during a session.
 
 ## Overview
@@ -16,6 +16,8 @@ GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturaf
 | `lehrplan/pmm-hwit/4HWIT/`, `lehrplan/pmm-hwit/5HWIT/` | Klassen-Extrakte (`<KLASSE>.lehrplan.md` + README), generisch (4AHWIT/4BHWIT bzw. 5AHWIT/5BHWIT) |
 | `lehrplan/pmm-hwit/kompetenzmodule/` | Didaktische KM-Steckbriefe (km3–km9b + README): Modul-Bedeutung, Praxisrelevanz, Wissen/Verstehen/Können (#6) |
 | `unterricht/HWIT-PMM/` | Unterrichts-Ebene (Repo-Root, seit 2026-09-10): `jg4-/jg5-semesterplan-{ws,ss}.md`, UE-Ordner (`NN-slug/` in Vorbereitung, `YYYY-MM-DD_thema` mit Datum), `assets/` |
+| `5ahwit/` | Root-Klassenordner (klein = Kohorten-Ablage): Schüler-Setup-Log der 5AHWIT-Kohorte |
+| `4ahwit-x/`, `4ahwit-y/` | Root-Klassenordner der 4AHWIT-Kohorten (Teilung große Klasse, 2(1)-Splitstunde, #13). Kohorte x = Teach-Workspace: `MISSION.md`, `RESOURCES.md`, `NOTES.md`, `assets/lesson.css`+`assets/quiz.js`, `lessons/000N-slug.html`. Kohorte y: WIP |
 | `docs/ai/` | Structured knowledge files for AI agent persistence |
 | `Unterlagen/` | Teaching reference materials and scripts |
 | `selbststudium/` | Self-study workspace (teach skill): `MISSION.md`, `RESOURCES.md`, `NOTES.md`, `lessons/`, `learning-records/`, `reference/`, `assets/` |
@@ -46,4 +48,5 @@ GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturaf
 
 - Lehrplan (`lehrplan/`) → KM-Steckbriefe (`lehrplan/pmm-hwit/kompetenzmodule/`) → Semesterpläne (`unterricht/HWIT-PMM/jg<N>-semesterplan-*.md`) → UE-Material (`unterricht/HWIT-PMM/NN-slug/praesentation.html` + `hausaufgabe.md`)
 - Semesterpläne → Selbststudium-Lektionen (`selbststudium/lessons/`) → Learning Records (`learning-records/`)
+- Semesterplan JG4-WS → Kohorten-Lektionen (`4ahwit-x/lessons/`, teach-Stil) ↔ UE-Material (`unterricht/HWIT-PMM/NN-slug/`, verlinkt wechselseitig)
 - Open-Source-Material-Kanon (`lehrplan/pmm-hwit/r4ds-abdeckung.md`, `RESOURCES.md`) → Lektüre-Zuweisungen in UE- und Lern-Materialien („link, don't copy", #6)
