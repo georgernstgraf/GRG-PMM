@@ -186,9 +186,12 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 > („Einheiten") vollständig ab. Ein fehlender Einheiten-Befund im
 > Konformitäts-Check ist hier konform.
 
-> **Root-Klassenordner `5ahwit/`:** Der klein geschriebene Klassenordner am
-> Repo-Root ist konforme **Kohorten-Ablage** (Einstiegspunkt für die aktuelle
-> 5AHWIT-Kohorte; archiviert am Schuljahresende) — nicht zu verwechseln mit den
-> GROSSBUCHSTABEN-Klassenordnern unter `lehrplan/pmm-hwit/` (Lehrplan-Extrakte).
-> Inhalt: klassenbezogene Ablage, derzeit Setup-Log der Kohorte
-> (`5ahwit/README.md`).
+> **Root-Klassenordner (kleingeschrieben):** Die klein geschriebenen
+> Klassenordner am Repo-Root sind konforme **Kohorten-Ablagen** (archiviert am
+> Schuljahresende) — nicht zu verwechseln mit den GROSSBUCHSTABEN-Klassenordnern
+> unter `lehrplan/pmm-hwit/` (Lehrplan-Extrakte).
+> - `5ahwit/`: Einstiegspunkt für die aktuelle 5AHWIT-Kohorte; Setup-Log
+>   (`5ahwit/README.md`)
+> - `4ahwit-x/`, `4ahwit-y/`: Teilung der großen 4AHWIT-Klasse in zwei
+>   Kohorten (x/y) für die 2(1)-Splitstunde; Unterrichts-Material pro
+>   Kohorte (gemeinsames Material: `unterricht/HWIT-PMM/`)
