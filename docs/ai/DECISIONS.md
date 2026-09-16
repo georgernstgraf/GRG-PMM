@@ -139,3 +139,30 @@ Each entry documents WHAT was decided and WHY.
 - **Umsetzung**: READMEs nach 5ahwit-Muster; METADATA.md Root-Klassenordner-
   Absatz erweitert; Kohorte x ist zugleich Teach-Workspace
   (MISSION/RESOURCES/NOTES/assets/lessons) für Lektionen im R4DS-Stil.
+
+## 2026-09-16: 5AHWIT R-On-Ramp vor DoE + Teach-Workspace im SWP-Muster (#14)
+
+- **Choice**: Die 5AHWIT startet mit drei R-Basics-Lektionen (0001 ggplot,
+  0002 dplyr, 0003 einlesen & deskriptiv), bevor UE 1 (DOE-Einführung,
+  KM9a) beginnt. Teach-Workspace liegt unter `5ahwit/teach/` nach dem
+  SWP-Muster (`GRG-SWP/3ahwii/teach/`): MISSION/NOTES/RESOURCES,
+  `assets/`, `lessons/`, `reference/` (Glossar + Cheatsheet),
+  `learning-records/` plus Klassenhub-README mit UE-Tabelle.
+- **Reason**: Vorwissen unbestätigt (Einstiegstest 5HWIT offen,
+  GRG-PMM-T #3); Setup-Log 2026-09-09 zeigt Frisch-Start (git, VS Code,
+  Repo-Klon — kein R). Der jg5-semesterplan-ws setzt KM7/KM8-R-Vorwissen
+  voraus. Das SWP-Muster wählte Georg explizit als Vorbild
+  (reference/ + learning-records/ + Hub-UE-Tabelle gefallen ihm dort).
+- **Master/Kopien-Modell**: `unterricht/HWIT-PMM/` hält die Master-
+  Dateien (HA, Folien, Assets); Kohortenordner pflegen Kopien +
+  Adaptionen (`5ahwit/hausaufgaben/`, `5ahwit/teach/lessons/`), Master
+  bleibt unangetastet. Kohorte x funktioniert so weiter.
+- **Daten-Strategie**: L0001/0002 behalten penguins (Konsistenz mit den
+  Master-HAs, Code dort bereits verifiziert); L0003 nutzt erstmals
+  Betriebsdaten — `unterricht/HWIT-PMM/assets/betriebsdaten.csv`
+  (synthetisch, `set.seed(20260916)`, 120 Teile, 10 Chargen × 3
+  Maschinen, Soll 10,00 mm ± 0,15, M3 als aus-mitte-laufende Maschine
+  mit 6/116 Ausschuss). Das löst den Betriebsdaten-Gap aus #13 auch
+  für Kohorte x.
+- **Tradeoff**: On-Ramp verzögert den DoE-Start um ~1–2 DS; Quiz-Richtige
+  rotieren C/B/A.

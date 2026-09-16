@@ -2,32 +2,40 @@
 
 ## Open Tasks
 
-### Lektion 0003 + Betriebsdaten-Gap (#13-Fortsatz)
+### 5AHWIT: R-Installation auf Schul-Laptops bestätigen (#14-Fortsatz)
+**Priority:** high (vor der nächsten 5AHWIT-DS)
+**Context:** Setup-Log (2026-09-09) nennt nur git/VS Code — R/RStudio
+nicht bestätigt (Gap in `5ahwit/teach/RESOURCES.md`). L0002/L0003 als
+HÜ setzen R voraus.
+**Action:** In der DS klären (oder Anleitung
+`selbststudium/reference/r-setup-linux.html` als HÜ-Anhang mitgeben).
+
+### Lektion 0003 für 4ahit-x bauen (#13-Fortsatz)
 **Priority:** medium
-**Context:** Kohorte x hat Lektionen 0001 (ggplot, UE 1) und 0002
-(dplyr, UE 2) — R-Code verifiziert. UE 3 (Daten einlesen & deskriptiv)
-braucht laut `4ahwit-x/RESOURCES.md` Betriebs-nahe Übungsdaten
-(Messreihe, Charge, Maschine) — Gap noch offen.
-**Action:** Eigenmaterial beschreiben/erzeugen (oder echte Schuldaten),
-dann Lektion 0003 bauen; Quiz-Richtige-Position rotieren (0001: C,
-0002: B → 0003: A oder D).
+**Context:** Der Betriebsdaten-Gap ist geschlossen:
+`unterricht/HWIT-PMM/assets/betriebsdaten.csv` existiert (verifiziert,
+ Kennzahlen in STATE). Die 5ahwit-Lektion
+`5ahwit/teach/lessons/0003-daten-einlesen-deskriptiv.html` ist die
+Vorlage; die x-Version braucht Pfade/Verweise auf die x-Layout-Konvention
+(HA-Link auf `../../unterricht/HWIT-PMM/03-…/hausaufgabe.md`).
+**Action:** Adaptieren, R-Code identisch verifiziert (gleiche Daten),
+Quiz-Richtige bleibt A.
 
 ### Kohorte y: Lektionen spiegeln oder referenzieren
 **Priority:** medium
-**Context:** `4ahwit-y/` hat nur README. Offen: Mirror der Lektionen,
+**Context:** `4ahit-y/` hat nur README. Offen: Mirror der Lektionen,
 Symlink oder reiner Link auf Kohorte x. Wirtschaftlich: Referenzieren
 (spiegeln = Doppel-Pflege).
 **Action:** Mit Georg entscheiden (Bevorzugung: Link auf
-`4ahwit-x/lessons/…` im y-README), dann README ergänzen.
+`4ahit-x/lessons/…` im y-README), dann README ergänzen.
 
-### `tidyverse`-Meta-Paket installieren (sudo nötig)
+### 4ahit-x auf SWP-Teach-Muster harmonisieren
 **Priority:** low
-**Context:** Komponenten (ggplot2 4.0.3, dplyr 1.2.1, readr, tidyr, …)
-sind installiert; nur das Meta-Paket fehlt. `install.packages()` scheitert
-an fehlenden `-dev`-Headern (curl/systemfonts/fs) — siehe PITFALLS.
-**Action:** Entweder `sudo apt install r-cran-tidyverse` (Ubuntu-Paket,
-kein Compiler nötig) oder Header-Install laut
-`selbststudium/reference/r-setup-linux.html`, dann `install.packages()`.
+**Context:** x nutzt das Legacy-Layout (Workspace-Dateien am Ordner-
+Root, kein reference/, keine Hub-UE-Tabelle); 5ahwit zeigt das
+SWP-Muster (CONVENTIONS). Harmonisierung = git mv nach `4ahit-x/teach/`,
+Links anpassen, README zum Klassenhub ausbauen.
+**Action:** Eigenes Issue, wenn Georg es will.
 
 ### Einstiegstest 4HWIT — nach Korrektur KM7-Plan adaptieren
 **Priority:** medium (fällig nach der Prüfung)
@@ -36,7 +44,8 @@ commit cbafecd, 2026-08-21): 4HWIT 50/200, 5HWIT 60/240 mit Block 6
 Umweltmanagement. Termine lt. Stundenplan, noch offen (2026-09-07).
 **Action:** Nach der Prüfung mit dem `knowledge-assessment`-Skill
 korrigieren; bei KM5/KM6-Lücken Bonus-UE aktivieren. Für 5HWIT:
-Umwelt-Vorwissen auswerten (Block 6) und ggf. UE 12 anpassen.
+Umwelt-Vorwissen auswerten (Block 6) und Ergebnis gegen die
+On-Ramp-Beobachtungen abgleichen (LR 0001, `5ahwit/teach/learning-records/`).
 
 ### Phase 4 (#6): Stil verankern + Selbststudium-Synchronisation
 **Priority:** low
@@ -58,3 +67,5 @@ Poisson), mit LR dokumentieren; danach L0005 bauen, L0005–0015 fortlaufend.
 - **Phase 6 (#6):** ❌ ABGEBROCHEN. O'Reilly hat Verlagsdeal mit deutschem
   Verlag (Hadley, 2026-07-22) — keine Community-Übersetzung möglich.
   Thread freundlich geschlossen (Georg, 2026-07-23).
+- ~~`tidyverse`-Meta-Paket~~ → ERLEDIGT (2026-09-16): r-cran-tidyverse via
+  apt als Binärpaket installiert; kein Compiler nötig (PITFALLS).

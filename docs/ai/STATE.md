@@ -1,59 +1,68 @@
 # Project State
 
-Current status as of 2026-09-15.
+Current status as of 2026-09-16.
 
 ## Current Focus
-**4AHWIT-Kohorten (x/y) live (#13):** Kohorten-Ablagen am Repo-Root
-eingerichtet; Kohorte x ist Teach-Workspace mit den ersten zwei
-Lektionen (UE 1 ggplot, UE 2 dplyr) — R-Code verifiziert.
+**5AHWIT R-On-Ramp (#14):** Teach-Workspace im SWP-Muster
+(`5ahwit/teach/`, analog `GRG-SWP/3ahwii/teach/`) mit Lektionen
+0001 (ggplot), 0002 (dplyr), 0003 (einlesen & deskriptiv auf
+Betriebsdaten) — alle R-Code-Blöcke per Rscript verifiziert. Die DS am
+2026-09-16 startet mit Lektion 0001 live.
 
 ## Completed (this cycle)
-- [x] **Kohorten-Dirs (#13, 6908328):** `4ahwit-x/` + `4ahwit-y/` mit
-      READMEs (5ahwit-Muster); METADATA.md Root-Klassenordner-Absatz
-      erweitert (Kohorten-Teilung große Klasse, 2(1)-Splitstunde)
-- [x] **Teach-Workspace Kohorte x (#13, 0f709ca):** MISSION, RESOURCES,
-      NOTES, Assets (`lesson.css`, `quiz.js` wiederverwendbar);
-      Lektionen `0001-daten-visualisieren-ggplot.html` (UE 1) und
-      `0002-daten-transformieren-dplyr.html` (UE 2) gebaut
-- [x] **R-Code-Verifikation der Lektionen:** Ziel-Pipe Lektion 0002
-      (female): Adelie 3369 / Chinstrap 3527 / Gentoo 4680 — Zahlen im
-      Lektionstext korrigiert; `geom_point()` droppt 2 NA-Zeilen → 342
-      Punkte (Lektionstext korrigiert)
-- [x] **palmerpenguins reinstalliert** (war trotz STATE-Notiz vom
-      2026-09-10 nicht mehr vorhanden)
+- [x] **Teach-Workspace 5ahwit (#14, fba6ed1):** SWP-Muster (teach/-
+      Unterordner, reference/ + learning-records/, Klassenhub-README
+      mit UE-Tabelle); Lessons 0001/0002 adaptiert von 4ahit-x, 0003
+      neu; HA-Master-Kopien in `5ahwit/hausaufgaben/` (03 adaptiert auf
+      Betriebsdaten)
+- [x] **Betriebsdaten-Master (#14):**
+      `unterricht/HWIT-PMM/assets/betriebsdaten.csv` (synthetisch,
+      `set.seed(20260916)`, 120 Teile, 10 Chargen × 3 Maschinen,
+      Soll 10,00 ± 0,15 mm; M1 im Soll, M2 leicht tief, M3 aus der
+      Mitte mit 6/116 Ausschuss = 5,2 %) — löst den Betriebsdaten-Gap
+      aus #13 auch für Kohorte x
+- [x] **R-Umgebung reinstalliert:** r-base-core 4.3.3 + r-cran-tidyverse
+      via apt (Binärpakete; tidyverse-Meta-Blocker erledigt),
+      palmerpenguins via `sudo Rscript -e 'install.packages(...)'`
+      (PITFALLS-Eintrag ergänzt)
+- [x] **CONVENTIONS (#14):** Master/Kopien-Modell (unterricht/ = Master,
+      Kohortenordner = Kopien+Adaptionen) + SWP-Teach-Layout dokumentiert;
+      GLOSSAR um Ausschuss/Sollwert/Toleranz ergänzt
+- [x] **Quiz-Regeln:** Richtige rotieren C/B/A; Wortzahlen aller
+      5ahwit-Quizantworten egalisiert (0001/0002 vom x-Original verbessert)
+- [x] **GRG-SWP gepullt** (bded299, 3ahwii-Teach-Workspace als Muster)
 
 ## Pending
 - [ ] **Einstiegstest 4HWIT** (lt. HANDOFF fällig nach Konferenztag
       2026-09-07; konkrete DS offen, Repo GRG-PMM-T): nach Korrektur
       Bonus-UE bzw. UE 4–5 anpassen
 - [ ] **Einstiegstest 5HWIT**: DOE-Block anpassen + Umwelt-Vorwissen
-      auswerten (GRG-PMM-T)
-- [ ] **Kohorte y:** Lektionen 0001/0002 dorthin spiegeln oder
-      referenzieren (Entscheidung offen — Mirror vs. Symlink vs. Link)
-- [ ] **Lektion 0003** (UE 3: Daten einlesen & deskriptive Statistik)
-      bauen — braucht Betriebsdaten-Gap (RESOURCES `## Gaps`)
-- [ ] **`tidyverse`-Meta-Paket installieren** — Komponenten vorhanden,
-      Meta fehlt; Compilation scheitert an fehlenden `-dev`-Headern
-      (siehe PITFALLS); Alternative: `sudo apt install r-cran-tidyverse`
-      oder Header-Install laut `selbststudium/reference/r-setup-linux.html`
+      auswerten (GRG-PMM-T); Ergebnis gegen On-Ramp-Beobachtungen
+      abgleichen (LR 0001 in `5ahwit/teach/learning-records/`)
+- [ ] **R/RStudio auf Schul-Laptops der 5AHWIT bestätigen** — Setup-Log
+      nennt nur git/VS Code (Gap in `5ahwit/teach/RESOURCES.md`)
+- [ ] **Kohorte y:** Lektionen 0001/0002 spiegeln oder referenzieren
+      (Entscheidung offen — Mirror vs. Symlink vs. Link)
+- [ ] **Lektion 0003 für 4ahit-x bauen** — Betriebsdaten liegen jetzt
+      bereit (`unterricht/HWIT-PMM/assets/betriebsdaten.csv`), x kann
+      die 5ahwit-L0003 als Vorlage adaptieren
+- [ ] **4ahit-x auf SWP-Teach-Muster harmonisieren** (teach/-Unterordner,
+      reference/, Hub-UE-Tabelle) — separates Issue wert
 - [ ] JG3 Phase 0: L0004 durcharbeiten (teach-Session), danach L0005+
 - [ ] Phase 4 (#6): Stil in `selbststudium/NOTES.md` verankern;
       km7-verlauf.html umbauen/archivieren; AGENTS.md-Stil-Verweis
 
-## Blockers
-- `install.packages("tidyverse")` (Meta-Paket): curl/systemfonts/fs-
-  Compilation braucht System-Header → sudo-Rechte nötig (Georg fragen).
-
 ## Notes
-- R 4.5 / Ubuntu 26.04, Rscript: /usr/bin/Rscript. **tidyverse-Meta
-  fehlt**; ggplot2 4.0.3, dplyr 1.2.1 und alle anderen Tidy-Komponenten
-  sind installiert — Verifikation mit `library(ggplot2); library(dplyr)`.
-- palmerpenguins: 344 Zeilen, 2 davon mit NA (geom_point → 342 Punkte).
+- R 4.3.3 via apt (Binärpakete fürs komplette tidyverse installiert),
+  palmerpenguins systemweit (sudo). Verifikation mit `Rscript`.
+- Betriebsdaten-Kennzahlen (verifiziert): Gesamt 10.014/0.062, Median
+  10.000, IQR 0.070; M1 10.00/0.03 · M2 9.98/0.04 · M3 10.06/0.07;
+  Ausschuss 6/116 = 5,2 %; Charge 107 = 1 Ausschuss-Teil; 4 NA-Zeilen.
+- penguins: 344 Zeilen, 2 davon mit NA (geom_point → 342 Punkte).
 - Zeitmodell: 13 echte UE + 2 reservierte DS (1 DS/Woche).
-- Kohorten-Layout siehe ARCHITECTURE.md; Stil: `docs/stil-leitfaden.md`.
-- Unterrichts-Skill-Erkenntnisse persistiert im globalen Skill
-  (opencode-helpers, 5333f09).
+- Stil: `docs/stil-leitfaden.md`; Kohorten-/Teach-Layout: CONVENTIONS.
 
 ## Next Session Suggestion
-Einstiegstest-Termine bestätigen und mit `knowledge-assessment` korrigieren;
-parallel Lektion 0003 vorbereiten (Betriebsdaten-Beschaffung klären).
+Rückblick auf die 5AHWIT-DS (L0001-Fragen einsammeln → NOTES/LR);
+R-Installation auf Schüler-Laptops bestätigen; parallel Lektion 0003
+für Kohorte x aus der 5ahwit-Vorlage adaptieren.
