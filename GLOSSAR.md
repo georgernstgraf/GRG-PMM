@@ -63,6 +63,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | ANOVA | Analysis of Variance (Varianzanalyse) | Mittelwertvergleich von ≥3 Gruppen; UE 8 (KM7, 4HWIT WS), Konzeptbrücke zu DoE |
 | AQL | Acceptable Quality Limit | Schlechtester noch akzeptabler Qualitätszustand; Kerngröße ISO 2859, UE 9–10 (KM7, 4HWIT WS) |
 | ARL | Average Run Length | Mittlere Anzahl Punkte bis zum Regelkarten-Alarm; KM8 |
+| Ausschuss | Scrap (rejects) | Teile außerhalb der Toleranzgrenzen, als Anteil gemessen; Lektion 0003 (R-On-Ramp, 5AHWIT WS) |
 | Badewannenkurve | Bathtub curve | Ausfallrate über der Lebensdauer: Früh-/Zufalls-/Verschleißphase; KM9b |
 | Bootstrap | Resampling mit Zurücklegen | Simulationsweg zu Konfidenzintervallen; ModernDive Kap. 8, UE 5 (KM7, 4HWIT WS) |
 | CI | Confidence Interval (Konfidenzintervall) | ⚠ Kollision, s.o.; UE 5 (KM7, 4HWIT WS) |
@@ -83,7 +84,9 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | QS | Qualitätssicherung | Anwendungsdomäne des Fachs |
 | RBD | Reliability Block Diagram | Systemzuverlässigkeit: Serie/Parallel/k-aus-n; KM9b |
 | Shewhart | Walter A. Shewhart | Erfinder der Regelkarte (1930er); KM8 |
+| Sollwert | Target value | Zielwert eines Merkmals, auf den der Prozess mittig einstellt (z. B. 10,00 mm); Lektion 0003 (R-On-Ramp, 5AHWIT WS) |
 | SPC | Statistical Process Control (Statistische Prozesslenkung) | Prozessüberwachung mit Regelkarten; KM8-Kern |
+| Toleranz | Tolerance | Erlaubte Abweichung vom Sollwert (z. B. ±0,15 mm); Lektion 0003 (R-On-Ramp, 5AHWIT WS) |
 | T²-Karte | Hotelling's T² | Multivariate Regelkarte; KM8 |
 | Weibull | Weibull-Verteilung | Zentrale Lebensdauerverteilung; KM9b, NIST Kap. 8 |
 

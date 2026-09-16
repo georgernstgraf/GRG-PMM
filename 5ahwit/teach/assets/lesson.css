@@ -1,0 +1,139 @@
+/* Lektionen 5AHWIT — gemeinsames Stylesheet (Tufte-lesbar,
+   print-freundlich, keine externen Abhängigkeiten) */
+
+:root {
+  --ink: #1a1a1a;
+  --paper: #fffff8;
+  --accent: #a00000;
+  --muted: #6b6b6b;
+  --line: #e2ddcf;
+  --code-bg: #f6f4ec;
+  --ok-bg: #eef7ee;
+  --err-bg: #fdeeec;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--ink);
+  background: var(--paper);
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 5rem;
+  line-height: 1.55;
+  font-size: 1.05rem;
+}
+
+header.meta {
+  border-bottom: 2px solid var(--line);
+  padding-bottom: 0.75rem;
+  margin-bottom: 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+}
+header.meta .kicker { text-transform: uppercase; }
+h1 {
+  font-size: 1.9rem;
+  line-height: 1.2;
+  margin: 0.4rem 0 0.25rem;
+  font-weight: normal;
+}
+h2 { font-size: 1.3rem; margin-top: 2.4rem; font-weight: normal; }
+h3 { font-size: 1.05rem; margin-top: 1.6rem; font-weight: bold; }
+
+.subtitle { font-style: italic; color: var(--muted); margin-top: 0.2rem; }
+
+section { margin-bottom: 2.2rem; }
+
+/* Callouts */
+.callout {
+  border-left: 3px solid var(--line);
+  background: var(--code-bg);
+  padding: 0.7rem 1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.callout .label {
+  display: inline-block;
+  font-family: "DejaVu Sans Mono", monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+.callout.tipp { border-left-color: #2e7d32; }
+.callout.achtung { border-left-color: var(--accent); }
+
+/* Code */
+pre {
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  padding: 0.8rem 1rem;
+  overflow-x: auto;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+code, pre, .out, .cmt {
+  font-family: "DejaVu Sans Mono", "Consolas", monospace;
+}
+code { font-size: 0.88em; background: var(--code-bg); padding: 0.1em 0.3em; }
+.out { color: #5d5d5d; }
+.cmt { color: #7a7a52; font-style: italic; }
+
+/* Quiz (nutzt assets/quiz.js) */
+.quiz {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1rem 1.1rem;
+  margin: 1.4rem 0;
+}
+.quiz .frage { margin: 0 0 0.7rem; }
+.quiz label {
+  display: block;
+  padding: 0.45rem 0.7rem;
+  margin: 0.3rem 0;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  background: #fff;
+}
+.quiz label:hover { border-color: var(--muted); }
+.quiz input { margin-right: 0.5rem; }
+.quiz .feedback { margin-top: 0.7rem; font-size: 0.92rem; min-height: 1.3em; }
+.quiz .feedback.richtig { color: #2e7d32; }
+.quiz .feedback.falsch { color: var(--accent); }
+.quiz .erklaerung {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-style: italic;
+  display: none;
+}
+
+/* Zielfrage / Baustein-Kennzeichnung */
+.baustein {
+  font-family: "DejaVu Sans Mono", monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+
+footer.navi {
+  border-top: 2px solid var(--line);
+  margin-top: 3rem;
+  padding-top: 0.9rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+@media print {
+  body { max-width: none; padding: 1rem; font-size: 10.5pt; }
+  .quiz label { break-inside: avoid; }
+  pre { white-space: pre-wrap; }
+}

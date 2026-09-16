@@ -84,9 +84,16 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
 - Kohorten-Teilungen großer Klassen: Suffix `-x`/`-y`.
 - Kohorten-Dirs dürfen nur kohorten-spezifisches Material halten;
   gemeinsames Material bleibt in `unterricht/HWIT-PMM/`.
-- Teach-Workspace in einer Kohorten-Ablage folgt dem teach-Skill-Layout:
-  `MISSION.md`, `RESOURCES.md`, `NOTES.md`, `assets/` (lesson.css,
-  quiz.js wiederverwendbar), `lessons/000N-slug.html`.
+- **Master/Kopien-Modell (#14):** `unterricht/HWIT-PMM/` hält die
+  Master-Dateien (HA, Folien, Assets) — Kohorten-Abweichungen werden als
+  **Kopien im Kohortenordner** gepflegt (`hausaufgaben/`, `teach/lessons/`),
+  Master-Dateien werden nie direkt angefasst.
+- Teach-Workspace-Layout: 4ahit-x nutzt das Legacy-Layout (MISSION,
+  RESOURCES, NOTES, assets/, lessons/ am Ordner-Root); 5ahwit nutzt das
+  SWP-Muster (nach `GRG-SWP/3ahwii/teach/`): alles unter `teach/`
+  (MISSION.md, RESOURCES.md, NOTES.md, `assets/`, `lessons/`,
+  `reference/` mit Glossar + Cheatsheet, `learning-records/`) plus
+  Klassenhub-README mit UE-Tabelle. Harmonisierung 4ahit-x offen.
 - Lektionen sind self-contained HTML ohne CDN-Abhängigkeiten (Offline-
   fähig auf Schul-Laptops); Quiz-Antworten mit gleicher Wortzahl.
 - Quiz-Richtige-Position rotiert (CONVENTIONS Answer-Shuffling gilt auch

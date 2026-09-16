@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion 0001 — Erste Plots mit ggplot2</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body>
+
+<header class="meta">
+  <span class="kicker">Lektion 0001 · UE 1 · 5AHWIT</span>
+  <h1>Dein erster Plot: Pinguine vermessen</h1>
+  <p class="subtitle">Daten visualisieren zuerst — die Frage, dann das Bild.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>R4DS 2e (englisch, <a href="https://r4ds.hadley.nz/data-visualize">Kap. 1 Data visualization</a>)
+     — lies Kapitel 1 vor der Hausaufgabe. Die HA-Fragen beziehen sich auf
+     das Kapitel: <a href="../../hausaufgaben/01-datenvisualisierung-ggplot.md">Hausaufgabe UE 1</a>.</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>In diesem Semester geht es um <strong>Versuchsplanung</strong> — aber
+  bevor man gezielt Daten erzeugt, muss man gezielt Daten <em>lesen</em>
+  können. Also: Drei Pinguin-Arten leben auf derselben Insel, sehen ähnlich
+  aus — aber sind sie es? Konkreter: <strong>Wie hängt Schnabel-Länge mit
+  Schnabel-Tiefe zusammen — und ist das bei allen drei Arten gleich?</strong></p>
+  <p>Deine Augen können das beantworten. Aber nur, wenn die Daten als
+  Bild vor dir liegen. Genau das baust du in den nächsten 15 Minuten.</p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+  <p>Das ist der Plot, den du am Ende bauen kannst — Streudiagramm
+  (englisch: <em>scatterplot</em>), jeder Punkt ein Pinguin, die Farbe
+  zeigt die Art:</p>
+<pre>
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm,
+                     color = species)) +
+  geom_point()
+<span class="cmt"># → Punkte-Wolke: Adelie oben links, Gentoo rechts unten,
+#   Chinstrap oben rechts — zwei getrennte Muster sichtbar</span>
+</pre>
+  <p>Ein Blick, drei Erkenntnisse. Syntax dafür: fünf Wörter. Los.</p>
+</section>
+
+<section>
+  <h2>Schritt 1 — Die leere Leinwand</h2>
+<pre>
+ggplot(penguins)
+<span class="cmt"># → grauer Kasten, leer</span>
+</pre>
+  <p><code>ggplot(penguins)</code> heißt: „Nimm diesen Datensatz, und mach
+  eine Koordinatenfläche daraus." Nichts drin — wir sagen ja noch nicht,
+  <em>welche</em> Daten wo stehen sollen.</p>
+
+  <h2>Schritt 2 — Mapping (Zuordnung)</h2>
+  <p>Jetzt kommt <code>aes()</code> — kurz für <strong>aes</strong>thetics
+  (Zuordnung): welche Spalte gehört auf die x-Achse, welche auf die y?</p>
+<pre>
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm))
+<span class="cmt"># → immer noch leer! Die Achsen sind beschriftet, aber keine Punkte</span>
+</pre>
+  <p>Die Achsen wissen jetzt Bescheid — <code>bill_length_mm</code> quer,
+  <code>bill_depth_mm</code> hoch. Warum keine Punkte? Weil noch niemand
+  gesagt hat, wie die Daten <em>dargestellt</em> werden sollen.</p>
+
+  <h2>Schritt 3 — Punkte zeichnen</h2>
+  <p>Die Darstellung heißt <strong>Geom</strong> (geometry = Geometrie)
+  und kommt mit <code>+</code> als neue <em>Schicht</em> obendrauf:</p>
+<pre>
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point()
+<span class="cmt"># → 342 Punkte, alle gleich grau — 2 Zeilen ohne Messwerte fallen weg</span>
+</pre>
+  <p>Da ist dein Streudiagramm. Man sieht: längere Schnäbel sind meist
+  flacher — und <em>doch</em>, es gibt zwei Inseln (Wolken) in der
+  Punktwolke. Aber warum?</p>
+
+  <h2>Schritt 4 — Farbe als dritte Information</h2>
+<pre>
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm,
+                     color = species)) +
+  geom_point()
+<span class="cmt"># → dieselben Punkte, jetzt in drei Farben mit Legende</span>
+</pre>
+  <p>Ein <code>color =</code> in <code>aes()</code> — und die zwei
+  Wolken haben Namen: Adelie und Gentoo/Chinstrap.</p>
+
+  <div class="quiz" data-loesung="2">
+    <p class="frage">Wo gehört <code>color = species</code> hin, wenn die
+    Farbe <em>pro Pinguin</em> aus den Daten kommen soll?</p>
+    <label><input type="radio" name="q1" value="0"> Innerhalb der runden Klammern von geom_point(), neben den Koordinaten</label>
+    <label><input type="radio" name="q1" value="1"> Direkt in die Klammern von ggplot(), aber ohne aes()</label>
+    <label><input type="radio" name="q1" value="2"> Innerhalb von aes() im ggplot()-Aufruf, gleich neben x, y</label>
+    <p class="feedback" aria-live="polite"></p>
+    <p class="erklaerung">In aes() = Zuordnung aus den Daten (pro Punkt).
+    In geom_point() wäre es eine Festlegung für <em>alle</em> Punkte gleich.</p>
+  </div>
+
+  <h2>Schritt 5 — Trennen statt färben: Facets</h2>
+  <p>Alternative zu drei Farben: drei Teil-Plots, nebeneinander
+  (<em>facetting</em>, zu deutsch „Kacheln"):</p>
+<pre>
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point() +
+  facet_wrap(~ species)
+<span class="cmt"># → drei kleine Plots, eine Kachel pro Art</span>
+</pre>
+  <p>Färben <em>überlagert</em>, Facets <em>trennen</em>. Beides
+  beantwortet dieselbe Frage — praktisch gewinnt im Unterricht, was
+  besser lesbar ist.</p>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du!</div>
+  <p>Öffne RStudio, <code>library(tidyverse)</code> +
+  <code>library(palmerpenguins)</code>, dann:</p>
+  <ol>
+    <li><strong>Vorhersage zuerst:</strong> Was malt
+      <code>ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) + geom_point()</code>?
+      Schreib deine Vorhersage auf — <em>bevor</em> du Enter drückst.</li>
+    <li>Führe den Code aus. Deckt sich dein Bild mit der Vorhersage?</li>
+    <li>Ändere eine Zeile so, dass du die drei Arten als
+      <strong>drei Kacheln</strong> siehst statt in drei Farben.</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+  <h3>Der <code>+</code> steht am Zeilenanfang</h3>
+<pre>
+ggplot(penguins, aes(x = body_mass_g, y = species))
+  + geom_point()   <span class="cmt"># ✗ Fehlermeldung: "Cannot use `+` with ..."</span>
+</pre>
+  <p>Plötzlich ist die Hälfte weg? Der <code>+</code> muss <strong>immer
+  am Zeilenende</strong> stehen — R weiß sonst nicht, dass die Zeile
+  weitergeht.</p>
+
+  <h3>Spaltenname falsch geschrieben</h3>
+<pre>
+ggplot(penguins, aes(x = Bill_Length, y = body_mass_g))
+<span class="cmt"># ✗ "object 'Bill_Length' not found" — Spalten heißen klein_mit_unterstrich</span>
+</pre>
+  <p>Die Fehlermeldung nennt dir das fehlende Objekt — lies sie, statt zu
+  raten. Fehlerlesen ist eine Fähigkeit, keine Strafe.</p>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Baustein</th><th>Wofür</th></tr>
+    <tr><td><code>ggplot(data)</code></td><td>Leinwand + Daten</td></tr>
+    <tr><td><code>aes(x, y, color)</code></td><td>Mapping (Zuordnung) der Spalten</td></tr>
+    <tr><td><code>geom_point()</code></td><td>Punkte zeichnen (Geom)</td></tr>
+    <tr><td><code>facet_wrap(~ …)</code></td><td>Trennen in Kacheln</td></tr>
+    <tr><td><code>+</code> am Zeilenende</td><td>Schichten verbinden</td></tr>
+  </table>
+  <p>Nächste Lektion machst du aus dieser Ansicht <em>Arbeit</em>: Daten
+  filtern, umformen, zusammenfassen. Vorab-Überblick:
+  <a href="../../../unterricht/HWIT-PMM/02-daten-transformieren-dplyr/praesentation.html">Folien UE 2</a>.
+  Nachschlagen: <a href="../reference/glossar-r-statistik.html">Glossar</a> ·
+  <a href="../reference/ggplot-dplyr-cheatsheet.html">Cheatsheet</a>.</p>
+</section>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> R4DS 2e,
+  <a href="https://r4ds.hadley.nz/data-visualize">Kap. 1</a> (Hauptlektüre).</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Weiter: <a href="0002-daten-transformieren-dplyr.html">Lektion 0002 —
+  Daten transformieren mit dplyr</a></p>
+</footer>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

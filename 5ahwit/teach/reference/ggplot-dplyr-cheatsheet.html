@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ggplot2/dplyr-Cheatsheet — 5AHWIT</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body>
+
+<header class="meta">
+  <span class="kicker">Reference · 5AHWIT · R-On-Ramp (vor KM9a)</span>
+  <h1>ggplot2/dplyr-Cheatsheet</h1>
+  <p class="subtitle">Alles, was die On-Ramp an Syntax braucht — auf einen
+  Blick, mit Pinguin- und Betriebsdaten-Beispielen.</p>
+</header>
+
+<h2>Grundgerüst ggplot2 (Lektion 0001)</h2>
+<pre>
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point()
+<span class="cmt"># Daten in ggplot(), Rollen in aes(), Darstellung als Geom,
+#  Schichten mit + — das + steht IMMER am Zeilenende</span>
+</pre>
+
+<h2>Geoms nach Frage (Lektion 0001 + 0003)</h2>
+<pre>
+ggplot(penguins, aes(x = species, y = body_mass_g)) +
+  geom_boxplot()                       <span class="cmt"># Verteilung je Gruppe</span>
+
+ggplot(fertigung, aes(x = masse_mm)) +
+  geom_histogram(binwidth = 0.05) +    <span class="cmt"># binwidth probieren!</span>
+  geom_vline(xintercept = 10, linetype = "dashed")  <span class="cmt"># Sollwert</span>
+
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point() +
+  facet_wrap(~ species)                <span class="cmt"># trennen statt färben</span>
+</pre>
+
+<h2>Achsen beschriften — immer</h2>
+<pre>
+... +
+  labs(x = "Flossengröße (mm)", y = "Körpermasse (g)")
+</pre>
+
+<h2>Die vier dplyr-Verben (Lektion 0002)</h2>
+<pre>
+penguins |&gt; filter(species == "Gentoo")        <span class="cmt"># Zeilen wählen (== ! =)</span>
+penguins |&gt; mutate(kg = body_mass_g / 1000)    <span class="cmt"># Spalte umformen/neu</span>
+penguins |&gt; group_by(species)                  <span class="cmt"># Gruppen bilden</span>
+penguins |&gt;
+  group_by(species) |&gt;
+  summarise(gram = mean(body_mass_g, na.rm = TRUE))
+<span class="cmt"># pro Gruppe eine Kennzahl — ohne na.rm: NA!</span>
+</pre>
+
+<h2>Einlesen + Kennzahlen (Lektion 0003)</h2>
+<pre>
+fertigung &lt;- read_csv("unterricht/HWIT-PMM/assets/betriebsdaten.csv")
+glimpse(fertigung)     <span class="cmt"># Zeilen, Spalten, Typen — der Pflicht-Check</span>
+summary(fertigung$masse_mm)  <span class="cmt"># Min/Max/Median + Anzahl NA</span>
+
+fertigung |&gt;
+  summarise(
+    n     = n(),
+    mitte = mean(masse_mm, na.rm = TRUE),     <span class="cmt"># Lagemaß</span>
+    streu = sd(masse_mm, na.rm = TRUE)        <span class="cmt"># Streumaß</span>
+  )
+
+fertigung |&gt;                                   <span class="cmt"># Ausschuss zählen</span>
+  mutate(ausser = abs(masse_mm - 10) &gt; 0.15) |&gt;
+  summarise(anteil = mean(ausser, na.rm = TRUE))
+</pre>
+
+<h2>Code-Stil (R4DS Kap. 4, Hausaufgabe UE 2)</h2>
+<pre>
+<span class="cmt"># Zuweisung mit <-, Spalten snake_case, natives |>, 4 Leerzeichen</span>
+gewicht_kg &lt;- penguins |&gt;
+  filter(species == "Gentoo") |&gt;
+  summarise(mittel = mean(body_mass_g, na.rm = TRUE))
+</pre>
+
+<footer class="navi">
+  <p>Zurück: <a href="glossar-r-statistik.html">Glossar R & Statistik</a></p>
+</footer>
+
+</body>
+</html>

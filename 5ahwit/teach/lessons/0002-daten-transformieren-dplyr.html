@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion 0002 — Daten transformieren mit dplyr</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body>
+
+<header class="meta">
+  <span class="kicker">Lektion 0002 · UE 2 · 5AHWIT</span>
+  <h1>Wiegen, was zählt: Daten transformieren</h1>
+  <p class="subtitle">filter, mutate, summarise — und die Pipe, die sie verbindet.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>R4DS 2e (englisch, <a href="https://r4ds.hadley.nz/transform">Kap. 3 Data transformation</a>)
+     — lies Kapitel 3 vor der Hausaufgabe. Die HA-Fragen beziehen sich auf
+     das Kapitel: <a href="../../hausaufgaben/02-daten-transformieren-dplyr.md">Hausaufgabe UE 2</a>.</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>Von der letzten Lektion kennst du die Pinguine. Jetzt wird es
+  betrieblich: <strong>Wie schwer ist eine „typische" Pinguin-Art — und
+  unterscheidet sich das nach Geschlecht?</strong></p>
+  <p>Mit Plots allein antwortet man darauf vage („irgendwie schwerer").
+  Mit <code>dplyr</code> antwortest du mit <em>einer Zahl</em> — und Zahlen
+  kann man gegen Toleranzen und Grenzwerte prüfen. Genau das brauchst du,
+  wenn wir bald Versuchsdaten auswerten.</p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+<pre>
+penguins |>
+  filter(sex == "female") |>
+  group_by(species) |>
+  summarise(gewicht_g = mean(body_mass_g, na.rm = TRUE))
+<span class="cmt"># → 3 Zeilen: Adelie 3369, Chinstrap 3527, Gentoo 4680 (gerundet)</span>
+</pre>
+  <p>Drei Verben, drei Zeilen Ausgabe, eine saubere Antwort. Der Win von
+  heute: Du liest diese Pipe vor dir her und weißt <em>ohne Ausführen</em>,
+  was sie tut.</p>
+</section>
+
+<section>
+  <h2>Verb 1 — filter (Zeilen wählen)</h2>
+<pre>
+penguins |&gt; filter(species == "Gentoo")
+<span class="cmt"># → nur Gentoo-Zeilen: von 344 auf 124</span>
+</pre>
+  <p><code>filter()</code> behält, was die Bedingung erfüllt. Achtung:
+  Vergleichen macht <code>==</code> (gleich), zuweisen macht
+  <code>&lt;-</code>. Ein einzelnes <code>=</code> ist hier ein Fehler.</p>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">Wie viele Zeilen behält
+    <code>filter(species == "Gentoo", sex == "male")</code>?</p>
+    <label><input type="radio" name="q2" value="0"> Alle Gentoo-Zeilen, männliche und weibliche Tiere zusammen</label>
+    <label><input type="radio" name="q2" value="1"> Nur die Gentoo-Zeilen, die zudem männlich sind</label>
+    <label><input type="radio" name="q2" value="2"> Nur die männlichen Zeilen, egal welcher Art</label>
+    <p class="feedback" aria-live="polite"></p>
+    <p class="erklaerung">Mehrere Bedingungen in filter() verknüpft
+    dplyr mit „UND" — jede Bedingung muss erfüllt sein.</p>
+  </div>
+
+  <h2>Verb 2 — mutate (Spalten umformen/neu)</h2>
+<pre>
+penguins |&gt; mutate(gewicht_kg = body_mass_g / 1000)
+<span class="cmt"># → alle 344 Zeilen + eine neue Spalte ganz rechts</span>
+</pre>
+  <p><code>mutate()</code> (umformen) rechnet Spalte für Spalte: aus
+  Gramm Kilogramm, aus Millimeter Zoll, aus zwei Werten eine Differenz.
+  Bestehende Spalten bleiben unangetastet.</p>
+
+  <h2>Verb 3 — summarise + group_by (schrumpfen)</h2>
+  <p><code>summarise()</code> (zusammenfassen) macht aus vielen Zeilen
+  eine: Mittelwert, Minimum, Anzahl. Mit <code>group_by()</code>
+  davor geschieht das <em>pro Gruppe</em>:</p>
+<pre>
+penguins |&gt;
+  group_by(species) |&gt;
+  summarise(gewicht_g = mean(body_mass_g, na.rm = TRUE))
+<span class="cmt"># → 3 Zeilen (eine pro Art) statt 1 Zeile für alles</span>
+</pre>
+  <p>Und das <code>na.rm = TRUE</code>? Ein einziger <code>NA</code> — und
+  dein Mittelwert wäre auch <code>NA</code>. Warum? R weigert sich, über
+  fehlende Werte hinwegzumitteln, ohne dass du es es erlaubst.
+  <code>na.rm = TRUE</code> ist die Erlaubnis: „ignoriere die fehlenden."</p>
+
+  <h2>Das Klebeband: die Pipe <code>|&gt;</code></h2>
+  <p>Die Pipe (Rohrleitung) reicht das Ergebnis links an die Funktion
+  rechts weiter — lesbar wie ein Satz:</p>
+<pre>
+penguins |&gt;            <span class="cmt"># nimm die Pinguin-Tabelle …</span>
+  filter(sex == "male") |&gt;     <span class="cmt"># … behalte die Männchen …</span>
+  group_by(species) |&gt;         <span class="cmt"># … gruppiere nach Art …</span>
+  summarise(gewicht_g = mean(body_mass_g, na.rm = TRUE))
+<span class="cmt"># … und fasse je Gruppe zusammen.</span>
+</pre>
+  <p>Ohne Pipe sähe das aus wie Plätzchen in Plätzchen:
+  <code>summarise(group_by(filter(penguins, …)), …)</code> — von innen
+  nach außen, schwer lesbar. Mit Pipe liest man von oben nach unten.</p>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du!</div>
+  <ol>
+    <li><strong>Vorhersage zuerst:</strong> Wie viele Zeilen hat
+      <code>penguins |&gt; filter(flipper_length_mm &gt; 210)</code>?
+      Erst raten und notieren, dann ausführen.</li>
+    <li>Baue die Ziel-Pipe um auf <strong>Männchen</strong> und Spaltenname
+      <code>gewicht_kg</code> (in Kilogramm, via <code>mutate</code>).</li>
+    <li><strong>Vorhersage:</strong> Was passiert mit der Ausgabe, wenn
+      du <code>na.rm = TRUE</code> weglässt? Prüfe deine Vorhersage.</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+  <h3><code>=</code> statt <code>==</code> im filter</h3>
+<pre>
+penguins |&gt; filter(species = "Gentoo")
+<span class="cmt"># ✗ "Filter expression must refer to ..." — Vergleichen ist ==</span>
+</pre>
+  <h3>Filter-Ergebnis gespeichert — geglaubt</h3>
+<pre>
+penguins |&gt; filter(species == "Gentoo")
+<span class="cmt"># → zeigt 124 Zeilen an, aber penguins ist UNVERÄNDERT</span>
+</pre>
+  <p>Ohne Zuweisung (<code>gentoo &lt;- …</code>) verändert dplyr nichts
+  — das Ergebnis verpufft im Bildschirm. <code>dplyr</code> arbeitet
+  unveränderlich: gut so, aber merken.</p>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Verb</th><th>Wofür</th></tr>
+    <tr><td><code>filter()</code></td><td>Zeilen wählen (UND-Verknüpfung)</td></tr>
+    <tr><td><code>mutate()</code></td><td>Spalten umformen/neu rechnen</td></tr>
+    <tr><td><code>group_by()</code></td><td>Gruppen bilden für alles Folgende</td></tr>
+    <tr><td><code>summarise()</code></td><td>Viele Zeilen → eine Kennzahl</td></tr>
+    <tr><td><code>|&gt;</code></td><td>Schritt für Schritt verketten</td></tr>
+  </table>
+  <p>Plot (Lektion 0001) + Verben (heute) = Werkbank. Nächste Lektion
+  verlässt die Übungswelt: <strong>echte Betriebsdaten</strong> einlesen
+  und die erste deskriptive Auswertung —
+  <a href="../../../unterricht/HWIT-PMM/03-daten-einlesen-deskriptiv/praesentation.html">Folien UE 3</a>.
+  Nachschlagen: <a href="../reference/glossar-r-statistik.html">Glossar</a> ·
+  <a href="../reference/ggplot-dplyr-cheatsheet.html">Cheatsheet</a>.</p>
+</section>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> R4DS 2e,
+  <a href="https://r4ds.hadley.nz/transform">Kap. 3</a> (Hauptlektüre).</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Weiter: <a href="0003-daten-einlesen-deskriptiv.html">Lektion 0003 —
+  Aus der Maschine in R: Daten einlesen & vermessen</a></p>
+</footer>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

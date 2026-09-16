@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossar R & Statistik — 5AHWIT</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body>
+
+<header class="meta">
+  <span class="kicker">Reference · 5AHWIT · R-On-Ramp (vor KM9a)</span>
+  <h1>Glossar R & Statistik</h1>
+  <p class="subtitle">Die Begriffe der On-Ramp, kurz und präzise. Jede
+  Lektion hält sich an <em>diese</em> Wortwahl — und du auch in Skripten,
+  Hausaufgaben und Testantworten.</p>
+</header>
+
+<table>
+  <tr><th>Begriff</th><th>Definition</th><th>Merksatz</th></tr>
+  <tr>
+    <td><strong>Datenframe</strong></td>
+    <td>Tabelle aus Spalten (Variablen) und Zeilen (Beobachtungen); die
+    Standard-Datenstruktur für Auswertungen in R.</td>
+    <td>Spalten sind Eigenschaften, Zeilen sind Fälle.</td>
+  </tr>
+  <tr>
+    <td><strong>Mapping (Zuordnung)</strong></td>
+    <td>In <code>aes()</code>: welche Daten-Spalte welche Rolle im Plot
+    spielt (x, y, color, …). Es gibt je Pinguin eine Farbe — nicht
+    insgesamt eine.</td>
+    <td>Mapping heißt: die Daten entscheiden.</td>
+  </tr>
+  <tr>
+    <td><strong>Geom</strong></td>
+    <td>Die Darstellungsform einer Schicht: <code>geom_point()</code>,
+    <code>geom_histogram()</code>, <code>geom_boxplot()</code> …</td>
+    <td>Die Frage wählt das Geom, nicht die Gewohnheit.</td>
+  </tr>
+  <tr>
+    <td><strong>Schicht (Layer)</strong></td>
+    <td>Ein Baustein des ggplot-Plots, angehängt mit <code>+</code> —
+    das <code>+</code> steht immer am Zeilenende.</td>
+    <td>Ein Plot ist ein Stapel von Schichten.</td>
+  </tr>
+  <tr>
+    <td><strong>Facets</strong></td>
+    <td>Teil-Plots, je eine Kachel pro Gruppe
+    (<code>facet_wrap(~ gruppe)</code>) — trennen statt überlagern.</td>
+    <td>Farbe überlagert, Facets trennen.</td>
+  </tr>
+  <tr>
+    <td><strong>Pipe <code>|&gt;</code></strong></td>
+    <td>Reicht das Ergebnis links an die Funktion rechts weiter; macht
+    Schritte von oben nach unten lesbar.</td>
+    <td>Lesen wie einen Satz: nimm …, dann …, dann …</td>
+  </tr>
+  <tr>
+    <td><strong>filter() / mutate() / group_by() / summarise()</strong></td>
+    <td>Die dplyr-Verben: Zeilen wählen / Spalten umformen / Gruppen
+    bilden / viele Zeilen zu einer Kennzahl schrumpfen.</td>
+    <td>Wählen, umformen, gruppieren, zusammenfassen.</td>
+  </tr>
+  <tr>
+    <td><strong>NA</strong></td>
+    <td>Fehlender Wert. Ein einziger <code>NA</code> macht Kennzahlen zu
+    <code>NA</code>, außer man erlaubt <code>na.rm = TRUE</code>.</td>
+    <td>Ein NA infiziert den Mittelwert.</td>
+  </tr>
+  <tr>
+    <td><strong>Mittelwert / Median</strong></td>
+    <td>Zwei Lagemaße: Mittelwert (Summe/n) reagiert auf Ausreißer,
+    Median (Wert in der Mitte) nicht.</td>
+    <td>Der Median lügt nicht bei Ausreißern.</td>
+  </tr>
+  <tr>
+    <td><strong>Standardabweichung (sd)</strong></td>
+    <td>Streuungsmaß: typische Abweichung vom Mittelwert, in den
+    Einheiten der Daten.</td>
+    <td>Die sd sagt, wie „wackelig" der Prozess ist.</td>
+  </tr>
+  <tr>
+    <td><strong>IQR</strong></td>
+    <td>Interquartilsabstand: Spannweite der mittleren 50 % der Daten
+    (Q3 − Q1), robust gegen Ausreißer.</td>
+    <td>Das IQR ist die Breite der Box.</td>
+  </tr>
+  <tr>
+    <td><strong>EDA</strong></td>
+    <td>Exploratory data analysis: Daten mit Plots und Kennzahlen
+    durchleuchten, um Fragen zu finden. Explorativ ist nicht bestätigend.</td>
+    <td>EDA findet Fragen, Beweise liefert sie nicht.</td>
+  </tr>
+  <tr>
+    <td><strong>CSV / read_csv()</strong></td>
+    <td>Textdatei mit Komma-getrennten Werten. <code>read_csv()</code>
+    liest sie ein und meldet die Spaltentypen — immer mit
+    <code>glimpse()</code> gegenprüfen.</td>
+    <td>Einlesen ist erst der Anfang, Typen prüfen der zweite.</td>
+  </tr>
+  <tr>
+    <td><strong>Sollwert</strong></td>
+    <td>Der Zielwert eines Merkmals (hier: 10,00 mm), auf den der
+    Prozess mittig einstellen soll.</td>
+    <td>Die Mitte, auf die es ankommt.</td>
+  </tr>
+  <tr>
+    <td><strong>Toleranz</strong></td>
+    <td>Erlaubte Abweichung vom Sollwert (hier: ±0,15 mm); zwischen den
+    Grenzen ist ein Teil in Ordnung.</td>
+    <td>Die Toleranz ist das Tor, nicht der Sollwert.</td>
+  </tr>
+  <tr>
+    <td><strong>Ausschuss</strong></td>
+    <td>Teile außerhalb der Toleranzgrenzen; als Anteil gemessen über
+    <code>mean(abs(masse_mm − 10) &gt; 0.15, na.rm = TRUE)</code>.</td>
+    <td>Ausschuss ist ein Anteil, kein Urteil.</td>
+  </tr>
+  <tr>
+    <td><strong>DoE</strong></td>
+    <td>Design of Experiments: Versuche gezielt planen (Faktoren,
+    Stufen, Randomisierung), um mit wenigen Läufen viel zu lernen.
+    Das Semesterthema nach der On-Ramp (KM9a).</td>
+    <td>Erst planen, dann messen — nicht umgekehrt.</td>
+  </tr>
+</table>
+
+<footer class="navi">
+  <p>Weiter: <a href="ggplot-dplyr-cheatsheet.html">ggplot2/dplyr-Cheatsheet</a></p>
+</footer>
+
+</body>
+</html>
