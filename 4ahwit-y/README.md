@@ -19,6 +19,10 @@ im terminal mit winget:
 > winget install RProject.R
 > winget install Posit.RStudio
 > winget install openjs.nodejs.lts
+
+> git config --global user.name "Dein Name"
+> git config --global user.email "deine@email.at"
+
 ```
 
 wir haben einen github user angelegt und mit diesem ein Repository erzeugt, name "PMM"
