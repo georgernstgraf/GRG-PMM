@@ -7,6 +7,19 @@
 > (Semesterpläne + UE-Ordner). Hier liegt kohorten-spezifisches
 > Unterrichtsmaterial und Log.
 
-## 2026-09-15
+## 2026-09-18
 
-- Ordner angelegt (Kohorten-Teilung)
+Heute war Installationstag.
+
+im terminal mit winget:
+
+```sh
+> winget install git.git
+> winget install vscode
+> winget install RProject.R
+> winget install Posit.RStudio
+> winget install openjs.nodejs.lts
+```
+
+wir haben einen github user angelegt und mit diesem ein Repository erzeugt, name "PMM"
+und an grafg@... den Link zum Repo geschickt.
