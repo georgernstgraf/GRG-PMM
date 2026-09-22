@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion 0003 — Aus der Maschine in R: Daten einlesen & vermessen</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body>
+
+<header class="meta">
+  <span class="kicker">Lektion 0003 · UE 3 · 4AHWIT</span>
+  <h1>Aus der Maschine in R: Daten einlesen & vermessen</h1>
+  <p class="subtitle">read_csv, Kennzahlen mit na.rm — und der erste Blick auf echte Betriebsdaten.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>R4DS 2e (englisch, <a href="https://r4ds.hadley.nz/data-import.html">Kap. 7 Data import</a>
+     und <a href="https://r4ds.hadley.nz/EDA.html">Kap. 10 Exploratory data analysis</a>)
+     — lies beide vor der Hausaufgabe. Die HA-Fragen beziehen sich auf
+     die Kapitel: <a href="../../unterricht/HWIT-PMM/03-daten-einlesen-deskriptiv/hausaufgabe.md">Hausaufgabe UE 3</a>.</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>Drei Fräsmaschinen fertigen dieselbe Hülse. Sollmaß 10,00 mm,
+  Toleranz ±0,15 mm. Die Messdaten liegen als CSV vor — 120 Teile aus
+  10 Chargen. <strong>Eine der Maschinen läuft aus der Mitte:</strong>
+  Welche? Und wie viele Teile hat sie schon daneben gefertigt?</p>
+  <p>Plots (Lektion 0001) und Verben (Lektion 0002) kennst du. Was fehlt,
+  ist der Schritt davor: die Daten <em>reinholen</em> — und danach
+  vermessen mit Zahlen, die man einem Schichtleiter zeigen kann.</p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+<pre>
+fertigung |&gt;
+  group_by(maschine) |&gt;
+  summarise(
+    mitte = mean(masse_mm, na.rm = TRUE),
+    streu = sd(masse_mm, na.rm = TRUE)
+  )
+<span class="cmt"># → 3 Zeilen: M1 mittel (10.00), M2 leicht tief (9.98),
+#   M3 aus der Mitte (10.06) UND am breitesten (0.07)</span>
+</pre>
+  <p>Drei Zeilen, die eine Diskussion in der Schichtbesprechung ersetzen.
+  Der Win von heute: Du kannst jede Zahl in dieser Tabelle selbst
+  herleiten — und weißt, warum kein <code>NA</code> darin auftaucht.</p>
+</section>
+
+<section>
+  <h2>Schritt 1 — Einlesen mit <code>read_csv()</code></h2>
+  <p>Die Daten liegen im geklonten Repo. Öffne dein RStudio-Projekt
+  (Repo-Ordner als Projekt) und lies ein:</p>
+<pre>
+library(tidyverse)
+
+fertigung &lt;- read_csv("unterricht/HWIT-PMM/assets/betriebsdaten.csv")
+<span class="cmt"># → 120 Zeilen, 3 Spalten. Pfad relativ zum Projekt-Ordner.</span>
+</pre>
+  <p><code>read_csv()</code> (aus <code>readr</code>) meldet gleich mit,
+  was es gefunden hat. Der erste Reflex danach — <strong>immer</strong>:</p>
+<pre>
+glimpse(fertigung)
+<span class="cmt"># → maschine  = <chr>  (Text: M1, M2, M3)
+#   charge    = <dbl>  (Zahl)
+#   masse_mm  = <dbl>  (Zahl) — paar Zeilen mit <NA></span>
+</pre>
+  <p><code>chr</code> = Text, <code>dbl</code> = Dezimalzahl. Ein Blick
+  auf die Typen erspart dir die seltsamsten Fehler später: Wer auf
+  Text-Spalten rechnet, rechnet gegen Wände.</p>
+
+  <h2>Schritt 2 — Erster Eindruck: <code>summary()</code></h2>
+<pre>
+summary(fertigung$masse_mm)
+<span class="cmt"># → Min. 9.88 · Median 10.00 · Max. 10.20 — und NA's: 4</span>
+</pre>
+  <p>Da stehen sie schon: <strong>4 fehlende Messwerte</strong> (Sensor
+  hat ausgeworfen, Teil trotzdem gefertigt). Merk dir die Zahl — sie
+  gleich.</p>
+</section>
+
+<section>
+  <h2>Schritt 3 — Vermessen: Kennzahlen</h2>
+<pre>
+fertigung |&gt;
+  summarise(
+    n         = n(),
+    mitte     = mean(masse_mm, na.rm = TRUE),
+    mitte_med = median(masse_mm, na.rm = TRUE),
+    streu     = sd(masse_mm, na.rm = TRUE),
+    iqr       = IQR(masse_mm, na.rm = TRUE)
+  )
+<span class="cmt"># → n: 120 · mitte: 10.014 · mitte_med: 10.000
+#   streu: 0.062 · iqr: 0.070</span>
+</pre>
+  <p>Mittelwert und Median liegen fast deckungsgleich bei 10,00 — der
+  Prozess <em>insgesamt</em> sitzt mittig. Aber „insgesamt" kann lügen,
+  wenn drei Maschinen mischen. Deshalb:</p>
+
+  <h2>Schritt 4 — Aufschlüsseln: <code>group_by()</code></h2>
+<pre>
+fertigung |&gt;
+  group_by(maschine) |&gt;
+  summarise(
+    mitte = mean(masse_mm, na.rm = TRUE),
+    streu = sd(masse_mm, na.rm = TRUE)
+  )
+<span class="cmt"># → M1: 10.00 / 0.03    M2: 9.98 / 0.04    M3: 10.06 / 0.07</span>
+</pre>
+  <p>Das Ziel-Artefakt. <strong>M3 läuft nach oben UND streut am
+  breitesten</strong> — doppelt verdächtig. M2 sitzt leicht tief, aber
+  eng.</p>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage">Warum ergibt <code>mean(masse_mm)</code> ohne
+    <code>na.rm = TRUE</code> ein <code>NA</code>?</p>
+    <label><input type="radio" name="q3" value="0"> Weil fehlende Messwerte drin sind und R dann verweigert</label>
+    <label><input type="radio" name="q3" value="1"> Weil der Datensatz zu groß für den Arbeitsspeicher geladen</label>
+    <label><input type="radio" name="q3" value="2"> Weil die Spalte masse_mm als Text statt als Zahl</label>
+    <label><input type="radio" name="q3" value="3"> Weil der Sollwert 10,00 nicht in den Daten vorkommt</label>
+    <p class="feedback" aria-live="polite"></p>
+    <p class="erklaerung">Ein einziger NA „infiziert" das Ergebnis:
+    R mittelt nicht über fehlende Werte, ohne dass du es erlaubst
+    (na.rm = TRUE = „ignoriere die fehlenden").</p>
+  </div>
+
+  <h2>Schritt 5 — Zählen: der Ausschussanteil</h2>
+  <p>Toleranz ±0,15 mm um den Sollwert 10,00. Alles außerhalb ist
+  <strong>Ausschuss</strong>:</p>
+<pre>
+fertigung |&gt;
+  mutate(ausser = abs(masse_mm - 10) &gt; 0.15) |&gt;
+  summarise(anteil = mean(ausser, na.rm = TRUE))
+<span class="cmt"># → anteil: 0.052 — also 6 von 116 verwertbaren Teilen: 5,2 %</span>
+</pre>
+  <p>Welche Maschine die 6 Teile geliefert hat, klärst du in der
+  Hausaufgabe — mit denselben zwei Verben.</p>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du! (Interleaving: Lektion 0001 + 0002)</div>
+  <ol>
+    <li><strong>Vorhersage zuerst:</strong> Was zeigt
+      <code>ggplot(fertigung, aes(x = maschine, y = masse_mm)) + geom_boxplot()</code>?
+      Welcher Box fällt dir auf? Erst hinschreiben, dann ausführen.</li>
+    <li>Baue das Histogramm:
+      <code>ggplot(fertigung, aes(x = masse_mm)) + geom_histogram(binwidth = 0.05)</code>
+      — und ergänze eine gestrichelte Linie beim Sollwert:
+      <code>+ geom_vline(xintercept = 10, linetype = "dashed")</code>.</li>
+    <li><strong>Vorhersage:</strong> Wie viele Ausschuss-Teile stecken in
+      Charge 107? Prüfe mit <code>filter()</code> und <code>summarise()</code>.</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+  <h3>Dezimalkomma in der CSV</h3>
+<pre>
+fertigung &lt;- read_csv("messwerte_komma.csv")   <span class="cmt"># Werte wie "10,05"</span>
+glimpse(fertigung)
+<span class="cmt"># → masse_mm = <chr>! R hat die Zahlen als Text gelesen</span>
+</pre>
+  <p>Deutsche CSV-Dateien nutzen oft <code>,</code> als Dezimalzeichen —
+  <code>read_csv()</code> erwartet <code>.</code>. Erste Diagnose immer:
+  <code>glimpse()</code>. Das Üben wir in der Hausaufgabe (Aufgabe 5a).</p>
+
+  <h3>Pfad falsch</h3>
+<pre>
+fertigung &lt;- read_csv("betriebsdaten.csv")
+<span class="cmt"># ✗ "Cannot open file" — R sucht relativ zum Projekt-Ordner</span>
+</pre>
+  <p>Die Fehlermeldung nennt den gesuchten Pfad. Vergleiche ihn mit dem
+  echten Ort der Datei im Repo — meistens fehlen nur ein oder zwei
+  Ordner-Ebenen.</p>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Werkzeug</th><th>Wofür</th></tr>
+    <tr><td><code>read_csv()</code></td><td>CSV einlesen, Typen melden</td></tr>
+    <tr><td><code>glimpse()</code></td><td>Erster Check: Zeilen, Spalten, Typen</td></tr>
+    <tr><td><code>summary()</code></td><td>Spannweite + NA-Zahl auf einen Blick</td></tr>
+    <tr><td><code>summarise(mean/median/sd/IQR)</code></td><td>Kennzahlen (mit <code>na.rm = TRUE</code>)</td></tr>
+    <tr><td><code>group_by()</code></td><td>Kennzahlen pro Gruppe (Maschine, Charge)</td></tr>
+    <tr><td><code>abs(x - Soll) &gt; Toleranz</code></td><td>Ausschuss zählen</td></tr>
+  </table>
+  <p>Damit ist die R-Toolchain komplett: <em>Bild + Verben +
+  Datenreinholung.</em> Ab der nächsten DS geht es in die Statistik:
+  Wahrscheinlichkeitsverteilungen und Schätzwerte (KM5/KM6-Recap) —
+  <a href="../../unterricht/HWIT-PMM/jg4-semesterplan-ws.md">Semesterplan KM7</a>.</p>
+</section>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> R4DS 2e,
+  <a href="https://r4ds.hadley.nz/data-import.html">Kap. 7</a> und
+  <a href="https://r4ds.hadley.nz/EDA.html">Kap. 10</a> (Hauptlektüre).</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Zurück: <a href="0002-daten-transformieren-dplyr.html">Lektion 0002 —
+  Daten transformieren mit dplyr</a></p>
+</footer>
+
+<script src="../assets/quiz.js"></script>
+</body>
+</html>

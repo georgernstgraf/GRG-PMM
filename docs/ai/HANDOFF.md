@@ -10,26 +10,18 @@ HÜ setzen R voraus.
 **Action:** In der DS klären (oder Anleitung
 `selbststudium/reference/r-setup-linux.html` als HÜ-Anhang mitgeben).
 
-### Lektion 0003 für 4ahit-x bauen (#13-Fortsatz)
-**Priority:** medium
-**Context:** Der Betriebsdaten-Gap ist geschlossen:
-`unterricht/HWIT-PMM/assets/betriebsdaten.csv` existiert (verifiziert,
- Kennzahlen in STATE). Die 5ahwit-Lektion
-`5ahwit/teach/lessons/0003-daten-einlesen-deskriptiv.html` ist die
-Vorlage; die x-Version braucht Pfade/Verweise auf die x-Layout-Konvention
-(HA-Link auf `../../unterricht/HWIT-PMM/03-…/hausaufgabe.md`).
-**Action:** Adaptieren, R-Code identisch verifiziert (gleiche Daten),
-Quiz-Richtige bleibt A.
-
-### Kohorte y: Lektionen spiegeln oder referenzieren
-**Priority:** medium
-**Context:** `4ahit-y/` hat nur README. Installationstag 2026-09-18
-ist erledigt (winget-Setup + GitHub-Repo „PMM", im y-README
-protokolliert). Offen: Mirror der Lektionen,
-Symlink oder reiner Link auf Kohorte x. Wirtschaftlich: Referenzieren
-(spiegeln = Doppel-Pflege).
-**Action:** Mit Georg entscheiden (Bevorzugung: Link auf
-`4ahit-x/lessons/…` im y-README), dann README ergänzen.
+### Lektion 0003 für 4ahit-x gebaut + Kohorte y gespiegelt (#13) — ERLEDIGT 2026-09-22
+**Ergebnis:** `4ahwit-x/lessons/0003-daten-einlesen-deskriptiv.html` aus der
+5ahwit-Vorlage adaptiert (HÜ-Link → UE-Master `03-…/hausaufgabe.md`,
+DoE/KM9a-Ausblick → KM7-UE-4-Ausblick, reference/-Links entfernt — x hat
+kein reference/; Kicker kohorten-neutral „4AHWIT"); R-Code per Rscript
+re-verifiziert (120×3, NA=4, M3 10.06/0.07, Ausschuss 5,2 %), Quiz-Richtige A
+(Rotation C/B/A über 0001–0003). Kohorte y als voller Workspace-Spiegel
+aufgesetzt (MISSION/RESOURCES/NOTES + identische assets/ + lessons/ +
+README mit Pflegeregel **x = Master, y = Kopie**). Alle 6 Lessons:
+Links ok, kein CDN.
+**Rest:** x-RESOURCES.md Gap „Betriebsdaten nicht aufbereitet" ist überholt
+(assets/betriebsdaten.csv existiert seit #14) — bei Gelegenheit korrigieren.
 
 ### 4ahit-x auf SWP-Teach-Muster harmonisieren
 **Priority:** low

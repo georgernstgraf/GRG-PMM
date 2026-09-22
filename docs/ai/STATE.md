@@ -26,6 +26,11 @@ Praxisrahmen/Berichte. Nächster Schritt: Absprache mit Kollegen
 Eigenmaterial mit Vorlauf planen.
 
 ## Completed (this cycle)
+- [x] **4AHWIT Lessons 0001–0003 in beiden Kohorten (#13, 2026-09-22):**
+      x-0003 aus 5ahwit-Vorlage adaptiert (KM7-Ausblick, UE-Master-HÜ-Link,
+      R-Code re-verifiziert, Quiz A); y als voller Workspace-Spiegel
+      (M/R/N + identische assets/lessons + README-Pflegeregel x=Master);
+      alle 6 Lessons link-/offline-verifiziert, Richtige rotieren C/B/A
 - [x] **JG5-Arbeitsteilung (#2, 2026-09-22):** Strang-Trennung in
       `jg5-semesterplan-ws/ss.md` (Wer-Spalte pro UE + Arbeitsteilung-
       Abschnitt mit Schnittstellen Matura/R/UE-7-Gastauftritt);
