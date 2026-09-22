@@ -45,6 +45,9 @@ Danach in RStudio (einmal pro Rechner):
 install.packages(c("tidyverse", "palmerpenguins"))
 ```
 
+Ausführliche Schritt-für-Schritt-Anleitung (R zuerst, dann RStudio,
+Prüfung, Troubleshooting): `rstudio-installation-winget.md`.
+
 Kontrolle mit Verifikation: `2026-09-22_hue-kontrolle.md`
 (erwartet: `glimpse(penguins)` → 344 Zeilen, 8 Spalten).
 

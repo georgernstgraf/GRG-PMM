@@ -10,6 +10,8 @@ Current status as of 2026-09-16.
 reveal via CDN) + UE-1-Start (Lektion 0001, HA aus UE-Ordner 01).
 Kohorte y: Installationstag 2026-09-18 ✓ (winget: git/VS Code/R/
 RStudio/node, GitHub-Account + Repo „PMM", im y-README protokolliert).
+RStudio-winget-Anleitung für x: `4ahwit-x/rstudio-installation-winget.md`
+(R zuerst, dann RStudio, Verifikation 344×8, Troubleshooting).
 
 **5AHWIT R-On-Ramp (#14):** Teach-Workspace im SWP-Muster
 (`5ahwit/teach/`, analog `GRG-SWP/3ahwii/teach/`) mit Lektionen
