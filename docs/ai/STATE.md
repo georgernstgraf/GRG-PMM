@@ -1,6 +1,6 @@
 # Project State
 
-Current status as of 2026-09-16.
+Current status as of 2026-09-22.
 
 ## Current Focus
 **4AHWIT Kohorte x — R-Start (#13):** DS am 2026-09-22: HÜ-Kontrolle
@@ -18,8 +18,18 @@ RStudio-winget-Anleitung für x: `4ahwit-x/rstudio-installation-winget.md`
 0001 (ggplot), 0002 (dplyr), 0003 (einlesen & deskriptiv auf
 Betriebsdaten) — alle R-Code-Blöcke per Rscript verifiziert. Die DS am
 2026-09-16 startet mit Lektion 0001 live.
+**5. Klasse Team-Teaching (#2, neu 2026-09-22):** JG5-Semesterpläne
+(`jg5-semesterplan-ws/ss.md`) mit Strang-Trennung versehen (Wer-Spalte +
+Arbeitsteilung): Georg = Statistik-Strang mit R, Kollege = FM/Energie +
+Praxisrahmen/Berichte. Nächster Schritt: Absprache mit Kollegen
+(UE-1-Co-Einstieg, HÜ-Aufteilung, Matura-Fragenpool) und FM/Energie-
+Eigenmaterial mit Vorlauf planen.
 
 ## Completed (this cycle)
+- [x] **JG5-Arbeitsteilung (#2, 2026-09-22):** Strang-Trennung in
+      `jg5-semesterplan-ws/ss.md` (Wer-Spalte pro UE + Arbeitsteilung-
+      Abschnitt mit Schnittstellen Matura/R/UE-7-Gastauftritt);
+      DECISIONS-Eintrag; WS-Bilanz ca. 10:2–3, Ausgleich im SS
 - [x] **Teach-Workspace 5ahwit (#14, fba6ed1):** SWP-Muster (teach/-
       Unterordner, reference/ + learning-records/, Klassenhub-README
       mit UE-Tabelle); Lessons 0001/0002 adaptiert von 4ahit-x, 0003

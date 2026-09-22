@@ -3,6 +3,26 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-09-22: 5. Klasse im Team-Teaching — Strang-Trennung mit statistikfernem Kollegen (#2)
+
+- **Choice**: KM9 (V. Jahrgang, 4(2) Wochenstunden) wird per Strang-Trennung
+  geteilt: Georg = kompletter Statistik-Strang mit R (WS: DoE/RSM UE 2–6,
+  8–10; SS: Zuverlässigkeit UE 1–5), Kollege = Management-Strang (WS: FM
+  UE 12; SS: Energiemanagement UE 6–9) plus Praxisrahmen/Berichte in den
+  geteilten UE (WS: 1, 7, 11, 13; SS: 10, 11, 14, 15). Festgehalten in
+  `unterricht/HWIT-PMM/jg5-semesterplan-{ws,ss}.md` (Wer-Spalte +
+  Arbeitsteilung-Abschnitt). R-Code erklärt und beurteilt ausschließlich
+  Georg; Matura-Fragenpool je 50 % pro Strang.
+- **Reason**: Kollege hat mit Statistik wenig am Hut; DoE/RSM und
+  Zuverlässigkeit sind nicht statistikfrei lehrbar. Reine Inhalts-Teilung
+  geht im WS nicht 50/50 auf (11 UE Statistik vs. 1 UE FM) — Ausgleich
+  über SS (Kollege: 4 UE Energie + Projekt) und organisatorische Anteile
+  (HÜ-Korrektur FM, R1-Organisation). Einzige R-Stelle im Kollegen-Block:
+  UE 7 (KM9b, SS) EnPI-Regression — Georg als Gast.
+- **Tradeoff**: WS-Bilanz ca. 10:2–3 zugunsten Georg; FM/Energie-Stoff des
+  Kollegen ist voller Eigenbedarf ohne Buch-Anker (Matrix) → Vorlaufzeit
+  ab WS nötig.
+
 ## 2026-09-10: Semesterpläne decken die Einheiten-Rolle ab (#11)
 
 - **Choice**: GRG-PMM führt keine separaten `jgN-einheiten.md`-Dateien. Die vier Semesterpläne (`unterricht/HWIT-PMM/jg4-/jg5-semesterplan-{ws,ss}.md`) übernehmen die Rolle der Lehrstoffverteilung („Einheiten"): UE-Tabellen nach thematischen Blöcken mit KM/Lernziel-Bezug, Lektüre-Ankern und reservierten DS.
