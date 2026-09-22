@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Was kann R? — Werkzeug-Überblick KM 7</title>
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/theme/white.css">
+  <link rel="stylesheet" href="../assets/slides.css">
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+  <!-- ============================================================ TITEL -->
+  <section class="title-slide">
+    <div class="meta">KM 7 · Werkzeug · Prozessmanagement</div>
+    <h1>Was kann R?</h1>
+    <p class="subtitle">Vom Taschenrechner bis zur Prozessentscheidung —<br>
+      in einer einzigen Sprache.</p>
+    <div class="meta">4HWIT · Wintersemester · Einstieg</div>
+  </section>
+
+  <!-- ============================================================ TASCHENRECHNER -->
+  <section>
+    <h2>1. R rechnet — sofort</h2>
+    <pre><code class="language-r">2 + 2   <span class="out"># → 4: Eintippen, Ctrl+Enter, Antwort</span>
+
+mittel <- mean(c(10.01, 9.98, 10.03))
+mittel   <span class="out"># → 10.007: &lt;- speichert, Name holt zurück</span></code></pre>
+    <p><strong>Regel das ganze Semester:</strong> Code steht im
+      <strong>Skript</strong> (Datei), nicht in der Konsole.
+      Was du heute rechnest, läuft in einem Jahr noch genauso.</p>
+  </section>
+
+  <!-- ============================================================ EINLESEN -->
+  <section>
+    <h2>2. R liest Daten — echte Messwerte</h2>
+    <pre><code class="language-r">library(tidyverse)
+
+teile <- read_csv("../assets/betriebsdaten.csv")
+glimpse(teile)   <span class="out"># → 120 Zeilen, 3 Spalten</span></code></pre>
+    <table style="font-size:0.7em">
+      <tr><th>Spalte</th><th>Bedeutung</th></tr>
+      <tr><td><code>maschine</code></td><td>M1 / M2 / M3 — drei Fertigungsmaschinen</td></tr>
+      <tr><td><code>charge</code></td><td>Chargen-Nummer (10 Chargen)</td></tr>
+      <tr><td><code>masse_mm</code></td><td>Gemessenes Maß, Soll 10,00 mm ± 0,15</td></tr>
+    </table>
+    <p class="fragment">120 Teile einlesen = <strong>eine Zeile</strong>.
+      Bei 120.000 Teilen wäre es dieselbe Zeile.</p>
+  </section>
+
+  <!-- ============================================================ ZEIGEN -->
+  <section>
+    <h2>3. R zeigt Daten — ein Bild statt 344 Zahlen</h2>
+    <pre><code class="language-r">library(palmerpenguins)
+
+ggplot(penguins,
+       aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()</code></pre>
+    <p>Jeder Punkt = ein Pinguin (344 Messungen).
+      Die Wolke wandert nach rechts oben:
+      <strong>längere Flosse → schwererer Körper</strong>.
+      Keine Formel nötig — die Antwort ist ein Bild.</p>
+    <p class="fragment">Das ist UE 1: du baust genau dieses Bild heute selbst.</p>
+  </section>
+
+  <!-- ============================================================ RECHNEN -->
+  <section>
+    <h2>4. R rechnet mit Daten — Gruppen vergleichen</h2>
+    <pre><code class="language-r">penguins |>
+  group_by(species) |>
+  summarise(mittel = mean(body_mass_g, na.rm = TRUE))</code></pre>
+    <table style="font-size:0.7em">
+      <tr><th>Art</th><th>Mittlere Masse</th><th>Anzahl</th></tr>
+      <tr><td>Adélie</td><td>3701 g</td><td>152</td></tr>
+      <tr><td>Chinstrap</td><td>3733 g</td><td>68</td></tr>
+      <tr><td>Gentoo</td><td>5076 g</td><td>124</td></tr>
+    </table>
+    <p><strong>Deutung in einem Satz:</strong> Gentoos sind im Schnitt
+      über ein Kilo schwerer als die beiden anderen Arten.
+      Lies die Pipe wie einen Satz: <em>nimm → gruppiere → fasse zusammen</em>.</p>
+  </section>
+
+  <!-- ============================================================ STATISTIK -->
+  <section>
+    <h2>5. R prüft — Zufall oder echter Unterschied?</h2>
+    <pre><code class="language-r">t.test(body_mass_g ~ sex, data = penguins)</code></pre>
+    <p>Ergebnis: p ≈ 5 · 10<sup>−16</sup> — praktisch null.
+      Männchen und Weibchen unterscheiden sich
+      <strong>echt</strong>, das ist kein Messrauschen.</p>
+    <p class="fragment"><strong>Ausblick KM 7:</strong> t-Test (UE 6),
+      χ²-Test (UE 7), ANOVA (UE 8), Annahmestichprobenprüfung
+      nach ISO 2859/3951 (UE 9–11) — alles derselbe Werkzeugkasten.</p>
+  </section>
+
+  <!-- ============================================================ WARUM NICHT EXCEL -->
+  <section>
+    <h2>6. Warum nicht einfach Excel?</h2>
+    <table>
+      <tr><th></th><th>Excel (Klick)</th><th>R (Skript)</th></tr>
+      <tr><td>Wiederholen</td><td>Alles von Hand — wieder</td><td>Skript erneut laufen lassen</td></tr>
+      <tr><td>Nachvollziehen</td><td>Welche Formel stand in C17?</td><td>Jede Zeile steht in der Datei</td></tr>
+      <tr><td>Versionieren</td><td><code>auswertung_final2_wirklich.xlsx</code></td><td>Git zeigt jede Änderung</td></tr>
+      <tr><td>Wachsen</td><td>120.000 Zeilen = Geduldsspiel</td><td>Gleicher Code, jede Größe</td></tr>
+    </table>
+    <div class="callout tipp">
+      <span class="label">Merksatz</span>
+      <p>Excel zeigt dir <em>ein</em> Ergebnis. Ein R-Skript zeigt dir
+        <em>den Weg</em> — und der Weg lässt sich prüfen, teilen
+        und wiederholen. Genau das verlangt die Matura.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ AUSBLICK -->
+  <section class="hint-slide">
+    <h2>Heute geht's los: UE 1</h2>
+    <p style="font-size:1.3em">➜ <a href="../01-datenvisualisierung-ggplot/praesentation.html">Daten visualisieren (ggplot zuerst)</a></p>
+    <p>Lektion 0001 im Browser öffnen, Ziel-Plot nachbauen,<br>
+      Hausaufgabe aus UE 1 mitnehmen.</p>
+  </section>
+
+</div></div>
+
+<script src="https://cdn.revealjs.com/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'slide',
+  width: 1280,
+  height: 800,
+  margin: 0.08,
+  center: true,
+  controlsLayout: 'edges'
+});
+</script>
+</body>
+</html>

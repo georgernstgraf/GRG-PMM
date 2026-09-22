@@ -3,6 +3,14 @@
 Current status as of 2026-09-16.
 
 ## Current Focus
+**4AHWIT Kohorte x — R-Start (#13):** DS am 2026-09-22: HÜ-Kontrolle
+(`4ahwit-x/2026-09-22_hue-kontrolle.md`, anonym, erwartet
+`glimpse(penguins)` → 344×8) + Übersichtsfolie „Was kann R?"
+(`unterricht/HWIT-PMM/00-was-kann-r/praesentation.html`, Master,
+reveal via CDN) + UE-1-Start (Lektion 0001, HA aus UE-Ordner 01).
+Kohorte y: Installationstag 2026-09-18 ✓ (winget: git/VS Code/R/
+RStudio/node, GitHub-Account + Repo „PMM", im y-README protokolliert).
+
 **5AHWIT R-On-Ramp (#14):** Teach-Workspace im SWP-Muster
 (`5ahwit/teach/`, analog `GRG-SWP/3ahwii/teach/`) mit Lektionen
 0001 (ggplot), 0002 (dplyr), 0003 (einlesen & deskriptiv auf
@@ -53,8 +61,10 @@ Betriebsdaten) — alle R-Code-Blöcke per Rscript verifiziert. Die DS am
       km7-verlauf.html umbauen/archivieren; AGENTS.md-Stil-Verweis
 
 ## Notes
-- R 4.3.3 via apt (Binärpakete fürs komplette tidyverse installiert),
-  palmerpenguins systemweit (sudo). Verifikation mit `Rscript`.
+- R 4.5.2 (System-Upgrade von 4.3.3; `r-cran-tidyverse` aus apt gefallen).
+  Kern-Komponenten lagen in der User-Lib, Meta-Paket `tidyverse` per
+  Source-Build nachinstalliert (zusätzlich `libuv1-dev` nötig, PITFALLS).
+  `library(tidyverse)` verifiziert. Verifikation sonst mit `Rscript`.
 - Betriebsdaten-Kennzahlen (verifiziert): Gesamt 10.014/0.062, Median
   10.000, IQR 0.070; M1 10.00/0.03 · M2 9.98/0.04 · M3 10.06/0.07;
   Ausschuss 6/116 = 5,2 %; Charge 107 = 1 Ausschuss-Teil; 4 NA-Zeilen.
@@ -63,6 +73,6 @@ Betriebsdaten) — alle R-Code-Blöcke per Rscript verifiziert. Die DS am
 - Stil: `docs/stil-leitfaden.md`; Kohorten-/Teach-Layout: CONVENTIONS.
 
 ## Next Session Suggestion
-Rückblick auf die 5AHWIT-DS (L0001-Fragen einsammeln → NOTES/LR);
-R-Installation auf Schüler-Laptops bestätigen; parallel Lektion 0003
-für Kohorte x aus der 5ahwit-Vorlage adaptieren.
+Auswertung der x-HÜ-Kontrolle (Nachholer per Partner-Prinzip); UE 2
+(dplyr, Lektion 0002 liegt bereit) vorbereiten; Lektion 0003 für
+Kohorte x aus der 5ahwit-Vorlage adaptieren.

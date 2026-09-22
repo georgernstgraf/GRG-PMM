@@ -140,6 +140,20 @@ Each entry documents WHAT was decided and WHY.
   Absatz erweitert; Kohorte x ist zugleich Teach-Workspace
   (MISSION/RESOURCES/NOTES/assets/lessons) für Lektionen im R4DS-Stil.
 
+## 2026-09-22: Werkzeug-Überblicksfolie als Master + anonyme HÜ-Kontrolle (#13)
+
+- **Choice**: Die Übersichtsfolie „Was kann R?" liegt als Master unter
+  `unterricht/HWIT-PMM/00-was-kann-r/praesentation.html` (reveal.js via
+  CDN + `assets/slides.css`, alle R-Code-Blöcke per Rscript verifiziert);
+  Kohorten-READMEs verweisen nur darauf. Die HÜ-Kontrolle
+  (`4ahwit-x/2026-09-22_hue-kontrolle.md`) ist eine anonyme Strichliste —
+  keine Namen im Repo.
+- **Reason**: Die Folie ist kohortenübergreifend wiederverwendbar (y hatte
+  den Installationstag ohne Überblick); Master/Kopien-Modell und
+  „link, don't copy" gelten auch hier. Namen in Kontrolllisten sind
+  Datenschutz-Risiko ohne Nutzen — die Zählung reicht für die
+  Nachhol-Planung (Partner-Prinzip).
+
 ## 2026-09-16: 5AHWIT R-On-Ramp vor DoE + Teach-Workspace im SWP-Muster (#14)
 
 - **Choice**: Die 5AHWIT startet mit drei R-Basics-Lektionen (0001 ggplot,

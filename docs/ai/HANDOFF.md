@@ -23,7 +23,9 @@ Quiz-Richtige bleibt A.
 
 ### Kohorte y: Lektionen spiegeln oder referenzieren
 **Priority:** medium
-**Context:** `4ahit-y/` hat nur README. Offen: Mirror der Lektionen,
+**Context:** `4ahit-y/` hat nur README. Installationstag 2026-09-18
+ist erledigt (winget-Setup + GitHub-Repo „PMM", im y-README
+protokolliert). Offen: Mirror der Lektionen,
 Symlink oder reiner Link auf Kohorte x. Wirtschaftlich: Referenzieren
 (spiegeln = Doppel-Pflege).
 **Action:** Mit Georg entscheiden (Bevorzugung: Link auf
