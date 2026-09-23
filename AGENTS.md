@@ -16,9 +16,12 @@ This repository contains coursework for **Prozessmanagement (PMM)** at HTL Speng
   - `METADATA.md` — Legal basis, RIS references, amendment history, class mapping
 - `unterricht/` — Teaching layer (repo root): `HWIT-PMM/` with semester plans (`jg4-/jg5-semesterplan-{ws,ss}.md`), lesson folders (`NN-slug/` during preparation, `YYYY-MM-DD_thema` once dated) and `assets/`
 - `selbststudium/` — Self-study workspace for learning R and statistics (Teach skill)
-- `.opencode/skills/` — Project-local opencode skills
 - `Unterlagen/` — Reference materials and scripts
 - `docs/` — Central documents (project specifications, AI knowledge files)
+
+> Kein `.opencode/`-Verzeichnis im Repo: Alle Skills (global `teach`,
+> `create-lesson`, …) werden in `opencode-helpers/skills/` gepflegt und von
+> der OpenCode-Instanz per Symlink (`~/.config/opencode/skills`) versorgt.
 
 ## 3. File Naming Conventions
 
@@ -83,7 +86,7 @@ Run knowledge persistence during `/issue-commit` and `/issue-finish`.
 ## 9. Self-Study (Teach Skill)
 
 The `selbststudium/` directory is a teaching workspace powered by the
-project-local `teach` skill (`.opencode/skills/teach/`). Use it when the
+global `teach` skill. Use it when the
 user wants to learn R, statistics, or any PMM-relevant topic.
 
 - Invoke `/teach` from anywhere in the project to start a learning session

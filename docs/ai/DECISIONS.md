@@ -21,10 +21,11 @@ Each entry documents WHAT was decided and WHY.
   früheren Jahrgängen bestellbar; Tabellen tragen Nummern- und
   Quiz-Rotations-Stand am Einsatzort. Generischer teach-Skill bleibt
   unverschmutzt (Abgrenzung als Referenz statt Kopie).
-- **Tradeoff**: Projektlokaler teach-Pfad (`.opencode/skills/productivity/`)
-  ist ein Symlink ins mattpocock/skills-Repo — die Klausel lebt dort als
-  lokaler Commit (kein Push ins Upstream); dauerhafte Heimat sind die
-  globale Kopie + create-lesson.
+- **Tradeoff**: Projektlokale Teach-/Productivity-Skills waren per Symlink
+  in den mattpocock/skills-Klon verdrahtet (Host-Konfigurationsfehler).
+  Bereinigt unter #16: Skills nach `opencode-helpers/skills/` übernommen,
+  Klon per Reset gesäubert, `.opencode/`-Verzeichnis aus dem Repo entfernt —
+  Skills kommen seither ausschließlich per Symlink aus opencode-helpers.
 
 ## 2026-09-22: 5. Klasse im Team-Teaching — Strang-Trennung mit statistikfernem Kollegen (#2)
 
