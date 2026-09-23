@@ -3,6 +3,29 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-09-23: Lesson-System — globaler create-lesson-Skill + zweistellige Nummern (#15)
+
+- **Choice**: Klassen-Lektionen baut der neue globale Skill `create-lesson`
+  (`~/.config/opencode/skills/`, konventionsbasiert nach Vorbild lehrplan):
+  Bestellung `Thema + Ziel-UE [+ Quelle-KM]`, themenfokussierter Kicker
+  (`Lektion NN · Thema` + Meta-Zeile `UE n · Klasse Semester [·
+  Wiederholung aus KMx]`), zweistellige Dateien `NN-slug.html` pro
+  Schuljahr pro Klasse. `teach`-Skill (global + projektlokal) schreibt
+  Zweistelligkeit für Klassen-Material vor; Selbststudium-Bestand bleibt
+  vierstellig (Grandfather-Klausel, Querverweise intakt). GRG-PMM-Instanz:
+  9 Lessons umbenannt (01–03), Lessons-Tabellen in allen Klassen-READMEs
+  (Bestellzettel: Nr./Ziel-UE/Quelle/Typ/Quiz/Status), UE-4+-Anker in
+  RESOURCES, AGENTS.md §10.
+- **Reason**: On-demand-Bestellungen („morgen brauche ich X") brauchen ein
+  System statt Recherche: Quelle↔Ort-Trennung macht Wiederholungen aus
+  früheren Jahrgängen bestellbar; Tabellen tragen Nummern- und
+  Quiz-Rotations-Stand am Einsatzort. Generischer teach-Skill bleibt
+  unverschmutzt (Abgrenzung als Referenz statt Kopie).
+- **Tradeoff**: Projektlokaler teach-Pfad (`.opencode/skills/productivity/`)
+  ist ein Symlink ins mattpocock/skills-Repo — die Klausel lebt dort als
+  lokaler Commit (kein Push ins Upstream); dauerhafte Heimat sind die
+  globale Kopie + create-lesson.
+
 ## 2026-09-22: 5. Klasse im Team-Teaching — Strang-Trennung mit statistikfernem Kollegen (#2)
 
 - **Choice**: KM9 (V. Jahrgang, 4(2) Wochenstunden) wird per Strang-Trennung
