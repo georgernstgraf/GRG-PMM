@@ -15,7 +15,7 @@
   Blick, mit Pinguin- und Betriebsdaten-Beispielen.</p>
 </header>
 
-<h2>Grundgerüst ggplot2 (Lektion 0001)</h2>
+<h2>Grundgerüst ggplot2 (Lektion 01)</h2>
 <pre>
 ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
   geom_point()
@@ -23,7 +23,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 #  Schichten mit + — das + steht IMMER am Zeilenende</span>
 </pre>
 
-<h2>Geoms nach Frage (Lektion 0001 + 0003)</h2>
+<h2>Geoms nach Frage (Lektion 01 + 0003)</h2>
 <pre>
 ggplot(penguins, aes(x = species, y = body_mass_g)) +
   geom_boxplot()                       <span class="cmt"># Verteilung je Gruppe</span>
@@ -43,7 +43,7 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
   labs(x = "Flossengröße (mm)", y = "Körpermasse (g)")
 </pre>
 
-<h2>Die vier dplyr-Verben (Lektion 0002)</h2>
+<h2>Die vier dplyr-Verben (Lektion 02)</h2>
 <pre>
 penguins |&gt; filter(species == "Gentoo")        <span class="cmt"># Zeilen wählen (== ! =)</span>
 penguins |&gt; mutate(kg = body_mass_g / 1000)    <span class="cmt"># Spalte umformen/neu</span>
@@ -54,7 +54,7 @@ penguins |&gt;
 <span class="cmt"># pro Gruppe eine Kennzahl — ohne na.rm: NA!</span>
 </pre>
 
-<h2>Einlesen + Kennzahlen (Lektion 0003)</h2>
+<h2>Einlesen + Kennzahlen (Lektion 03)</h2>
 <pre>
 fertigung &lt;- read_csv("unterricht/HWIT-PMM/assets/betriebsdaten.csv")
 glimpse(fertigung)     <span class="cmt"># Zeilen, Spalten, Typen — der Pflicht-Check</span>

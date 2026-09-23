@@ -3,30 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lektion 0001 — Erste Plots mit ggplot2</title>
+<title>Lektion 01 — Erste Plots mit ggplot2</title>
 <link rel="stylesheet" href="../assets/lesson.css">
 </head>
 <body>
 
 <header class="meta">
-  <span class="kicker">Lektion 0001 · UE 1 · 5AHWIT</span>
+  <span class="kicker">Lektion 01 · Datenvisualisierung mit ggplot</span>
+  <span class="ort">UE 1 · 4AHWIT WS</span>
   <h1>Dein erster Plot: Pinguine vermessen</h1>
-  <p class="subtitle">Daten visualisieren zuerst — die Frage, dann das Bild.</p>
+  <p class="subtitle">Datenvisualisierung zuerst — die Frage, dann das Bild.</p>
 </header>
 
 <div class="callout tipp">
   <span class="label">Lektüre</span>
   <p>R4DS 2e (englisch, <a href="https://r4ds.hadley.nz/data-visualize">Kap. 1 Data visualization</a>)
      — lies Kapitel 1 vor der Hausaufgabe. Die HA-Fragen beziehen sich auf
-     das Kapitel: <a href="../../hausaufgaben/01-datenvisualisierung-ggplot.md">Hausaufgabe UE 1</a>.</p>
+     das Kapitel: <a href="../../unterricht/HWIT-PMM/01-datenvisualisierung-ggplot/hausaufgabe.md">Hausaufgabe UE 1</a>.</p>
 </div>
 
 <section>
   <div class="baustein">Einstiegsfrage</div>
-  <p>In diesem Semester geht es um <strong>Versuchsplanung</strong> — aber
-  bevor man gezielt Daten erzeugt, muss man gezielt Daten <em>lesen</em>
-  können. Also: Drei Pinguin-Arten leben auf derselben Insel, sehen ähnlich
-  aus — aber sind sie es? Konkreter: <strong>Wie hängt Schnabel-Länge mit
+  <p>Drei Pinguin-Arten leben auf derselben Insel, sehen ähnlich aus —
+  aber sind sie es? Konkreter: <strong>Wie hängt Schnabel-Länge mit
   Schnabel-Tiefe zusammen — und ist das bei allen drei Arten gleich?</strong></p>
   <p>Deine Augen können das beantworten. Aber nur, wenn die Daten als
   Bild vor dir liegen. Genau das baust du in den nächsten 15 Minuten.</p>
@@ -93,9 +92,9 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm,
   <div class="quiz" data-loesung="2">
     <p class="frage">Wo gehört <code>color = species</code> hin, wenn die
     Farbe <em>pro Pinguin</em> aus den Daten kommen soll?</p>
-    <label><input type="radio" name="q1" value="0"> Innerhalb der runden Klammern von geom_point(), neben den Koordinaten</label>
+    <label><input type="radio" name="q1" value="0"> Innerhalb der Klammern von geom_point(), neben den Koordinaten</label>
     <label><input type="radio" name="q1" value="1"> Direkt in die Klammern von ggplot(), aber ohne aes()</label>
-    <label><input type="radio" name="q1" value="2"> Innerhalb von aes() im ggplot()-Aufruf, gleich neben x, y</label>
+    <label><input type="radio" name="q1" value="2"> Innerhalb von aes() im ggplot()-Aufruf, neben x, y</label>
     <p class="feedback" aria-live="polite"></p>
     <p class="erklaerung">In aes() = Zuordnung aus den Daten (pro Punkt).
     In geom_point() wäre es eine Festlegung für <em>alle</em> Punkte gleich.</p>
@@ -161,9 +160,7 @@ ggplot(penguins, aes(x = Bill_Length, y = body_mass_g))
   </table>
   <p>Nächste Lektion machst du aus dieser Ansicht <em>Arbeit</em>: Daten
   filtern, umformen, zusammenfassen. Vorab-Überblick:
-  <a href="../../../unterricht/HWIT-PMM/02-daten-transformieren-dplyr/praesentation.html">Folien UE 2</a>.
-  Nachschlagen: <a href="../reference/glossar-r-statistik.html">Glossar</a> ·
-  <a href="../reference/ggplot-dplyr-cheatsheet.html">Cheatsheet</a>.</p>
+  <a href="../../unterricht/HWIT-PMM/02-daten-transformieren-dplyr/praesentation.html">Folien UE 2</a>.</p>
 </section>
 
 <footer class="navi">
@@ -171,7 +168,7 @@ ggplot(penguins, aes(x = Bill_Length, y = body_mass_g))
   <a href="https://r4ds.hadley.nz/data-visualize">Kap. 1</a> (Hauptlektüre).</p>
   <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
   ist zu klein, solange du den Code dabei hast.</p>
-  <p>Weiter: <a href="0002-daten-transformieren-dplyr.html">Lektion 0002 —
+  <p>Weiter: <a href="02-daten-transformieren-dplyr.html">Lektion 02 —
   Daten transformieren mit dplyr</a></p>
 </footer>
 

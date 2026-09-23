@@ -19,12 +19,22 @@ hier liegt kohorten-spezifisches Material. Die **Master-Dateien** liegen in
 | Datum | UE | Thema | Material |
 |-------|----|-------|----------|
 | 2026-09-09 | — | Setup: git, VS Code, Repo-Klon | — |
-| 2026-09-16 | 1 | **R-On-Ramp:** Daten visualisieren (ggplot) | [Lektion 0001](teach/lessons/0001-daten-visualisieren-ggplot.html) |
+| 2026-09-16 | 1 | **R-On-Ramp:** Daten visualisieren (ggplot) | [Lektion 01](teach/lessons/01-daten-visualisieren-ggplot.html) |
 
 ## Teach-Workspace
 
 [`teach/`](teach/) — Lessons, Glossar, Cheatsheet, Learning-Records
 (Struktur analog `GRG-SWP/3ahwii/teach/`).
+
+### Lessons-Übersicht (Bestellzettel für On-demand)
+
+| Nr. | Ziel-UE | Thema | Quelle | Typ | Quiz | Status |
+|-----|---------|-------|--------|-----|------|--------|
+| 01 | UE 1 (R-On-Ramp, 5AHWIT WS) | Datenvisualisierung mit ggplot | KM7-Toolchain, R4DS Kap. 1 | Erstkontakt | C | live (DS 2026-09-16) |
+| 02 | UE 2 (R-On-Ramp, 5AHWIT WS) | Daten transformieren mit dplyr | KM7-Toolchain, R4DS Kap. 3 | Erstkontakt | B | bereit |
+| 03 | UE 3 (R-On-Ramp, 5AHWIT WS) | Daten einlesen & deskriptive Statistik | KM7-Toolchain, R4DS Kap. 7+10 | Erstkontakt | A | bereit |
+
+Nächste freie Nr.: **04** · nächste Quiz-Richtige: **D**.
 
 ## Hausaufgaben
 
@@ -35,10 +45,10 @@ hier liegt kohorten-spezifisches Material. Die **Master-Dateien** liegen in
 
 ### 2026-09-16 — R-On-Ramp gestartet (UE 1)
 
-Teach-Workspace im SWP-Muster aufgesetzt (Lessons 0001–0003, Glossar,
-Cheatsheet). In der DS: Lektion 0001 (ggplot) live, Lektion 0002 (dplyr) als
-Nachbereitung; Lektion 0003 (Daten einlesen & deskriptiv, Betriebsdaten)
-als Vorbereitung auf die nächste DS. HÜ: Lektion 0001 durcharbeiten +
+Teach-Workspace im SWP-Muster aufgesetzt (Lessons 01–03, Glossar,
+Cheatsheet). In der DS: Lektion 01 (ggplot) live, Lektion 02 (dplyr) als
+Nachbereitung; Lektion 03 (Daten einlesen & deskriptiv, Betriebsdaten)
+als Vorbereitung auf die nächste DS. HÜ: Lektion 01 durcharbeiten +
 Hausaufgabe UE 1. Abweichung vom Semesterplan dokumentiert
 ([learning-record 0001](teach/learning-records/0001-vorwissen-onramp.md)).
 

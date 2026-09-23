@@ -19,5 +19,5 @@
 
 ## Stand
 - 2026-09-22: Workspace als Spiegel von Kohorte x aufgesetzt (MISSION,
-  RESOURCES, NOTES, `assets/`, `lessons/0001–0003` als Kopien).
+  RESOURCES, NOTES, `assets/`, `lessons/01–03` als Kopien).
   Pflegeregel: x = Master, y = Kopie.

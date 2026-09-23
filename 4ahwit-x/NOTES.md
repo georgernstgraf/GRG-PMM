@@ -18,7 +18,7 @@
 - Interleaving in Übungen ab Lektion 3 (ggplot + dplyr mischen).
 
 ## Stand
-- 2026-09-15: Workspace aufgesetzt; Lektionen 0001/0002 gebaut
+- 2026-09-15: Workspace aufgesetzt; Lektionen 01/02 gebaut
   (UE 1 ggplot, UE 2 dplyr, gem. jg4-semesterplan-ws.md). Hausaufgaben
   liegen im UE-Ordner (`unterricht/HWIT-PMM/NN-*/hausaufgabe.md`),
   Lektionen verlinken dorthin.

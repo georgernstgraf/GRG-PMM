@@ -34,6 +34,7 @@ header.meta {
   letter-spacing: 0.03em;
 }
 header.meta .kicker { text-transform: uppercase; }
+header.meta .ort { display: block; font-size: 0.85em; opacity: 0.75; margin-top: 0.15em; }
 h1 {
   font-size: 1.9rem;
   line-height: 1.2;

@@ -93,6 +93,19 @@ user wants to learn R, statistics, or any PMM-relevant topic.
 - `selbststudium/learning-records/` tracks progress across sessions
 - `selbststudium/lessons/` contains generated interactive HTML lessons
 
+## 10. Klassen-Lektionen (Create-Lesson-Skill)
+
+- Bestellformat: `Thema + Ziel-UE [+ Quelle-KM bei Wiederholung]` (z. B.
+  „ANOVA-Varianzanalyse für 4AHWIT UE 8"); Bau nach globalem
+  `create-lesson`-Skill (themenfokussierter Kicker, zweistellige Nummern
+  `NN-slug.html` pro Schuljahr pro Klasse, Quiz-Rotation aus README-Tabelle,
+  R-Code per Rscript verifiziert).
+- Master-Regel: Korrekturen immer im Master-Kohortenordner (x), dann als
+  Kopie in den Spiegelordner (y); Lessons-Tabellen in den Klassen-READMEs
+  sind der Bestellzettel (Nr./Quiz-Status).
+- Selbststudium-Bestand (`selbststudium/lessons/`, vierstellig) bleibt
+  unangetastet — eigene fortlaufende Zählung mit Querverweisen.
+
 ## Knowledge Bootstrap
 Before starting any task, read the following files in order:
 1. `docs/ai/HANDOFF.md` ← **read first, act on it**

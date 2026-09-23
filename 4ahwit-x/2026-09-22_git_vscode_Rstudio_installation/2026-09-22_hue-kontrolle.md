@@ -15,7 +15,7 @@ Anwesend: ___ / ___
 | 4 | Daten-Verifikation | `glimpse(penguins)` → erwartet **344 Zeilen, 8 Spalten** | ___ | ___ |
 | 5 | Git installiert + konfiguriert | Terminal: `git --version`; `git config user.name` und `git config user.email` liefern Werte | ___ | ___ |
 | 6 | GitHub-Account + Repo geklont | Ordner `PMM` vorhanden; darin `git remote -v` zeigt das eigene Repo | ___ | ___ |
-| 7 | Lektion 0001 geöffnet | `lessons/0001-daten-visualisieren-ggplot.html` im Browser geöffnet | ___ | ___ |
+| 7 | Lektion 01 geöffnet | `lessons/01-daten-visualisieren-ggplot.html` im Browser geöffnet | ___ | ___ |
 | 8 | Ziel-Plot gebaut | Streudiagramm Flosse vs. Masse mit `color = species` in RStudio erzeugt | ___ | ___ |
 
 ## Auswertung

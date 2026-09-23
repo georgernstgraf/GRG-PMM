@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lektion 0003 — Aus der Maschine in R: Daten einlesen & vermessen</title>
+<title>Lektion 03 — Aus der Maschine in R: Daten einlesen & vermessen</title>
 <link rel="stylesheet" href="../assets/lesson.css">
 </head>
 <body>
 
 <header class="meta">
-  <span class="kicker">Lektion 0003 · UE 3 · 5AHWIT</span>
+  <span class="kicker">Lektion 03 · Daten einlesen & deskriptive Statistik</span>
+  <span class="ort">UE 3 · 4AHWIT WS</span>
   <h1>Aus der Maschine in R: Daten einlesen & vermessen</h1>
   <p class="subtitle">read_csv, Kennzahlen mit na.rm — und der erste Blick auf echte Betriebsdaten.</p>
 </header>
@@ -19,7 +20,7 @@
   <p>R4DS 2e (englisch, <a href="https://r4ds.hadley.nz/data-import.html">Kap. 7 Data import</a>
      und <a href="https://r4ds.hadley.nz/EDA.html">Kap. 10 Exploratory data analysis</a>)
      — lies beide vor der Hausaufgabe. Die HA-Fragen beziehen sich auf
-     die Kapitel: <a href="../../hausaufgaben/03-daten-einlesen-deskriptiv.md">Hausaufgabe UE 3</a>.</p>
+     die Kapitel: <a href="../../unterricht/HWIT-PMM/03-daten-einlesen-deskriptiv/hausaufgabe.md">Hausaufgabe UE 3</a>.</p>
 </div>
 
 <section>
@@ -28,7 +29,7 @@
   Toleranz ±0,15 mm. Die Messdaten liegen als CSV vor — 120 Teile aus
   10 Chargen. <strong>Eine der Maschinen läuft aus der Mitte:</strong>
   Welche? Und wie viele Teile hat sie schon daneben gefertigt?</p>
-  <p>Plots (Lektion 0001) und Verben (Lektion 0002) kennst du. Was fehlt,
+  <p>Plots (Lektion 01) und Verben (Lektion 02) kennst du. Was fehlt,
   ist der Schritt davor: die Daten <em>reinholen</em> — und danach
   vermessen mit Zahlen, die man einem Schichtleiter zeigen kann.</p>
 </section>
@@ -141,7 +142,7 @@ fertigung |&gt;
 </section>
 
 <section>
-  <div class="baustein">Jetzt du! (Interleaving: Lektion 0001 + 0002)</div>
+  <div class="baustein">Jetzt du! (Interleaving: Lektion 01 + 02)</div>
   <ol>
     <li><strong>Vorhersage zuerst:</strong> Was zeigt
       <code>ggplot(fertigung, aes(x = maschine, y = masse_mm)) + geom_boxplot()</code>?
@@ -188,12 +189,10 @@ fertigung &lt;- read_csv("betriebsdaten.csv")
     <tr><td><code>group_by()</code></td><td>Kennzahlen pro Gruppe (Maschine, Charge)</td></tr>
     <tr><td><code>abs(x - Soll) &gt; Toleranz</code></td><td>Ausschuss zählen</td></tr>
   </table>
-  <p>Damit ist die R-Werkzeugkiste der On-Ramp komplett: <em>Bild +
-  Verben + Datenreinholung.</em> Ab der nächsten DS geht es ins
-  eigentliche Semesterthema: <strong>Faktorielle Versuchsplanung (DoE)</strong>
-  — <a href="../../../unterricht/HWIT-PMM/jg5-semesterplan-ws.md">Semesterplan KM9a</a>.
-  Nachschlagen: <a href="../reference/glossar-r-statistik.html">Glossar</a> ·
-  <a href="../reference/ggplot-dplyr-cheatsheet.html">Cheatsheet</a>.</p>
+  <p>Damit ist die R-Toolchain komplett: <em>Bild + Verben +
+  Datenreinholung.</em> Ab der nächsten DS geht es in die Statistik:
+  Wahrscheinlichkeitsverteilungen und Schätzwerte (KM5/KM6-Recap) —
+  <a href="../../unterricht/HWIT-PMM/jg4-semesterplan-ws.md">Semesterplan KM7</a>.</p>
 </section>
 
 <footer class="navi">
@@ -202,7 +201,7 @@ fertigung &lt;- read_csv("betriebsdaten.csv")
   <a href="https://r4ds.hadley.nz/EDA.html">Kap. 10</a> (Hauptlektüre).</p>
   <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
   ist zu klein, solange du den Code dabei hast.</p>
-  <p>Zurück: <a href="0002-daten-transformieren-dplyr.html">Lektion 0002 —
+  <p>Zurück: <a href="02-daten-transformieren-dplyr.html">Lektion 02 —
   Daten transformieren mit dplyr</a></p>
 </footer>
 

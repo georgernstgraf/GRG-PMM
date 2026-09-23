@@ -90,7 +90,7 @@ ggplot(fertigung, aes(x = maschine, y = masse_mm)) +
 ## 5. Transfer: Ausschuss je Maschine
 
 Toleranz ±0,15 mm um den Sollwert 10,00. Zähle den Ausschuss **je
-Maschine** (zwei Verben aus Lektion 0002 — du weißt welche):
+Maschine** (zwei Verben aus Lektion 02 — du weißt welche):
 
 ```r
 fertigung |>
