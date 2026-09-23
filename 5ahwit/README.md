@@ -1,5 +1,7 @@
 # 5AHWIT
 
+## 2026-09-23__git/vscode/Rstudio Installation
+
 Klassenordner der **5AHWIT** für das Fach **PMM** (Prozessmanagement,
 HTL Spengergasse, WIT), Schuljahr 2026/27. Kleingeschrieben = Kohorten-Ablage:
 hier liegt kohorten-spezifisches Material. Die **Master-Dateien** liegen in
@@ -29,7 +31,7 @@ hier liegt kohorten-spezifisches Material. Die **Master-Dateien** liegen in
 ### Lessons-Übersicht (Bestellzettel für On-demand)
 
 | Nr. | Ziel-UE | Thema | Quelle | Typ | Quiz | Status |
-|-----|---------|-------|--------|-----|------|--------|
+| ----- | --------- | ------- | -------- | ----- | ------ | -------- |
 | 01 | UE 1 (R-On-Ramp, 5AHWIT WS) | Datenvisualisierung mit ggplot | KM7-Toolchain, R4DS Kap. 1 | Erstkontakt | C | live (DS 2026-09-16) |
 | 02 | UE 2 (R-On-Ramp, 5AHWIT WS) | Daten transformieren mit dplyr | KM7-Toolchain, R4DS Kap. 3 | Erstkontakt | B | bereit |
 | 03 | UE 3 (R-On-Ramp, 5AHWIT WS) | Daten einlesen & deskriptive Statistik | KM7-Toolchain, R4DS Kap. 7+10 | Erstkontakt | A | bereit |
