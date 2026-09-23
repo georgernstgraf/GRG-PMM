@@ -1,5 +1,10 @@
 # vscode
 
+## HÜ
+
+Im Readme niederschreiben, welche Inhalte der 4. Klasse wiederholt
+werden sollen.
+
 - settings -> git autofetch: true
 
 Auf github.com einloggen und ein persönliches PMM Repo erzeugen.
