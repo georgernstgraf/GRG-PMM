@@ -65,6 +65,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | ARL | Average Run Length | Mittlere Anzahl Punkte bis zum Regelkarten-Alarm; KM8 |
 | Ausschuss | Scrap (rejects) | Teile außerhalb der Toleranzgrenzen, als Anteil gemessen; Lektion 0003 (R-On-Ramp, 5AHWIT WS) |
 | Badewannenkurve | Bathtub curve | Ausfallrate über der Lebensdauer: Früh-/Zufalls-/Verschleißphase; KM9b |
+| Bessel-Korrektur | Bessel's correction | Teilen durch n − 1 in `sd()`/`var()` macht die Stichprobenvarianz erwartungstreu; UE 4 (KM7, 4HWIT WS) |
 | Bootstrap | Resampling mit Zurücklegen | Simulationsweg zu Konfidenzintervallen; ModernDive Kap. 8, UE 5 (KM7, 4HWIT WS) |
 | CI | Confidence Interval (Konfidenzintervall) | ⚠ Kollision, s.o.; UE 5 (KM7, 4HWIT WS) |
 | CLT | Central Limit Theorem (Zentraler Grenzwertsatz) | Stichprobenmittel → approx. normal für großes n; UE 5 (KM7, 4HWIT WS) |
@@ -74,8 +75,10 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | EWMA | Exponentially Weighted Moving Average (Karte) | Regelkarte mit „Gedächtnis"; KM8 |
 | FWER | Family-Wise Error Rate | α-Inflation bei multiplen Tests; Korrektur: Bonferroni-Holm |
 | H0 / H1 | Null- / Alternativhypothese | Grundgerüst jedes Tests; UE 6 (KM7, 4HWIT WS) |
+| Histogramm | Histogram | Diagramm für **stetige** Merkmale (Klassen/Bins); kategorial → Balkendiagramm (`geom_bar`); UE 4 (KM7, 4HWIT WS) |
 | I-MR | Individuals & Moving Range (Karte) | Regelkarte für Einzelmesswerte; KM8 |
 | KPI | Key Performance Indicator | Kennzahl; KM4 (Kennzahlensysteme) |
+| Lagemaß / Streumaß | measure of location / dispersion | Lage: Mittelwert, Median · Streuung: Varianz, Standardabweichung, IQR; UE 4 (KM7, 4HWIT WS) |
 | LTPD | Lot Tolerance Percent Defective | Schlechtes Qualitätsniveau, das fast immer zurückgewiesen werden soll; UE 9 (KM7, 4HWIT WS) |
 | MSA | Measurement System Analysis (Messsystemanalyse) | Prüfmittelfähigkeit, Gage R&R; KM8, NIST Kap. 2 |
 | MTBF / MTTF / MTTR | Mean Time Between Failures / To Failure / To Repair | Zuverlässigkeits- und Instandhaltungskennzahlen; KM9b, UE 12 (KM9a, 5HWIT WS) |
@@ -83,6 +86,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | p-Wert | — | Wahrscheinlichkeit für Daten, die unter H0 mindestens so extrem sind — **nicht** die Wahrscheinlichkeit, dass H0 gilt!; UE 6 (KM7, 4HWIT WS) |
 | QS | Qualitätssicherung | Anwendungsdomäne des Fachs |
 | RBD | Reliability Block Diagram | Systemzuverlässigkeit: Serie/Parallel/k-aus-n; KM9b |
+| Schätzwert / Parameter | estimate / parameter | x̄, s (aus der Stichprobe) schätzen μ, σ (Grundgesamtheit); UE 4 (KM7, 4HWIT WS) |
 | Shewhart | Walter A. Shewhart | Erfinder der Regelkarte (1930er); KM8 |
 | Sollwert | Target value | Zielwert eines Merkmals, auf den der Prozess mittig einstellt (z. B. 10,00 mm); Lektion 0003 (R-On-Ramp, 5AHWIT WS) |
 | SPC | Statistical Process Control (Statistische Prozesslenkung) | Prozessüberwachung mit Regelkarten; KM8-Kern |
@@ -151,6 +155,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | LSR | Learning Statistics with R (Navarro) | Freie Statistik-Lektüre; Anker für Verteilungen/Tests (Kap. 9–16) |
 | ML | Machine Learning | Bewusst **out of scope** (siehe `selbststudium/MISSION.md`) |
 | NSE | Non-Standard Evaluation | Auswertungstrick hinter dplyr & Co. (Ausdrücke werden im Daten-Kontext evaluiert) |
+| palmerpenguins | — | Pinguin-Datensatz (344 Zeilen, 3 Arten) für UE 1–2 und UE 4 (KM7, 4HWIT WS); Lizenz CC0 |
 | Pipe | `%>%` bzw. `\|>` | Verkettet Operationen lesbar von links nach rechts; UE 2 (KM7, 4HWIT WS) |
 | R4DS | R for Data Science (Wickham, Çetinkaya-Rundel, Grolemund; 2e) | Hauptlektüre der Toolchain; r4ds.hadley.nz; UE 1–3 (KM7, 4HWIT WS) |
 | RStudio | — | IDE für R (Posit) |

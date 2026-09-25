@@ -1,6 +1,6 @@
 # Architecture
 
-Living structural map of the system as of 2026-09-16.
+Living structural map of the system as of 2026-09-25.
 Overwritten when structural changes occur during a session.
 
 ## Overview
@@ -17,7 +17,7 @@ GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturaf
 | `lehrplan/pmm-hwit/kompetenzmodule/` | Didaktische KM-Steckbriefe (km3–km9b + README): Modul-Bedeutung, Praxisrelevanz, Wissen/Verstehen/Können (#6) |
 | `unterricht/HWIT-PMM/` | Unterrichts-Ebene (Repo-Root, seit 2026-09-10) mit **Master-Dateien**: `jg4-/jg5-semesterplan-{ws,ss}.md`, UE-Ordner (`NN-slug/` in Vorbereitung, `YYYY-MM-DD_thema` mit Datum), `00-was-kann-r/` (Werkzeug-Überblicksfolie, #13), `assets/` (slides.css, betriebsdaten.csv #14) |
 | `5ahwit/` | Root-Klassenordner (klein = Kohorten-Ablage): Klassenhub-README (UE-Tabelle, Log) + `teach/`-Unterordner im SWP-Muster (`GRG-SWP/3ahwii/teach/`, #14): MISSION/NOTES/RESOURCES, `assets/`, `lessons/01–03` (R-On-Ramp vor KM9a), `reference/` (Glossar + Cheatsheet), `learning-records/`; `hausaufgaben/` = adaptierte Master-Kopien |
-| `4ahwit-x/`, `4ahwit-y/` | Root-Klassenordner der 4AHWIT-Kohorten (Teilung große Klasse, 2(1)-Splitstunde, #13). Kohorte x = Teach-Workspace im Legacy-Layout (Workspace-Dateien am Ordner-Root): `MISSION.md`, `RESOURCES.md`, `NOTES.md`, `assets/lesson.css`+`assets/quiz.js`, `lessons/NN-slug.html`. Harmonisierung auf SWP-Muster offen. Kohorte y = byte-identischer Spiegel von x (Lessons-Tabelle im README, #15) |
+| `4ahwit-x/`, `4ahwit-y/` | Root-Klassenordner der 4AHWIT-Kohorten (Teilung große Klasse, 2(1)-Splitstunde, #13). Kohorte x = Teach-Workspace im Legacy-Layout (Workspace-Dateien am Ordner-Root): `MISSION.md`, `RESOURCES.md`, `NOTES.md`, `assets/lesson.css`+`assets/quiz.js`, `lessons/NN-slug.html`. Harmonisierung auf SWP-Muster offen. Kohorte y = Spiegel von x; **ab Lektion 04 liegen neue Lektionen in Datums-Ordnern** `YYYY-MM-DD__thema/lesson.html` + Tages-README, y hat zusätzlich `assets/theme.js` (Hell/Dunkel-Toggle, #17); Legacy `lessons/01–03` unverändert |
 | `docs/ai/` | Structured knowledge files for AI agent persistence |
 | `Unterlagen/` | Teaching reference materials and scripts |
 | `selbststudium/` | Self-study workspace (teach skill): `MISSION.md`, `RESOURCES.md`, `NOTES.md`, `lessons/`, `learning-records/`, `reference/`, `assets/` |
@@ -48,7 +48,7 @@ GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturaf
 
 - Lehrplan (`lehrplan/`) → KM-Steckbriefe (`lehrplan/pmm-hwit/kompetenzmodule/`) → Semesterpläne (`unterricht/HWIT-PMM/jg<N>-semesterplan-*.md`) → UE-Material (`unterricht/HWIT-PMM/NN-slug/praesentation.html` + `hausaufgabe.md`)
 - Semesterpläne → Selbststudium-Lektionen (`selbststudium/lessons/`) → Learning Records (`learning-records/`)
-- Semesterplan JG4-WS → Kohorten-Lektionen (`4ahwit-x/lessons/`, teach-Stil) ↔ UE-Material (`unterricht/HWIT-PMM/NN-slug/`, verlinkt wechselseitig)
+- Semesterplan JG4-WS → Kohorten-Lektionen (`4ahwit-x/lessons/` Legacy; ab L04 `4ahwit-y/YYYY-MM-DD__thema/lesson.html`, teach-Stil) ↔ UE-Material (`unterricht/HWIT-PMM/NN-slug/`, verlinkt wechselseitig)
 - **Master/Kopien (#14):** Master in `unterricht/HWIT-PMM/` → Kopien + Adaptionen im Kohortenordner (`5ahwit/hausaufgaben/`, `5ahwit/teach/lessons/`) — Master-Dateien bleiben unangetastet
 - Semesterplan JG5-WS (KM9a DoE) → R-On-Ramp-Lektionen (`5ahwit/teach/lessons/`) → Betriebsdaten (`unterricht/HWIT-PMM/assets/betriebsdaten.csv`)
 - Open-Source-Material-Kanon (`lehrplan/pmm-hwit/r4ds-abdeckung.md`, `RESOURCES.md`) → Lektüre-Zuweisungen in UE- und Lern-Materialien („link, don't copy", #6)

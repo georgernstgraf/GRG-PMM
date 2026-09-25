@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion 04 — R rechnet: Kennzahlen &amp; Verteilungen</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body>
+
+<header class="meta">
+  <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-pressed="false">Dunkel</button>
+  <span class="kicker">Lektion 04 · R rechnet: Kennzahlen &amp; Verteilungen</span>
+  <span class="ort">UE 4 · 4AHWIT WS · Wiederholung aus KM5</span>
+  <h1>R rechnet mit: was du vom Taschenrechner kennst</h1>
+  <p class="subtitle">Mittelwert, Streuung und Verteilungen — dieselben Formeln, nur schneller und reproduzierbar.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>Navarro, <a href="https://learningstatisticswithr.com/book/">Learning Statistics with R</a>
+     (englisch) — lies Kap. 9 (Probability) und Kap. 10 (Estimating unknowns).
+     Den Stoff kennst du aus KM5; hier siehst du, wie R ihn rechnet.</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>Mittelwert und Standardabweichung habt ihr bisher mit dem
+  Taschenrechner gerechnet — für eine Handvoll Werte. Heute liegt eine
+  Messreihe mit <strong>342 Pinguin-Massen</strong> vor dir.
+  <strong>Wie lange bräuchtest du dafür? Und wie wahrscheinlich ist es,
+  dass ein Pinguin mehr als 5 kg auf die Waage bringt?</strong></p>
+  <p>Die zweite Frage kann der Taschenrechner gar nicht beantworten. Genau
+  dafür gibt es R.</p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+  <p>Zuerst die Kennzahlen — in einer Zeile statt in einer Stunde:</p>
+<pre>
+penguins |&gt;
+  summarise(
+    n     = n(),
+    mitte = mean(body_mass_g, na.rm = TRUE),
+    streu = sd(body_mass_g, na.rm = TRUE)
+  )
+<span class="cmt"># → n: 342 · mitte: 4201.75 · streu: 801.95</span>
+</pre>
+  <p>Und dann die Frage von oben — mit einer Verteilungsfunktion:</p>
+<pre>
+pnorm(5000, mean = 4201.75, sd = 801.95)
+<span class="cmt"># → 0.8402 — rund 84 % aller Pinguine bleiben unter 5 kg</span>
+</pre>
+  <p>Der Win von heute: Du weißt zu jeder Formel aus KM5 den passenden
+  R-Befehl — und kannst Ergebnisse deuten, nicht nur ausrechnen.</p>
+</section>
+
+<section>
+  <div class="baustein">Schritt 0 — Werkzeug prüfen</div>
+  <p>Falls R oder RStudio auf deinem Laptop noch fehlt, jetzt nachholen.
+  Im <strong>Terminal</strong> (PowerShell), Reihenfolge beachten — R
+  zuerst, RStudio nur die Oberfläche:</p>
+<pre>
+winget install RProject.R
+winget install Posit.RStudio
+</pre>
+  <p>Danach RStudio starten und die <strong>beiden Pakete</strong>
+  installieren, die wir das ganze Jahr brauchen:</p>
+<pre>
+install.packages(c("tidyverse", "palmerpenguins"))
+<span class="cmt"># tidyverse: dplyr + ggplot2 · palmerpenguins: der Pinguin-Datensatz</span>
+</pre>
+  <p>Kontrolle — ohne Fehler und mit <strong>344 Zeilen, 8 Spalten</strong>:</p>
+<pre>
+library(tidyverse)
+library(palmerpenguins)
+glimpse(penguins)
+<span class="cmt"># → 344 Zeilen, 8 Spalten (2 Zeilen mit &lt;NA&gt; bei den Maßen)</span>
+</pre>
+  <div class="callout achtung">
+    <span class="label">Wenn es klemmt</span>
+    <p>„winget nicht gefunden" → App-Installer aus dem Microsoft Store,
+    Terminal neu öffnen. „RStudio findet kein R" → Menü Tools →
+    Global Options → R version → Change. Alles andere: Fehlermeldung
+    wörtlich notieren und in der DS zeigen.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 1 — Kennzahlen, die du kennst</h2>
+  <p>Dieselben Formeln wie am Taschenrechner, jetzt auf alle 342 Werte
+  zugleich:</p>
+<pre>
+penguins |&gt;
+  summarise(
+    mitte   = mean(body_mass_g, na.rm = TRUE),
+    median  = median(body_mass_g, na.rm = TRUE),
+    streu   = sd(body_mass_g, na.rm = TRUE),
+    varianz = var(body_mass_g, na.rm = TRUE),
+    iqr     = IQR(body_mass_g, na.rm = TRUE)
+  )
+<span class="cmt"># → mitte 4201.75 · median 4050 · streu 801.95
+#   varianz 643131.1 · iqr 1200</span>
+</pre>
+  <p>Zwei Dinge, die ihr in der Prüfung verwechselt habt, sind hier
+  sichtbar: <code>sd()</code> ist die <em>Standardabweichung</em>,
+  <code>var()</code> ist ihr <strong>Quadrat</strong> — die Varianz. Und
+  R teilt bei <code>sd()</code>/<code>var()</code> durch <code>n − 1</code>
+  (Bessel-Korrektur), genau wie in der Formel für die Stichprobe.</p>
+<pre>
+sd(penguins$body_mass_g, na.rm = TRUE)^2
+<span class="cmt"># → 643131.1 — die Varianz, wie erwartet</span>
+
+IQR(penguins$body_mass_g, na.rm = TRUE)
+<span class="cmt"># → 1200 — das ist Q3 − Q1 (nicht Max − Min!)</span>
+</pre>
+  <p>Die Quartile selbst bekommst du mit <code>quantile()</code>:
+  Q1 = 3550, Median = 4050, Q3 = 4750. Die <em>mittleren 50 %</em> der
+  Pinguine wiegen also zwischen 3550 g und 4750 g.</p>
+
+  <div class="quiz" data-loesung="3">
+    <p class="frage">Was berechnet <code>var(penguins$body_mass_g, na.rm = TRUE)</code>?</p>
+    <label><input type="radio" name="q1" value="0"> die Standardabweichung, also die Wurzel der Varianz</label>
+    <label><input type="radio" name="q1" value="1"> die mittlere Abweichung der Werte von ihrem Mittel</label>
+    <label><input type="radio" name="q1" value="2"> die Spannweite, also Maximum minus Minimum der Werte</label>
+    <label><input type="radio" name="q1" value="3"> die Varianz, also das Quadrat der Standardabweichung</label>
+    <p class="feedback" aria-live="polite"></p>
+    <p class="erklaerung">var() = σ², sd() = die Wurzel daraus. Ein
+    Hinweis auf den Unterschied ist die Einheit: Varianz trägt g²,
+    Standardabweichung trägt g.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 2 — Schätzwert oder Parameter?</h2>
+  <p>Die 342 Pinguine sind eine <strong>Stichprobe</strong>. Was R dir
+  ausgibt, sind <strong>Schätzwerte</strong> (x̄ und s) für die wahren
+  <strong>Parameter</strong> der Grundgesamtheit (μ und σ). Gruppieren
+  wir nach Art — dann wird der Unterschied greifbar:</p>
+<pre>
+penguins |&gt;
+  group_by(species) |&gt;
+  summarise(
+    mitte = mean(body_mass_g, na.rm = TRUE),
+    streu = sd(body_mass_g, na.rm = TRUE)
+  )
+<span class="cmt"># → Adelie 3701 / 459   Chinstrap 3733 / 384   Gentoo 5076 / 504</span>
+</pre>
+  <p>Gentoo ist im Mittel fast 1,4 kg schwerer als Adelie — und streut
+  auch breiter. Ob dieser Unterschied <em>bedeutsam</em> oder nur
+  Zufall der Stichprobe ist, klären wir ab UE 6 mit Tests.</p>
+
+  <div class="quiz" data-loesung="2">
+    <p class="frage">Mittelwert x̄ und Streuung s aus <code>summarise()</code> sind …</p>
+    <label><input type="radio" name="q2" value="0"> Parameter der Grundgesamtheit, fest und unbekannt</label>
+    <label><input type="radio" name="q2" value="1"> exakte Werte, die gar keinen Schätzfehler haben</label>
+    <label><input type="radio" name="q2" value="2"> Schätzwerte, die aus der Stichprobe berechnet sind</label>
+    <label><input type="radio" name="q2" value="3"> Fehlerquellen, die man vor der Auswertung bereinigt</label>
+    <p class="feedback" aria-live="polite"></p>
+    <p class="erklaerung">x̄ und s sind Stichprobenkennzahlen —
+    Punktschätzungen für μ und σ. Jede andere Stichprobe hätte etwas
+    andere Werte ergeben.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 3 — stetig oder kategorial?</h2>
+  <p>Das richtige Diagramm hängt am Merkmalstyp. Die Masse ist
+  <strong>stetig</strong> → Histogramm (englisch: <em>histogram</em>):</p>
+<pre>
+ggplot(penguins, aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 250, color = "white")
+<span class="cmt"># → eine Glocke: die meisten Massen zwischen 3500 und 5000 g</span>
+</pre>
+  <p>Die Art ist <strong>kategorial</strong> → Balkendiagramm
+  (englisch: <em>bar chart</em>):</p>
+<pre>
+ggplot(penguins, aes(x = species)) +
+  geom_bar()
+<span class="cmt"># → drei Balken: Adelie 152 · Gentoo 124 · Chinstrap 68</span>
+</pre>
+  <p>Ein Histogramm auf <code>species</code> ist ein Klassiker-Fehler —
+  es funktioniert hier schlicht nicht (siehe unten).</p>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">Welches Geom zeichnet die Häufigkeiten der kategorialen Spalte <code>species</code>?</p>
+    <label><input type="radio" name="q3" value="0"> geom_histogram(), weil es den Wertebereich in Bins einteilt</label>
+    <label><input type="radio" name="q3" value="1"> geom_bar(), weil es jede Ausprägung als Balken zählt</label>
+    <label><input type="radio" name="q3" value="2"> geom_point(), weil es jeden einzelnen Wert als Punkt zeigt</label>
+    <label><input type="radio" name="q3" value="3"> geom_boxplot(), weil es Median und Quartile markiert</label>
+    <p class="feedback" aria-live="polite"></p>
+    <p class="erklaerung">geom_histogram() braucht ein stetiges x für
+    die Bins. Für Kategorien zählt geom_bar() die Häufigkeiten je
+    Ausprägung.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 4 — Die d/p/q/r-Familie</h2>
+  <p>Zu jeder Verteilung aus KM5 gibt es vier R-Funktionen. Das Muster
+  ist immer dasselbe — merke dir die vier Buchstaben:</p>
+  <table>
+    <tr><th>Funktion</th><th>Bedeutung</th><th>Frage an R</th></tr>
+    <tr><td><code>d…</code></td><td>density</td><td>Wie hoch ist die Dichte bei x? (diskret: P(X = x))</td></tr>
+    <tr><td><code>p…</code></td><td>probability</td><td>Wie groß ist P(X ≤ x)? (die Fläche links)</td></tr>
+    <tr><td><code>q…</code></td><td>quantile</td><td>Welches x hat P(X ≤ x) = p? (die Umkehrung)</td></tr>
+    <tr><td><code>r…</code></td><td>random</td><td>n Zufallszahlen aus dieser Verteilung</td></tr>
+  </table>
+  <p>Für die Normalverteilung hängen die Buchstaben an
+  <code>norm</code>:</p>
+<pre>
+pnorm(5000, mean = 4201.75, sd = 801.95)
+<span class="cmt"># → 0.8402 — P(Masse ≤ 5000 g)</span>
+
+pnorm(1) - pnorm(-1)
+<span class="cmt"># → 0.6827 — rund 68 % im Bereich μ ± 1σ</span>
+
+pnorm(2) - pnorm(-2)
+<span class="cmt"># → 0.9545 — rund 95 % im Bereich μ ± 2σ</span>
+
+qnorm(0.975)
+<span class="cmt"># → 1.96 — der z-Wert für das 95 %-Intervall (kommt in UE 5)</span>
+</pre>
+  <p>Für <strong>diskrete</strong> Verteilungen steht hinter dem
+  Buchstaben die Verteilung: <code>binom</code>, <code>pois</code>,
+  <code>exp</code> …</p>
+<pre>
+dbinom(2, size = 10, prob = 0.3)
+<span class="cmt"># → 0.2335 — P(X = 2) bei B(10; 0,3)</span>
+
+pbinom(2, size = 10, prob = 0.3)
+<span class="cmt"># → 0.3828 — P(X ≤ 2), also 0 + 1 + 2 Treffer zusammen</span>
+
+dpois(2, lambda = 3)
+<span class="cmt"># → 0.2240 — P(X = 2) bei Poisson mit λ = 3</span>
+</pre>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage"><code>pbinom(2, size = 10, prob = 0.3)</code> liefert 0.3828. Was bedeutet das?</p>
+    <label><input type="radio" name="q4" value="0"> die Wahrscheinlichkeit für höchstens zwei Treffer</label>
+    <label><input type="radio" name="q4" value="1"> die Wahrscheinlichkeit für genau zwei Treffer</label>
+    <label><input type="radio" name="q4" value="2"> die Wahrscheinlichkeit für weniger als null Treffer</label>
+    <label><input type="radio" name="q4" value="3"> die Wahrscheinlichkeit für mehr als zwei Treffer</label>
+    <p class="feedback" aria-live="polite"></p>
+    <p class="erklaerung">p = kumulativ (P(X ≤ x)). Genau zwei Treffer
+    wären dbinom(2, …) = 0.2335 — der Unterschied d gegen p.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — Verteilung sehen: Boxplot und QQ-Plot</h2>
+  <p>Der Boxplot zeigt <strong>Median, Q1/Q3 und Ausreißer</strong> —
+  nicht den Mittelwert. Die Whisker reichen bis 1,5·IQR, alles darüber
+  wird als einzelner Punkt gezeichnet:</p>
+<pre>
+ggplot(penguins, aes(x = species, y = body_mass_g)) +
+  geom_boxplot()
+<span class="cmt"># → drei Boxen; Gentoo deutlich schwerer; Punkte = Ausreißer</span>
+</pre>
+  <p>Und ob die Normalverteilung eine brauchbare Näherung ist, prüft der
+  QQ-Plot — bei gutem Fit liegen die Punkte auf der Geraden:</p>
+<pre>
+ggplot(penguins, aes(sample = body_mass_g)) +
+  stat_qq() +
+  stat_qq_line()
+<span class="cmt"># → Punkte folgen grob der Geraden (Ränder leicht daneben)</span>
+</pre>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du!</div>
+  <p>Öffne RStudio, <code>library(tidyverse)</code> +
+  <code>library(palmerpenguins)</code>, dann:</p>
+  <ol>
+    <li><strong>Vorhersage zuerst:</strong> Ist der Median größer oder
+      kleiner als der Mittelwert 4201.75? Tippe, dann prüfe mit
+      <code>median(penguins$body_mass_g, na.rm = TRUE)</code>.</li>
+    <li><strong>Vorhersage:</strong> Welche Pinguin-Art hat die größte
+      mittlere Masse? Prüfe mit <code>group_by(species)</code> +
+      <code>summarise()</code> (das kennst du aus Lektion 02).</li>
+    <li><strong>Vorhersage:</strong> Wie viel Prozent der Werte einer
+      Normalverteilung liegen in μ ± 2σ? Prüfe mit
+      <code>pnorm(2) - pnorm(-2)</code>.</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+  <h3>Ohne <code>na.rm = TRUE</code> wird alles <code>NA</code></h3>
+<pre>
+mean(penguins$body_mass_g)
+<span class="cmt"># ✗ NA — zwei fehlende Werte „infizieren" den Mittelwert</span>
+</pre>
+  <p>R weigert sich, über fehlende Werte hinwegzumitteln, ohne dass du es
+  erlaubst: <code>na.rm = TRUE</code> ist die Erlaubnis.</p>
+
+  <h3>Varianz und Standardabweichung verwechselt</h3>
+<pre>
+var(penguins$body_mass_g, na.rm = TRUE)
+<span class="cmt"># → 643131.1 — das ist σ², die Einheit wäre g², nicht g</span>
+</pre>
+  <p>Wer die Varianz als „Streuung" berichtet, hat die Einheit verloren.
+  Für Aussagen in Gramm ist <code>sd()</code> zuständig.</p>
+
+  <h3>Histogramm auf einem kategorialen Merkmal</h3>
+<pre>
+ggplot(penguins, aes(x = species)) +
+  geom_histogram()
+<span class="cmt"># ✗ "stat_bin() requires a continuous x aesthetic"</span>
+</pre>
+  <p>Die Fehlermeldung sagt genau, was fehlt: ein stetiges x. Nimm
+  <code>geom_bar()</code>.</p>
+
+  <h3><code>d</code> und <code>p</code> vertauscht</h3>
+<pre>
+dbinom(2, 10, 0.3)   <span class="cmt"># P(X = 2) — genau zwei Treffer</span>
+pbinom(2, 10, 0.3)   <span class="cmt"># P(X ≤ 2) — höchstens zwei Treffer</span>
+</pre>
+  <p>Merke: <code>d</code> = ein Wert, <code>p</code> = kumulierte
+  Fläche bis zu diesem Wert.</p>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Formel aus KM5</th><th>R-Befehl</th></tr>
+    <tr><td>Mittelwert x̄</td><td><code>mean(x, na.rm = TRUE)</code></td></tr>
+    <tr><td>Median</td><td><code>median(x, na.rm = TRUE)</code></td></tr>
+    <tr><td>Standardabweichung s</td><td><code>sd(x, na.rm = TRUE)</code> (teilt durch n − 1)</td></tr>
+    <tr><td>Varianz s²</td><td><code>var(x, na.rm = TRUE)</code></td></tr>
+    <tr><td>Quartile / IQR</td><td><code>quantile()</code> / <code>IQR()</code></td></tr>
+    <tr><td>Normalverteilung</td><td><code>dnorm</code> · <code>pnorm</code> · <code>qnorm</code> · <code>rnorm</code></td></tr>
+    <tr><td>Binomial / Poisson</td><td><code>dbinom/pbinom</code> · <code>dpois</code></td></tr>
+    <tr><td>Histogramm / Balken</td><td><code>geom_histogram()</code> / <code>geom_bar()</code></td></tr>
+  </table>
+  <p>R ersetzt dir das <em>Rechnen</em> — nicht das <em>Verstehen</em>.
+  Welche Kennzahl wann die richtige ist, entscheidest weiterhin du.
+  Nächster Schritt: aus dem Schätzwert ein Intervall machen
+  (Schätzen &amp; Konfidenzintervalle) —
+  <a href="../../unterricht/HWIT-PMM/jg4-semesterplan-ws.md">Semesterplan KM7</a>.</p>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Jetzt der Transfer in die Fertigung. Lade die Betriebsdaten aus
+  deinem geklonten Repo (Pfad relativ zum Projekt-Ordner):</p>
+<pre>
+fertigung &lt;- read_csv("unterricht/HWIT-PMM/assets/betriebsdaten.csv")
+</pre>
+  <ol>
+    <li><strong>Vorhersage zuerst:</strong> Welche der drei Maschinen
+      (M1, M2, M3) hat die größte Streuung? Schreib deinen Tipp auf,
+      <em>bevor</em> du rechnest.</li>
+    <li>Berechne je Maschine <code>mean</code>, <code>median</code>,
+      <code>sd</code> und <code>IQR</code> der Spalte
+      <code>masse_mm</code> (mit <code>na.rm = TRUE</code>). Vergleiche
+      mit deinem Tipp.</li>
+    <li>Nimm an, die Maße einer Maschine seien normalverteilt mit deinem
+      geschätzten Mittelwert und deiner Streuung. Wie groß ist die
+      Wahrscheinlichkeit für ein Maß <em>außerhalb</em> der Toleranz
+      10,00 ± 0,15 mm? Nutze
+      <code>1 - (pnorm(10.15, …) - pnorm(9.85, …))</code>.</li>
+    <li>Beurteile mit einem Histogramm, ob die Normalannahme für diese
+      Maschine überhaupt tragfähig ist.</li>
+  </ol>
+  <p><strong>Abgabe:</strong> Commit in deinem PMM-Repo (R-Skript +
+  kurze Antwort in ganzen Sätzen).</p>
+</section>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> Navarro,
+  <a href="https://learningstatisticswithr.com/book/">Learning Statistics with R</a>,
+  Kap. 9–10.</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Zurück: <a href="../lessons/03-daten-einlesen-deskriptiv.html">Lektion 03 —
+  Daten einlesen &amp; deskriptive Statistik</a></p>
+</footer>
+
+<script src="../assets/quiz.js"></script>
+<script src="../assets/theme.js"></script>
+</body>
+</html>

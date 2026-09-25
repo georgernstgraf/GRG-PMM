@@ -7,16 +7,22 @@
 > (Semesterpläne + UE-Ordner). Hier liegt kohorten-spezifisches
 > Unterrichtsmaterial und Log.
 
-## Lessons-Übersicht (Spiegel von Kohorte x)
+## Lessons-Übersicht (Bestellzettel für On-demand)
 
 | Nr. | Ziel-UE | Thema | Quelle | Typ | Quiz | Status |
 |-----|---------|-------|--------|-----|------|--------|
 | 01 | UE 1 (KM7, 4HWIT WS) | Datenvisualisierung mit ggplot | KM7, R4DS Kap. 1 | Erstkontakt | C | Kopie aus x |
 | 02 | UE 2 (KM7, 4HWIT WS) | Daten transformieren mit dplyr | KM7, R4DS Kap. 3 | Erstkontakt | B | Kopie aus x |
 | 03 | UE 3 (KM7, 4HWIT WS) | Daten einlesen & deskriptive Statistik | KM7, R4DS Kap. 7+10 | Erstkontakt | A | Kopie aus x |
+| 04 | UE 4 (KM7, 4HWIT WS) | R rechnet: Kennzahlen & Verteilungen | KM5, Navarro Kap. 9–10 | Wiederholung | D·C·B·A | live (DS 2026-09-25) |
 
-Alle Dateien byte-identisch mit `4ahwit-x/` — Korrekturen immer zuerst
-dort, dann hierher spiegeln.
+Nächste freie Nr.: **05** · nächste Quiz-Richtige: **D**.
+
+**Ablage:** Ab Lektion 04 liegt jede Lesson im Datums-Ordner
+`YYYY-MM-DD__thema/` (`lesson.html` + Tages-README). Der alte Ordner
+`lessons/` (Lektionen 01–03, byte-identisch mit `4ahwit-x/`) ist Legacy
+und bleibt unverändert; Korrekturen dort weiterhin zuerst in x, dann
+hierher spiegeln.
 
 ## 2026-09-18
 

@@ -1,90 +1,64 @@
 # Project State
 
-Current status as of 2026-09-22.
+Current status as of 2026-09-25.
 
 ## Current Focus
-**4AHWIT Kohorte x — R-Start (#13):** DS am 2026-09-22: HÜ-Kontrolle
-(`4ahwit-x/2026-09-22_hue-kontrolle.md`, anonym, erwartet
-`glimpse(penguins)` → 344×8) + Übersichtsfolie „Was kann R?"
-(`unterricht/HWIT-PMM/00-was-kann-r/praesentation.html`, Master,
-reveal via CDN) + UE-1-Start (Lektion 01, HA aus UE-Ordner 01).
-Kohorte y: Installationstag 2026-09-18 ✓ (winget: git/VS Code/R/
-RStudio/node, GitHub-Account + Repo „PMM", im y-README protokolliert).
-RStudio-winget-Anleitung für x: `4ahwit-x/rstudio-installation-winget.md`
-(R zuerst, dann RStudio, Verifikation 344×8, Troubleshooting).
+**4AHWIT Kohorte y — Lektion 04 (#17):** DS am 2026-09-25. Lektion
+`4ahwit-y/2026-09-25__r-kennzahlen-und-verteilungen/lesson.html` baut den
+gut sitzenden KM5-Stoff (Kennzahlen, Schätzer/Parameter, `d/p/q/r`) mit R
+um und holt das Setup nach (winget, `tidyverse` + `palmerpenguins`,
+`glimpse(penguins)` → 344×8). Tages-README mit Pflicht-Aufgaben-Referenz
+(Betriebsdaten je Maschine, `pnorm`-Ausschuss, Histogramm). Neu:
+Hell/Dunkel-Toggle über `assets/theme.js` + Dark-Variablen in
+`assets/lesson.css`. Ab L04 liegen Lektionen im Datums-Ordner; Legacy
+`lessons/01–03` unverändert.
+
+**4AHWIT Kohorte x:** DS am 2026-09-22 (HÜ-Kontrolle, Lektion 01 live);
+Lektionen 02–03 bereit (`lessons/02–03`, vor der Umstellung).
 
 **5AHWIT R-On-Ramp (#14):** Teach-Workspace im SWP-Muster
-(`5ahwit/teach/`, analog `GRG-SWP/3ahwii/teach/`) mit Lektionen
-01 (ggplot), 02 (dplyr), 03 (einlesen & deskriptiv auf
-Betriebsdaten) — alle R-Code-Blöcke per Rscript verifiziert. Die DS am
-2026-09-16 startet mit Lektion 01 live.
-**5. Klasse Team-Teaching (#2, neu 2026-09-22):** JG5-Semesterpläne
-(`jg5-semesterplan-ws/ss.md`) mit Strang-Trennung versehen (Wer-Spalte +
-Arbeitsteilung): Georg = Statistik-Strang mit R, Kollege = FM/Energie +
-Praxisrahmen/Berichte. Nächster Schritt: Absprache mit Kollegen
-(UE-1-Co-Einstieg, HÜ-Aufteilung, Matura-Fragenpool) und FM/Energie-
-Eigenmaterial mit Vorlauf planen.
+(`5ahwit/teach/`) mit Lektionen 01–03; DS startete 2026-09-16 mit
+Lektion 01.
+
+**5. Klasse Team-Teaching (#2):** JG5-Semesterpläne mit Strang-Trennung
+(Georg = Statistik-Strang mit R, Kollege = FM/Energie + Praxisrahmen).
+Nächster Schritt: Absprache mit Kollegen (UE-1-Co-Einstieg, HÜ-Aufteilung,
+Matura-Fragenpool).
 
 ## Completed (this cycle)
-- [x] **4AHWIT Lessons 01–03 in beiden Kohorten (#13, 2026-09-22):**
-      x-03 aus 5ahwit-Vorlage adaptiert (KM7-Ausblick, UE-Master-HÜ-Link,
-      R-Code re-verifiziert, Quiz A); y als voller Workspace-Spiegel
-      (M/R/N + identische assets/lessons + README-Pflegeregel x=Master);
-      alle 6 Lessons link-/offline-verifiziert, Richtige rotieren C/B/A
-- [x] **JG5-Arbeitsteilung (#2, 2026-09-22):** Strang-Trennung in
-      `jg5-semesterplan-ws/ss.md` (Wer-Spalte pro UE + Arbeitsteilung-
-      Abschnitt mit Schnittstellen Matura/R/UE-7-Gastauftritt);
-      DECISIONS-Eintrag; WS-Bilanz ca. 10:2–3, Ausgleich im SS
-- [x] **Teach-Workspace 5ahwit (#14, fba6ed1):** SWP-Muster (teach/-
-      Unterordner, reference/ + learning-records/, Klassenhub-README
-       mit UE-Tabelle); Lessons 01/02 adaptiert von 4ahit-x, 03
-      neu; HA-Master-Kopien in `5ahwit/hausaufgaben/` (03 adaptiert auf
-      Betriebsdaten)
-- [x] **Betriebsdaten-Master (#14):**
-      `unterricht/HWIT-PMM/assets/betriebsdaten.csv` (synthetisch,
-      `set.seed(20260916)`, 120 Teile, 10 Chargen × 3 Maschinen,
-      Soll 10,00 ± 0,15 mm; M1 im Soll, M2 leicht tief, M3 aus der
-      Mitte mit 6/116 Ausschuss = 5,2 %) — löst den Betriebsdaten-Gap
-      aus #13 auch für Kohorte x
-- [x] **R-Umgebung reinstalliert:** r-base-core 4.3.3 + r-cran-tidyverse
-      via apt (Binärpakete; tidyverse-Meta-Blocker erledigt),
-      palmerpenguins via `sudo Rscript -e 'install.packages(...)'`
-      (PITFALLS-Eintrag ergänzt)
-- [x] **CONVENTIONS (#14):** Master/Kopien-Modell (unterricht/ = Master,
-      Kohortenordner = Kopien+Adaptionen) + SWP-Teach-Layout dokumentiert;
-      GLOSSAR um Ausschuss/Sollwert/Toleranz ergänzt
-- [x] **Quiz-Regeln:** Richtige rotieren C/B/A; Wortzahlen aller
-      5ahwit-Quizantworten egalisiert (01/02 vom x-Original verbessert)
-- [x] **GRG-SWP gepullt** (bded299, 3ahwii-Teach-Workspace als Muster)
+- [x] **Lektion 04 für 4AHWIT-y (#17):** KM5-Recap in R + Setup-Nachholung
+      im Datums-Ordner `2026-09-25__r-kennzahlen-und-verteilungen/`
+      (`lesson.html` + Tages-README); alle R-Blöcke per Rscript gegen
+      penguins/Betriebsdaten verifiziert, Quiz D·C·B·A, kein CDN,
+      Links/HTML geprüft. Theme-Toggle `assets/theme.js` + Dark-Variablen
+      in `assets/lesson.css`.
+- [x] **create-lesson-Skill (#83, opencode-helpers):** Ablage immer im
+      Datums-Ordner `YYYY-MM-DD__thema/lesson.html` + Tages-README;
+      Aufgaben-Referenz im README als Pflicht; Quiz 1–5; Tests grün.
+- [x] **Betriebsdaten-Kennzahlen (verifiziert):** M1 10.00/0.032 (p_out≈0),
+      M2 9.98/0.040 (0.00076), M3 10.06/0.070 (0.106); Toleranz
+      10,00 ± 0,15.
 
 ## Pending
-- [ ] **Einstiegstest 4HWIT** (lt. HANDOFF fällig nach Konferenztag
-      2026-09-07; konkrete DS offen, Repo GRG-PMM-T): nach Korrektur
-      Bonus-UE bzw. UE 4–5 anpassen
-- [ ] **Einstiegstest 5HWIT**: DOE-Block anpassen + Umwelt-Vorwissen
-      auswerten (GRG-PMM-T); Ergebnis gegen On-Ramp-Beobachtungen
-      abgleichen (LR 0001 in `5ahwit/teach/learning-records/`)
-- [ ] **R/RStudio auf Schul-Laptops der 5AHWIT bestätigen** — Setup-Log
-      nennt nur git/VS Code (Gap in `5ahwit/teach/RESOURCES.md`)
-- [ ] **4ahit-x auf SWP-Teach-Muster harmonisieren** (teach/-Unterordner,
-      reference/, Hub-UE-Tabelle) — separates Issue wert
+- [ ] **Einstiegstest 4HWIT** korrigieren → Bonus-UE bzw. UE 4–5 anpassen
+      (Termin offen, Repo GRG-PMM-T)
+- [ ] **Einstiegstest 5HWIT**: DOE-Block + Umwelt-Vorwissen auswerten
+- [ ] **R/RStudio auf Schul-Laptops der 5AHWIT bestätigen** (Gap in
+      `5ahwit/teach/RESOURCES.md`)
+- [ ] **4ahit-x auf SWP-Teach-Muster harmonisieren** (separates Issue wert)
 - [ ] JG3 Phase 0: L0004 durcharbeiten (teach-Session), danach L0005+
 - [ ] Phase 4 (#6): Stil in `selbststudium/NOTES.md` verankern;
       km7-verlauf.html umbauen/archivieren; AGENTS.md-Stil-Verweis
 
 ## Notes
-- R 4.5.2 (System-Upgrade von 4.3.3; `r-cran-tidyverse` aus apt gefallen).
-  Kern-Komponenten lagen in der User-Lib, Meta-Paket `tidyverse` per
-  Source-Build nachinstalliert (zusätzlich `libuv1-dev` nötig, PITFALLS).
-  `library(tidyverse)` verifiziert. Verifikation sonst mit `Rscript`.
-- Betriebsdaten-Kennzahlen (verifiziert): Gesamt 10.014/0.062, Median
-  10.000, IQR 0.070; M1 10.00/0.03 · M2 9.98/0.04 · M3 10.06/0.07;
-  Ausschuss 6/116 = 5,2 %; Charge 107 = 1 Ausschuss-Teil; 4 NA-Zeilen.
-- penguins: 344 Zeilen, 2 davon mit NA (geom_point → 342 Punkte).
+- R 4.5.2 mit `tidyverse` und `palmerpenguins` installiert; Verifikation
+  per `Rscript` (Repo-Root als Arbeitsverzeichnis).
+- penguins: 344 Zeilen, 2 NA; body_mass_g mean 4201.75, median 4050,
+  sd 801.95, var 643131.1, IQR 1200.
 - Zeitmodell: 13 echte UE + 2 reservierte DS (1 DS/Woche).
 - Stil: `docs/stil-leitfaden.md`; Kohorten-/Teach-Layout: CONVENTIONS.
 
 ## Next Session Suggestion
-Rückblick auf die x-DS (HÜ-Kontrolle auswerten); nächste Lesson on demand
-nach Bedarf (z. B. UE 4 Verteilungen-Recap oder UE 8 ANOVA — Bestellformat
+Rückblick auf die y-DS (hat der Toggle + Paket-Setup funktioniert?);
+nächste Lektion on demand (z. B. UE 5 Konfidenzintervalle — Bestellformat
 siehe AGENTS.md §10, Bau nach `create-lesson`-Skill).

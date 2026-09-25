@@ -10,7 +10,40 @@
   --code-bg: #f6f4ec;
   --ok-bg: #eef7ee;
   --err-bg: #fdeeec;
+  --out: #5d5d5d;
+  --cmt: #7a7a52;
+  --ok: #2e7d32;
 }
+
+:root[data-theme="dark"] {
+  --ink: #e8e6df;
+  --paper: #1b1b18;
+  --accent: #f08a7a;
+  --muted: #9a988f;
+  --line: #3a3a34;
+  --code-bg: #26261f;
+  --ok-bg: #1e2e1e;
+  --err-bg: #33201e;
+  --out: #b8b6ad;
+  --cmt: #b9b98a;
+  --ok: #7fc98a;
+}
+
+/* Hell/Dunkel-Umschalter (assets/theme.js) */
+.theme-toggle {
+  float: right;
+  font-family: "DejaVu Sans Mono", monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+.theme-toggle:hover { color: var(--ink); border-color: var(--muted); }
 
 * { box-sizing: border-box; }
 
@@ -81,8 +114,8 @@ code, pre, .out, .cmt {
   font-family: "DejaVu Sans Mono", "Consolas", monospace;
 }
 code { font-size: 0.88em; background: var(--code-bg); padding: 0.1em 0.3em; }
-.out { color: #5d5d5d; }
-.cmt { color: #7a7a52; font-style: italic; }
+.out { color: var(--out); }
+.cmt { color: var(--cmt); font-style: italic; }
 
 /* Quiz (nutzt assets/quiz.js) */
 .quiz {
@@ -100,12 +133,13 @@ code { font-size: 0.88em; background: var(--code-bg); padding: 0.1em 0.3em; }
   border-radius: 3px;
   cursor: pointer;
   font-size: 0.95rem;
-  background: #fff;
+  background: var(--code-bg);
+  color: var(--ink);
 }
 .quiz label:hover { border-color: var(--muted); }
 .quiz input { margin-right: 0.5rem; }
 .quiz .feedback { margin-top: 0.7rem; font-size: 0.92rem; min-height: 1.3em; }
-.quiz .feedback.richtig { color: #2e7d32; }
+.quiz .feedback.richtig { color: var(--ok); }
 .quiz .feedback.falsch { color: var(--accent); }
 .quiz .erklaerung {
   margin-top: 0.5rem;
@@ -134,7 +168,19 @@ footer.navi {
 }
 
 @media print {
+  :root, :root[data-theme="dark"] {
+    --ink: #1a1a1a;
+    --paper: #fffff8;
+    --accent: #a00000;
+    --muted: #6b6b6b;
+    --line: #e2ddcf;
+    --code-bg: #f6f4ec;
+    --out: #5d5d5d;
+    --cmt: #7a7a52;
+    --ok: #2e7d32;
+  }
   body { max-width: none; padding: 1rem; font-size: 10.5pt; }
   .quiz label { break-inside: avoid; }
   pre { white-space: pre-wrap; }
+  .theme-toggle { display: none; }
 }

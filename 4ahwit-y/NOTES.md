@@ -21,3 +21,9 @@
 - 2026-09-22: Workspace als Spiegel von Kohorte x aufgesetzt (MISSION,
   RESOURCES, NOTES, `assets/`, `lessons/01–03` als Kopien).
   Pflegeregel: x = Master, y = Kopie.
+- 2026-09-25: Lektion 04 im Datums-Ordner
+  `2026-09-25__r-kennzahlen-und-verteilungen/` (`lesson.html` +
+  Tages-README) — KM5-Recap in R (Kennzahlen, `d/p/q/r`) plus
+  Setup-Nachholung. Hell/Dunkel-Toggle ergänzt (`assets/theme.js`,
+  Dark-Variablen in `assets/lesson.css`). Ab L04 liegen Lessons in
+  Datums-Ordnern; `lessons/` (01–03) = Legacy.

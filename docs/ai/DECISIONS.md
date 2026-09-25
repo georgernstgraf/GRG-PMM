@@ -3,6 +3,28 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-09-25: create-lesson-Ablage im Datums-Ordner + Aufgaben-Pflicht (#17)
+
+- **Choice**: create-lesson legt jede Lektion **immer direkt im
+  Datums-Thema-Ordner** `<klasse>/YYYY-MM-DD__thema/` ab (`lesson.html` +
+  Tages-README); kein separater `lessons/`-Ordner mehr. Der Tages-README
+  enthält **immer** eine Aufgaben-Referenz (Pflicht). Der Skill erlaubt
+  1–5 Quizfragen (stoffabhängig) statt starr 3–5. Erste Anwendung:
+  `4ahwit-y/2026-09-25__r-kennzahlen-und-verteilungen/` (Lektion 04,
+  KM5-Recap in R, Setup-Nachholung). y bekam den Hell/Dunkel-Toggle
+  (`assets/theme.js`).
+- **Reason**: Der `lessons/`-Ordner war für Klassen-Lektionen deplatziert
+  (Skill-Tages-README sprach schon von `lesson.html` im Datums-Ordner);
+  Datum+Thema machen Fundort und Reihenfolge eindeutig. Die Auswertung des
+  Einstiegstests (KM5-Blöcke 1–2 gut verankert) verlangte eine
+  Wiederholungs-Lektion, die den Taschenrechner-Stoff (Kennzahlen,
+  Verteilungen) mit R umsetzt.
+- **Tradeoff**: Die „x = Master, y = Kopie“-Regel wird für Lektion 04
+  bewusst durchbrochen (y-spezifische Aufhol-/Recap-Lektion, x ist mit
+  Setup bereits weiter). Legacy `lessons/01–03` bleiben unangetastet und
+  bekommen den Toggle **nicht** nachgerüstet (Klassenkonsistenz-Ausnahme,
+  vom Nutzer bestätigt).
+
 ## 2026-09-23: Lesson-System — globaler create-lesson-Skill + zweistellige Nummern (#15)
 
 - **Choice**: Klassen-Lektionen baut der neue globale Skill `create-lesson`

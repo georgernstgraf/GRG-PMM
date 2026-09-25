@@ -98,3 +98,10 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   fähig auf Schul-Laptops); Quiz-Antworten mit gleicher Wortzahl.
 - Quiz-Richtige-Position rotiert (CONVENTIONS Answer-Shuffling gilt auch
   für Kohorten-Lektionen, nicht nur selbststudium/).
+- **Kohorten-Lektionen (create-lesson, #17):** Ab Lektion 04 liegt jede
+  Lektion im Datums-Ordner `<klasse>/YYYY-MM-DD__thema/` als `lesson.html`
+  plus Tages-README (Aufgaben-Referenz ist Pflicht). Der alte
+  `4ahwit-*/lessons/`-Ordner (01–03) ist Legacy und wird nicht migriert.
+  Hell/Dunkel-Umschalter über das gemeinsame `assets/theme.js`.
+  Kohorten-spezifische Aufhol-/Recap-Lektionen dürfen direkt in der
+  Zielkohorte entstehen (im README kennzeichnen).
