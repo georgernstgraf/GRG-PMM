@@ -5,3 +5,7 @@ Thematische Referenzmaterialien und Skripten für den PMM-Unterricht.
 ## Verwendung
 
 Unterlagen werden hier thematisch in Unterordnern abgelegt und können von beiden Jahrgängen (4HWIT, 5HWIT) gemeinsam genutzt werden.
+
+## Datenquellen
+
+- <https://vincentarelbundock.github.io/Rdatasets/articles/data.html>
