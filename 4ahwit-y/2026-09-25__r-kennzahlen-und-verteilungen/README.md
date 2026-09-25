@@ -12,11 +12,14 @@ gemacht haben (KM5-Recap in R), plus Setup-Nachholung (winget,
   `geom_histogram` vs. `geom_bar`, `d/p/q/r` (`pnorm`, `qnorm`, `dbinom`,
   `dpois`), Boxplot + QQ-Plot
 - Quiz: 4 Fragen (Richtige D·C·B·A)
-- **Aufgabe:** Betriebsdaten je Maschine auswerten (`mean/median/sd/IQR`),
-  Ausschuss-Wahrscheinlichkeit per `pnorm` unter Normalannahme prüfen,
-  Normalannahme per Histogramm beurteilen — **Abgabe:** Commit in deinem
-  PMM-Repo (R-Skript + kurze Antwort). Die Aufgabe steht als Abschnitt am
-  Lesson-Ende.
+
+## Aufgabe
+
+Betriebsdaten je Maschine auswerten (`mean/median/sd/IQR`),
+Ausschuss-Wahrscheinlichkeit per `pnorm` unter Normalannahme prüfen,
+Normalannahme per Histogramm beurteilen — **Abgabe:** Commit in deinem
+PMM-Repo (R-Skript + kurze Antwort). Die Aufgabe steht als Abschnitt am
+Lesson-Ende.
 
 ## Einstiegsvideos (freiwillig)
 
