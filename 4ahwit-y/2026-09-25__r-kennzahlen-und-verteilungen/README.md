@@ -18,6 +18,34 @@ gemacht haben (KM5-Recap in R), plus Setup-Nachholung (winget,
   PMM-Repo (R-Skript + kurze Antwort). Die Aufgabe steht als Abschnitt am
   Lesson-Ende.
 
+## Einstiegsvideos (freiwillig)
+
+Zum Nachschauen und Nachtrippen — alle **unter 30 Minuten**, kein Konto
+nötig. Erst das Video schauen, dann den Code in RStudio selbst ausführen.
+
+**Setup & erste Schritte (deutsch):**
+
+- [R installieren (Windows) und RStudio installieren](https://www.youtube.com/watch?v=X_Mxya2Fis0)
+  — Statistik am PC, ca. 6 min
+- [R mit RStudio – eine Einführung in die Bedienung von RStudio](https://www.youtube.com/watch?v=tyvEHQszZJs)
+  — Statistik am PC, ca. 10 min
+- [1.1 R-Kurs – Einführung in R Studio](https://www.youtube.com/watch?v=FePjgJmAs_c)
+  — Statistik Grundlagen, ca. 13 min
+
+**Kennzahlen, Einlesen & EDA (deutsch):**
+
+- [Deskriptive Statistik in R berechnen und interpretieren](https://www.youtube.com/watch?v=2oJxL-ImcOM)
+  — Statistik am PC, ca. 7 min
+- [Daten einlesen mit R und RStudio](https://www.youtube.com/watch?v=noH6CPIDtGM)
+  — Statistik-Akademie (Daniela Keller), ca. 10 min
+- [Programmieren in R – Eine schnelle Explorative Datenanalyse (EDA)](https://www.youtube.com/watch?v=ObFfxFkvUok)
+  — Jochen Kruppa-Scheetz, ca. 10 min
+
+**Englischer Einstieg (passt zur englischen Pflichtlektüre R4DS):**
+
+- [R programming for ABSOLUTE beginners](https://www.youtube.com/watch?v=FY8BISK5DpM)
+  — R Programming 101, ca. 14 min
+
 ## Housekeeping
 
 - Lehrplan: [`lehrplan/pmm-hwit/kompetenzmodule/km5.md`](../../lehrplan/pmm-hwit/kompetenzmodule/km5.md)
