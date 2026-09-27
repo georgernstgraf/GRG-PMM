@@ -25,8 +25,8 @@ Follow these without question. Do not deviate unless explicitly told.
 - Legal documents: `lehrplan/RIS/` (RIS law-text PDFs only, ISO-date prefix)
 - Knowledge persistence: `docs/ai/`
 - Reference materials: `Unterlagen/`
-- Class extracts: `lehrplan/pmm-hwit/4HWIT/`, `lehrplan/pmm-hwit/5HWIT/`
-- KM-Steckbriefe (didaktisch): `lehrplan/pmm-hwit/kompetenzmodule/`
+- Class extracts: `lehrplan/4HWIT/`, `lehrplan/5HWIT/`
+- KM-Steckbriefe (didaktisch): `lehrplan/kompetenzmodule/`
 - Each class folder may have its own `README.md`
 - UE material style: `docs/stil-leitfaden.md` (R4DS-Stimme, #6)
 
@@ -73,36 +73,55 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
 - Verifizierte Lizenzen des Material-Kanons: palmerpenguins CC0 1.0 ·
   ModernDive CC BY-NC-SA 4.0 · Navarro LSR CC BY-SA 4.0 · NIST e-Handbook
   US-Gov (Zitat mit Quellenangabe). Kanon + Abdeckung:
-  `lehrplan/pmm-hwit/r4ds-abdeckung.md`.
+  `lehrplan/r4ds-abdeckung.md`.
 - Bei jeder UE, die auf Buchkapitel aufbaut: Lektüre-Box mit
   Kapitel-Verlinkung (englisch) am Folienanfang bzw. Lektionsanfang.
 
 ## Kohorten-Ablagen am Repo-Root (#13)
 - Klein geschriebene Klassenordner am Repo-Root = Kohorten-Ablagen
-  (`5ahwit/`, `4ahwit-x/`, `4ahwit-y/`); GROSSBUCHSTABEN unter
-  `lehrplan/pmm-hwit/` = Lehrplan-Extrakte. Nie mischen.
+  (`5ahwit/`, `4ahwit-x/`, `4ahwit-y/`); GROSSBUCHSTABEN unter `lehrplan/`
+  = Lehrplan-Extrakte. Nie mischen.
 - Kohorten-Teilungen großer Klassen: Suffix `-x`/`-y`.
 - Kohorten-Dirs dürfen nur kohorten-spezifisches Material halten;
   gemeinsames Material bleibt in `unterricht/HWIT-PMM/`.
 - **Master/Kopien-Modell (#14):** `unterricht/HWIT-PMM/` hält die
-  Master-Dateien (HA, Folien, Assets) — Kohorten-Abweichungen werden als
-  **Kopien im Kohortenordner** gepflegt (`hausaufgaben/`, `teach/lessons/`),
-  Master-Dateien werden nie direkt angefasst.
-- Teach-Workspace-Layout: 4ahit-x nutzt das Legacy-Layout (MISSION,
-  RESOURCES, NOTES, assets/, lessons/ am Ordner-Root); 5ahwit nutzt das
-  SWP-Muster (nach `GRG-SWP/3ahwii/teach/`): alles unter `teach/`
-  (MISSION.md, RESOURCES.md, NOTES.md, `assets/`, `lessons/`,
-  `reference/` mit Glossar + Cheatsheet, `learning-records/`) plus
-  Klassenhub-README mit UE-Tabelle. Harmonisierung 4ahit-x offen.
-- Lektionen sind self-contained HTML ohne CDN-Abhängigkeiten (Offline-
-  fähig auf Schul-Laptops); Quiz-Antworten mit gleicher Wortzahl.
+  Master-Dateien (HA, Folien) — Kohorten-Abweichungen werden als
+  **Kopien im Kohortenordner** gepflegt (`hausaufgaben/`,
+  `teach/prepared-lessons/`), Master-Dateien werden nie direkt angefasst.
+- Teach-Workspace-Layout: 4ahwit-x/y halten die Workspace-Dateien am
+  Ordner-Root (MISSION, RESOURCES, NOTES, `prepared-lessons/`); 5ahwit
+  nutzt das SWP-Muster (nach `GRG-SWP/3ahwii/teach/`): alles unter `teach/`
+  (`MISSION.md`, `RESOURCES.md`, `NOTES.md`, `prepared-lessons/`,
+  `reference/`, `learning-records/`) plus Klassenhub-README mit UE-Tabelle.
+- **Lektionsablage `prepared-lessons/`:** vorbereitete (undatierte)
+  Lektionen liegen in `<klasse>/prepared-lessons/NN-slug.html` (zweistellig
+  pro Klasse/Schuljahr; Selbststudium vierstellig, Grandfather). Terminierte/
+  abgehaltene Lektionen liegen im Datums-Ordner
+  `<klasse>/YYYY-MM-DD__thema/lesson.html` plus Tages-README (Aufgabe als
+  erster eigener `## Aufgabe`-Abschnitt, Pflicht).
+- Lektionen sind self-contained HTML ohne CDN-Abhängigkeiten (Offline-fähig
+  auf Schul-Laptops); Quiz-Antworten mit gleicher Wortzahl.
 - Quiz-Richtige-Position rotiert (CONVENTIONS Answer-Shuffling gilt auch
   für Kohorten-Lektionen, nicht nur selbststudium/).
-- **Kohorten-Lektionen (create-lesson, #17):** Ab Lektion 04 liegt jede
-  Lektion im Datums-Ordner `<klasse>/YYYY-MM-DD__thema/` als `lesson.html`
-  plus Tages-README (Aufgabe als erster `## Aufgabe`-Abschnitt, Pflicht).
-  Der alte
-  `4ahwit-*/lessons/`-Ordner (01–03) ist Legacy und wird nicht migriert.
-  Hell/Dunkel-Umschalter über das gemeinsame `assets/theme.js`.
-  Kohorten-spezifische Aufhol-/Recap-Lektionen dürfen direkt in der
-  Zielkohorte entstehen (im README kennzeichnen).
+- Hell/Dunkel-Umschalter über das gemeinsame `assets/theme.js` (alle
+  Klassen-Lektionen). Kohorten-spezifische Aufhol-/Recap-Lektionen dürfen
+  direkt in der Zielkohorte entstehen (im README kennzeichnen).
+
+## Shared Assets & HTML-Bootstrap (#19, 2026-09-27)
+- **Genau ein** Top-Level-Ordner `assets/` im Repo. Keine eigenen
+  `assets/`-Ordner in Kohorten/Workspaces mehr; CSS, JS und Datensätze
+  (`betriebsdaten.csv`) liegen dort.
+- Jede HTML-Seite trägt im `<head>` die **generische Inline-Bootstrap**, die
+  die Ahnen-Verzeichnisse abläuft und `assets/loader.js` findet. Der Loader
+  leitet den Root aus seiner eigenen URL ab (kein Repo-Name im Code) und
+  injiziert `data-css`/`data-js` sowie `site.js` + `github-pages-link.js`.
+- Jede Seite trägt den Badge „Auf GitHub Pages ansehen" (fixiert,
+  `no-print`); die Basis-URL steht einmalig in `assets/site.js`.
+- **Nicht-Asset-Links bleiben relativ** und dürfen nicht über `<base>` oder
+  root-absolute Pfade geführt werden.
+- Nutzung ausschließlich über den **Live-Server** (`./serve.sh`) oder
+  GitHub Pages — **kein `file://`** (Firefox blockiert `file://`-Subressourcen
+  aus Eltern-/Geschwisterverzeichnissen; siehe PITFALLS).
+- Quiz-Markup ist vereinheitlicht: `<div class="quiz" data-loesung="N">` mit
+  `input[type=radio]`, `.feedback`, `.erklaerung` (richtig) und optional
+  `.hinweis` (falsch) — ein `assets/quiz.js` für Klassen und Selbststudium.

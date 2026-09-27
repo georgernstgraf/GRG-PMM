@@ -17,6 +17,23 @@
 - Die Semesterplaene in `4HWIT/` und `5HWIT/` sind die konkreten Lehrziele.
 - Zeitmodell: ca. 15 Doppelstunden pro Semester (nach Abzug von Pruefungen/admin).
 
+## Verlaufsmaps (Anschluss finden)
+
+- Phase 0 (JG3-Vorwissen KM5+KM6): `reference/jg3-verlauf.html`
+- KM7 (eigener Lernpfad, 15 UE): `reference/km7-verlauf.html` — hier steht,
+  wo der KM7-Lernpfad zuletzt stand (Status-Spalte ✅/☐). Nach jeder Session
+  aktualisieren und mit einem Learning Record koppeln.
+
+## Stil (verbindlich)
+
+- Es gilt der repo-weite Stil-Leitfaden `../docs/stil-leitfaden.md`
+  (R4DS-Stimme auf Deutsch: Einstiegsfrage → Ziel-Artefakt → inkrementeller
+  Aufbau → „Jetzt du!“ → typische Fehler → Zusammenfassung/Ausblick +
+  Lektüre-Box). Gilt auch für alle Selbststudium-Lektionen.
+- Aufbau der Lektionsdateien: `prepared-lessons/` (vierstellig); gemeinsame
+  Assets zentral unter `../assets/` (Bootstrap + Badge, kein eigenes assets/).
+- Nutzung über den Live-Server (`../serve.sh`), nicht `file://`.
+
 ## Werkzeug-Entscheidung
 
 - R/RStudio wurde bewusst ueber Python gewaehlt.

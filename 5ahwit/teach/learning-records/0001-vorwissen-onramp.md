@@ -8,11 +8,11 @@ einen Frisch-Start in die Werkzeuge — R/RStudio wird dort nicht erwähnt.
 
 **Entscheidung (2026-09-16, Issue #14):** Vor dem DoE-Einstieg (UE 1 des
 `jg5-semesterplan-ws.md`, KM9a) läuft eine **R-Basics-On-Ramp** aus drei
-Lektionen im Teach-Workspace (`teach/lessons/0001–0003`): ggplot
+Lektionen im Teach-Workspace (`teach/prepared-lessons/0001–0003`): ggplot
 (Visualisieren) → dplyr (Transformieren) → einlesen & deskriptive
 Statistik (Betriebsdaten). Die Lektionen adaptieren die verifizierten
 Lektionen der Kohorte 4ahit-x; Lektion 0003 ist neu und nutzt erstmals
-Betriebsdaten (`unterricht/HWIT-PMM/assets/betriebsdaten.csv`) — das
+Betriebsdaten (`assets/betriebsdaten.csv`) — das
 schließt parallel den Betriebsdaten-Gap der Kohorte x.
 
 **Implikationen:**

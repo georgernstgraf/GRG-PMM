@@ -21,10 +21,10 @@ Pflegeregel: x = Master, y = Kopie (Spiegel nach `4ahwit-y/`).
 ## 2026-09-15
 
 - Ordner angelegt (Kohorten-Teilung)
-- Teach-Workspace aufgesetzt: MISSION, RESOURCES, NOTES, Assets
-  (`assets/lesson.css`, `assets/quiz.js`)
-- Lektionen gebaut: `lessons/01-daten-visualisieren-ggplot.html`
-  (UE 1), `lessons/02-daten-transformieren-dplyr.html` (UE 2);
+- Teach-Workspace aufgesetzt: MISSION, RESOURCES, NOTES
+  (Assets liegen seit 2026-09-27 zentral unter `../assets/`)
+- Lektionen gebaut: `prepared-lessons/01-daten-visualisieren-ggplot.html`
+  (UE 1), `prepared-lessons/02-daten-transformieren-dplyr.html` (UE 2);
   R-Code verifiziert (palmerpenguins 344 Zeilen)
 
 **Hausübung** R installieren, optional Rstudio, Git installieren, GitHub-Account erstellen, GitHub-Repository klonen, RStudio-Projekt öffnen, Lektionen in RStudio öffnen und R-Code ausführen.
@@ -66,7 +66,7 @@ Weiteres Material (nur Verweise, keine Kopien):
 
 - Übersichtsfolie „Was kann R?":
   `../unterricht/HWIT-PMM/00-was-kann-r/praesentation.html`
-- Lektion 01 (heute live): `lessons/01-daten-visualisieren-ggplot.html`
-- Lektion 02 (nächste DS): `lessons/02-daten-transformieren-dplyr.html`
+- Lektion 01 (heute live): `prepared-lessons/01-daten-visualisieren-ggplot.html`
+- Lektion 02 (nächste DS): `prepared-lessons/02-daten-transformieren-dplyr.html`
 - Hausaufgabe UE 1:
   `../unterricht/HWIT-PMM/01-datenvisualisierung-ggplot/hausaufgabe.md`

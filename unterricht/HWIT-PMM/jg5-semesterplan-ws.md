@@ -7,7 +7,7 @@ KM 9a (RIS BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5)
 (2× Leistungsfeststellung/Admin). Offiziell 18 Schulwochen — Ausfälle
 durch Feiertage/Krankheit sind einkalkuliert.
 **Werkzeug:** R / RStudio · **KM-Steckbrief:** `kompetenzmodule/km9a.md` ·
-**Ressourcen-Anker:** `lehrplan/pmm-hwit/ressourcen-matrix.md`
+**Ressourcen-Anker:** `lehrplan/ressourcen-matrix.md`
 **Arbeitsteilung:** Strang-Trennung — Georg = Statistik-Strang mit R,
 Kollege = Management-Strang (FM, Praxisrahmen, Berichte); Details siehe
 Abschnitt „Arbeitsteilung" am Ende.

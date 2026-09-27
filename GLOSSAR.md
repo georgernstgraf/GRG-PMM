@@ -10,7 +10,8 @@ Unterricht vorkommt. **UE-Verweise immer vollqualifiziert** als
 `UE n (KMx, Klasse WS/SS)` — UE-Nummern sind nur innerhalb eines
 Semesterplans eindeutig (UE 5 in KM7 ≠ UE 5 in KM9a). Einträge ohne
 konkrete UE (noch nicht geplante Semester) nennen nur das KM.
-Semesterpläne: `4HWIT/semesterplan-ws.md`, `5HWIT/semesterplan-ws.md`.
+Semesterpläne: `unterricht/HWIT-PMM/jg4-semesterplan-ws.md`,
+`unterricht/HWIT-PMM/jg5-semesterplan-ws.md`.
 
 ---
 
@@ -183,10 +184,10 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | GRG-PMM | — | Dieses Repository (Unterrichtsmaterial, öffentlich) |
 | GRG-PMM-T | — | Test-Repository (privat) mit Prüfungsangaben |
 | JG3-Track | — | Georgs Selbststudium-Pfad durch KM5/KM6; `selbststudium/reference/jg3-verlauf.html` |
-| L0003 … | — | Lektions-Nummern im Selbststudium (`selbststudium/lessons/`) |
+| L0003 … | — | Lektions-Nummern im Selbststudium (`selbststudium/prepared-lessons/`) |
 | Lern-Lektion | — | Interaktive HTML-Lektion für Georg (teach skill), Artefakt 1 von 3 pro UE |
 | LR | Learning Record | Lernprotokoll nach jeder Selbststudium-Einheit — ⚠ Kollision, s.o. |
-| Matrix-Key | — | Slug je Lehrplan-Thema in `lehrplan/pmm-hwit/ressourcen-matrix.md` (z.B. `KM7-tests`) |
+| Matrix-Key | — | Slug je Lehrplan-Thema in `lehrplan/ressourcen-matrix.md` (z.B. `KM7-tests`) |
 | Meisterschaft | — | Lernziel-Status im teach skill (LR mit voller Punktzahl) |
 | NN-slug | — | Ordner-Schema vor Datumsfixierung (z.B. `01-datenvisualisierung-ggplot/`) → wird `YYYY-MM-DD_slug/` |
 | YYYY-MM-DD | ISO 8601 | Datumsformat für alle Unterrichtsordner und datierten Dokumente |

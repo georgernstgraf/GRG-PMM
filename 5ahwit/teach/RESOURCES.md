@@ -19,7 +19,7 @@
 
 ## Daten
 
-- `../../unterricht/HWIT-PMM/assets/betriebsdaten.csv`
+- `../../assets/betriebsdaten.csv`
   Synthetische Fertigungsmessreihe (120 Teile, 10 Chargen × 3 Maschinen,
   Sollmaß 10,00 mm, Toleranz ±0,15 mm, 4 fehlende Messungen).
   Erzeugt mit `set.seed(20260916)`; ersetzt später echte Schuldaten.

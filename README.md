@@ -46,14 +46,30 @@ Der Lehrplan folgt **BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5** —
 
 | Verzeichnis | Inhalt |
 |-------------|--------|
-| `lehrplan/` | Lehrplan-Konvention des lehrplan-Skills (PDFs, METADATA, Extrakte) |
-| `lehrplan/pmm-hwit/` | Zweig-Ordner (HWIT, Anlage 1.28): `LEHRPLAN.md`, Klassen-Extrakte `4HWIT/`+`5HWIT/`, `kompetenzmodule/`, Ressourcen-Dateien |
+| `lehrplan/` | Lehrplan-Konvention: `METADATA.md`, `LEHRPLAN.md`, `RIS.md`, Klassen-Extrakte `4HWIT/`+`5HWIT/`, `kompetenzmodule/`, Ressourcen-Dateien |
 | `lehrplan/RIS/` | Gesetzestext-PDFs (BGBl. II Nr. 262/2015, ISO-Datum-Präfix) |
-| `lehrplan/METADATA.md` | Rechtsgrundlage, RIS-Verweise, Änderungshistorie, Klassen-Zuordnung |
-| `unterricht/HWIT-PMM/` | Unterrichts-Ebene: `jg<N>-semesterplan-{ws,ss}.md`, UE-Ordner, `assets/` |
+| `unterricht/HWIT-PMM/` | Unterrichts-Ebene: `jg<N>-semesterplan-{ws,ss}.md`, UE-Ordner, Präsentationen |
+| `assets/` | **Ein zentraler Ordner** für CSS/JS/Daten, die alle Seiten referenzieren (Loader, Theme, Quiz, `betriebsdaten.csv`) |
+| `4ahwit-x/`, `4ahwit-y/`, `5ahwit/` | Kohorten-Ablagen (klein, Repo-Root): Klassen-Hub, `prepared-lessons/`, Datums-Ordner, Teach-Workspace |
+| `selbststudium/` | Lern-Workspace der Lehrperson (R/Statistik): `prepared-lessons/`, `reference/`, `learning-records/` |
+| `index.html` | Einstiegsseite für GitHub Pages / lokalen Server |
+| `serve.sh` | Startet den lokalen Live-Server (Repo-Root) |
 | `GLOSSAR.md` | Abkürzungen & Fachbegriffe (AQL, DoE, R4DS, KM, …) |
 | `Unterlagen/` | Thematische Referenzmaterialien und Skripten |
 | `docs/` | Zentrale Dokumente (Projektangaben, AI-Wissensdateien) |
+
+### Nutzung (lokal & GitHub Pages)
+
+Die HTML-Seiten laufen über einen **Live-Server** (nicht `file://`):
+
+```sh
+./serve.sh          # → http://localhost:8000/
+```
+
+Online werden die Seiten über GitHub Pages ausgeliefert (Branch `main`, Root;
+`.nojekyll` aktiv). Die Asset-Pfade werden zur Laufzeit generisch über
+`assets/loader.js` aufgelöst — ohne Repo-Namen, sodass die Struktur auch in
+anderen Repos funktioniert.
 
 ### Rechtliche Grundlagen
 

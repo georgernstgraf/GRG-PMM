@@ -18,11 +18,10 @@
 
 Nächste freie Nr.: **05** · nächste Quiz-Richtige: **D**.
 
-**Ablage:** Ab Lektion 04 liegt jede Lesson im Datums-Ordner
-`YYYY-MM-DD__thema/` (`lesson.html` + Tages-README). Der alte Ordner
-`lessons/` (Lektionen 01–03, byte-identisch mit `4ahwit-x/`) ist Legacy
-und bleibt unverändert; Korrekturen dort weiterhin zuerst in x, dann
-hierher spiegeln.
+**Ablage:** Ab Lektion 04 liegt jede terminierte Lesson im Datums-Ordner
+`YYYY-MM-DD__thema/` (`lesson.html` + Tages-README). Die vorbereiteten
+Lektionen 01–03 liegen in `prepared-lessons/` (byte-identisch mit `4ahwit-x/`);
+Korrekturen dort weiterhin zuerst in x, dann hierher spiegeln.
 
 ## 2026-09-18
 
@@ -48,13 +47,14 @@ und an grafg@... den Link zum Repo geschickt.
 ## Lektionen 01–03 (UE 1–3, KM7 R-Toolchain)
 
 Teach-Workspace als Spiegel von Kohorte x: MISSION, RESOURCES, NOTES,
-`assets/` (lesson.css, quiz.js), `lessons/` — alle Lessons byte-identisch
-mit `4ahwit-x/lessons/` (R-Code verifiziert, je 1 Quiz, HÜ-Links auf die
-gemeinsamen UE-Master unter `unterricht/HWIT-PMM/`).
+`prepared-lessons/` — alle Lessons byte-identisch
+mit `4ahwit-x/prepared-lessons/` (R-Code verifiziert, je 1 Quiz, HÜ-Links auf die
+gemeinsamen UE-Master unter `unterricht/HWIT-PMM/`). Gemeinsame Assets:
+`../assets/`.
 
-- Lektion 01 (UE 1, ggplot): `lessons/01-daten-visualisieren-ggplot.html`
-- Lektion 02 (UE 2, dplyr): `lessons/02-daten-transformieren-dplyr.html`
-- Lektion 03 (UE 3, einlesen & deskriptiv, Betriebsdaten): `lessons/03-daten-einlesen-deskriptiv.html`
+- Lektion 01 (UE 1, ggplot): `prepared-lessons/01-daten-visualisieren-ggplot.html`
+- Lektion 02 (UE 2, dplyr): `prepared-lessons/02-daten-transformieren-dplyr.html`
+- Lektion 03 (UE 3, einlesen & deskriptiv, Betriebsdaten): `prepared-lessons/03-daten-einlesen-deskriptiv.html`
 - Hausaufgaben (Master): `../unterricht/HWIT-PMM/01-datenvisualisierung-ggplot/hausaufgabe.md`,
   `../unterricht/HWIT-PMM/02-daten-transformieren-dplyr/hausaufgabe.md`,
   `../unterricht/HWIT-PMM/03-daten-einlesen-deskriptiv/hausaufgabe.md`

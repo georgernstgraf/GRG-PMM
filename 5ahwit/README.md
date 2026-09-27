@@ -13,7 +13,7 @@ hier liegt kohorten-spezifisches Material. Die **Master-Dateien** liegen in
 - **Wintersemester 2026/27:** [`../unterricht/HWIT-PMM/jg5-semesterplan-ws.md`](../unterricht/HWIT-PMM/jg5-semesterplan-ws.md)
   (KM9a: DoE/RSM) — generische Fassung.
 - **On-Ramp:** Die Klasse startet mit drei R-Basics-Lektionen
-  ([`teach/lessons/`](teach/lessons/)), bevor UE 1 DoE beginnt. Begründung:
+  ([`teach/prepared-lessons/`](teach/prepared-lessons/)), bevor UE 1 DoE beginnt. Begründung:
   [`teach/MISSION.md`](teach/MISSION.md).
 
 ## Unterrichtseinheiten
@@ -21,7 +21,7 @@ hier liegt kohorten-spezifisches Material. Die **Master-Dateien** liegen in
 | Datum | UE | Thema | Material |
 |-------|----|-------|----------|
 | 2026-09-09 | — | Setup: git, VS Code, Repo-Klon | — |
-| 2026-09-16 | 1 | **R-On-Ramp:** Daten visualisieren (ggplot) | [Lektion 01](teach/lessons/01-daten-visualisieren-ggplot.html) |
+| 2026-09-16 | 1 | **R-On-Ramp:** Daten visualisieren (ggplot) | [Lektion 01](teach/prepared-lessons/01-daten-visualisieren-ggplot.html) |
 
 ## Teach-Workspace
 

@@ -4,7 +4,7 @@
 - Du-Form, warm, direkt; motivieren vor definieren; eine Idee pro
   Abschnitt; Fragen statt Behauptungen.
 - Echte Daten: penguins (Lektion 01–02), Betriebsdaten
-  (`unterricht/HWIT-PMM/assets/betriebsdaten.csv`, synthetisch,
+  (`assets/betriebsdaten.csv`, synthetisch,
   `set.seed(20260916)`) ab Lektion 03.
 - Fachwörter zweisprachig: „Mapping (Zuordnung)". Verbindliche Wortwahl
   steht im Glossar (`reference/glossar-r-statistik.html`).

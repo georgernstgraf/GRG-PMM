@@ -13,7 +13,7 @@
   + [Kap. 10 EDA](https://r4ds.hadley.nz/EDA.html): Hauptlektüre UE 3.
 - [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/)
   Der Pinguin-Datensatz (Art/Insel/Maße). Daten für UE 1–2.
-- [Betriebsdaten (`unterricht/HWIT-PMM/assets/betriebsdaten.csv`)](../../unterricht/HWIT-PMM/assets/betriebsdaten.csv)
+- [Betriebsdaten (`assets/betriebsdaten.csv`)](../assets/betriebsdaten.csv)
   Synthetische Fertigungsdaten (120 Teile, 10 Chargen × 3 Maschinen,
   Soll 10,00 ± 0,15 mm). Daten für UE 3 (Gap aus 2026-09-15 erledigt).
 - [Statistik für Human- und Sozialwissenschaftler (Navarro, deutsch)](https://learningstatisticswithr.com/book/)

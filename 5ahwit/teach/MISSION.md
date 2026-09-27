@@ -33,7 +33,7 @@ Werkzeuge. Deshalb: **R-Basics-On-Ramp** in drei Lektionen, bevor UE 1
   CDN-Abhängigkeiten)
 - Master/Kopien-Modell: Master-Dateien in `unterricht/HWIT-PMM/` bleiben
   unangetastet; Kopien + Adaptionen liegen hier (`hausaufgaben/`,
-  `teach/lessons/`)
+  `teach/prepared-lessons/`)
 
 ## Out of scope
 

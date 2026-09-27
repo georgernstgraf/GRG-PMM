@@ -10,12 +10,17 @@ This repository contains coursework for **Prozessmanagement (PMM)** at HTL Speng
 
 ## 2. Directory Structure
 
-- `lehrplan/` — Everything curriculum-related (lehrplan skill convention, zweig-based layout):
-  - `pmm-hwit/` — Zweig folder (HWIT, Anlage 1.28): `LEHRPLAN.md` complete extract (all Jahrgänge), class extracts `4HWIT/` + `5HWIT/`, `kompetenzmodule/` (didactic KM-Steckbriefe KM3–KM9b), `ressourcen-matrix.md`, `r4ds-abdeckung.md`
+- `lehrplan/` — Everything curriculum-related. Flat layout (single Zweig/Fach, documented deviation from the skill's `<fach>-<zweig>/` level, see DECISIONS #19):
+  - `LEHRPLAN.md` — complete extract (all Jahrgänge), `RIS.md` — legal status/amendments
+  - `4HWIT/` + `5HWIT/` — class extracts; `kompetenzmodule/` — didactic KM-Steckbriefe KM3–KM9b
+  - `ressourcen-matrix.md`, `r4ds-abdeckung.md` — resource files
   - `RIS/` — Legal curriculum PDFs from RIS (BGBl. II Nr. 262/2015), named `YYYY-MM-DD_*.pdf` with ISO-date prefix (Kundmachungsdatum)
   - `METADATA.md` — Legal basis, RIS references, amendment history, class mapping
-- `unterricht/` — Teaching layer (repo root): `HWIT-PMM/` with semester plans (`jg4-/jg5-semesterplan-{ws,ss}.md`), lesson folders (`NN-slug/` during preparation, `YYYY-MM-DD_thema` once dated) and `assets/`
-- `selbststudium/` — Self-study workspace for learning R and statistics (Teach skill)
+- `unterricht/` — Teaching layer (repo root): `HWIT-PMM/` with semester plans (`jg4-/jg5-semesterplan-{ws,ss}.md`) and lesson folders (`NN-slug/` during preparation, `YYYY-MM-DD_thema` once dated)
+- `assets/` — **Single shared asset folder** (repo root): CSS, JS (`loader.js`, `quiz.js`, `theme.js`, `github-pages-link.js`, `site.js`), data (`betriebsdaten.csv`). All pages load these via the generic inline bootstrap (no repo name baked in).
+- `<klasse>/prepared-lessons/` — prepared (undated) lessons; `YYYY-MM-DD__thema/` — dated/taught lessons (e.g. `4ahwit-y/2026-09-25__r-kennzahlen-und-verteilungen/`)
+- `selbststudium/` — Self-study workspace for learning R and statistics (Teach skill), incl. `prepared-lessons/`
+- `index.html`, `serve.sh`, `.nojekyll` — GitHub Pages entry, local live server, Jekyll bypass
 - `Unterlagen/` — Reference materials and scripts
 - `docs/` — Central documents (project specifications, AI knowledge files)
 
@@ -25,12 +30,25 @@ This repository contains coursework for **Prozessmanagement (PMM)** at HTL Speng
 
 ## 3. File Naming Conventions
 
-- Class lesson folders: `unterricht/HWIT-PMM/YYYY-MM-DD_thema/` (e.g., `2025-09-15_einfuehrung/`)
+- Class lesson folders: `<klasse>/YYYY-MM-DD__thema/` (e.g., `4ahwit-y/2026-09-25__r-kennzahlen-und-verteilungen/`)
   - During curriculum preparation (before teaching dates are known):
-    `NN-slug/` (e.g., `01-datenvisualisierung-ggplot/`). Rename to
-    `YYYY-MM-DD_slug/` when the teaching date is fixed.
+    `<klasse>/prepared-lessons/NN-slug.html` (two-digit per class per year;
+    selbststudium keeps four-digit numbers). Dated lessons live in the date
+    folder as `lesson.html`.
 - Lowercase with hyphens for multi-word names
 - ISO 8601 date prefix for all dated documents
+
+## 3a. HTML Pages (Assets, Bootstrap, Badge)
+
+- **Every** HTML page carries the generic inline bootstrap in `<head>` that
+  discovers `assets/loader.js` by walking up the ancestor directories; the
+  loader injects the page's CSS/JS (`data-css`, `data-js`) and the
+  „Auf GitHub Pages ansehen"-badge. No repo name appears in the mechanism.
+- Use the **live server** (`./serve.sh`), not `file://`: Firefox's
+  `security.fileuri.strict_origin_policy` blocks cross-directory subresources
+  under `file://` (slashes, not dots, are the reason central assets work).
+- All non-asset links stay **relative**; do not use `<base>` or root-absolute
+  asset paths.
 
 ## 4. Language
 
@@ -94,7 +112,7 @@ user wants to learn R, statistics, or any PMM-relevant topic.
 - `selbststudium/MISSION.md` defines the learning goal (R + statistics for teaching PMM)
 - `selbststudium/RESOURCES.md` lists curated courses, books, and communities
 - `selbststudium/learning-records/` tracks progress across sessions
-- `selbststudium/lessons/` contains generated interactive HTML lessons
+- `selbststudium/prepared-lessons/` contains generated interactive HTML lessons (four-digit numbering)
 
 ## 10. Klassen-Lektionen (Create-Lesson-Skill)
 
@@ -103,10 +121,14 @@ user wants to learn R, statistics, or any PMM-relevant topic.
   `create-lesson`-Skill (themenfokussierter Kicker, zweistellige Nummern
   `NN-slug.html` pro Schuljahr pro Klasse, Quiz-Rotation aus README-Tabelle,
   R-Code per Rscript verifiziert).
+- Ablage: vorbereitete (undatierte) Lektionen in `<klasse>/prepared-lessons/`;
+  terminierte/abgehaltene in `<klasse>/YYYY-MM-DD__thema/lesson.html`.
+- Jede Lektion nutzt die **gemeinsamen Assets** unter `assets/` (Bootstrap +
+  Badge), keine eigenen `assets/`-Ordner.
 - Master-Regel: Korrekturen immer im Master-Kohortenordner (x), dann als
   Kopie in den Spiegelordner (y); Lessons-Tabellen in den Klassen-READMEs
   sind der Bestellzettel (Nr./Quiz-Status).
-- Selbststudium-Bestand (`selbststudium/lessons/`, vierstellig) bleibt
+- Selbststudium-Bestand (`selbststudium/prepared-lessons/`, vierstellig) bleibt
   unangetastet — eigene fortlaufende Zählung mit Querverweisen.
 
 ## Knowledge Bootstrap

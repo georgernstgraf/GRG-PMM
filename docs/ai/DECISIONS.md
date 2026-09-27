@@ -3,6 +3,40 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-09-27: `prepared-lessons/`, ein zentrales `assets/`, lehrplan-Flachlegung, GitHub Pages (#19)
+
+- **Choice (Ablage):** Vorbereitete (undatierte) Lektionen liegen in
+  `<klasse>/prepared-lessons/NN-slug.html` (Selbststudium vierstellig);
+  terminierte/abgehaltene im Datums-Ordner
+  `<klasse>/YYYY-MM-DD__thema/lesson.html`. Der frühere Ordner `lessons/`
+  wurde repo-weit umbenannt. Das löst die #17-Regel „kein separater
+  lessons/-Ordner" ab: `prepared-lessons/` ist der bewusste Ort für den
+  vorbereiteten Bestand.
+- **Choice (Assets):** **Genau ein** Top-Level-Ordner `assets/` (CSS, JS,
+  `betriebsdaten.csv`). Jede Seite bindet eine generische Inline-Bootstrap
+  ein, die `assets/loader.js` über die Ahnen-Verzeichnisse findet; der Loader
+  leitet den Root aus seiner eigenen URL ab → **kein Repo-Name im Code**,
+  funktioniert in jedem Repo. `assets/site.js` hält die Pages-Basis für den
+  Badge „Auf GitHub Pages ansehen", der auf jeder Seite erscheint.
+  Nicht-Asset-Links bleiben relativ (kein `<base>`).
+- **Choice (Nutzung):** HTML-Seiten laufen über den **Live-Server**
+  (`serve.sh`) bzw. GitHub Pages; `file://` ist bewusst aufgegeben, weil
+  Firefox' `security.fileuri.strict_origin_policy` Subressourcen aus
+  Eltern-/Geschwisterverzeichnissen blockiert (siehe PITFALLS).
+- **Choice (lehrplan-Layout):** Der Zweig-Ordner `lehrplan/pmm-hwit/` wurde
+  entfernt; Inhalte liegen flach unter `lehrplan/`. **Dokumentierte
+  Abweichung** vom `lehrplan`-Skill (der `<fach>-<zweig>/` verlangt), da das
+  Repo genau einen Zweig (HWIT) und ein Fach (PMM) führt; die Zweig-Ebene
+  wäre reine Duplikation. Die Klassen-Extrakte behalten GROSSBUCHSTABEN
+  (`lehrplan/4HWIT/`, `lehrplan/5HWIT/`).
+- **Reason:** Ein zentraler Asset-Ort + generischer Loader macht Lesson-
+  Ordner beliebig innerhalb des Repos verschiebbar, ohne dass CSS/JS brechen;
+  die flache Lehrplan-Ablage entfernt eine sinnlose Ebene; Live-Server +
+  Pages sind online wie offline konsistent benutzbar.
+- **Tradeoff:** Datei-Ansehen erfordert einen Server (kein Doppelklick auf
+  `file://`); Firefox-offline ist damit nicht mehr (und war es zuvor schon
+  nicht) direkt unterstützt. Probe erzeugt beim Laden kurz einige 404s.
+
 ## 2026-09-25: create-lesson-Ablage im Datums-Ordner + Aufgaben-Pflicht (#17)
 
 - **Choice**: create-lesson legt jede Lektion **immer direkt im

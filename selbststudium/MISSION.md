@@ -12,7 +12,8 @@ Energiemanagement).
 **Phase 0 — JG3-Vorwissen (KM5+KM6).** Die Statistik beginnt laut Lehrplan in
 JG3, nicht erst in JG4. Ich selber bin Statistik-Anfänger (siehe Learning Record
 0001), darum lerne ich zuerst das JG3-Fundament, bevor ich KM7 unterrichte.
-Drei Tracks (Curriculum-Map: `reference/jg3-verlauf.html`):
+Drei Tracks (Curriculum-Map: `reference/jg3-verlauf.html`; KM7-Lernpfad:
+`reference/km7-verlauf.html` — dort steht der jeweilige KM7-Stand):
 
 1. **Verteilungen** (KM5) — Zufallsvariablen, diskrete/stetige Verteilungen,
    Normalverteilung & Standardisierung, Exponentialverteilung. Lektionen 0003–0006.

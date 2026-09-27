@@ -1,7 +1,7 @@
 > **Kohortenfassung 5AHWIT** — adaptiert aus dem Master
 > `unterricht/HWIT-PMM/03-daten-einlesen-deskriptiv/hausaufgabe.md`
 > (dort: eigene `messwerte.csv`). Hier arbeitest du mit den echten
-> Betriebsdaten aus dem Repo: `unterricht/HWIT-PMM/assets/betriebsdaten.csv`.
+> Betriebsdaten aus dem Repo: `assets/betriebsdaten.csv`.
 
 # Hausaufgabe UE 3 — Daten einlesen & deskriptive Statistik
 
@@ -16,7 +16,7 @@ und lies die Betriebsdaten ein:
 
 ```r
 library(tidyverse)
-fertigung <- read_csv("unterricht/HWIT-PMM/assets/betriebsdaten.csv")
+fertigung <- read_csv("assets/betriebsdaten.csv")
 ```
 
 ---

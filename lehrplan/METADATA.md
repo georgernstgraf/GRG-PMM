@@ -160,12 +160,12 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 |-------|----------|-------------|
 | `RIS/2015-09-17_Lehrplan_TechnischesManagement.pdf` | HTL Spengergasse / RIS | Fachspezifischer Lehrplan — das Schul-PDF ist mit dem RIS-Original byte-identisch (383.232 Bytes, CreationDate 17.09.2015) |
 | `RIS/2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | RIS (signiert) | Allgemeiner Teil für alle HTL-Lehrpläne (Didaktik, Schulautonomie, allg. Fächer) |
-| `pmm-hwit/LEHRPLAN.md` | Extrakt aus dem Schul-PDF | Abschnitt 5 (Prozessmanagement) als durchsuchbarer Markdown-Text — alle 5 Jahrgänge mit Bildungs-/Lehraufgabe + Lehrstoff |
-| `pmm-hwit/RIS.md` | RIS-Recherche | Rechtsstand (BGBl. II Nr. 262/2015 idF 250/2021), Fundstellen, Novellen-Historie, Stundentafel-Zeile PMM — Abschnitt 5 unverändert seit 2015; nächster Re-Check Sommer 2027 |
+| `LEHRPLAN.md` | Extrakt aus dem Schul-PDF | Abschnitt 5 (Prozessmanagement) als durchsuchbarer Markdown-Text — alle 5 Jahrgänge mit Bildungs-/Lehraufgabe + Lehrstoff |
+| `RIS.md` | RIS-Recherche | Rechtsstand (BGBl. II Nr. 262/2015 idF 250/2021), Fundstellen, Novellen-Historie, Stundentafel-Zeile PMM — Abschnitt 5 unverändert seit 2015; nächster Re-Check Sommer 2027 |
 | `RIS/2021-06-07_BGBl-II-250_Novelle-Ethik.pdf` | RIS (signiert) | Novelle 2021 (Ethik): Anlage 1.28 betrifft Stundentafel (Religion/Ethik) + Abschnitt VII A; Abschnitt 5 (Prozessmanagement) unverändert |
-| `pmm-hwit/4HWIT/4HWIT.lehrplan.md`, `pmm-hwit/5HWIT/5HWIT.lehrplan.md` | Extrakt | Klassen-relevante Extrakte (IV./V. Jahrgang) |
-| `pmm-hwit/kompetenzmodule/` | Didaktik | KM-Steckbriefe km3–km9b + README |
-| `pmm-hwit/ressourcen-matrix.md`, `pmm-hwit/r4ds-abdeckung.md` | Ressourcen | Lektüre-Anker-Matrix + R4DS-Abdeckung/Lizenzen |
+| `4HWIT/4HWIT.lehrplan.md`, `5HWIT/5HWIT.lehrplan.md` | Extrakt | Klassen-relevante Extrakte (IV./V. Jahrgang) |
+| `kompetenzmodule/` | Didaktik | KM-Steckbriefe km3–km9b + README |
+| `ressourcen-matrix.md`, `r4ds-abdeckung.md` | Ressourcen | Lektüre-Anker-Matrix + R4DS-Abdeckung/Lizenzen |
 
 > **Hinweis:** Gesetzestext-PDFs liegen im Unterordner `RIS/` (ISO-Datum =
 > Kundmachungsdatum als Präfix). Das Schul-PDF
@@ -173,12 +173,13 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 > RIS-PDF der Anlage 1.28 sind byte-identisch. Es wird nur das Schul-PDF
 > im Repository geführt.
 
-> **Layout-Retrofit 2026-09-10** (lehrplan-Skill v2): Zweig-Ordner
-> `pmm-hwit/` angelegt — `LEHRPLAN.md` (ehem. `pmm-lehrplan-text.md`),
-> Klassen-Extrakte und `kompetenzmodule/` dorthin verschoben. Semesterpläne
-> (`jg4-/jg5-semesterplan-{ws,ss}.md`), UE-Ordner (`01-…`/`02-…`/`03-…`) und
-> `assets/` wanderten nach `unterricht/HWIT-PMM/` (Unterrichts-Ebene,
-> Repo-Root).
+> **Layout (Stand 2026-09-27, #19):** Der frühere Zweig-Ordner `pmm-hwit/`
+> wurde entfernt (dokumentierte Abweichung vom `lehrplan`-Skill, da das Repo
+> nur einen Zweig HWIT und ein Fach PMM führt). `LEHRPLAN.md`, `RIS.md`, die
+> Klassen-Extrakte (`4HWIT/`, `5HWIT/`) und `kompetenzmodule/` liegen direkt
+> unter `lehrplan/`. Semesterpläne, UE-Ordner und Stunden liegen unter
+> `unterricht/HWIT-PMM/`; gemeinsame Web-Assets (CSS/JS/Daten) unter dem
+> Top-Level-Ordner `assets/` am Repo-Root.
 
 > **Einheiten-Rolle (Nutzer-Entscheidung 2026-09-10, DECISIONS):** Dieses Repo
 > führt **keine** separaten `jgN-einheiten.md`-Dateien — die vier Semesterpläne
@@ -189,7 +190,7 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 > **Root-Klassenordner (kleingeschrieben):** Die klein geschriebenen
 > Klassenordner am Repo-Root sind konforme **Kohorten-Ablagen** (archiviert am
 > Schuljahresende) — nicht zu verwechseln mit den GROSSBUCHSTABEN-Klassenordnern
-> unter `lehrplan/pmm-hwit/` (Lehrplan-Extrakte).
+> unter `lehrplan/` (Lehrplan-Extrakte).
 > - `5ahwit/`: Einstiegspunkt für die aktuelle 5AHWIT-Kohorte; Setup-Log
 >   (`5ahwit/README.md`)
 > - `4ahwit-x/`, `4ahwit-y/`: Teilung der großen 4AHWIT-Klasse in zwei
