@@ -35,16 +35,13 @@ abgeschlossen; L0004 gebaut+committet. KM7-Anschluss: `reference/km7-verlauf.htm
 **Action:** L0004 durcharbeiten (teach-Session; Binomial/Hypergeometrisch/
 Poisson), mit LR dokumentieren; danach L0005 bauen.
 
-### GitHub Pages aktivieren
-**Priority:** low
-**Context:** `index.html` + `.nojekyll` liegen bereit; Pages ist in den
-Repo-Settings noch nicht eingeschaltet.
-**Action:** Settings → Pages → Deploy from branch `main` / root.
-
 ## Erledigt (dieser Zyklus)
 - #19 Struktur-Refactor: `prepared-lessons/`, zentrales `assets/`, Loader +
   Badge, lehrplan flach, Quiz vereinheitlicht, Toggle überall, Drift-Fix,
   `km7-verlauf.html` aktualisiert. Details: STATE.md.
+- **GitHub Pages aktiviert** (`gh api` → Branch `main` / root), live unter
+  https://georgernstgraf.github.io/GRG-PMM/ (curl 200 für `/`,
+  `/assets/loader.js`, Lektion).
 - ~~4ahit-x auf SWP-Teach-Muster harmonisieren~~ → verworfen: x/y-Struktur
   ist bewusst kohorten-lokal (Nutzer-Entscheidung 2026-09-27); nur
   `prepared-lessons/` + zentrale Assets wurden angeglichen.

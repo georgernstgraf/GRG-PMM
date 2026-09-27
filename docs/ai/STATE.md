@@ -23,7 +23,9 @@ GitHub Pages (`index.html`, `.nojekyll`).
       Klassen-READMEs, kompetenzmodule angepasst.
 - [x] **Quiz vereinheitlicht** (Klassen-Widget kanonisch, `.erklaerung` +
       `.hinweis`); Selbststudium-Lektionen konvertiert.
-- [x] **Badge + Pages** (`index.html`, `.nojekyll`, `serve.sh`).
+- [x] **Badge + Pages** (`index.html`, `.nojekyll`, `serve.sh`); GitHub Pages
+      aktiviert (Branch `main` / root) und live: curl 200 für `/`,
+      `/assets/loader.js` und eine Lektion.
 - [x] **Drift-Fix:** jg3-/km7-verlauf, Selbststudium-Nav, GLOSSAR,
       kompetenzmodule, Semesterplan-Pfade.
 - [x] `km7-verlauf.html` erhalten, aktualisiert, aus `MISSION.md`/`NOTES.md`
@@ -37,7 +39,6 @@ GitHub Pages (`index.html`, `.nojekyll`).
 - [ ] **Einstiegstest 5HWIT**: DOE-Block + Umwelt-Vorwissen auswerten
 - [ ] **R/RStudio auf Schul-Laptops der 5AHWIT bestätigen**
 - [ ] JG3 Phase 0: L0004 durcharbeiten (teach-Session), danach L0005+
-- [ ] GitHub Pages in den Repo-Settings aktivieren (Deploy from branch `main` / root)
 
 ## Notes
 - R 4.5.2 mit `tidyverse` und `palmerpenguins`; Verifikation per `Rscript`
