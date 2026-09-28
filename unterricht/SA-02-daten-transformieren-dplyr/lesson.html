@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lektion 02 — Daten transformieren mit dplyr</title>
+<title>Lektion SA-02 — Daten transformieren mit dplyr</title>
 <script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","quiz.js,theme.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
 
 </head>
@@ -12,8 +12,8 @@
 <header class="meta">
   <button type="button" class="theme-toggle" id="theme-toggle"
           aria-pressed="false">Dunkel</button>
-  <span class="kicker">Lektion 02 · Daten transformieren mit dplyr</span>
-  <span class="ort">UE 2 · 5AHWIT WS</span>
+  <span class="kicker">Lektion SA-02 · Daten transformieren mit dplyr</span>
+  <span class="ort">UE 2 · 4AHWIT WS · schulautonom</span>
   <h1>Wiegen, was zählt: Daten transformieren</h1>
   <p class="subtitle">filter, mutate, summarise — und die Pipe, die sie verbindet.</p>
 </header>
@@ -22,7 +22,7 @@
   <span class="label">Lektüre</span>
   <p>R4DS 2e (englisch, <a href="https://r4ds.hadley.nz/transform">Kap. 3 Data transformation</a>)
      — lies Kapitel 3 vor der Hausaufgabe. Die HA-Fragen beziehen sich auf
-     das Kapitel: <a href="../../hausaufgaben/02-daten-transformieren-dplyr.md">Hausaufgabe UE 2</a>.</p>
+     das Kapitel: <a href="hausaufgabe.md">Hausaufgabe UE 2</a>.</p>
 </div>
 
 <section>
@@ -32,8 +32,7 @@
   unterscheidet sich das nach Geschlecht?</strong></p>
   <p>Mit Plots allein antwortet man darauf vage („irgendwie schwerer").
   Mit <code>dplyr</code> antwortest du mit <em>einer Zahl</em> — und Zahlen
-  kann man gegen Toleranzen und Grenzwerte prüfen. Genau das brauchst du,
-  wenn wir bald Versuchsdaten auswerten.</p>
+  kann man gegen Toleranzen und Grenzwerte prüfen. Das ist Qualitätsarbeit.</p>
 </section>
 
 <section>
@@ -63,8 +62,8 @@ penguins |&gt; filter(species == "Gentoo")
   <div class="quiz" data-loesung="1">
     <p class="frage">Wie viele Zeilen behält
     <code>filter(species == "Gentoo", sex == "male")</code>?</p>
-    <label><input type="radio" name="q2" value="0"> Alle Gentoo-Zeilen, männliche und weibliche Tiere zusammen</label>
-    <label><input type="radio" name="q2" value="1"> Nur die Gentoo-Zeilen, die zudem männlich sind</label>
+    <label><input type="radio" name="q2" value="0"> Alle Gentoo-Zeilen, männliche und weibliche zusammen</label>
+    <label><input type="radio" name="q2" value="1"> Nur die Gentoo-Zeilen, die männlich sind</label>
     <label><input type="radio" name="q2" value="2"> Nur die männlichen Zeilen, egal welcher Art</label>
     <p class="feedback" aria-live="polite"></p>
     <p class="erklaerung">Mehrere Bedingungen in filter() verknüpft
@@ -150,12 +149,17 @@ penguins |&gt; filter(species == "Gentoo")
     <tr><td><code>summarise()</code></td><td>Viele Zeilen → eine Kennzahl</td></tr>
     <tr><td><code>|&gt;</code></td><td>Schritt für Schritt verketten</td></tr>
   </table>
-  <p>Plot (Lektion 01) + Verben (heute) = Werkbank. Nächste Lektion
-  verlässt die Übungswelt: <strong>echte Betriebsdaten</strong> einlesen
-  und die erste deskriptive Auswertung —
-  <a href="../../../unterricht/HWIT-PMM/03-daten-einlesen-deskriptiv/praesentation.html">Folien UE 3</a>.
-  Nachschlagen: <a href="../reference/glossar-r-statistik.html">Glossar</a> ·
-  <a href="../reference/ggplot-dplyr-cheatsheet.html">Cheatsheet</a>.</p>
+  <p>Plot (Lektion 01) + Verben (heute) = Werkbank. Nächste UE:
+  eigene Daten einlesen und die erste deskriptive Auswertung —
+  <a href="../SA-03-daten-einlesen-deskriptiv/praesentation.html">Folien UE 3</a>.</p>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Vertiefe die dplyr-Verben mit der
+  <a href="hausaufgabe.md">Hausaufgabe UE 2 — Daten transformieren &amp; Workflow</a>:
+  erst Vorhersagen hinschreiben, dann mit R prüfen.
+  — <strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
 </section>
 
 <footer class="navi">
@@ -163,8 +167,8 @@ penguins |&gt; filter(species == "Gentoo")
   <a href="https://r4ds.hadley.nz/transform">Kap. 3</a> (Hauptlektüre).</p>
   <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
   ist zu klein, solange du den Code dabei hast.</p>
-  <p>Weiter: <a href="03-daten-einlesen-deskriptiv.html">Lektion 03 —
-  Aus der Maschine in R: Daten einlesen & vermessen</a></p>
+  <p>Zurück: <a href="../SA-01-datenvisualisierung-ggplot/lesson.html">Lektion SA-01 —
+  Erste Plots mit ggplot2</a></p>
 </footer>
 
 </body>

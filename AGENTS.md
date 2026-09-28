@@ -16,9 +16,9 @@ This repository contains coursework for **Prozessmanagement (PMM)** at HTL Speng
   - `ressourcen-matrix.md`, `r4ds-abdeckung.md` — resource files
   - `RIS/` — Legal curriculum PDFs from RIS (BGBl. II Nr. 262/2015), named `YYYY-MM-DD_*.pdf` with ISO-date prefix (Kundmachungsdatum)
   - `METADATA.md` — Legal basis, RIS references, amendment history, class mapping
-- `unterricht/` — Teaching layer (repo root): `HWIT-PMM/` with semester plans (`jg4-/jg5-semesterplan-{ws,ss}.md`) and lesson folders (`NN-slug/` during preparation, `YYYY-MM-DD_thema` once dated)
+- `unterricht/` — Teaching layer (repo root). Prepared units lie **flat** as `<PREFIX>-<NN>-<slug>/` (`KM<#>` = Kompetenzmodul, `SA` = schulautonom; `<NN>` runs per KM) with `praesentation.html` + `hausaufgabe.md` + `lesson.html`; semester plans stay in `HWIT-PMM/` (`jg4-/jg5-semesterplan-{ws,ss}.md`)
 - `assets/` — **Single shared asset folder** (repo root): CSS, JS (`loader.js`, `quiz.js`, `theme.js`, `github-pages-link.js`, `site.js`), data (`betriebsdaten.csv`). All pages load these via the generic inline bootstrap (no repo name baked in).
-- `<klasse>/prepared-lessons/` — prepared (undated) lessons; `YYYY-MM-DD__thema/` — dated/taught lessons (e.g. `4ahwit-y/2026-09-25__r-kennzahlen-und-verteilungen/`)
+- Cohort folders (`4ahwit-x/`, `4ahwit-y/`, `5ahwit/`) hold **dated** lessons `YYYY-MM-DD__thema/lesson.html` (e.g. `4ahwit-y/2026-09-25__r-kennzahlen-und-verteilungen/`); undated lessons are canonical under `unterricht/` (cohort `prepared-lessons/` dissolved 2026-09-28, #20)
 - `selbststudium/` — Self-study workspace for learning R and statistics (Teach skill), incl. `prepared-lessons/`
 - `index.html`, `serve.sh`, `.nojekyll` — GitHub Pages entry, local live server, Jekyll bypass
 - `Unterlagen/` — Reference materials and scripts
@@ -32,9 +32,10 @@ This repository contains coursework for **Prozessmanagement (PMM)** at HTL Speng
 
 - Class lesson folders: `<klasse>/YYYY-MM-DD__thema/` (e.g., `4ahwit-y/2026-09-25__r-kennzahlen-und-verteilungen/`)
   - During curriculum preparation (before teaching dates are known):
-    `<klasse>/prepared-lessons/NN-slug.html` (two-digit per class per year;
-    selbststudium keeps four-digit numbers). Dated lessons live in the date
-    folder as `lesson.html`.
+    `unterricht/<PREFIX>-<NN>-<slug>/` (`KM<#>` = Kompetenzmodul, `SA` =
+    schulautonom; `<NN>` runs per KM) with `lesson.html`; selbststudium keeps
+    its four-digit `prepared-lessons/`. Dated lessons live in the date folder
+    as `lesson.html`.
 - Lowercase with hyphens for multi-word names
 - ISO 8601 date prefix for all dated documents
 
@@ -116,18 +117,22 @@ user wants to learn R, statistics, or any PMM-relevant topic.
 
 ## 10. Klassen-Lektionen (Create-Lesson-Skill)
 
-- Bestellformat: `Thema + Ziel-UE [+ Quelle-KM bei Wiederholung]` (z. B.
-  „ANOVA-Varianzanalyse für 4AHWIT UE 8"); Bau nach globalem
-  `create-lesson`-Skill (themenfokussierter Kicker, zweistellige Nummern
-  `NN-slug.html` pro Schuljahr pro Klasse, Quiz-Rotation aus README-Tabelle,
-  R-Code per Rscript verifiziert).
-- Ablage: vorbereitete (undatierte) Lektionen in `<klasse>/prepared-lessons/`;
-  terminierte/abgehaltene in `<klasse>/YYYY-MM-DD__thema/lesson.html`.
+- Bestellformat: `KM/Teil-KM + Ziel-UE + Thema` (z. B.
+  „Wiederholung Verteilungen aus KM5 für 4AHWIT UE 4"); Bau nach globalem
+  `create-lesson`-Skill (themenfokussierter Kicker, R-Code per Rscript
+  verifiziert).
+- **Ablage (2026-09-28, #20):** vorbereitete (undatierte) Einheiten liegen
+  **flach** unter `unterricht/` als `<PREFIX>-<NN>-<slug>/` (`KM<#>` =
+  Kompetenzmodul, `SA` = schulautonom; `<NN>` läuft **pro KM**) mit
+  `praesentation.html` + `hausaufgabe.md` + `lesson.html`. Semesterpläne
+  bleiben in `unterricht/HWIT-PMM/`. Terminierte/abgehaltene Lektionen liegen
+  in `<klasse>/YYYY-MM-DD__thema/lesson.html` (Kohorten-`prepared-lessons/`
+  wurden aufgelöst).
+- **Lesson = immer 90 Minuten** (eine Doppelstunde) — auch Wiederholungen.
+- **Quiz ohne harte Obergrenze:** der Skill entscheidet die Fragenzahl selbst,
+  so viele wie nötig (nicht mehr 1–5 gedeckelt); Richtige-Positionen rotieren.
 - Jede Lektion nutzt die **gemeinsamen Assets** unter `assets/` (Bootstrap +
   Badge), keine eigenen `assets/`-Ordner.
-- Master-Regel: Korrekturen immer im Master-Kohortenordner (x), dann als
-  Kopie in den Spiegelordner (y); Lessons-Tabellen in den Klassen-READMEs
-  sind der Bestellzettel (Nr./Quiz-Status).
 - Selbststudium-Bestand (`selbststudium/prepared-lessons/`, vierstellig) bleibt
   unangetastet — eigene fortlaufende Zählung mit Querverweisen.
 

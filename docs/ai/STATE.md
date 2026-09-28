@@ -1,52 +1,50 @@
 # Project State
 
-Current status as of 2026-09-27.
+Current status as of 2026-09-28.
 
 ## Current Focus
-**Struktur-Refactor (#19):** Ein zentraler `assets/`-Ordner am Repo-Root mit
-generischem Loader (`assets/loader.js`) + Inline-Bootstrap auf allen 24
-HTML-Seiten; `assets/site.js` + `github-pages-link.js` liefern den Badge
-„Auf GitHub Pages ansehen". `lessons/` → `prepared-lessons/` repo-weit;
-`lehrplan/pmm-hwit/` → flach nach `lehrplan/`. Quiz-Markup vereinheitlicht
-(Klassen-Radio-Widget; Selbststudium konvertiert), Hell/Dunkel-Toggle in
-allen Klassen-Lektionen. Nutzung jetzt über Live-Server (`serve.sh`) bzw.
-GitHub Pages (`index.html`, `.nojekyll`).
+**Kanonische `unterricht/`-Struktur (#20):** Vorbereitete Einheiten liegen
+**flach** unter `unterricht/` als `<PREFIX>-<NN>-<slug>/` (`KM<#>` =
+Kompetenzmodul, `SA` = schulautonom; `<NN>` läuft pro KM) mit
+`praesentation.html` + `hausaufgabe.md` + `lesson.html`; Semesterpläne bleiben
+in `unterricht/HWIT-PMM/`. Kohorten-`prepared-lessons/` (x/y/5ahwit) aufgelöst
+— Kohorten halten nur datierte Ordner `YYYY-MM-DD__thema/`. Neue
+Wiederholungs-Lektion `KM5-01` (Binomialkoeffizient/Pascalsches Dreieck).
+Skills (lehrplan + create-lesson) und Doku angeglichen: Lesson = **immer
+90 min**, Quiz **ohne harte Obergrenze**.
 
 ## Completed (this cycle)
-- [x] **Zentraler `assets/`-Ordner** (aus 5 verstreuten zusammengeführt):
-      `lesson.css`, `style.css`, `slides.css`, `theme.js`, `quiz.js`,
-      `betriebsdaten.csv` + neu `loader.js`, `site.js`, `github-pages-link.js`.
-- [x] **Generische Inline-Bootstrap** auf allen 24 HTML-Seiten (Repo-Name
-      nirgends im Mechanismus); alle relativen HTML-Ziele auflösbar.
-- [x] **`prepared-lessons/`** in x, y, `5ahwit/teach/`, selbststudium.
-- [x] **`lehrplan/` flach** (Zweig-Ebene entfernt); `RIS.md`-Links, METADATA,
-      Klassen-READMEs, kompetenzmodule angepasst.
-- [x] **Quiz vereinheitlicht** (Klassen-Widget kanonisch, `.erklaerung` +
-      `.hinweis`); Selbststudium-Lektionen konvertiert.
-- [x] **Badge + Pages** (`index.html`, `.nojekyll`, `serve.sh`); GitHub Pages
-      aktiviert (Branch `main` / root) und live: curl 200 für `/`,
-      `/assets/loader.js` und eine Lektion.
-- [x] **Drift-Fix:** jg3-/km7-verlauf, Selbststudium-Nav, GLOSSAR,
-      kompetenzmodule, Semesterplan-Pfade.
-- [x] `km7-verlauf.html` erhalten, aktualisiert, aus `MISSION.md`/`NOTES.md`
-      verlinkt (Teach-Skill findet den Anschluss).
+- [x] Units `unterricht/HWIT-PMM/{00…03}` → `unterricht/{SA-00…SA-03}`
+      (verschoben + umbenannt; Präfix = zuständiges „Fach").
+- [x] Lesson-HTMLs 01–03 in die Einheiten (`SA-0X/lesson.html`) überführt;
+      Kicker (`Lektion SA-XX`), Links und „Aufgabe"-Abschnitt angepasst.
+- [x] Kohorten-`prepared-lessons/` (x/y/5ahwit) gelöscht; alle Verweise
+      repo-weit umgebogen (index, READMEs, Semesterplan, km7-verlauf, y-Datums-Lektion).
+- [x] Neue Lektion `unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck/`
+      (R-Werte und Quiz-Rotation D·C·B·A·D per `Rscript` verifiziert).
+- [x] Skills (lehrplan + create-lesson; eine hardlinkte Datei in
+      `opencode-helpers/skills/`) auf neue Ablage, KM-/SA-Präfix,
+      Quiz ohne Grenze, 90-min-Pflicht umgestellt.
+- [x] Doku: `AGENTS.md`, Root-`README.md`, `docs/ai/ARCHITECTURE.md`/
+      `CONVENTIONS.md`/`DECISIONS.md`, `GLOSSAR.md`.
+- [x] Struktur-Refactor (#19): zentraler `assets/`, generischer Loader +
+      Badge, `prepared-lessons/`, Live-Server/GitHub Pages.
 
 ## Pending
-- [ ] **Skills (opencode-helpers):** `teach` + `create-lesson` auf
-      `prepared-lessons/`, ein `assets/`, Bootstrap+Badge-Regel umstellen
-      (eigenes Issue/Commit dort).
-- [ ] **Einstiegstest 4HWIT** korrigieren → Bonus-UE bzw. UE 4–5 anpassen
-- [ ] **Einstiegstest 5HWIT**: DOE-Block + Umwelt-Vorwissen auswerten
-- [ ] **R/RStudio auf Schul-Laptops der 5AHWIT bestätigen**
-- [ ] JG3 Phase 0: L0004 durcharbeiten (teach-Session), danach L0005+
+- [ ] **Skills (opencode-helpers):** Änderungen im eigenen Repo committen
+      (eigenes Issue/Commit dort); `teach`-Skill auf `./prepared-lessons/` prüfen.
+- [ ] **SA-01–SA-03 inhaltlich auf 90 min vertiefen** (Teil der Überarbeitung).
+- [ ] **Einstiegstest 4HWIT** korrigieren → Bonus-UE bzw. UE 4–5 anpassen.
+- [ ] **Einstiegstest 5HWIT**: DOE-Block + Umwelt-Vorwissen auswerten.
+- [ ] **R/RStudio auf Schul-Laptops der 5AHWIT bestätigen.**
+- [ ] JG3 Phase 0: L0004 durcharbeiten (teach-Session), danach L0005+.
 
 ## Notes
-- R 4.5.2 mit `tidyverse` und `palmerpenguins`; Verifikation per `Rscript`
-  (Arbeitsverzeichnis = Repo-Root). Betriebsdaten jetzt `assets/betriebsdaten.csv`.
+- R 4.5.x mit `tidyverse`, `palmerpenguins`; Verifikation per `Rscript`
+  (Arbeitsverzeichnis = Repo-Root). Betriebsdaten `assets/betriebsdaten.csv`.
 - Nutzung: `./serve.sh` → `http://localhost:8000/`; **kein `file://`** (Firefox).
 - Web-Assets: ein Top-Level `assets/`; Bootstrap + Badge generisch (CONVENTIONS).
-- Stil: `docs/stil-leitfaden.md`; Kohorten-/Teach-Layout: CONVENTIONS.
 
 ## Next Session Suggestion
-opencode-helpers-Skills angleichen (eigenes Issue), dann y-DS-Rückblick und
-nächste Lektion on demand (z. B. UE 5 Konfidenzintervalle).
+opencode-helpers-Skills committen; SA-01–SA-03 auf 90 min vertiefen; nächste
+Lektion on demand (z. B. UE 5 Konfidenzintervalle).

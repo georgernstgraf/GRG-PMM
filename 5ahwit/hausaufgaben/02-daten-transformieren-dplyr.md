@@ -1,5 +1,5 @@
 > **Kohortenfassung 5AHWIT** — adaptierte Kopie des Masters
-> `unterricht/HWIT-PMM/02-daten-transformieren-dplyr/hausaufgabe.md`.
+> `unterricht/SA-02-daten-transformieren-dplyr/hausaufgabe.md`.
 > Änderungen nur hier, Master bleibt unangetastet.
 
 # Hausaufgabe UE 2 — Daten transformieren & Workflow

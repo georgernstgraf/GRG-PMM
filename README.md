@@ -48,9 +48,10 @@ Der Lehrplan folgt **BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5** —
 |-------------|--------|
 | `lehrplan/` | Lehrplan-Konvention: `METADATA.md`, `LEHRPLAN.md`, `RIS.md`, Klassen-Extrakte `4HWIT/`+`5HWIT/`, `kompetenzmodule/`, Ressourcen-Dateien |
 | `lehrplan/RIS/` | Gesetzestext-PDFs (BGBl. II Nr. 262/2015, ISO-Datum-Präfix) |
-| `unterricht/HWIT-PMM/` | Unterrichts-Ebene: `jg<N>-semesterplan-{ws,ss}.md`, UE-Ordner, Präsentationen |
+| `unterricht/` | Vorbereitete Einheiten (flach): `<PREFIX>-<NN>-<slug>/` mit `praesentation.html` + `hausaufgabe.md` + `lesson.html` (`KM<#>` = Kompetenzmodul, `SA` = schulautonom) |
+| `unterricht/HWIT-PMM/` | Semesterpläne `jg<N>-semesterplan-{ws,ss}.md` |
 | `assets/` | **Ein zentraler Ordner** für CSS/JS/Daten, die alle Seiten referenzieren (Loader, Theme, Quiz, `betriebsdaten.csv`) |
-| `4ahwit-x/`, `4ahwit-y/`, `5ahwit/` | Kohorten-Ablagen (klein, Repo-Root): Klassen-Hub, `prepared-lessons/`, Datums-Ordner, Teach-Workspace |
+| `4ahwit-x/`, `4ahwit-y/`, `5ahwit/` | Kohorten-Ablagen (klein, Repo-Root): Klassen-Hub, Datums-Ordner (`YYYY-MM-DD__thema/`), Teach-Workspace |
 | `selbststudium/` | Lern-Workspace der Lehrperson (R/Statistik): `prepared-lessons/`, `reference/`, `learning-records/` |
 | `index.html` | Einstiegsseite für GitHub Pages / lokalen Server |
 | `serve.sh` | Startet den lokalen Live-Server (Repo-Root) |

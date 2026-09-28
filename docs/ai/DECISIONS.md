@@ -3,6 +3,36 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-09-28: Kanonische `unterricht/`-Struktur + KM-/SA-Präfix + Lektion 90 min (#20)
+
+- **Choice (Ablage):** Vorbereitete Einheiten liegen **flach** direkt unter
+  `unterricht/` als `<PREFIX>-<NN>-<slug>/` (`praesentation.html` +
+  `hausaufgabe.md` + `lesson.html`); nur die Semesterpläne bleiben im
+  Zweig-Fach-Unterordner `unterricht/HWIT-PMM/`. Die Kohorten-`prepared-lessons/`
+  (4ahwit-x/y, 5ahwit/teach) wurden aufgelöst — die Lesson-HTMLs wurden vorher
+  in die Einheiten überführt (und dabei überarbeitet); in den Kohorten bleiben
+  nur datierte Ordner `YYYY-MM-DD__thema/`.
+- **Choice (Präfix):** Der Ordnername trägt das **zugehörige Kompetenzmodul**:
+  `KM<#>-<NN>-<slug>`; schulautonome Einheiten ohne KM-Lehrstoff tragen
+  `SA-<NN>-<slug>`. `<NN>` läuft **pro KM/Gruppe** (nicht pro Schuljahr).
+  Bestand: `SA-00-was-kann-r`, `SA-01-datenvisualisierung-ggplot`,
+  `SA-02-daten-transformieren-dplyr`, `SA-03-daten-einlesen-deskriptiv`; neu
+  `KM5-01-binomialkoeffizient-pascalsches-dreieck` (Wiederholung aus KM5, UE 4).
+- **Choice (Lesson-Standard):** Eine Lesson ist **immer 90 Minuten**
+  (Doppelstunde), auch Wiederholungen; die Quizfragenzahl ist **nicht** mehr
+  auf 1–5 gedeckelt (der Skill entscheidet autonom, wie viele Fragen der Stoff
+  braucht).
+- **Reason:** R-Toolchain (UE 1–3) ist laut `km7.md:24/79` **schulautonom**,
+  nicht KM7-Lehrstoff — daher `SA-` statt `KM7-`. Ein einheitlicher flacher
+  Ablageort unter `unterricht/` macht Kanonik, Reihenfolge und Herkunft auf
+  einen Blick lesbar. Die lehrplan-Skill-Annahme „Stunden-Ordner unter
+  `<ZWEIG>-<FACH>/`" (Skill Z. 204–206, 327–328) wird damit repo-weit ersetzt
+  (dokumentierte Abweichung; PMM führt genau einen Zweig → keine KM-Kollision).
+- **Tradeoff:** Die flache KM-Präfix-Ablage kollidiert in Mehr-Zweig-Repos,
+  wenn mehrere Zweige dieselbe KM-Nummer führen; für GRG-PMM unkritisch. Die
+  Lessons saßen zuvor ausschließlich in den Kohorten und wurden vor dem Löschen
+  gesichert.
+
 ## 2026-09-27: `prepared-lessons/`, ein zentrales `assets/`, lehrplan-Flachlegung, GitHub Pages (#19)
 
 - **Choice (Ablage):** Vorbereitete (undatierte) Lektionen liegen in

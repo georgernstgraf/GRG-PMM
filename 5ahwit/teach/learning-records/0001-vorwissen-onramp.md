@@ -8,7 +8,7 @@ einen Frisch-Start in die Werkzeuge — R/RStudio wird dort nicht erwähnt.
 
 **Entscheidung (2026-09-16, Issue #14):** Vor dem DoE-Einstieg (UE 1 des
 `jg5-semesterplan-ws.md`, KM9a) läuft eine **R-Basics-On-Ramp** aus drei
-Lektionen im Teach-Workspace (`teach/prepared-lessons/0001–0003`): ggplot
+Lektionen (`unterricht/SA-01–SA-03`): ggplot
 (Visualisieren) → dplyr (Transformieren) → einlesen & deskriptive
 Statistik (Betriebsdaten). Die Lektionen adaptieren die verifizierten
 Lektionen der Kohorte 4ahit-x; Lektion 0003 ist neu und nutzt erstmals

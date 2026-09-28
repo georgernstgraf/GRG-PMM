@@ -24,9 +24,9 @@ Visualisierung vor Syntax (UE 1–3 in Buch-Reihenfolge)
 
 | UE | Thema | Lektüre-Anker | R | Ordner |
 |----|-------|---------------|---|--------|
-| 1 | **Datenvisualisierung zuerst** — ggplot2-Grammatik, aes/geoms, penguins | R4DS Kap. 1–2 | `ggplot2` | `01-datenvisualisierung-ggplot/` |
-| 2 | **Daten transformieren & Workflow** — filter/select/mutate/summarise, Pipe | R4DS Kap. 3–6 | `dplyr` | `02-daten-transformieren-dplyr/` |
-| 3 | **Daten einlesen & deskriptive Statistik** — CSV/Excel, EDA | R4DS Kap. 7, 10, 20 | `readr`/`readxl` | `03-daten-einlesen-deskriptiv/` |
+| 1 | **Datenvisualisierung zuerst** — ggplot2-Grammatik, aes/geoms, penguins | R4DS Kap. 1–2 | `ggplot2` | `SA-01-datenvisualisierung-ggplot/` |
+| 2 | **Daten transformieren & Workflow** — filter/select/mutate/summarise, Pipe | R4DS Kap. 3–6 | `dplyr` | `SA-02-daten-transformieren-dplyr/` |
+| 3 | **Daten einlesen & deskriptive Statistik** — CSV/Excel, EDA | R4DS Kap. 7, 10, 20 | `readr`/`readxl` | `SA-03-daten-einlesen-deskriptiv/` |
 
 > Stil-Leitfaden für alle drei (und künftige) UE: `docs/stil-leitfaden.md`
 > (R4DS-Stimme auf Deutsch, „link, don't copy").
@@ -84,4 +84,7 @@ Umweltmanagement (UE 12) — alle übrigen UE haben freie Lektüre-Anker.
 für UE 1–3; Ressourcen-Anker aus `ressourcen-matrix.md`. Zuvor: 15 UE,
 alte Toolchain-Reihenfolge. Retrofit UE 1–3 umgesetzt am 2026-09-07
 (Phase 3, #6): Ordner umbenannt/neu — `01-datenvisualisierung-ggplot`,
-`02-daten-transformieren-dplyr`, `03-daten-einlesen-deskriptiv`.)
+`02-daten-transformieren-dplyr`, `03-daten-einlesen-deskriptiv`.
+2026-09-28 (#20): Einheiten flach unter `unterricht/` mit KM-/SA-Präfix
+(`SA-00`…`SA-03`, neue Wiederholungs-Lektion `KM5-01…`); Semesterpläne
+bleiben in `unterricht/HWIT-PMM/`.)

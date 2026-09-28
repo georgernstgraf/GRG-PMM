@@ -31,9 +31,9 @@ Werkzeuge. Deshalb: **R-Basics-On-Ramp** in drei Lektionen, bevor UE 1
 - R4DS-Stimme: Didaktik übernehmen, Wortlaut nie (`docs/stil-leitfaden.md`)
 - Schul-Laptops: Lektionen offline lesbar (self-contained HTML, keine
   CDN-Abhängigkeiten)
-- Master/Kopien-Modell: Master-Dateien in `unterricht/HWIT-PMM/` bleiben
-  unangetastet; Kopien + Adaptionen liegen hier (`hausaufgaben/`,
-  `teach/prepared-lessons/`)
+- Master/Kopien-Modell: Master-Einheiten unter `unterricht/` (z. B.
+  `SA-01…SA-03`) bleiben unangetastet; Kopien + Adaptionen liegen hier
+  (`hausaufgaben/`)
 
 ## Out of scope
 

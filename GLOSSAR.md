@@ -51,6 +51,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | PMM | Prozessmanagement | Fachname im Lehrplan (Anlage 1.28, Abschnitt 5); Maturafach der WIT |
 | PMN | Projektmanagement und Netzwerktechnik | **Schulischer** Name an der Spengergasse — steht nicht im Lehrplan! |
 | RIS | Rechtsinformationssystem des Bundes | Quelle der Lehrplan-PDFs (ris.bka.gv.at) |
+| SA | schulautonom | Einheiten-Präfix ohne KM-Lehrstoff (z. B. R-Toolchain); `unterricht/SA-<NN>-<slug>/` |
 | SchOG | Schulorganisationsgesetz | Ermächtigungsgrundlage (§§ 6, 68a, 72) |
 | Stundentafel | — | Wochenstunden je Fach/Jahrgang; schulautonom anpassbar (IV. Abschnitt) |
 | UE | Unterrichtseinheit | Eine Doppelstunde; Semester = 13 echte UE + 2 reservierte DS |
@@ -67,6 +68,8 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | Ausschuss | Scrap (rejects) | Teile außerhalb der Toleranzgrenzen, als Anteil gemessen; Lektion 0003 (R-On-Ramp, 5AHWIT WS) |
 | Badewannenkurve | Bathtub curve | Ausfallrate über der Lebensdauer: Früh-/Zufalls-/Verschleißphase; KM9b |
 | Bessel-Korrektur | Bessel's correction | Teilen durch n − 1 in `sd()`/`var()` macht die Stichprobenvarianz erwartungstreu; UE 4 (KM7, 4HWIT WS) |
+| Binomialkoeffizient | n choose k | `(n über k)`: Anzahl der Wege mit genau k Erfolgen unter n; `choose(n, k)`; UE 4 (KM5-Wiederholung, `KM5-01`) |
+| Binomialverteilung | binomial distribution | P(X = k) = `(n über k)` · pᵏ · (1−p)ⁿ⁻ᵏ; `dbinom`/`pbinom`; UE 4 (KM5-Wiederholung, `KM5-01`) |
 | Bootstrap | Resampling mit Zurücklegen | Simulationsweg zu Konfidenzintervallen; ModernDive Kap. 8, UE 5 (KM7, 4HWIT WS) |
 | CI | Confidence Interval (Konfidenzintervall) | ⚠ Kollision, s.o.; UE 5 (KM7, 4HWIT WS) |
 | CLT | Central Limit Theorem (Zentraler Grenzwertsatz) | Stichprobenmittel → approx. normal für großes n; UE 5 (KM7, 4HWIT WS) |
@@ -85,6 +88,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | MTBF / MTTF / MTTR | Mean Time Between Failures / To Failure / To Repair | Zuverlässigkeits- und Instandhaltungskennzahlen; KM9b, UE 12 (KM9a, 5HWIT WS) |
 | OC-Kurve | Operating Characteristic | Annahmewahrscheinlichkeit in Abhängigkeit vom Qualitätsniveau; UE 9 (KM7, 4HWIT WS) |
 | p-Wert | — | Wahrscheinlichkeit für Daten, die unter H0 mindestens so extrem sind — **nicht** die Wahrscheinlichkeit, dass H0 gilt!; UE 6 (KM7, 4HWIT WS) |
+| Pascalsches Dreieck | Pascal's triangle | Zahlenmuster: Zeile n = die `(n über k)`; „zwei darüber addieren"; R: `choose(n, 0:n)`; UE 4 (KM5-Wiederholung, `KM5-01`) |
 | QS | Qualitätssicherung | Anwendungsdomäne des Fachs |
 | RBD | Reliability Block Diagram | Systemzuverlässigkeit: Serie/Parallel/k-aus-n; KM9b |
 | Schätzwert / Parameter | estimate / parameter | x̄, s (aus der Stichprobe) schätzen μ, σ (Grundgesamtheit); UE 4 (KM7, 4HWIT WS) |
@@ -148,6 +152,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | CDN | Content Delivery Network | reveal.js-Folien laden Bibliotheken via CDN — keine lokale Installation nötig |
 | CRAN | Comprehensive R Archive Network | Offizielles Paket-Repository für R |
 | d/p/q/r | density / probability / quantile / random | R-Funktionsfamilien für Verteilungen (`dnorm`, `pnorm`, `qnorm`, `rnorm`, …); UE 4 (KM7, 4HWIT WS) |
+| choose / dbinom / pbinom | — | `choose(n,k)` Koeffizient · `dbinom(k,n,p)` genau k · `pbinom(k,n,p)` höchstens k; UE 4 (KM5-Wiederholung, `KM5-01`) |
 | data frame | — | Tabellarische Datenstruktur in R (Zeilen = Beobachtungen, Spalten = Variablen) |
 | DSL | Domain-Specific Language | Interne Mini-Sprachen in R (Formel-Interface `y ~ x`, ggplot2, dplyr) — via NSE umgesetzt |
 | ggplot2 | — | Visualisierungspaket nach Grammar of Graphics; UE 1 (KM7, 4HWIT WS) |
@@ -189,7 +194,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | LR | Learning Record | Lernprotokoll nach jeder Selbststudium-Einheit — ⚠ Kollision, s.o. |
 | Matrix-Key | — | Slug je Lehrplan-Thema in `lehrplan/ressourcen-matrix.md` (z.B. `KM7-tests`) |
 | Meisterschaft | — | Lernziel-Status im teach skill (LR mit voller Punktzahl) |
-| NN-slug | — | Ordner-Schema vor Datumsfixierung (z.B. `01-datenvisualisierung-ggplot/`) → wird `YYYY-MM-DD_slug/` |
+| KM-/SA-<NN>-slug | — | Ordnername vor Datumsfixierung: KM-Präfix (z.B. `KM5-01-…`) bzw. `SA` für schulautonom, `<NN>` läuft pro KM/Gruppe; datiert wird zu `YYYY-MM-DD__thema/` |
 | YYYY-MM-DD | ISO 8601 | Datumsformat für alle Unterrichtsordner und datierten Dokumente |
 
 ---

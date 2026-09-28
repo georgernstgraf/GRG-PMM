@@ -19,11 +19,12 @@
 
 ## Stand
 - 2026-09-22: Workspace als Spiegel von Kohorte x aufgesetzt (MISSION,
-  RESOURCES, NOTES, `prepared-lessons/01–03` als Kopien).
-  Pflegeregel: x = Master, y = Kopie.
+  RESOURCES, NOTES). Pflegeregel: x = Master, y = Kopie.
 - 2026-09-25: Lektion 04 im Datums-Ordner
   `2026-09-25__r-kennzahlen-und-verteilungen/` (`lesson.html` +
   Tages-README) — KM5-Recap in R (Kennzahlen, `d/p/q/r`) plus
   Setup-Nachholung. Hell/Dunkel-Toggle ergänzt (zentral `assets/theme.js`
   + Dark-Variablen in `assets/lesson.css`). Terminierte Lessons liegen in
-  Datums-Ordnern; `prepared-lessons/` enthält die vorbereiteten 01–03.
+  Datums-Ordnern.
+- 2026-09-28: Kohorten-`prepared-lessons/` aufgelöst — vorbereitete
+  Lektionen liegen kanonisch unter `../unterricht/` (`SA-01…SA-03`).

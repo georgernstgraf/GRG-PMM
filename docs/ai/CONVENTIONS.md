@@ -83,20 +83,23 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   = Lehrplan-Extrakte. Nie mischen.
 - Kohorten-Teilungen großer Klassen: Suffix `-x`/`-y`.
 - Kohorten-Dirs dürfen nur kohorten-spezifisches Material halten;
-  gemeinsames Material bleibt in `unterricht/HWIT-PMM/`.
-- **Master/Kopien-Modell (#14):** `unterricht/HWIT-PMM/` hält die
-  Master-Dateien (HA, Folien) — Kohorten-Abweichungen werden als
-  **Kopien im Kohortenordner** gepflegt (`hausaufgaben/`,
-  `teach/prepared-lessons/`), Master-Dateien werden nie direkt angefasst.
+  gemeinsames Material bleibt unter `unterricht/` (vorbereitete Einheiten)
+  bzw. `unterricht/HWIT-PMM/` (Semesterpläne).
+- **Master/Kopien-Modell (#14):** `unterricht/` hält die Master-Einheiten
+  (`praesentation.html` + `hausaufgabe.md` + `lesson.html`) — Kohorten-
+  Abweichungen werden als **Kopien im Kohortenordner** gepflegt (z. B.
+  `hausaufgaben/`), Master-Dateien werden nie direkt angefasst.
 - Teach-Workspace-Layout: 4ahwit-x/y halten die Workspace-Dateien am
-  Ordner-Root (MISSION, RESOURCES, NOTES, `prepared-lessons/`); 5ahwit
-  nutzt das SWP-Muster (nach `GRG-SWP/3ahwii/teach/`): alles unter `teach/`
-  (`MISSION.md`, `RESOURCES.md`, `NOTES.md`, `prepared-lessons/`,
-  `reference/`, `learning-records/`) plus Klassenhub-README mit UE-Tabelle.
-- **Lektionsablage `prepared-lessons/`:** vorbereitete (undatierte)
-  Lektionen liegen in `<klasse>/prepared-lessons/NN-slug.html` (zweistellig
-  pro Klasse/Schuljahr; Selbststudium vierstellig, Grandfather). Terminierte/
-  abgehaltene Lektionen liegen im Datums-Ordner
+  Ordner-Root (MISSION, RESOURCES, NOTES); 5ahwit nutzt das SWP-Muster
+  (nach `GRG-SWP/3ahwii/teach/`): alles unter `teach/`
+  (`MISSION.md`, `RESOURCES.md`, `NOTES.md`, `reference/`,
+  `learning-records/`) plus Klassenhub-README mit UE-Tabelle.
+- **Lektionsablage (2026-09-28, #20):** vorbereitete (undatierte) Einheiten
+  liegen **flach** unter `unterricht/` als `<PREFIX>-<NN>-<slug>/`
+  (`KM<#>` = Kompetenzmodul, `SA` = schulautonom; `<NN>` läuft pro KM) mit
+  `praesentation.html` + `hausaufgabe.md` + `lesson.html`. Semesterpläne
+  bleiben in `unterricht/HWIT-PMM/`; die Kohorten-`prepared-lessons/` wurden
+  aufgelöst. Terminierte/abgehaltene Lektionen liegen im Datums-Ordner
   `<klasse>/YYYY-MM-DD__thema/lesson.html` plus Tages-README (Aufgabe als
   erster eigener `## Aufgabe`-Abschnitt, Pflicht).
 - Lektionen sind self-contained HTML ohne CDN-Abhängigkeiten (Offline-fähig

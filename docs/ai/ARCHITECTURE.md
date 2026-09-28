@@ -1,6 +1,6 @@
 # Architecture
 
-Living structural map of the system as of 2026-09-27.
+Living structural map of the system as of 2026-09-28.
 Overwritten when structural changes occur during a session.
 
 ## Overview
@@ -12,10 +12,11 @@ GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturaf
 | Path | Purpose |
 |------|---------|
 | `lehrplan/` | Curriculum layer (flat, single Zweig/Fach, #19): `LEHRPLAN.md` (full extract JG1–JG5), `RIS.md` (legal status/amendments), `METADATA.md` (legal basis, RIS refs, amendment history, class mapping), `RIS/` (RIS law-text PDFs only, ISO-date prefix), `4HWIT/`+`5HWIT/` (class extracts), `kompetenzmodule/` (didactic KM-Steckbriefe km3–km9b), `ressourcen-matrix.md`, `r4ds-abdeckung.md` |
-| `unterricht/HWIT-PMM/` | Teaching layer (repo root) with master files: `jg4-/jg5-semesterplan-{ws,ss}.md`, UE folders (`NN-slug/` preparing, `YYYY-MM-DD_thema` dated), `00-was-kann-r/` |
+| `unterricht/` | Teaching layer: prepared units **flat at root** as `<PREFIX>-<NN>-<slug>/` (`KM<#>` = Kompetenzmodul, `SA` = schulautonom; `<NN>` runs per KM) each with `praesentation.html` + `hausaufgabe.md` + `lesson.html`. Semester plans stay in the subfolder below. |
+| `unterricht/HWIT-PMM/` | Zweig-Fach subfolder — **only** semester plans (`jg4-/jg5-semesterplan-{ws,ss}.md`) |
 | `assets/` | **Single shared asset folder** (repo root): `lesson.css`, `style.css`, `slides.css`, `theme.js`, `quiz.js` (unified radio widget), `loader.js` (root resolver + injector), `site.js` (per-repo config: Pages base + badge label), `github-pages-link.js` (badge), `betriebsdaten.csv` |
-| `4ahwit-x/`, `4ahwit-y/` | Root cohort folders (lowercase = cohort storage). Teach-workspace at root: `MISSION.md`, `RESOURCES.md`, `NOTES.md`, `README.md` (hub + Lessons table), `prepared-lessons/` (undated lessons 01–03), `YYYY-MM-DD__thema/lesson.html` (dated), `2026-09-22_git_vscode_Rstudio_installation/` (x setup) |
-| `5ahwit/` | Root cohort folder in SWP pattern: hub-README + `teach/` (`MISSION/NOTES/RESOURCES`, `prepared-lessons/`, `reference/`, `learning-records/`), `hausaufgaben/`, date folders |
+| `4ahwit-x/`, `4ahwit-y/` | Root cohort folders (lowercase = cohort storage). Hub `README.md` + `MISSION/RESOURCES/NOTES.md`, `YYYY-MM-DD__thema/lesson.html` (dated lessons). Undated lessons are canonical under `unterricht/`; cohort `prepared-lessons/` dissolved 2026-09-28 (#20) |
+| `5ahwit/` | Root cohort folder in SWP pattern: hub-README + `teach/` (`MISSION/NOTES/RESOURCES`, `reference/`, `learning-records/`), `hausaufgaben/`, date folders; R-On-Ramp lessons referenced from `unterricht/SA-01…SA-03` |
 | `selbststudium/` | Self-study workspace (teach skill): `MISSION.md`, `RESOURCES.md`, `NOTES.md`, `prepared-lessons/` (four-digit, grandfathered), `reference/` (glossar, jg3-/km7-verlaufsmap, r-setup), `learning-records/` |
 | `index.html` | Landing page for GitHub Pages / local server |
 | `serve.sh` | Local live server (repo root) |
@@ -57,9 +58,9 @@ GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturaf
 
 ## Key Flows
 
-- Lehrplan (`lehrplan/`) → KM-Steckbriefe (`lehrplan/kompetenzmodule/`) → Semesterpläne (`unterricht/HWIT-PMM/jg<N>-semesterplan-*.md`) → UE-Material (`unterricht/HWIT-PMM/NN-slug/praesentation.html`)
+- Lehrplan (`lehrplan/`) → KM-Steckbriefe (`lehrplan/kompetenzmodule/`) → Semesterpläne (`unterricht/HWIT-PMM/jg<N>-semesterplan-*.md`) → prepared units (`unterricht/<PREFIX>-<NN>-<slug>/lesson.html`)
 - Semesterpläne → Selbststudium-Lektionen (`selbststudium/prepared-lessons/`) → Learning Records (`learning-records/`)
-- Semesterplan JG4-WS → Kohorten-Lektionen (`<klasse>/prepared-lessons/` und `<klasse>/YYYY-MM-DD__thema/lesson.html`) ↔ UE-Material (`unterricht/HWIT-PMM/`)
-- **Master/Kopien (#14):** Master in `unterricht/HWIT-PMM/` → copies/adaptions in cohort folder (`5ahwit/hausaufgaben/`, `5ahwit/teach/prepared-lessons/`)
+- Semesterplan JG4-WS → prepared units (`unterricht/SA-…`, `unterricht/KM5-…`) ↔ dated cohort lessons (`<klasse>/YYYY-MM-DD__thema/lesson.html`)
+- **Master/Kopien (#14):** Master units under `unterricht/` → cohort-specific copies/adaptions in the cohort folder (e.g. `5ahwit/hausaufgaben/`); cohort `prepared-lessons/` dissolved 2026-09-28 (#20)
 - All HTML → shared `assets/` via inline bootstrap; badge via `assets/site.js`
 - Open-Source material canon (`lehrplan/r4ds-abdeckung.md`, `RESOURCES.md`) → reading assignments („link, don't copy", #6)

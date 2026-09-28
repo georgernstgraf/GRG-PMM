@@ -1,5 +1,5 @@
 > **Kohortenfassung 5AHWIT** — adaptiert aus dem Master
-> `unterricht/HWIT-PMM/03-daten-einlesen-deskriptiv/hausaufgabe.md`
+> `unterricht/SA-03-daten-einlesen-deskriptiv/hausaufgabe.md`
 > (dort: eigene `messwerte.csv`). Hier arbeitest du mit den echten
 > Betriebsdaten aus dem Repo: `assets/betriebsdaten.csv`.
 

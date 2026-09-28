@@ -1,5 +1,5 @@
 > **Kohortenfassung 5AHWIT** — adaptierte Kopie des Masters
-> `unterricht/HWIT-PMM/01-datenvisualisierung-ggplot/hausaufgabe.md`.
+> `unterricht/SA-01-datenvisualisierung-ggplot/hausaufgabe.md`.
 > Änderungen nur hier, Master bleibt unangetastet.
 
 # Hausaufgabe UE 1 — Daten visualisieren
