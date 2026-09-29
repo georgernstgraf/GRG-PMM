@@ -8,6 +8,9 @@ Ausbildungszweigs Wirtschaftsingenieure – Technisches Management
 - Vollständiger PMM-Extrakt (alle Jahrgänge): [`../LEHRPLAN.md`](../LEHRPLAN.md)
 - Rechtsstand / Novellen: [`../RIS.md`](../RIS.md)
 
-Unterrichtsmaterial (Semesterpläne, Stunden, Präsentationen) liegt unter
-[`../../unterricht/HWIT-PMM/`](../../unterricht/HWIT-PMM/).
+Die Semesterpläne liegen in diesem Ordner:
+[`jg5-semesterplan-ws.md`](jg5-semesterplan-ws.md) (WS) ·
+[`jg5-semesterplan-ss.md`](jg5-semesterplan-ss.md) (SS).
+Präsentationen und Aufgaben (Prepared Lessons) liegen flach unter
+[`../../../unterricht/`](../../../unterricht/).
 Kohorten-Ablage: `5ahwit/` am Repo-Root.

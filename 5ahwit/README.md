@@ -6,12 +6,12 @@ Klassenordner der **5AHWIT** für das Fach **PMM** (Prozessmanagement,
 HTL Spengergasse, WIT), Schuljahr 2026/27. Kleingeschrieben = Kohorten-Ablage:
 hier liegt kohorten-spezifisches Material. Die **Master-Dateien** liegen in
 [`../unterricht/`](../unterricht/) (vorbereitete Einheiten) und
-[`../unterricht/HWIT-PMM/`](../unterricht/HWIT-PMM/) (Semesterpläne) und werden hier nur
+[`../lehrplan/pmm-hwit/`](../lehrplan/pmm-hwit/) (Semesterpläne) und werden hier nur
 **kopiert und adaptiert** — nie direkt verändert.
 
 ## Semesterplan
 
-- **Wintersemester 2026/27:** [`../unterricht/HWIT-PMM/jg5-semesterplan-ws.md`](../unterricht/HWIT-PMM/jg5-semesterplan-ws.md)
+- **Wintersemester 2026/27:** [`../lehrplan/pmm-hwit/jg5-semesterplan-ws.md`](../lehrplan/pmm-hwit/jg5-semesterplan-ws.md)
   (KM9a: DoE/RSM) — generische Fassung.
 - **On-Ramp:** Die Klasse startet mit drei R-Basics-Lektionen
   ([`../unterricht/SA-01…SA-03`](../unterricht/)), bevor UE 1 DoE beginnt. Begründung:

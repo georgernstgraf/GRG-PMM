@@ -160,12 +160,13 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 |-------|----------|-------------|
 | `RIS/2015-09-17_Lehrplan_TechnischesManagement.pdf` | HTL Spengergasse / RIS | Fachspezifischer Lehrplan — das Schul-PDF ist mit dem RIS-Original byte-identisch (383.232 Bytes, CreationDate 17.09.2015) |
 | `RIS/2015-09-17_BGBl-II-262_Anlage-1_Allgemeiner-Teil-HTL.pdf` | RIS (signiert) | Allgemeiner Teil für alle HTL-Lehrpläne (Didaktik, Schulautonomie, allg. Fächer) |
-| `LEHRPLAN.md` | Extrakt aus dem Schul-PDF | Abschnitt 5 (Prozessmanagement) als durchsuchbarer Markdown-Text — alle 5 Jahrgänge mit Bildungs-/Lehraufgabe + Lehrstoff |
-| `RIS.md` | RIS-Recherche | Rechtsstand (BGBl. II Nr. 262/2015 idF 250/2021), Fundstellen, Novellen-Historie, Stundentafel-Zeile PMM — Abschnitt 5 unverändert seit 2015; nächster Re-Check Sommer 2027 |
+| `pmm-hwit/LEHRPLAN.md` | Extrakt aus dem Schul-PDF | Abschnitt 5 (Prozessmanagement) als durchsuchbarer Markdown-Text — alle 5 Jahrgänge mit Bildungs-/Lehraufgabe + Lehrstoff |
+| `pmm-hwit/RIS.md` | RIS-Recherche | Rechtsstand (BGBl. II Nr. 262/2015 idF 250/2021), Fundstellen, Novellen-Historie, Stundentafel-Zeile PMM — Abschnitt 5 unverändert seit 2015; nächster Re-Check Sommer 2027 |
 | `RIS/2021-06-07_BGBl-II-250_Novelle-Ethik.pdf` | RIS (signiert) | Novelle 2021 (Ethik): Anlage 1.28 betrifft Stundentafel (Religion/Ethik) + Abschnitt VII A; Abschnitt 5 (Prozessmanagement) unverändert |
-| `4HWIT/4HWIT.lehrplan.md`, `5HWIT/5HWIT.lehrplan.md` | Extrakt | Klassen-relevante Extrakte (IV./V. Jahrgang) |
-| `kompetenzmodule/` | Didaktik | KM-Steckbriefe km3–km9b + README |
-| `ressourcen-matrix.md`, `r4ds-abdeckung.md` | Ressourcen | Lektüre-Anker-Matrix + R4DS-Abdeckung/Lizenzen |
+| `pmm-hwit/4HWIT/4HWIT.lehrplan.md`, `pmm-hwit/5HWIT/5HWIT.lehrplan.md` | Extrakt | Klassen-relevante Extrakte (IV./V. Jahrgang) |
+| `pmm-hwit/jg{3,4,5}-semesterplan-{ws,ss}.md` | Planung | Semesterpläne (Zweig-Ebene); `jg3` = Vorwissen-/Selbststudiums-Planung (Georg unterrichtet JG3 nicht) |
+| `kompetenzmodule/` | Didaktik | KM-Steckbriefe km3–km9b + README (Fach-Ebene) |
+| `ressourcen-matrix.md`, `r4ds-abdeckung.md` | Ressourcen | Lektüre-Anker-Matrix + R4DS-Abdeckung/Lizenzen (KM-keyed, Fach-Ebene) |
 
 > **Hinweis:** Gesetzestext-PDFs liegen im Unterordner `RIS/` (ISO-Datum =
 > Kundmachungsdatum als Präfix). Das Schul-PDF
@@ -173,17 +174,18 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 > RIS-PDF der Anlage 1.28 sind byte-identisch. Es wird nur das Schul-PDF
 > im Repository geführt.
 
-> **Layout (Stand 2026-09-27, #19):** Der frühere Zweig-Ordner `pmm-hwit/`
-> wurde entfernt (dokumentierte Abweichung vom `lehrplan`-Skill, da das Repo
-> nur einen Zweig HWIT und ein Fach PMM führt). `LEHRPLAN.md`, `RIS.md`, die
-> Klassen-Extrakte (`4HWIT/`, `5HWIT/`) und `kompetenzmodule/` liegen direkt
-> unter `lehrplan/`. Semesterpläne, UE-Ordner und Stunden liegen unter
-> `unterricht/HWIT-PMM/`; gemeinsame Web-Assets (CSS/JS/Daten) unter dem
-> Top-Level-Ordner `assets/` am Repo-Root.
+> **Layout (Stand 2026-09-29, #21):** **Fach-Ebene** am `lehrplan/`-Root:
+> `METADATA.md`, `RIS/`, `kompetenzmodule/` (KM-Steckbriefe) und die KM-keyed
+> Ressourcen (`ressourcen-matrix.md`, `r4ds-abdeckung.md`) — sie sind
+> formunabhängig. **Zweig-Ebene** unter `pmm-hwit/`: `LEHRPLAN.md`, `RIS.md`,
+> die Klassen-Extrakte (`4HWIT/`, `5HWIT/`) und die Semesterpläne. Die frühere
+> flache Ablage (#19) ist damit aufgehoben; `unterricht/` enthält nur noch
+> flache KM-/SA-Einheiten (kein Zweig-Fach-Ordner). Gemeinsame Web-Assets
+> (CSS/JS/Daten) liegen unter `assets/` am Repo-Root.
 
 > **Einheiten-Rolle (Nutzer-Entscheidung 2026-09-10, DECISIONS):** Dieses Repo
-> führt **keine** separaten `jgN-einheiten.md`-Dateien — die vier Semesterpläne
-> unter `unterricht/HWIT-PMM/` decken die Lehrstoffverteilungs-Rolle
+> führt **keine** separaten `jgN-einheiten.md`-Dateien — die sechs Semesterpläne
+> unter `lehrplan/pmm-hwit/` decken die Lehrstoffverteilungs-Rolle
 > („Einheiten") vollständig ab. Ein fehlender Einheiten-Befund im
 > Konformitäts-Check ist hier konform.
 
@@ -195,4 +197,4 @@ Die auf [spengergasse.at](https://www.spengergasse.at/?page_id=2153) veröffentl
 >   (`5ahwit/README.md`)
 > - `4ahwit-x/`, `4ahwit-y/`: Teilung der großen 4AHWIT-Klasse in zwei
 >   Kohorten (x/y) für die 2(1)-Splitstunde; Unterrichts-Material pro
->   Kohorte (gemeinsames Material: `unterricht/HWIT-PMM/`)
+>   Kohorte (gemeinsames Material: `lehrplan/pmm-hwit/`)

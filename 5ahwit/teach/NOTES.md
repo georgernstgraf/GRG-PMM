@@ -25,7 +25,7 @@
   Lektionen 01 (ggplot), 02 (dplyr) adaptiert von 4ahit-x (R-Code dort
   bereits verifiziert), 03 (einlesen & deskriptiv) neu gebaut auf
   Betriebsdaten. HA-Kopien in `5ahwit/hausaufgaben/` (Master in
-  `unterricht/HWIT-PMM/NN-*/hausaufgabe.md` bleibt unangetastet).
+  `unterricht/<PREFIX>-<NN>-<slug>/hausaufgabe.md` bleibt unangetastet).
 - Quiz-Richtige-Rotation: 01 = C, 02 = B, 03 = A.
 - Vorwissen der Klasse unbestätigt — Einstiegstest 5HWIT steht noch aus;
   siehe learning-record 0001.

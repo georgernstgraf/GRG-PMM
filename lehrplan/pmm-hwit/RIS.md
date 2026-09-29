@@ -27,7 +27,7 @@
 | Anlage 1 (Allgemeiner Teil, COO-HTML) | <https://www.ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2015_II_262/COO_2026_100_2_1135479.html> |
 | Novelle 250/2021 (ELI) | <https://www.ris.bka.gv.at/eli/bgbl/II/2021/250/20210607> |
 | Schul-Stundentafel (Spengergasse) | <https://www.spengergasse.at/?page_id=2153> |
-| Gespeicherte Gesetzestexte (in diesem Repo) | [`RIS/`](RIS/) — Anlage 1.28 (Schul-PDF, byte-identisch mit RIS-Original), Anlage 1, Novelle 250/2021 |
+| Gespeicherte Gesetzestexte (in diesem Repo) | [`RIS/`](../RIS/) — Anlage 1.28 (Schul-PDF, byte-identisch mit RIS-Original), Anlage 1, Novelle 250/2021 |
 
 > **Kein Schuladaption-PDF (Schicht ②):** Für PMM existiert keine eigenständige
 > schulautonome Lehrplan-Adaption als PDF — es liegt nur Schicht ① (Gesetzestext) vor.
@@ -62,12 +62,12 @@ Lehrstoff der Anlage 1.28 davon nicht berührt.
   verschoben werden).
 - Die Abweichungen der Spengergasse (Verschiebung von Anlagen-/Prüftechnik hin zu
   Umwelttechnologie als eigenem Fach) sind in
-  [`METADATA.md`](METADATA.md) „Schulautonome Stundentafel" dokumentiert —
+  [`METADATA.md`](../METADATA.md) „Schulautonome Stundentafel" dokumentiert —
   PMM bleibt davon in Kern und Stundung unberührt.
 
 ## 6. Konsequenzen für dieses Repo
 
-1. [`METADATA.md`](METADATA.md) führt die Rechtsgrundlage und die vollständige
+1. [`METADATA.md`](../METADATA.md) führt die Rechtsgrundlage und die vollständige
    Änderungshistorie inkl. NOR-Kopf-Belegzeilen.
 2. [`LEHRPLAN.md`](LEHRPLAN.md) ist getreuer ①-Extrakt (Abschnitt 5, alle fünf
    Jahrgänge); Klassen-Extrakte für `4HWIT` (KM 7+8) und `5HWIT` (KM 9) liegen in

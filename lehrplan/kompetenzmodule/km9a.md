@@ -3,7 +3,7 @@
 **Klasse/Semester:** 5HWIT, 9. Semester (Wintersemester)
 **Wochenstunden (Lehrplan):** 4(2) · **Zeitmodell:** 1 DS/Woche → 13 echte UE + 2 reservierte DS (2× LF/Admin)
 **Bereiche:** Statistische Methoden + Facility Management
-**Konkreter Semesterplan:** `../../unterricht/HWIT-PMM/jg5-semesterplan-ws.md`
+**Konkreter Semesterplan:** `lehrplan/pmm-hwit/jg5-semesterplan-ws.md`
 
 ## Worum geht es?
 

@@ -20,5 +20,5 @@
 ## Stand
 - 2026-09-15: Workspace aufgesetzt; Lektionen 01/02 gebaut
   (UE 1 ggplot, UE 2 dplyr, gem. jg4-semesterplan-ws.md). Hausaufgaben
-  liegen im UE-Ordner (`unterricht/HWIT-PMM/NN-*/hausaufgabe.md`),
+  liegen im UE-Ordner (`unterricht/<PREFIX>-<NN>-<slug>/hausaufgabe.md`),
   Lektionen verlinken dorthin.

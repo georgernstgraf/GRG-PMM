@@ -10,8 +10,8 @@ Unterricht vorkommt. **UE-Verweise immer vollqualifiziert** als
 `UE n (KMx, Klasse WS/SS)` — UE-Nummern sind nur innerhalb eines
 Semesterplans eindeutig (UE 5 in KM7 ≠ UE 5 in KM9a). Einträge ohne
 konkrete UE (noch nicht geplante Semester) nennen nur das KM.
-Semesterpläne: `unterricht/HWIT-PMM/jg4-semesterplan-ws.md`,
-`unterricht/HWIT-PMM/jg5-semesterplan-ws.md`.
+Semesterpläne: `lehrplan/pmm-hwit/jg4-semesterplan-ws.md`,
+`lehrplan/pmm-hwit/jg5-semesterplan-ws.md`.
 
 ---
 

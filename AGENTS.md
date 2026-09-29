@@ -10,13 +10,12 @@ This repository contains coursework for **Prozessmanagement (PMM)** at HTL Speng
 
 ## 2. Directory Structure
 
-- `lehrplan/` — Everything curriculum-related. Flat layout (single Zweig/Fach, documented deviation from the skill's `<fach>-<zweig>/` level, see DECISIONS #19):
-  - `LEHRPLAN.md` — complete extract (all Jahrgänge), `RIS.md` — legal status/amendments
-  - `4HWIT/` + `5HWIT/` — class extracts; `kompetenzmodule/` — didactic KM-Steckbriefe KM3–KM9b
-  - `ressourcen-matrix.md`, `r4ds-abdeckung.md` — resource files
+- `lehrplan/` — Everything curriculum-related, split into **Fach-Ebene** (formunabhängig) and **Zweig-Ebene** (see DECISIONS #21):
+  - `METADATA.md` — Legal basis, RIS references, amendment history, class mapping (root)
   - `RIS/` — Legal curriculum PDFs from RIS (BGBl. II Nr. 262/2015), named `YYYY-MM-DD_*.pdf` with ISO-date prefix (Kundmachungsdatum)
-  - `METADATA.md` — Legal basis, RIS references, amendment history, class mapping
-- `unterricht/` — Teaching layer (repo root). Prepared units lie **flat** as `<PREFIX>-<NN>-<slug>/` (`KM<#>` = Kompetenzmodul, `SA` = schulautonom; `<NN>` runs per KM) with `praesentation.html` + `hausaufgabe.md` + `lesson.html`; semester plans stay in `HWIT-PMM/` (`jg4-/jg5-semesterplan-{ws,ss}.md`)
+  - `kompetenzmodule/` (KM-Steckbriefe KM3–KM9b) + `ressourcen-matrix.md`, `r4ds-abdeckung.md` — **Fach-Ebene** (formunabhängig)
+  - `pmm-hwit/` — **Zweig-Ebene**: `LEHRPLAN.md` (complete extract, all Jahrgänge), `RIS.md` (legal status/amendments), `4HWIT/` + `5HWIT/` class extracts, `jg{3,4,5}-semesterplan-{ws,ss}.md` semester plans
+- `unterricht/` — Teaching layer (repo root). Prepared units lie **flat** as `<PREFIX>-<NN>-<slug>/` (`KM<#>` = Kompetenzmodul, `SA` = schulautonom; `<NN>` runs per KM) with `praesentation.html` + `hausaufgabe.md` + `lesson.html`. **No Zweig-Fach folder** — semester plans live in `lehrplan/pmm-hwit/`
 - `assets/` — **Single shared asset folder** (repo root): CSS, JS (`loader.js`, `quiz.js`, `theme.js`, `github-pages-link.js`, `site.js`), data (`betriebsdaten.csv`). All pages load these via the generic inline bootstrap (no repo name baked in).
 - Cohort folders (`4ahwit-x/`, `4ahwit-y/`, `5ahwit/`) hold **dated** lessons `YYYY-MM-DD__thema/lesson.html` (e.g. `4ahwit-y/2026-09-25__r-kennzahlen-und-verteilungen/`); undated lessons are canonical under `unterricht/` (cohort `prepared-lessons/` dissolved 2026-09-28, #20)
 - `selbststudium/` — Self-study workspace for learning R and statistics (Teach skill), incl. `prepared-lessons/`
@@ -125,7 +124,7 @@ user wants to learn R, statistics, or any PMM-relevant topic.
   **flach** unter `unterricht/` als `<PREFIX>-<NN>-<slug>/` (`KM<#>` =
   Kompetenzmodul, `SA` = schulautonom; `<NN>` läuft **pro KM**) mit
   `praesentation.html` + `hausaufgabe.md` + `lesson.html`. Semesterpläne
-  bleiben in `unterricht/HWIT-PMM/`. Terminierte/abgehaltene Lektionen liegen
+  liegen in `lehrplan/pmm-hwit/`. Terminierte/abgehaltene Lektionen liegen
   in `<klasse>/YYYY-MM-DD__thema/lesson.html` (Kohorten-`prepared-lessons/`
   wurden aufgelöst).
 - **Lesson = immer 90 Minuten** (eine Doppelstunde) — auch Wiederholungen.

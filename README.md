@@ -46,10 +46,10 @@ Der Lehrplan folgt **BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5** —
 
 | Verzeichnis | Inhalt |
 |-------------|--------|
-| `lehrplan/` | Lehrplan-Konvention: `METADATA.md`, `LEHRPLAN.md`, `RIS.md`, Klassen-Extrakte `4HWIT/`+`5HWIT/`, `kompetenzmodule/`, Ressourcen-Dateien |
+| `lehrplan/` | Lehrplan-Konvention, **Fach-Ebene** (Root): `METADATA.md`, `RIS/`, `kompetenzmodule/`, KM-keyed Ressourcen (`ressourcen-matrix.md`, `r4ds-abdeckung.md`) |
 | `lehrplan/RIS/` | Gesetzestext-PDFs (BGBl. II Nr. 262/2015, ISO-Datum-Präfix) |
+| `lehrplan/pmm-hwit/` | **Zweig-Ebene**: `LEHRPLAN.md` (Extrakt), `RIS.md`, Klassen-Extrakte `4HWIT/`+`5HWIT/`, Semesterpläne `jg{3,4,5}-semesterplan-{ws,ss}.md` |
 | `unterricht/` | Vorbereitete Einheiten (flach): `<PREFIX>-<NN>-<slug>/` mit `praesentation.html` + `hausaufgabe.md` + `lesson.html` (`KM<#>` = Kompetenzmodul, `SA` = schulautonom) |
-| `unterricht/HWIT-PMM/` | Semesterpläne `jg<N>-semesterplan-{ws,ss}.md` |
 | `assets/` | **Ein zentraler Ordner** für CSS/JS/Daten, die alle Seiten referenzieren (Loader, Theme, Quiz, `betriebsdaten.csv`) |
 | `4ahwit-x/`, `4ahwit-y/`, `5ahwit/` | Kohorten-Ablagen (klein, Repo-Root): Klassen-Hub, Datums-Ordner (`YYYY-MM-DD__thema/`), Teach-Workspace |
 | `selbststudium/` | Lern-Workspace der Lehrperson (R/Statistik): `prepared-lessons/`, `reference/`, `learning-records/` |

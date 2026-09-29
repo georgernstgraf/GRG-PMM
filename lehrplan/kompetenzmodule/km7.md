@@ -3,7 +3,7 @@
 **Klasse/Semester:** 4HWIT, 7. Semester (Wintersemester)
 **Wochenstunden (Lehrplan):** 4(1) · **Zeitmodell:** 1 DS/Woche → 13 echte UE + 2 reservierte DS (Einstiegstest, LF/Admin)
 **Bereiche:** Statistische Methoden + Umweltmanagement
-**Konkreter Semesterplan:** `../../unterricht/HWIT-PMM/jg4-semesterplan-ws.md`
+**Konkreter Semesterplan:** `lehrplan/pmm-hwit/jg4-semesterplan-ws.md`
 
 ## Worum geht es?
 

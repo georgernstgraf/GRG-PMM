@@ -4,7 +4,7 @@
 
 > Teilung der Klasse 4AHWIT (große Klasse → Kohorten x/y).
 > Gemeinsames Material: `unterricht/` (vorbereitete Einheiten mit
-> `KM<#>`-/`SA`-Präfix) und `unterricht/HWIT-PMM/` (Semesterpläne).
+> `KM<#>`-/`SA`-Präfix) und `lehrplan/pmm-hwit/` (Semesterpläne).
 > Hier liegt kohorten-spezifisches Material und Log.
 
 ## Lessons-Übersicht (Bestellzettel für On-demand)

@@ -54,5 +54,5 @@ nötig. Erst das Video schauen, dann den Code in RStudio selbst ausführen.
 - Lehrplan: [`lehrplan/kompetenzmodule/km5.md`](../../lehrplan/kompetenzmodule/km5.md)
   (+ [`km7.md`](../../lehrplan/kompetenzmodule/km7.md))
 - KM-Bezug: UE 4 (KM7, 4HWIT WS), Wiederholung aus KM5, Anschluss UE 5
-  (Schätzen & Konfidenzintervalle) — [`jg4-semesterplan-ws.md`](../../unterricht/HWIT-PMM/jg4-semesterplan-ws.md)
+  (Schätzen & Konfidenzintervalle) — [`jg4-semesterplan-ws.md`](../../lehrplan/pmm-hwit/jg4-semesterplan-ws.md)
 - Runtime: R / RStudio (R 4.5.x), `tidyverse`, `palmerpenguins`

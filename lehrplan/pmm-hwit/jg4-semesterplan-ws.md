@@ -87,4 +87,7 @@ alte Toolchain-Reihenfolge. Retrofit UE 1–3 umgesetzt am 2026-09-07
 `02-daten-transformieren-dplyr`, `03-daten-einlesen-deskriptiv`.
 2026-09-28 (#20): Einheiten flach unter `unterricht/` mit KM-/SA-Präfix
 (`SA-00`…`SA-03`, neue Wiederholungs-Lektion `KM5-01…`); Semesterpläne
-bleiben in `unterricht/HWIT-PMM/`.)
+lagen in `unterricht/HWIT-PMM/`.
+2026-09-29 (#21): `lehrplan/` in Fach-Ebene (Root) und Zweig-Ebene
+(`pmm-hwit/`) getrennt; Semesterpläne nach `lehrplan/pmm-hwit/` verschoben;
+`unterricht/` ohne Zweig-Fach-Ordner.)
