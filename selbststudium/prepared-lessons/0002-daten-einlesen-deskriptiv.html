@@ -173,13 +173,11 @@ iris |&gt; summarise(mittel = mean(Sepal.Length))   <span class="cmt"># → 5.84
   <!-- QUIZ 1 -->
   <div class="quiz" data-loesung="0">
     <p class="frage">Welches Verb wählt <em>Zeilen</em> nach einer Bedingung aus?</p>
-    <label><input type="radio" name="q1" value="0"> filter tut das</label>
-    <label><input type="radio" name="q1" value="1"> select tut das</label>
-    <label><input type="radio" name="q1" value="2"> mutate tut das</label>
-    <label><input type="radio" name="q1" value="3"> arrange tut das</label>
+    <label><input type="radio" name="q1" value="0" data-grund="Richtig, weil filter() Zeilen hält, die eine Bedingung erfüllen — wie SQL WHERE."> filter tut das</label>
+    <label><input type="radio" name="q1" value="1" data-grund="Falsch, weil select() Spalten auswählt, nicht Zeilen nach Bedingung."> select tut das</label>
+    <label><input type="radio" name="q1" value="2" data-grund="Falsch, weil mutate() eine neue Spalte berechnet, nicht Zeilen filtert."> mutate tut das</label>
+    <label><input type="radio" name="q1" value="3" data-grund="Falsch, weil arrange() Zeilen sortiert (ORDER BY), nicht nach Bedingung auswählt."> arrange tut das</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. <code>filter()</code> hält Zeilen, die eine Bedingung erfüllen — wie SQL <code>WHERE</code>. <code>select()</code> wählt Spalten, nicht Zeilen.</p>
-    <p class="hinweis">Falsch. <code>filter()</code> wählt Zeilen nach Bedingung. <code>select()</code> wählt Spalten.</p>
   </div>
 
   <!-- ---------------------------------------- NA -->
@@ -218,13 +216,11 @@ colSums(is.na(iris))</code></pre>
   <!-- QUIZ 2 -->
   <div class="quiz" data-loesung="0">
     <p class="frage">Was liefert <code>mean(c(1, 2, NA, 4))</code> standardmäßig?</p>
-    <label><input type="radio" name="q2" value="0"> NA kommt heraus</label>
-    <label><input type="radio" name="q2" value="1"> 2.33 kommt heraus</label>
-    <label><input type="radio" name="q2" value="2"> Fehler wird geworfen</label>
-    <label><input type="radio" name="q2" value="3"> Null kommt heraus</label>
+    <label><input type="radio" name="q2" value="0" data-grund="Richtig, weil NA ansteckend ist: ohne na.rm = TRUE wird das ganze Ergebnis NA."> NA kommt heraus</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Falsch, weil R ohne na.rm = TRUE die fehlenden Werte nicht überspringt; 2.33 wäre das Ergebnis mit na.rm = TRUE."> 2.33 kommt heraus</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Falsch, weil R keinen Fehler wirft, sondern den fehlenden Wert propagiert (NA)."> Fehler wird geworfen</label>
+    <label><input type="radio" name="q2" value="3" data-grund="Falsch, weil NA kein Null ist; das Ergebnis ist NA, nicht 0."> Null kommt heraus</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. <code>NA</code> ist ansteckend — ohne <code>na.rm = TRUE</code> steckt es das ganze Ergebnis an. R zwingt dich, Stellung zu fehlenden Werten zu beziehen.</p>
-    <p class="hinweis">Falsch. Jede Operation, die ein <code>NA</code> berührt, ergibt <code>NA</code> — R propagiert fehlende Werte, bis du <code>na.rm = TRUE</code> setzt.</p>
   </div>
 
   <hr>
@@ -319,13 +315,11 @@ median(iris$Sepal.Length)   <span class="cmt"># → 5.8</span></code></pre>
   <!-- QUIZ 3 -->
   <div class="quiz" data-loesung="0">
     <p class="frage">Wenn Mittelwert &gt; Median — dann ist die Verteilung…</p>
-    <label><input type="radio" name="q3" value="0"> Rechtssteil (= right-skewed)</label>
-    <label><input type="radio" name="q3" value="1"> Linkssteil (= left-skewed)</label>
-    <label><input type="radio" name="q3" value="2"> Symmetrisch (= symmetric)</label>
-    <label><input type="radio" name="q3" value="3"> Glockenform (= bell-shaped)</label>
+    <label><input type="radio" name="q3" value="0" data-grund="Richtig, weil der Mittelwert in Richtung des Schwanzes gezogen wird; Schwanz rechts = Mittel &gt; Median = rechtssteil."> Rechtssteil (= right-skewed)</label>
+    <label><input type="radio" name="q3" value="1" data-grund="Falsch, weil linkssteil der Fall Mittel &lt; Median ist (langer Schwanz nach links)."> Linkssteil (= left-skewed)</label>
+    <label><input type="radio" name="q3" value="2" data-grund="Falsch, weil bei symmetrischer Verteilung Mittel ≈ Median gilt, nicht Mittel &gt; Median."> Symmetrisch (= symmetric)</label>
+    <label><input type="radio" name="q3" value="3" data-grund="Falsch, weil die Glockenform die symmetrische Normalverteilung beschreibt, bei der Mittel ≈ Median ist."> Glockenform (= bell-shaped)</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. Der Mittelwert wird in Richtung des Schwanzes gezogen. Lange Leine rechts = Ausreißer oben = Mittel &gt; Median = rechtssteil.</p>
-    <p class="hinweis">Falsch. Ist der Mittelwert größer als der Median, wurde er nach rechts gezogen — der Schwanz geht nach rechts: <strong>rechtssteil</strong>.</p>
   </div>
 
   <!-- ---------------------------------------- STREUUNG -->
@@ -474,25 +468,21 @@ range(iris$Sepal.Length) <span class="cmt"># → 4.3  7.9</span></code></pre>
   <!-- QUIZ 4 -->
   <div class="quiz" data-loesung="0">
     <p class="frage">Zwei Datensätze mit identischem Mittelwert — was MUSS unterschiedlich sein können?</p>
-    <label><input type="radio" name="q4" value="0"> Die Streuung kann weichen</label>
-    <label><input type="radio" name="q4" value="1"> Der Mittel kann weichen</label>
-    <label><input type="radio" name="q4" value="2"> Die Anzahl muss weichen</label>
-    <label><input type="radio" name="q4" value="3"> Der Name muss weichen</label>
+    <label><input type="radio" name="q4" value="0" data-grund="Richtig, weil gleicher Mittelwert verschiedene Streuung nicht ausschließt (eng beisammen vs. weit verstreut)."> Die Streuung kann weichen</label>
+    <label><input type="radio" name="q4" value="1" data-grund="Falsch, weil der Mittelwert laut Annahme identisch ist; unterschiedlich ist die Streuung."> Der Mittel kann weichen</label>
+    <label><input type="radio" name="q4" value="2" data-grund="Falsch, weil die Anzahl gleich sein kann; zwei Datensätze mit gleichem Mittelwert können gleich viele Werte haben."> Die Anzahl muss weichen</label>
+    <label><input type="radio" name="q4" value="3" data-grund="Falsch, weil der Name nichts über die Verteilung aussagt und nicht weichen muss."> Der Name muss weichen</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. Gleicher Mittelwert schließt verschiedene Streuung nicht aus — darum braucht es immer beide: <em>Lage</em> und <em>Streuung</em>.</p>
-    <p class="hinweis">Falsch. Bei gleichem Mittelwert kann die Streuung beliebig verschieden sein (eng beisammen vs. weit verstreut). Nur die Streuungsmaße (sd, IQR) machen den Unterschied sichtbar.</p>
   </div>
 
   <!-- QUIZ 5 -->
   <div class="quiz" data-loesung="0">
     <p class="frage">Was liefert <code>iris |&gt; group_by(Species) |&gt; summarise(m = mean(Sepal.Length))</code>?</p>
-    <label><input type="radio" name="q5" value="0"> Mittelwert pro Art</label>
-    <label><input type="radio" name="q5" value="1"> Einen globalen Mittelwert</label>
-    <label><input type="radio" name="q5" value="2"> Die erste Beobachtung</label>
-    <label><input type="radio" name="q5" value="3"> Eine sortierte Tabelle</label>
+    <label><input type="radio" name="q5" value="0" data-grund="Richtig, weil group_by() nach Species teilt und summarise() pro Gruppe rechnet — drei Mittelwerte, einer pro Art."> Mittelwert pro Art</label>
+    <label><input type="radio" name="q5" value="1" data-grund="Falsch, weil summarise() ohne group_by() global rechnet; mit group_by() entsteht ein Wert pro Gruppe."> Einen globalen Mittelwert</label>
+    <label><input type="radio" name="q5" value="2" data-grund="Falsch, weil mean() den Mittelwert jeder Gruppe berechnet, nicht die erste Beobachtung liefert."> Die erste Beobachtung</label>
+    <label><input type="radio" name="q5" value="3" data-grund="Falsch, weil summarise() zusammenfasst, nicht sortiert; für Sortierung wäre arrange() zuständig."> Eine sortierte Tabelle</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. <code>group_by()</code> teilt die Daten nach <code>Species</code>, <code>summarise()</code> berechnet dann <em>pro Gruppe</em> den Mittelwert — also drei Mittelwerte (eine pro Schwertlilienart).</p>
-    <p class="hinweis">Falsch. <code>group_by(Species)</code> teilt in Gruppen, dann rechnet <code>summarise()</code> <em>pro Gruppe</em>. Das Ergebnis ist drei Zeilen — ein Mittelwert pro Art.</p>
   </div>
 
   <!-- ===================================================== DIDAKTIK -->

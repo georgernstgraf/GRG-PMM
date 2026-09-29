@@ -62,12 +62,10 @@ penguins |&gt; filter(species == "Gentoo")
   <div class="quiz" data-loesung="1">
     <p class="frage">Wie viele Zeilen behält
     <code>filter(species == "Gentoo", sex == "male")</code>?</p>
-    <label><input type="radio" name="q2" value="0"> Alle Gentoo-Zeilen, männliche und weibliche zusammen</label>
-    <label><input type="radio" name="q2" value="1"> Nur die Gentoo-Zeilen, die männlich sind</label>
-    <label><input type="radio" name="q2" value="2"> Nur die männlichen Zeilen, egal welcher Art</label>
+    <label><input type="radio" name="q2" value="0" data-grund="Falsch, weil mehrere Bedingungen in filter() mit UND verknüpft werden; weibliche Gentoo-Zeilen bleiben nicht."> Alle Gentoo-Zeilen, männliche und weibliche zusammen</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Richtig, weil filter() beide Bedingungen mit UND verknüpft: nur männliche Gentoo-Zeilen."> Nur die Gentoo-Zeilen, die männlich sind</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Falsch, weil zusätzlich species == &quot;Gentoo&quot; gelten muss; männliche Zeilen anderer Arten bleiben nicht."> Nur die männlichen Zeilen, egal welcher Art</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Mehrere Bedingungen in filter() verknüpft
-    dplyr mit „UND" — jede Bedingung muss erfüllt sein.</p>
   </div>
 
   <h2>Verb 2 — mutate (Spalten umformen/neu)</h2>

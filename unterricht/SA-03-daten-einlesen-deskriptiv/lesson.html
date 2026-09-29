@@ -121,14 +121,11 @@ fertigung |&gt;
   <div class="quiz" data-loesung="0">
     <p class="frage">Warum ergibt <code>mean(masse_mm)</code> ohne
     <code>na.rm = TRUE</code> ein <code>NA</code>?</p>
-    <label><input type="radio" name="q3" value="0"> Weil fehlende Messwerte drin sind und R dann verweigert</label>
-    <label><input type="radio" name="q3" value="1"> Weil der Datensatz zu groß für den Arbeitsspeicher geladen</label>
-    <label><input type="radio" name="q3" value="2"> Weil die Spalte masse_mm als Text statt als Zahl</label>
-    <label><input type="radio" name="q3" value="3"> Weil der Sollwert 10,00 nicht in den Daten vorkommt</label>
+    <label><input type="radio" name="q3" value="0" data-grund="Richtig, weil fehlende Messwerte (NA's: 4) drin sind und R ohne na.rm = TRUE verweigert — ein NA infiziert das Ergebnis."> Weil fehlende Messwerte drin sind und R dann verweigert</label>
+    <label><input type="radio" name="q3" value="1" data-grund="Falsch, weil 120 Zeilen problemlos in den Arbeitsspeicher passen; das NA entsteht durch fehlende Werte."> Weil der Datensatz zu groß für den Arbeitsspeicher geladen</label>
+    <label><input type="radio" name="q3" value="2" data-grund="Falsch, weil glimpse masse_mm als &lt;dbl&gt; (Zahl) zeigt; das Problem sind die NA-Werte."> Weil die Spalte masse_mm als Text statt als Zahl</label>
+    <label><input type="radio" name="q3" value="3" data-grund="Falsch, weil das Vorkommen des Sollwerts nichts mit dem NA im Mittelwert zu tun hat."> Weil der Sollwert 10,00 nicht in den Daten vorkommt</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Ein einziger NA „infiziert" das Ergebnis:
-    R mittelt nicht über fehlende Werte, ohne dass du es erlaubst
-    (na.rm = TRUE = „ignoriere die fehlenden").</p>
   </div>
 
   <h2>Schritt 5 — Zählen: der Ausschussanteil</h2>

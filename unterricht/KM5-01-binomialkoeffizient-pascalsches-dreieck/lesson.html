@@ -87,13 +87,11 @@ n über k = n! / (k! * (n - k)!)
 
   <div class="quiz" data-loesung="3">
     <p class="frage">Was zählt <code>(n über k)</code>?</p>
-    <label><input type="radio" name="q1" value="0"> die Zahl der geordneten Reihenfolgen aller n Versuche</label>
-    <label><input type="radio" name="q1" value="1"> die Wahrscheinlichkeit von genau k Erfolgen in n Versuchen</label>
-    <label><input type="radio" name="q1" value="2"> das Produkt aus Erfolgen und Misserfolgen der n Versuche</label>
-    <label><input type="radio" name="q1" value="3"> die Zahl der Wege mit genau k Erfolgen unter n Versuchen</label>
+    <label><input type="radio" name="q1" value="0" data-grund="Falsch, weil (n über k) die ungeordnete Auswahl zählt; die geordnete Auswahl wäre um den Faktor k! grösser."> die Zahl der geordneten Reihenfolgen aller n Versuche</label>
+    <label><input type="radio" name="q1" value="1" data-grund="Falsch, weil (n über k) eine Anzahl ist (Kombinatorik), keine Wahrscheinlichkeit."> die Wahrscheinlichkeit von genau k Erfolgen in n Versuchen</label>
+    <label><input type="radio" name="q1" value="2" data-grund="Falsch, weil (n über k) die Wege zählt und kein Produkt aus Erfolgen und Misserfolgen bildet."> das Produkt aus Erfolgen und Misserfolgen der n Versuche</label>
+    <label><input type="radio" name="q1" value="3" data-grund="Richtig, weil (n über k) die Zahl der Wege mit genau k Erfolgen unter n Versuchen ist."> die Zahl der Wege mit genau k Erfolgen unter n Versuchen</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Es ist eine <em>Anzahl</em> (Kombinatorik),
-    keine Wahrscheinlichkeit: Zahl der Wege mit genau k Erfolgen.</p>
   </div>
 </section>
 
@@ -143,13 +141,11 @@ choose(7, 3)
   <div class="quiz" data-loesung="2">
     <p class="frage">Die Zahl an Position <code>k</code> in Zeile
     <code>n</code> des Pascalschen Dreiecks entspricht …</p>
-    <label><input type="radio" name="q2" value="0"> der Summe aller Zahlen der ganzen Zeile n</label>
-    <label><input type="radio" name="q2" value="1"> dem Produkt der beiden Zahlen schräg darüber</label>
-    <label><input type="radio" name="q2" value="2"> dem Binomialkoeffizienten n über k</label>
-    <label><input type="radio" name="q2" value="3"> dem Kehrwert der Wahrscheinlichkeit n^k</label>
+    <label><input type="radio" name="q2" value="0" data-grund="Falsch, weil die Zeilensumme 2^n ist, nicht die einzelne Zahl an Position k."> der Summe aller Zahlen der ganzen Zeile n</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Falsch, weil die beiden Zahlen darüber addiert (nicht multipliziert) werden."> dem Produkt der beiden Zahlen schräg darüber</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Richtig, weil die Zahl an Position k in Zeile n gerade der Binomialkoeffizient (n über k) ist."> dem Binomialkoeffizienten n über k</label>
+    <label><input type="radio" name="q2" value="3" data-grund="Falsch, weil die Zahl an Position k der Binomialkoeffizient (n über k) ist, kein Kehrwert einer Wahrscheinlichkeit."> dem Kehrwert der Wahrscheinlichkeit n^k</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Position k in Zeile n ist <code>(n über k)</code>;
-    die beiden Zahlen darüber werden <em>addiert</em>, nicht multipliziert.</p>
   </div>
 </section>
 
@@ -207,13 +203,11 @@ choose(5, 2) * 0.2^2 * 0.8^3
   <div class="quiz" data-loesung="1">
     <p class="frage">Warum wird die Wege-Anzahl <code>(n über k)</code> mit
     <code>p^k * (1-p)^(n-k)</code> multipliziert?</p>
-    <label><input type="radio" name="q3" value="0"> weil sich k und n-k der Exponenten immer zu n addieren</label>
-    <label><input type="radio" name="q3" value="1"> weil jeder dieser Wege dieselbe Wahrscheinlichkeit hat</label>
-    <label><input type="radio" name="q3" value="2"> weil bei jedem Weg nur ein einziger Ausgang möglich ist</label>
-    <label><input type="radio" name="q3" value="3"> weil Erfolg und Misserfolg immer gleich wahrscheinlich sind</label>
+    <label><input type="radio" name="q3" value="0" data-grund="Falsch, weil das nur die Exponenten der Formel betrifft, nicht den Grund der Multiplikation."> weil sich k und n-k der Exponenten immer zu n addieren</label>
+    <label><input type="radio" name="q3" value="1" data-grund="Richtig, weil jeder der (n über k) Wege dieselbe Wahrscheinlichkeit p^k * (1-p)^(n-k) hat."> weil jeder dieser Wege dieselbe Wahrscheinlichkeit hat</label>
+    <label><input type="radio" name="q3" value="2" data-grund="Falsch, weil ein Weg aus k Erfolgen und n−k Misserfolgen besteht, also mehreren Ausgängen."> weil bei jedem Weg nur ein einziger Ausgang möglich ist</label>
+    <label><input type="radio" name="q3" value="3" data-grund="Falsch, weil p im Allgemeinen nicht 0,5 ist; die Multiplikation gilt für beliebiges p."> weil Erfolg und Misserfolg immer gleich wahrscheinlich sind</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Die Wege sind gleich wahrscheinlich; deshalb
-    genügt <em>Anzahl × Wkt. eines Weges</em> statt langer Summe.</p>
   </div>
 </section>
 
@@ -248,13 +242,11 @@ pbinom(2, size = 5, prob = 0.2)
 
   <div class="quiz" data-loesung="0">
     <p class="frage">Was berechnet <code>dbinom(2, size = 5, prob = 0.2)</code>?</p>
-    <label><input type="radio" name="q4" value="0"> die Wahrscheinlichkeit für genau zwei Erfolge bei fünf Versuchen</label>
-    <label><input type="radio" name="q4" value="1"> die Wahrscheinlichkeit für höchstens zwei Erfolge bei fünf Versuchen</label>
-    <label><input type="radio" name="q4" value="2"> die Anzahl der Wege mit genau zwei Erfolgen bei fünf Versuchen</label>
-    <label><input type="radio" name="q4" value="3"> die Wahrscheinlichkeit für genau fünf Erfolge bei zwei Versuchen</label>
+    <label><input type="radio" name="q4" value="0" data-grund="Richtig, weil d = genau ein Wert: P(X = 2) bei fünf Versuchen."> die Wahrscheinlichkeit für genau zwei Erfolge bei fünf Versuchen</label>
+    <label><input type="radio" name="q4" value="1" data-grund="Falsch, weil höchstens zwei Erfolge pbinom liefert; dbinom gibt genau zwei."> die Wahrscheinlichkeit für höchstens zwei Erfolge bei fünf Versuchen</label>
+    <label><input type="radio" name="q4" value="2" data-grund="Falsch, weil die Anzahl der Wege choose(5, 2) ist; dbinom liefert die Wahrscheinlichkeit."> die Anzahl der Wege mit genau zwei Erfolgen bei fünf Versuchen</label>
+    <label><input type="radio" name="q4" value="3" data-grund="Falsch, weil size = 5 die Anzahl der Versuche und der erste Wert (2) die Erfolge angibt, nicht umgekehrt."> die Wahrscheinlichkeit für genau fünf Erfolge bei zwei Versuchen</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">d = genau ein Wert (P(X = k)). Kumuliert wäre
-    <code>pbinom</code>; nur die Anzahl wäre <code>choose</code>.</p>
   </div>
 </section>
 
@@ -327,13 +319,11 @@ dbinom(2, 5, 0.2)
   <div class="quiz" data-loesung="3">
     <p class="frage">Wie viele Terme hat <code>(a + b)^6</code>, wenn man
     es vollständig ausmultipliziert?</p>
-    <label><input type="radio" name="q5" value="0"> genau sechs Terme, weil der Exponent sechs ist</label>
-    <label><input type="radio" name="q5" value="1"> genau zwölf Terme, nämlich zwei je Faktor</label>
-    <label><input type="radio" name="q5" value="2"> genau fünf Terme ohne die beiden Enden</label>
-    <label><input type="radio" name="q5" value="3"> genau sieben Terme, nämlich n plus eins</label>
+    <label><input type="radio" name="q5" value="0" data-grund="Falsch, weil k von 0 bis n läuft; bei n = 6 ergibt das n + 1 = 7 Terme."> genau sechs Terme, weil der Exponent sechs ist</label>
+    <label><input type="radio" name="q5" value="1" data-grund="Falsch, weil beim Ausmultiplizieren nach k gruppiert wird, nicht zwei Terme je Faktor entstehen."> genau zwölf Terme, nämlich zwei je Faktor</label>
+    <label><input type="radio" name="q5" value="2" data-grund="Falsch, weil auch die beiden Endterme (k = 0 und k = 6) dazugehören."> genau fünf Terme ohne die beiden Enden</label>
+    <label><input type="radio" name="q5" value="3" data-grund="Richtig, weil k von 0 bis n läuft — das sind n + 1 = 7 Terme (Zeile 6 hat 7 Zahlen)."> genau sieben Terme, nämlich n plus eins</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">k läuft von 0 bis n, das sind n+1 Terme —
-    Zeile 6 des Dreiecks hat 7 Zahlen.</p>
   </div>
 </section>
 

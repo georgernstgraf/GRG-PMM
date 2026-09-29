@@ -122,14 +122,11 @@ IQR(penguins$body_mass_g, na.rm = TRUE)
 
   <div class="quiz" data-loesung="3">
     <p class="frage">Was berechnet <code>var(penguins$body_mass_g, na.rm = TRUE)</code>?</p>
-    <label><input type="radio" name="q1" value="0"> die Standardabweichung, also die Wurzel der Varianz</label>
-    <label><input type="radio" name="q1" value="1"> die mittlere Abweichung der Werte von ihrem Mittel</label>
-    <label><input type="radio" name="q1" value="2"> die Spannweite, also Maximum minus Minimum der Werte</label>
-    <label><input type="radio" name="q1" value="3"> die Varianz, also das Quadrat der Standardabweichung</label>
+    <label><input type="radio" name="q1" value="0" data-grund="Falsch, weil die Wurzel der Varianz die Standardabweichung sd() ist, nicht var()."> die Standardabweichung, also die Wurzel der Varianz</label>
+    <label><input type="radio" name="q1" value="1" data-grund="Falsch, weil var() die quadrierten Abweichungen mittelt; die Einheit ist g², nicht g."> die mittlere Abweichung der Werte von ihrem Mittel</label>
+    <label><input type="radio" name="q1" value="2" data-grund="Falsch, weil die Spannweite Maximum minus Minimum ist; var() liefert die Varianz."> die Spannweite, also Maximum minus Minimum der Werte</label>
+    <label><input type="radio" name="q1" value="3" data-grund="Richtig, weil var() = σ² und sd() die Wurzel daraus ist; die Varianz trägt die Einheit g²."> die Varianz, also das Quadrat der Standardabweichung</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">var() = σ², sd() = die Wurzel daraus. Ein
-    Hinweis auf den Unterschied ist die Einheit: Varianz trägt g²,
-    Standardabweichung trägt g.</p>
   </div>
 </section>
 
@@ -154,14 +151,11 @@ penguins |&gt;
 
   <div class="quiz" data-loesung="2">
     <p class="frage">Mittelwert x̄ und Streuung s aus <code>summarise()</code> sind …</p>
-    <label><input type="radio" name="q2" value="0"> Parameter der Grundgesamtheit, fest und unbekannt</label>
-    <label><input type="radio" name="q2" value="1"> exakte Werte, die gar keinen Schätzfehler haben</label>
-    <label><input type="radio" name="q2" value="2"> Schätzwerte, die aus der Stichprobe berechnet sind</label>
-    <label><input type="radio" name="q2" value="3"> Fehlerquellen, die man vor der Auswertung bereinigt</label>
+    <label><input type="radio" name="q2" value="0" data-grund="Falsch, weil μ und σ die festen, unbekannten Parameter der Grundgesamtheit sind; x̄ und s werden aus der Stichprobe berechnet."> Parameter der Grundgesamtheit, fest und unbekannt</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Falsch, weil x̄ und s Punktschätzungen sind; jede andere Stichprobe hätte etwas andere Werte ergeben."> exakte Werte, die gar keinen Schätzfehler haben</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Richtig, weil x̄ und s Stichprobenkennzahlen sind — Punktschätzungen für μ und σ."> Schätzwerte, die aus der Stichprobe berechnet sind</label>
+    <label><input type="radio" name="q2" value="3" data-grund="Falsch, weil x̄ und s Kennzahlen der Stichprobe sind, keine Fehlerquellen, die man vorher bereinigt."> Fehlerquellen, die man vor der Auswertung bereinigt</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">x̄ und s sind Stichprobenkennzahlen —
-    Punktschätzungen für μ und σ. Jede andere Stichprobe hätte etwas
-    andere Werte ergeben.</p>
   </div>
 </section>
 
@@ -186,14 +180,11 @@ ggplot(penguins, aes(x = species)) +
 
   <div class="quiz" data-loesung="1">
     <p class="frage">Welches Geom zeichnet die Häufigkeiten der kategorialen Spalte <code>species</code>?</p>
-    <label><input type="radio" name="q3" value="0"> geom_histogram(), weil es den Wertebereich in Bins einteilt</label>
-    <label><input type="radio" name="q3" value="1"> geom_bar(), weil es jede Ausprägung als Balken zählt</label>
-    <label><input type="radio" name="q3" value="2"> geom_point(), weil es jeden einzelnen Wert als Punkt zeigt</label>
-    <label><input type="radio" name="q3" value="3"> geom_boxplot(), weil es Median und Quartile markiert</label>
+    <label><input type="radio" name="q3" value="0" data-grund="Falsch, weil geom_histogram() ein stetiges x für die Bins braucht; species ist kategorial."> geom_histogram(), weil es den Wertebereich in Bins einteilt</label>
+    <label><input type="radio" name="q3" value="1" data-grund="Richtig, weil geom_bar() jede Ausprägung als Balken zählt."> geom_bar(), weil es jede Ausprägung als Balken zählt</label>
+    <label><input type="radio" name="q3" value="2" data-grund="Falsch, weil geom_point() einzelne Werte als Punkte zeigt und keine Häufigkeiten je Ausprägung zählt."> geom_point(), weil es jeden einzelnen Wert als Punkt zeigt</label>
+    <label><input type="radio" name="q3" value="3" data-grund="Falsch, weil geom_boxplot() Median und Quartile eines stetigen Merkmals markiert, nicht die Häufigkeiten von species."> geom_boxplot(), weil es Median und Quartile markiert</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">geom_histogram() braucht ein stetiges x für
-    die Bins. Für Kategorien zählt geom_bar() die Häufigkeiten je
-    Ausprägung.</p>
   </div>
 </section>
 
@@ -239,13 +230,11 @@ dpois(2, lambda = 3)
 
   <div class="quiz" data-loesung="0">
     <p class="frage"><code>pbinom(2, size = 10, prob = 0.3)</code> liefert 0.3828. Was bedeutet das?</p>
-    <label><input type="radio" name="q4" value="0"> die Wahrscheinlichkeit für höchstens zwei Treffer</label>
-    <label><input type="radio" name="q4" value="1"> die Wahrscheinlichkeit für genau zwei Treffer</label>
-    <label><input type="radio" name="q4" value="2"> die Wahrscheinlichkeit für weniger als null Treffer</label>
-    <label><input type="radio" name="q4" value="3"> die Wahrscheinlichkeit für mehr als zwei Treffer</label>
+    <label><input type="radio" name="q4" value="0" data-grund="Richtig, weil p kumulativ ist: P(X ≤ 2), also 0 + 1 + 2 Treffer zusammen."> die Wahrscheinlichkeit für höchstens zwei Treffer</label>
+    <label><input type="radio" name="q4" value="1" data-grund="Falsch, weil genau zwei Treffer dbinom(2, …) = 0.2335 wären; pbinom ist die kumulierte Fläche."> die Wahrscheinlichkeit für genau zwei Treffer</label>
+    <label><input type="radio" name="q4" value="2" data-grund="Falsch, weil pbinom(2, …) die Fläche P(X ≤ 2) ist; null Treffer sind darin bereits enthalten."> die Wahrscheinlichkeit für weniger als null Treffer</label>
+    <label><input type="radio" name="q4" value="3" data-grund="Falsch, weil pbinom bis x kumuliert (P(X ≤ x)), nicht die Wahrscheinlichkeit für mehr als zwei Treffer liefert."> die Wahrscheinlichkeit für mehr als zwei Treffer</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">p = kumulativ (P(X ≤ x)). Genau zwei Treffer
-    wären dbinom(2, …) = 0.2335 — der Unterschied d gegen p.</p>
   </div>
 </section>
 

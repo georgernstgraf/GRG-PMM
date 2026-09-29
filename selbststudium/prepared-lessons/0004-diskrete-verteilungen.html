@@ -108,25 +108,21 @@ qbinom(0.95, size = 100, prob = 0.02) <span class="cmt"># 5 → P(X ≤ 5) = 0,9
   <!-- QUIZ 1 -->
   <div class="quiz" data-loesung="1">
     <p class="frage">Ein Betrieb prüft n Stück aus einer laufenden Produktion (praktisch unendliche Grundgesamtheit). Welche Verteilung für die Anzahl der Defekten?</p>
-    <label><input type="radio" name="q1" value="0"> Hypergeometrisch, ohne Zurücklegen</label>
-    <label><input type="radio" name="q1" value="1"> Binomial, mit konstantem p</label>
-    <label><input type="radio" name="q1" value="2"> Poisson, über die Zeit</label>
-    <label><input type="radio" name="q1" value="3"> Stetig, wie die Dichte</label>
+    <label><input type="radio" name="q1" value="0" data-grund="Falsch, weil hypergeometrisch ein endliches Los ohne Zurücklegen beschreibt; bei laufender Produktion ist die Grundgesamtheit praktisch unendlich."> Hypergeometrisch, ohne Zurücklegen</label>
+    <label><input type="radio" name="q1" value="1" data-grund="Richtig, weil bei praktisch unendlicher Produktion das p konstant bleibt (Unabhängigkeit) → Binomial."> Binomial, mit konstantem p</label>
+    <label><input type="radio" name="q1" value="2" data-grund="Falsch, weil Poisson Ereignisse pro Zeit/Fläche zählt, nicht Stücke aus einer Produktion."> Poisson, über die Zeit</label>
+    <label><input type="radio" name="q1" value="3" data-grund="Falsch, weil die Anzahl defekter Stücke eine diskrete Zählgröße ist, keine stetige."> Stetig, wie die Dichte</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. Aus praktisch unendlicher Produktion ändert das Prüfen das p nicht — Unabhängigkeit, konstantes p, also Binomial.</p>
-    <p class="hinweis">Falsch. Bei laufender Produktion (kein endliches Los) bleibt die Defektquote konstant → Binomial. Hypergeometrisch wäre es bei einem endlichen Los ohne Zurücklegen.</p>
   </div>
 
   <!-- QUIZ 2 -->
   <div class="quiz" data-loesung="2">
     <p class="frage">Was berechnet <code>pbinom(2, 100, 0.02)</code>?</p>
-    <label><input type="radio" name="q2" value="0"> P(X = 2) — genau zwei defekte</label>
-    <label><input type="radio" name="q2" value="1"> P(X ≥ 2) — mindestens zwei defekte</label>
-    <label><input type="radio" name="q2" value="2"> P(X ≤ 2) — höchstens zwei defekte</label>
-    <label><input type="radio" name="q2" value="3"> Den Erwartungswert 2</label>
+    <label><input type="radio" name="q2" value="0" data-grund="Falsch, weil genau zwei defekte dbinom liefert; pbinom ist kumuliert."> P(X = 2) — genau zwei defekte</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Falsch, weil pbinom die Fläche bis x (P(X ≤ x)) angibt; für mindestens x bräuchte man lower.tail = FALSE."> P(X ≥ 2) — mindestens zwei defekte</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Richtig, weil p = F(x) = P(X ≤ x) = höchstens zwei defekte."> P(X ≤ 2) — höchstens zwei defekte</label>
+    <label><input type="radio" name="q2" value="3" data-grund="Falsch, weil der Erwartungswert n·p = 2 ist, pbinom aber eine kumulierte Wahrscheinlichkeit liefert."> Den Erwartungswert 2</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. <code>p</code> = Verteilungsfunktion F(x) = P(X ≤ x). Genau x liefert <code>dbinom</code>, mindestens x braucht <code>lower.tail = FALSE</code>.</p>
-    <p class="hinweis">Falsch. <code>p</code>-Präfix = kumuliert = „höchstens x" (P(X ≤ x)). Für „genau 2" wäre es <code>dbinom</code>.</p>
   </div>
 
   <!-- ===================================================== HYPERGEOMETRISCH -->
@@ -177,13 +173,11 @@ dhyper(2, m = 10, n = 190, k = 20)  <span class="cmt"># P(2 defekt) ≈ 0,198</s
   <!-- QUIZ 3 -->
   <div class="quiz" data-loesung="0">
     <p class="frage">Eine Lieferung von N = 100 Stück enthält M = 5 defekte. Du prüfst n = 20 ohne Zurücklegen. Welche R-Funktion zählt die Defekten?</p>
-    <label><input type="radio" name="q3" value="0"> dhyper(x, 5, 95, 20)</label>
-    <label><input type="radio" name="q3" value="1"> dbinom(x, 20, 0.05)</label>
-    <label><input type="radio" name="q3" value="2"> dpois(x, 1)</label>
-    <label><input type="radio" name="q3" value="3"> rbinom(20, 100, 0.05)</label>
+    <label><input type="radio" name="q3" value="0" data-grund="Richtig, weil Ziehen ohne Zurücklegen aus endlichem Los hypergeometrisch ist: m = 5 (defekte), n = 95 (gute), k = 20."> dhyper(x, 5, 95, 20)</label>
+    <label><input type="radio" name="q3" value="1" data-grund="Falsch, weil dbinom hier nur die Näherung wäre; mit n/N = 20/100 = 20 % &gt; 5 % ist die hypergeometrische Rechnung exakt."> dbinom(x, 20, 0.05)</label>
+    <label><input type="radio" name="q3" value="2" data-grund="Falsch, weil dpois seltene Ereignisse pro Einheit beschreibt, nicht Stücke ohne Zurücklegen."> dpois(x, 1)</label>
+    <label><input type="radio" name="q3" value="3" data-grund="Falsch, weil rbinom Zufallszahlen erzeugt und gefragt die d-Funktion ist; zudem sind die Parameter hier vertauscht."> rbinom(20, 100, 0.05)</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. Ziehen ohne Zurücklegen aus endlichem Los → hypergeometrisch: m = 5 (defekte), n = 95 (gute), k = 20 (Stichprobe).</p>
-    <p class="hinweis">Falsch. Ohne Zurücklegen aus einem endlichen Los → <code>dhyper(x, m, n, k)</code>. Binomial wäre nur die Näherung, wenn n/N ≤ 5 %.</p>
   </div>
 
   <!-- ===================================================== POISSON -->
@@ -226,25 +220,21 @@ ppois(2, lambda = 2)               <span class="cmt"># P(X ≤ 2) ≈ 0,677</spa
   <!-- QUIZ 4 -->
   <div class="quiz" data-loesung="3">
     <p class="frage">Warum eignet sich die Poissonverteilung für „Kratzer pro m² auf einer lackierten Fläche" besonders gut?</p>
-    <label><input type="radio" name="q4" value="0"> Weil Kratzer immer gleich verteilt sind</label>
-    <label><input type="radio" name="q4" value="1"> Weil die Fläche stetig gemessen wird</label>
-    <label><input type="radio" name="q4" value="2"> Weil es genau n Versuche gibt</label>
-    <label><input type="radio" name="q4" value="3"> Weil Ereignisse selten und unabhängig sind</label>
+    <label><input type="radio" name="q4" value="0" data-grund="Falsch, weil Poisson seltene, unabhängige Ereignisse beschreibt; dass Kratzer &quot;immer gleich verteilt&quot; sind, trifft es nicht."> Weil Kratzer immer gleich verteilt sind</label>
+    <label><input type="radio" name="q4" value="1" data-grund="Falsch, weil Poisson die Anzahl der seltenen Ereignisse zählt, nicht eine stetige Grösse."> Weil die Fläche stetig gemessen wird</label>
+    <label><input type="radio" name="q4" value="2" data-grund="Falsch, weil Poisson kein festes n hat; genau n Versuche ist das Binomial-Szenario."> Weil es genau n Versuche gibt</label>
+    <label><input type="radio" name="q4" value="3" data-grund="Richtig, weil Kratzer seltene, unabhängige Ereignisse pro Fläche sind — genau das Poisson-Grundszenario."> Weil Ereignisse selten und unabhängig sind</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. Seltene, unabhängige Ereignisse pro Fläche/Zeit — genau das Grundszenario von Poisson, gezählt statt geprüft, ohne festes n.</p>
-    <p class="hinweis">Falsch. Poisson passt, weil Kratzer <em>selten</em> und <em>unabhängig</em> sind. Ein festes n (Anzahl Versuche) ist das Binomial-Szenario.</p>
   </div>
 
   <!-- QUIZ 5 -->
   <div class="quiz" data-loesung="1">
     <p class="frage">λ = 3 Ausfälle pro Woche. Welcher Wert ist <code>qpois(0.95, lambda = 3)</code>?</p>
-    <label><input type="radio" name="q5" value="0"> Die Wahrscheinlichkeit für 3 Ausfälle</label>
-    <label><input type="radio" name="q5" value="1"> Das 95 %-Quantil — Grenze der Ausfälle</label>
-    <label><input type="radio" name="q5" value="2"> Der Erwartungswert der Ausfälle</label>
-    <label><input type="radio" name="q5" value="3"> Die Dichte an der Stelle 3</label>
+    <label><input type="radio" name="q5" value="0" data-grund="Falsch, weil die Wahrscheinlichkeit für 3 Ausfälle dpois liefert; q gibt ein Quantil."> Die Wahrscheinlichkeit für 3 Ausfälle</label>
+    <label><input type="radio" name="q5" value="1" data-grund="Richtig, weil q die Umkehrung von F ist: die Zahl x, bei der P(X ≤ x) ≈ 0,95 erreicht wird."> Das 95 %-Quantil — Grenze der Ausfälle</label>
+    <label><input type="radio" name="q5" value="2" data-grund="Falsch, weil der Erwartungswert λ = 3 ist; qpois liefert die Quantilsgrenze."> Der Erwartungswert der Ausfälle</label>
+    <label><input type="radio" name="q5" value="3" data-grund="Falsch, weil die Dichte an der Stelle 3 dpois liefert; qpois gibt ein Quantil."> Die Dichte an der Stelle 3</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. <code>q</code> = Umkehrung von F: die Zahl x, bei der P(X ≤ x) ≈ 0,95 erreicht wird — „in 95 % der Wochen fallen höchstens so viele aus".</p>
-    <p class="hinweis">Falsch. <code>q</code> liefert das Quantil (Grenzwert), nicht die Wahrscheinlichkeit (das wäre <code>ppois</code>) und nicht f(x) (das wäre <code>dpois</code>).</p>
   </div>
 
   <!-- ===================================================== VERGLEICH -->
@@ -296,13 +286,11 @@ pbinom(23, size = 100, prob = 1/6)     <span class="cmt"># 0,962 — Schwelle er
   <!-- QUIZ 6 -->
   <div class="quiz" data-loesung="0">
     <p class="frage">Ein Prüfstand zählt Brüche pro 1000 km einer Bauteilgruppe (im Schnitt 0,5). Welche Verteilung ist die richtige Wahl?</p>
-    <label><input type="radio" name="q6" value="0"> Poisson, λ = 0,5</label>
-    <label><input type="radio" name="q6" value="1"> Binomial, n = 1000</label>
-    <label><input type="radio" name="q6" value="2"> Hypergeometrisch, N = 1000</label>
-    <label><input type="radio" name="q6" value="3"> Stetig mit Dichte</label>
+    <label><input type="radio" name="q6" value="0" data-grund="Richtig, weil seltene, unabhängige Ereignisse pro zurückgelegter Einheit Poisson sind — ein festes n gibt es nicht."> Poisson, λ = 0,5</label>
+    <label><input type="radio" name="q6" value="1" data-grund="Falsch, weil Binomial n unabhängige Versuche mit konstantem p voraussetzt, hier aber Ereignisse pro Strecke gezählt werden."> Binomial, n = 1000</label>
+    <label><input type="radio" name="q6" value="2" data-grund="Falsch, weil hypergeometrisch Ziehen ohne Zurücklegen aus einem endlichen Los ist, nicht Ereignisse pro Strecke."> Hypergeometrisch, N = 1000</label>
+    <label><input type="radio" name="q6" value="3" data-grund="Falsch, weil die Anzahl der Brüche eine diskrete Zählgrösse ist, keine stetige."> Stetig mit Dichte</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. Seltene, unabhängige Ereignisse pro zurückgelegter Einheit → Poisson. Ein festes n gibt es hier nicht.</p>
-    <p class="hinweis">Falsch. Ereignisse pro Strecke = Poisson. n/p (Binomial) oder N/M/n (Hypergeometrisch) passen nur zum Stück-Prüfen.</p>
   </div>
 
   <!-- ===================================================== ZUSAMMENFASSUNG -->

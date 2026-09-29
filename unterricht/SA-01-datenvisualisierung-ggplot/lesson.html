@@ -95,12 +95,10 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm,
   <div class="quiz" data-loesung="2">
     <p class="frage">Wo gehört <code>color = species</code> hin, wenn die
     Farbe <em>pro Pinguin</em> aus den Daten kommen soll?</p>
-    <label><input type="radio" name="q1" value="0"> Innerhalb der Klammern von geom_point(), neben den Koordinaten</label>
-    <label><input type="radio" name="q1" value="1"> Direkt in die Klammern von ggplot(), aber ohne aes()</label>
-    <label><input type="radio" name="q1" value="2"> Innerhalb von aes() im ggplot()-Aufruf, neben x, y</label>
+    <label><input type="radio" name="q1" value="0" data-grund="Falsch, weil color in geom_point() eine Festlegung für alle Punkte wäre, keine Zuordnung pro Pinguin."> Innerhalb der Klammern von geom_point(), neben den Koordinaten</label>
+    <label><input type="radio" name="q1" value="1" data-grund="Falsch, weil ohne aes() die Farbe nicht aus der Spalte species gemappt würde."> Direkt in die Klammern von ggplot(), aber ohne aes()</label>
+    <label><input type="radio" name="q1" value="2" data-grund="Richtig, weil color in aes() eine Zuordnung aus den Daten ist — pro Punkt."> Innerhalb von aes() im ggplot()-Aufruf, neben x, y</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">In aes() = Zuordnung aus den Daten (pro Punkt).
-    In geom_point() wäre es eine Festlegung für <em>alle</em> Punkte gleich.</p>
   </div>
 
   <h2>Schritt 5 — Trennen statt färben: Facets</h2>

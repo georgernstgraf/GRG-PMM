@@ -127,25 +127,21 @@
   <!-- QUIZ 1 -->
   <div class="quiz" data-loesung="0">
     <p class="frage">Eine stetige Zufallsvariable: was gilt für P(X = x)?</p>
-    <label><input type="radio" name="q1" value="0"> P(X=x) ist stets null</label>
-    <label><input type="radio" name="q1" value="1"> P(X=x) ist stets eins</label>
-    <label><input type="radio" name="q1" value="2"> P(X=x) ist stets klein</label>
-    <label><input type="radio" name="q1" value="3"> P(X=x) ist stets gross</label>
+    <label><input type="radio" name="q1" value="0" data-grund="Richtig, weil bei stetigen ZV ein einzelner Punkt keine Fläche hat und P(X = x) = 0 ist."> P(X=x) ist stets null</label>
+    <label><input type="radio" name="q1" value="1" data-grund="Falsch, weil Wahrscheinlichkeiten erst über Intervalle entstehen; ein einzelner Wert hat die Wahrscheinlichkeit 0, nicht 1."> P(X=x) ist stets eins</label>
+    <label><input type="radio" name="q1" value="2" data-grund="Falsch, weil P(X = x) nicht nur klein, sondern exakt 0 ist."> P(X=x) ist stets klein</label>
+    <label><input type="radio" name="q1" value="3" data-grund="Falsch, weil ein einzelner Wert keine Fläche trägt; P(X = x) = 0."> P(X=x) ist stets gross</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. Bei stetigen ZV hat ein einzelner Wert keine Fläche — die Wahrscheinlichkeit steckt in <em>Intervallen</em>, nicht in Punkten.</p>
-    <p class="hinweis">Falsch. Bei stetigen ZV ist P(X = x) = 0 für jeden einzelnen Wert; Wahrscheinlichkeiten entstehen erst über Intervalle (Fläche unter der Dichte).</p>
   </div>
 
   <!-- QUIZ 2 -->
   <div class="quiz" data-loesung="0">
     <p class="frage">Eine diskrete Zufallsvariable …</p>
-    <label><input type="radio" name="q2" value="0"> nimmt abzählbar Werte an</label>
-    <label><input type="radio" name="q2" value="1"> nimmt stetig Werte an</label>
-    <label><input type="radio" name="q2" value="2"> nimmt keine Werte an</label>
-    <label><input type="radio" name="q2" value="3"> nimmt alle Werte an</label>
+    <label><input type="radio" name="q2" value="0" data-grund="Richtig, weil diskret abzählbar viele Werte meint (z. B. 1–6 beim Würfel)."> nimmt abzählbar Werte an</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Falsch, weil stetig überabzählbar viele Werte bedeutet — das Gegenteil von diskret."> nimmt stetig Werte an</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Falsch, weil eine diskrete ZV gerade abzählbar viele Werte annimmt."> nimmt keine Werte an</label>
+    <label><input type="radio" name="q2" value="3" data-grund="Falsch, weil &quot;alle Werte&quot; (jeder reelle Wert eines Intervalls) stetig ist, nicht diskret."> nimmt alle Werte an</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. „Abzählbar" heißt: die Werte lassen sich aufzählen (1, 2, 3, …). Beim Würfel sind es sechs, bei „Anzahl defekter Stücke" jede nichtnegative ganze Zahl.</p>
-    <p class="hinweis">Falsch. Diskret = abzählbar viele Werte (z. B. 1–6 beim Würfel). Stetig = überabzählbar, jeder Wert in einem Intervall.</p>
   </div>
 
   <!-- ===================================================== DIE ZWEI FUNKTIONEN -->
@@ -191,25 +187,21 @@
   <!-- QUIZ 3 -->
   <div class="quiz" data-loesung="0">
     <p class="frage">Die Verteilungsfunktion F(x) gibt an …</p>
-    <label><input type="radio" name="q3" value="0"> P(X ≤ x) direkt an</label>
-    <label><input type="radio" name="q3" value="1"> P(X = x) direkt an</label>
-    <label><input type="radio" name="q3" value="2"> P(X &gt; x) direkt an</label>
-    <label><input type="radio" name="q3" value="3"> P(X ≠ x) direkt an</label>
+    <label><input type="radio" name="q3" value="0" data-grund="Richtig, weil F(x) = P(X ≤ x) die kumulierte Wahrscheinlichkeit bis zum Wert x ist — für diskret und stetig."> P(X ≤ x) direkt an</label>
+    <label><input type="radio" name="q3" value="1" data-grund="Falsch, weil P(X = x) über die Wahrscheinlichkeits-/Dichtefunktion f(x) läuft, nicht über F(x)."> P(X = x) direkt an</label>
+    <label><input type="radio" name="q3" value="2" data-grund="Falsch, weil F(x) die Fläche bis x (P(X ≤ x)) angibt, nicht den Bereich darüber."> P(X &gt; x) direkt an</label>
+    <label><input type="radio" name="q3" value="3" data-grund="Falsch, weil F(x) = P(X ≤ x) ist; das Gegenereignis X ≠ x wäre 1 − P(X = x)."> P(X ≠ x) direkt an</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. F(x) = P(X ≤ x) — die kumulierte Wahrscheinlichkeit bis zum Wert x. Funktioniert für diskrete wie stetige ZV.</p>
-    <p class="hinweis">Falsch. F(x) = P(X ≤ x). Für P(X = x) brauchst du f(x) (diskret) bzw. es ist 0 (stetig).</p>
   </div>
 
   <!-- QUIZ 4 -->
   <div class="quiz" data-loesung="0">
     <p class="frage">Die Dichtefunktion f(x) einer stetigen ZV ist …</p>
-    <label><input type="radio" name="q4" value="0"> keine Wahrscheinlichkeit direkt</label>
-    <label><input type="radio" name="q4" value="1"> direkt eine Wahrscheinlichkeit</label>
-    <label><input type="radio" name="q4" value="2"> stets eine Konstante null</label>
-    <label><input type="radio" name="q4" value="3"> immer unendlich gross</label>
+    <label><input type="radio" name="q4" value="0" data-grund="Richtig, weil f(x) bei stetig keine Wahrscheinlichkeit ist (darf sogar &gt; 1 sein); erst die Fläche unter f ergibt eine Wahrscheinlichkeit."> keine Wahrscheinlichkeit direkt</label>
+    <label><input type="radio" name="q4" value="1" data-grund="Falsch, weil die Dichte kein Wahrscheinlichkeitswert ist; die Wahrscheinlichkeit steckt in der Fläche unter der Kurve."> direkt eine Wahrscheinlichkeit</label>
+    <label><input type="radio" name="q4" value="2" data-grund="Falsch, weil die Dichte von x abhängt und nicht konstant 0 ist; nur P(X = x) ist 0."> stets eine Konstante null</label>
+    <label><input type="radio" name="q4" value="3" data-grund="Falsch, weil die Dichte endlich ist und höchstens &gt; 1 sein darf, aber nicht unendlich gross."> immer unendlich gross</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. f(x) selbst ist keine Wahrscheinlichkeit (darf sogar &gt; 1 sein). Erst die <em>Fläche</em> unter f über einem Intervall ist P(a ≤ X ≤ b).</p>
-    <p class="hinweis">Falsch. Die Dichte f(x) ist kein Wahrscheinlichkeits­wert. Die Wahrscheinlichkeit steckt in der <em>Fläche</em> unter der Kurve, nicht im Kurvenwert selbst.</p>
   </div>
 
   <!-- ===================================================== R-PRAXIS -->
@@ -275,13 +267,11 @@ table(wurf) / 100                 <span class="cmt"># relative Haeufigkeit ≈ P
   <!-- QUIZ 5 -->
   <div class="quiz" data-loesung="0">
     <p class="frage">Was liefert <code>table(sample(1:6, 100, replace = TRUE))</code>?</p>
-    <label><input type="radio" name="q5" value="0"> Haeufigkeit je Augenzahl</label>
-    <label><input type="radio" name="q5" value="1"> Summe aller Augenzahlen</label>
-    <label><input type="radio" name="q5" value="2"> Mittelwert der Augenzahl</label>
-    <label><input type="radio" name="q5" value="3"> Maximum der Augenzahlen</label>
+    <label><input type="radio" name="q5" value="0" data-grund="Richtig, weil sample() 100-mal würfelt und table() je Wert zählt — die empirische Häufigkeitsverteilung."> Haeufigkeit je Augenzahl</label>
+    <label><input type="radio" name="q5" value="1" data-grund="Falsch, weil table() zählt; für die Summe bräuchte man sum()."> Summe aller Augenzahlen</label>
+    <label><input type="radio" name="q5" value="2" data-grund="Falsch, weil table() zählt; für den Mittelwert bräuchte man mean()."> Mittelwert der Augenzahl</label>
+    <label><input type="radio" name="q5" value="3" data-grund="Falsch, weil table() die Häufigkeit je Wert zählt, nicht das Maximum liefert (dafür max())."> Maximum der Augenzahlen</label>
     <p class="feedback" aria-live="polite"></p>
-    <p class="erklaerung">Richtig. <code>sample(1:6, 100, replace = TRUE)</code> würfelt 100-mal, <code>table()</code> zählt je Wert — die empirische Häufigkeitsverteilung.</p>
-    <p class="hinweis">Falsch. <code>table()</code> zählt die <em>Häufigkeit</em> je Wert. Für die Summe bräuchtest du <code>sum()</code>, für den Mittelwert <code>mean()</code>.</p>
   </div>
 
   <!-- ===================================================== ZUSAMMENFASSUNG -->
