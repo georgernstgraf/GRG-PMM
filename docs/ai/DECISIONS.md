@@ -3,12 +3,21 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-09-29: lehrplan pro Fach-Zweig (`pmm-hwit/`), KM-Steckbriefe auf Fach-Ebene, unterricht entschlackt (#21)
+
+- **Choice (Fach-Ebene):** Das `lehrplan/`-Root trägt das Formunabhängige: `METADATA.md`, `RIS/`, `kompetenzmodule/` (km3–km9b) und die KM-keyed Ressourcen `ressourcen-matrix.md`/`r4ds-abdeckung.md`. Damit ist die flache Ablage aus #19 aufgehoben.
+- **Choice (Zweig-Ebene):** `lehrplan/pmm-hwit/` bündelt den Extrakt (`LEHRPLAN.md`), den Rechtsstand (`RIS.md`), die Klassen-Extrakte (`4HWIT/`, `5HWIT/`) und die Semesterpläne (`jg{3,4,5}-semesterplan-{ws,ss}.md`).
+- **Choice (unterricht):** Die Unterrichtsebene führt **keine** Zweig-Fach-Ebene mehr — nur flache Einheiten `KM<#>-<NN>-<slug>/` bzw. `SA-<NN>-<slug>/`; `unterricht/HWIT-PMM/` entfällt.
+- **Choice (JG3):** Die JG3-Map aus `selbststudium/reference/jg3-verlauf.html` wurde als `jg3-semesterplan-ws.md` (KM5, Selbststudium 0003–0008) + `jg3-semesterplan-ss.md` (KM6, 0009–0015) rückgepflegt; **Provenienz-Kopf** (JG3 wird nicht von Georg unterrichtet) und **kein Fortschritts-Status** (der bleibt im Selbststudium).
+- **Reason:** Kompetenzmodule und KM-keyed Ressourcen sind fach-, nicht formabhängig (zugrunde liegende Skill-Konvention: opencode-helpers #92); GRG-WMC hält sie bereits form-übergreifend am Root. Die Unterrichtsebene braucht die Zweig-Fach-Ebene nicht, weil die KM-Präfixe Herkunft und Reihenfolge bereits lesbar machen. Semesterpläne sind Planung → Lehrplan-Ebene.
+- **Considered:** `unterricht/HWIT-PMM/` → `unterricht/PMM-HWIT/` nur umbenennen (verworfen — die Ebene wird ganz abgeschafft). Flache lehrplan-Ablage behalten (verworfen — #92). Ressourcen-Matrix nach `pmm-hwit/` (verworfen — KM-keyed = Fach-Ebene).
+- **Tradeoff:** Die layout-relevanten Teile von #19 (lehrplan-Flachlegung) und #20 (Semesterpläne in `unterricht/HWIT-PMM/`) sind überholt; historische Einträge bleiben unangetastet, die überholten Layout-Punkte sind nach `HISTORY.md` übernommen.
+
 ## 2026-09-28: Kanonische `unterricht/`-Struktur + KM-/SA-Präfix + Lektion 90 min (#20)
 
 - **Choice (Ablage):** Vorbereitete Einheiten liegen **flach** direkt unter
   `unterricht/` als `<PREFIX>-<NN>-<slug>/` (`praesentation.html` +
-  `hausaufgabe.md` + `lesson.html`); nur die Semesterpläne bleiben im
-  Zweig-Fach-Unterordner `unterricht/HWIT-PMM/`. Die Kohorten-`prepared-lessons/`
+  `hausaufgabe.md` + `lesson.html`). *(SUPERSEDED 2026-09-29 durch #21: die frühere Klausel „Semesterpläne bleiben im Zweig-Fach-Unterordner `unterricht/HWIT-PMM/`" gilt nicht mehr — Pläne liegen jetzt in `lehrplan/pmm-hwit/`.)* Die Kohorten-`prepared-lessons/`
   (4ahwit-x/y, 5ahwit/teach) wurden aufgelöst — die Lesson-HTMLs wurden vorher
   in die Einheiten überführt (und dabei überarbeitet); in den Kohorten bleiben
   nur datierte Ordner `YYYY-MM-DD__thema/`.
@@ -53,7 +62,7 @@ Each entry documents WHAT was decided and WHY.
   (`serve.sh`) bzw. GitHub Pages; `file://` ist bewusst aufgegeben, weil
   Firefox' `security.fileuri.strict_origin_policy` Subressourcen aus
   Eltern-/Geschwisterverzeichnissen blockiert (siehe PITFALLS).
-- **Choice (lehrplan-Layout):** Der Zweig-Ordner `lehrplan/pmm-hwit/` wurde
+- **Choice (lehrplan-Layout):** *(SUPERSEDED 2026-09-29 durch #21 — flache Ablage aufgehoben, Zweig-Ebene `pmm-hwit/` wieder eingeführt.)* Der Zweig-Ordner `lehrplan/pmm-hwit/` wurde
   entfernt; Inhalte liegen flach unter `lehrplan/`. **Dokumentierte
   Abweichung** vom `lehrplan`-Skill (der `<fach>-<zweig>/` verlangt), da das
   Repo genau einen Zweig (HWIT) und ein Fach (PMM) führt; die Zweig-Ebene

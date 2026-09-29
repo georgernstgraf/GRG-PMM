@@ -1,19 +1,24 @@
 # Project State
 
-Current status as of 2026-09-28.
+Current status as of 2026-09-29.
 
 ## Current Focus
-**Kanonische `unterricht/`-Struktur (#20):** Vorbereitete Einheiten liegen
-**flach** unter `unterricht/` als `<PREFIX>-<NN>-<slug>/` (`KM<#>` =
-Kompetenzmodul, `SA` = schulautonom; `<NN>` läuft pro KM) mit
-`praesentation.html` + `hausaufgabe.md` + `lesson.html`; Semesterpläne bleiben
-in `unterricht/HWIT-PMM/`. Kohorten-`prepared-lessons/` (x/y/5ahwit) aufgelöst
-— Kohorten halten nur datierte Ordner `YYYY-MM-DD__thema/`. Neue
-Wiederholungs-Lektion `KM5-01` (Binomialkoeffizient/Pascalsches Dreieck).
-Skills (lehrplan + create-lesson) und Doku angeglichen: Lesson = **immer
-90 min**, Quiz **ohne harte Obergrenze**.
+**lehrplan Fach-/Zweig-Ebene (#21):** Das `lehrplan/`-Root trägt die
+Fach-Ebene (`METADATA.md`, `RIS/`, `kompetenzmodule/`, `ressourcen-matrix.md`,
+`r4ds-abdeckung.md` — formunabhängig); die Zweig-Ebene `lehrplan/pmm-hwit/`
+bündelt Extrakt (`LEHRPLAN.md`), Rechtsstand (`RIS.md`), Klassen-Extrakte und
+die Semesterpläne (`jg{3,4,5}-semesterplan-{ws,ss}.md`). Die Unterrichtsebene
+führt nur noch flache Einheiten (`KM5-01`, `SA-00…SA-03`); der Ordner
+`unterricht/HWIT-PMM/` ist entfallen. Die JG3-Selbststudiums-Map wurde als
+`jg3-semesterplan-ws/ss.md` rückgepflegt. Der `lehrplan`-Skill wurde in
+opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
+unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] #21 lehrplan-Umbau: Fach-Ebene (Root) vs. Zweig-Ebene (`pmm-hwit/`);
+      `unterricht/HWIT-PMM/` entfernt, Semesterpläne nach `lehrplan/pmm-hwit/`,
+      JG3-Semesterpläne angelegt, Pfad-Referenzen + Doku (AGENTS/README/GLOSSAR/
+      METADATA/docs/ai) gefixt; #19-Flachlage und #20-Planablage → HISTORY.
 - [x] Units `unterricht/HWIT-PMM/{00…03}` → `unterricht/{SA-00…SA-03}`
       (verschoben + umbenannt; Präfix = zuständiges „Fach").
 - [x] Lesson-HTMLs 01–03 in die Einheiten (`SA-0X/lesson.html`) überführt;
@@ -31,8 +36,6 @@ Skills (lehrplan + create-lesson) und Doku angeglichen: Lesson = **immer
       Badge, `prepared-lessons/`, Live-Server/GitHub Pages.
 
 ## Pending
-- [ ] **Skills (opencode-helpers):** Änderungen im eigenen Repo committen
-      (eigenes Issue/Commit dort); `teach`-Skill auf `./prepared-lessons/` prüfen.
 - [ ] **SA-01–SA-03 inhaltlich auf 90 min vertiefen** (Teil der Überarbeitung).
 - [ ] **Einstiegstest 4HWIT** korrigieren → Bonus-UE bzw. UE 4–5 anpassen.
 - [ ] **Einstiegstest 5HWIT**: DOE-Block + Umwelt-Vorwissen auswerten.
@@ -46,5 +49,5 @@ Skills (lehrplan + create-lesson) und Doku angeglichen: Lesson = **immer
 - Web-Assets: ein Top-Level `assets/`; Bootstrap + Badge generisch (CONVENTIONS).
 
 ## Next Session Suggestion
-opencode-helpers-Skills committen; SA-01–SA-03 auf 90 min vertiefen; nächste
-Lektion on demand (z. B. UE 5 Konfidenzintervalle).
+SA-01–SA-03 auf 90 min vertiefen; JG3-Semesterplan-Lektionen (0005–0015)
+bauen; nächste Lektion on demand (z. B. UE 5 Konfidenzintervalle).

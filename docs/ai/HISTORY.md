@@ -11,3 +11,15 @@ Entries here are no longer active truth. Never delete from this file.
 - **Ablage:** `5hwit/knowledge_5hwit_2026-09-08.md` + `_solutions.md` im GRG-PMM-T Repo.
 - **Origin:** DECISIONS.md
 - **Reason:** Am 2026-08-21 überarbeitet (GRG-PMM-T Issue #3): Test auf 60 Fragen / 240 Punkte erweitert, Block 6 (Umweltmanagement, KM7+KM8) hinzugefügt, weil der Lehrplan für KM7+KM8 den Bereich Umweltmanagement verpflichtend vorsieht und dieser im 50-Fragen-Test komplett fehlte.
+
+## 2026-09-27 (SUPERSEDED 2026-09-29, origin: DECISIONS.md, reason: #21 — lehrplan pro Fach-Zweig): lehrplan-Flachlegung
+
+- **Choice:** Der Zweig-Ordner `lehrplan/pmm-hwit/` wurde entfernt; `LEHRPLAN.md`, `RIS.md`, Klassen-Extrakte (`4HWIT/`, `5HWIT/`) und `kompetenzmodule/` lagen flach unter `lehrplan/` (dokumentierte Abweichung vom Skill, da nur ein Zweig/Fach).
+- **Origin:** DECISIONS.md (#19)
+- **Reason der Ablösung:** opencode-helpers #92 trennt Fach-Ebene (Root) und Zweig-Ebene sauber; die flache Ablage ist damit überholt. Siehe DECISIONS #21.
+
+## 2026-09-28 (SUPERSEDED 2026-09-29, origin: DECISIONS.md, reason: #21 — Pläne in lehrplan/<fach>-<zweig>/): Semesterpläne im Zweig-Fach-Unterordner `unterricht/HWIT-PMM/`
+
+- **Choice:** Semesterpläne blieben in `unterricht/HWIT-PMM/` (`jg4-/jg5-semesterplan-{ws,ss}.md`), während die vorbereiteten Einheiten flach unter `unterricht/` lagen.
+- **Origin:** DECISIONS.md (#20)
+- **Reason der Ablösung:** Die Unterrichtsebene führt keine Zweig-Fach-Ebene mehr; Semesterpläne liegen auf der Lehrplan-Ebene in `lehrplan/pmm-hwit/`. Siehe DECISIONS #21.

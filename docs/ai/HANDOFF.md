@@ -2,16 +2,15 @@
 
 ## Open Tasks
 
-### opencode-helpers: Skill-Änderungen committen (Fortsatz #19/#20)
-**Priority:** high (eigenes Repo, eigener Commit)
-**Context:** Im Zuge von GRG-PMM #20 wurden in `opencode-helpers`
-`skills/create-lesson/SKILL.md` und `skills/lehrplan/SKILL.md` angepasst
-(flache `unterricht/`-Ablage, `KM<#>`/`SA`-Präfix, `<NN>` pro KM, Quiz ohne
-Obergrenze, Lesson = 90 min). Die Dateien sind hardlinkt nach
-`~/.opencode/skills` und `~/.config/opencode/skills`.
-**Action:** In `~/repos/georgernstgraf/opencode-helpers` committen (Issue dort);
-`teach/SKILL.md` prüfen (`./prepared-lessons/` bleibt für das Selbststudium
-korrekt); `tests/test_skill_links.py` grün.
+### Andere Repos auf die neue lehrplan-Ordnung ziehen (opencode-helpers #92)
+**Priority:** medium
+**Context:** Der `lehrplan`-Skill (opencode-helpers #92) verlangt jetzt
+Fach-/Zweig-Ebene und keine `unterricht/<ZWEIG>-<FACH>/`-Ordner. Andere Repos
+tragen noch das alte Layout: GRG-INFI (`unterricht/HWII-INFI/`,
+`infi-hwii/kompetenzmodule/`), GRG-WMC (`unterricht/WMC/` — dokumentierte
+Ausnahme für form-übergreifende Planung), GRG-SWP.
+**Action:** Pro Repo als Befund melden, dann nach Rücksprache migrieren
+(`kompetenzmodule/` ans `lehrplan/`-Root, Planung in `lehrplan/<fach>-<zweig>/`).
 
 ### SA-01–SA-03 inhaltlich auf 90 min vertiefen (#20-Fortsatz)
 **Priority:** medium
@@ -43,9 +42,17 @@ abgeschlossen; L0004 gebaut+committet. KM7-Anschluss: `reference/km7-verlauf.htm
 Poisson), mit LR dokumentieren; danach L0005 bauen.
 
 ## Erledigt (dieser Zyklus)
+- **opencode-helpers #92:** lehrplan-Skill auf Fach-/Zweig-Ebene umgebaut —
+  Fach-Ebene am Root (inkl. KM-keyed Ressourcen), Planung in
+  `<fach>-<zweig>/`, `unterricht/` ohne Zweig-Fach-Ordner, WMC-Ausnahme
+  erweitert, Restfall-Regel für Mehr-Fächer-Repos. Commits `0228710`,
+  `adb16af`; Tests grün (70).
+- **GRG-PMM #21:** `lehrplan/pmm-hwit/` (Extrakt, Klassen-Extrakte,
+  Semesterpläne), Fach-Ebene am Root, `unterricht/HWIT-PMM/` entfernt,
+  JG3-Semesterpläne (`jg3-semesterplan-ws/ss.md`) rückgepflegt.
 - **GRG-PMM #20:** kanonische `unterricht/`-Struktur — flache Einheiten
   `SA-00…SA-03` (R-Toolchain, schulautonom), Semesterpläne in
-  `unterricht/HWIT-PMM/`, Kohorten-`prepared-lessons/` aufgelöst (x/y/5ahwit),
+  `lehrplan/pmm-hwit/`, Kohorten-`prepared-lessons/` aufgelöst (x/y/5ahwit),
   Lesson-HTMLs in die Einheiten überführt, neue `KM5-01`-Lektion
   (Binomial/Pascalsches Dreieck), Skills (lehrplan + create-lesson) und Doku
   angeglichen. Details: STATE.md / DECISIONS.md.

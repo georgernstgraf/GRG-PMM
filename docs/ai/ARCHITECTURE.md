@@ -1,19 +1,19 @@
 # Architecture
 
-Living structural map of the system as of 2026-09-28.
+Living structural map of the system as of 2026-09-29.
 Overwritten when structural changes occur during a session.
 
 ## Overview
 
-GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturafach) at HTL Spengergasse, Abteilung Wirtschaftsingenieure (Technisches Management & Umwelt). It follows the `lehrplan/` convention (flat layout, single Zweig/Fach — documented deviation) plus a single shared asset folder (`assets/`) and a self-study workspace (`selbststudium/`) for Georg's R/statistics learning path via the `teach` skill. All HTML pages load assets through a generic inline bootstrap (repo-name-agnostic) and run via a local **live server** or GitHub Pages (no `file://`).
+GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturafach) at HTL Spengergasse, Abteilung Wirtschaftsingenieure (Technisches Management & Umwelt). Its `lehrplan/` follows the skill convention with a **Fach-Ebene** at the root (METADATA, RIS, KM-Steckbriefe, KM-keyed resources) and a **Zweig-Ebene** `pmm-hwit/` (extract, class extracts, semester plans); `unterricht/` holds only flat prepared units. A single shared asset folder (`assets/`) and a self-study workspace (`selbststudium/`) for Georg's R/statistics learning path round it out. All HTML pages load assets through a generic inline bootstrap (repo-name-agnostic) and run via a local **live server** or GitHub Pages (no `file://`).
 
 ## Directory Layout
 
 | Path | Purpose |
 |------|---------|
-| `lehrplan/` | Curriculum layer (flat, single Zweig/Fach, #19): `LEHRPLAN.md` (full extract JG1–JG5), `RIS.md` (legal status/amendments), `METADATA.md` (legal basis, RIS refs, amendment history, class mapping), `RIS/` (RIS law-text PDFs only, ISO-date prefix), `4HWIT/`+`5HWIT/` (class extracts), `kompetenzmodule/` (didactic KM-Steckbriefe km3–km9b), `ressourcen-matrix.md`, `r4ds-abdeckung.md` |
-| `unterricht/` | Teaching layer: prepared units **flat at root** as `<PREFIX>-<NN>-<slug>/` (`KM<#>` = Kompetenzmodul, `SA` = schulautonom; `<NN>` runs per KM) each with `praesentation.html` + `hausaufgabe.md` + `lesson.html`. Semester plans stay in the subfolder below. |
-| `unterricht/HWIT-PMM/` | Zweig-Fach subfolder — **only** semester plans (`jg4-/jg5-semesterplan-{ws,ss}.md`) |
+| `lehrplan/` | Curriculum layer — **Fach-Ebene** (root): `METADATA.md` (legal basis, RIS refs, amendment history, class mapping), `RIS/` (RIS law-text PDFs only, ISO-date prefix), `kompetenzmodule/` (didactic KM-Steckbriefe km3–km9b), `ressourcen-matrix.md`, `r4ds-abdeckung.md` (KM-keyed resources) |
+| `lehrplan/pmm-hwit/` | Curriculum layer — **Zweig-Ebene**: `LEHRPLAN.md` (full extract JG1–JG5), `RIS.md` (legal status/amendments), `4HWIT/`+`5HWIT/` (class extracts), semester plans `jg{3,4,5}-semesterplan-{ws,ss}.md` (`jg3` = Vorwissen-/Selbststudiums-Planung) |
+| `unterricht/` | Teaching layer: prepared units **flat at root** as `<PREFIX>-<NN>-<slug>/` (`KM<#>` = Kompetenzmodul, `SA` = schulautonom; `<NN>` runs per KM) each with `praesentation.html` + `hausaufgabe.md` + `lesson.html`. **No Zweig-Fach folder** — plans live in `lehrplan/pmm-hwit/` |
 | `assets/` | **Single shared asset folder** (repo root): `lesson.css`, `style.css`, `slides.css`, `theme.js`, `quiz.js` (unified radio widget), `loader.js` (root resolver + injector), `site.js` (per-repo config: Pages base + badge label), `github-pages-link.js` (badge), `betriebsdaten.csv` |
 | `4ahwit-x/`, `4ahwit-y/` | Root cohort folders (lowercase = cohort storage). Hub `README.md` + `MISSION/RESOURCES/NOTES.md`, `YYYY-MM-DD__thema/lesson.html` (dated lessons). Undated lessons are canonical under `unterricht/`; cohort `prepared-lessons/` dissolved 2026-09-28 (#20) |
 | `5ahwit/` | Root cohort folder in SWP pattern: hub-README + `teach/` (`MISSION/NOTES/RESOURCES`, `reference/`, `learning-records/`), `hausaufgaben/`, date folders; R-On-Ramp lessons referenced from `unterricht/SA-01…SA-03` |
@@ -58,7 +58,7 @@ GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturaf
 
 ## Key Flows
 
-- Lehrplan (`lehrplan/`) → KM-Steckbriefe (`lehrplan/kompetenzmodule/`) → Semesterpläne (`unterricht/HWIT-PMM/jg<N>-semesterplan-*.md`) → prepared units (`unterricht/<PREFIX>-<NN>-<slug>/lesson.html`)
+- Lehrplan (`lehrplan/`) → KM-Steckbriefe (`lehrplan/kompetenzmodule/`) → Semesterpläne (`lehrplan/pmm-hwit/jg<N>-semesterplan-*.md`) → prepared units (`unterricht/<PREFIX>-<NN>-<slug>/lesson.html`)
 - Semesterpläne → Selbststudium-Lektionen (`selbststudium/prepared-lessons/`) → Learning Records (`learning-records/`)
 - Semesterplan JG4-WS → prepared units (`unterricht/SA-…`, `unterricht/KM5-…`) ↔ dated cohort lessons (`<klasse>/YYYY-MM-DD__thema/lesson.html`)
 - **Master/Kopien (#14):** Master units under `unterricht/` → cohort-specific copies/adaptions in the cohort folder (e.g. `5ahwit/hausaufgaben/`); cohort `prepared-lessons/` dissolved 2026-09-28 (#20)

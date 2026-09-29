@@ -25,7 +25,7 @@ Follow these without question. Do not deviate unless explicitly told.
 - Legal documents: `lehrplan/RIS/` (RIS law-text PDFs only, ISO-date prefix)
 - Knowledge persistence: `docs/ai/`
 - Reference materials: `Unterlagen/`
-- Class extracts: `lehrplan/4HWIT/`, `lehrplan/5HWIT/`
+- Class extracts: `lehrplan/pmm-hwit/4HWIT/`, `lehrplan/pmm-hwit/5HWIT/`
 - KM-Steckbriefe (didaktisch): `lehrplan/kompetenzmodule/`
 - Each class folder may have its own `README.md`
 - UE material style: `docs/stil-leitfaden.md` (R4DS-Stimme, #6)
@@ -79,12 +79,12 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
 
 ## Kohorten-Ablagen am Repo-Root (#13)
 - Klein geschriebene Klassenordner am Repo-Root = Kohorten-Ablagen
-  (`5ahwit/`, `4ahwit-x/`, `4ahwit-y/`); GROSSBUCHSTABEN unter `lehrplan/`
-  = Lehrplan-Extrakte. Nie mischen.
+  (`5ahwit/`, `4ahwit-x/`, `4ahwit-y/`); GROSSBUCHSTABEN unter
+  `lehrplan/pmm-hwit/` (Zweig-Ebene) = Lehrplan-Extrakte. Nie mischen.
 - Kohorten-Teilungen großer Klassen: Suffix `-x`/`-y`.
 - Kohorten-Dirs dürfen nur kohorten-spezifisches Material halten;
   gemeinsames Material bleibt unter `unterricht/` (vorbereitete Einheiten)
-  bzw. `unterricht/HWIT-PMM/` (Semesterpläne).
+  bzw. `lehrplan/pmm-hwit/` (Semesterpläne).
 - **Master/Kopien-Modell (#14):** `unterricht/` hält die Master-Einheiten
   (`praesentation.html` + `hausaufgabe.md` + `lesson.html`) — Kohorten-
   Abweichungen werden als **Kopien im Kohortenordner** gepflegt (z. B.
@@ -98,10 +98,15 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   liegen **flach** unter `unterricht/` als `<PREFIX>-<NN>-<slug>/`
   (`KM<#>` = Kompetenzmodul, `SA` = schulautonom; `<NN>` läuft pro KM) mit
   `praesentation.html` + `hausaufgabe.md` + `lesson.html`. Semesterpläne
-  bleiben in `unterricht/HWIT-PMM/`; die Kohorten-`prepared-lessons/` wurden
+  bleiben in `lehrplan/pmm-hwit/`; die Kohorten-`prepared-lessons/` wurden
   aufgelöst. Terminierte/abgehaltene Lektionen liegen im Datums-Ordner
   `<klasse>/YYYY-MM-DD__thema/lesson.html` plus Tages-README (Aufgabe als
   erster eigener `## Aufgabe`-Abschnitt, Pflicht).
+- **lehrplan-Ebenen (2026-09-29, #21):** **Fach-Ebene** am `lehrplan/`-Root =
+  `METADATA.md`, `RIS/`, `kompetenzmodule/` (KM-Steckbriefe) und KM-keyed
+  Ressourcen (`ressourcen-matrix.md`, `r4ds-abdeckung.md`) — formunabhängig.
+  **Zweig-Ebene** `lehrplan/pmm-hwit/` = `LEHRPLAN.md`, `RIS.md`, Klassen-
+  Extrakte, Semesterpläne. Die Unterrichtsebene trägt **keine** Zweig-Fach-Ebene.
 - Lektionen sind self-contained HTML ohne CDN-Abhängigkeiten (Offline-fähig
   auf Schul-Laptops); Quiz-Antworten mit gleicher Wortzahl.
 - Quiz-Richtige-Position rotiert (CONVENTIONS Answer-Shuffling gilt auch
