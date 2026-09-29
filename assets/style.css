@@ -218,13 +218,6 @@ tbody tr:last-child td { border-bottom: none; }
 }
 .quiz .feedback.richtig { color: var(--ok); }
 .quiz .feedback.falsch { color: #b03a3a; }
-.quiz .erklaerung,
-.quiz .hinweis {
-  margin-top: 0.6rem;
-  font-size: 0.92rem;
-  color: var(--ink-soft);
-  display: none;
-}
 
 /* ---------- footer ---------- */
 .lesson-foot {
