@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Wiederholung KM7-02 — Der Chi-Quadrat-Test</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","slides.css");e.setAttribute("data-js","");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/theme/white.css">
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+  <!-- ============================================================ TITEL -->
+  <section class="title-slide">
+    <div class="meta">KM7 · Wiederholung aus der 4. Klasse · Prozessmanagement</div>
+    <h1>Der Chi-Quadrat-Test</h1>
+    <p class="subtitle">Passen die Häufigkeiten?<br>Zwei Testarten, ein Warnhinweis.</p>
+    <div class="meta">5AHWIT · vor UE 1 (DoE) · 1. Doppelstunde</div>
+  </section>
+
+  <!-- ============================================================ LEKTÜRE -->
+  <section>
+    <div class="callout tipp">
+      <span class="label">Lektüre</span>
+      <p>Navarro, <a href="https://learningstatisticswithr.com/book/">Statistik für
+         Human- und Sozialwissenschaftler</a> (deutsch) —
+         <strong>Kap. 12, Chi-Quadrat-Tests</strong> (Pflicht).</p>
+      <p style="margin-top:0.6em">Voraussetzung:
+        <a href="../KM5-02-binomialverteilung-und-annahmeschwelle/lesson.html">Binomialverteilung
+        (KM5-02)</a> — der Anpassungstest ist genau ihre Anwendung.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ EINSTIEG -->
+  <section>
+    <h2>Einstiegsfrage</h2>
+    <table>
+      <tr><th></th><th>in Toleranz</th><th>außerhalb</th></tr>
+      <tr><td>M1</td><td>37</td><td><strong>0</strong></td></tr>
+      <tr><td>M2</td><td>39</td><td><strong>0</strong></td></tr>
+      <tr><td>M3</td><td>34</td><td><strong>6</strong></td></tr>
+    </table>
+    <p class="fragment" style="font-size:1.25em">Hängt die
+      <strong>Maschinenwahl</strong> damit zusammen, ob ein Teil in der
+      Toleranz liegt?</p>
+    <p class="fragment">6 Ausschusteile, und eine Maschine mit null. Sieht
+      nach Zusammenhang aus. Aber: <strong>sieht aus reicht nicht.</strong></p>
+  </section>
+
+  <!-- ============================================================ ZIEL -->
+  <section>
+    <h2>Das Ziel</h2>
+    <pre><code class="language-r">chisq.test(tab)
+<span class="out"># → Pearson's Chi-squared test
+#     X-squared = 12.022, df = 2, p-value = 0.002452</span></code></pre>
+    <p class="fragment" style="font-size:1.15em">Der Test macht etwas sehr
+      Einfaches: Er vergleicht jede <strong>beobachtete</strong> Häufigkeit
+      mit der, die sich unter H0 <em>ergeben müsste</em>.</p>
+  </section>
+
+  <!-- ============================================================ ERWARTET -->
+  <section>
+    <h2>Schritt 1: die erwarteten Häufigkeiten</h2>
+    <pre><code class="language-r">erwartet_ij = (Zeilensumme_i * Spaltensumme_j) / Gesamtsumme</code></pre>
+    <p>Gesamtsumme: <strong>116</strong> gültige Messungen, davon 6
+      außerhalb.</p>
+    <pre><code class="language-r">M1 = 37 * 6 / 116 = 1.91
+M2 = 39 * 6 / 116 = 2.02
+M3 = 40 * 6 / 116 = 2.07</code></pre>
+    <table>
+      <tr><th></th><th>beobachtet</th><th>erwartet</th></tr>
+      <tr><td>M1</td><td>0</td><td>1,91</td></tr>
+      <tr><td>M2</td><td>0</td><td>2,02</td></tr>
+      <tr><td>M3</td><td>6</td><td>2,07</td></tr>
+    </table>
+    <p class="fragment" style="font-size:1.15em">M3 hat <strong>fast
+      dreimal</strong> so viele Ausschusteile wie ohne Zusammenhang zu
+      erwarten. M1 und M2 haben <em>null</em> statt rund zwei.</p>
+  </section>
+
+  <!-- ============================================================ X2 -->
+  <section>
+    <h2>Schritt 2: die Teststatistik</h2>
+    <pre><code class="language-r">X&sup2; = &Sigma; (Beobachtet - Erwartet)&sup2; / Erwartet</code></pre>
+    <p>Quadriert, damit Plus und Minus sich nicht aufheben; durch die
+      Erwartung geteilt, damit seltene Zellen mehr zählen.</p>
+    <pre><code class="language-r">M1:  (0 - 1.91)&sup2; / 1.91 = 1.91
+M2:  (0 - 2.02)&sup2; / 2.02 = 2.02
+M3:  (6 - 2.07)&sup2; / 2.07 = 7.47
+   + Spalte "in Toleranz":  0.10 + 0.11 + 0.41</code></pre>
+    <p class="fragment" style="font-size:1.4em">X&sup2; = <strong>12,02</strong></p>
+    <p class="fragment">Der Name ist kein Geheimnis: es ist die
+      <em>Summe der quadrierten Abweichungen</em>.</p>
+  </section>
+
+  <!-- ============================================================ P -->
+  <section>
+    <h2>Den p-Wert richtig lesen</h2>
+    <pre><code class="language-r">p = 0.0025 <span class="out"># 0,25 % aller Faelle, wenn es KEINEN Zusammenhang gibt</span></code></pre>
+    <p style="font-size:1.2em">heißt: Wenn es <em>keinen</em> Zusammenhang
+      gäbe, wäre eine so große Abweichung in
+      <strong>0,25 % aller Fälle</strong> zu sehen.</p>
+    <p class="fragment" style="font-size:1.2em">Der Zusammenhang ist da.
+      <strong>H0 wird verworfen.</strong></p>
+    <div class="callout">
+      <span class="label">Nicht</span>
+      <p>0,25 % ist <em>nicht</em> die Wahrscheinlichkeit, dass der
+        Zusammenhang falsch ist. Der p-Wert gehört immer zu den Daten,
+        nicht zur Zukunft.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ DF -->
+  <section>
+    <h2>Die Freiheitsgrade</h2>
+    <pre><code class="language-r">df = (Zeilen - 1) * (Spalten - 1) = (3 - 1) * (2 - 1) = 2</code></pre>
+    <p class="fragment">Nicht die Anzahl der Zellen, sondern
+      <strong>wie viele Zellen man frei wählen kann</strong>, nachdem die
+      Summen feststehen.</p>
+    <p class="fragment">Die rechte Spalte ist keine echte Entscheidung —
+      sie ergibt sich aus der linken. Daher <strong>df = 2</strong>, nicht
+      6.</p>
+  </section>
+
+  <!-- ============================================================ ANPASSUNG -->
+  <section>
+    <h2>Schritt 3: der Anpassungstest</h2>
+    <p>Andere Frage: <strong>Stimmt die Verteilung mit einer Sollquote
+      überein?</strong> Kunde: 10 % Ausschuss.</p>
+    <pre><code class="language-r">chisq.test(c(in_Toleranz = 34, ausserhalb = 6),
+            p = c(0.9, 0.1))
+
+<span class="out"># → X-squared = 1.1111, df = 1, p-value = 0.2918</span></code></pre>
+    <p class="fragment">Die 15 % Ausschussquote von M3 sind von den
+      geforderten 10 % <strong>statistisch nicht unterscheidbar</strong>.</p>
+    <p class="fragment">Genau das, was die Binomialverteilung aus
+      <strong>KM5-02</strong> vorhergesagt hat.</p>
+  </section>
+
+  <!-- ============================================================ FALLE -->
+  <section>
+    <h2>Die Falle: Abweichung in beide Richtungen</h2>
+    <p>Dasselbe mit M1 — <strong>0</strong> Ausschusteile von 37:</p>
+    <pre><code class="language-r">chisq.test(c(in_Toleranz = 37, ausserhalb = 0),
+            p = c(0.9, 0.1))
+
+<span class="out"># → X-squared = 4.1111, df = 1, p-value = 0.0426</span></code></pre>
+    <p class="fragment" style="font-size:1.15em">M1 hat <strong>keinen
+      einzigen</strong> Ausschuss — und der Test meldet
+      <em>signifikante Abweichung</em>. Erwartet waren 3,7.</p>
+    <p class="fragment" style="font-size:1.15em">Ein Anpassungstest ist
+      <strong>kein Güteurteil</strong>, sondern ein
+      <strong>Vergleichstest</strong>. Er erkennt jede Abweichung —
+      in beide Richtungen.</p>
+  </section>
+
+  <!-- ============================================================ VORAUSS -->
+  <section>
+    <h2>Schritt 4: die Warnung, die R nicht unterschlägt</h2>
+    <pre><code class="language-r">erwartet &lt;- outer(rowSums(tab), colSums(tab)) / sum(tab)
+
+<span class="out"># →   ausserhalb  in_Toleranz
+#     M1          1.91        35.09
+#     M2          2.02        36.98
+#     M3          2.07        37.93</span></code></pre>
+    <p class="fragment">Regel: <strong>mindestens 80 % der erwarteten
+      Häufigkeiten &ge; 5</strong>. Hier: 3 von 6 = 50 %.</p>
+    <p class="fragment" style="font-size:1.2em">Der Chi-Test
+      <em>nähert</em> durch eine Normalverteilung — dafür sind zu wenige
+      Daten da. <strong>0,0025 ist eine Näherung, die nicht hält.</strong></p>
+  </section>
+
+  <!-- ============================================================ FISHER -->
+  <section>
+    <h2>Die Alternative: der exakte Test</h2>
+    <pre><code class="language-r">fisher.test(tab)
+<span class="out"># → Fisher's Exact Test for Count Data
+#     p-value = 0.003177</span></code></pre>
+    <p class="fragment">Rechnet <strong>ohne Näherung</strong> — kommt auf
+      0,0032. Praktisch dasselbe Urteil, aber ohne die
+      Näherungsannahme.</p>
+    <div class="callout tipp">
+      <span class="label">Regel für die Praxis</span>
+      <p>Zu wenige Daten → <code>fisher.test()</code>. Viele Daten →
+        <code>chisq.test()</code>. Und <strong>nie</strong> die Warnung
+        ignorieren.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ DATEN -->
+  <section>
+    <h2>Schritt 5: der Datensatz</h2>
+    <pre><code class="language-r">daten &lt;- read_csv("../../assets/betriebsdaten.csv") |&gt;
+  mutate(iok = if_else(is.na(masse_mm), NA,
+          if_else(abs(masse_mm - 10) &gt; 0.15,
+                  "ausserhalb", "in_Toleranz")))
+
+table(daten$maschine, daten$iok)
+
+<span class="out">#     ausserhalb  in_Toleranz
+#   M1     0          37
+#   M2     0          39
+#   M3     6          34</span></code></pre>
+    <div class="callout">
+      <span class="label">Warum <code>is.na()</code> zuerst?</span>
+      <p><code>if_else()</code> braucht für <em>jeden</em> Fall einen Wert.
+        Ohne den NA-Zweig würden die vier fehlenden Messungen
+        fälschlich als „in Toleranz" gezählt.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ JETZT DU -->
+  <section>
+    <h2>Jetzt du! (im Skript, Ctrl+Enter zeilenweise)</h2>
+    <ol>
+      <li><strong>Vorhersage zuerst:</strong> Welche Zelle trägt am meisten
+        zur Teststatistik bei? Rechne den Beitrag von Hand nach und
+        vergleiche mit R.</li>
+      <li>Anpassungstests für <strong>alle drei</strong> Maschinen gegen
+        10 %. Welche fällt statistisch auf — und in welche Richtung?</li>
+      <li>Berechne alle erwarteten Häufigkeiten. Welcher Anteil liegt unter
+        5, und welches Testverfahren folgt daraus?</li>
+    </ol>
+  </section>
+
+  <!-- ============================================================ FEHLER -->
+  <section>
+    <h2>Typische Fehler — vier Stück</h2>
+    <pre><code class="language-r"><span class="cmt"># 1. Prozentzahlen statt Haeufigkeiten</span>
+chisq.test(c(0.90, 0.10))   <span class="out"># → sinnlos</span>
+
+<span class="cmt"># 2. correct = FALSE als schneller Fix</span>
+<span class="cmt">#    versteckt das Problem, behebt es nicht</span>
+
+<span class="cmt"># 3. Die Warnung ueberlesen</span>
+<span class="cmt">#    "approximation may be incorrect" ist der wichtigste Satz</span>
+
+<span class="cmt"># 4. chisq.test() fuer metrische Daten</span>
+<span class="cmt">#    der Test braucht KATEGORIEN — Mittelwerte: t-Test</span></code></pre>
+  </section>
+
+  <!-- ============================================================ ZUSAMMEN -->
+  <section>
+    <h2>Zusammenfassung</h2>
+    <table>
+      <tr><th>Konzept</th><th>Das Wichtigste</th></tr>
+      <tr><td>Erwartete Häufigkeit</td><td>(Zeile · Spalte) / Gesamtsumme</td></tr>
+      <tr><td>X&sup2;</td><td>Summe der quadrierten, normierten Abweichungen</td></tr>
+      <tr><td>df</td><td>(Zeilen − 1) · (Spalten − 1)</td></tr>
+      <tr><td>Unabhängigkeitstest</td><td>Hängen zwei Merkmale zusammen?</td></tr>
+      <tr><td>Anpassungstest</td><td>Passt die Verteilung zu einer Sollverteilung?</td></tr>
+      <tr><td>Richtung</td><td>Erkennt Abweichung in <em>beide</em> Richtungen</td></tr>
+      <tr><td>Voraussetzung</td><td>80 % der erwarteten Häufigkeiten &ge; 5</td></tr>
+      <tr><td><code>fisher.test</code></td><td>Exakt, wenn die Näherung nicht trägt</td></tr>
+    </table>
+    <p class="fragment"><strong>Ausblick:</strong> Beide Tests waren
+      <em>Signifikanz</em>-Tests. Wie oft findet so ein Test etwas, wenn gar
+      nichts ist — und wie hängt das von der Stichprobengröße ab?
+      <a href="../KM7-03-teststaerke-und-stichprobenumfang/lesson.html">KM7-03</a>.</p>
+  </section>
+
+  <!-- ============================================================ AUFGABE -->
+  <section class="hint-slide">
+    <h2>Aufgabe</h2>
+    <p style="font-size:1.3em">➜ <a href="hausaufgabe.md"><code>hausaufgabe.md</code></a></p>
+    <p>(liegt im selben Ordner — einfach anklicken)</p>
+    <p style="margin-top:1.5em; font-size:0.8em">6 Abschnitte: Vorhersagen ·
+      Teststatistik von Hand · Unabhängigkeitstest ·<br>
+      Anpassungstest · Voraussetzungen prüfen · Kapitel-Check (Navarro 12)</p>
+    <p style="font-size:0.8em"><strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
+  </section>
+
+</div></div>
+
+<script src="https://cdn.revealjs.com/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'slide',
+  width: 1280,
+  height: 800,
+  margin: 0.08,
+  center: true,
+  controlsLayout: 'edges'
+});
+</script>
+</body>
+</html>

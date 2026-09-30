@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion KM5-02 — Binomialverteilung und Annahmeschwelle</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","quiz.js,theme.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+</head>
+<body>
+
+<header class="meta">
+  <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-pressed="false">Dunkel</button>
+  <span class="kicker">Lektion KM5-02 · Zählen statt Rechnen</span>
+  <span class="ort">vor UE 1 · 5AHWIT WS · Wiederholung aus KM5</span>
+  <h1>Die Annahmeschwelle: wie viele Teile darf ich prüfen?</h1>
+  <p class="subtitle">Binomialverteilung, Akzeptwahrscheinlichkeit — und
+  warum ein Stichprobenplan nie beide Seiten gewinnen kann.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>Navarro, <a href="https://learningstatisticswithr.com/book/">Statistik
+     für Human- und Sozialwissenschaftler</a> (deutsch) — Kap. 9
+     (Probability). Wenn du das <em>Wege zählen</em>
+     (<code>n über k</code>, Pascalsches Dreieck) noch nicht sitzen hast:
+     <a href="../KM5-01-binomialkoeffizient-pascalsches-dreieck/lesson.html">Lektion
+     KM5-01</a> — die Lektion setzt genau dort an.</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>Maschine M3 hat <strong>6 von 40</strong> Teilen außerhalb der
+  Toleranz geliefert. Alle anderen Maschinen: keine.</p>
+  <p><strong>Sind die 6 Teile ein Signal — oder völlig normal?</strong></p>
+  <p>Die Antwort braucht keine Vermutung, sondern eine Verteilung. Heute
+  bauen wir sie: die <strong>Binomialverteilung</strong> — das Werkzeug
+  hinter jeder Annahmestichprobenprüfung und hinter dem
+  <a href="../KM7-02-chi-quadrat-test/lesson.html">Chi-Test</a>, den wir als
+  Nächstes machen.</p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+  <p>Der eine Aufruf, der am Ende alles leistet:</p>
+<pre>
+pbinom(c, size = n, prob = p)
+<span class="cmt"># → „Mit welcher Wahrscheinlichkeit komme ich mit
+#     höchstens c Fehlern durch, wenn ich n Teile prüfe
+#     und die Fehlerquote p ist?"</span>
+</pre>
+  <p>Ein Aufruf, drei Zahlen — und daraus die Entscheidung, ob ein Los
+  angenommen oder zurückgewiesen wird.</p>
+</section>
+
+<section>
+  <h2>Schritt 1 — Das Zufallsexperiment</h2>
+  <p>Die Binomialverteilung beschreibt genau zwei Dinge:</p>
+  <ol>
+    <li><strong>Jedes Teil</strong> ist entweder i.O. oder i.O. — ein
+      Ja/Nein-Ergebnis, <em>nichts dazwischen</em>.</li>
+    <li><strong>Jedes Teil</strong> hat dieselbe Wahrscheinlichkeit p.</li>
+  </ol>
+  <p>Meßgrößen wie „10,02 mm" sind dafür zu fein. Aber „in Toleranz /
+  außerhalb" ist genau diese Ja/Nein-Frage. Und „6 von 40" ist genau diese
+  Zählung.</p>
+  <p>Zwei Parameter bestimmen alles: die <strong>Stückzahl n</strong> und
+  die <strong>Fehlerquote p</strong>. Der Erwartungswert ist die
+  Quintessenz:</p>
+<pre>
+E(X) = n * p
+<span class="cmt"># bei n = 40 und p = 0,10:  E(X) = 4 defekte Teile</span>
+</pre>
+
+  <div class="callout tipp">
+    <span class="label">Anschluss an KM5-01</span>
+    <p>Die Binomialverteilung ist genau die Verteilung, für die du in
+      <a href="../KM5-01-binomialkoeffizient-pascalsches-dreieck/lesson.html">KM5-01</a>
+      das Pascalsche Dreieck gebaut hast. Jetzt kommt die zweite Stufe: die
+      <em>Gewichtung</em>. <code>choose(5, 2)</code> zählt die Wege,
+      <code>dbinom(2, 5, 0.1)</code> gewichtet sie.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 2 — <code>dbinom</code>: genau k Treffer</h2>
+  <p>5 Teile werden geprüft, die Fehlerquote beträgt 10 %. Wie
+  wahrscheinlich ist <strong>genau 2</strong> davon defekt?</p>
+<pre>
+dbinom(0:5, size = 5, prob = 0.1)
+<span class="cmt"># → 0.59049 0.32805 0.07290 0.00810 0.00045 0.00001
+#     ↑        ↑        ↑        ↑        ↑        ↑
+#     0        1        2        3        4        5 Fehler</span>
+</pre>
+  <p>Lies die Zahlen von links: 0 Fehler ist mit 59 % am wahrscheinlichsten,
+  1 Fehler mit 33 %. Zusammen sind das <strong>92 %</strong> — ein
+  „sauberes" Los ist der Normalfall. Zwei oder mehr Fehler passieren nur in
+  <strong>8,1 %</strong> aller Fälle:</p>
+<pre>
+pbinom(1, size = 5, prob = 0.1, lower.tail = FALSE)
+<span class="cmt"># → 0.08146</span>
+</pre>
+
+  <div class="callout">
+    <span class="label">Die vier d/p/q/r-Funktionen</span>
+    <p>Eine Verteilung hat immer vier Ansichten — und die
+      Buchstaben merken sich nach ihrer Frage:</p>
+    <table>
+      <tr><th>Funktion</th><th>Fragt</th></tr>
+      <tr><td><code>dbinom(k, n, p)</code></td><td>Wie wahrscheinlich sind <em>genau k</em>?</td></tr>
+      <tr><td><code>pbinom(k, n, p)</code></td><td>Wie wahrscheinlich sind <em>höchstens k</em>?</td></tr>
+      <tr><td><code>qbinom(q, n, p)</code></td><td>Welcher k-Wert gehört zur <em>Quantile q</em>?</td></tr>
+      <tr><td><code>rbinom(N, n, p)</code></td><td>Erzeuge <em>N Zufallszüge</em></td></tr>
+    </table>
+    <p>Für die Annahmestichprobe brauchst du fast nur <code>pbinom</code>.</p>
+  </div>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage">Du prüfst 10 Teile und nimmst die Charge an, wenn
+    <strong>höchstens 1</strong> Teil defekt ist. Welcher Aufruf berechnet
+    die Akzeptwahrscheinlichkeit bei einer Fehlerquote von 5 %?</p>
+    <label><input type="radio" name="q1" value="0" data-grund="Richtig — pbinom(1, 10, 0.05) ist genau die Wahrscheinlichkeit für höchstens einen Fehler bei 10 geprüften Teilen."> <code>pbinom(1, size = 10, prob = 0.05)</code></label>
+    <label><input type="radio" name="q1" value="1" data-grund="Falsch — dbinom fragt nach genau k, nicht nach höchstens k. Die Akzeptannahme umfasst aber 0 <em>oder</em> 1 Fehler."> <code>dbinom(1, size = 10, prob = 0.05)</code></label>
+    <label><input type="radio" name="q1" value="2" data-grund="Falsch — qbinom invertiert die Verteilung: Es liefert den k-Wert, nicht die Wahrscheinlichkeit. Hier ist aber die Wahrscheinlichkeit gefragt."> <code>qbinom(0.95, size = 10, prob = 0.05)</code></label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 3 — Die Akzeptwahrscheinlichkeit</h2>
+  <p>Jetzt der eigentliche Zweck. Ein Stichprobenplan besteht aus genau
+  zwei Zahlen:</p>
+<pre>
+n = 10   Stichprobenumfang:  so viele Teile prüfen wir
+c = 1    Annahmeschwelle:  so viele Fehler dulden wir noch
+</pre>
+  <p>Die Regel lautet: <strong>höchstens c Fehler → annehmen</strong>,
+  mehr → zurückweisen. Und <code>pbinom(c, n, p)</code> sagt uns, wie oft
+  das bei einer wahren Fehlerquote p passiert. Das ist die
+  <strong>OC-Kurve</strong> (Operating-Characteristic-Kurve) in
+  Tabellenform:</p>
+<pre>
+pfehler &lt;- c(0.05, 0.10, 0.15, 0.20)
+
+sapply(0:2, function(c) round(pbinom(c, 10, pfehler), 4))
+<span class="cmt"># →       c=0     c=1     c=2
+#   p=0.05  0.5987  0.9139  0.9885
+#   p=0.10  0.3487  0.7361  0.9298
+#   p=0.15  0.1969  0.5443  0.8202
+#   p=0.20  0.1074  0.3758  0.6778</span>
+</pre>
+  <p>Jede Zelle ist eine <strong>Akzeptwahrscheinlichkeit</strong>. Lies
+  zwei Punkte daraus:</p>
+  <ul>
+    <li><strong>Links oben</strong> (p = 0,05, c = 1): 91,4 % — ein
+      <em>guter</em> Prozess kommt fast immer durch. Das ist das
+      <strong>Produzentenrisiko</strong>: gute Lose werden zu oft
+      zurückgewiesen.</li>
+    <li><strong>Rechts unten</strong> (p = 0,20, c = 1): 37,6 % — aber
+      62,4 % der <em>schlechten</em> Lose kommen trotzdem durch! Das ist
+      das <strong>Warenrisiko</strong> (Konsumentenrisiko): Der Kunde
+      bekommt Ausschuss geliefert.</li>
+  </ul>
+
+  <div class="callout">
+    <span class="label">Der Kern der ganzen Lektion</span>
+    <p>Hebst du c von 1 auf 2, <strong>verbessert</strong> sich die
+      linke Spalte (0,914 → 0,989) — aber die <strong>rechte</strong>
+      verschlechtert sich (0,544 → 0,820). Bei n = 10 gibt es keine Wahl,
+      die beide Seiten gut aussehen lässt. <strong>Ein Stichprobenplan
+      verteilt immer nur ein festes Risiko.</strong></p>
+  </div>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">Bei n = 10 und c = 1 gilt: P(annehmen | p = 0,05) =
+    0,9139 und P(annehmen | p = 0,15) = 0,5443. Was bedeutet die
+    0,5443 im Klartext?</p>
+    <label><input type="radio" name="q2" value="0" data-grund="Falsch — 0,5443 ist gerade die schlechte Seite. Bei 5 % Fehlerquote ist der Plan sehr großzügig, bei 15 % sehr schwach."> 5,4 % der guten Lose werden fälschlich zurückgewiesen</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Richtig — der Plan kann die beiden Prozesse kaum trennen. 54 % der schlechten Lose passieren die Prüfung; das ist das Warenrisiko."> 54,4 % der Lose mit 15 % Fehlerquote werden angenommen — der Plan erkennt den schlechten Prozess kaum</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Falsch — der Vergleich P(annehmen | gut) gegen P(annehmen | schlecht) ist genau die Trennschärfe des Plans; sie ist hier schwach."> Der Test erkennt einen Unterschied von 54,4 Prozentpunkten zwischen den Prozessen</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 4 — Die Annahmeschwelle rückwärts rechnen</h2>
+  <p>Meist ist die Aufgabe umgekehrt: Der Kunde gibt die
+  <strong>Qualitätsvorgabe</strong> vor, und du suchst den
+  <strong>Stichprobenumfang</strong>.</p>
+<pre>
+„Unser Prozess hat 5 % Ausschuss. Wir wollen, dass ein gutes Los
+ mit mindestens 95 % Wahrscheinlichkeit durchkommt.
+ Wie viele Teile müssen wir prüfen, wenn 2 Fehler erlaubt sind?"
+</pre>
+  <p>Gesucht ist also das kleinste n mit
+  <code>pbinom(2, n, 0.05) &ge; 0,95</code>. Rate einmal — dann rechne:</p>
+<pre>
+sapply(10:20, function(n) pbinom(2, n, 0.05))
+<span class="cmt"># → n=10: 0.9885   n=13: 0.9755   n=16: 0.9571
+#     n=11: 0.9848   n=14: 0.9699   n=17: 0.9497
+#     n=12: 0.9804   n=15: 0.9638   n=18: 0.9419
+#                                  ↑ hier kippt es</span>
+</pre>
+  <p>Die Antwort ist <strong>n = 15 oder 16</strong> — bei n = 17 ist die
+  Vorgabe von 95 % bereits gerissen. Merke die Richtung: <strong>größeres n
+  macht die Akzeptwahrscheinlichkeit <em>kleiner</em></strong>, weil im
+  Mittel mehr Fehler auftauchen. Mehr prüfen ist nicht automatisch
+  „sicherer".</p>
+
+  <h3>Was kostet eine bessere Trennung?</h3>
+  <p>Man braucht ein größeres n — aber <strong>nicht bei gleicher
+  Schwelle</strong>. Der Vergleich, der zeigt warum:</p>
+<pre>
+plan &lt;- data.frame(
+  n         = c(10, 25, 25),
+  c         = c( 1,  1,  3),
+  gut       = round(pbinom(c(1, 1, 3), c(10, 25, 25), 0.05), 4),
+  schlecht  = round(pbinom(c(1, 1, 3), c(10, 25, 25), 0.15), 4)
+)
+plan$trennung &lt;- round(plan$gut - plan$schlecht, 4)
+plan
+<span class="cmt"># →    n  c    gut  schlecht  trennung
+#     1 10  1  0.9139    0.5443     0.3696
+#     2 25  1  0.6424    0.0931     0.5493
+#     3 25  3  0.9659    0.4711     0.4948</span>
+</pre>
+  <p>Zeile 1 gegen Zeile 2: <strong>höheres n bei gleicher Schwelle c = 1
+  zerstört den Plan.</strong> Der gute Prozess kommt nur noch zu 64 %
+  durch — man weist massenhaft gute Lose zurück. Zeile 2 gegen Zeile 3:
+  Erst wenn man <strong>beides</strong> anhebt — n auf 25 <em>und</em> c
+  auf 3 — bekommt man die Trennung zurück: 96,6 % der guten Lose
+  durch, aber nur 47,1 % der schlechten.</p>
+
+  <div class="callout">
+    <span class="label">Die Abwägung des Wareneingangs</span>
+    <p>Zeile 3 trennt besser als Zeile 1 (0,4948 gegen 0,3696) — und
+      kostet dafür <strong>2,5-mal so viele geprüfte Teile</strong>. Das
+      ist keine Rechenaufgabe, sondern eine <em>Entscheidung</em>: Wie viel
+      Prüfaufwand ist dir ein Prozentpunkte weniger Warenrisiko wert? Diese
+      Frage wird in jedem Audit gestellt — und sie ist der Grund, warum
+      Stichprobenpläne in Normen stehen.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — Zurück zur Einstiegsfrage</h2>
+  <p>Jetzt die 6 Ausschusteile von M3. Wenn die wahre Fehlerquote
+  10 % wäre, wäre die Akzeptwahrscheinlichkeit bei n = 40 und c = 6:</p>
+<pre>
+pbinom(6, size = 40, prob = 0.10)
+<span class="cmt"># → 0.9005</span>
+</pre>
+  <p>Und die Wahrscheinlichkeit, <strong>genau</strong> 6 zu sehen:</p>
+<pre>
+dbinom(6, size = 40, prob = 0.10)
+<span class="cmt"># → 0.10676</span>
+</pre>
+  <p>Bei 10 % Ausschuss sind im Mittel 4 defekte Teile zu erwarten, die
+  Standardabweichung ist <code>sqrt(40 * 0.1 * 0.9)</code> = 1,90. Die
+  6 Teile liegen also rund <strong>1,05 Standardabweichungen</strong> über
+  dem Erwartungswert.</p>
+
+  <div class="callout">
+    <span class="label">Die Antwort auf die Einstiegsfrage</span>
+    <p><strong>6 von 40 sind bei einer 10-%-Quote ein völlig normales
+      Ergebnis.</strong> Wer daraus auf ein Problem schließt, hat die
+      Verteilung nicht gefragt. Ob M3 wirklich schlechter ist als 10 %,
+      klärt erst ein Test — und genau den rechnen wir in
+      <a href="../KM7-02-chi-quadrat-test/lesson.html">KM7-02</a>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du!</div>
+  <p>Alles im Skript:</p>
+  <ol>
+    <li><strong>Vorhersage zuerst.</strong> Wie viel wahrscheinlicher ist
+      1 Fehler als 2 Fehler bei n = 5, p = 0,1? Rechne beides mit
+      <code>dbinom()</code> und vergleiche deine Vermutung.</li>
+    <li>Baue die OC-Tabelle für <strong>n = 20</strong> über c = 0 bis 3.
+      Vergleiche sie Zeile für Zeile mit der Tabelle für n = 10. Wo ist der
+      Unterschied am größten — und warum gerade dort?</li>
+    <li>Ein Kunde verlangt: „Ausschuss 5 %, Akzeptwahrscheinlichkeit
+      mindestens 99 %, höchstens 1 Fehler erlaubt." Löse das
+      nach <code>pbinom()</code> auf. Wie groß muss n mindestens sein? Und
+      was passiert mit dem Warenrisiko bei p = 0,15?</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+
+  <h3>Fehler 1 — <code>dbinom</code> statt <code>pbinom</code></h3>
+<pre>
+dbinom(1, 10, 0.05)     <span class="cmt"># → 0.3151 — nur „genau 1 Fehler"</span>
+pbinom(1, 10, 0.05)     <span class="cmt"># → 0.9139 — „0 oder 1 Fehler"</span>
+</pre>
+  <p>Die Akzeptannahme lautet „höchstens c" — das sind
+  <strong>c + 1</strong> Möglichkeiten, nicht eine. Wer
+  <code>dbinom(c, …)</code> nimmt, vergisst den 0-Fehler-Fall und
+  <strong>überschätzt</strong> die Zahl der abgelehnten Lose massiv.</p>
+
+  <h3>Fehler 2 — <code>lower.tail = FALSE</code> vergessen</h3>
+<pre>
+pbinom(1, 5, 0.1)                      <span class="cmt"># → 0.9185 (höchstens 1)</span>
+pbinom(1, 5, 0.1, lower.tail = FALSE)  <span class="cmt"># → 0.0815 (mindestens 2)</span>
+</pre>
+  <p><code>pbinom</code> zählt standardmäßig <strong>von unten</strong>.
+  „Wie viele Fehler mindestens?" verlangt das Umdrehen. Tipp:
+  <code>pbinom(k, n, p, lower.tail = FALSE)</code> liest sich besser als
+  <code>1 - pbinom(k - 1, n, p)</code> — keine Rundungsfehler.</p>
+
+  <h3>Fehler 3 — „Mehr prüfen macht das Risiko kleiner"</h3>
+  <p>Für die Akzeptwahrscheinlichkeit ist es <strong>umgekehrt</strong>:
+  n = 10 → 0,9885, n = 15 → 0,9638, n = 20 → 0,9245 bei c = 2. Mehr
+  geprüfte Teile bedeuten im Mittel mehr gefundene Fehler, und die feste
+  Schwelle c wird dadurch schneller überschritten. Mehr Prüfung
+  <em>kostet</em> Risiko, sie <em>baut</em> es nicht ab.</p>
+
+  <h3>Fehler 4 — Kontinuitägliches Merkmal in die Binomialverteilung</h3>
+  <p>„6 von 40 außerhalb der Toleranz" funktioniert, weil jedes Teil nur
+  zwei Zustände hat. „Wie viele Teile sind zwischen 9,98 und 10,02 mm?"
+  funktioniert so nicht — das ist eine <strong>Normalverteilung</strong>
+  mit <code>pnorm()</code>. Wähle die Verteilung nach der
+  <em>Frage</em>, nicht nach der Gewohnheit.</p>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Baustein</th><th>Wofür</th></tr>
+    <tr><td>Voraussetzungen</td><td>Zwei Ausgänge je Teil, gleiche Fehlerquote p</td></tr>
+    <tr><td>E(X) = n · p</td><td>Erwartungswert — im Mittel so viele Fehler</td></tr>
+    <tr><td><code>dbinom(k, n, p)</code></td><td>Genau k Fehler</td></tr>
+    <tr><td><code>pbinom(c, n, p)</code></td><td>Höchstens c Fehler — die Akzeptwahrscheinlichkeit</td></tr>
+    <tr><td>n, c</td><td>Stichprobenumfang und Annahmeschwelle — der Stichprobenplan</td></tr>
+    <tr><td>OC-Tabelle</td><td>Akzeptwahrscheinlichkeit über die Fehlerquote</td></tr>
+    <tr><td>Produzentenrisiko</td><td>Gute Lose werden zurückgewiesen (linke Spalte)</td></tr>
+    <tr><td>Warenrisiko</td><td>Schlechte Lose werden angenommen (rechte Spalte)</td></tr>
+    <tr><td>Der Handel</td><td>Jede Verbesserung einer Seite kostet die andere</td></tr>
+  </table>
+  <p><strong>Ausblick:</strong> Du hast aus einer Verteilung gerechnet, ob
+  eine <em>beobachtete</em> Häufigkeit zu einer erwarteten passt — das ist
+  die genaue Frage, die der
+  <a href="../KM7-02-chi-quadrat-test/lesson.html">Chi-Test in KM7-02</a>
+  beantwortet. Vorab-Überblick:
+  <a href="../KM7-02-chi-quadrat-test/praesentation.html">Folien KM7-02</a>.</p>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Vertiefe die Verteilungsrechnung mit der
+  <a href="hausaufgabe.md">Aufgabe KM5-02 — Binomialverteilung und
+  Annahmeschwelle</a>: Verteilungen berechnen, OC-Tabellen selbst
+  konstruieren, einen Stichprobenumfang herleiten und die beiden Risiken
+  gegeneinander abwägen.
+  — <strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
+</section>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> Navarro,
+  <a href="https://learningstatisticswithr.com/book/">Kap. 9</a>
+  (Hauptlektüre) · Grundlage war
+  <a href="../KM5-01-binomialkoeffizient-pascalsches-dreieck/lesson.html">Lektion
+  KM5-01 — Binomialkoeffizient und Pascalsches Dreieck</a>.</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Weiter: <a href="../KM7-02-chi-quadrat-test/lesson.html">Lektion KM7-02 —
+  Der Chi-Quadrat-Test</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Wiederholung KM6-01 — Boxplot & Grafikwahl</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","slides.css");e.setAttribute("data-js","");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/theme/white.css">
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+  <!-- ============================================================ TITEL -->
+  <section class="title-slide">
+    <div class="meta">KM6 · Wiederholung aus der 4. Klasse · Prozessmanagement</div>
+    <h1>Der Boxplot</h1>
+    <p class="subtitle">Und die Frage, die keine Grafik beantwortet:<br>
+      sechs Ausschusteile, aber nur ein Ausreißer.</p>
+    <div class="meta">5AHWIT · vor UE 1 (DoE) · 1. Doppelstunde</div>
+  </section>
+
+  <!-- ============================================================ LEKTÜRE -->
+  <section>
+    <div class="callout tipp">
+      <span class="label">Lektüre</span>
+      <p>R4DS 2e, <a href="https://r4ds.hadley.nz/visualize">Kap. 1 Data
+         visualization</a> (Pflicht) — insbesondere
+         <code>geom_boxplot()</code>. NIST/SEMATECH e-Handbook, Kap. 1.</p>
+      <p style="margin-top:0.6em">Voraussetzung:
+        <a href="../SA-01-datenvisualisierung-ggplot/lesson.html">Lektion SA-01</a>
+        (ggplot-Grammatik).</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ EINSTIEG -->
+  <section>
+    <h2>Einstiegsfrage</h2>
+    <p style="font-size:1.2em">M3 hat <strong>6 Ausschusteile</strong>,
+      M1 und M2 keine. Der Qualitätsmanager:</p>
+    <p class="fragment" style="font-size:1.3em">„Also stelle ich diese
+      <strong>sechs Teile</strong> aus."</p>
+    <p class="fragment" style="font-size:1.3em">Hat er recht?</p>
+    <p class="fragment">Wir bauen den Boxplot und lassen R entscheiden.</p>
+  </section>
+
+  <!-- ============================================================ ZIEL -->
+  <section>
+    <h2>Das Ziel: zwei Aussagen in einem Bild</h2>
+    <pre><code class="language-r">ggplot(daten, aes(x = maschine, y = masse_mm)) +
+  geom_boxplot() +
+  geom_hline(yintercept = c(9.85, 10.15), linetype = "dashed")</code></pre>
+    <p class="fragment">Wie streut die Maschine (die Box) — und wo liegt die
+      Spezifikation (die Linien)?</p>
+    <p class="fragment" style="font-size:1.15em">Diese Kombination fehlt in
+      den meisten Boxplots der Praxis.</p>
+  </section>
+
+  <!-- ============================================================ FUENF -->
+  <section>
+    <h2>Schritt 1: die fünf Zahlen hinter der Box</h2>
+    <pre><code class="language-r">Minimum · Q1 · Median · Q3 · Maximum</code></pre>
+    <p>Die Box reicht von Q1 bis Q3 — <strong>ihre Höhe ist
+      IQR = Q3 − Q1</strong>. Die Linie in der Mitte ist der Median, die
+      Antennen reichen zu Minimum und Maximum.</p>
+    <table>
+      <tr><th>Maschine</th><th>min</th><th>Q1</th><th>Median</th><th>Q3</th><th>max</th><th>IQR</th></tr>
+      <tr><td>M1</td><td>9,92</td><td>9,98</td><td>10,00</td><td>10,02</td><td>10,06</td><td>0,04</td></tr>
+      <tr><td>M2</td><td>9,89</td><td>9,95</td><td>9,98</td><td>10,00</td><td>10,06</td><td>0,05</td></tr>
+      <tr><td>M3</td><td>9,88</td><td>10,02</td><td>10,06</td><td>10,11</td><td>10,20</td><td><strong>0,09</strong></td></tr>
+    </table>
+    <p class="fragment">M1 und M2 sind eng (13 % bzw. 17 % der Toleranzbreite
+      0,30 mm).</p>
+    <p class="fragment"><strong>M3 streut mehr als doppelt so stark</strong>
+      (30 %) <em>und</em> sitzt mit der Median bei
+      <strong>+0,06 mm</strong> über dem Sollmaß.</p>
+  </section>
+
+  <!-- ============================================================ ZWEI -->
+  <section>
+    <h2>Zwei Fehler in einem Satz</h2>
+    <p class="fragment">Der Boxplot zeigt M3 <strong>zwei</strong> Probleme
+      gleichzeitig:</p>
+    <p class="fragment" style="font-size:1.3em"><strong>mehr Streuung</strong>
+      (höherer Kasten) <strong>und</strong> <strong>höhere Lage</strong>
+      (Kasten sitzt rechts).</p>
+    <p class="fragment" style="font-size:1.2em">Wer nur „mehr Streuung"
+      sagt, hat die <strong>halbe Diagnose</strong> übersehen — und die
+      falsche Maßnahme daraus abgeleitet.</p>
+    <div class="callout">
+      <span class="label">Zwei getrennte Maßnahmen</span>
+      <p>Streuung &rarr; Prozess stabilisieren. Lage &rarr; Maschine
+        <strong>justieren</strong>. Nichts davon heilt das andere.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ R-BOXPLOT -->
+  <section>
+    <h2>Schritt 2: der Boxplot in R</h2>
+    <pre><code class="language-r">ggplot(daten, aes(x = maschine, y = masse_mm)) +
+  geom_boxplot() +
+  geom_hline(yintercept = c(9.85, 10.15), linetype = "dashed",
+             colour = "red") +
+  labs(x = "Maschine", y = "Masse (mm)")</code></pre>
+    <p class="fragment" style="font-size:1.2em">Jetzt siehst du es: Die Box
+      von <strong>M3 ragt über die obere Toleranzlinie hinaus</strong> —
+      nicht als einzelne Punkte, sondern als <strong>ganzer Stapel</strong>.</p>
+    <p class="fragment">M1 und M2 liegen vollständig innerhalb.</p>
+  </section>
+
+  <!-- ============================================================ AUSREISSER -->
+  <section>
+    <h2>Schritt 3: Ausreißer — die 1,5-IQR-Regel</h2>
+    <pre><code class="language-r">unterer Zaun = Q1 - 1,5 * IQR
+oberer Zaun   = Q3 + 1,5 * IQR</code></pre>
+    <p>M3: IQR = 0,09 &rarr; Zaun bei 10,02 − 0,135 = <strong>9,885</strong>
+      und 10,11 + 0,135 = <strong>10,245</strong>.</p>
+    <pre><code class="language-r">daten |&gt; group_by(maschine) |&gt;
+  summarise(ausreisser = list(boxplot.stats(masse_mm)$out))
+
+<span class="out"># → M1: 1 Ausreisser   M2: keine   M3: 1 Ausreisser</span></code></pre>
+    <table>
+      <tr><th>Maschine</th><th>Ausreißer (1,5 × IQR)</th><th>außerhalb Toleranz</th></tr>
+      <tr><td>M1</td><td>1 (9,92 mm)</td><td>0</td></tr>
+      <tr><td>M2</td><td>0</td><td>0</td></tr>
+      <tr><td>M3</td><td>1 (9,88 mm)</td><td><strong>6</strong></td></tr>
+    </table>
+  </section>
+
+  <!-- ============================================================ ANTWORT -->
+  <section>
+    <h2>Die Antwort: Nein</h2>
+    <p class="fragment" style="font-size:1.3em">Der Boxplot findet
+      <strong>1 Ausreißer</strong> bei M3 — <strong>nicht 6</strong>.</p>
+    <p class="fragment">Weil der untere Zaun bei 9,885 mm liegt — und das
+      ist <strong>über der Toleranzgrenze</strong>.</p>
+    <p class="fragment" style="font-size:1.2em">M3 produziert gar keine
+      Ausreißer, sondern eine <strong>systematisch verschobene
+      Verteilung</strong>. Die sechs Teile sind die linke Flanke einer
+      Maschine, die <em>insgesamt zu hoch steht</em>.</p>
+  </section>
+
+  <!-- ============================================================ DEFINITION -->
+  <section>
+    <h2>Zwei Definitionen, zwei Wahrheiten</h2>
+    <table>
+      <tr><th>Begriff</th><th>Art</th><th>Bedeutung</th></tr>
+      <tr><td><strong>Ausreißer</strong></td><td>statistisch</td><td>untypisch für <em>diese</em> Verteilung</td></tr>
+      <tr><td><strong>Ausschuss</strong></td><td>spezifikationsbezogen</td><td>außerhalb der geforderten Grenzen</td></tr>
+    </table>
+    <p class="fragment" style="font-size:1.2em">Ein Teil kann
+      <strong>typisch und trotzdem Ausschuss</strong> sein. Beide Zahlen zu
+      kennen ist Pflicht — die Maßnahme hängt davon ab.</p>
+    <p class="fragment">Typisch &rarr; Justage. Untypisch &rarr; Prozess
+      untersuchen.</p>
+  </section>
+
+  <!-- ============================================================ GRAFIKWAHL -->
+  <section>
+    <h2>Schritt 4: welche Grafik für welche Frage</h2>
+    <table>
+      <tr><th>Frage</th><th>Grafik</th><th>Warum</th></tr>
+      <tr><td>Wie ist eine Größe verteilt?</td><td>Histogramm</td><td>Balken anstoßend — Werte übergehen ineinander</td></tr>
+      <tr><td>Wie unterscheiden sich Gruppen?</td><td>Boxplot</td><td>Median, Streuung, Ausreißer je Gruppe</td></tr>
+      <tr><td>Hängen zwei Größen zusammen?</td><td>Streudiagramm</td><td>Jeder Punkt = ein Fall mit zwei Werten</td></tr>
+      <tr><td>Wie viele in jeder Kategorie?</td><td>Balkendiagramm</td><td>Kategorien mit Lücke dazwischen</td></tr>
+    </table>
+  </section>
+
+  <!-- ============================================================ HISTO -->
+  <section>
+    <h2>Histogramm ≠ Balkendiagramm</h2>
+    <p class="fragment" style="font-size:1.2em">Der häufigste Fehler im
+      Einstiegstest der vorigen Klasse — und er lohnt sich als
+      Merksatz:</p>
+    <p class="fragment"><strong>Histogramm</strong> — metrische Werte,
+      Balken <strong>anstoßend</strong>. Eine Masse von 10,02 mm ist keine
+      Kategorie, sondern ein Wert auf einer Skala.</p>
+    <p class="fragment"><strong>Balkendiagramm</strong> — Kategorien,
+      Balken mit <strong>Lücke</strong>. „Maschine M1" hat keine Mitte und
+      keine Streuung.</p>
+  </section>
+
+  <!-- ============================================================ KETTE -->
+  <section>
+    <h2>Die Werkzeugkette</h2>
+    <table>
+      <tr><th>Werkzeug</th><th>Beantwortet</th></tr>
+      <tr><td><strong>Boxplot</strong></td><td>Wo liegt das Problem?</td></tr>
+      <tr><td><strong>t-Test</strong></td><td>Ist die Lageverschiebung echt?</td></tr>
+      <tr><td><strong>Chi-Test</strong></td><td>Hängt die Ausschussquote an der Maschine?</td></tr>
+      <tr><td><strong>DoE</strong> (ab UE 1)</td><td>Welche Einstellung stellt den Prozess wieder her?</td></tr>
+    </table>
+    <p class="fragment" style="font-size:1.15em">Aus vier Grafiken und drei
+      Tests wird eine <strong>Prozessverbesserung</strong>.</p>
+  </section>
+
+  <!-- ============================================================ JETZT DU -->
+  <section>
+    <h2>Jetzt du! (im Skript, Ctrl+Enter zeilenweise)</h2>
+    <ol>
+      <li><strong>Vorhersage zuerst:</strong> Welche Maschine hat den
+        größten IQR? Welche den Median am weitesten vom Sollmaß?</li>
+      <li>Berechne <code>IQR / 0.30</code> je Maschine. Wie viel
+        Toleranzreserve nutzt M3?</li>
+      <li>Baue <strong>zwei</strong> Grafiken: Boxplot mit Toleranzlinien
+        und Balkendiagramm der Ausschussquote. Welche beantwortet welche
+        Frage besser?</li>
+    </ol>
+  </section>
+
+  <!-- ============================================================ FEHLER -->
+  <section>
+    <h2>Typische Fehler — vier Stück</h2>
+    <pre><code class="language-r"><span class="cmt"># 1. na.rm = TRUE vergessen</span>
+quantile(daten$masse_mm)   <span class="out"># → Error: missing values</span>
+
+<span class="cmt"># 2. boxplot.stats() ohne $out</span>
+boxplot.stats(daten$masse_mm)   <span class="out"># → ganze Liste</span>
+
+<span class="cmt"># 3. Boxplot-Ausreisser = Ausschuss  ← der Denkfehler</span>
+<span class="cmt">#    bei M3: 1 Ausreisser, aber 6 Ausschusteile</span>
+
+<span class="cmt"># 4. Balkendiagramm fuer metrische Daten</span>
+ggplot(daten, aes(x = masse_mm)) + geom_bar()   <span class="out"># → 121 Balken</span></code></pre>
+  </section>
+
+  <!-- ============================================================ ZUSAMMEN -->
+  <section>
+    <h2>Zusammenfassung</h2>
+    <table>
+      <tr><th>Konzept</th><th>Das Wichtigste</th></tr>
+      <tr><td>IQR = Q3 − Q1</td><td>Die halbe Datenmenge</td></tr>
+      <tr><td>Zaun: Q1 − 1,5 · IQR</td><td>Unterhalb gelten Punkte als Ausreißer</td></tr>
+      <tr><td>Ausreißer ≠ Ausschuss</td><td>Statistik ≠ Spezifikation</td></tr>
+      <tr><td><code>geom_hline()</code></td><td>Toleranzgrenzen sichtbar machen</td></tr>
+      <tr><td>Histogramm</td><td>Metrisch, Balken anstoßend</td></tr>
+      <tr><td>Balkendiagramm</td><td>Kategorien, Balken mit Lücke</td></tr>
+    </table>
+    <p class="fragment"><strong>Ausblick:</strong> M3 sitzt zu hoch und
+      streut zu stark. In UE 1 startet die Versuchsplanung — die Frage
+      wird nicht mehr „ist es schlecht", sondern „welche Einstellung
+      stellt es gut".</p>
+  </section>
+
+  <!-- ============================================================ AUFGABE -->
+  <section class="hint-slide">
+    <h2>Aufgabe</h2>
+    <p style="font-size:1.3em">➜ <a href="hausaufgabe.md"><code>hausaufgabe.md</code></a></p>
+    <p>(liegt im selben Ordner — einfach anklicken)</p>
+    <p style="margin-top:1.5em; font-size:0.8em">5 Abschnitte: Vorhersagen · die fünf Zahlen ·
+      Ausreißer vs. Ausschuss · die Grafiken bauen ·<br>Kapitel-Check (R4DS Kap. 1)</p>
+    <p style="font-size:0.8em"><strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
+  </section>
+
+</div></div>
+
+<script src="https://cdn.revealjs.com/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'slide',
+  width: 1280,
+  height: 800,
+  margin: 0.08,
+  center: true,
+  controlsLayout: 'edges'
+});
+</script>
+</body>
+</html>

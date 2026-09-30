@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Wiederholung KM7-03 — Teststärke & Stichprobenumfang</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","slides.css");e.setAttribute("data-js","");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/theme/white.css">
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+  <!-- ============================================================ TITEL -->
+  <section class="title-slide">
+    <div class="meta">KM7 · Wiederholung aus der 4. Klasse · Prozessmanagement</div>
+    <h1>Teststärke</h1>
+    <p class="subtitle">Der Fehler, den kein p-Wert zeigt —<br>
+      und warum 4000 Teile auch nicht helfen.</p>
+    <div class="meta">5AHWIT · vor UE 1 (DoE) · 1. Doppelstunde</div>
+  </section>
+
+  <!-- ============================================================ LEKTÜRE -->
+  <section>
+    <div class="callout tipp">
+      <span class="label">Lektüre</span>
+      <p>Navarro, <a href="https://learningstatisticswithr.com/book/">Statistik für
+         Human- und Sozialwissenschaftler</a> (deutsch) —
+         <strong>Kap. 13</strong> (Teststärke beim t-Test) und
+         <strong>Kap. 16</strong> (Fehler 1. und 2. Art).</p>
+      <p style="margin-top:0.6em">Voraussetzung:
+        <a href="../KM7-01-mittelwertsvergleich-t-test/lesson.html">Lektion
+        KM7-01</a> (t-Test) — alles rechnen wir am selben Test durch.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ EINSTIEG -->
+  <section>
+    <h2>Einstiegsfrage</h2>
+    <p style="font-size:1.2em">M1 gegen M2, 40 Messungen je Maschine,<br>
+      10,0005 gegen 9,9769 mm. Ergebnis:
+      <code>p = 0,005456</code> — <strong>signifikant</strong>.</p>
+    <p class="fragment" style="font-size:1.3em">Die Frage, die
+      <strong>kein p-Wert</strong> beantwortet:</p>
+    <p class="fragment" style="font-size:1.3em">Wie groß müsste der
+      Unterschied sein, damit du ihn
+      <strong>gar nicht</strong> gefunden hättest?</p>
+    <p class="fragment">Mit 40 Teilen findest du fast alles. Mit 5 Teilen
+      fast nichts.</p>
+  </section>
+
+  <!-- ============================================================ ZIEL -->
+  <section>
+    <h2>Das Ziel: ein Aufruf, zwei Richtungen</h2>
+    <pre><code class="language-r"><span class="cmt"># Richtung 1: wie sicher bin ich?</span>
+power.t.test(n = 40, delta = 0.0633, sd = 0.05, sig.level = 0.05)
+<span class="out"># → power = 0.9999</span>
+
+<span class="cmt"># Richtung 2: wie viel brauche ich?</span>
+power.t.test(delta = 0.02, sd = 0.05, power = 0.8)
+<span class="out"># → n = 99.08   →  rund 100 Teile je Maschine</span></code></pre>
+    <p class="fragment">Das rechnet man <strong>vor</strong> dem Versuch —
+      nicht danach.</p>
+  </section>
+
+  <!-- ============================================================ FEHLER -->
+  <section>
+    <h2>Schritt 1: die zwei Fehler</h2>
+    <table>
+      <tr><th></th><th>Test sagt „Unterschied"</th><th>Test sagt „kein Unterschied"</th></tr>
+      <tr><td><strong>H0 ist wahr</strong></td><td>Fehler 2. Art (<strong>&beta;</strong>)</td><td>richtig</td></tr>
+      <tr><td><strong>H0 ist falsch</strong></td><td>richtig (= 1 − &alpha;)</td><td>Fehler 1. Art (<strong>&alpha;</strong>)</td></tr>
+    </table>
+    <p class="fragment"><strong>Fehler 1. Art — das Zuschauerurteil.</strong>
+      Du <em>findest</em> einen Unterschied, den es nicht gibt. Dagegen
+      schützt man sich mit &alpha; = 0,05.</p>
+    <p class="fragment"><strong>Fehler 2. Art — das Blindeurteil.</strong>
+      Du <em>übersiehst</em> einen echten Unterschied. Dagegen hilft
+      &alpha; <strong>nichts</strong> — und es ist der teuerere Fehler.</p>
+  </section>
+
+  <!-- ============================================================ POWER -->
+  <section>
+    <h2>Die Teststärke</h2>
+    <pre><code class="language-r">Teststärke (Power) = 1 - &beta; = P(echten Unterschied finden)</code></pre>
+    <p class="fragment" style="font-size:1.15em">Der p-Wert sagt
+      ausschließlich etwas über <strong>&alpha;</strong> aus. Über das
+      Fehler-2-Art-Risiko sagt er <strong>nichts</strong>.</p>
+  </section>
+
+  <!-- ============================================================ ECHTDATEN -->
+  <section>
+    <h2>Schritt 2: Power mit unseren echten Daten</h2>
+    <pre><code class="language-r">power.t.test(n = 40, delta = 0.0633, sd = 0.05)   <span class="out"># → 0.9999</span>
+power.t.test(n = 40, delta = 0.0238, sd = 0.036)   <span class="out"># → 0.8299</span></code></pre>
+    <p class="fragment">M1 gegen M3: Power praktisch 1 — 40 Messungen waren
+      für 0,063 mm <strong>massiv überdimensioniert</strong> (n ≈ 12
+      reicht).</p>
+    <p class="fragment">M1 gegen M2: 0,83. Der Test <em>fand</em> den
+      Unterschied — und war keineswegs sicher, ihn zu finden.</p>
+    <p class="fragment" style="font-size:1.2em">Ein signifikantes
+      Ergebnis fühlt sich <strong>genauso an</strong> wie ein
+      nicht-signifikantes. Die Power ist die Angabe, die dazugehört.</p>
+  </section>
+
+  <!-- ============================================================ GEPAART -->
+  <section>
+    <h2>Der gepaarte Vergleich zum Vergleich</h2>
+    <pre><code class="language-r">power.t.test(n = 10, delta = 0.0633, sd = 0.05,
+             type = "paired")
+<span class="out"># → power = 0.9441</span></code></pre>
+    <p class="fragment">Nur <strong>10 Paare</strong> — nicht 80
+      Einzelmessungen — und schon 94 % Power.</p>
+    <p class="fragment" style="font-size:1.2em">Der gepaarte Test ist rund
+      <strong>viermal so effizient</strong>, weil die Rohcharge als
+      Störgröße herausfällt. Das ist die Rechnung hinter der Entscheidung
+      „gepaart oder ungepaart".</p>
+  </section>
+
+  <!-- ============================================================ PLANUNG -->
+  <section>
+    <h2>Schritt 3: die Frage vor dem Versuch</h2>
+    <p>Gesucht ist das kleinste n mit Power &ge; 0,80
+      (&sigma; = 0,05 mm):</p>
+    <pre><code class="language-r">sapply(c(0.10, 0.08, 0.06, 0.04, 0.02, 0.01),
+       function(d) power.t.test(delta = d, sd = 0.05, power = 0.8)$n)
+
+<span class="out"># →  5.09   7.23  11.94  25.52  99.08  393.41</span></code></pre>
+    <p class="fragment" style="font-size:1.2em">0,06 mm → 12 Teile.
+      0,03 mm → 45. 0,01 mm → <strong>393</strong>.</p>
+  </section>
+
+  <!-- ============================================================ VIERTE -->
+  <section>
+    <h2>Die vierte Wurzel</h2>
+    <p class="fragment" style="font-size:1.4em">n &prop; 1/&delta;&sup2;</p>
+    <p class="fragment">Halbiert man den Effekt, braucht man
+      <strong>viermal</strong> so viele Daten. Das ist der Grund, warum feine
+      Effekte praktisch nie nachweisbar sind — und warum Versuchsplanung
+      teuer ist.</p>
+    <div class="callout tipp">
+      <span class="label">Faustregel</span>
+      <p>Effekt halbieren &rarr; Daten vervierfachen.
+        Effekt verdoppeln &rarr; Daten vierteln.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ 4000 -->
+  <section>
+    <h2>Schritt 4: warum 4000 Daten auch nicht helfen</h2>
+    <pre><code class="language-r">sapply(c(50, 100, 200, 400, 1000, 4000), function(n) {
+  power.t.test(n = n, delta = 0.02, sd = 0.05)$power })
+
+<span class="out"># n=    50   100   200   400  1000  4000
+# power 0.508 0.804 0.979 1.000 1.000 1.000</span></code></pre>
+    <p class="fragment">Bei n = 4000 ist die Power praktisch 1 — der
+      0,02-mm-Unterschied <strong>wird</strong> gefunden.</p>
+    <p class="fragment" style="font-size:1.2em">0,02 mm ist ein
+      <strong>Zehntel</strong> der Toleranz von ± 0,15 mm. Der Test hätte
+      einen <em>vollkommen bedeutungslosen</em> Effekt mit 4000 Teilen
+      hochpräzise nachgewiesen — <strong>40-mal mehr Prüfaufwand als
+      nötig</strong> (für 80 % Power wären 100 gereicht).</p>
+  </section>
+
+  <!-- ============================================================ LEHRE -->
+  <section>
+    <h2>Die Lehre</h2>
+    <p class="fragment" style="font-size:1.4em">Signifikanz ist
+      <strong>kein Gütebeweis</strong>.</p>
+    <p class="fragment">Mit genügend Daten ist <em>alles</em>
+      signifikant. Die p-Wert-Frage „Ist es signifikant?" führt in die
+      Irre; die Power-Frage lautet: „Habe ich eine Aussage, die ich
+      brauche?"</p>
+    <div class="callout">
+      <span class="label">Merksatz</span>
+      <p>Zu <strong>jeder</strong> Testausgabe gehört die Power. Ein
+        p-Wert allein ist eine unvollständige Information.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ DOE -->
+  <section>
+    <h2>Schritt 5: der Anschluss an UE 1</h2>
+    <table>
+      <tr><th>Teststärken-Planung</th><th>Versuchsplanung (DoE)</th></tr>
+      <tr><td>Kleinster nachweisbarer Effekt</td><td>Kleinster relevanter Effekt</td></tr>
+      <tr><td>Stichprobe n je Maschine</td><td>Anzahl der Versuchsläufe</td></tr>
+      <tr><td>Streuung &sigma;</td><td>Versuchsstreuung (Vorversuch)</td></tr>
+      <tr><td>Power &ge; 0,80</td><td>Erkennbare Effektgröße im Modell</td></tr>
+    </table>
+    <p class="fragment" style="font-size:1.2em">„Ein Versuch ohne
+      Wiederholungen erkennt nichts" ist genau
+      <code>power.t.test(n = 1, …)</code> — Power
+      <strong>0,000</strong>.</p>
+  </section>
+
+  <!-- ============================================================ JETZT DU -->
+  <section>
+    <h2>Jetzt du! (im Skript, Ctrl+Enter zeilenweise)</h2>
+    <ol>
+      <li><strong>Vorhersage zuerst:</strong> &delta; = 0,06 mm
+        braucht n ≈ 12. Was passiert bei 0,12 und bei 0,03? Rechne beides
+        nach.</li>
+      <li>Power-Kurve für &delta; = 0,06 mm über n von 5 bis 40. Bei
+        welchem n erreicht die Power 0,80 / 0,90 / 0,95?</li>
+      <li>Toleranz ± 0,15 mm: Ist eine Drift von 0,02 mm ein Problem — und
+        brauchst du dafür überhaupt einen Test?</li>
+    </ol>
+  </section>
+
+  <!-- ============================================================ FEHLER -->
+  <section>
+    <h2>Typische Fehler — vier Stück</h2>
+    <pre><code class="language-r"><span class="cmt"># 1. Alle fuenf Argumente auf einmal</span>
+power.t.test(delta = 0.02, sd = 0.05, power = 0.8, sig.level = 0.05)
+<span class="out"># ✗ exactly one of 'n','delta','sd','power','sig.level' must be NULL</span>
+
+<span class="cmt"># 2. sd beim gepaarten Test falsch verstanden</span>
+<span class="cmt">#    → muss die Streuung der DIFFERENZEN sein</span>
+
+<span class="cmt"># 3. Power nachher berechnen und schoenreden — wertlos</span>
+
+<span class="cmt"># 4. alpha = 0.05 als Power missverstanden ← haeufigster Irrtum</span>
+<span class="cmt">#    alpha sagt NICHTS darueber, wie oft ein Effekt gefunden wird</span></code></pre>
+  </section>
+
+  <!-- ============================================================ ZUSAMMEN -->
+  <section>
+    <h2>Zusammenfassung</h2>
+    <table>
+      <tr><th>Konzept</th><th>Das Wichtigste</th></tr>
+      <tr><td>Fehler 1. Art (&alpha;)</td><td>Unterschied gefunden, den es nicht gibt</td></tr>
+      <tr><td>Fehler 2. Art (&beta;)</td><td>Echten Unterschied übersehen</td></tr>
+      <tr><td>Power = 1 − &beta;</td><td>P(echten Unterschied finden)</td></tr>
+      <tr><td>Der p-Wert</td><td>Aussage <em>nur</em> über &alpha;</td></tr>
+      <tr><td>n &prop; 1/&delta;&sup2;</td><td>Halber Effekt → viermal so viele Daten</td></tr>
+      <tr><td>80 % Konvention</td><td>Übliche Untergrenze für geplante Versuche</td></tr>
+      <tr><td>Der Anschluss</td><td>Wiederholungszahl in der DoE = dieselbe Rechnung</td></tr>
+    </table>
+    <p class="fragment">Damit ist die Wiederholungsrunde geschlossen. In
+      <strong>UE 1</strong> beginnt die Versuchsplanung — und sie setzt
+      genau hier an.</p>
+  </section>
+
+  <!-- ============================================================ AUFGABE -->
+  <section class="hint-slide">
+    <h2>Aufgabe</h2>
+    <p style="font-size:1.3em">➜ <a href="hausaufgabe.md"><code>hausaufgabe.md</code></a></p>
+    <p>(liegt im selben Ordner — einfach anklicken)</p>
+    <p style="margin-top:1.5em; font-size:0.8em">7 Abschnitte: Vorhersagen · Fehlerarten ·
+      Power mit echten Daten · Planungsrichtung n ·<br>
+      Power-Kurve zeichnen · Diskussionsfrage · Kapitel-Check (Navarro 13+16)</p>
+    <p style="font-size:0.8em"><strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
+  </section>
+
+</div></div>
+
+<script src="https://cdn.revealjs.com/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'slide',
+  width: 1280,
+  height: 800,
+  margin: 0.08,
+  center: true,
+  controlsLayout: 'edges'
+});
+</script>
+</body>
+</html>

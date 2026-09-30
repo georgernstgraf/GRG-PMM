@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Wiederholung KM5-02 — Binomialverteilung & Annahmeschwelle</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","slides.css");e.setAttribute("data-js","");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/theme/white.css">
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+  <!-- ============================================================ TITEL -->
+  <section class="title-slide">
+    <div class="meta">KM5 · Wiederholung aus der 4. Klasse · Prozessmanagement</div>
+    <h1>Die Annahmeschwelle</h1>
+    <p class="subtitle">Wie viele Teile darf ich prüfen —<br>
+      und warum kein Stichprobenplan beide Seiten gewinnen kann.</p>
+    <div class="meta">5AHWIT · vor UE 1 (DoE) · 1. Doppelstunde</div>
+  </section>
+
+  <!-- ============================================================ LEKTÜRE -->
+  <section>
+    <div class="callout tipp">
+      <span class="label">Lektüre</span>
+      <p>Navarro, <a href="https://learningstatisticswithr.com/book/">Statistik für
+         Human- und Sozialwissenschaftler</a> (deutsch) —
+         <strong>Kap. 9, Probability</strong> (Pflicht).</p>
+      <p style="margin-top:0.6em">Fehlt dir das <em>Wege zählen</em>
+        (<code>n über k</code>)? Dann zuerst
+        <a href="../KM5-01-binomialkoeffizient-pascalsches-dreieck/lesson.html">Lektion
+        KM5-01</a> — die heutige Lektion setzt dort an.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ EINSTIEG -->
+  <section>
+    <h2>Einstiegsfrage</h2>
+    <p style="font-size:1.25em">Maschine M3 hat
+      <strong>6 von 40</strong> Teilen außerhalb der Toleranz.<br>
+      M1 und M2: keine.</p>
+    <p class="fragment" style="font-size:1.25em">Sind die 6 Teile ein
+      <strong>Signal</strong> — oder <strong>völlig normal</strong>?</p>
+    <p class="fragment">Die Antwort braucht keine Vermutung, sondern eine
+      Verteilung. Heute bauen wir sie.</p>
+  </section>
+
+  <!-- ============================================================ ZIEL -->
+  <section>
+    <h2>Das Ziel: ein Aufruf, drei Zahlen</h2>
+    <pre><code class="language-r">pbinom(c, size = n, prob = p)
+
+<span class="out"># → "Mit welcher Wahrscheinlichkeit komme ich mit
+#     höchstens c Fehlern durch, wenn ich n Teile prüfe?"</span></code></pre>
+    <p class="fragment">Daraus wird die Entscheidung: <strong>annehmen</strong>
+      oder <strong>zurückweisen</strong>. Das ist jede Annahmestichprobe —
+      und die Grundlage des Chi-Tests.</p>
+  </section>
+
+  <!-- ============================================================ VORAUSS. -->
+  <section>
+    <h2>Zwei Bedingungen — mehr nicht</h2>
+    <ol>
+      <li>Jedes Teil ist <strong>entweder</strong> i.O. <strong>oder</strong>
+        i.O. — ein Ja/Nein-Ergebnis, <em>nichts dazwischen</em>.</li>
+      <li>Jedes Teil hat dieselbe Wahrscheinlichkeit p.</li>
+    </ol>
+    <p class="fragment">„10,02 mm" ist dafür zu fein. Aber
+      „in Toleranz / außerhalb" ist genau diese Ja/Nein-Frage.</p>
+    <pre><code class="language-r">E(X) = n * p
+
+<span class="out"># n = 40, p = 0.10  →  E(X) = 4 defekte Teile</span></code></pre>
+    <div class="callout tipp">
+      <span class="label">Anschluss an KM5-01</span>
+      <p><code>choose(5, 2)</code> zählt die Wege — <code>dbinom(2, 5, 0.1)</code>
+        <strong>gewichtet</strong> sie. Heute kommt die zweite Stufe.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ DBINOM -->
+  <section>
+    <h2><code>dbinom</code>: genau k Treffer</h2>
+    <p>5 Teile, 10 % Fehlerquote. Wahrscheinlichkeit für
+      <strong>genau 2</strong> defekt?</p>
+    <pre><code class="language-r">dbinom(0:5, size = 5, prob = 0.1)
+
+<span class="out"># → 0.59049 0.32805 0.07290 0.00810 0.00045 0.00001
+#     ↑        ↑        ↑        ↑        ↑        ↑
+#     0        1        2        3        4        5 Fehler</span></code></pre>
+    <p class="fragment">0 Fehler: 59 %. 1 Fehler: 33 %. Zusammen
+      <strong>92 %</strong> — ein sauberes Los ist der Normalfall.</p>
+    <p class="fragment">Zwei oder mehr Fehler passieren nur in
+      <strong>8,1 %</strong>:</p>
+    <pre><code class="language-r">pbinom(1, size = 5, prob = 0.1, lower.tail = FALSE)
+<span class="out"># → 0.08146</span></code></pre>
+  </section>
+
+  <!-- ============================================================ DPRQR -->
+  <section>
+    <h2>Vier Funktionen, vier Fragen</h2>
+    <table>
+      <tr><th>Funktion</th><th>Fragt</th></tr>
+      <tr><td><code>dbinom(k, n, p)</code></td><td>Wie wahrscheinlich sind <em>genau k</em>?</td></tr>
+      <tr><td><code>pbinom(k, n, p)</code></td><td>Wie wahrscheinlich sind <em>höchstens k</em>?</td></tr>
+      <tr><td><code>qbinom(q, n, p)</code></td><td>Welcher k-Wert gehört zur <em>Quantile q</em>?</td></tr>
+      <tr><td><code>rbinom(N, n, p)</code></td><td>Erzeuge <em>N Zufallszüge</em></td></tr>
+    </table>
+    <p class="fragment" style="font-size:1.15em">Für die Annahmestichprobe
+      brauchst du fast nur <strong><code>pbinom</code></strong>.</p>
+  </section>
+
+  <!-- ============================================================ PLAN -->
+  <section>
+    <h2>Ein Stichprobenplan hat genau zwei Zahlen</h2>
+    <pre><code class="language-r">n = 10   Stichprobenumfang:  so viele Teile pruefen wir
+c = 1    Annahmeschwelle:  so viele Fehler dulden wir noch</code></pre>
+    <p>Regel: <strong>höchstens c Fehler → annehmen</strong>, mehr →
+      zurückweisen.</p>
+    <p class="fragment"><code>pbinom(c, n, p)</code> sagt, wie oft das bei
+      wahren Fehlerquote p passiert. Das ist die <strong>OC-Kurve</strong> in
+      Tabellenform.</p>
+  </section>
+
+  <!-- ============================================================ OC-TABELLE -->
+  <section>
+    <h2>Die OC-Tabelle — das Herz der Lektion</h2>
+    <pre><code class="language-r">pfehler &lt;- c(0.05, 0.10, 0.15, 0.20)
+sapply(0:2, function(c) round(pbinom(c, 10, pfehler), 4))</code></pre>
+    <table>
+      <tr><th>c</th><th>p = 0,05</th><th>p = 0,10</th><th>p = 0,15</th><th>p = 0,20</th></tr>
+      <tr><td>0</td><td>0,5987</td><td>0,3487</td><td>0,1969</td><td>0,1074</td></tr>
+      <tr><td><strong>1</strong></td><td><strong>0,9139</strong></td><td>0,7361</td><td><strong>0,5443</strong></td><td>0,3758</td></tr>
+      <tr><td>2</td><td>0,9885</td><td>0,9298</td><td>0,8202</td><td>0,6778</td></tr>
+    </table>
+    <p class="fragment"><strong>Links oben (0,9139):</strong> 91 % der
+      <em>guten</em> Lose kommen durch. Das ist das
+      <strong>Produzentenrisiko</strong> — gute Lose werden zu oft
+      zurückgewiesen.</p>
+    <p class="fragment"><strong>Rechts (0,5443):</strong> Aber 54 % der
+      <em>schlechten</em> Lose kommen trotzdem durch! Das ist das
+      <strong>Warenrisiko</strong> — der Kunde bekommt Ausschuss
+      geliefert.</p>
+  </section>
+
+  <!-- ============================================================ KERN -->
+  <section>
+    <h2>Der Kern: der Handel</h2>
+    <p>Hebt du c von 1 auf 2, <strong>verbessert</strong> sich die gute
+      Seite (0,914 → 0,989) — aber die schlechte <strong>verschlechtert</strong>
+      sich (0,544 → 0,820).</p>
+    <p class="fragment" style="font-size:1.25em">Bei n = 10 gibt es
+      <strong>keine Wahl</strong>, die beide Seiten gut aussehen lässt.</p>
+    <p class="fragment" style="font-size:1.25em">Ein Stichprobenplan
+      verteilt immer nur ein <strong>festes Risiko</strong>.</p>
+  </section>
+
+  <!-- ============================================================ PLANVERGLEICH -->
+  <section>
+    <h2>Was kostet eine bessere Trennung?</h2>
+    <pre><code class="language-r">n        = c(10, 25, 25)
+c        = c( 1,  1,  3)
+gut      = round(pbinom(c, n, 0.05), 4)
+schlecht = round(pbinom(c, n, 0.15), 4)
+rbind(n, c, gut, schlecht, trennung = round(gut - schlecht, 4))</code></pre>
+    <table>
+      <tr><th>n</th><th>c</th><th>gut</th><th>schlecht</th><th>Trennung</th></tr>
+      <tr><td>10</td><td>1</td><td>0,9139</td><td>0,5443</td><td>0,3696</td></tr>
+      <tr><td>25</td><td>1</td><td>0,6424</td><td>0,0931</td><td>0,5493</td></tr>
+      <tr><td>25</td><td>3</td><td>0,9659</td><td>0,4711</td><td>0,4948</td></tr>
+    </table>
+    <p class="fragment">Zeile 1 → 2: <strong>n rauf bei gleicher Schwelle
+      zerstört den Plan</strong> — der gute Prozess kommt nur noch zu 64 %
+      durch.</p>
+    <p class="fragment">Zeile 2 → 3: Erst wenn man <strong>beides</strong>
+      anhebt, kommt die Trennung zurück — 96,6 % gut, 47,1 % schlecht.
+      <strong>Preis: 2,5-mal so viele geprüfte Teile.</strong></p>
+  </section>
+
+  <!-- ============================================================ RUECKWAERTS -->
+  <section>
+    <h2>Rückwärts: wie viele darf ich prüfen?</h2>
+    <p>Kundenvorgabe: „Ausschuss 10 %, Akzeptwahrscheinlichkeit mindestens
+      95 %, höchstens 2 Fehler." Gesucht ist das <strong>letzte</strong> n,
+      bei dem die Garantie hält:</p>
+    <pre><code class="language-r">sapply(1:12, function(n) round(pbinom(2, n, 0.10), 4))
+
+<span class="out"># n= 1: 1.0000   n= 5: 0.9914   n= 9: 0.9470  ← &lt; 0.95
+# n= 2: 1.0000   n= 6: 0.9842   n=10: 0.9104
+# n= 3: 0.9990   n= 7: 0.9743   n=11: 0.8891
+# n= 4: 0.9963   n= 8: 0.9619  ← letztes n mit &ge; 0.95</span></code></pre>
+    <p class="fragment" style="font-size:1.2em">Antwort: <strong>n = 8</strong>
+      (0,9619). Größeres n macht die Akzeptwahrscheinlichkeit
+      <em>kleiner</em> — im Mittel tauchen mehr Fehler auf.</p>
+    <p class="fragment"><strong>Mehr prüfen ist nicht automatisch
+      sicherer.</strong> Es kostet Risiko.</p>
+  </section>
+
+  <!-- ============================================================ ANTWORT -->
+  <section>
+    <h2>Zurück zur Einstiegsfrage</h2>
+    <p>6 Ausschusteile bei M3. Wäre die wahre Quote 10 %, wie
+      wahrscheinlich ist das dann?</p>
+    <pre><code class="language-r">dbinom(6, size = 40, prob = 0.10)   <span class="out"># → 0.10676</span>
+pbinom(6, size = 40, prob = 0.10)   <span class="out"># → 0.90048</span>
+sqrt(40 * 0.1 * 0.9)               <span class="out"># → 1.897</span></code></pre>
+    <p class="fragment">Im Mittel 4 Fehler erwartet, Streuung 1,90. Die 6
+      Teile liegen <strong>1,05 Standardabweichungen</strong> darüber.</p>
+    <p class="fragment" style="font-size:1.2em"><strong>6 von 40 sind bei
+      10 % Ausschuss ein völlig normales Ergebnis.</strong></p>
+  </section>
+
+  <!-- ============================================================ JETZT DU -->
+  <section>
+    <h2>Jetzt du! (im Skript, Ctrl+Enter zeilenweise)</h2>
+    <ol>
+      <li><strong>Vorhersage zuerst:</strong> Wie viel wahrscheinlicher ist
+        1 Fehler als 2 Fehler bei n = 5, p = 0,1?</li>
+      <li>Baue die OC-Tabelle für <strong>n = 20</strong>, c = 0 bis 3.
+        Wo ist der Unterschied zu n = 10 am größten — und warum
+        <em>gerade</em> dort?</li>
+      <li>Kunde: „5 % Ausschuss, mindestens 99 % Akzept, höchstens 1
+        Fehler." Löse nach <code>pbinom</code> auf. Wie groß muss n
+        mindestens sein, und was passiert mit dem Warenrisiko bei p = 0,15?</li>
+    </ol>
+  </section>
+
+  <!-- ============================================================ FEHLER -->
+  <section>
+    <h2>Typische Fehler — vier Stück</h2>
+    <pre><code class="language-r"><span class="cmt"># 1. dbinom statt pbinom — "höchstens c" sind c+1 Faelle</span>
+dbinom(1, 10, 0.05)   <span class="out"># → 0.3151  nur "genau 1"</span>
+pbinom(1, 10, 0.05)   <span class="out"># → 0.9139  "0 oder 1"</span>
+
+<span class="cmt"># 2. lower.tail = FALSE vergessen</span>
+pbinom(1, 5, 0.1)                     <span class="out"># → 0.9185  hoechstens 1</span>
+pbinom(1, 5, 0.1, lower.tail = FALSE) <span class="out"># → 0.0815  mindestens 2</span>
+
+<span class="cmt"># 3. "Mehr pruefen macht das Risiko kleiner" — nein!</span>
+pbinom(2, n, 0.05)   <span class="out"># n=10: 0.9885  n=20: 0.9245</span>
+
+<span class="cmt"># 4. Normalverteilung verwechselt</span>
+<span class="cmt">#    "6 von 40 ausserhalb" → binomial</span>
+<span class="cmt">#    "zwischen 9.98 und 10.02" → pnorm()</span></code></pre>
+  </section>
+
+  <!-- ============================================================ ZUSAMMEN -->
+  <section>
+    <h2>Zusammenfassung</h2>
+    <table>
+      <tr><th>Konzept</th><th>Das Wichtigste</th></tr>
+      <tr><td>E(X) = n · p</td><td>Erwartungswert — im Mittel so viele Fehler</td></tr>
+      <tr><td><code>dbinom</code> / <code>pbinom</code></td><td>genau k / höchstens k</td></tr>
+      <tr><td>n, c</td><td>Stichprobenumfang und Annahmeschwelle</td></tr>
+      <tr><td>OC-Tabelle</td><td>Akzeptwahrscheinlichkeit über die Fehlerquote</td></tr>
+      <tr><td>Produzentenrisiko</td><td>Gute Lose werden zurückgewiesen</td></tr>
+      <tr><td>Warenrisiko</td><td>Schlechte Lose werden angenommen</td></tr>
+      <tr><td>Der Handel</td><td>Jede Verbesserung einer Seite kostet die andere</td></tr>
+    </table>
+    <p class="fragment"><strong>Ausblick:</strong> Du hast gerechnet, ob eine
+      <em>beobachtete</em> Häufigkeit zu einer <em>erwarteten</em> passt.
+      Genau das beantwortet der
+      <a href="../KM7-02-chi-quadrat-test/lesson.html">Chi-Test in KM7-02</a>.</p>
+  </section>
+
+  <!-- ============================================================ AUFGABE -->
+  <section class="hint-slide">
+    <h2>Aufgabe</h2>
+    <p style="font-size:1.3em">➜ <a href="hausaufgabe.md"><code>hausaufgabe.md</code></a></p>
+    <p>(liegt im selben Ordner — einfach anklicken)</p>
+    <p style="margin-top:1.5em; font-size:0.8em">6 Abschnitte: Vorhersagen · d/p/q/r ·
+      OC-Tabelle selbst bauen · Annahmeschwelle rückwärts ·<br>
+      unsere Betriebsdaten · Kapitel-Check (Navarro 9)</p>
+    <p style="font-size:0.8em"><strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
+  </section>
+
+</div></div>
+
+<script src="https://cdn.revealjs.com/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'slide',
+  width: 1280,
+  height: 800,
+  margin: 0.08,
+  center: true,
+  controlsLayout: 'edges'
+});
+</script>
+</body>
+</html>

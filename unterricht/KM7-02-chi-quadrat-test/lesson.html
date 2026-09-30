@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion KM7-02 — Der Chi-Quadrat-Test</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","quiz.js,theme.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+</head>
+<body>
+
+<header class="meta">
+  <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-pressed="false">Dunkel</button>
+  <span class="kicker">Lektion KM7-02 · Häufigkeiten vergleichen</span>
+  <span class="ort">vor UE 1 · 5AHWIT WS · Wiederholung aus KM7</span>
+  <h1>Chi-Test: passen die Häufigkeiten?</h1>
+  <p class="subtitle">Zwei Arten, ein Test — und ein Warnhinweis, den R dir
+  nicht unterschlägt.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>Navarro, <a href="https://learningstatisticswithr.com/book/">Statistik
+     für Human- und Sozialwissenschaftler</a> (deutsch) — Kap. 12
+     (Chi-Quadrat-Tests). Die Aufgaben 4 und 6 beziehen sich auf das
+     Kapitel. Ergänzend NIST/SEMATECH e-Handbook, Kap. 7
+     (<a href="https://www.itl.nist.gov/div898/handbook/pri/pri.htm">Handbook
+     of Statistical Methods</a>).</p>
+  <p style="margin-top:0.5em">Voraussetzung: die
+     <a href="../KM5-02-binomialverteilung-und-annahmeschwelle/lesson.html">Binomialverteilung
+     aus KM5-02</a> — der Anpassungstest ist genau ihre Anwendung.</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>Wir haben 116 gültige Messungen und diese Häufigkeiten:</p>
+<pre>
+            in Toleranz    ausserhalb
+M1               37             0
+M2               39             0
+M3               34             6
+</pre>
+  <p><strong>Hängt die Maschinenwahl damit zusammen, ob ein Teil in der
+  Toleranz liegt?</strong></p>
+  <p>Wir haben 6 Ausschusteile — und wir haben eine Maschine, die keine
+  hat. Das sieht nach einem Zusammenhang aus. Aber: <strong>sieht aus</strong>
+  reicht nicht. Ein Test muss prüfen, ob das auch <em>ohne</em>
+  Zusammenhang so wahrscheinlich wäre.</p>
+</section>
+
+<section>
+  <h2>Schritt 0 — Erst die Tabelle, die wir testen wollen</h2>
+  <p>Ein Chi-Test arbeitet auf <strong>Häufigkeiten</strong>, nicht auf
+  Messwerten. Also bauen wir zuerst die Kreuztabelle:</p>
+<pre>
+library(tidyverse)
+
+daten &lt;- read_csv("../../assets/betriebsdaten.csv") |&gt;
+  mutate(iok = if_else(
+    is.na(masse_mm), NA,
+    if_else(abs(masse_mm - 10) &gt; 0.15,
+            "ausserhalb", "in_Toleranz")))
+
+tab &lt;- table(daten$maschine, daten$iok)
+tab
+<span class="cmt"># →
+#     ausserhalb  in_Toleranz
+#   M1     0          37
+#   M2     0          39
+#   M3     6          34</span>
+</pre>
+  <p>Zwei Dinge sind hier Arbeit:</p>
+  <ul>
+    <li><strong>Die Toleranzgrenze</strong> steckt in
+      <code>abs(masse_mm - 10) &gt; 0.15</code> — genau die Sollmaßangabe
+      10,00 mm mit Toleranz ± 0,15 mm.</li>
+    <li><strong><code>is.na(masse_mm)</code> steht zuerst.</strong>
+      <code>if_else()</code> braucht für <em>jeden</em> Fall einen Wert.
+      Ohne den NA-Zweig würden die vier fehlenden Messungen zu
+      <code>FALSE</code> und damit fälschlich als „in Toleranz"
+      gezählt — wir hätten plötzlich 120 statt 116 Fälle.</li>
+  </ul>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage">Warum steht in der Bedingung ausdrücklich
+    <code>is.na(masse_mm)</code> zuerst?</p>
+    <label><input type="radio" name="q0" value="0" data-grund="Richtig — if_else() braucht für jeden Zweig einen Wert. Ohne den NA-Zweig würden die vier fehlenden Messungen still zu „in Toleranz" und die Tabelle hätte 120 statt 116 Fälle."> Damit fehlende Werte nicht versehentlich als „in Toleranz" gezählt werden</label>
+    <label><input type="radio" name="q0" value="1" data-grund="Falsch — R wirft NA-Zeilen beim tabulieren nicht weg. Entscheidend ist die Kategorie, in die sie fallen, nicht ob sie in der Tabelle erscheinen."> Weil R sonst die fehlenden Werte aus der Tabelle wirft</label>
+    <label><input type="radio" name="q0" value="2" data-grund="Falsch — die Reihenfolge ist hier unkritisch; entscheidend ist, dass NA-Fälle überhaupt behandelt werden, nicht ob sie zuerst geprüft werden."> Weil die Reihenfolge der Bedingungen in if_else() das Ergebnis verändert</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+<pre>
+chisq.test(tabelle)
+<span class="cmt"># → Pearson's Chi-squared test
+#     X-squared = 12.022, df = 2, p-value = 0.002452</span>
+</pre>
+  <p>Der Test macht etwas sehr Einfaches: Er vergleicht jede
+  <strong>beobachtete</strong> Häufigkeit mit der, die sich unter der
+  Nullhypothese <em>ergeben müsste</em>. Das Wort
+  „Chi-Quadrat" beschreibt genau dieses Rechenwerk.</p>
+</section>
+
+<section>
+  <h2>Schritt 1 — Die erwarteten Häufigkeiten</h2>
+  <p>Der ganze Test lebt von einer einzigen Idee: Wenn H0 gilt, müssten
+  sich die Häufigkeiten so verteilen, wie es die <strong>Zeilen- und
+  Spaltensummen</strong> erzwingen — <em>ohne jeden Zusammenhang</em>.</p>
+<pre>
+Erwartet in Zelle (i, j) = (Zeilensumme_i * Spaltensumme_j) / Gesamtsumme
+</pre>
+  <p>Rechne das für unsere Tabelle von Hand. Gesamtsumme: <strong>116</strong>
+  gültige Messungen, davon 6 außerhalb — 6/116 = 5,17 %:</p>
+<pre>
+M1 erwartet ausserhalb = 37 * 6 / 116 = 1.91
+M2 erwartet ausserhalb = 39 * 6 / 116 = 2.02
+M3 erwartet ausserhalb = 40 * 6 / 116 = 2.07
+</pre>
+  <p>Beobachte vs. erwartet:</p>
+<pre>
+             beobachtet   erwartet
+M1               0           1.91
+M2               0           2.02
+M3               6           2.07
+</pre>
+  <p>M3 hat <strong>fast dreimal so viele</strong> Ausschusteile wie unter
+  H0 zu erwarten. M1 und M2 haben <em>null</em> statt rund zwei. Das ist
+  der gesamte Befund — als Tabelle.</p>
+
+  <div class="callout tipp">
+    <span class="label">Die Idee in einem Satz</span>
+    <p>Der Chi-Test <strong>misst den Abstand</strong> zwischen dem, was
+      war, und dem, was ohne Zusammenhang gewesen wäre — und macht daraus
+      eine einzige Zahl.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 2 — Die Teststatistik</h2>
+  <p>Jede Zelle trägt bei, wie weit sie von ihrer Erwartung abweicht.
+  Abweichungen werden quadriert (damit Plus und Minus nicht aufheben) und
+  durch die Erwartung geteilt (damit seltene Zellen mehr zählen):</p>
+<pre>
+X&sup2; = &Sigma; (Beobachtet - Erwartet)&sup2; / Erwartet
+</pre>
+  <p>Für unsere drei Zellen in der Spalte „außerhalb":</p>
+<pre>
+M1:  (0 - 1.91)&sup2; / 1.91 = 1.91
+M2:  (0 - 2.02)&sup2; / 2.02 = 2.02
+M3:  (6 - 2.07)&sup2; / 2.07 = 7.47
+</pre>
+  <p>Zusammen mit den drei Zellen der Spalte „in Toleranz" (0,10 + 0,11 +
+  0,41) ergibt das <strong>12,02</strong> — genau der Wert, den R
+  ausweist. Und jetzt:</p>
+<pre>
+tab &lt;- table(daten$maschine, daten$iok)
+chisq.test(tab)
+<span class="cmt"># → Pearson's Chi-squared test
+#     X-squared = 12.022, df = 2, p-value = 0.002452
+#
+#     Warning message:
+#     In chisq.test(tab) : Chi-squared approximation may be incorrect</span>
+</pre>
+
+  <div class="callout">
+    <span class="label">Lies den p-Wert richtig</span>
+    <p><code>p = 0,0025</code> heißt: Wenn es <em>keinen</em> Zusammenhang
+      gäbe, wäre eine so große Abweichung in <strong>0,25 %</strong> aller
+      Fälle zu sehen. Der Zusammenhang ist da. <strong>H0 wird
+      verworfen.</strong></p>
+  </div>
+
+  <div class="quiz" data-loesung="2">
+    <p class="frage">Der Chi-Test ergibt <code>X&sup2; = 12,022</code> bei
+    <code>df = 2</code> und <code>p = 0,0025</code>. Was bedeutet
+    das?</p>
+    <label><input type="radio" name="q1" value="0" data-grund="Falsch — 0,25 % ist die Wahrscheinlichkeit für eine so große Abweichung unter der Annahme, dass es keinen Zusammenhang gibt; nicht die Wahrscheinlichkeit, dass der Zusammenhang falsch ist."> Die Wahrscheinlichkeit, dass der Zusammenhang falsch ist, beträgt 0,25 %</label>
+    <label><input type="radio" name="q1" value="1" data-grund="Falsch — die 0,25 % beziehen sich auf die beobachtete Verteilung, nicht auf eine mögliche Zukunft. Der Test sagt nichts über kommende Lose aus."> In 0,25 % aller Chargen wird M3 so viele Ausschusteile liefern</label>
+    <label><input type="radio" name="q1" value="2" data-grund="Richtig — die Abweichung wäre ohne Zusammenhang so selten, dass wir H0 verwerfen. Ein Zusammenhang zwischen Maschine und Toleranzlage ist sehr wahrscheinlich."> Ohne Zusammenhang wäre eine so große Abweichung in 0,25 % der Fälle zu sehen — H0 wird verworfen</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 3 — Die Freiheitsgrade</h2>
+  <p>Wie viele Freiheitsgrade? Nicht die Anzahl der Zellen, sondern
+  <strong>wie viele Zellen man frei wählen kann</strong>, nachdem die
+  Summen feststehen:</p>
+<pre>
+df = (Zeilen - 1) * (Spalten - 1) = (3 - 1) * (2 - 1) = 2
+</pre>
+  <p>Die rechte Spalte ist keine echte Entscheidung — sie ergibt sich aus
+  der linken. Daher <code>df = 2</code>, nicht 6.</p>
+</section>
+
+<section>
+  <h2>Schritt 4 — Der Anpassungstest</h2>
+  <p>Der zweite Typ fragt etwas anderes: <strong>Stimmt die beobachtete
+  Häufigkeitsverteilung mit einer vorgegebenen überein?</strong> Ein
+  Beispiel aus dem Wareneingang: Der Kunde gibt eine Sollquote von
+  <strong>10 % Ausschuss</strong> vor.</p>
+<pre>
+beobachtet &lt;- c(in_Toleranz = 34, ausserhalb = 6)
+chisq.test(beobachtet, p = c(0.9, 0.1))
+<span class="cmt"># → Chi-squared test for given probabilities
+#     X-squared = 1.1111, df = 1, p-value = 0.2918</span>
+</pre>
+  <p><strong>p = 0,29</strong> — die 15 % Ausschussquote von M3 sind von
+  den geforderten 10 % <em>statistisch nicht unterscheidbar</em>. Genau das,
+  was die
+  <a href="../KM5-02-binomialverteilung-und-annahmeschwelle/lesson.html">Binomialverteilung
+  aus KM5-02</a> vorhergesagt hat: 6 von 40 sind bei 10 % ganz normal.</p>
+
+  <h3>Die Falle: Abweichung in beide Richtungen</h3>
+  <p>Dasselbe Verfahren mit M1 — 0 Ausschusteile von 37:</p>
+<pre>
+chisq.test(c(in_Toleranz = 37, ausserhalb = 0), p = c(0.9, 0.1))
+<span class="cmt"># → X-squared = 4.1111, df = 1, p-value = 0.0426</span>
+</pre>
+  <div class="callout">
+    <span class="label">Genau hinsehen</span>
+    <p>M1 hat <strong>keinen einzigen</strong> Ausschuss — und der Test
+      meldet <em>signifikante Abweichung</em> (p = 0,043). Erwartet waren
+      3,7 Stück. M1 ist also nicht „besser als die Vorgabe", es ist
+      <strong>statistisch anders als die Vorgabe</strong> — in die gute
+      Richtung.</p>
+    <p>Ein Anpassungstest <strong>erkennt jede Abweichung</strong>, nicht
+      nur schlechte. Er ist kein Güteurteil, sondern ein
+      <em>Vergleichstest</em>.</p>
+  </div>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">Eine Maschine hat 0 Ausschusteile in 37 Messungen, der
+    Sollwert sind 10 %. Der Anpassungstest ergibt p = 0,043. Was
+    bedeutet das?</p>
+    <label><input type="radio" name="q2" value="0" data-grund="Falsch — der Test unterscheidet nicht „besser" von „schlechter", er unterscheidet nur „wie erwartet" von „anders". Beide Richtungen lösen ihn aus."> Die Maschine ist besser als die Vorgabe, der Test bestätigt das</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Richtig — erwartet waren 3,7 Fehler, beobachtet 0. Das ist eine Abweichung, deshalb wird H0 verworfen. Ob sie gut oder schlecht ist, sagt der Test nicht."> Die Maschine weicht statistisch von der Vorgabe ab — in welche Richtung, sagt der Test nicht</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Falsch — p = 0,043 liegt unter 0,05, die Nullhypothese wird also verworfen. Er wird nicht abgelehnt."> H0 wird nicht verworfen, weil 0 Fehler die Vorgabe übertreffen</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — Die Voraussetzungen, die R dir nicht unterschlägt</h2>
+  <p>Beim Unabhängigkeitstest kam eine Warnung: <em>Chi-squared
+  approximation may be incorrect</em>. Sie ist berechtigt. Zuerst die
+  erwarteten Häufigkeiten — R rechnet sie mit
+  <code>outer()</code>:</p>
+<pre>
+erwartet &lt;- outer(rowSums(tab), colSums(tab)) / sum(tab)
+round(erwartet, 2)
+<span class="cmt"># →   ausserhalb  in_Toleranz
+#     M1          1.91        35.09
+#     M2          2.02        36.98
+#     M3          2.07        37.93</span>
+</pre>
+  <p>Die Regel lautet: <strong>mindestens 80 % der erwarteten Häufigkeiten
+  müssen &ge; 5 sein</strong>. Hier liegen <strong>3 von 6</strong> Zellen
+  darunter (1,91 / 2,02 / 2,07) — das sind 50 %, und damit zu viel. Der
+  Chi-Test <em>nähert</em> die Verteilung durch eine Normalverteilung an —
+  und dafür sind zu wenige Daten da. Das Ergebnis 0,0025 ist also eine
+  <strong>Näherung, die nicht hält</strong>.</p>
+  <p>Was tut man? Bei kleinen Häufigkeiten den <strong>exakten</strong>
+  Test von Fisher:</p>
+<pre>
+fisher.test(tab)
+<span class="cmt"># → Fisher's Exact Test for Count Data
+#     p-value = 0.003177
+#     alternative hypothesis: two.sided</span>
+</pre>
+  <p>Der Fisher-Test rechnet <strong>ohne Näherung</strong> und kommt auf
+  0,0032 — praktisch dasselbe Urteil, aber ohne die Näherungsannahme. Die
+  Richtung des Ergebnisses ist hier also richtig, der p-Wert nicht exakt.</p>
+
+  <div class="callout tipp">
+    <span class="label">Regel für die Praxis</span>
+    <p>Zu wenige Daten → <code>fisher.test()</code>. Viele Daten →
+      <code>chisq.test()</code> ist schneller und stabiler. Und
+      <strong>nie</strong> die Warnung ignorieren: Sie ist der einzige
+      Hinweis, dass dein Ergebnis nicht so belastbar ist, wie es
+      aussieht.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 6 — Was der Anpassungstest auslöst</h2>
+  <p>Der Unabhängigkeitstest sagt nur: <em>irgendein</em> Zusammenhang
+  besteht. Welcher, das sagt er nicht. Die Gegenrichtung — „welcher Anteil
+  ist zu groß?" — beantwortet der Anpassungstest aus Schritt 4, mit
+  festgelegten Sollquoten statt mit Randverteilungen.</p>
+  <p>Für M3 heißt das: 6 von 40 = 15 % Ausschuss. Die Anpassung an die
+  10-%-Vorgabe schlägt fehl (p = 0,29), der Unabhängigkeitstest nicht
+  (p = 0,0025). <strong>Beide Aussagen sind gleichzeitig richtig</strong> —
+  sie beantworten verschiedene Fragen, und man darf sie nicht
+  gegeneinander ausspielen.</p>
+
+  <div class="callout tipp">
+    <span class="label">Die Werkzeugkette</span>
+    <p>Boxplot <em>wo</em> → t-Test <em>echt?</em> → Chi-Test
+      <em>hängt es an der Maschine?</em> → DoE <em>wie stelle ich es
+      ab?</em></p>
+  </div>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du!</div>
+  <ol>
+    <li><strong>Vorhersage zuerst.</strong> Welche Zelle der Tabelle
+      trägt am meisten zur Teststatistik bei? Rechne diesen Beitrag von
+      Hand nach ((beobachtet − erwartet)&sup2; / erwartet) und vergleiche
+      mit R.</li>
+    <li>Baue die Anpassungstests für <strong>alle drei</strong> Maschinen
+      gegen die 10-%-Vorgabe. Trage X&sup2; und p-Wert in eine Tabelle ein.
+      Welche Maschine fällt statistisch auf, und in welche Richtung?</li>
+    <li>Prüfe für den Unabhängigkeitstest die Voraussetzung selbst:
+      Berechne alle erwarteten Häufigkeiten mit
+      <code>outer(rowSums(tab), colSums(tab)) / sum(tab)</code>. Welcher
+      Anteil liegt unter 5, und welches Testverfahren folgt daraus?</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+
+  <h3>Fehler 1 — Prozentzahlen statt Häufigkeiten</h3>
+<pre>
+chisq.test(c(0.90, 0.10))
+<span class="cmt"># ✗ sinnlos — der Test erwartet ganze Häufigkeiten</span>
+</pre>
+  <p>Der Chi-Test vergleicht <strong>Anzahlen</strong>. Wer Prozentzahlen
+  übergibt, verliert die Information über die Stichprobengröße.</p>
+
+  <h3>Fehler 2 — <code>correct = FALSE</code> als schneller Fix</h3>
+<pre>
+chisq.test(tab, correct = FALSE)
+</pre>
+  <p>Der Parameter behebt das Problem nicht, er <strong>versteckt</strong> es.
+  Er ändert die Freiheitsgradzahl bei 2×2-Tabellen — aber nicht die
+  Näherung, die hier nicht trägt. Bei zu wenigen Häufigkeiten ist
+  <code>fisher.test()</code> die richtige Antwort, nicht ein
+  Schalter.</p>
+
+  <h3>Fehler 3 — Die Warnung überlesen</h3>
+  <p>„Chi-squared approximation may be incorrect" ist der wichtigste Satz
+  in der Konsole. Wer ihn überliest, liefert eine Zahl als Ergebnis ab, die
+  eine Voraussetzung verletzt.</p>
+
+  <h3>Fehler 4 — <code>chisq.test()</code> für metrische Daten</h3>
+  <p>Der Chi-Test braucht <strong>Kategorieen</strong>. „Sind die
+  Mittelwerte verschieden?" ist keine kategoriale Frage — dafür ist der
+  t-Test aus <a href="../KM7-01-mittelwertsvergleich-t-test/lesson.html">KM7-01</a>
+  da. Falsch angewandt liefert der Chi-Test auf quantisierte Daten eine Zahl
+  ohne Bedeutung.</p>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Baustein</th><th>Wofür</th></tr>
+    <tr><td>Erwartete Häufigkeit</td><td>(Zeilensumme · Spaltensumme) / Gesamtsumme</td></tr>
+    <tr><td>X&sup2;</td><td>Summe der quadrierten, normierten Abweichungen</td></tr>
+    <tr><td>df</td><td>(Zeilen − 1) · (Spalten − 1) — nur frei wählbare Zellen</td></tr>
+    <tr><td>Unabhängigkeitstest</td><td>Hängen zwei Merkmale zusammen?</td></tr>
+    <tr><td>Anpassungstest</td><td>Passt die Verteilung zu einer Sollverteilung?</td></tr>
+    <tr><td>Richtung</td><td>Ein Anpassungstest erkennt Abweichung in <em>beide</em> Richtungen</td></tr>
+    <tr><td>Voraussetzung</td><td>80 % der erwarteten Häufigkeiten &ge; 5</td></tr>
+    <tr><td><code>fisher.test()</code></td><td>Exakter Test, wenn die Näherung nicht trägt</td></tr>
+  </table>
+  <p><strong>Ausblick:</strong> Beide Tests hier waren
+    <em>Signifikanz</em>-Tests. Die offene Frage bleibt: Wie oft findet
+    so ein Test überhaupt etwas, wenn gar nichts ist — und wie hängt das
+    von der Stichprobengröße ab?
+    <a href="../KM7-03-teststaerke-und-stichprobenumfang/lesson.html">Lektion
+    KM7-03</a> beantwortet sie. Vorab-Überblick:
+    <a href="../KM7-03-teststaerke-und-stichprobenumfang/praesentation.html">Folien
+    KM7-03</a>.</p>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Vertiefe die Häufigkeitsanalyse mit der
+  <a href="hausaufgabe.md">Aufgabe KM7-02 — Chi-Quadrat-Test</a>: beide
+  Testtypen an den Betriebsdaten, Teststatistik von Hand, Voraussetzungen
+  prüfen und den exakten Test als Alternative.
+  — <strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
+</section>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> Navarro,
+  <a href="https://learningstatisticswithr.com/book/">Kap. 12</a>
+  (Hauptlektüre) · NIST/SEMATECH e-Handbook,
+  <a href="https://www.itl.nist.gov/div898/handbook/pri/pri.htm">Kap. 7</a>.</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Weiter: <a href="../KM6-01-boxplot-und-grafikwahl/lesson.html">Lektion KM6-01 —
+  Boxplot und die Wahl der richtigen Grafik</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion KM7-01 — Mittelwertsvergleich: z-Test und t-Test</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","quiz.js,theme.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+</head>
+<body>
+
+<header class="meta">
+  <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-pressed="false">Dunkel</button>
+  <span class="kicker">Lektion KM7-01 · Mittelwerte vergleichen</span>
+  <span class="ort">vor UE 1 · 5AHWIT WS · Wiederholung aus KM7</span>
+  <h1>Sind die Maschinen wirklich unterschiedlich?</h1>
+  <p class="subtitle">Der t-Test — und warum „der Unterschied ist
+  signifikant" nicht das Ende der Antwort ist.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>Navarro, <a href="https://learningstatisticswithr.com/book/">Statistik
+     für Human- und Sozialwissenschaftler</a> (deutsch) — Kap. 13
+     (t-Tests). Lies das Kapitel vor der Aufgabe; die Aufgabenfragen
+     beziehen sich direkt darauf. Ergänzend NIST/SEMATECH e-Handbook,
+     Kap. 7 (<a href="https://www.itl.nist.gov/div898/handbook/pri/pri.htm">Handbook
+     of Statistical Methods</a>).</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>Drei Maschinen fertigen dasselbe Teil. Sollmaß <strong>10,00 mm</strong>,
+  Toleranz <strong>± 0,15 mm</strong>. Aus je 40 Messungen:</p>
+  <p><strong>M1: 10,0005 mm</strong> · <strong>M2: 9,9769 mm</strong> ·
+     <strong>M3: 10,0628 mm</strong></p>
+  <p>M1 und M2 liegen 0,024 mm auseinander. M3 liegt 0,062 mm von M1
+  entfernt. <strong>Sind das echte Unterschiede — oder Zufall?</strong></p>
+  <p>Genau diese Frage beantwortet ein Hypothesentest. Und seine Antwort
+  ist nicht „ja" oder „nein", sondern eine <em>Wahrscheinlichkeit</em> —
+  mit einem Haken, den wir am Ende aufmachen.</p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+  <p>Das ist der Aufruf, den du am Ende sicher beherrschst:</p>
+<pre>
+t.test(masse_mm ~ maschine,
+       data = daten |&gt; filter(maschine %in% c("M1", "M3")))
+<span class="cmt"># → Welch Two Sample t-test
+#     t = -5.1132, df = 55.272, p-value = 4.092e-06
+#     95% CI: -0.08659  -0.03783</span>
+</pre>
+  <p>Ein Aufruf, vier Zahlen. Wie die entstehen — das bauen wir Schritt für
+  Schritt auf.</p>
+</section>
+
+<section>
+  <div class="baustein">Schritt 1 — Die Rohzahlen</div>
+  <p>Wir arbeiten die ganze Lektion mit <strong>einem</strong> Datensatz:
+  den Betriebsdaten aus dem Kurs-Repo. Lade ihn:</p>
+<pre>
+library(tidyverse)
+
+daten &lt;- read_csv("../../assets/betriebsdaten.csv")
+<span class="cmt"># → Rows: 120 Columns: 3
+#     maschine  &lt;chr&gt;  ·  charge  &lt;dbl&gt;  ·  masse_mm  &lt;dbl&gt;</span>
+</pre>
+  <p>Erst die Übersicht, wie in Lektion SA-03. <code>mean()</code> und
+  <code>sd()</code> brauchen <code>na.rm = TRUE</code> — vier Messungen
+  fehlen (drei bei M1, eine bei M2):</p>
+<pre>
+kennzahlen &lt;- daten |&gt;
+  group_by(maschine) |&gt;
+  summarise(
+    n         = sum(!is.na(masse_mm)),
+    mittel    = mean(masse_mm, na.rm = TRUE),
+    streuung  = sd(masse_mm, na.rm = TRUE)
+  )
+
+kennzahlen
+<span class="cmt"># → # A tibble: 3 × 3
+#   maschine     n     mittel  streuung
+#   &lt;chr&gt;     &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+# 1 M1          37 10.00054  0.03150
+# 2 M2          39  9.97692  0.04000
+# 3 M3          40 10.06275  0.06960</span>
+</pre>
+  <p>Die <strong>Differenz der Mittelwerte</strong> ist die Größe, um die
+  es geht. Für M1 gegen M3 sind das 0,062 mm. Die <strong>Streuung</strong>
+  ist das, was dagegen spricht: 0,032 gegen 0,070 mm.</p>
+
+  <div class="callout">
+    <span class="label">Merke dir</span>
+    <p>Ein t-Test vergleicht <strong>nicht zwei Zahlen</strong>, sondern
+      einen <em>Effekt</em> (die Differenz) mit dem
+      <em>Rauschen</em> (der Streuung). Je größer der Effekt relativ zur
+      Streuung, desto leichter fällt der Test aus.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 2 — Die Hypothesen</h2>
+  <p>Jeder Test beginnt mit zwei Behauptungen. Nicht mit einer — mit
+  <strong>zwei</strong>:</p>
+<pre>
+H0:  Die Maschinen haben denselben Mittelwert
+     (Differenz der Mittelwerte = 0)
+
+H1:  Die Maschinen haben unterschiedliche Mittelwerte
+     (Differenz der Mittelwerte &ne; 0)
+</pre>
+  <p>Das ist keine rhetorische Formel, das ist der Testauftrag. Wir prüfen
+  immer nur <strong>H0</strong> — und die Logik ist bewusst
+  asymmetrisch:</p>
+<pre>
+p &lt; 0,05  →  H0 wird verworfen: der Effekt ist echt (zu gut Glück)
+p &ge; 0,05  →  H0 bleibt: der Effekt war nicht erkennbar
+</pre>
+  <p>Der Fehler, der hier am häufigsten passiert: <strong>ein
+  p-Wert &ge; 0,05 ist kein Beleg für Gleichheit.</strong> Er heißt nur
+  „mit diesen Daten nicht nachweisbar". Beweisen kann ein Test nur das
+  Gegenteil der Arbeitshypothese.</p>
+
+  <h3>Ein- und zweiseitig</h3>
+  <p>Fragt ihr: „Hat sich etwas <em>geändert</em>?" — das kann in beide
+  Richtungen gehen, also <strong>zweiseitig</strong> (H1: &ne; 0). Das ist
+  der Standard und der ist in R voreingestellt.</p>
+<pre>
+# zweiseitig (Standard) — "irgendetwas hat sich geändert"
+t.test(masse_mm ~ maschine, data = ...)
+
+# einseitig — "ist M3 jetzt GR&Ouml;SSER als M1?"
+t.test(masse_mm ~ maschine, data = ...,
+       alternative = "less")
+<span class="cmt"># → alternative hypothesis: true difference in means
+#     ... is less than 0</span>
+</pre>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">Ein Test ergibt <code>p = 0,42</code>. Was heißt das?</p>
+    <label><input type="radio" name="q1" value="0" data-grund="Falsch — p = 0,42 ist keine stattgefundene Nicht-Identität, sondern schlicht keine ausreichende Evidenz gegen H0."> Die beiden Maschinen sind gleich</label>
+    <label><input type="radio" name="q1" value="1" data-grund="Richtig — H0 wurde nicht verworfen; die Wirkung ist mit diesen Daten nicht nachweisbar, nicht widerlegt."> H0 wird nicht verworfen — ein Effekt war nicht nachweisbar</label>
+    <label><input type="radio" name="q1" value="2" data-grund="Falsch — bei p &ge; 0,05 verwirft man H0 gerade nicht, man behält sie bei."> H0 wird verworfen, weil der Effekt zu klein ist</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 3 — Der z-Test: wenn &sigma; bekannt ist</h2>
+  <p>Der <strong>z-Test</strong> ist der einfachste Fall: Du weißt die
+  Grundgesamtheits-Streuung &sigma; genau. Dann geht die Unsicherheit
+  eines Mittelwerts aus <code>n</code> Messungen direkt hervor:</p>
+<pre>
+Standardfehler = &sigma; / &radic;n
+</pre>
+  <p>37 Messungen, &sigma; = 0,032 mm:</p>
+<pre>
+0.0315 / sqrt(37)
+<span class="cmt"># → 0.005178</span>
+</pre>
+  <p>Die mittlere Abweichung eines Messwerts vom wahren Mittelwert ist
+  also rund 0,005 mm groß. Und der geprüfte Effekt ist 0,062 mm — das
+  ist mehr als das Zwölffache. Der Effekt gewinnt klar.</p>
+<pre>
+z = 0.06225 / 0.005178
+<span class="cmt"># → 12.02</span>
+</pre>
+
+  <div class="callout">
+    <span class="label">Der Grund, warum es den z-Test kaum noch gibt</span>
+    <p>In der Praxis kennt <strong>nie jemand &sigma;</strong> — die
+      Grundgesamtheit ist unendlich groß, man sieht immer nur eine
+      Stichprobe. &sigma; ist eine <em>unbekannte</em>, die man
+      <em>schätzt</em>. Und eine geschätzte Streuung ist ungenau — mit
+      ihr wird der Nenner der Teststatistik zu klein.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 4 — Der t-Test: wenn &sigma; geschätzt wird</h2>
+  <p>Ersetze &sigma; durch die Stichproben-Streuung <code>s</code> — und
+  das Ergebnis ist der <strong>t-Test</strong>. Er hat dasselbe Prinzip,
+  rechnet aber konservativer, weil er die Ungenauigkeit von
+  <code>s</code> mitdenkt:</p>
+<pre>
+t = (Differenz der Mittelwerte - 0)
+    --------------------------------
+     Streuung / &radic;n
+</pre>
+  <p>M1 gegen M3, ungepaart, mit ungleichen Streuungen (das ist der
+  <strong>Welch</strong>-Test, R macht den automatisch):</p>
+<pre>
+vergleich &lt;- daten |&gt;
+  filter(maschine %in% c("M1", "M3"))
+
+t.test(masse_mm ~ maschine, data = vergleich)
+<span class="cmt"># → Welch Two Sample t-test
+#     t = -5.1132, df = 55.272, p-value = 4.092e-06
+#     95% CI: -0.08659  -0.03783
+#     sample estimates: M1 = 10.00054, M3 = 10.06275</span>
+</pre>
+
+  <h3>Die Freiheitsgrade</h3>
+  <p><code>df = 55.272</code> ist keine 56 und keine 55. Bei ungleichen
+  Streuungen ergibt Welch eine <strong>gebrochene</strong> Freiheitsgradzahl
+  — 55,272, ein Mittelwert aus beiden Gruppen. Was das bedeutet:</p>
+  <p>Die t-Verteilung <em>schrumpft</em> mit steigenden Freiheitsgraden.
+  Bei df = 55,272 ist sie fast die Normalverteilung. Bei df = 9 — so viele
+  hat der gepaarte Test gleich — ist sie deutlich breiter, die
+  95-%-Schranke liegt weiter von null weg. <strong>Weniger Daten →
+  strengeres Urteil.</strong></p>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage">Warum nennt R beim ungepaarten Test die
+    Freiheitsgrade <code>55.272</code> und nicht <code>55</code>?</p>
+    <label><input type="radio" name="q2" value="0" data-grund="Richtig — Welch gewichtet die Gruppen nach ihren Streuungen und liefert darum eine nicht ganzzahlige Freiheitsgradzahl."> Weil die Gruppen unterschiedliche Streuungen haben und Welch sie gegeneinander abwägt</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Falsch — R rundet Freiheitsgrade nicht; die Nachkommastellen sind das Ergebnis der Welch-Gewichtung."> Weil R die Freiheitsgrade nicht auf rundet</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Falsch — die Zahl hängt an den Streuungen der beiden Gruppen, nicht an der Rundung."> Weil die Stichprobe zu klein für ganzzahlige Grade ist</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — Gepaart oder ungepaart?</h2>
+  <p>Das ist die häufigste Fehlentscheidung beim t-Test. Die Frage lautet
+  nicht „sind die Gruppen unterschiedlich groß", sondern
+  <strong>„gehören die Werte paarweise zusammen?"</strong></p>
+  <p>Hier schon: Maschinen, die <strong>am selben Tag, an derselben Charge
+  von derselben Rohcharge</strong> gefertigt haben. Charge 101 auf M1 und
+  Charge 101 auf M3 — beide stammen aus derselben Materialcharge. Diese
+  Werte sind <em>verbunden</em>: Was die Rohcharge hatte, hat
+  Maschine <em>beide</em>.</p>
+  <p>Man vergleicht also nicht 40 gegen 40, sondern <strong>10 Paare</strong>
+  — und bildet pro Paar die Differenz:</p>
+<pre>
+chargen &lt;- daten |&gt;
+  group_by(maschine, charge) |&gt;
+  summarise(mm = mean(masse_mm, na.rm = TRUE),
+           .groups = "drop") |&gt;
+  pivot_wider(names_from = maschine, values_from = mm)
+
+chargen
+<span class="cmt"># → # A tibble: 10 × 4
+#   charge     M1        M2        M3
+#     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+# 1     101 9.99250  9.94750 10.05500
+# 2     102 9.99500  9.96750 10.03250
+# 3     103 9.98667  9.97500 10.11750
+# 4     104 9.98000  9.97750 10.00750
+# 5     105 9.99000  9.92667 10.02750
+# 6     106 10.00000 10.01750 10.11000
+# 7     107 10.01750 10.00250 10.06250
+# 8     108 10.00750  9.97250 10.05500
+# 9     109 10.01000  9.96750 10.08500
+# 10    110 10.01500 10.00250 10.07500</span>
+</pre>
+  <p>Jetzt die 10 Differenzen M3 − M1:</p>
+<pre>
+chargen$M3 - chargen$M1
+<span class="cmt"># →  0.0625  0.0375  0.1308  0.0275  0.0375
+#     0.1100  0.0450  0.0475  0.0750  0.0600</span>
+</pre>
+  <p><strong>Alle zehn sind positiv.</strong> M3 ist in <em>jeder</em>
+  Charge über dem Sollmaß, nicht nur im Mittel. Das ist der ganze
+  Vorteil des gepaarten Tests: Die Streuung der <em>Rohcharge</em>
+  verschwindet aus der Differenz heraus.</p>
+<pre>
+t.test(chargen$M3, chargen$M1, paired = TRUE)
+<span class="cmt"># → Paired t-test
+#     t = 5.9822, df = 9, p-value = 0.000207
+#     95% CI: 0.03938  0.08728
+#     mean difference: 0.06333</span>
+</pre>
+
+  <div class="callout tipp">
+    <span class="label">Warum df = 9?</span>
+    <p>10 Paare, also 10 Differenzen — deren <em>Mittelwert</em>
+      untersuchen wir. Freiheitsgrade = n − 1 = <strong>9</strong>. Beim
+      ungepaarten Test waren es 37 + 39 − 2 = 74 (bzw. 55,272 bei Welch).
+      Der gepaarte Test hat also <em>weniger</em> Freiheitsgrade,
+      <strong>obwohl er mehr Information nutzt</strong> — weil er mit
+      weniger, dafür besseren Werten arbeitet. Das ist genau der Handel,
+      den man absichtlich eingeht.</p>
+  </div>
+
+  <h3>Die Formel-Vorlage für gepaart</h3>
+  <p>Beim gepaarten Test gibt es <strong>keine</strong> Formel
+  „Mittelwert 1 minus Mittelwert 2 durch die Streuung". Man rechnet
+  <em>zuerst</em> die Differenzen und <em>dann</em> deren Standardabweichung:</p>
+<pre>
+d &lt;- chargen$M3 - chargen$M1
+t = mean(d) / (sd(d) / sqrt(length(d)))
+<span class="cmt"># sd(d) = 0.0335, also
+# 0.06333 / (0.0335 / sqrt(10)) = 5.9822</span>
+</pre>
+  <p>Der Nenner ist die Streuung der <strong>Differenzen</strong>, nicht
+  die der Messwerte. Wer hier die Messwert-Streuung einsetzt, rechnet
+  den falschen Test.</p>
+
+  <div class="quiz" data-loesung="2">
+    <p class="frage">Ein Automobilwerk prüft 40 linke und 40 rechte
+    Stoßfänger derselben <strong>Tagesschicht</strong> auf Gewichts-
+    gleichheit. Welcher Test passt?</p>
+    <label><input type="radio" name="q3" value="0" data-grund="Falsch — die Werte sind verbunden, weil dieselbe Schicht an beiden Seiten gearbeitet hat; ein ungepaarter Test wirft diese Information weg."> Ungepaart, weil zwei getrennte Stichproben vorliegen</label>
+    <label><input type="radio" name="q3" value="1" data-grund="Falsch — der z-Test käme nur zum Einsatz, wenn die Grundgesamtheits-Streuung bekannt wäre; die kennt man hier nicht."> Zwei-seitiger z-Test, da zwei Stichproben verglichen werden</label>
+    <label><input type="radio" name="q3" value="2" data-grund="Richtig — gleiche Schicht, gleicher Zeitpunkt: die Teile hängen paarweise zusammen, also gepaarter Test über 40 Paare."> Gepaart, weil die Teile aus derselben Schicht stammen</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du!</div>
+  <p>Alles im Skript, Zeile für Zeile mit <code>Ctrl + Enter</code>:</p>
+  <ol>
+    <li><strong>Vorhersage zuerst.</strong> M1 gegen M2: 0,024 mm
+      Unterschied, Streuungen 0,032 und 0,040 mm. Schreib <em>vor</em> der
+      Ausführung auf: Signifikant oder nicht, und warum? Führe dann
+      <code>t.test(masse_mm ~ maschine, data = daten |&gt; filter(maschine %in% c("M1", "M2")))</code>
+      aus.</li>
+    <li>Der p-Wert wird <strong>kleiner als 0,05</strong> sein. Ist damit
+      eine Maschine die bessere? Beurteile das am
+      <strong>Konfidenzintervall</strong>, nicht am p-Wert — und vergleiche
+      die Intervallbreite mit der Toleranz von ± 0,15 mm.</li>
+    <li>Baue den gepaarten Vergleich M1 gegen M2 aus den Chargenmitteln.
+      Wie viele Paare sind es, wie viele Freiheitsgrade, und was sagt das
+      Konfidenzintervall diesmal aus?</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+
+  <h3>Fehler 1 — <code>paired = TRUE</code> bei der Formel-Syntax</h3>
+<pre>
+t.test(mm ~ maschine, data = chargen, paired = TRUE)
+<span class="cmt"># ✗ Error: cannot use 'paired' in formula method</span>
+</pre>
+  <p>Die Formel-Schreibweise <code>x ~ gruppe</code> kann keine Paare
+  bilden — sie kennt die Zuordnung nicht. Für gepaarte Tests brauchst du
+  zwei Spalten, also <code>t.test(spalte_a, spalte_b, paired = TRUE)</code>.
+  Wer den Fehler sieht, hat es verstanden.</p>
+
+  <h3>Fehler 2 — <code>na.rm</code> vergessen</h3>
+<pre>
+mean(daten$masse_mm)
+<span class="cmt"># → NA — vier fehlende Messungen kippen den ganzen Wert</span>
+</pre>
+  <p>Vier Messungen fehlen (drei bei M1, eine bei M2). R rechnet
+  <em>alles</em> mit NA, statt still die gültigen Werte zu nehmen. Bei
+  <code>t.test()</code> entfallen die NA-Zeilen automatisch — deshalb
+  funktioniert der Test oben und der <code>mean()</code> ohne
+  <code>na.rm</code> nicht.</p>
+
+  <h3>Fehler 3 — „p &lt; 0,05 heißt: die Maschine ist besser"</h3>
+  <p>Der Test sagt nur: <em>die Mittelwerte unterscheiden sich</em>. Er
+  sagt nicht, welche Richtung, und er sagt nicht, ob der Unterschied
+  <strong>wirtschaftlich relevant</strong> ist. Ein p-Wert von 0,005 bei
+  einer Differenz von 0,024 mm bedeutet: statistisch sauber nachgewiesen —
+  und 0,024 mm sind ein Sechstel der Toleranz. Ein p-Wert von 0,005 für
+  „Handlungsbedarf" ist eine Fehlinterpretation.</p>
+
+  <h3>Fehler 4 — Der z-Test aus dem Taschenrechner</h3>
+  <p>Wenn du in einer Aufgabe ein vorgegebenes &sigma; bekommst, ist der
+  z-Test gemeint. In der Praxis und in R fast nie — R bietet ihn nicht
+  einmal als Standardfunktion an. <code>qnorm()</code> und
+  <code>qt()</code> liefern die Quantile beider Verteilungen, falls du
+  eine Rechnung von Hand nachvollziehen willst.</p>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Baustein</th><th>Wofür</th></tr>
+    <tr><td>Effekt vs. Streuung</td><td>Ein Test vergleicht die Differenz der Mittelwerte mit dem Rauschen</td></tr>
+    <tr><td>H0 / H1</td><td>H0 ist die Arbeitshypothese; geprüft wird <em>nur</em> H0</td></tr>
+    <tr><td>p &lt; 0,05</td><td>H0 verwerfen — ein nachgewiesener Effekt</td></tr>
+    <tr><td>p &ge; 0,05</td><td>H0 bleibt — <em>kein Nachweis</em>, nicht „gleicher Mittelwert"</td></tr>
+    <tr><td>z-Test</td><td>&sigma; der Grundgesamtheit bekannt — in der Praxis fast nie</td></tr>
+    <tr><td>t-Test ungepaart</td><td>Zwei unabhängige Stichproben, Mittelwerte vergleichen</td></tr>
+    <tr><td>t-Test gepaart</td><td>Werte hängen paarweise zusammen; rechnet über die <em>Differenzen</em></td></tr>
+    <tr><td>df</td><td>Freiheitsgrade; weniger Daten → weitere 95-%-Schranken</td></tr>
+    <tr><td>Konfidenzintervall</td><td>Der Effekt mit seinem Unsicherheitsbereich — die ehrlichere Zahl</td></tr>
+  </table>
+  <p><strong>Ausblick:</strong> Drei Maschinen und drei Vergleiche — du
+  hast jeden <em>paarweise</em> getestet. Was, wenn du alle drei auf
+  einmal vergleichst? Dafür gibt es die ANOVA, und die ist die Grundlage
+  der Versuchsplanung, die in <a href="../KM7-03-teststaerke-und-stichprobenumfang/lesson.html">KM7-03</a>
+  im Einsatz steht. Ausblick: <a href="../KM7-03-teststaerke-und-stichprobenumfang/praesentation.html">Folien KM7-03</a>.</p>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Vertiefe die Testlogik mit der
+  <a href="hausaufgabe.md">Aufgabe KM7-01 — Mittelwertsvergleich</a>:
+  beide Testarten an den Betriebsdaten, Hypothesen formulieren,
+  Konfidenzintervalle bewerten und die Frage beantworten, was „statistisch
+  signifikant" für die Toleranzentscheidung bedeutet.
+  — <strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
+</section>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> Navarro,
+  <a href="https://learningstatisticswithr.com/book/">Kap. 13</a>
+  (Hauptlektüre) · NIST/SEMATECH e-Handbook,
+  <a href="https://www.itl.nist.gov/div898/handbook/pri/pri.htm">Kap. 7</a>
+  (Product and Process Comparisons).</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Weiter: <a href="../KM5-02-binomialverteilung-und-annahmeschwelle/lesson.html">Lektion KM5-02 —
+  Binomialverteilung und Annahmeschwelle</a></p>
+</footer>
+
+</body>
+</html>

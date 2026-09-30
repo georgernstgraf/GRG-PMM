@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion KM7-03 — Teststärke und Stichprobenumfang</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","quiz.js,theme.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+</head>
+<body>
+
+<header class="meta">
+  <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-pressed="false">Dunkel</button>
+  <span class="kicker">Lektion KM7-03 · Wie viele Daten brauche ich?</span>
+  <span class="ort">vor UE 1 · 5AHWIT WS · Wiederholung aus KM7</span>
+  <h1>Teststärke: der Fehler, den kein p-Wert zeigt</h1>
+  <p class="subtitle">Fehler 1. und 2. Art, Power, Stichprobenumfang — und
+  warum 4000 Teile auch nicht helfen.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>Navarro, <a href="https://learningstatisticswithr.com/book/">Statistik
+     für Human- und Sozialwissenschaftler</a> (deutsch) — Kap. 13
+     (Teststärke beim t-Test) und Kap. 16 (Fehler 1. und 2. Art). Ergänzend
+     NIST/SEMATECH e-Handbook, Kap. 7
+     (<a href="https://www.itl.nist.gov/div898/handbook/pri/pri.htm">Handbook
+     of Statistical Methods</a>).</p>
+  <p style="margin-top:0.5em">Voraussetzung:
+     <a href="../KM7-01-mittelwertsvergleich-t-test/lesson.html">Lektion
+     KM7-01</a> (t-Test) — wir rechnen alles am selben Test durch.</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>Du hast M1 und M2 verglichen: 40 Messungen je Maschine, Mittelwert
+  10,0005 gegen 9,9769 mm. Das Ergebnis war
+  <code>p = 0,005456</code> — <strong>signifikant</strong>.</p>
+  <p><strong>Die Frage, die kein p-Wert beantwortet:</strong> Wie groß
+  müsste der Unterschied sein, damit du ihn <em>gar nicht</em> gefunden
+  hättest?</p>
+  <p>Mit 40 Teilen pro Maschine findest du fast alles. Mit 5 Teilen pro
+  Maschine findest du fast nichts. <strong>Der p-Wert sagt nichts darüber,
+  wie empfindlich dein Versuch war.</strong></p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+<pre>
+power.t.test(n = 40, delta = 0.0633, sd = 0.05, sig.level = 0.05)
+<span class="cmt"># → power = 0.9999</span>
+</pre>
+  <p>Und in der anderen Richtung — die Frage, die man vor dem Versuch
+  stellt:</p>
+<pre>
+power.t.test(delta = 0.02, sd = 0.05, power = 0.8)
+<span class="cmt"># → n = 99.08   →  also rund 100 Teile je Maschine</span>
+</pre>
+  <p>Ein Aufruf, zwei Richtungen: <em>wie sicher bin ich?</em> und
+  <em>wie viel brauche ich?</em> Genau das rechnet man <strong>bevor</strong>
+  den Versuch startet.</p>
+</section>
+
+<section>
+  <h2>Schritt 1 — Die zwei Fehler</h2>
+  <p>Ein Hypothesentest kann auf zwei Arten danebenliegen. Beide heißen
+  „Fehler", aber sie sind grundverschieden:</p>
+<pre>
+H0 ist WAHR (z.B. M1 und M2 wirklich gleich)
+
+  →  Test sagt "kein Unterschied"     →  richtig        (β-Risiko)
+  →  Test sagt "Unterschied!"         →  FEHLER 2. ART  ← gefährlich
+                                         (β, "Powerfehler")
+
+H0 ist FALSCH (M1 und M2 unterscheiden sich wirklich)
+
+  →  Test sagt "Unterschied"         →  richtig        (1-α = Power)
+  →  Test sagt "kein Unterschied"    →  FEHLER 1. ART  (α)
+</pre>
+
+  <div class="callout">
+    <span class="label">Fehler 1. Art — das Zuschauerurteil</span>
+    <p>Du <em>findest</em> einen Unterschied, den es nicht gibt. Der Kunde
+      bekommt eine Rückstellung für ein Teil, das einwandfrei war.
+      Das ist der Fehler, vor dem man sich mit <strong>α = 0,05</strong>
+      schützt — und deshalb steht diese Zahl in jedem Protokoll.</p>
+  </div>
+
+  <div class="callout">
+    <span class="label">Fehler 2. Art — das Blindeurteil</span>
+    <p>Du <em>übersiehst</em> einen echten Unterschied. Der Kunde behält ein
+      schlechtes Los, und niemand merkt es. Das ist der Fehler, gegen den
+      <strong>α</strong> <em>nichts</em> hilft — und der in der Praxis viel
+      teurer ist.</p>
+  </div>
+
+  <p>Der p-Wert sagt ausschließlich etwas über <strong>α</strong> aus. Über
+  das Fehler-2-Art-Risiko sagt er <strong>nichts</strong>. Genau dafür gibt
+  es die Teststärke:</p>
+<pre>
+Teststärke (Power) = 1 - &beta; = P(einen echten Unterschied finden)
+</pre>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage">Ein t-Test ergibt <code>p = 0,31</code>. Die beiden
+    Maschinen unterscheiden sich aber tatsächlich um 0,03 mm. Was ist
+    passiert?</p>
+    <label><input type="radio" name="q1" value="0" data-grund="Richtig — der Test hat einen echten Unterschied nicht erkannt. Genau das ist Fehler 2. Art, und der p-Wert zeigt dieses Risiko nicht an."> Fehler 2. Art: der Test war nicht sensitiv genug, um den echten Unterschied zu finden</label>
+    <label><input type="radio" name="q1" value="1" data-grund="Falsch — p = 0,31 ist kein Nachweis für Gleichheit. Der Test hat schlicht nichts gefunden; das kann an einem kleinen Effekt, an zu wenigen Daten oder an hoher Streuung liegen."> Der Test hat bewiesen, dass die Maschinen gleich sind</label>
+    <label><input type="radio" name="q1" value="2" data-grund="Falsch — Fehler 2. Art heißt, H0 hätte verworfen werden müssen. Bei p = 0,31 wurde H0 behalten, obwohl sie falsch war."> Fehler 1. Art: der Test hat einen Unterschied gefunden, wo keiner ist</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 2 — Power mit den echten Daten</h2>
+  <p>Unser erster Vergleich war M1 gegen M3. Mittelwertdifferenz
+  0,0633 mm, Streuung rund 0,05 mm, 40 Messungen je Maschine:</p>
+<pre>
+power.t.test(n = 40, delta = 0.0633, sd = 0.05, sig.level = 0.05)
+<span class="cmt"># → power = 0.9999</span>
+</pre>
+  <p>Nahezu sicher. 40 Messungen waren für einen Unterschied dieser Größe
+  <strong>massiv überdimensioniert</strong> — wir hätten 12 pro Maschine
+  gebraucht.</p>
+  <p>Der zweite Vergleich war M1 gegen M2: 0,0238 mm bei einer Streuung von
+  0,036 mm.</p>
+<pre>
+power.t.test(n = 40, delta = 0.02375, sd = 0.036, sig.level = 0.05)
+<span class="cmt"># → power = 0.8299</span>
+</pre>
+  <p>Auch das ist noch brauchbar. Aber hier zeigt sich die Kehrseite: Der
+  Test <em>fand</em> den Unterschied (p = 0,005) — und wir waren uns
+  keineswegs sicher, ihn zu finden. <strong>Ein signifikantes Ergebnis
+  fühlt sich genauen an wie ein nicht-signifikantes.</strong> Die Power ist
+  die Angabe, die dazugehört.</p>
+
+  <h3>Der gepaarte Vergleich zum Vergleich gestellt</h3>
+<pre>
+power.t.test(n = 10, delta = 0.0633, sd = 0.05,
+             type = "paired")
+<span class="cmt"># → power = 0.9441</span>
+</pre>
+  <p>Mit nur <strong>10 Paaren</strong> (nicht 80 Einzelmessungen!) liegt
+  die Power bei 94 %. Der gepaarte Test ist rund
+  <strong>viermal so effizient</strong> — weil die Rohcharge als Störgröße
+  herausfällt. Das ist die Rechnung hinter der Entscheidung
+  „gepaart oder ungepaart".</p>
+</section>
+
+<section>
+  <h2>Schritt 3 — Die Frage vor dem Versuch</h2>
+  <p>Fast immer läuft die Planung andersherum: Man <em>kennt</em> den
+  kleinsten Unterschied, den es lohnswert zu finden ist, und fragt nach der
+  Stichprobengröße. Gesucht ist das kleinste n mit Power &ge; 0,80:</p>
+<pre>
+sapply(c(0.10, 0.08, 0.06, 0.04, 0.02, 0.01), function(d) {
+  power.t.test(delta = d, sd = 0.05, power = 0.8)$n
+})
+<span class="cmt"># →  5.09   7.23  11.94  25.52  99.08  393.41</span>
+</pre>
+  <p>Die Zahlen explodieren. Ein Unterschied von 0,06 mm braucht 12 Teile
+  je Maschine — ein Unterschied von 0,01 mm braucht <strong>393</strong>.
+  Halbiert man von 0,06 auf 0,03 mm, steigt n von 12 auf rund
+  <strong>45</strong>. <strong>Viertel so großer Effekt, aber fast viermal
+  so viele Daten.</strong></p>
+
+  <div class="callout">
+    <span class="label">Die vierte Wurzel</span>
+    <p>Die Stichprobengröße wächst mit der <strong>vierten Wurzel</strong>
+      des Kehrwerts vom Effekt: <code>n ∝ 1/&delta;&sup2;</code>. Wer den
+      Effekt halbiert, braucht <em>viermal</em> so viele Daten. Das ist
+      der Grund, warum feine Effekte in der Praxis fast nie
+      nachweisbar sind — und warum Versuchsplanung teuer ist.</p>
+  </div>
+
+  <div class="quiz" data-loesung="2">
+    <p class="frage">Ein Versuch soll einen Unterschied von 0,06 mm finden
+    (n ≈ 12 je Maschine). Soll er zusätzlich 0,03 mm finden können, wie
+    viele Daten braucht er dann ungefähr?</p>
+    <label><input type="radio" name="q2" value="0" data-grund="Falsch — eine Verdopplung auf 24 würde die Power nur leicht heben. Für Halbierung des Effekts braucht es etwa das Vierfache."> Rund 24 — doppelt so viele</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Falsch — der Aufwand wächst schneller als linear, aber nicht so schnell wie hier angenommen. Die Antwort ist 4×, nicht 100×."> Rund 1200 — der Aufwand wächst sprunghaft</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Richtig — n wächst mit 1/δ². Halbierter Effekt heißt viermal so viele Daten: 12 → rund 45 (Tabellenwert 44,59 bei δ = 0,03)."> Rund 45 — etwa viermal so viele</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 4 — Warum 4000 Daten auch nicht helfen</h2>
+  <p>Ein Beispiel, das die Denkweise zusammenbricht. Angenommen, wir suchen
+  einen Unterschied von 0,02 mm bei einer Streuung von 0,05 mm — und
+  messen <strong>beliebig</strong> viele Teile:</p>
+<pre>
+sapply(c(50, 100, 200, 400, 1000, 4000), function(n) {
+  power.t.test(n = n, delta = 0.02, sd = 0.05)$power
+})
+<span class="cmt"># → n=   50  100   200   400  1000  4000
+#     power 0.508 0.804 0.979 1.000 1.000 1.000</span>
+</pre>
+  <p>Bei n = 4000 ist die Power praktisch 1 — der 0,02-mm-Unterschied
+  <em>wird</em> gefunden. Er ist damit statistisch da.</p>
+  <p>Und jetzt die unbequeme Frage: <strong>Wäre das eine gute Idee
+  gewesen?</strong> Ein Unterschied von 0,02 mm ist ein
+  <strong>Zehntel</strong> der Toleranz von ± 0,15 mm. Er ist im
+  Fertigungsprozess ohne jede praktische Bedeutung. Der Test hätte einen
+  <em>vollkommen bedeutungslosen</em> Effekt mit 4000 Teilen
+  hochpräzise nachgewiesen — <strong>40-mal mehr Prüfaufwand als
+  nötig</strong>, denn für 80 % Power wären 100 ausgereicht.</p>
+
+  <div class="callout">
+    <span class="label">Die Lehre</span>
+    <p><strong>Signifikanz ist kein Gütebeweis.</strong> Mit genügend Daten
+      ist <em>alles</em> signifikant. Die p-Wert-Frage „Ist es
+      signifikant?" führt in die Irre; die Power-Frage lautet
+      <em>„Habe ich eine Aussage, die ich brauche?"</em></p>
+    <p>Deshalb gehört zu <strong>jeder</strong> Testbericht-Ausgabe die
+      Power. Ein p-Wert allein ist eine unvollständige Information.</p>
+  </div>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">Ein Experiment zeigt bei n = 4000 pro Gruppe einen
+    statistisch signifikanten Unterschied von 0,005 mm — ein Dritzigstel
+    der Toleranz. Wie ist das zu bewerten?</p>
+    <label><input type="radio" name="q3" value="0" data-grund="Falsch — formal ist das eine gültige Rechnung. Die Power-Frage wurde beantwortet; nur die Relevanz des Effekts nicht."> Das Experiment war fehlerhaft durchgeführt — solche p-Wert sind nicht möglich</label>
+    <label><input type="radio" name="q3" value="1" data-grund="Richtig — mit genügend Daten wird jeder noch so kleine Effekt nachweisbar. Signifikanz ersetzt keine Relevanzbetrachtung; genau dafür ist die Power da."> Formal korrekt, praktisch bedeutungslos — der Effekt ist zu klein, um am Prozess etwas zu ändern</label>
+    <label><input type="radio" name="q3" value="2" data-grund="Falsch — auch 0,005 mm werden bei 4000 Messungen pro Gruppe sauber nachweisbar. Die Stichprobengröße war zu groß, nicht zu klein."> Die Stichprobengröße war zu klein, um den Effekt zu bestätigen</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — Der Anschluss an die Versuchsplanung</h2>
+  <p>Ab hier wird es nicht mehr Wiederholung, sondern <strong>Vorbereitung
+  auf UE 1</strong>. Versuchsplanung ist dieselbe Rechnung in einer
+  anderen Form:</p>
+  <table>
+    <tr><th>Teststärken-Planung</th><th>Versuchsplanung (DoE)</th></tr>
+    <tr><td>Kleinster nachweisbarer Effekt &delta;</td><td>Kleinster relevanter Effekt</td></tr>
+    <tr><td>Stichprobe n je Maschine</td><td>Anzahl der Versuchsläufe (Runs)</td></tr>
+    <tr><td>Streuung &sigma;</td><td>Versuchsstreuung (aus Vorversuchen)</td></tr>
+    <tr><td>Power &ge; 0,80</td><td>Erkennbare Effektgröße im Modell</td></tr>
+  </table>
+  <p>Der zentrale Satz der Versuchsplanung — <em>„Ein Versuch ohne
+  Wiederholungen erkennt nichts"</em> — ist genau die Aussage
+  <code>power.t.test(n = 1, …)</code>. Reihenfolge in UE 1: Faktoren
+  wählen, Versuchsraum aufbauen, Wiederholungen festlegen,
+  Versuche randomisieren, auswerten.</p>
+
+  <div class="callout tipp">
+    <span class="label">Was du heute mitnimmst</span>
+    <p>Wenn in UE 1 die Frage kommt „Wie viele Wiederholungen brauche
+      ich?", ist die Antwort <strong>nicht</strong> eine Faustregel, sondern
+      genau das, was du gerade gerechnet hast: kleinster relevanter Effekt,
+      Streuung, gewünschte Power — und eine daraus berechnete Zahl.</p>
+  </div>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du!</div>
+  <ol>
+    <li><strong>Vorhersage zuerst.</strong> Bei &delta; = 0,06 mm brauchst du
+      n ≈ 12. Verdoppelst du &delta; auf 0,12 mm, was passiert mit n?
+      Halbierst du &delta; auf 0,03 mm? Rechne beides nach und prüfe deine
+      Vermutung an der Progression.</li>
+    <li>Zeichne die Power-Kurve für &delta; = 0,06 mm über n von 5 bis 40.
+      Bei welchem n erreicht die Power 0,80, 0,90 und 0,95? Trage die Werte
+      in eine Tabelle ein.</li>
+    <li>Die Toleranz beträgt ± 0,15 mm. Beantworte in 3 Sätzen: Wenn dein
+      Prozess um 0,02 mm driftet — ist das ein Problem, und brauchst du
+      dafür überhaupt einen Test?</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+
+  <h3>Fehler 1 — Alle fünf Argumente auf einmal</h3>
+<pre>
+power.t.test(delta = 0.02, sd = 0.05, power = 0.8, sig.level = 0.05)
+<span class="cmt"># ✗ Error: exactly one of 'n', 'delta', 'sd',
+#     'power', and 'sig.level' must be NULL</span>
+</pre>
+  <p>Die Funktion löst in <strong>beide Richtungen</strong> auf, aber
+  <em>genau eine</em> der Unbekannten muss fehlen. Lass du die gesuchte
+  Größe weg, und R rechnet sie.</p>
+
+  <h3>Fehler 2 — <code>sd</code> bei gepaarten Tests</h3>
+<pre>
+power.t.test(n = 10, delta = 0.06, sd = 0.05, type = "paired")
+<span class="cmt"># → power = 0.9441</span>
+</pre>
+  <p>Bei <code>type = "paired"</code> muss <code>sd</code> die Streuung der
+  <strong>Differenzen</strong> sein, nicht die der Messwerte. R weist darauf
+  im Output hin — lies ihn.</p>
+
+  <h3>Fehler 3 — Power nach dem Versuch berechnen und rechtfertigen</h3>
+  <p>Eine Power, die man <em>nachher</em> aus den Ergebnissen berechnet, um
+  sie schönzureden, ist wertlos. <strong>Vorher</strong> — mit einer
+  Abschätzung der Streuung aus Vorversuchen.</p>
+
+  <h3>Fehler 4 — <code>p = 0,05</code> als Power missverstanden</h3>
+  <p>α = 0,05 heißt: 5 % Chance auf einen <em>Fehlalarm</em>. Es sagt
+  <strong>nichts</strong> darüber aus, wie oft ein echter Unterschied
+  gefunden wird. Diese beiden Zahlen zu verwechseln ist der häufigste
+  Irrtum der ganzen Teststatistik.</p>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Baustein</th><th>Wofür</th></tr>
+    <tr><td>Fehler 1. Art (α)</td><td>Unterschied gefunden, den es nicht gibt — das Zuschauerurteil</td></tr>
+    <tr><td>Fehler 2. Art (β)</td><td>Echten Unterschied übersehen — das Blindeurteil</td></tr>
+    <tr><td>Power = 1 − β</td><td>Wahrscheinlichkeit, einen echten Unterschied zu finden</td></tr>
+    <tr><td>Der p-Wert</td><td>Aussage <em>nur</em> über α — nie über β</td></tr>
+    <tr><td>Planungsrichtung</td><td><code>power.t.test()</code> löst nach n <em>und</em> nach Power auf</td></tr>
+    <tr><td>n ∝ 1/&delta;&sup2;</td><td>Halber Effekt → viermal so viele Daten</td></tr>
+    <tr><td>80 % als Konvention</td><td>Übliche Untergrenze für geplante Versuche</td></tr>
+    <tr><td>Der Anschluss</td><td>Wiederholungszahl in der Versuchsplanung = dieselbe Rechnung</td></tr>
+  </table>
+  <p><strong>Ausblick:</strong> Damit ist die Wiederholungsrunde
+    geschlossen — t-Test, Binomialverteilung, Chi-Test, Boxplot,
+    Teststärke. In <strong>UE 1</strong> beginnt die Versuchsplanung, und
+    sie setzt genau hier an. Vorab-Überblick des Semesterplans:
+    <code>lehrplan/pmm-hwit/jg5-semesterplan-ws.md</code>.</p>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Vertiefe die Testplanung mit der
+  <a href="hausaufgabe.md">Aufgabe KM7-03 — Teststärke und
+  Stichprobenumfang</a>: die beiden Fehlerarten unterscheiden, Power in
+  beide Richtungen berechnen, Power-Kurven zeichnen und die Versuchsplanung
+  als Anwendung verstehen.
+  — <strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
+</section>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> Navarro,
+  <a href="https://learningstatisticswithr.com/book/">Kap. 13 + 16</a>
+  (Hauptlektüre) · NIST/SEMATECH e-Handbook,
+  <a href="https://www.itl.nist.gov/div898/handbook/pri/pri.htm">Kap. 7</a>.</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Weiter: <a href="../KM7-01-mittelwertsvergleich-t-test/lesson.html">Zurück
+  zu Lektion KM7-01 — Mittelwertsvergleich</a> · danach startet
+  <strong>UE 1: Versuchsplanung</strong>.</p>
+</footer>
+
+</body>
+</html>
