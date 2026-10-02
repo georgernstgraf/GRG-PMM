@@ -131,5 +131,7 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   GitHub Pages — **kein `file://`** (Firefox blockiert `file://`-Subressourcen
   aus Eltern-/Geschwisterverzeichnissen; siehe PITFALLS).
 - Quiz-Markup ist vereinheitlicht: `<div class="quiz" data-loesung="N">` mit
-  `input[type=radio]`, `.feedback`, `.erklaerung` (richtig) und optional
-  `.hinweis` (falsch) — ein `assets/quiz.js` für Klassen und Selbststudium.
+  `input[type=radio]` (0-basierte `value`), je Option `data-grund` und
+  `<p class="feedback" aria-live="polite">`. `assets/quiz.js` zeigt beim
+  `change` sofort die Begründung der gewählten Option und färbt `.feedback`
+  mit `.richtig`/`.falsch` — ein Skript für Klassen und Selbststudium.
