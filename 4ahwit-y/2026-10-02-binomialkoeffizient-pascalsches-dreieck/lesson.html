@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion KM5-01 — n über k: Wege zählen mit dem Pascalschen Dreieck</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","quiz.js,theme.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+</head>
+<body>
+
+<header class="meta">
+  <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-pressed="false">Dunkel</button>
+  <span class="kicker">Lektion KM5-01 · Binomialkoeffizient &amp; Pascalsches Dreieck</span>
+  <span class="ort">UE 4 · 4AHWIT WS · Wiederholung aus KM5</span>
+  <h1>n über k: Wege zählen, Verteilungen gewichten</h1>
+  <p class="subtitle">Vom Pascalschen Dreieck zur Binomialverteilung — und wie R die Multiplikation abnimmt.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>Navarro, <a href="https://learningstatisticswithr.com/book/">Learning Statistics with R</a>
+     (englisch) — lies Kap. 9 (Probability). Den Stoff kennst du aus
+     KM5; hier frischst du ihn auf und siehst, wie R ihn rechnet.</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>Eine Maschine liefert <strong>20 % Ausschuss</strong>. Der
+  Qualitätsmanager zieht <strong>5 Teile</strong> und prüft sie.
+  <strong>Wie wahrscheinlich sind genau 2 defekte Teile?</strong></p>
+  <p>Die Zahl kennst du vielleicht vom Taschenrechner. Aber woher kommt
+  die Formel dahinter? Heute reaktivierst du das <em>Zählen der Wege</em>
+  (<code>n über k</code>), das <strong>Pascalsche Dreieck</strong> — und
+  lässt am Ende R die ganze Multiplikation in einem Aufruf machen.</p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+  <p>Am Ende steht diese eine Zeile — sie erledigt alles auf einmal:</p>
+<pre>
+dbinom(2, size = 5, prob = 0.2)
+<span class="cmt"># → 0.2048 — genau 2 defekt bei 20 % Ausschuss, 5 Teile geprüft</span>
+</pre>
+  <p>Und dahinter steckt das Muster, das du selbst aufbauen kannst — die
+  Zeile 5 des Pascalschen Dreiecks:</p>
+<pre>
+choose(5, 0:5)
+<span class="cmt"># → 1 5 10 10 5 1</span>
+</pre>
+  <p>Zwei Zeilen, ein ganzes Semester Statistik als Fundament. Los.</p>
+</section>
+
+<section>
+  <h2>Schritt 1 — Wege zählen: was ist <code>(n über k)</code>?</h2>
+  <p>Ein <strong>Weg</strong> ist eine vollständige Abfolge der n
+  Versuche, jeder mit Ausgang <strong>Erfolg (E)</strong> oder
+  <strong>Misserfolg (M)</strong>. Beispiel mit 4 Versuchen:</p>
+<pre>
+E E M M      E M E M      E M M E
+M E E M      M E M E      M M E E
+<span class="cmt"># → 6 Wege mit genau 2 Erfolgen</span>
+</pre>
+  <p>Und <code>(n über k)</code> zählt genau diese Wege:</p>
+<pre>
+choose(4, 2)
+<span class="cmt"># → 6 — die sechs Wege oben, abgezählt</span>
+</pre>
+  <p>Die Formel dahinter:</p>
+<pre>
+n über k = n! / (k! * (n - k)!)
+<span class="cmt"># → 4! / (2! * 2!) = 24 / 4 = 6</span>
+</pre>
+  <p><strong>Warum?</strong> Die Reihenfolge der Erfolge ist egal — es
+  zählt nur, <em>welche</em> der n Plätze Erfolg sind. Das ist eine
+  <strong>k-elementige Teilmenge</strong> der Plätze <code>{1 … n}</code>,
+  und davon gibt es <code>(n über k)</code>.</p>
+
+  <div class="callout achtung">
+    <span class="label">Nicht verwechseln</span>
+    <p><code>(n über k)</code> ist die <em>ungeordnete</em> Auswahl
+    (Reihenfolge egal). <code>n * (n-1) * … * (n-k+1)</code> wäre die
+    <em>geordnete</em> Auswahl — und ist um den Faktor <code>k!</code>
+    größer.</p>
+  </div>
+
+  <div class="quiz" data-loesung="3">
+    <p class="frage">Was zählt <code>(n über k)</code>?</p>
+    <label><input type="radio" name="q1" value="0" data-grund="Falsch, weil (n über k) die ungeordnete Auswahl zählt; die geordnete Auswahl wäre um den Faktor k! grösser."> die Zahl der geordneten Reihenfolgen aller n Versuche</label>
+    <label><input type="radio" name="q1" value="1" data-grund="Falsch, weil (n über k) eine Anzahl ist (Kombinatorik), keine Wahrscheinlichkeit."> die Wahrscheinlichkeit von genau k Erfolgen in n Versuchen</label>
+    <label><input type="radio" name="q1" value="2" data-grund="Falsch, weil (n über k) die Wege zählt und kein Produkt aus Erfolgen und Misserfolgen bildet."> das Produkt aus Erfolgen und Misserfolgen der n Versuche</label>
+    <label><input type="radio" name="q1" value="3" data-grund="Richtig, weil (n über k) die Zahl der Wege mit genau k Erfolgen unter n Versuchen ist."> die Zahl der Wege mit genau k Erfolgen unter n Versuchen</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 2 — Das Pascalsche Dreieck</h2>
+  <p>Die Zahlen <code>(n über k)</code> bilden ein Muster. Start mit
+  <code>1</code> an der Spitze; jede weitere Zahl ist die <strong>Summe der
+  beiden Zahlen direkt darüber</strong>:</p>
+<pre>
+n=0:                1
+n=1:              1   1
+n=2:            1   2   1
+n=3:          1   3   3   1
+n=4:        1   4   6   4   1
+n=5:      1   5  10  10   5   1
+<span class="cmt"># die Zahl an Position k in Zeile n ist (n über k)</span>
+</pre>
+  <p>Beispiel: In Zeile 4 steht an Position 2 die <code>6</code> — genau
+  <code>(4 über 2)</code>. R gibt dir jede Zeile mit einem Aufruf:</p>
+<pre>
+choose(5, 0:5)
+<span class="cmt"># → 1 5 10 10 5 1</span>
+
+choose(6, 0:6)
+<span class="cmt"># → 1 6 15 20 15 6 1</span>
+</pre>
+  <p>Die Additionsregel hat einen einfachen Grund. Greife <strong>eine</strong>
+  Person (z. B. Anna) aus n heraus — jede Auswahl fällt in genau einen von
+  zwei Fällen:</p>
+<pre>
+Anna ist dabei      → noch k-1 aus den übrigen n-1   →  (n-1 über k-1)
+Anna ist nicht dabei → noch k   aus den übrigen n-1   →  (n-1 über k)
+<span class="cmt"># zusammen:  (n über k) = (n-1 über k-1) + (n-1 über k)</span>
+</pre>
+  <p>Das ist „addiere die zwei darüber". Probiere es in R aus:</p>
+<pre>
+choose(6, 2) + choose(6, 3)
+<span class="cmt"># → 15 + 20 = 35</span>
+
+choose(7, 3)
+<span class="cmt"># → 35 — dieselbe Zahl, eine Zeile tiefer</span>
+</pre>
+  <p>Zwei nützliche Eigenschaften: <strong>Symmetrie</strong>
+  <code>(n über k) = (n über n-k)</code> (auswählen = weglassen), und die
+  <strong>Zeilensumme</strong> ist <code>2^n</code>.</p>
+
+  <div class="quiz" data-loesung="2">
+    <p class="frage">Die Zahl an Position <code>k</code> in Zeile
+    <code>n</code> des Pascalschen Dreiecks entspricht …</p>
+    <label><input type="radio" name="q2" value="0" data-grund="Falsch, weil die Zeilensumme 2^n ist, nicht die einzelne Zahl an Position k."> der Summe aller Zahlen der ganzen Zeile n</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Falsch, weil die beiden Zahlen darüber addiert (nicht multipliziert) werden."> dem Produkt der beiden Zahlen schräg darüber</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Richtig, weil die Zahl an Position k in Zeile n gerade der Binomialkoeffizient (n über k) ist."> dem Binomialkoeffizienten n über k</label>
+    <label><input type="radio" name="q2" value="3" data-grund="Falsch, weil die Zahl an Position k der Binomialkoeffizient (n über k) ist, kein Kehrwert einer Wahrscheinlichkeit."> dem Kehrwert der Wahrscheinlichkeit n^k</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 3 — Ein Weg hat eine Wahrscheinlichkeit</h2>
+  <p>Jeder der <code>(n über k)</code> Wege hat <strong>dieselbe</strong>
+  Wahrscheinlichkeit. Bei k Erfolgen und n−k Misserfolgen ist sie das
+  Produkt der Einzelwahrscheinlichkeiten (unabhängige Versuche):</p>
+<pre>
+Wkt. eines Weges = p^k * (1 - p)^(n - k)
+<span class="cmt"># p = Erfolgswahrscheinlichkeit, (1-p) = Misserfolg</span>
+</pre>
+  <p>Zurück zum Ausschuss: <code>p = 0.3</code> (30 %), 4 Teile, genau 2
+  defekt. Ein Weg, z. B. <code>D D O O</code>:</p>
+<pre>
+0.3 * 0.3 * 0.7 * 0.7
+<span class="cmt"># → 0.0441 — die Wkt. EINES Weges mit 2 Defekten</span>
+</pre>
+  <p>Kombiniere das Ausschuss-Beispiel selbst in R (Frage aus der
+  Einstiegsfrage, nur mit p = 0.3 und n = 4):</p>
+<pre>
+choose(4, 2) * 0.3^2 * 0.7^2
+<span class="cmt"># → 0.2646 — rund 26 %</span>
+</pre>
+  <p>Macht Sinn: Bei 30 % Ausschuss ist „genau 2 von 4" fast ein Viertel
+  der Fälle.</p>
+</section>
+
+<section>
+  <h2>Schritt 4 — Die Formel (Binomialverteilung)</h2>
+  <p>Jetzt setze beide Bausteine zusammen: <strong>Anzahl der Wege</strong>
+  mal <strong>Wahrscheinlichkeit eines Weges</strong>.</p>
+<pre>
+P(X = k) = (n über k) * p^k * (1 - p)^(n - k)
+<span class="cmt"># X = Anzahl der Erfolge (hier: defekte Teile)</span>
+</pre>
+  <p>Das ist die <strong>Binomialverteilung</strong>. Für die
+  Einstiegsfrage (<code>p = 0.2</code>, <code>n = 5</code>,
+  <code>k = 2</code>):</p>
+<pre>
+choose(5, 2) * 0.2^2 * 0.8^3
+<span class="cmt"># → 0.2048 — gut 20 %</span>
+</pre>
+  <p>Die Formel hängt eng mit dem <strong>Ausmultiplizieren von
+  Binomen</strong> zusammen. Beim Ausmultiplizieren von
+  <code>(a + b)^n</code> ist der Vorfaktor vor <code>a^(n-k) * b^k</code>
+  genau <code>(n über k)</code> — eine Zeile des Pascalschen Dreiecks:</p>
+<pre>
+(a + b)^4 = 1*a^4 + 4*a^3*b + 6*a^2*b^2 + 4*a*b^3 + 1*b^4
+<span class="cmt"># die Vorfaktoren 1 4 6 4 1 sind die Zeile n=4</span>
+</pre>
+  <p>Derselbe Zählschritt wie bei den Wegen: Auf wie viele Arten kommen
+  genau <code>k</code> Faktoren <code>b</code> vor?</p>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">Warum wird die Wege-Anzahl <code>(n über k)</code> mit
+    <code>p^k * (1-p)^(n-k)</code> multipliziert?</p>
+    <label><input type="radio" name="q3" value="0" data-grund="Falsch, weil das nur die Exponenten der Formel betrifft, nicht den Grund der Multiplikation."> weil sich k und n-k der Exponenten immer zu n addieren</label>
+    <label><input type="radio" name="q3" value="1" data-grund="Richtig, weil jeder der (n über k) Wege dieselbe Wahrscheinlichkeit p^k * (1-p)^(n-k) hat."> weil jeder dieser Wege dieselbe Wahrscheinlichkeit hat</label>
+    <label><input type="radio" name="q3" value="2" data-grund="Falsch, weil ein Weg aus k Erfolgen und n−k Misserfolgen besteht, also mehreren Ausgängen."> weil bei jedem Weg nur ein einziger Ausgang möglich ist</label>
+    <label><input type="radio" name="q3" value="3" data-grund="Falsch, weil p im Allgemeinen nicht 0,5 ist; die Multiplikation gilt für beliebiges p."> weil Erfolg und Misserfolg immer gleich wahrscheinlich sind</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — R übernimmt die Multiplikation</h2>
+  <p>Du musst <code>(n über k) * p^k * (1-p)^(n-k)</code> nicht selbst
+  tippen. <code>dbinom()</code> rechnet <strong>alles in einem Aufruf</strong>:</p>
+<pre>
+dbinom(2, size = 5, prob = 0.2)
+<span class="cmt"># → 0.2048 — dasselbe wie die Handrechnung</span>
+</pre>
+  <p>Die drei Buchstaben der Familie — wichtig für die Prüfung:</p>
+  <table>
+    <tr><th>Funktion</th><th>Frage an R</th></tr>
+    <tr><td><code>choose(n, k)</code></td><td>nur der Koeffizient <code>(n über k)</code></td></tr>
+    <tr><td><code>dbinom(k, size, prob)</code></td><td>P(X = k) — genau k Erfolge</td></tr>
+    <tr><td><code>pbinom(k, size, prob)</code></td><td>P(X ≤ k) — höchstens k Erfolge</td></tr>
+  </table>
+  <p>Der ganze Verlauf der Verteilung — alle k von 0 bis 5 auf einmal:</p>
+<pre>
+dbinom(0:5, size = 5, prob = 0.2)
+<span class="cmt"># → 0.32768 0.4096 0.2048 0.0512 0.0064 0.00032</span>
+
+sum(dbinom(0:5, size = 5, prob = 0.2))
+<span class="cmt"># → 1 — alle Balken zusammen ergeben 100 %</span>
+</pre>
+  <p>Und kumuliert (bis einschließlich 2), das macht <code>pbinom</code>:</p>
+<pre>
+pbinom(2, size = 5, prob = 0.2)
+<span class="cmt"># → 0.94208 — P(X ≤ 2), also 0 + 1 + 2 Defekte zusammen</span>
+</pre>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage">Was berechnet <code>dbinom(2, size = 5, prob = 0.2)</code>?</p>
+    <label><input type="radio" name="q4" value="0" data-grund="Richtig, weil d = genau ein Wert: P(X = 2) bei fünf Versuchen."> die Wahrscheinlichkeit für genau zwei Erfolge bei fünf Versuchen</label>
+    <label><input type="radio" name="q4" value="1" data-grund="Falsch, weil höchstens zwei Erfolge pbinom liefert; dbinom gibt genau zwei."> die Wahrscheinlichkeit für höchstens zwei Erfolge bei fünf Versuchen</label>
+    <label><input type="radio" name="q4" value="2" data-grund="Falsch, weil die Anzahl der Wege choose(5, 2) ist; dbinom liefert die Wahrscheinlichkeit."> die Anzahl der Wege mit genau zwei Erfolgen bei fünf Versuchen</label>
+    <label><input type="radio" name="q4" value="3" data-grund="Falsch, weil size = 5 die Anzahl der Versuche und der erste Wert (2) die Erfolge angibt, nicht umgekehrt."> die Wahrscheinlichkeit für genau fünf Erfolge bei zwei Versuchen</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du!</div>
+  <p>Öffne RStudio (ohne Zusatzpakete), dann:</p>
+  <ol>
+    <li><strong>Vorhersage zuerst:</strong> Schreibe die Zeile 7 des
+      Pascalschen Dreiecks mit der Hand auf. Prüfe dann mit
+      <code>choose(7, 0:7)</code>.</li>
+    <li><strong>Vorhersage:</strong> Was ist größer — <code>P(X = 2)</code>
+      oder <code>P(X = 3)</code> bei <code>n = 5</code>, <code>p = 0.2</code>?
+      Tippe, dann prüfe mit <code>dbinom(2, 5, 0.2)</code> und
+      <code>dbinom(3, 5, 0.2)</code>.</li>
+    <li><strong>Transfer:</strong> Dieselbe Maschine, aber jetzt
+      <code>n = 10</code> Teile. Berechne <code>P(X = 2)</code> mit
+      <code>dbinom()</code> und vergleiche mit dem Fall <code>n = 5</code>.</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+  <h3>Ungeordnet mit geordnet betrachtet</h3>
+<pre>
+choose(4, 2)          <span class="cmt"># → 6    (Reihenfolge egal: richtig für Wege)</span>
+4 * 3 / 1             <span class="cmt"># → 12   (geordnet — zählt jeden Weg doppelt)</span>
+</pre>
+  <p>Für die Wege ist <code>(n über k)</code> zuständig. Wer die geordnete
+  Zahl nimmt, überschätzt — hier um den Faktor <code>k! = 2</code>.</p>
+
+  <h3><code>d</code> und <code>p</code> vertauscht</h3>
+<pre>
+dbinom(2, 5, 0.2)     <span class="cmt"># → 0.2048   P(X = 2) — genau zwei</span>
+pbinom(2, 5, 0.2)     <span class="cmt"># → 0.94208  P(X ≤ 2) — höchstens zwei</span>
+</pre>
+  <p>Merke: <code>d</code> = ein Wert, <code>p</code> = alles bis zu diesem
+  Wert aufsummiert.</p>
+
+  <h3>Exponent <code>n − k</code> vergessen</h3>
+<pre>
+dbinom(2, 5, 0.2)
+<span class="cmt"># richtig:  choose(5,2) * 0.2^2 * 0.8^3   → 0.2048</span>
+<span class="cmt"># falsch:   choose(5,2) * 0.2^2 * 0.8^2   → 0.256  (Misserfolgs-Exponent)</span>
+</pre>
+  <p>Erfolge: <code>k</code>. Misserfolge: <code>n − k</code>. Bei
+  <code>n = 5, k = 2</code> also <code>0.8^3</code>, nicht
+  <code>0.8^2</code>.</p>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Baustein</th><th>Bedeutung</th></tr>
+    <tr><td><code>(n über k)</code></td><td>Anzahl Wege mit genau k Erfolgen</td></tr>
+    <tr><td>Pascalsches Dreieck</td><td>Zeile n = die <code>(n über k)</code>; „zwei darüber addieren"</td></tr>
+    <tr><td><code>p^k * (1-p)^(n-k)</code></td><td>Wkt. eines einzelnen Weges</td></tr>
+    <tr><td><code>P(X=k) = (n über k) * p^k * (1-p)^(n-k)</code></td><td>Binomialverteilung</td></tr>
+    <tr><td><code>choose(n, k)</code></td><td>nur der Koeffizient</td></tr>
+    <tr><td><code>dbinom(k, n, p)</code></td><td>genau k — die ganze Rechnung in einem Aufruf</td></tr>
+    <tr><td><code>pbinom(k, n, p)</code></td><td>höchstens k (kumuliert)</td></tr>
+  </table>
+  <p>Damit hast du das Fundament: <em>zählen × gewichten =</em>
+  Verteilung. Nächster Schritt ist die Vertrauensfrage — wie sicher ist
+  ein Schätzwert aus einer Stichprobe? Das ist UE 5 (Schätzen &amp;
+  Konfidenzintervalle), siehe
+  <a href="../../lehrplan/pmm-hwit/jg4-semesterplan-ws.md">Semesterplan KM7</a>.</p>
+</section>
+
+<section>
+  <div class="quiz" data-loesung="3">
+    <p class="frage">Wie viele Terme hat <code>(a + b)^6</code>, wenn man
+    es vollständig ausmultipliziert?</p>
+    <label><input type="radio" name="q5" value="0" data-grund="Falsch, weil k von 0 bis n läuft; bei n = 6 ergibt das n + 1 = 7 Terme."> genau sechs Terme, weil der Exponent sechs ist</label>
+    <label><input type="radio" name="q5" value="1" data-grund="Falsch, weil beim Ausmultiplizieren nach k gruppiert wird, nicht zwei Terme je Faktor entstehen."> genau zwölf Terme, nämlich zwei je Faktor</label>
+    <label><input type="radio" name="q5" value="2" data-grund="Falsch, weil auch die beiden Endterme (k = 0 und k = 6) dazugehören."> genau fünf Terme ohne die beiden Enden</label>
+    <label><input type="radio" name="q5" value="3" data-grund="Richtig, weil k von 0 bis n läuft — das sind n + 1 = 7 Terme (Zeile 6 hat 7 Zahlen)."> genau sieben Terme, nämlich n plus eins</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Wende die Binomialverteilung auf ein eigenes Fertigungsszenario an:</p>
+  <ol>
+    <li>Nimm eine Ausschussquote <code>p = 0.05</code> und eine Stichprobe
+      von <code>n = 20</code> Teilen. Berechne mit <code>dbinom</code> die
+      Wahrscheinlichkeit für 0, 1, 2 und 3 defekte Teile.</li>
+    <li>Zeichne die ganze Verteilung mit
+      <code>barplot(dbinom(0:20, 20, 0.05))</code> und beschreibe die Form
+      in einem Satz.</li>
+    <li><strong>Erklärung:</strong> Warum ist <code>(0 über 0) = 1</code>?
+      Argumentiere über die Anzahl der Wege.</li>
+  </ol>
+  <p><strong>Abgabe:</strong> R-Skript + kurze Antworten als Commit in
+  deinem PMM-Repo.</p>
+</section>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> Navarro,
+  <a href="https://learningstatisticswithr.com/book/">Learning Statistics with R</a>,
+  Kap. 9 (Probability) — die Binomialverteilung im Detail.</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+</footer>
+
+</body>
+</html>

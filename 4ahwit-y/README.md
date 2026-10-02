@@ -1,5 +1,11 @@
 # 4AHWIT — Kohorte y
 
+## 2026-10-02 Wiederholungswünsche
+
+- Konfidenzintervalle (CI) für Mittelwert und Anteilswert, zweiseitig, (einseitig)
+- binomiale Verteilung
+- normalverteilung
+
 ## PMM Unterlagen
 
 > Teilung der Klasse 4AHWIT (große Klasse → Kohorten x/y).
@@ -10,7 +16,7 @@
 ## Lessons-Übersicht (Bestellzettel für On-demand)
 
 | Nr. | Ziel-UE | Thema | Quelle | Typ | Quiz | Status |
-|-----|---------|-------|--------|-----|------|--------|
+| ----- | --------- | ------- | -------- | ----- | ------ | -------- |
 | SA-01 | UE 1 (schulautonom, 4HWIT WS) | Datenvisualisierung mit ggplot | schulautonom, R4DS Kap. 1 | Erstkontakt | C | kanonisch unter unterricht/ |
 | SA-02 | UE 2 (schulautonom, 4HWIT WS) | Daten transformieren mit dplyr | schulautonom, R4DS Kap. 3 | Erstkontakt | B | kanonisch unter unterricht/ |
 | SA-03 | UE 3 (schulautonom, 4HWIT WS) | Daten einlesen & deskriptive Statistik | schulautonom, R4DS Kap. 7+10 | Erstkontakt | A | kanonisch unter unterricht/ |
