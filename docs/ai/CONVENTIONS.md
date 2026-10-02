@@ -135,3 +135,8 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   `<p class="feedback" aria-live="polite">`. `assets/quiz.js` zeigt beim
   `change` sofort die Begründung der gewählten Option und färbt `.feedback`
   mit `.richtig`/`.falsch` — ein Skript für Klassen und Selbststudium.
+- Initialisierung in über `loader.js` geladenen Skripten (`quiz.js`,
+  `theme.js`, …) läuft über einen **`readyState`-Guard**, nicht über einen
+  bloßen `DOMContentLoaded`-Listener:
+  `if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", start); } else { start(); }`
+  — der Loader injiziert die Skripte asynchron nach dem Parsen (siehe PITFALLS).

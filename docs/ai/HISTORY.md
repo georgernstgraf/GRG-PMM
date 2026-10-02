@@ -23,3 +23,9 @@ Entries here are no longer active truth. Never delete from this file.
 - **Choice:** Semesterpläne blieben in `unterricht/HWIT-PMM/` (`jg4-/jg5-semesterplan-{ws,ss}.md`), während die vorbereiteten Einheiten flach unter `unterricht/` lagen.
 - **Origin:** DECISIONS.md (#20)
 - **Reason der Ablösung:** Die Unterrichtsebene führt keine Zweig-Fach-Ebene mehr; Semesterpläne liegen auf der Lehrplan-Ebene in `lehrplan/pmm-hwit/`. Siehe DECISIONS #21.
+
+## 2026-10-02 (SUPERSEDED 2026-09-29, origin: CONVENTIONS.md, reason: #24 — kanonisches Quiz-Markup stand nicht im Dokument): Quiz-Feedback über `.erklaerung`/`.hinweis`
+
+- **Alt:** Quiz-Markup beschrieben als `<div class="quiz" data-loesung="N">` mit `input[type=radio]`, `.feedback`, `.erklaerung` (richtig) und optional `.hinweis` (falsch).
+- **Origin:** CONVENTIONS.md
+- **Reason der Ablösung:** Seit Commit `00e1c7f` ist das Markup kanonisch `data-grund` pro Option + farbiges `.feedback` (`.richtig`/`.falsch`); `.erklaerung`/`.hinweis` waren toter Text (CSS in `a2d4487` entfernt). In #24 korrigiert.

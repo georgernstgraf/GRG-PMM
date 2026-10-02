@@ -1,6 +1,6 @@
 # Project State
 
-Current status as of 2026-09-29.
+Current status as of 2026-10-02.
 
 ## Current Focus
 **lehrplan Fach-/Zweig-Ebene (#21):** Das `lehrplan/`-Root trägt die
@@ -15,6 +15,11 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] #24 Quiz-Feedback reparieren: `assets/quiz.js` + `assets/theme.js` mit
+      `readyState`-Guard (Loader injiziert die Assets asynchron nach
+      `DOMContentLoaded`); `CONVENTIONS.md`-Drift (`.erklaerung`/`.hinweis`
+      → `data-grund`/`.feedback`) behoben. Verifiziert per headless Chrome;
+      Schwester-Fix in GRG-WMC (#6).
 - [x] #21 lehrplan-Umbau: Fach-Ebene (Root) vs. Zweig-Ebene (`pmm-hwit/`);
       `unterricht/HWIT-PMM/` entfernt, Semesterpläne nach `lehrplan/pmm-hwit/`,
       JG3-Semesterpläne angelegt, Pfad-Referenzen + Doku (AGENTS/README/GLOSSAR/
