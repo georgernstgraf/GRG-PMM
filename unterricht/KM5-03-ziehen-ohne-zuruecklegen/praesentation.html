@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Wiederholung KM5-03 — Ziehen ohne Zurücklegen: die hypergeometrische Verteilung</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","slides.css");e.setAttribute("data-js","");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.revealjs.com/dist/theme/white.css">
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+  <!-- ============================================================ TITEL -->
+  <section class="title-slide">
+    <div class="meta">KM5 · Wiederholung aus der 4. Klasse · Prozessmanagement</div>
+    <h1>Ziehen ohne Zurücklegen</h1>
+    <p class="subtitle">Die hypergeometrische Verteilung —<br>
+      endliche Lose, schrumpfende Chancen.</p>
+    <div class="meta">1. Doppelstunde</div>
+  </section>
+
+  <!-- ============================================================ LEKTÜRE -->
+  <section>
+    <div class="callout tipp">
+      <span class="label">Lektüre</span>
+      <p>Navarro, <a href="https://learningstatisticswithr.com/book/">Statistik für
+         Human- und Sozialwissenschaftler</a> (deutsch) —
+         <strong>Kap. 9, Probability</strong> (Pflicht).</p>
+      <p style="margin-top:0.6em">Voraussetzung: <code>choose()</code> aus
+        <a href="../KM5-01-binomialkoeffizient-pascalsches-dreieck/lesson.html">KM5-01</a>
+        und <code>dbinom()</code>/<code>pbinom()</code> aus
+        <a href="../KM5-02-binomialverteilung-und-annahmeschwelle/lesson.html">KM5-02</a>
+        — wir bauen auf beiden auf.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ EINSTIEG -->
+  <section>
+    <h2>Einstiegsfrage</h2>
+    <p style="font-size:1.25em">M3 hat <strong>40 Teile</strong> geliefert,
+      <strong>4</strong> außerhalb der Toleranz.<br>
+      Der Wareneingang prüft <strong>10 Teile</strong> — ohne Zurücklegen.</p>
+    <p class="fragment" style="font-size:1.25em">Wie wahrscheinlich sind
+      <strong>genau 2</strong> Ausschussteile in der Stichprobe?</p>
+    <p class="fragment">Naiv: Binomial mit p = 10 %. Aber die hat eine
+      Voraussetzung, die hier <strong>verletzt</strong> ist.</p>
+  </section>
+
+  <!-- ============================================================ ZIEL -->
+  <section>
+    <h2>Das Ziel: ein Aufruf, vier Zahlen</h2>
+    <pre><code class="language-r">dhyper(x, m, n, k)
+
+<span class="out"># → "Genau x defekte Stück, wenn das Los m defekte
+#     und n gute Stück hat und ich k Stück ziehe?"</span></code></pre>
+    <p class="fragment">Plus eine <strong>Parameterfalle</strong>, die jeden
+      einmal erwischt, der <code>?dhyper</code> nicht liest.</p>
+  </section>
+
+  <!-- ============================================================ SCHRUMPFENDES LOS -->
+  <section>
+    <h2>Ohne Zurücklegen: p pendelt</h2>
+    <p>Binomial verlangt: <strong>p bleibt gleich</strong> — bei jedem Zug.</p>
+    <p class="fragment">Ohne Zurücklegen schrumpft das Los mit jedem Griff:</p>
+    <pre><code class="language-r">1. Zug:  4/40 = 0.100
+2. Zug:  3/39 = 0.077   <span class="out"># falls der 1. defekt war</span>
+         5/39 = 0.128   <span class="out"># falls der 1. gut war</span></code></pre>
+    <p class="fragment" style="font-size:1.2em">p ist keine Konstante mehr —
+      die Kernvoraussetzung der Binomialverteilung ist <strong>gebrochen</strong>.</p>
+    <p class="fragment">Aber: jede konkrete Stichprobe bleibt
+      <strong>gleich wahrscheinlich</strong>. Davon leben wir.</p>
+  </section>
+
+  <!-- ============================================================ FORMEL -->
+  <section>
+    <h2>Die Formel selbst gebaut: günstige durch mögliche</h2>
+    <p>Die 4 Defekten <code>D1…D4</code>, die 36 Guten
+      <code>G1…G36</code> — <em>beschriftet</em> denken, dann zählen:</p>
+    <pre><code class="language-r">choose(4, 2)     <span class="out"># → 6        welche 2 Defekten</span>
+choose(36, 8)    <span class="out"># → 6.3e7    welche 8 Guten</span>
+choose(40, 10)   <span class="out"># → 8.5e8    alle Stichproben</span></code></pre>
+    <p class="fragment">Zähler zählt Stichproben mit <em>genau</em> 2
+      Defekten, Nenner alle — jede Stichprobe gleich wahrscheinlich:</p>
+    <pre><code class="language-r">P(X = x) = choose(M, x) * choose(N-M, n-x) / choose(N, n)</code></pre>
+    <p class="fragment">Lesart: <strong>x aus M · Rest aus N−M · geteilt
+      durch alles aus N.</strong></p>
+  </section>
+
+  <!-- ============================================================ ESEL -->
+  <section>
+    <h2>Eselsbrücken für die Parameter</h2>
+    <table>
+      <tr><th>Symbol</th><th>Eselsbrücke</th><th>Bedeutung</th></tr>
+      <tr><td><strong>N</strong></td><td><em>Number of items</em></td><td>alles im Los</td></tr>
+      <tr><td><strong>M</strong></td><td><em>Matches</em></td><td>die Merkmalstreffer (Defekten)</td></tr>
+      <tr><td><strong>m</strong> in R</td><td><em>Matches</em></td><td>Defekte im Los</td></tr>
+      <tr><td><strong>n</strong> in R</td><td><em>Non-matches</em></td><td>die <strong>Guten</strong> (N−M!)</td></tr>
+      <tr><td><strong>k</strong> in R</td><td><em>Kugeln gezogen</em></td><td>Stichprobengröße</td></tr>
+    </table>
+    <p class="fragment" style="font-size:1.2em">R denkt in <strong>weißen
+      und schwarzen Kugeln</strong> — Urne, Los, Lotto: ein Modell, drei
+      Kostüme.</p>
+  </section>
+
+  <!-- ============================================================ TAFEL -->
+  <section>
+    <h2>Die Verteilungstafel — und zwei Figuren darin</h2>
+    <pre><code class="language-r">dhyper(0:4, 4, 36, 10)
+<span class="out"># → 0.2999 0.4442 0.2142 0.0394 0.0023
+#     x=0   x=1   x=2   x=3   x=4</span></code></pre>
+    <table>
+      <tr><th>Figur</th><th>Frage</th><th>Wert</th></tr>
+      <tr><td><strong>Modalwert</strong></td><td>höchster Balken — häufigster Wert</td><td>x = 1 (44 %)</td></tr>
+      <tr><td><strong>Erwartungswert</strong></td><td>Durchschnitt über Wiederholungen</td><td>E(X) = 10 · 4/40 = 1</td></tr>
+    </table>
+    <p class="fragment"><strong>Aber:</strong> Vergleichslos N = 200,
+      M = 15, n = 20 → Modalwert x = 1, E(X) = <strong>1,5</strong> —
+      der Schwerpunkt liegt <em>zwischen</em> zwei Balken.</p>
+  </section>
+
+  <!-- ============================================================ E VS MODAL -->
+  <section>
+    <h2>Erwartungswert ist nicht „das, was meistens passiert"</h2>
+    <p>Der lange rechte Ausläufer (3, 4, 5 Defekte — selten, aber möglich)
+      <strong>zieht den Durchschnitt nach rechts</strong>, ohne den
+      häufigsten Wert zu verschieben.</p>
+    <p class="fragment" style="font-size:1.25em">Erwartungswert =
+      <strong>Schwerpunkt</strong> der Balken · Modalwert =
+      <strong>höchster Balken</strong>.</p>
+    <p class="fragment">Beim Würfel: E(X) = 3,5 — obwohl keine Seite
+      eine 3,5 zeigt. E(X) darf <em>unerreichbar</em> sein.</p>
+  </section>
+
+  <!-- ============================================================ ±1 -->
+  <section>
+    <h2>Die ±1-Falle: „mehr als" vs. „oder mehr"</h2>
+    <pre><code class="language-r"><span class="cmt"># „2 oder mehr defekt" — die 2 MIT dabei:</span>
+1 - phyper(1, 4, 36, 10)   <span class="out"># → 0.2559</span>
+
+<span class="cmt"># „mehr als 2 defekt" — die 2 NICHT dabei:</span>
+1 - phyper(2, 4, 36, 10)   <span class="out"># → 0.0417</span>
+
+<span class="cmt"># Der Unterschied ist genau ein Balken:</span>
+dhyper(2, 4, 36, 10)       <span class="out"># → 0.2142</span></code></pre>
+    <p class="fragment"><code>phyper</code> zählt <strong>inklusive</strong>.
+      Wer die Frage falsch liest, liegt um 21 Prozentpunkte daneben —
+      in der Prüfpraxis geldwert.</p>
+  </section>
+
+  <!-- ============================================================ LOTTO -->
+  <section>
+    <h2>Gegenprobe: Lotto „6 aus 45"</h2>
+    <p>45 Kugeln, 6 Gewinnzahlen, du ziehst 6 — „genau 3 Richtige"?</p>
+    <pre><code class="language-r">dhyper(3, 6, 39, 6)   <span class="out"># → 0.02244   exakt</span>
+dbinom(3, 6, 6/45)   <span class="out"># → 0.03086   naiv binomial: 38 % daneben</span>
+
+phyper(2, 6, 39, 6)   <span class="out"># → 0.9762   fast 98 % der Tipps: 2 oder weniger</span></code></pre>
+    <p class="fragment">Dasselbe Muster wie im Betrieb: endlicher Vorrat,
+      zwei Sorten, ohne Zurücklegen.</p>
+  </section>
+
+  <!-- ============================================================ NAHERUNG -->
+  <section>
+    <h2>Wann Binomial doch reicht: die 5-%-Faustregel</h2>
+    <p>Riesiges Los: es <em>merkt</em> sich das Ziehen fast nicht —
+      p bleibt nahezu konstant.</p>
+    <pre><code class="language-r"><span class="cmt"># Grosses Los, n/N = 1 % (Regel erfuellt):</span>
+dhyper(2, 200, 1800, 20)   <span class="out"># → 0.286615</span>
+dbinom(2, 20, 0.1)         <span class="out"># → 0.285180  nur 0,5 % relativ daneben</span>
+
+<span class="cmt"># M3-Los, n/N = 25 % (Regel klar verletzt):</span>
+dhyper(2, 4, 36, 10)       <span class="out"># → 0.2142</span>
+dbinom(2, 10, 0.1)         <span class="out"># → 0.1937     10 % relativ daneben</span></code></pre>
+    <p class="fragment" style="font-size:1.2em"><strong>Regel:</strong>
+      n/N ≤ 5 % → Binomial mit p = M/N ist eine ehrliche Näherung.</p>
+    <p class="fragment">Vor jedem Binomialaufruf eine Frage:
+      <strong>Wie groß ist n/N?</strong></p>
+  </section>
+
+  <!-- ============================================================ JETZT DU -->
+  <section>
+    <h2>Jetzt du! (im Skript, Ctrl+Enter zeilenweise)</h2>
+    <ol>
+      <li><strong>Vorhersage zuerst:</strong> M3-Los (N = 40, M = 4): Ist
+        P(genau 1) größer oder kleiner als P(genau 2)? Begründe mit E(X) —
+        dann prüfe mit <code>dhyper()</code>.</li>
+      <li>Gedachtes Los N = 40, M = 1 defekt, n = 8: P(kein
+        defektes Teil)? Und P(höchstens 1) gegen
+        <code>8 · 1/40</code>?</li>
+      <li>„Bei 2 % Ausschuss brauchen wir die Hypergeometrische nicht."
+        Wann stimmt das — und welche Zahl brauchst du, bevor du
+        antwortest?</li>
+    </ol>
+  </section>
+
+  <!-- ============================================================ FEHLER -->
+  <section>
+    <h2>Typische Fehler — vier Stück</h2>
+    <pre><code class="language-r"><span class="cmt"># 1. dhyper mit der Losgroesse fuettern — R will N−M!</span>
+dhyper(2, 4, 40, 10)   <span class="out"># → FALSCH (40 = N)</span>
+dhyper(2, 4, 36, 10)   <span class="out"># → 0.2142  (36 = GUTE)</span>
+
+<span class="cmt"># 2. "mehr als" und "oder mehr" verwechseln</span>
+1 - phyper(2, 4, 36, 10)   <span class="out"># → 0.0417  "mehr als 2"</span>
+1 - phyper(1, 4, 36, 10)   <span class="out"># → 0.2559  "2 oder mehr"</span>
+
+<span class="cmt"># 3. E(X) als "das, was meistens passiert" — nein: Durchschnitt!</span>
+<span class="cmt">#    Wuerfel: E(X) = 3.5, obwohl keine Seite 3.5 zeigt</span>
+
+<span class="cmt"># 4. Binomial drauflassen, obwohl das Los schrumpft</span>
+<span class="cmt">#    erst fragen: n/N?  <= 5 % → Naeherung ok</span></code></pre>
+  </section>
+
+  <!-- ============================================================ ZUSAMMEN -->
+  <section>
+    <h2>Zusammenfassung</h2>
+    <table>
+      <tr><th>Konzept</th><th>Das Wichtigste</th></tr>
+      <tr><td>Voraussetzungen</td><td>Endliches Los, ohne Zurücklegen, zwei Sorten</td></tr>
+      <tr><td>Formel</td><td><code>choose(M,x) · choose(N−M,n−x) / choose(N,n)</code></td></tr>
+      <tr><td><code>dhyper(x, m, n, k)</code></td><td>genau x — m Matches, n Non-matches (N−M!), k gezogen</td></tr>
+      <tr><td><code>phyper</code></td><td>höchstens x (inklusive) — ±1-Falle bei „mehr als"</td></tr>
+      <tr><td>E(X) = n · M/N</td><td>Durchschnitt, kein häufigster Wert</td></tr>
+      <tr><td>5-%-Faustregel</td><td>n/N ≤ 5 % → Binomial-Näherung erlaubt</td></tr>
+      <tr><td>Urne, Los, Lotto</td><td>Ein Modell, drei Kostüme</td></tr>
+    </table>
+    <p class="fragment"><strong>Ausblick:</strong> Ereignisse pro Zeit oder
+      Fläche — Fehler pro Meter Draht, Anrufe pro Stunde? Dafür die
+      <strong>Poissonverteilung</strong>, das dritte Glied der diskreten
+      Verteilungen.</p>
+  </section>
+
+  <!-- ============================================================ AUFGABE -->
+  <section class="hint-slide">
+    <h2>Aufgabe</h2>
+    <p style="font-size:1.3em">➜ <a href="hausaufgabe.md"><code>hausaufgabe.md</code></a></p>
+    <p>(liegt im selben Ordner — einfach anklicken)</p>
+    <p style="margin-top:1.5em; font-size:0.8em">5 Abschnitte: Vorhersagen · Formel selbst · Parameterfalle ·<br>
+      ±1-Falle · Betriebsdaten · Binomial-Näherung ehrlich prüfen</p>
+    <p style="font-size:0.8em"><strong>Abgabe:</strong> nach Vorgabe deiner Lehrperson.</p>
+  </section>
+
+</div></div>
+
+<script src="https://cdn.revealjs.com/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: 'c/t',
+  transition: 'slide',
+  width: 1280,
+  height: 800,
+  margin: 0.08,
+  center: true,
+  controlsLayout: 'edges'
+});
+</script>
+</body>
+</html>

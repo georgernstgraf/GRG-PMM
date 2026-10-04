@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion KM5-03 — Ziehen ohne Zurücklegen: die hypergeometrische Verteilung</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","quiz.js,theme.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+</head>
+<body>
+
+<header class="meta">
+  <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-pressed="false">Dunkel</button>
+  <span class="kicker">Lektion KM5-03 · Ziehen ohne Zurücklegen</span>
+  <span class="ort">Wiederholung aus KM5</span>
+  <h1>Ziehen ohne Zurücklegen: die hypergeometrische Verteilung</h1>
+  <p class="subtitle">Endliche Lose, schrumpfende Chancen — und warum die
+  Binomialverteilung hier lügt, wenn man sie lässt.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>Navarro, <a href="https://learningstatisticswithr.com/book/">Statistik
+     für Human- und Sozialwissenschaftler</a> (deutsch) — Kap. 9
+     (Probability). Voraussetzung: <code>choose()</code> und
+     <code>dbinom()</code> aus
+     <a href="../KM5-01-binomialkoeffizient-pascalsches-dreieck/lesson.html">KM5-01</a>
+     und
+     <a href="../KM5-02-binomialverteilung-und-annahmeschwelle/lesson.html">KM5-02</a>
+     — wir bauen heute auf beiden auf.</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>Maschine M3 hat in den Betriebsdaten <strong>40 Teile</strong>
+  geliefert, <strong>4 davon</strong> außerhalb der Toleranz
+  (10,00&nbsp;±&nbsp;0,15&nbsp;mm). Der Wareneingang prüft aus dieser einen
+  Lieferung eine Stichprobe von <strong>10 Teilen</strong> —
+  <strong>ohne Zurücklegen</strong>, zerstörend geprüfte Teile stecken ja
+  nicht zurück in die Kiste.</p>
+  <p><strong>Wie wahrscheinlich sind genau 2 Ausschussteile in der
+  Stichprobe?</strong></p>
+  <p>Naiv läge die Binomialverteilung nahe: Quote
+  p&nbsp;=&nbsp;4/40&nbsp;=&nbsp;10&nbsp;%. Aber die hat eine stillschweigende
+  Voraussetzung, die hier <em>verletzt</em> ist — und genau das heben wir
+  heute auf. Am Ende steht die
+  <strong>hypergeometrische Verteilung</strong> — das Werkzeug hinter
+  jeder Stichprobe aus einem endlichen Los.</p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+  <p>Der eine Aufruf, der am Ende alles leistet:</p>
+<pre>
+dhyper(x, m, n, k)
+<span class="cmt"># → „Wie wahrscheinlich sind genau x defekte Teile in der
+#     Stichprobe, wenn das Los m defekte und n gute Stück hat
+#     und ich k Stück ziehe?"</span>
+</pre>
+  <p>Ein Aufruf, vier Zahlen — und eine Parameterfalle, die jeden einmal
+  erwischt, der die Hilfe nicht liest.</p>
+</section>
+
+<section>
+  <h2>Schritt 1 — Was sich beim Ziehen ohne Zurücklegen ändert</h2>
+  <p>Die Binomialverteilung verlangt: <strong>p bleibt bei jedem Zug
+  gleich</strong>. Beim Ziehen <em>mit</em> Zurücklegen ist das automatisch
+  erfüllt — die Kiste ist nach jedem Zug wieder komplett.</p>
+  <p>Ohne Zurücklegen schrumpft das Los mit jedem Griff. Im M3-Los:</p>
+<pre>
+1. Zug:  4 von 40 defekt   →  P(defekt) = 4/40 = 0,100
+2. Zug:  3 von 39 defekt   →  P(defekt) = 3/39 ≈ 0,077   (falls 1. defekt war)
+                               5/39 ≈ 0,128             (falls 1. gut war)
+</pre>
+  <p>Die Chance <strong>pendelt mit jedem Zug</strong> — sie hängt davon ab,
+  was schon gezogen wurde. p ist keine Konstante mehr, sondern eine
+  <em>bedingte</em> Wahrscheinlichkeit. Damit ist die Kernvoraussetzung der
+  Binomialverteilung gebrochen.</p>
+  <p>Aber eines bleibt erhalten: Jede <strong>konkrete Stichprobe</strong>
+  (welche 10 der 40 Teile auch immer) ist <strong>gleich
+  wahrscheinlich</strong>. Und daraus bauen wir die Verteilung.</p>
+</section>
+
+<section>
+  <h2>Schritt 2 — Die Formel selbst gebaut: günstige durch mögliche</h2>
+  <p>Denk dir die 4 defekten Teile <strong>beschriftet</strong>
+  (<code>D1…D4</code>) und die 36 guten ebenso (<code>G1…G36</code>). Die
+  Beschriftung ist nur eine Denkhilfe zum Zählen — die Zahl, die am Ende
+  herauskommt, gilt auch ohne Etiketten.</p>
+  <p>„Genau 2 defekte in der Stichprobe" zerfällt in zwei getrennte
+  Auswahlakte, deren Wege sich <strong>multiplizieren</strong>:</p>
+<pre>
+choose(4, 2)     <span class="cmt"># → 6   Wege: WELCHE 2 der 4 Defekten es sind</span>
+choose(36, 8)    <span class="cmt"># → 6,3e7   Wege: WELCHE 8 der 36 Guten die restlichen sind</span>
+choose(40, 10)   <span class="cmt"># → 8,5e8   alle möglichen 10er-Stichproben überhaupt</span>
+</pre>
+  <p>Der Zähler zählt die Stichproben mit <em>genau</em> 2 Defekten, der
+  Nenner alle. Weil jede Stichprobe gleich wahrscheinlich ist, gilt
+  schlicht:</p>
+<pre>
+P(X = 2) = choose(4, 2) * choose(36, 8) / choose(40, 10)
+dhyper(2, 4, 36, 10)     <span class="cmt"># → 0.2142 — R hat dasselbe gezaehlt</span>
+</pre>
+  <p>Die hypergeometrische Verteilung in einer Zeile, mit den Parametern
+  N (Losgröße), M (Defekte im Los), n (Stichprobe), x (Defekte in der
+  Stichprobe):</p>
+<pre>
+P(X = x) = choose(M, x) * choose(N-M, n-x) / choose(N, n)
+</pre>
+  <p>Lesart: <strong>x aus M</strong> (welche Defekten), <strong>Rest aus
+  N−M</strong> (welche Guten), <strong>geteilt durch alles aus N</strong>
+  (alle Stichproben). Wer die Zeile vergessen hat, kann sie jederzeit
+  wiederfinden — man muss nur günstige durch mögliche Fälle zählen.</p>
+
+  <div class="callout tipp">
+    <span class="label">Eselsbrücken für die Parameter</span>
+    <p><strong>N</strong> = <em>Number of items</em> — alles im Los ·
+      <strong>M</strong> = <em>Matches</em> — die Merkmalstreffer (Defekten)
+      im Los. Für R braucht es noch das Paar <code>dhyper(x, m, n, k)</code>:
+      <strong>m</strong> = <em>Matches</em> (Defekte im Los) ·
+      <strong>n</strong> = <em>Non-matches</em> (die Guten, N−M!) ·
+      <strong>k</strong> = <em>Kugeln gezogen</em> (Stichprobengröße).</p>
+  </div>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">Los mit N = 100 Stück, M = 5 defekt. Du ziehst n = 10.
+    Welcher <code>dhyper</code>-Aufruf berechnet P(genau 1 defekt)?</p>
+    <label><input type="radio" name="q1" value="0" data-grund="Falsch — der zweite Parameter ist m = M (Defekte im Los), der dritte n = N−M (Gute). Hier sind beide 5, aber das ist Zufall — gemeint waren m = 5, n = 95."> <code>dhyper(1, 5, 5, 10)</code></label>
+    <label><input type="radio" name="q1" value="1" data-grund="Richtig — m = 5 Matches (Defekte), n = 95 Non-matches (Gute), k = 10 gezogene Stück: exakt unser Los."> <code>dhyper(1, 5, 95, 10)</code></label>
+    <label><input type="radio" name="q1" value="2" data-grund="Falsch — das ist die Binomial-Näherung mit konstantem p. Sie verlangt p konstant, aber ohne Zurücklegen ändert sich p mit jedem Zug."> <code>dbinom(1, 10, 5/100)</code></label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 3 — <code>dhyper</code> lesen: die ganze Verteilung auf einen Blick</h2>
+  <p>Wie beim Binomialen gibt es auch hier die volle Tafel — x läuft von 0
+  bis min(n, M) = 4:</p>
+<pre>
+dhyper(0:4, 4, 36, 10)
+<span class="cmt"># → 0.2999 0.4442 0.2142 0.0394 0.0023
+#     ↑ x=0   ↑ x=1   ↑ x=2   ↑ x=3  ↑ x=4</span>
+phyper(1, 4, 36, 10)
+<span class="cmt"># → 0.7441 — P(höchstens 1 defekt) = 0,2999 + 0,4442</span>
+</pre>
+  <p><strong>Zwei Figuren in dieser Tafel, die man auseinanderhalten
+  muss:</strong> Der <strong>häufigste Wert</strong> (Modalwert) ist x = 1
+  mit 44 % — der „höchste Balken". Der <strong>Erwartungswert</strong> ist
+  dagegen ein <em>Durchschnitt über viele Wiederholungen</em>, keine
+  Vorhersage:</p>
+<pre>
+E(X) = n * M / N
+E(X) = 10 * 4 / 40   <span class="cmt"># → 1 — im Mittel 1 Ausschussteil pro Stichprobe</span>
+</pre>
+  <p>Beide können, müssen aber nicht zusammenfallen. Im Vergleichslos
+  N = 200 mit M = 15 defekt und n = 20: höchster Balken bei x = 1
+  (P = 0,3499), aber E(X) = 20 · 15/200 = <strong>1,5</strong> — der
+  Schwerpunkt liegt <em>zwischen</em> zwei Balken. Der lange rechte Ausläufer
+  (3, 4, 5 Defekte — selten, aber möglich) zieht den Durchschnitt nach
+  rechts, ohne den häufigsten Wert zu verschieben. Merksatz:
+  <strong>Erwartungswert ist der Schwerpunkt, Modalwert der höchste
+  Balken.</strong></p>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage">Im Los N = 200, M = 15, n = 20 ist der häufigste Wert
+    x = 1. Was heißt <strong>E(X) = 1,5</strong>?</p>
+    <label><input type="radio" name="q2" value="0" data-grund="Richtig — E(X) ist der Durchschnitt über viele Wiederholungen des Ziehexperiments. Er darf zwischen erreichbaren Werten liegen, weil kein einzelner Zug ihn zeigen muss."> Im Mittel über viele Wiederholungen des Ziehexperiments sind 1,5 Defekte in der Stichprobe — auch wenn x = 1,5 nie vorkommt</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Falsch — der Erwartungswert ist ein Durchschnitt, kein häufigster Wert. Der häufigste Wert (höchster Balken) ist hier x = 1."> In der Hälfte der Stichproben sind 1,5 Defekte drin</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Falsch — die Standardabweichung misst die Streuung, nicht den Durchschnitt. E(X) = 1,5 sagt nichts über die halbe Stichprobe."> Die Stichprobe streut um 1,5 Standardabweichungen um den Mittelwert</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 4 — „höchstens", „mehr als", „2 oder mehr": die ±1-Falle</h2>
+  <p>Wie beim Binomialen ist <code>phyper</code> kumuliert („höchstens"),
+  und wie beim Binomialen kostet die Formulierung der Frage Genauigkeit:</p>
+<pre>
+<span class="cmt"># „2 oder mehr defekt" — die 2 MIT dabei (Grenzfall der Annahme):</span>
+1 - phyper(1, 4, 36, 10)   <span class="cmt"># → 0.2559</span>
+
+<span class="cmt"># „mehr als 2 defekt" — die 2 NICHT dabei:</span>
+1 - phyper(2, 4, 36, 10)   <span class="cmt"># → 0.0417</span>
+
+<span class="cmt"># Der Unterschied ist genau ein Balken:</span>
+dhyper(2, 4, 36, 10)       <span class="cmt"># → 0.2142 — 21 Prozentpunkte!</span>
+</pre>
+  <p><code>phyper</code> rechnet die Grenze <strong>inklusive</strong> ein.
+  Deshalb: „2 oder mehr" dreht bei <strong>1</strong> um (die 2 muss mit
+  dazu), „mehr als 2" dreht bei <strong>2</strong> um (die 2 ist noch
+  erlaubt). Wer hier schlampig liest, liegt um fast 21 Prozentpunkte daneben
+  — in der Prüfpraxis ist das geldwert.</p>
+
+  <div class="quiz" data-loesung="2">
+    <p class="frage">Prüfplan: „bei 2 oder mehr Defekten wird das Los
+    zurückgewiesen" (N = 40, M = 4, n = 10). Mit welchem Aufruf berechnet
+    man die Wahrscheinlichkeit, dass der Plan anschlägt?</p>
+    <label><input type="radio" name="q3" value="0" data-grund="Falsch — das ist P(höchstens 1 defekt), die Wahrscheinlichkeit, dass der Plan NICHT anschlägt. Das Gegenereignis fehlt."> <code>phyper(1, 4, 36, 10)</code></label>
+    <label><input type="radio" name="q3" value="1" data-grund="Falsch — phyper(2, …) zählt die 2 mit, aber hier ist die 2 die Grenze des Anschlags („2 oder mehr"). Richtig wäre 1 - phyper(1, …)."> <code>1 - phyper(2, 4, 36, 10)</code></label>
+    <label><input type="radio" name="q3" value="2" data-grund="Richtig — „2 oder mehr" ist das Gegenereignis von „höchstens 1". phyper(1, …) deckt 0 und 1 ab, 1 minus das ist der Anschlag."> <code>1 - phyper(1, 4, 36, 10)</code></label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — Gegenprobe: Lotto „6 aus 45"</h2>
+  <p>Die hypergeometrische Verteilung ist älter als jede Wareneingangsprüfung
+  — sie rechnet jedes „Ziehen ohne Zurücklegen aus einem endlichen
+  Vorrat". Ein Beispiel aus dem Leben: 45 Kugeln, 6 Gewinnzahlen, du ziehst
+  6. Wie wahrscheinlich sind <strong>genau 3 Richtige</strong>?</p>
+<pre>
+dhyper(3, 6, 39, 6)
+<span class="cmt"># → 0.02244 — rund 2,2 %, drei Richtige zu treffen</span>
+
+<span class="cmt"># „Höchstens 2 Richtige" — die traurige Realität der meisten Tipps:</span>
+phyper(2, 6, 39, 6)
+<span class="cmt"># → 0.9762 — fast 98 % aller Tipps haben 2 oder weniger Richtige</span>
+
+<span class="cmt"># Wer naiv binomial rechnet (p = 6/45 konstant), überschätzt:</span>
+dbinom(3, 6, 6/45)
+<span class="cmt"># → 0.03086 — rund 38 % daneben (0,0309 statt 0,0224)</span>
+</pre>
+  <p>Dasselbe Muster wie im Betrieb: endlicher Vorrat, ohne Zurücklegen,
+  zwei Sorten (Gewinnzahl / keine Gewinnzahl). Urne, Los, Lotto — ein
+  Modell, drei Kostüme.</p>
+</section>
+
+<section>
+  <h2>Schritt 6 — Wann Binomial doch reicht: die 5-%-Faustregel</h2>
+  <p>Ohne Zurücklegen ist der einzige Grund für den Aufwand: Das Los
+  <em>merkt</em> sich das Ziehen. Bei einem riesigen Los merkt es sich
+  fast nichts — N = 2.000, M = 200, n = 20: Nach dem ersten Zug sind noch
+  1.999 Stück da, die Quote hat sich praktisch nicht bewegt.</p>
+  <p>Daraus folgt die Faustregel:</p>
+<pre>
+<span class="cmt"># Faustregel: n/N <= 0,05 → Binomial mit p = M/N ist gute Naeherung</span>
+
+<span class="cmt"># Grosses Los (n/N = 1 %) — Regel erfuellt:</span>
+dhyper(2, 200, 1800, 20)   <span class="cmt"># → 0.286615</span>
+dbinom(2, 20, 0.1)         <span class="cmt"># → 0.285180 — 0,5 % relativ daneben</span>
+
+<span class="cmt"># M3-Los (n/N = 25 %!) — Regel deutlich verletzt:</span>
+dhyper(2, 4, 36, 10)       <span class="cmt"># → 0.2142</span>
+dbinom(2, 10, 0.1)         <span class="cmt"># → 0.1937 — 10 % relativ daneben</span>
+</pre>
+  <p>Je kleiner das Los im Verhältnis zur Stichprobe, desto härter lügt die
+  Binomialverteilung. Beim M3-Los mit einem Viertel des Loses in der
+  Stichprobe ist das kein Schönheitsfehler mehr.</p>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">Ein Los hat N = 10.000 Stück, M = 500 defekt, du ziehst
+    n = 20. Darf man hier binomial rechnen?</p>
+    <label><input type="radio" name="q4" value="0" data-grund="Falsch — die Losgröße allein entscheidet nicht. Es zählt das Verhältnis n/N: 20/10000 = 0,2 % liegt deutlich unter der 5-%-Grenze — also darf man sehr wohl näherungsweise binomial rechnen."> Nein — ohne Zurücklegen ist die Binomialverteilung prinzipiell falsch und darf nie verwendet werden</label>
+    <label><input type="radio" name="q4" value="1" data-grund="Richtig — n/N = 0,2 % liegt weit unter der 5-%-Faustregel. Das Los merkt sich die 20 gezogenen Stück praktisch nicht, p bleibt nahezu konstant."> Ja — n/N = 0,2 %, das Los merkt sich die Stichprobe praktisch nicht</label>
+    <label><input type="radio" name="q4" value="2" data-grund="Falsch — es gibt keinen „10.000-Stück-Mindestumfang". Die Faustregel vergleicht Stichprobe und Los, nie die absolute Losgröße."> Ja — weil N = 10.000 über einer festen Mindestlosgröße von 10.000 Stück liegt</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du!</div>
+  <p>Alles im Skript:</p>
+  <ol>
+    <li><strong>Vorhersage zuerst.</strong> M3-Los (N = 40, M = 4): Ist
+      P(genau 1 defekt) größer oder kleiner als P(genau 2)? Begründe mit dem
+      Erwartungswert — dann prüfe mit <code>dhyper()</code>.</li>
+    <li>Baue die Verteilungstafel für ein <strong>gedachtes Los</strong>:
+      N = 40, M = 1 defekt (wie M1 wäre, wenn eines seiner 40 Teile
+      außerhalb der Toleranz läge), Stichprobe n = 8. Wie hoch ist
+      P(kein defektes Teil)? Und P(höchstens 1) — wie verhält sich das
+      zur E(X)-Rechnung <code>8 · 1/40</code>?</li>
+    <li>Dein Kollege behauptet: „Bei 2 % Ausschuss im Los brauchen wir die
+      Hypergeometrische gar nicht, Binomial reicht." Wann hat er recht —
+      und welche Zahl musst du kennen, bevor du antworten kannst?</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+
+  <h3>Fehler 1 — <code>dhyper</code> mit der Losgröße füttern</h3>
+<pre>
+dhyper(2, 4, 40, 10)    <span class="cmt"># → FALSCH — 40 ist N, aber R will N−M</span>
+dhyper(2, 4, 36, 10)    <span class="cmt"># → 0.2142 — n = 36 GUTE, nicht 40 alle</span>
+</pre>
+  <p>Der dritte Parameter ist <strong>N − M</strong>, die <em>guten</em>
+  Stücke — nicht die Losgröße. R denkt in weißen und schwarzen Kugeln:
+  <code>m</code> weiße (Matches), <code>n</code> schwarze (Non-matches).
+  <code>?dhyper</code> zeigt es schwarz auf weiß — lies es einmal ganz.</p>
+
+  <h3>Fehler 2 — „mehr als" und „oder mehr" verwechseln</h3>
+<pre>
+1 - phyper(2, 4, 36, 10)   <span class="cmt"># → 0.0417 „mehr als 2" (3 oder 4)</span>
+1 - phyper(1, 4, 36, 10)   <span class="cmt"># → 0.2559 „2 oder mehr" (2, 3 oder 4)</span>
+</pre>
+  <p><code>phyper</code> zählt inklusive. „Mehr als x" = Grenze bleibt x,
+  „x oder mehr" = Grenze x − 1. Der Unterschied ist ein ganzer Balken
+  <code>dhyper(x)</code> — hier 0,21.</p>
+
+  <h3>Fehler 3 — Erwartungswert als „das, was meistens passiert"</h3>
+  <p>E(X) = 1,5 im Vergleichslos bedeutet nicht, dass 1,5 Defekte
+  „typisch" sind — 1,5 Defekte <em>kann man nicht einmal ziehen</em>. Der
+  Erwartungswert ist der <strong>Durchschnitt über viele Wiederholungen</strong>
+  (der Schwerpunkt der Balken), der Modalwert der häufigste einzelne Wert.
+  Beim Würfel ist E(X) = 3,5, obwohl keine Seite eine 3,5 zeigt.</p>
+
+  <h3>Fehler 4 — Binomial drauflassen, obwohl das Los schrumpft</h3>
+  <p>Die Binomialverteilung ist bequem — aber sie behauptet stillschweigend
+  „p bleibt konstant". Beim M3-Los (n/N = 25 %) ist die Abweichung bereits
+  zweistellig (0,2142 gegen 0,1937). Vor dem Binomialaufruf immer eine
+  Frage: <strong>Wie groß ist n/N?</strong> Erst bei n/N ≤ 5 % ist die
+  Näherung ehrlich.</p>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Baustein</th><th>Wofür</th></tr>
+    <tr><td>Voraussetzungen</td><td>Endliches Los, Ziehen ohne Zurücklegen, zwei Sorten (defekt/gut)</td></tr>
+    <tr><td>Formel</td><td><code>choose(M,x) · choose(N−M,n−x) / choose(N,n)</code> — x aus M, Rest aus N−M, geteilt durch alles</td></tr>
+    <tr><td><code>dhyper(x, m, n, k)</code></td><td>Genau x Defekte — m Matches, n Non-matches (N−M!), k gezogen</td></tr>
+    <tr><td><code>phyper(x, …)</code></td><td>Höchstens x Defekte (inklusive!) — „mehr als x" = 1 − phyper(x), „x oder mehr" = 1 − phyper(x−1)</td></tr>
+    <tr><td>E(X) = n · M/N</td><td>Erwartungswert — Durchschnitt über Wiederholungen, kein häufigster Wert</td></tr>
+    <tr><td>Modalwert</td><td>Der häufigste Wert — fällt mit E(X) zusammen, muss aber nicht</td></tr>
+    <tr><td>5-%-Faustregel</td><td>n/N ≤ 5 % → Binomial mit p = M/N als Näherung erlaubt</td></tr>
+    <tr><td>Lotto, Urne, Los</td><td>Ein Modell, drei Kostüme: endlicher Vorrat, zwei Sorten, ohne Zurücklegen</td></tr>
+  </table>
+  <p><strong>Ausblick:</strong> Was passiert, wenn sich Ereignisse nicht
+  pro Stück, sondern <em>pro Zeit oder Fläche</em> ereignen — Fehler pro
+  Meter Draht, Anrufe pro Stunde? Dafür gibt es die
+  <strong>Poissonverteilung</strong>, das dritte Glied in der Reihe der
+  diskreten Verteilungen.</p>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Vertiefe das Ziehen ohne Zurücklegen mit der
+  <a href="hausaufgabe.md">Aufgabe KM5-03 — Ziehen ohne Zurücklegen</a>:
+  Verteilungen aufstellen, Wahrscheinlichkeiten überschlagen, die
+  Parameterfalle umgehen und die Binomial-Näherung ehrlich prüfen.
+  — <strong>Abgabe:</strong> nach Vorgabe deiner Lehrperson.</p>
+</section>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> Navarro,
+  <a href="https://learningstatisticswithr.com/book/">Kap. 9</a>
+  (Hauptlektüre) · Grundlagen:
+  <a href="../KM5-01-binomialkoeffizient-pascalsches-dreieck/lesson.html">Lektion
+  KM5-01 — Binomialkoeffizient</a> und
+  <a href="../KM5-02-binomialverteilung-und-annahmeschwelle/lesson.html">Lektion
+  KM5-02 — Binomialverteilung und Annahmeschwelle</a>.</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+</footer>
+
+</body>
+</html>
