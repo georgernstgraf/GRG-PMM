@@ -143,8 +143,16 @@ qbinom(0.95, size = 100, prob = 0.02) <span class="cmt"># 5 → P(X ≤ 5) = 0,9
 
   <p style="text-align:center"><code>f(x) = C(M, x) · C(N−M, n−x) / C(N, n)</code></p>
   <p>Zähler: x der M defekten und n−x der N−M guten Stücke wählen. Nenner: alle
-    Möglichkeiten, n aus N zu ziehen. In R heißt die Reihenfolge anders als man
-    denkt:</p>
+    Möglichkeiten, n aus N zu ziehen. <strong>So baust du die Formel selbst:</strong>
+    Denk dir die M defekten Stücke beschriftet (<code>D1…DM</code>) und die N−M
+    guten ebenso (<code>G1…G(N−M)</code>) — nur zum Zählen, die Zahl am Ende gilt
+    auch ohne Etiketten. „Genau x defekt" zerfällt in zwei unabhängige
+    Auswahlakte: <code>C(M, x)</code> Wege, <em>welche</em> Defekten es sind,
+    <code>C(N−M, n−x)</code> Wege, <em>welche</em> Guten die restlichen sind —
+    Wege mal Wege, geteilt durch alle möglichen Stichproben
+    <code>C(N, n)</code>. Wer die Formel vergisst, findet sie wieder: einfach
+    günstige durch mögliche Fälle zählen. In R heißt die Reihenfolge anders
+    als man denkt:</p>
 
   <pre><code><span class="cmt"># dhyper(x, m, n, k) mit:  m = M (defekte im Los),
 #                          n = N-M (gute im Los),
@@ -161,6 +169,34 @@ dhyper(2, m = 10, n = 190, k = 20)  <span class="cmt"># P(2 defekt) ≈ 0,198</s
   </details>
 
   <div class="callout tipp">
+    <span class="label">Eselsbrücken für die Parameter</span>
+    <p><strong>N</strong> = <em>Number of items</em> — alles im Los ·
+      <strong>M</strong> = <em>Matches</em> — die Merkmalstreffer (Defekten).
+      Für den R-Aufruf <code>dhyper(x, m, n, k)</code>: <strong>m</strong> =
+      <em>Matches</em> (Defekte im Los) · <strong>n</strong> =
+      <em>Non-matches</em> (die Guten, N−M — die bekannte Falle!) ·
+      <strong>k</strong> = <em>Kugeln gezogen</em> (Stichprobengröße). R denkt
+      in weißen und schwarzen Kugeln (<code>?dhyper</code>): Urne, Los, Lotto
+      — ein Modell, drei Kostüme.</p>
+  </div>
+
+  <div class="callout">
+    <span class="label">Erwartungswert vs. häufigster Wert (Modalwert)</span>
+    <p><code>E(X) = n · M/N</code> ist der <strong>Durchschnitt über viele
+      Wiederholungen</strong> des Ziehexperiments — der <em>Schwerpunkt</em>
+      der Balken. Der Modalwert ist der <strong>höchste Balken</strong>, der
+      häufigste einzelne Wert. Beim Standardbeispiel (N = 200, M = 10,
+      n = 20) fallen beide auf x = 1 — aber das ist Zufall, kein Gesetz:
+      Im Vergleichslos N = 200, M = 15, n = 20 liegt der höchste Balken bei
+      x = 1 (P ≈ 0,350), der Erwartungswert aber bei
+      20 · 15/200 = <strong>1,5</strong> — unerreichbar und doch korrekt,
+      denn der lange rechte Ausläufer (3, 4, 5 Defekte) zieht den
+      Durchschnitt nach rechts. Beim Würfel: E(X) = 3,5, obwohl keine Seite
+      3,5 zeigt. <strong>Merksatz: Erwartungswert = Schwerpunkt, Modalwert
+      = höchster Balken.</strong></p>
+  </div>
+
+  <div class="callout tipp">
     <span class="label">Wann Binomial statt Hypergeometrisch?</span>
     <p>Ist die Stichprobe <strong>klein gegen das Los</strong> (Faustregel
       <code>n/N ≤ 5 %</code>), ändert das Ziehen die Defektquote kaum — die
@@ -168,6 +204,26 @@ dhyper(2, m = 10, n = 190, k = 20)  <span class="cmt"># P(2 defekt) ≈ 0,198</s
       Dann darf man mit der einfacheren Binomialformel rechnen. Beispiel N=2000,
       M=100 (5 %), n=20: <code>dhyper(0,100,1900,20) ≈ 0,358</code> vs.
       <code>dbinom(0,20,0.05) ≈ 0,358</code> — praktisch identisch.</p>
+    <p>Und wenn die Regel <em>verletzt</em> ist? N = 200, M = 10, n = 20
+      (n/N = 10 %): <code>dhyper(2,10,190,20) = 0,1975</code> gegen
+      <code>dbinom(2,20,0.05) = 0,1887</code> — rund 4,5 % relativ daneben.
+      Großes Los N = 2.000, M = 200, n = 20 (n/N = 1 %):
+      <code>dhyper(2,200,1800,20) = 0,2866</code> gegen
+      <code>dbinom(2,20,0.1) = 0,2852</code> — nur 0,5 % relativ. Je kleiner
+      das Los im Verhältnis zur Stichprobe, desto härter lügt die
+      Binomialverteilung.</p>
+  </div>
+
+  <div class="callout achtung">
+    <span class="label">Die ±1-Falle bei „mehr als" / „oder mehr"</span>
+    <p><code>phyper</code> zählt die Grenze <strong>inklusive</strong>:
+      „mehr als 2" = <code>1 − phyper(2, …)</code> (Grenze bleibt 2), aber
+      „2 oder mehr" = <code>1 − phyper(1, …)</code> (Grenze um 1 runter, die
+      2 gehört mit dazu). Der Unterschied ist genau ein Balken
+      <code>dhyper(2, …)</code> — im Standardbeispiel 0,1975, also fast
+      20 Prozentpunkte. In der Prüfpraxis („bei 2 Defekten wird
+      zurückgewiesen") ist diese Feinheit geldwert — lies die Frage
+      zweimal, bevor du den Aufruf tippst.</p>
   </div>
 
   <!-- QUIZ 3 -->
