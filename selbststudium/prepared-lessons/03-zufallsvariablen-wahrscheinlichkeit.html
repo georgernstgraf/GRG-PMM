@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>L0003 — Zufallsvariablen &amp; Wahrscheinlichkeit</title>
+  <title>L03 — Zufallsvariablen &amp; Wahrscheinlichkeit</title>
 <script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","style.css");e.setAttribute("data-js","quiz.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
 
 </head>
@@ -13,7 +13,7 @@
   <div class="breadcrumb">
     <a href="../reference/jg3-verlauf.html">JG3 Verlauf</a>
     <span class="sep">/</span>
-    Track 1 · L0003
+    Track 1 · L03
   </div>
 
   <header class="lesson-head">
@@ -234,7 +234,7 @@ table(wurf) / 100                 <span class="cmt"># relative Haeufigkeit ≈ P
      0.16 0.18 0.18 0.22 0.13 0.13</pre>
   <p>Die relativen Häufigkeiten pendeln um 1/6 ≈ 0,167 — das ist das
     <strong>Gesetz der großen Zahlen</strong> im Kleinen (kommt ausführlich in
-    L0008). Mit 10 000 Würfen würde es noch viel enger um 0,167 liegen.</p>
+    L08). Mit 10 000 Würfen würde es noch viel enger um 0,167 liegen.</p>
   </details>
 
   <div class="callout tipp">
@@ -250,7 +250,7 @@ table(wurf) / 100                 <span class="cmt"># relative Haeufigkeit ≈ P
       <tr><td><code>r</code></td><td>Zufallszahlen (simulieren)</td><td><code>rnorm(5)</code></td></tr>
     </table>
     <p>Merkregel: <strong>d = density, p = probability (cumul.), q = quantile,
-      r = random</strong>. Ab L0004 wenden wir das auf konkrete Verteilungen an;
+      r = random</strong>. Ab L04 wenden wir das auf konkrete Verteilungen an;
       <code>sample()</code> oben war der „handgemachte" Vorläufer von
       <code>r</code>.</p>
   </div>
@@ -291,7 +291,7 @@ table(wurf) / 100                 <span class="cmt"># relative Haeufigkeit ≈ P
   <ol>
     <li>Simuliere <code>sample(1:6, 1000, replace = TRUE)</code> und vergleiche
       die relativen Häufigkeiten mit 1/6. Werden sie näher an 0,167 als bei 100
-      Würfen? (Gesetz der großen Zahlen —Vorgriff auf L0008.)</li>
+      Würfen? (Gesetz der großen Zahlen —Vorgriff auf L08.)</li>
     <li>Erkläre mit eigenen Worten, warum bei einer <em>stetigen</em>
       Zufallsvariable P(X = x) = 0 gilt, obwohl der gemessene Wert eine konkrete
       Zahl ist.</li>
@@ -299,7 +299,7 @@ table(wurf) / 100                 <span class="cmt"># relative Haeufigkeit ≈ P
       „P(X ≤ 5)" zu berechnen? Begründe.</li>
     <li>Teste in R: <code>pnorm(0)</code> und <code>dnorm(0)</code>. Welcher
       Wert ist eine Wahrscheinlichkeit, welcher nicht? (Die Normalverteilung
-      kommt in L0005 — hier nur „schnuppern".)</li>
+      kommt in L05 — hier nur „schnuppern".)</li>
     <li>Vorhersage: Ist <code>dnorm(0)</code> größer oder kleiner als 1? Prüfe
       und erkläre mit „Dichte ist keine Wahrscheinlichkeit".</li>
   </ol>
@@ -328,11 +328,11 @@ table(wurf) / 100                 <span class="cmt"># relative Haeufigkeit ≈ P
   <!-- ===================================================== FOOT -->
   <div class="lesson-foot">
     <p>Track 1 · Lektion 1 von 4.
-       Nächste Einheit: <strong>L0004 — Diskrete Verteilungen (Binomial,
+       Nächste Einheit: <strong>L04 — Diskrete Verteilungen (Binomial,
        Hypergeometrisch, Poisson)</strong> — die <code>d/p/q/r</code>-Prefixe
        im Ernstfall. Siehe <a href="../reference/jg3-verlauf.html">Verlaufsmap</a>.</p>
     <div class="nav">
-      <a class="prev" href="0002-daten-einlesen-deskriptiv.html">← L0002</a>
+      <a class="prev" href="02-daten-einlesen-deskriptiv.html">← L02</a>
       <a class="next" href="../reference/jg3-verlauf.html">Verlaufsmap →</a>
     </div>
   </div>

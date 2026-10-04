@@ -45,7 +45,7 @@ unterricht ohne Zweig-Fach-Ordner).
 - [ ] **Einstiegstest 4HWIT** korrigieren → Bonus-UE bzw. UE 4–5 anpassen.
 - [ ] **Einstiegstest 5HWIT**: DOE-Block + Umwelt-Vorwissen auswerten.
 - [ ] **R/RStudio auf Schul-Laptops der 5AHWIT bestätigen.**
-- [ ] JG3 Phase 0: L0004 durcharbeiten (teach-Session), danach L0005+.
+- [ ] JG3 Phase 0: L04 durcharbeiten (teach-Session), danach L05+.
 
 ## Notes
 - R 4.5.x mit `tidyverse`, `palmerpenguins`; Verifikation per `Rscript`
@@ -54,5 +54,5 @@ unterricht ohne Zweig-Fach-Ordner).
 - Web-Assets: ein Top-Level `assets/`; Bootstrap + Badge generisch (CONVENTIONS).
 
 ## Next Session Suggestion
-SA-01–SA-03 auf 90 min vertiefen; JG3-Semesterplan-Lektionen (0005–0015)
+SA-01–SA-03 auf 90 min vertiefen; JG3-Semesterplan-Lektionen (05–15)
 bauen; nächste Lektion on demand (z. B. UE 5 Konfidenzintervalle).

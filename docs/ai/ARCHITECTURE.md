@@ -17,7 +17,7 @@ GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturaf
 | `assets/` | **Single shared asset folder** (repo root): `lesson.css`, `style.css`, `slides.css`, `theme.js`, `quiz.js` (unified radio widget), `loader.js` (root resolver + injector), `site.js` (per-repo config: Pages base + badge label), `github-pages-link.js` (badge), `betriebsdaten.csv` |
 | `4ahwit-x/`, `4ahwit-y/` | Root cohort folders (lowercase = cohort storage). Hub `README.md` + `MISSION/RESOURCES/NOTES.md`, `YYYY-MM-DD__thema/lesson.html` (dated lessons). Undated lessons are canonical under `unterricht/`; cohort `prepared-lessons/` dissolved 2026-09-28 (#20) |
 | `5ahwit/` | Root cohort folder in SWP pattern: hub-README + `teach/` (`MISSION/NOTES/RESOURCES`, `reference/`, `learning-records/`), `hausaufgaben/`, date folders; R-On-Ramp lessons referenced from `unterricht/SA-01…SA-03` |
-| `selbststudium/` | Self-study workspace (teach skill): `MISSION.md`, `RESOURCES.md`, `NOTES.md`, `prepared-lessons/` (four-digit, grandfathered), `reference/` (glossar, jg3-/km7-verlaufsmap, r-setup), `learning-records/` |
+| `selbststudium/` | Self-study workspace (teach skill): `MISSION.md`, `RESOURCES.md`, `NOTES.md`, `prepared-lessons/` (two-digit), `reference/` (glossar, jg3-/km7-verlaufsmap, r-setup), `learning-records/` |
 | `index.html` | Landing page for GitHub Pages / local server |
 | `serve.sh` | Local live server (repo root) |
 | `.nojekyll` | Bypass Jekyll on GitHub Pages |

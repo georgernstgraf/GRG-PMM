@@ -3,6 +3,12 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-10-04: Selbststudium-Nummerierung auf zweistellig umgestellt
+
+- **Choice:** Der Selbststudium-Bestand (`selbststudium/prepared-lessons/`, `learning-records/`) wird von vierstellig auf **zweistellig** (`01`–`99`) umgestellt. Umbenannt: 4 Lektionen (`01`–`04`) und 8 Learning Records (`01`–`08`); alle Querverweise (`jg3`/`km7-verlauf.html`, Lektions-Nav, `index.html`, `MISSION.md`, `NOTES.md`, JG3-Semesterpläne, Glossar, `docs/ai`) mitgezogen. Damit ist die Grandfather-Klausel für vierstelliges Selbststudium (Eintrag 2026-09-23) aufgehoben.
+- **Reason:** Georg wünscht „höchstens zweistellige Zahlen" für die Selbststudium-Nummerierung; die vierstellige Form war reiner Kollisionsschutz und für einen Pfad < 100 nicht nötig.
+- **Tradeoff:** Die Querverweise mussten einmalig nachgezogen werden (bewusste Ausnahme von „never rename a running sequence"). Kohorten-`teach/`-Workspaces (z. B. `5ahwit/teach/`) behalten ihre eigene Nummerierung unverändert.
+
 ## 2026-09-29: lehrplan pro Fach-Zweig (`pmm-hwit/`), KM-Steckbriefe auf Fach-Ebene, unterricht entschlackt (#21)
 
 - **Choice (Fach-Ebene):** Das `lehrplan/`-Root trägt das Formunabhängige: `METADATA.md`, `RIS/`, `kompetenzmodule/` (km3–km9b) und die KM-keyed Ressourcen `ressourcen-matrix.md`/`r4ds-abdeckung.md`. Damit ist die flache Ablage aus #19 aufgehoben.
@@ -107,7 +113,8 @@ Each entry documents WHAT was decided and WHY.
   Wiederholung aus KMx]`), zweistellige Dateien `NN-slug.html` pro
   Schuljahr pro Klasse. `teach`-Skill (global + projektlokal) schreibt
   Zweistelligkeit für Klassen-Material vor; Selbststudium-Bestand bleibt
-  vierstellig (Grandfather-Klausel, Querverweise intakt). GRG-PMM-Instanz:
+  vierstellig (Grandfather-Klausel, Querverweise intakt). *(Superseded
+  2026-10-04: Selbststudium jetzt ebenfalls zweistellig.)* GRG-PMM-Instanz:
   9 Lessons umbenannt (01–03), Lessons-Tabellen in allen Klassen-READMEs
   (Bestellzettel: Nr./Ziel-UE/Quelle/Typ/Quiz/Status), UE-4+-Anker in
   RESOURCES, AGENTS.md §10.

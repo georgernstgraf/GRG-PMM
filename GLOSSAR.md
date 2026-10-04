@@ -189,7 +189,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | GRG-PMM | — | Dieses Repository (Unterrichtsmaterial, öffentlich) |
 | GRG-PMM-T | — | Test-Repository (privat) mit Prüfungsangaben |
 | JG3-Track | — | Georgs Selbststudium-Pfad durch KM5/KM6; `selbststudium/reference/jg3-verlauf.html` |
-| L0003 … | — | Lektions-Nummern im Selbststudium (`selbststudium/prepared-lessons/`) |
+| L03 … | — | Lektions-Nummern im Selbststudium (`selbststudium/prepared-lessons/`) |
 | Lern-Lektion | — | Interaktive HTML-Lektion für Georg (teach skill), Artefakt 1 von 3 pro UE |
 | LR | Learning Record | Lernprotokoll nach jeder Selbststudium-Einheit — ⚠ Kollision, s.o. |
 | Matrix-Key | — | Slug je Lehrplan-Thema in `lehrplan/ressourcen-matrix.md` (z.B. `KM7-tests`) |

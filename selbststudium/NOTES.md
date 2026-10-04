@@ -30,7 +30,7 @@
   (R4DS-Stimme auf Deutsch: Einstiegsfrage → Ziel-Artefakt → inkrementeller
   Aufbau → „Jetzt du!“ → typische Fehler → Zusammenfassung/Ausblick +
   Lektüre-Box). Gilt auch für alle Selbststudium-Lektionen.
-- Aufbau der Lektionsdateien: `prepared-lessons/` (vierstellig); gemeinsame
+- Aufbau der Lektionsdateien: `prepared-lessons/` (zweistellig); gemeinsame
   Assets zentral unter `../assets/` (Bootstrap + Badge, kein eigenes assets/).
 - Nutzung über den Live-Server (`../serve.sh`), nicht `file://`.
 
@@ -44,7 +44,7 @@
 ## Lernstrategie
 
 - **Phase 0 (JG3-Vorwissen KM5+KM6) zuerst.** Curriculum-Map:
-  `reference/jg3-verlauf.html`. 3 Tracks, 13 Lektionen (0003–0015):
+  `reference/jg3-verlauf.html`. 3 Tracks, 13 Lektionen (03–15):
   (1) Verteilungen, (2) Schätzen & Inferenz, (3) Anwendung & Lebensdauer.
   JG3 ist das Fundament, auf dem KM7 aufbaut — und deckt exakt den Einstiegstest
   im Test-Repo GRG-PMM-T ab.
@@ -63,3 +63,21 @@
   aufeinanderfolgende Fragen rotieren — nie darf ein Muster entstehen wie „C ist
   immer richtig" oder „D immer falsch". Siehe auch
   `docs/ai/CONVENTIONS.md` → „Quizzes & Prüfungsfragen".
+- **Nummerierung Selbststudium: zweistellig** (`01` … `99`; kein 4-stelliges
+  `0001`-Format). Umgesetzt 2026-10-04: Lektionen `01`–`04`, Learning Records
+  `01`–`08`; Querverweise in `jg3-verlauf.html`, `km7-verlauf.html`,
+  Lektions-Nav, `index.html`, `MISSION.md` und JG3-Semesterplänen mitgezogen.
+  Bei Erreichen der Grenze (100) erneuter Umbau. (Wunsch 2026-10-04)
+
+## Didaktik-Präferenzen (Session 2026-10-04)
+
+- **Keine Lösungen vorab.** Übungsaufgaben zuerst stellen, den eigenen Versuch
+  abwarten, erst danach Lösung + Feedback geben. Retrieval vor Erklärung —
+  vorab mitgelieferte Lösungen nehmen den Lerneffekt weg.
+- **Herleitung vor Zahlenwert.** Der konkrete Zahlenwert ist zweitrangig (läuft
+  ohnehin in R) und darf genannt werden; die eigentliche Lernaufgabe ist, *wie*
+  man darauf kommt. Immer den Rechenweg / die Methodik erklären — nicht nur das
+  Ergebnis nennen, und nie das Ergebnis *statt* der Herleitung.
+- **Ausführlicher statt knapp.** Jede Aussage mit einem kurzen deutschen
+  Klartext-Satz erklären, *was* sie bedeutet (nicht nur Formel/Bullet). Der
+  Lernende empfindet sehr knappe, reine Bullet-Antworten als überfordernd.

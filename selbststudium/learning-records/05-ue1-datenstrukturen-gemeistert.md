@@ -1,6 +1,6 @@
 # UE 1 vollständig gemeistert: Datenstrukturen & Factor-Falle
 
-Nachtrag zu Record 0002, der nur den R-Grundlagen-Teil abdeckte. Hier wird der
+Nachtrag zu Record 02, der nur den R-Grundlagen-Teil abdeckte. Hier wird der
 **Datenstrukturen-Teil** (Teil 2 der zusammengeführten UE 1) nachgetragen.
 
 Nachgewiesenes Verständnis:

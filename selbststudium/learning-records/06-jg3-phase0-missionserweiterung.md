@@ -1,7 +1,7 @@
 # Mission-Erweiterung: Phase 0 (JG3-Vorwissen KM5+KM6) eingefügt
 
 Die Mission „R + Statistik für PMM-Unterricht" hat bislang bei KM7 (JG4)
-angeknüpft. Da der Lernende Statistik-Anfänger ist (LR 0001), wird eine
+angeknüpft. Da der Lernende Statistik-Anfänger ist (LR 01), wird eine
 **Phase 0** vor KM7 eingeschoben, die das gesetzlich in JG3 verankerte
 Vorwissen behandelt: KM5 (Wahrscheinlichkeitsverteilungen, Parameter/Schätzwerte)
 und KM6 (Zufallsstreu-/Vertrauensbereiche, Prüfergebnis-Darstellung,
@@ -19,16 +19,16 @@ Lebensdauerverteilungen).
 ## Struktur
 
 3 Tracks (konzeptionell gruppiert, nicht nach KM), 13 Lektionen:
-- **Track 1 — Verteilungen** (KM5): L0003–0006
-- **Track 2 — Schätzen & Inferenz** (KM5+KM6): L0007–0011
-- **Track 3 — Anwendung & Lebensdauer** (KM6): L0012–0015
+- **Track 1 — Verteilungen** (KM5): L03–06
+- **Track 2 — Schätzen & Inferenz** (KM5+KM6): L07–11
+- **Track 3 — Anwendung & Lebensdauer** (KM6): L12–15
 
 Curriculum-Map: `reference/jg3-verlauf.html`. Lektionen nummerieren weiter ab
-0003 (an 0001/0002 = R-Mechanik aus KM7-Vorbereitung anknüpfend).
+03 (an 01/02 = R-Mechanik aus KM7-Vorbereitung anknüpfend).
 
 ## Implications
 
-- L0003 (Zufallsvariablen & Wahrscheinlichkeit) ist der Startpunkt der nächsten
+- L03 (Zufallsvariablen & Wahrscheinlichkeit) ist der Startpunkt der nächsten
   Session — das Vokabular aller folgenden Statistik.
 - Jede Lektion kombiniert Theorie + R-Praxis (z. B. `dbinom`, `pnorm`, `t.test`,
   `pweibull`) und enthält Quiz-Elemente (reuse `assets/quiz.js`).

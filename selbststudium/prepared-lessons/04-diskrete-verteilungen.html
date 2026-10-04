@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>L0004 — Diskrete Verteilungen: Binomial, Hypergeometrisch, Poisson</title>
+  <title>L04 — Diskrete Verteilungen: Binomial, Hypergeometrisch, Poisson</title>
 <script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","style.css");e.setAttribute("data-js","quiz.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
 
 </head>
@@ -13,7 +13,7 @@
   <div class="breadcrumb">
     <a href="../reference/jg3-verlauf.html">JG3 Verlauf</a>
     <span class="sep">/</span>
-    Track 1 · L0004
+    Track 1 · L04
   </div>
 
   <header class="lesson-head">
@@ -25,12 +25,12 @@
     <h1>Diskrete Verteilungen: Binomial, Hypergeometrisch, Poisson</h1>
     <p class="lede">Die Antwort auf die wichtigste Qualitätsfrage überhaupt: „Wie viele
       defekte Stücke stecken in dieser Stichprobe?" — drei Verteilungen, drei
-      Zieh-Szenarien, ein gemeinsames d/p/q/r-Schema aus L0003 im Ernstfall.</p>
+      Zieh-Szenarien, ein gemeinsames d/p/q/r-Schema aus L03 im Ernstfall.</p>
   </header>
 
   <!-- ========================================================= WARUM -->
   <h2>Warum diese Lektion</h2>
-  <p>In L0003 hast du das Gerüst gebaut: Zufallsvariable, diskret vs. stetig,
+  <p>In L03 hast du das Gerüst gebaut: Zufallsvariable, diskret vs. stetig,
     f(x) vs. F(x) und das d/p/q/r-Schema. Jetzt kommt das erste echte Fleisch —
     und es ist genau das, was die <strong>Annahmestichprobenprüfung</strong>
     (ISO 2859, ein Kern von KM7) in R braucht. Die Grundfrage überall gleich:
@@ -255,7 +255,7 @@ ppois(2, lambda = 2)               <span class="cmt"># P(X ≤ 2) ≈ 0,677</spa
       gehen, um diese Fläche zu erreichen?". Bei einer <em>stetigen</em>
       Verteilung ist die Antwort exakt (z. B. <code>qnorm(0.975)</code> =
       1,96); bei einer <em>diskreten</em> ist es die <strong>erste ganze Zahl</strong>,
-      die die Schwelle erreicht. Der Würfel aus L0003 macht das greifbar:
+      die die Schwelle erreicht. Der Würfel aus L03 macht das greifbar:
       Würfle 100-mal und zähle die Sechsen (<code>X ~ Bin(100, 1/6)</code>).</p>
     <pre><code><span class="cmt"># q = Umkehrung von F: erste Zahl, die 95 % erreicht</span>
 qbinom(0.95, size = 100, prob = 1/6)  <span class="cmt"># 23</span>
@@ -349,12 +349,12 @@ pbinom(23, size = 100, prob = 1/6)     <span class="cmt"># 0,962 — Schwelle er
   <!-- ===================================================== FOOT -->
   <div class="lesson-foot">
     <p>Track 1 · Lektion 2 von 4.
-       Nächste Einheit: <strong>L0005 — Normalverteilung &amp; Standardisierung</strong>
+       Nächste Einheit: <strong>L05 — Normalverteilung &amp; Standardisierung</strong>
        (μ/σ, 68-95-99,7-Regel, z-Transformation) — die wichtigste stetige Verteilung
        überhaupt, Grundlage für SPC und Prozessfähigkeit (Cp/Cpk). Siehe
        <a href="../reference/jg3-verlauf.html">Verlaufsmap</a>.</p>
     <div class="nav">
-      <a class="prev" href="0003-zufallsvariablen-wahrscheinlichkeit.html">← L0003</a>
+      <a class="prev" href="03-zufallsvariablen-wahrscheinlichkeit.html">← L03</a>
       <a class="next" href="../reference/jg3-verlauf.html">Verlaufsmap →</a>
     </div>
   </div>

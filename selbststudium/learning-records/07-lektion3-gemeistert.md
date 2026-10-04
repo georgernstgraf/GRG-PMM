@@ -1,6 +1,6 @@
-# L0003 (Zufallsvariablen & Wahrscheinlichkeit) gemeistert
+# L03 (Zufallsvariablen & Wahrscheinlichkeit) gemeistert
 
-L0003 abgeschlossen: Verständnis für diskret vs. stetig, die Zwei-Funktionen-Statik
+L03 abgeschlossen: Verständnis für diskret vs. stetig, die Zwei-Funktionen-Statik
 (f(x) vs. F(x)) und das d/p/q/r-Schema ist nachgewiesen. Damit steht das Vokabular,
 auf dem alle weiteren Verteilungs-Lektionen aufbauen.
 
@@ -23,7 +23,7 @@ auf dem alle weiteren Verteilungs-Lektionen aufbauen.
 
 ## Implications
 
-- L0004 (Diskrete Verteilungen: Binomial, Hypergeometrisch, Poisson) kann
+- L04 (Diskrete Verteilungen: Binomial, Hypergeometrisch, Poisson) kann
   starten — d/p/q/r wird dort auf konkrete Verteilungen angewendet, die
   Begriffs-Statik f/F und diskret/stetig werden vorausgesetzt.
 - Dichte-als-Wkeit-pro-Einheit und das Intervall-Paradox sind tragfähige
