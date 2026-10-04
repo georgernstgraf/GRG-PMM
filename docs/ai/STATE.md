@@ -1,6 +1,6 @@
 # Project State
 
-Current status as of 2026-10-02.
+Current status as of 2026-10-04.
 
 ## Current Focus
 **lehrplan Fach-/Zweig-Ebene (#21):** Das `lehrplan/`-Root trägt die
@@ -45,14 +45,16 @@ unterricht ohne Zweig-Fach-Ordner).
 - [ ] **Einstiegstest 4HWIT** korrigieren → Bonus-UE bzw. UE 4–5 anpassen.
 - [ ] **Einstiegstest 5HWIT**: DOE-Block + Umwelt-Vorwissen auswerten.
 - [ ] **R/RStudio auf Schul-Laptops der 5AHWIT bestätigen.**
-- [ ] JG3 Phase 0: L04 durcharbeiten (teach-Session), danach L05+.
+- [ ] JG3 Phase 0: L04 Abschnitt 3 (Poisson) durcharbeiten, dann L04 ✅; danach L05+.
 
 ## Notes
 - R 4.5.x mit `tidyverse`, `palmerpenguins`; Verifikation per `Rscript`
-  (Arbeitsverzeichnis = Repo-Root). Betriebsdaten `assets/betriebsdaten.csv`.
+  (Arbeitsverzeichnis = Repo-Root). Betriebsdaten `assets/betriebsdaten.csv`
+  (nur M3 hat Ausschuss: 4 von 40 bei ±0,15 mm — M1/M2 sauber; KM5-02s
+  „6 von 40" ist ein Szenario, nicht die CSV).
 - Nutzung: `./serve.sh` → `http://localhost:8000/`; **kein `file://`** (Firefox).
 - Web-Assets: ein Top-Level `assets/`; Bootstrap + Badge generisch (CONVENTIONS).
 
 ## Next Session Suggestion
-SA-01–SA-03 auf 90 min vertiefen; JG3-Semesterplan-Lektionen (05–15)
-bauen; nächste Lektion on demand (z. B. UE 5 Konfidenzintervalle).
+JG3: L04 Abschnitt 3 (Poisson) teachen; SA-01–SA-03 auf 90 min vertiefen;
+JG3-Semesterplan-Lektionen (05–15) bauen.

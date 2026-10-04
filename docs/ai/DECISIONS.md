@@ -3,6 +3,22 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-10-04: create-lesson kohortenagnostisch — Thema→KM tragend, UE optional (#26)
+
+- **Choice:** Lessons gehören zu einem **Thema, das einen Teil eines KM
+  deckt** — nicht zu einer Kohorte oder fest geplanten UE. Kopfzeile ohne
+  Klasse/Semester/UE; Bestellformat nur `KM + Thema` (UE/Kohorte optionaler
+  Kontext); keine Lessons-Tabellen in Klassen-READMEs, kein Kohorten-
+  Lernfortschritt im Skill. Übernahme bleibt manuell: Lehrperson kopiert
+  zur Tagesdynamik in den Kohortenordner und setzt das Datum selbst in den
+  Ordnernamen. Umgesetzt im Skill (opencode-helpers #100), erste Lesson
+  danach gebaut: `unterricht/KM5-03-ziehen-ohne-zuruecklegen/`.
+- **Reason:** Die Direktzuordnung Lesson↔UE ist angesichts der
+  Unterrichtsdynamik „völlig lächerlich" (Georg); der Skill mischte sich
+  in Kohorten-Lernfortschritt, der allein die Lehrperson betrifft.
+- **Konvention:** KM5-03 ist bewusst kohortenfrei gebaut — Übernahme in
+  4AHWIT/5AHWIT/was auch immer entscheidet die Tagesdynamik.
+
 ## 2026-10-04: Selbststudium-Nummerierung auf zweistellig umgestellt
 
 - **Choice:** Der Selbststudium-Bestand (`selbststudium/prepared-lessons/`, `learning-records/`) wird von vierstellig auf **zweistellig** (`01`–`99`) umgestellt. Umbenannt: 4 Lektionen (`01`–`04`) und 8 Learning Records (`01`–`08`); alle Querverweise (`jg3`/`km7-verlauf.html`, Lektions-Nav, `index.html`, `MISSION.md`, `NOTES.md`, JG3-Semesterpläne, Glossar, `docs/ai`) mitgezogen. Damit ist die Grandfather-Klausel für vierstelliges Selbststudium (Eintrag 2026-09-23) aufgehoben.

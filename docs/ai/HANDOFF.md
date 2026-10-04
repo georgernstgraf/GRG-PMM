@@ -36,10 +36,14 @@ KM6-Lücken Bonus-UE aktivieren.
 
 ### JG3-Lern-Tracks (Phase 0) fortsetzen
 **Priority:** high
-**Context:** Georg lernt JG3-Vorwissen (KM5+KM6) selbst. Track 1 L03
-abgeschlossen; L04 gebaut+committet. KM7-Anschluss: `reference/km7-verlauf.html`.
-**Action:** L04 durcharbeiten (teach-Session; Binomial/Hypergeometrisch/
-Poisson), mit LR dokumentieren; danach L05 bauen.
+**Context:** Georg lernt JG3-Vorwissen (KM5+KM6) selbst. Track 1 L03 ✅,
+L04 Binomial ✅ + Hypergeometrisch ✅ (LR 08/09); Poisson offen.
+Didaktik-Präferenzen: kleine Häppchen, komplette Angabe bei jeder
+Wiederholung, keine neuen Begriffe ungeklärt in Aufgaben, kein LaTeX im
+Chat (teach-Skill).
+**Action:** L04 Abschnitt 3 (Poisson) teachen — Einstieg über „Ereignisse
+pro Einheit statt Stücke pro Los"; LR schreiben, `jg3-verlauf.html`
+auf ✅; danach L05 bauen.
 
 ## Erledigt (dieser Zyklus)
 - **opencode-helpers #92:** lehrplan-Skill auf Fach-/Zweig-Ebene umgebaut —
