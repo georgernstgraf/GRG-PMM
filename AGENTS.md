@@ -47,6 +47,11 @@ This repository contains coursework for **Prozessmanagement (PMM)** at HTL Speng
 - Use the **live server** (`./serve.sh`), not `file://`: Firefox's
   `security.fileuri.strict_origin_policy` blocks cross-directory subresources
   under `file://` (slashes, not dots, are the reason central assets work).
+- **GitHub Pages = Lernplattform:** veröffentlicht wird nur `index.html`,
+  `assets/` und `unterricht/` (`.github/workflows/pages.yml`); Kohorten- und
+  Planungsordner werden nicht deployt. Der Root-`index.html` verlinkt
+  ausschließlich `unterricht/`-Lessons und wird bei jeder neuen Lesson
+  mitgepflegt.
 - All non-asset links stay **relative**; do not use `<base>` or root-absolute
   asset paths.
 

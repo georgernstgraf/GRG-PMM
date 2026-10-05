@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GRG-PMM — Prozessmanagement</title>
-<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})})();</script>
 </head>
 <body>
 
@@ -17,71 +17,54 @@
 
 <div class="callout tipp">
   <span class="label">Nutzung</span>
-  <p>Alle Seiten laufen über einen <strong>Live-Server</strong> (nicht <code>file://</code>).
+  <p>Das ist die <strong>Lernplattform</strong>: die vorbereiteten Lektionen aus
+    <code>unterricht/</code>. Alle Seiten laufen über einen
+    <strong>Live-Server</strong> (nicht <code>file://</code>).
     Lokal: <code>./serve.sh</code> im Repo-Root, dann <code>http://localhost:8000/</code>.
     Online: GitHub Pages.</p>
 </div>
 
 <section>
-  <div class="baustein">Selbststudium (Lernpfad der Lehrperson)</div>
+  <div class="baustein">SA — Schulautonom: R-Grundlagen</div>
   <ul>
-    <li><a href="selbststudium/MISSION.md">Mission</a> ·
-        <a href="selbststudium/reference/jg3-verlauf.html">JG3-Verlaufsmap</a> ·
-        <a href="selbststudium/reference/km7-verlauf.html">KM7-Verlaufsmap</a> ·
-        <a href="selbststudium/reference/glossar.html">Glossar</a></li>
-    <li>Vorbereitete Lektionen:
-        <a href="selbststudium/prepared-lessons/01-r-grundlagen-datenstrukturen.html">01</a> ·
-        <a href="selbststudium/prepared-lessons/02-daten-einlesen-deskriptiv.html">02</a> ·
-        <a href="selbststudium/prepared-lessons/03-zufallsvariablen-wahrscheinlichkeit.html">03</a> ·
-        <a href="selbststudium/prepared-lessons/04-diskrete-verteilungen.html">04</a></li>
-  </ul>
-</section>
-
-<section>
-  <div class="baustein">4AHWIT — Kohorten x &amp; y</div>
-  <ul>
-    <li><a href="4ahwit-x/README.md">Klassen-Hub x</a> ·
-        <a href="4ahwit-y/README.md">Klassen-Hub y</a></li>
-    <li>Terminiert (y): <a href="4ahwit-y/2026-09-25__r-kennzahlen-und-verteilungen/lesson.html">Kennzahlen &amp; Verteilungen</a></li>
-    <li>Vorbereitete Lektionen liegen kanonisch unter „Unterricht".</li>
-  </ul>
-</section>
-
-<section>
-  <div class="baustein">5AHWIT</div>
-  <ul>
-    <li><a href="5ahwit/README.md">Klassen-Hub</a></li>
-    <li><a href="5ahwit/teach/reference/glossar-r-statistik.html">Glossar R/Statistik</a> ·
-        <a href="5ahwit/teach/reference/ggplot-dplyr-cheatsheet.html">ggplot/dplyr-Cheatsheet</a></li>
-  </ul>
-</section>
-
-<section>
-  <div class="baustein">Unterricht (vorbereitete Einheiten)</div>
-  <ul>
-    <li><a href="unterricht/SA-00-was-kann-r/praesentation.html">SA-00 — Was kann R?</a> <span class="cmt">(schulautonom)</span></li>
-    <li>SA-01 — <a href="unterricht/SA-01-datenvisualisierung-ggplot/lesson.html">Lesson: Daten visualisieren</a> ·
+    <li>SA-00 — <a href="unterricht/SA-00-was-kann-r/praesentation.html">Was kann R?</a> <span class="cmt">(Folien)</span></li>
+    <li>SA-01 — <a href="unterricht/SA-01-datenvisualisierung-ggplot/lesson.html">Daten visualisieren</a> ·
         <a href="unterricht/SA-01-datenvisualisierung-ggplot/praesentation.html">Folien</a></li>
-    <li>SA-02 — <a href="unterricht/SA-02-daten-transformieren-dplyr/lesson.html">Lesson: Daten transformieren</a> ·
+    <li>SA-02 — <a href="unterricht/SA-02-daten-transformieren-dplyr/lesson.html">Daten transformieren</a> ·
         <a href="unterricht/SA-02-daten-transformieren-dplyr/praesentation.html">Folien</a></li>
-    <li>SA-03 — <a href="unterricht/SA-03-daten-einlesen-deskriptiv/lesson.html">Lesson: Daten einlesen</a> ·
+    <li>SA-03 — <a href="unterricht/SA-03-daten-einlesen-deskriptiv/lesson.html">Daten einlesen &amp; deskriptiv</a> ·
         <a href="unterricht/SA-03-daten-einlesen-deskriptiv/praesentation.html">Folien</a></li>
-    <li>KM5-01 — <a href="unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck/lesson.html">Lesson: Binomialkoeffizient &amp; Pascalsches Dreieck</a> <span class="cmt">(Wiederholung aus KM5)</span></li>
   </ul>
-  <p>Semesterpläne: <a href="lehrplan/pmm-hwit/jg3-semesterplan-ws.md">JG3 WS</a> ·
-     <a href="lehrplan/pmm-hwit/jg3-semesterplan-ss.md">JG3 SS</a> ·
-     <a href="lehrplan/pmm-hwit/jg4-semesterplan-ws.md">JG4 WS</a> ·
-     <a href="lehrplan/pmm-hwit/jg4-semesterplan-ss.md">JG4 SS</a> ·
-     <a href="lehrplan/pmm-hwit/jg5-semesterplan-ws.md">JG5 WS</a> ·
-     <a href="lehrplan/pmm-hwit/jg5-semesterplan-ss.md">JG5 SS</a></p>
 </section>
 
 <section>
-  <div class="baustein">Lehrplan &amp; Glossar</div>
+  <div class="baustein">KM5 — Zählen &amp; Verteilungen</div>
   <ul>
-    <li><a href="lehrplan/pmm-hwit/LEHRPLAN.md">Lehrplan-Extrakt</a> ·
-        <a href="lehrplan/METADATA.md">Metadaten</a> ·
-        <a href="GLOSSAR.md">Glossar</a></li>
+    <li>KM5-01 — <a href="unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck/lesson.html">Binomialkoeffizient &amp; Pascalsches Dreieck</a></li>
+    <li>KM5-02 — <a href="unterricht/KM5-02-binomialverteilung-und-annahmeschwelle/lesson.html">Binomialverteilung &amp; Annahmeschwelle</a> ·
+        <a href="unterricht/KM5-02-binomialverteilung-und-annahmeschwelle/praesentation.html">Folien</a></li>
+    <li>KM5-03 — <a href="unterricht/KM5-03-ziehen-ohne-zuruecklegen/lesson.html">Ziehen ohne Zurücklegen</a> ·
+        <a href="unterricht/KM5-03-ziehen-ohne-zuruecklegen/praesentation.html">Folien</a></li>
+  </ul>
+</section>
+
+<section>
+  <div class="baustein">KM6 — Daten visualisieren</div>
+  <ul>
+    <li>KM6-01 — <a href="unterricht/KM6-01-boxplot-und-grafikwahl/lesson.html">Boxplot &amp; Grafikwahl</a> ·
+        <a href="unterricht/KM6-01-boxplot-und-grafikwahl/praesentation.html">Folien</a></li>
+  </ul>
+</section>
+
+<section>
+  <div class="baustein">KM7 — Testen &amp; Entscheiden</div>
+  <ul>
+    <li>KM7-01 — <a href="unterricht/KM7-01-mittelwertsvergleich-t-test/lesson.html">Mittelwertsvergleich (t-Test)</a> ·
+        <a href="unterricht/KM7-01-mittelwertsvergleich-t-test/praesentation.html">Folien</a></li>
+    <li>KM7-02 — <a href="unterricht/KM7-02-chi-quadrat-test/lesson.html">Chi-Quadrat-Test</a> ·
+        <a href="unterricht/KM7-02-chi-quadrat-test/praesentation.html">Folien</a></li>
+    <li>KM7-03 — <a href="unterricht/KM7-03-teststaerke-und-stichprobenumfang/lesson.html">Teststärke &amp; Stichprobenumfang</a> ·
+        <a href="unterricht/KM7-03-teststaerke-und-stichprobenumfang/praesentation.html">Folien</a></li>
   </ul>
 </section>
 

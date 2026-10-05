@@ -3,6 +3,12 @@
 Current status as of 2026-10-04.
 
 ## Current Focus
+**Lernplattform (#27):** GitHub Pages liefert nur noch `index.html`, `assets/`
+und `unterricht/` (`.github/workflows/pages.yml`, umgestellt von legacy
+Branch-Deploy); Kohorten (`4ahwit-*`, `5ahwit`), `selbststudium/` und
+`lehrplan/` sind raus. Der Navigator `index.html` listet jetzt alle
+`unterricht/`-Lessons (SA + KM5–KM7) und keine Kohorten-/Lehrplan-Links mehr.
+
 **lehrplan Fach-/Zweig-Ebene (#21):** Das `lehrplan/`-Root trägt die
 Fach-Ebene (`METADATA.md`, `RIS/`, `kompetenzmodule/`, `ressourcen-matrix.md`,
 `r4ds-abdeckung.md` — formunabhängig); die Zweig-Ebene `lehrplan/pmm-hwit/`
@@ -15,6 +21,11 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] #27 CLOSED 2026-10-05 — GitHub Pages als Lernplattform: neuer
+      `pages.yml` (rsync von `index.html assets unterricht`, legacy
+      Branch-Deploy abgelöst), `index.html` auf alle `unterricht/`-Lessons
+      umgebaut (SA + KM5–KM7), keine Kohorten-/Lehrplan-Links; README/AGENTS/
+      CONVENTIONS nachgezogen
 - [x] #24 Quiz-Feedback reparieren: `assets/quiz.js` + `assets/theme.js` mit
       `readyState`-Guard (Loader injiziert die Assets asynchron nach
       `DOMContentLoaded`); `CONVENTIONS.md`-Drift (`.erklaerung`/`.hinweis`

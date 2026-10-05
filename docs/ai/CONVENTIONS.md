@@ -115,6 +115,14 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   Klassen-Lektionen). Kohorten-spezifische Aufhol-/Recap-Lektionen dürfen
   direkt in der Zielkohorte entstehen (im README kennzeichnen).
 
+## Lernplattform (GitHub Pages, #27, 2026-10-05)
+- GitHub Pages ist die **Lernplattform**: veröffentlicht wird **nur `unterricht/`**
+  (+ zentrales `assets/` + Navigator `index.html`) über
+  `.github/workflows/pages.yml` (rsync). Kohorten-Ordner (`4ahwit-*`, `5ahwit`),
+  `selbststudium/`, `lehrplan/`, `Unterlagen/` usw. werden **nicht** deployt.
+- Der Root-`index.html` verlinkt ausschließlich `unterricht/`-Lessons (Block je
+  `KM<#>`/`SA`). Neue Lessons werden im selben Commit dort eingetragen.
+
 ## Shared Assets & HTML-Bootstrap (#19, 2026-09-27)
 - **Genau ein** Top-Level-Ordner `assets/` im Repo. Keine eigenen
   `assets/`-Ordner in Kohorten/Workspaces mehr; CSS, JS und Datensätze

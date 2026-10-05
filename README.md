@@ -67,10 +67,11 @@ Die HTML-Seiten laufen über einen **Live-Server** (nicht `file://`):
 ./serve.sh          # → http://localhost:8000/
 ```
 
-Online werden die Seiten über GitHub Pages ausgeliefert (Branch `main`, Root;
-`.nojekyll` aktiv). Die Asset-Pfade werden zur Laufzeit generisch über
-`assets/loader.js` aufgelöst — ohne Repo-Namen, sodass die Struktur auch in
-anderen Repos funktioniert.
+Online werden die Seiten über GitHub Pages ausgeliefert — als **Lernplattform**
+werden dabei **nur** `index.html`, `assets/` und `unterricht/` veröffentlicht
+(`.github/workflows/pages.yml`); Kohorten- und Planungsordner bleiben außen vor.
+Die Asset-Pfade werden zur Laufzeit generisch über `assets/loader.js` aufgelöst
+— ohne Repo-Namen, sodass die Struktur auch in anderen Repos funktioniert.
 
 ### Rechtliche Grundlagen
 
