@@ -149,6 +149,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 
 | Begriff | Bedeutung | Kurzerklärung & Kontext |
 |---|---|---|
+| Arbeitsverzeichnis | Working Directory | Ordner, in dem R Dateien sucht und speichert; mit `getwd()` abfragbar; im RStudio-Projekt = Projektordner; KM7-04 |
 | CDN | Content Delivery Network | reveal.js-Folien laden Bibliotheken via CDN — keine lokale Installation nötig |
 | CRAN | Comprehensive R Archive Network | Offizielles Paket-Repository für R |
 | d/p/q/r | density / probability / quantile / random | R-Funktionsfamilien für Verteilungen (`dnorm`, `pnorm`, `qnorm`, `rnorm`, …); UE 4 (KM7, 4HWIT WS) |
@@ -157,14 +158,18 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | DSL | Domain-Specific Language | Interne Mini-Sprachen in R (Formel-Interface `y ~ x`, ggplot2, dplyr) — via NSE umgesetzt |
 | ggplot2 | — | Visualisierungspaket nach Grammar of Graphics; UE 1 (KM7, 4HWIT WS) |
 | Grammar of Graphics | — | Schichten-Logik hinter ggplot2: Daten + `aes` + `geom` + stats/scales/facets |
+| IDE | Integrated Development Environment | Programmier-Oberfläche zum Schreiben und Ausführen von Code; RStudio ist die R-IDE; KM7-04 |
 | ISLR | An Introduction to Statistical Learning (Buch) | Weiterführende Lektüre (statlearning.com), frei verfügbar |
 | LSR | Learning Statistics with R (Navarro) | Freie Statistik-Lektüre; Anker für Verteilungen/Tests (Kap. 9–16) |
 | ML | Machine Learning | Bewusst **out of scope** (siehe `selbststudium/MISSION.md`) |
 | NSE | Non-Standard Evaluation | Auswertungstrick hinter dplyr & Co. (Ausdrücke werden im Daten-Kontext evaluiert) |
 | palmerpenguins | — | Pinguin-Datensatz (344 Zeilen, 3 Arten) für UE 1–2 und UE 4 (KM7, 4HWIT WS); Lizenz CC0 |
 | Pipe | `%>%` bzw. `\|>` | Verkettet Operationen lesbar von links nach rechts; UE 2 (KM7, 4HWIT WS) |
+| R-Projekt | `.Rproj` | Ordner mit Projektdatei `<name>.Rproj`; Doppelklick öffnet RStudio mit festgelegtem Arbeitsverzeichnis; KM7-04 |
+| R-Skript | — | Datei (`*.R`) mit R-Befehlen, gespeichert und wiederholbar ausführbar (`Ctrl + Enter`); KM7-04 |
 | R4DS | R for Data Science (Wickham, Çetinkaya-Rundel, Grolemund; 2e) | Hauptlektüre der Toolchain; r4ds.hadley.nz; UE 1–3 (KM7, 4HWIT WS) |
-| RStudio | — | IDE für R (Posit) |
+| RStudio | — | IDE für R (Posit); Oberfläche zu R — „erst R, dann RStudio"; KM7-04 |
+| snake_case | — | Namenskonvention: Kleinbuchstaben mit `_` (`mittel_wert`); KM7-04 |
 | tibble | — | Moderner data frame im tidyverse |
 | tidyverse | — | Paketsammlung (ggplot2, dplyr, readr, tidyr, …); UE 1–3 (KM7, 4HWIT WS) |
 | Whole Game | — | R4DS-Didaktik: erst das ganze Spiel erleben (Visualisierung!), dann Details; unser UE-1–3-Prinzip (KM7, 4HWIT WS) |

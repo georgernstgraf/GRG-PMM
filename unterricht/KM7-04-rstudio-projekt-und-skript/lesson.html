@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion KM7-04 — RStudio, Projektordner und das erste Skript</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","quiz.js,theme.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+</head>
+<body>
+
+<header class="meta">
+  <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-pressed="false">Dunkel</button>
+  <span class="kicker">Lektion KM7-04 · Werkzeug &amp; Workflow</span>
+  <h1>Warum ein Skript statt Taschenrechner?</h1>
+  <p class="subtitle">R und RStudio verstehen, ein Projekt anlegen — und
+  den ersten eigenen R-Skript schreiben, der in einem Jahr noch läuft.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>R4DS 2e (englisch): <a href="https://r4ds.hadley.nz/workflow-scripts">Kap. 6
+     — Workflow: scripts and projects</a> und
+     <a href="https://r4ds.hadley.nz/workflow-basics">Kap. 2 — Workflow: basics</a>.
+     Lies beide Kapitel vor der Aufgabe — die Fragen beziehen sich darauf.</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>Eine Kollegin hat <strong>120 Teile</strong> vermessen: drei Maschinen,
+  Sollmaß <strong>10,00 mm</strong>, Toleranz <strong>± 0,15 mm</strong>.
+  Nächste Woche will die Produktionsleitung dieselbe Auswertung noch
+  einmal — mit einer neuen Charge.</p>
+  <p>Mit dem Taschenrechner heißt das: 120 Werte eintippen, Quadrate,
+  Summen, Wurzel — pro Maschine. Und nächste Woche alles von vorn.</p>
+  <p><strong>Muss das sein?</strong> Nein: Es gibt ein Werkzeug, das die
+  Rechnung <em>behält</em> und nächste Woche mit einem Klick wiederholt.</p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+  <p>Das ist das Ergebnis, das du am Ende dieser Doppelstunde selbst
+  erzeugst: ein winziges Projekt, in dem ein Skript die Kennzahlen jeder
+  Maschine ausgibt — reproduzierbar, kommentiert, wiederverwendbar.</p>
+<pre>
+daten |&gt;
+  group_by(maschine) |&gt;
+  summarise(mittel = mean(masse_mm, na.rm = TRUE))
+<span class="cmt"># → # A tibble: 3 × 2
+#   maschine mittel
+# 1 M1        10.0
+# 2 M2         9.98
+# 3 M3        10.1</span>
+</pre>
+  <p>Ein Aufruf, drei Zeilen, fertig. Bis dahin sind es fünf Schritte —
+  und du gehst sie in dieser Lektion selbst.</p>
+</section>
+
+<section>
+  <h2>Schritt 1 — Taschenrechner vs. R</h2>
+  <p>Ein Taschenrechner rechnet <strong>ein</strong> Ergebnis. R rechnet
+  ein <strong>Verfahren</strong> — und das Verfahren ist das, was du
+  abgibst.</p>
+  <table>
+    <tr><th></th><th>Taschenrechner</th><th>R</th></tr>
+    <tr><td>Wiederholen</td><td>Alles neu eintippen</td><td>Skript erneut laufen lassen</td></tr>
+    <tr><td>Nachvollziehen</td><td>Was hast du damals gedrückt?</td><td>Jede Zeile steht in der Datei</td></tr>
+    <tr><td>Wachsen</td><td>120 Werte: machbar — 120 000 nicht</td><td>Gleicher Code, jede Größe</td></tr>
+    <tr><td>Teilen</td><td>Nur das Ergebnis</td><td>Der ganze Weg, prüfbar</td></tr>
+  </table>
+  <div class="callout">
+    <span class="label">Merksatz</span>
+    <p>Der Taschenrechner liefert dir ein Ergebnis. Ein R-Skript liefert
+      dir <em>den Weg</em> — und nur der Weg lässt sich wiederholen,
+      prüfen und begründen. Genau das verlangt die Matura.</p>
+  </div>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">Warum ist ein R-Skript dem Taschenrechner bei einer
+    wiederkehrenden Auswertung überlegen?</p>
+    <label><input type="radio" name="q1" value="0" data-grund="Falsch — R rechnet mit Fließkommazahlen genauso genau wie der Taschenrechner; die Genauigkeit ist nicht der Unterschied."> R rechnet grundsätzlich genauer als der Taschenrechner</label>
+    <label><input type="radio" name="q1" value="1" data-grund="Richtig — das Skript speichert den Rechenweg; dieselbe Auswertung läuft nächste Woche erneut, ohne sie neu einzutippen."> Das gespeicherte Skript wiederholt die ganze Auswertung auf Knopfdruck</label>
+    <label><input type="radio" name="q1" value="2" data-grund="Falsch — R ersetzt den Taschenrechner nicht durch einen anderen Rechenweg; es speichert ihn nur."> R kennt eine Formel, die der Taschenrechner nicht hat</label>
+    <label><input type="radio" name="q1" value="3" data-grund="Falsch — Tippfehler sind kein grundsätzliches Rechenproblem; entscheidend ist, dass Code den Weg festhält."> R verhindert Tippfehler beim Eintippen der Werte</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 2 — R und RStudio sind zwei Dinge</h2>
+  <p>Das ist die häufigste Verwechslung am Anfang: <strong>R</strong> und
+  <strong>RStudio</strong> sind nicht dasselbe.</p>
+  <table>
+    <tr><th></th><th>R</th><th>RStudio</th></tr>
+    <tr><td>Was ist das?</td><td>Die <strong>Sprache</strong> und die Rechen-Engine</td><td>Die <strong>Oberfläche</strong> (IDE) zum Bedienen von R</td></tr>
+    <tr><td>Ohne das andere?</td><td>Läuft auch im Terminal — nur mühsam</td><td>Läuft nicht ohne R</td></tr>
+    <tr><td>Analog</td><td>Der Motor</td><td>Das Cockpit</td></tr>
+  </table>
+  <p>Deshalb gilt beim Installieren: <strong>zuerst R, dann
+  RStudio.</strong> RStudio ist nur das Cockpit — gerechnet wird im
+  Motor. Wer RStudio ohne R startet, sitzt in einem Cockpit ohne Motor.</p>
+  <div class="callout achtung">
+    <span class="label">Installation</span>
+    <p>R von <a href="https://cran.r-project.org/">cran.r-project.org</a>,
+      RStudio Desktop von
+      <a href="https://posit.co/download/rstudio-desktop/">posit.co/download/rstudio-desktop</a>
+      — in dieser Reihenfolge, einmal pro Rechner. Auf den Schul-Laptops
+      steht die Schritt-für-Schritt-Anlage bei deiner Lehrperson bereit.</p>
+  </div>
+
+  <div class="quiz" data-loesung="3">
+    <p class="frage">Du startest RStudio, und es meldet „R not found".
+    Was ist die richtige Erklärung?</p>
+    <label><input type="radio" name="q2" value="0" data-grund="Falsch — die Reihenfolge ist umgekehrt: R ist der Motor, RStudio die Oberfläche, die ihn braucht."> RStudio ist der Motor und benötigt R nur als Anzeige</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Falsch — RStudio ist eine Oberfläche; ohne installiertes R hat sie nichts zu bedienen."> RStudio muss vor R installiert werden, sonst fehlt der Pfad</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Falsch — die beiden Programme sind getrennt; ein Tippfehler erklärt die Meldung nicht."> Die Meldung entsteht durch einen Tippfehler bei der Installation</label>
+    <label><input type="radio" name="q2" value="3" data-grund="Richtig — RStudio ist nur die Oberfläche und braucht die Rechen-Engine R; fehlt R, findet die Oberfläche nichts."> R, die Rechen-Engine, fehlt — RStudio ist nur die Oberfläche</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 3 — Die vier Fenster von RStudio</h2>
+  <p>Wenn du ein Skript öffnest, teilt RStudio das Fenster in vier
+  Bereiche. Jeder hat eine Aufgabe:</p>
+  <table>
+    <tr><th>Fenster</th><th>Aufgabe</th></tr>
+    <tr><td><strong>Editor</strong> (oben links)</td><td>Hier schreibst du dein <strong>Skript</strong> — die Datei, die bleibt.</td></tr>
+    <tr><td><strong>Console</strong> (unten links)</td><td>Hier <strong>rechnet</strong> R. Zeigt Ergebnisse und Fehler. Nichts hier ist dauerhaft.</td></tr>
+    <tr><td><strong>Environment</strong> (oben rechts)</td><td>Welche <strong>Objekte</strong> gerade existieren (Variablen, Daten).</td></tr>
+    <tr><td><strong>Files / Plots</strong> (unten rechts)</td><td>Dateien, Grafiken, Hilfe, Pakete.</td></tr>
+  </table>
+  <div class="callout">
+    <span class="label">Die eine Regel</span>
+    <p>Code steht im <strong>Skript</strong> (Editor), nicht in der
+      Console. Die Console ist zur Kontrolle da — das Skript ist die
+      Quelle der Wahrheit.</p>
+  </div>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage">Wo stehen die Objekte, die R gerade im Speicher
+    hält?</p>
+    <label><input type="radio" name="q3" value="0" data-grund="Richtig — das Environment-Fenster listet alle Objekte, die in der laufenden Sitzung existieren."> Im Environment-Fenster oben rechts</label>
+    <label><input type="radio" name="q3" value="1" data-grund="Falsch — die Console zeigt Ergebnisse und Fehler, aber nicht die Liste der gespeicherten Objekte."> In der Console unten links</label>
+    <label><input type="radio" name="q3" value="2" data-grund="Falsch — der Editor enthält den Skript-Text, nicht den Inhalt des R-Speichers."> Im Editorfenster oben links</label>
+    <label><input type="radio" name="q3" value="3" data-grund="Falsch — das Files-Fenster zeigt Dateien auf der Festplatte, nicht Objekte im Speicher."> Im Files-Fenster unten rechts</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 4 — Ein Projektordner statt Dateichaos</h2>
+  <p>Ein R-Projekt ist einfach <strong>ein Ordner</strong>, den R als
+  Zuhause kennt. In diesem Ordner liegt eine Projektdatei
+  <code>.Rproj</code> — ein Doppelklick darauf öffnet RStudio genau
+  hier, mit dem richtigen Arbeitsverzeichnis.</p>
+<pre>
+pmm-km7-04/
+├── pmm-km7-04.Rproj     <span class="cmt">← Doppelklick öffnet das Projekt</span>
+├── data/
+│   └── betriebsdaten.csv <span class="cmt">← die Messwerte</span>
+├── scripts/
+│   └── analyse.R         <span class="cmt">← dein Skript</span>
+└── output/
+    └── kennzahlen.csv    <span class="cmt">← was R speichert</span>
+</pre>
+  <p>Das <strong>Arbeitsverzeichnis</strong> ist der Ordner, in dem R
+  sucht und speichert. Du fragst es so ab:</p>
+<pre>
+getwd()
+<span class="cmt"># → "…/pmm-km7-04"   (dein Projektordner)</span>
+</pre>
+  <p>Weil das Arbeitsverzeichnis das Projekt ist, schreibst du Pfade
+  <strong>relativ</strong> dazu — ohne Laufwerksbuchstaben, mit
+  Schrägstrich <code>/</code>:</p>
+<pre>
+<span class="cmt"># gut: relativ zum Projekt</span>
+daten &lt;- read_csv("data/betriebsdaten.csv")
+
+<span class="cmt"># schlecht: absolut, funktioniert nur auf deinem Rechner</span>
+daten &lt;- read_csv("C:/Users/Anna/Downloads/betriebsdaten.csv")
+</pre>
+  <div class="callout tipp">
+    <span class="label">Warum kein <code>setwd()</code>?</span>
+    <p>Mit <code>setwd()</code> müsstest du in jedem Skript den Pfad neu
+      setzen — und auf einem anderen Rechner stimmt er nicht. Das
+      Projekt macht das für dich: <strong>öffnen genügt.</strong></p>
+  </div>
+
+  <div class="quiz" data-loesung="2">
+    <p class="frage">Warum schreibt man Pfade im Skript relativ zum
+    Projektordner?</p>
+    <label><input type="radio" name="q4" value="0" data-grund="Falsch — relative Pfade sind nicht kürzer aus Prinzip, sondern weil sie unabhängig vom Speicherort funktionieren."> Relative Pfade sind immer kürzer als absolute</label>
+    <label><input type="radio" name="q4" value="1" data-grund="Falsch — R versteht Schrägstriche auf jedem System; der Grund ist die Portabilität des Projekts."> Relative Pfade laufen nur unter Windows korrekt</label>
+    <label><input type="radio" name="q4" value="2" data-grund="Richtig — ein absoluter Pfad passt nur auf einen Rechner; der relative Pfad funktioniert überall, wo das Projekt liegt."> Weil der Projektordner so auf jedem Rechner funktioniert</label>
+    <label><input type="radio" name="q4" value="3" data-grund="Falsch — auch absolute Pfade findet R, solange er existiert; das Problem ist die Ortsabhängigkeit."> Weil R absolute Pfade nicht lesen kann</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — Das erste Skript</h2>
+  <p>Ein Skript ist eine Datei mit R-Befehlen, die du speicherst und
+  immer wieder ausführst. Drei Dinge musst du kennen:</p>
+  <p><strong>a) Anlegen.</strong> <code>File → New File → R Script</code>
+  (oder <code>Ctrl/Cmd + Shift + N</code>) und unter einem sprechenden
+  Namen speichern, z.&nbsp;B. <code>scripts/analyse.R</code>.</p>
+  <p><strong>b) Ausführen.</strong> Cursor in die Zeile,
+  <code>Ctrl + Enter</code> — die Zeile läuft in der Console. Mit
+  <code>Ctrl + Shift + S</code> läuft das <em>ganze</em> Skript.</p>
+  <p><strong>c) Schreiben.</strong> Zwei Zeichen tragen die ganze Logik:
+  <code>#</code> für einen Kommentar (R ignoriert ihn) und
+  <code>&lt;-</code> für eine Zuweisung („Objekt bekommt Wert").</p>
+<pre>
+<span class="cmt"># analyse.R — Kennzahlen je Maschine</span>
+library(tidyverse)
+
+<span class="cmt"># Messwerte einlesen (relativ zum Projekt)</span>
+daten &lt;- read_csv("data/betriebsdaten.csv")
+
+<span class="cmt"># Kennzahlen je Maschine berechnen</span>
+kennzahlen &lt;- daten |&gt;
+  group_by(maschine) |&gt;
+  summarise(
+    n      = sum(!is.na(masse_mm)),
+    mittel = mean(masse_mm, na.rm = TRUE),
+    s      = sd(masse_mm, na.rm = TRUE)
+  )
+
+kennzahlen
+<span class="cmt"># → # A tibble: 3 × 4
+#   maschine     n mittel      s
+# 1 M1          37  10.0  0.0315
+# 2 M2          39   9.98 0.0400
+# 3 M3          40  10.1  0.0696</span>
+</pre>
+  <p>Lies die Ausgabe wie einen Satz: <em>nimm die Daten → gruppiere
+  nach Maschine → fasse zusammen</em>. M2 liegt unter dem Sollmaß, M3
+  darüber — genau die Frage aus dem Einstieg.</p>
+  <div class="callout">
+    <span class="label">Objektnamen</span>
+    <p>Namen dürfen Buchstaben, Ziffern, <code>_</code> und
+      <code>.</code> enthalten und beginnen mit einem Buchstaben.
+      Konvention: <strong>snake_case</strong>, klein, mit Unterstrich —
+      <code>mittel_wert</code>, nicht <code>MittelWert</code>.
+      Groß- und Kleinschreibung zählt: <code>daten</code> und
+      <code>Daten</code> sind zwei Objekte.</p>
+  </div>
+
+  <div class="quiz" data-loesung="3">
+    <p class="frage">Welche Tastenkombination führt die Zeile aus, in der
+    der Cursor steht?</p>
+    <label><input type="radio" name="q5" value="0" data-grund="Falsch — Ctrl/Cmd+Shift+S führt das ganze Skript aus, nicht nur die aktuelle Zeile."> <code>Ctrl/Cmd + Shift + S</code></label>
+    <label><input type="radio" name="q5" value="1" data-grund="Falsch — Ctrl/Cmd+S speichert die Datei, führt aber keinen Code aus."> <code>Ctrl/Cmd + S</code></label>
+    <label><input type="radio" name="q5" value="2" data-grund="Falsch — Ctrl/Cmd+Shift+N legt ein neues Skript an, führt aber nichts aus."> <code>Ctrl/Cmd + Shift + N</code></label>
+    <label><input type="radio" name="q5" value="3" data-grund="Richtig — mit Ctrl/Cmd+Enter wird die aktuelle Zeile (bzw. Auswahl) in die Console geschickt."> <code>Ctrl/Cmd + Enter</code></label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du!</div>
+  <p>Alles im Skript, Zeile für Zeile mit <code>Ctrl + Enter</code>:</p>
+  <ol>
+    <li><strong>Projekt anlegen.</strong> <code>File → New Project → New
+      Directory → Empty Project</code>, Name <code>pmm-km7-04</code>.
+      Lege darin die Ordner <code>data/</code> und
+      <code>scripts/</code> an und kopiere
+      <code>betriebsdaten.csv</code> nach <code>data/</code>.</li>
+    <li><strong>Vorhersage zuerst.</strong> Öffne ein neues Skript
+      <code>scripts/analyse.R</code>. Schreib <em>vor</em> der
+      Ausführung auf: Welche der drei Maschinen hat den größten
+      Mittelwert — und welche den kleinsten? Führe dann den Code aus
+      Schritt 5 aus.</li>
+    <li><strong>Prüfen.</strong> Gib <code>getwd()</code> aus. Endet die
+      Ausgabe auf <code>pmm-km7-04</code>? Wenn nicht: Ist das Projekt
+      geöffnet (Doppelklick auf die <code>.Rproj</code>-Datei)?</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+
+  <h3>Fehler 1 — Code in der Console statt im Skript</h3>
+<pre>
+2 + 2
+<span class="cmt"># ✗ Ergebnis 4 — aber nach dem Schließen ist alles weg</span>
+</pre>
+  <p>Was du in der Console tippst, ist nach der Sitzung verloren. Alles,
+  was zählt, gehört ins Skript und wird gespeichert.</p>
+
+  <h3>Fehler 2 — Das Projekt ist nicht geöffnet</h3>
+<pre>
+read_csv("data/betriebsdaten.csv")
+<span class="cmt"># ✗ Error: 'data/betriebsdaten.csv' does not exist</span>
+</pre>
+  <p>Die Datei liegt richtig — nur das <strong>Arbeitsverzeichnis</strong>
+  ist ein anderes, weil RStudio ohne Projekt gestartet wurde.
+  <code>getwd()</code> zeigt es. Lösung: Projekt öffnen, nicht RStudio
+  „nackt".</p>
+
+  <h3>Fehler 3 — Absolute Pfade</h3>
+<pre>
+read_csv("C:\\Users\\Anna\\Downloads\\betriebsdaten.csv")
+</pre>
+  <p>Läuft auf Annas Rechner — und nirgendwo sonst. Im Skript immer
+  relativ, mit <code>/</code>. Wer das Skript weitergibt, will, dass es
+  auch dort läuft.</p>
+
+  <h3>Fehler 4 — Skript geändert, aber nicht gespeichert</h3>
+<pre>
+<span class="cmt"># ✗ oben steht neuer Code, ausgeführt wird die alte gespeicherte Fassung</span>
+</pre>
+  <p><code>Ctrl + Shift + S</code> führt die <em>gespeicherte</em>
+  Datei aus. Wenn es sich falsch anfühlt: Tabulator zeigt einen Stern /
+  Punkt am Dateinamen — dann fehlt <code>Ctrl + S</code>.</p>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Baustein</th><th>Wofür</th></tr>
+    <tr><td>R vs. Taschenrechner</td><td>Das Skript speichert den Weg — wiederholbar und prüfbar</td></tr>
+    <tr><td>R vs. RStudio</td><td>R rechnet (Motor), RStudio bedient (Cockpit); erst R, dann RStudio</td></tr>
+    <tr><td>Vier Fenster</td><td>Editor = Skript, Console = rechnen, Environment = Objekte, Files = Dateien</td></tr>
+    <tr><td>Projekt</td><td>Ein Ordner mit <code>.Rproj</code>; bestimmt das Arbeitsverzeichnis</td></tr>
+    <tr><td>Arbeitsverzeichnis</td><td><code>getwd()</code> zeigt es; Pfade immer relativ</td></tr>
+    <tr><td>Skript</td><td><code>#</code> Kommentar, <code>&lt;-</code> Zuweisung, <code>Ctrl + Enter</code> ausführen</td></tr>
+    <tr><td>Namen</td><td>snake_case, beschreibend, Groß-/Kleinschreibung zählt</td></tr>
+  </table>
+  <p><strong>Ausblick:</strong> Du hast ein Projekt, ein Skript und die
+  echten Betriebsdaten — jetzt fehlt nur die Antwort in Bildern. Weiter
+  mit <a href="../SA-01-datenvisualisierung-ggplot/lesson.html">SA-01 —
+  Daten visualisieren (ggplot)</a>, der ersten Auswertung in R.</p>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Richte dein Projekt ein und beantworte die Fragen mit deinem
+  eigenen Skript:
+  <a href="hausaufgabe.md">Aufgabe KM7-04 — RStudio, Projekt und
+  Skripte</a>. Du legst ein RStudio-Projekt an, schreibst
+  <code>scripts/analyse.R</code>, beantwortest die Verständnisfragen zum
+  Arbeitsverzeichnis und reichst Skript plus kurze Erklärung ein.
+  — <strong>Abgabe:</strong> nach Vorgabe deiner Lehrperson.</p>
+</section>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> R4DS 2e,
+  <a href="https://r4ds.hadley.nz/workflow-scripts">Kap. 6 — Workflow:
+  scripts and projects</a> (Hauptlektüre) ·
+  <a href="https://r4ds.hadley.nz/workflow-basics">Kap. 2 — Workflow:
+  basics</a>.</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Zurück zum Überblick: <a href="../SA-00-was-kann-r/praesentation.html">SA-00 —
+  Was kann R?</a> · Weiter: <a href="../SA-01-datenvisualisierung-ggplot/lesson.html">SA-01 —
+  Daten visualisieren</a></p>
+</footer>
+
+</body>
+</html>
