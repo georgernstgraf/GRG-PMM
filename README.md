@@ -3,6 +3,10 @@
 **Prozessmanagement (PMM) — Maturafach der Wirtschaftsingenieure**  
 HTL Spengergasse — Abteilung Technisches Management & Umwelt
 
+> **Lernplattform (GitHub Pages):** <https://georgernstgraf.github.io/GRG-PMM/> —
+> veröffentlicht werden nur die vorbereiteten Lektionen aus
+> [`unterricht/`](./unterricht/) (flache Ordner `<PREFIX>-<NN>-<slug>/` mit `lesson.html`).
+
 ---
 
 ## Beurteilung
