@@ -20,6 +20,9 @@
   --pmm-ok:         #1f6f3f;
   --pmm-warn:       #8a5a00;
   --pmm-tip:        #2a4a8a;
+  /* Lesemaß der Folie: Text/Code/Tabellen laufen nicht mehr randlos,
+     sondern wie die lesson.html-Spalte zentriert mit Seitenweißraum. */
+  --pmm-slide-measure: 1000px;
 }
 
 /* ---------- Box-Modell global reparieren (anti horizontal-scroll) ---------- */
@@ -31,15 +34,21 @@
 .reveal {
   font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Charter,
                Georgia, serif;
-  font-size: 30px;
+  font-size: 32px;
   color: var(--pmm-ink);
 }
 .reveal .slides { text-align: left; }
 
-/* Großzügiger Innenrand pro Folie — dort war previously ~0 */
+/* Schmaler, zentrierter Satzspiegel (vgl. lesson.html, 42rem) mit
+   Innenrand — statt randfüllender 1280px-Breite. */
 .reveal .slides > section,
 .reveal .slides > section > section {
   padding: 0.6em 1.8em;
+  max-width: var(--pmm-slide-measure);
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
 }
 
 .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
@@ -195,5 +204,9 @@
 @media print {
   .reveal { font-size: 16pt; color: #000; }
   .reveal pre { border: 1px solid #ccc; overflow: visible; }
-  .reveal .slides > section { padding: 0.3em 0.8em; }
+  .reveal .slides > section,
+  .reveal .slides > section > section {
+    padding: 0.3em 0.8em;
+    max-width: none;
+  }
 }
