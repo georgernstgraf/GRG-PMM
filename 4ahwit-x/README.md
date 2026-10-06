@@ -2,6 +2,12 @@
 
 ## 2026-10-06__was kann r
 
+- alle Übungen von der Folie selber commiten!
+
+Aufgabe: <https://georgernstgraf.github.io/GRG-PMM/unterricht/SA-01-datenvisualisierung-ggplot/praesentation.html>
+
+Ins persönliche git pushen!
+
 ## 2026-09-22
 
 Heute: HÜ-Kontrolle + Start R-Basics (UE 1).
