@@ -342,3 +342,20 @@ Each entry documents WHAT was decided and WHY.
   für Kohorte x.
 - **Tradeoff**: On-Ramp verzögert den DoE-Start um ~1–2 DS; Quiz-Richtige
   rotieren C/B/A.
+
+## 2026-10-06: Folien-Satzspiegel schmal & zentriert wie die Lektionen (#30)
+
+- **Choice**: `assets/slides.css` begrenzt den reveal.js-Satzspiegel auf
+  `max-width: 1000px` (CSS-Variable `--pmm-slide-measure`), zentriert ihn
+  (`margin-left/right: auto` + `left/right: 0`) und hebt die Grundschrift
+  von 30px auf 32px; Print-Reset `max-width: none`. Der Canvas bleibt pro
+  Datei `1280×800` (`Reveal.initialize`).
+- **Reason**: Die Folien liefen fast randlos über den Beamer (Text/Code/
+  Tabellen bis ~1180px) und wirkten breiter als die `lesson.html`-Seiten
+  (`max-width: 42rem`). Georg wünschte ausdrücklich „so wie die lessons".
+- **Tradeoff**: Größere Schrift + schmalere Spalte erhöhen die Folienhöhe;
+  reveal schrumpft überlaufenden Inhalt nicht (siehe PITFALLS). Werte
+  empirisch auf 32px/1000px getunt (max. Folienhöhe 778px < 800px).
+- **Reichweite**: Eine Änderung an der gemeinsamen `slides.css` wirkt auf
+  alle 11 Präsentationen (`unterricht/KM5-02…KM7-03`, `SA-00…SA-03`) plus
+  die Kohorten-Kopie.

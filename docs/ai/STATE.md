@@ -21,6 +21,11 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] #30 CLOSED 2026-10-06 — Folien-Layout: `assets/slides.css` gibt den
+      reveal.js-Folien einen schmalen, zentrierten Satzspiegel
+      (`--pmm-slide-measure: 1000px`, Grundschrift 32px) wie die
+      `lesson.html`-Seiten; alle 11 Präsentationen + Kohorten-Kopie headless
+      gegen die 800px-Canvas-Höhe geprüft (max. 778px, keine Kürzung).
 - [x] #29 CLOSED 2026-10-06 — Lesson `KM7-04` (RStudio, Projektordner, R-Skripte): neue
       Prepared Lesson (kohortenagnostisch) unter
       `unterricht/KM7-04-rstudio-projekt-und-skript/` — Lektion =

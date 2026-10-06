@@ -154,3 +154,13 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   bloßen `DOMContentLoaded`-Listener:
   `if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", start); } else { start(); }`
   — der Loader injiziert die Skripte asynchron nach dem Parsen (siehe PITFALLS).
+
+## Folien / reveal.js (#30)
+- **Layout zentral in `assets/slides.css`**, nie pro `praesentation.html`.
+  Die Datei hält Grundschrift (32px) und Lesemaß
+  (`--pmm-slide-measure`, 1000px, zentriert, Print-Reset `max-width: none`).
+- Jede `praesentation.html` setzt nur noch Inhalt + `Reveal.initialize({…
+  width: 1280, height: 800 …})` und lädt `slides.css` über den Loader.
+- Zielbild: schmaler, zentrierter Satzspiegel wie `lesson.html` — keine
+  randfüllende Breite. Solche Änderungen immer gegen `height` 800 prüfen
+  (reveal schrumpft nicht, siehe PITFALLS).
