@@ -1,5 +1,7 @@
 # 4AHWIT-X — PMM Unterlagen
 
+## 2026-10-06__was kann r
+
 ## 2026-09-22
 
 Heute: HÜ-Kontrolle + Start R-Basics (UE 1).
