@@ -46,6 +46,10 @@ pro Einheit statt Stücke pro Los"; LR schreiben, `jg3-verlauf.html`
 auf ✅; danach L05 bauen.
 
 ## Erledigt (dieser Zyklus)
+- **GRG-PMM #29:** neue Prepared Lesson `KM7-04` „RStudio, Projektordner
+  und R-Skripte" (kohortenagnostisch, Werkzeug-/Workflow-Grundlage zu KM7,
+  verwandt mit SA-00); `index.html`-Navigator + Glossar nachgezogen;
+  Code gegen `assets/betriebsdaten.csv` per `Rscript` verifiziert.
 - **opencode-helpers #92:** lehrplan-Skill auf Fach-/Zweig-Ebene umgebaut —
   Fach-Ebene am Root (inkl. KM-keyed Ressourcen), Planung in
   `<fach>-<zweig>/`, `unterricht/` ohne Zweig-Fach-Ordner, WMC-Ausnahme

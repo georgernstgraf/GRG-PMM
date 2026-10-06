@@ -21,6 +21,11 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] #29 Lesson `KM7-04` (RStudio, Projektordner, R-Skripte): neue
+      Prepared Lesson (kohortenagnostisch) unter
+      `unterricht/KM7-04-rstudio-projekt-und-skript/` — Lektion =
+      Präsentation, 5 Quizfragen, Lektüre R4DS Kap. 2 + 6; Navigator-
+      Eintrag + Glossar-Begriffe nachgezogen, Code per `Rscript` verifiziert.
 - [x] #28 CLOSED 2026-10-06 — Lernplattform-Link (GitHub Pages) ganz oben ins
       `README.md` (SWP/WMC-Stil); Konvention repo-übergreifend in
       `CONVENTIONS.md` festgehalten.
