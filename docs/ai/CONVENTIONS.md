@@ -122,6 +122,12 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   `selbststudium/`, `lehrplan/`, `Unterlagen/` usw. werden **nicht** deployt.
 - Der Root-`index.html` verlinkt ausschließlich `unterricht/`-Lessons (Block je
   `KM<#>`/`SA`). Neue Lessons werden im selben Commit dort eingetragen.
+- **README-Top-Link (#28, 2026-10-06):** Jedes Unterrichtsrepo verlinkt die
+  Lernplattform ganz oben im Projekt-`README.md` als Blockquote
+  `> **Lernplattform (GitHub Pages):** <URL> — veröffentlicht werden nur die
+  vorbereiteten Lektionen aus [\`unterricht/\`](./unterricht/) …` (Stil GRG-SWP/
+  GRG-WMC; GRG-INFI nutzt eine kompaktere Variante). Gilt repo-übergreifend
+  für alle Unterrichtsrepos, nicht nur GRG-PMM.
 
 ## Shared Assets & HTML-Bootstrap (#19, 2026-09-27)
 - **Genau ein** Top-Level-Ordner `assets/` im Repo. Keine eigenen

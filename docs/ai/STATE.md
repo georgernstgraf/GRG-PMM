@@ -1,6 +1,6 @@
 # Project State
 
-Current status as of 2026-10-04.
+Current status as of 2026-10-06.
 
 ## Current Focus
 **Lernplattform (#27):** GitHub Pages liefert nur noch `index.html`, `assets/`
@@ -21,6 +21,9 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] #28 CLOSED 2026-10-06 — Lernplattform-Link (GitHub Pages) ganz oben ins
+      `README.md` (SWP/WMC-Stil); Konvention repo-übergreifend in
+      `CONVENTIONS.md` festgehalten.
 - [x] #27 CLOSED 2026-10-05 — GitHub Pages als Lernplattform: neuer
       `pages.yml` (rsync von `index.html assets unterricht`, legacy
       Branch-Deploy abgelöst), `index.html` auf alle `unterricht/`-Lessons
