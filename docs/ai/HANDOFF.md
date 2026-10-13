@@ -61,6 +61,11 @@ pro Einheit statt Stücke pro Los"; LR schreiben, `jg3-verlauf.html`
 auf ✅; danach L05 bauen.
 
 ## Erledigt (dieser Zyklus)
+- **GRG-PMM #32:** neue Prepared Lesson `KM7-05` „Rscript und die
+  Kommandozeile" (Terminal, frische Session, `commandArgs()`, Exit-Code,
+  Shebang; Callout „Exit-Code ≠ korrektes Ergebnis"); Navigator + Glossar
+  nachgezogen; Code per `Rscript` verifiziert. Kein Fenster-Recap — das
+  bleibt in KM7-04. Commit `9a37080`.
 - **GRG-PMM #29:** neue Prepared Lesson `KM7-04` „RStudio, Projektordner
   und R-Skripte" (kohortenagnostisch, Werkzeug-/Workflow-Grundlage zu KM7,
   verwandt mit SA-00); `index.html`-Navigator + Glossar nachgezogen;

@@ -373,3 +373,25 @@ Each entry documents WHAT was decided and WHY.
 - **Reichweite**: Eine Änderung an der gemeinsamen `slides.css` wirkt auf
   alle 11 Präsentationen (`unterricht/KM5-02…KM7-03`, `SA-00…SA-03`) plus
   die Kohorten-Kopie.
+
+## 2026-10-13: KM7-05 nur für Rscript statt Werkzeug-Dublette (#32)
+
+- **Choice**: Die Rscript-Thematik wurde als **neue Prepared Lesson**
+  `unterricht/KM7-05-rscript-und-kommandozeile/` gebaut — mit bewusst
+  **keinem** Recap der vier RStudio-Fenster. Console/Editor/Run-Button
+  bleiben vollständig in KM7-04; KM7-05 beginnt mit „Console ist nicht
+  Terminal" und behandelt nur das Ausführen ohne RStudio.
+- **Reason**: Bestands-Check vor dem Bau zeigte, dass die ursprüngliche
+  Verwirrung (Console / geöffnete Dateien / Run-Button) von KM7-04
+  bereits komplett abgedeckt wird (Schritt 3 + 5, Fehler 1) — eine
+  volle Werkzeug-Lesson wäre eine Dublette gewesen. Neu war nur
+  `Rscript`/Terminal/`commandArgs()`/Exit-Code/Shebang (0 Treffer in
+  KM7-04).
+- **Tradeoff**: KM7-05 setzt das KM7-04-Wissen voraus (Rückverweis statt
+  Wiederholung); einzeln gelesen fehlt der Fenster-Kontext. Dafür
+  bleiben beide Lessons in ihrem 90-min-Umfang schlank.
+- **Reichweite**: Neu gelernte/verifizierte Ecken flossen als
+  Lehrstoffe ein: Exit-Code 0 bei `maschine.R M4` (`n = 0, NaN`) als
+  Callout „Exit-Code ≠ korrektes Ergebnis"; `Fatal error: cannot open
+  file` → Exit-Code 2 (falscher Skriptpfad). Glossar: 6 Begriffe
+  (Rscript, Terminal, REPL, Exit-Code, Batch-Ausführung, Shebang).

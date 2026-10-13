@@ -1,6 +1,6 @@
 # Project State
 
-Current status as of 2026-10-06.
+Current status as of 2026-10-13.
 
 ## Current Focus
 **Lernplattform (#27):** GitHub Pages liefert nur noch `index.html`, `assets/`
@@ -21,6 +21,13 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] #32 CLOSED 2026-10-13 — Lesson `KM7-05` (Rscript & Kommandozeile): neue
+      Prepared Lesson unter `unterricht/KM7-05-rscript-und-kommandozeile/` —
+      Lektion = Präsentation, 7 Quizfragen (Rotation 2/0/3/1/2/0/3),
+      7 Schritte (Console vs. Terminal, Rscript, frische Session, `-e`,
+      `commandArgs()`, Exit-Code, Shebang), Callout „Exit-Code ≠ korrektes
+      Ergebnis"; Navigator + 6 Glossar-Begriffe nachgezogen, Code per
+      `Rscript` verifiziert. Bewusst kein Fenster-Recap (steht in KM7-04).
 - [x] 2026-10-12 — Homework-Discovery PMM (PMMx/PMMy/PMM): README-Retrofit
       `## Aufgaben` (erste Sektion) in `4ahwit-x/` (2 Einträge: HÜ-Kontrolle
       22.9., SA-01 Selbststudium 6.10. → Index-Link auf
