@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion KM7-05 — Rscript &amp; die Kommandozeile</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","quiz.js,theme.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+</head>
+<body>
+
+<header class="meta">
+  <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-pressed="false">Dunkel</button>
+  <span class="kicker">Lektion KM7-05 · Ausführen &amp; Automatisieren</span>
+  <h1>Das Skript, das ohne dich läuft</h1>
+  <p class="subtitle">Console, Terminal und <code>Rscript</code> — wie eine
+  Auswertung von der Kommandozeile ausgeführt wird, was der Exit-Code
+  verrät und warum jede Automatisierung darauf aufbaut.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>R4DS 2e (englisch), Pflicht —
+     <a href="https://r4ds.hadley.nz/workflow-scripts">Kap. 6
+     — Workflow: scripts and projects</a>. Das Kapitel kennst du aus
+     KM7-04; hier geht es eine Stufe weiter: dasselbe Skript, aber
+     ausgeführt <em>ohne</em> RStudio-Fenster.</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>Die Auswertung aus der letzten Lektion steht: ein Projekt
+  <code>pmm-km7-04</code>, ein Skript <code>scripts/analyse.R</code>,
+  drei Maschinen-Kennzahlen. Nächste Woche kommt die neue Charge — und
+  die Produktionsleitung will dieselbe Auswertung, aber
+  <strong>automatisch</strong>: nachts nach der Schicht, ohne dass
+  jemand RStudio öffnet, die Datei anklickt und
+  <code>Ctrl + Shift + S</code> drückt.</p>
+  <p>RStudio braucht ein Fenster, eine Maus und dich. Ein Server im
+  Netzwerk hat keins von denen — oft nicht mal einen Bildschirm.</p>
+  <p><strong>Was braucht ein Skript, um ohne dich zu laufen?</strong>
+  Genau dieselbe Frage steckt übrigens hinter diesem Kurs: jedes
+  Code-Beispiel hier wurde vor dem Druck automatisch ausgeführt und
+  geprüft — mit genau dem Werkzeug, das du heute lernst.</p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+  <p>Das ist das Ergebnis, das du am Ende dieser Doppelstunde selbst
+  erzeugst: derselbe Auswertungsbefehl — getippt in ein schwarzes
+  Fenster, ohne dass RStudio überhaupt geöffnet ist.</p>
+<pre>
+$ Rscript scripts/analyse.R
+# A tibble: 3 × 4
+  maschine     n mittel      s
+  &lt;chr&gt;    &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 M1          37  10.0  0.0315
+2 M2          39   9.98 0.0400
+3 M3          40  10.1  0.0696
+</pre>
+  <p>Ein Aufruf, keine Maus, keine offene Datei — die Kennzahlen sind
+  da. Bis dahin sind es sieben Schritte, und du gehst sie in dieser
+  Lektion selbst.</p>
+</section>
+
+<section>
+  <h2>Schritt 1 — Console ist nicht Terminal</h2>
+  <p>In RStudio unten links liegt die <strong>Console</strong> mit dem
+  Prompt <code>&gt;</code>: Dort <em>ist</em> R, du tippst Zeile für
+  Zeile. Daneben gibt es aber ein zweites schwarzes Fenster — das
+  <strong>Terminal</strong>. In RStudio findest du es als eigenen Tab
+  (unten, neben der Console; oder über <code>Tools → Terminal</code>).</p>
+  <p>Das Terminal gehört dem <strong>Betriebssystem</strong> (Linux,
+  Windows, macOS) — es kennt R gar nicht. Seine Aufgabe: Programme
+  starten. Und eines der Programme, die es starten kann, heißt
+  <code>Rscript</code>.</p>
+  <div class="callout">
+    <span class="label">Die eine Regel</span>
+    <p>In der <strong>Console</strong> tippst du R-Befehle. Im
+      <strong>Terminal</strong> tippst du Befehle ans
+      <em>Betriebssystem</em>. Dieselben Wörter bedeuten dort etwas
+      anderes — <code>cd</code>, <code>ls</code> (Windows:
+      <code>dir</code>) sind keine R-Funktionen, und R-Befehle wie
+      <code>mean()</code> versteht das Terminal nicht.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 2 — Rscript: die ganze Datei, kein Prompt</h2>
+  <p><code>Rscript</code> wird zusammen mit R installiert (prüfen:
+  <code>Rscript --version</code> im Terminal). Es macht genau eine
+  Sache: eine <code>.R</code>-Datei <strong>komplett einlesen,
+  komplett ausführen, sich dann beenden</strong>. Kein Prompt
+  <code>&gt;</code>, kein Fenster, keine Rückfragen.</p>
+<pre>
+$ Rscript scripts/analyse.R
+# A tibble: 3 × 4
+  maschine     n mittel      s
+  &lt;chr&gt;    &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 M1          37  10.0  0.0315
+2 M2          39   9.98 0.0400
+3 M3          40  10.1  0.0696
+</pre>
+  <p>Das ist dasselbe Skript aus KM7-04 — nur führt es hier der
+  Terminal-Aufruf aus, nicht <code>Ctrl + Shift + S</code> in RStudio.
+  Das Ergebnis ist identisch, weil derselbe Code auf denselben Daten
+  läuft.</p>
+  <table>
+    <tr><th></th><th>R-Konsole (<code>&gt;</code>)</th><th><code>Rscript</code></th></tr>
+    <tr><td><strong>Verhalten</strong></td><td>wartet auf deine Eingabe</td><td>läuft durch und beendet sich</td></tr>
+    <tr><td><strong>Eingabe</strong></td><td>Zeile für Zeile</td><td>eine ganze Datei</td></tr>
+    <tr><td><strong>Für wen?</strong></td><td>zum Erkunden und Entwickeln</td><td>zum fertigen, wiederholbaren Lauf</td></tr>
+  </table>
+
+  <div class="quiz" data-loesung="2">
+    <p class="frage">Was macht der Befehl <code>Rscript
+    scripts/analyse.R</code> im Terminal?</p>
+    <label><input type="radio" name="q1" value="0" data-grund="Falsch — öffnen und bearbeiten tut der Editor in RStudio; Rscript führt die Datei aus, ohne sie zu öffnen."> Er öffnet das Skript zur Bearbeitung</label>
+    <label><input type="radio" name="q1" value="1" data-grund="Falsch — Rscript ist nicht-interaktiv: es gibt keinen Prompt, es wird nichts angezeigt, das auf Eingabe wartet."> Er startet eine Konsole mit Prompt <code>&gt;</code></label>
+    <label><input type="radio" name="q1" value="2" data-grund="Richtig — Rscript liest die Datei komplett, führt jeden Befehl aus und beendet sich danach selbst."> Er liest die Datei komplett, führt sie aus und beendet sich</label>
+    <label><input type="radio" name="q1" value="3" data-grund="Falsch — anzeigen tut z.B. cat() oder less; Rscript führt den Code aus, er zeigt ihn nicht an."> Er zeigt nur den Inhalt der Datei an</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 3 — Frische Session: die Reproduzierbarkeits-Garantie</h2>
+  <p>Ein Rscript-Lauf startet mit <strong>leerem Environment</strong>.
+  Was in RStudio noch im Speicher lag — Objekte aus dem Herumprobieren,
+  geladene Pakete, eingelesene Daten — existiert hier nicht. Das Skript
+  muss alles selbst mitbringen: <code>library(tidyverse)</code> ganz
+  oben, <code>read_csv(...)</code> für die Daten.</p>
+  <p>Das ist kein Nachteil, sondern die Garantie, die Automatisierung
+  braucht: <strong>gleicher Code + gleiche Daten = gleiches
+  Ergebnis</strong> — unabhängig davon, was vorher auf dem Rechner
+  passiert ist. Man nennt das <strong>Reproduzierbarkeit</strong>.</p>
+  <div class="callout">
+    <span class="label">Praxistest</span>
+    <p>Ein Skript, das automatisiert laufen soll, muss <strong>von
+      null</strong> laufen — so, als hätte der Rechner gerade erst
+      gebootet. Bewährter Test: RStudio ganz schließen, neu öffnen,
+      <code>Ctrl + Shift + S</code>. Läuft es? Dann läuft auch
+      <code>Rscript</code>.</p>
+  </div>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage">Mit welchem Environment startet ein
+    Rscript-Lauf?</p>
+    <label><input type="radio" name="q2" value="0" data-grund="Richtig — leer heißt: nur was im Skript steht (library(), read_csv(), Zuweisungen), existiert während des Laufs."> Leer — es existiert nur, was im Skript steht</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Falsch — Rscript lädt keinen gespeicherten Workspace; genau das wäre das Gegenteil von reproduzierbar."> Mit den Objekten aus der letzten RStudio-Sitzung</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Falsch — installierte Pakete lädt library() im Skript; der Start selbst lädt nichts vor."> Mit allen installierten Paketen vorgeladen</label>
+    <label><input type="radio" name="q2" value="3" data-grund="Falsch — Dateien werden vom Skript mit read_csv() eingelesen; Rscript liest nichts automatisch."> Mit den Daten aus dem <code>data/</code>-Ordner</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 4 — Einzeiler ohne Datei: <code>Rscript -e</code></h2>
+  <p>Manchmal will man keine Datei anlegen, sondern nur eine einzige
+  Sache prüfen. <code>Rscript -e '&lt;Ausdruck&gt;'</code> führt einen
+  Ausdruck direkt aus und beendet sich:</p>
+<pre>
+$ Rscript -e 'mean(c(2, 4, 9))'
+[1] 5
+$ Rscript -e 'cat(2^10, "\n")'
+1024
+</pre>
+  <p>Nützlich für Schnellchecks — und dafür, aus anderen Systemen
+  heraus eine kleine R-Rechnung anzustoßen, ohne eine Datei
+  anzulegen.</p>
+
+  <div class="quiz" data-loesung="3">
+    <p class="frage">Wofür ist die Option <code>-e</code> bei
+    <code>Rscript</code> da?</p>
+    <label><input type="radio" name="q3" value="0" data-grund="Falsch — -e führt aus, es öffnet nichts; Dateien anlegen tut File → New File bzw. dein Editor."> Sie öffnet den Editor mit einer neuen Datei</label>
+    <label><input type="radio" name="q3" value="1" data-grund="Falsch — Umgebungsvariablen des Systems regelt die Shell; -e hat damit nichts zu tun."> Sie setzt die Umgebungsvariablen</label>
+    <label><input type="radio" name="q3" value="2" data-grund="Falsch — Ausgabeformate regeln die Skripte selbst (z.B. mit write_csv); -e betrifft das nicht."> Sie erzwingt die Ausgabe als Excel-Datei</label>
+    <label><input type="radio" name="q3" value="3" data-grund="Richtig — Rscript -e 'AUSDRUCK' führt genau diesen Ausdruck aus und beendet sich, ganz ohne Datei."> Sie führt einen einzelnen Ausdruck aus, ohne Datei</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — Argumente von außen: <code>commandArgs()</code></h2>
+  <p>Ein Skript, das immer nur dieselbe Maschine auswertet, ist halb
+  automatisch. Mit <code>commandArgs(trailingOnly = TRUE)</code> liest
+  das Skript, was beim Aufruf <em>hinter</em> dem Dateinamen steht —
+  so wird aus einem Skript ein Werkzeug mit Parametern:</p>
+<pre>
+<span class="cmt"># maschine.R — Kennzahlen fuer eine Maschine</span>
+<span class="cmt"># Aufruf: Rscript scripts/maschine.R M2</span>
+suppressMessages(library(tidyverse))
+
+args &lt;- commandArgs(trailingOnly = TRUE)
+if (length(args) != 1) stop("Benutzung: Rscript scripts/maschine.R &lt;M1|M2|M3&gt;")
+
+daten &lt;- read_csv("data/betriebsdaten.csv", show_col_types = FALSE)
+
+daten |&gt;
+  filter(maschine == args[1]) |&gt;
+  summarise(
+    n      = sum(!is.na(masse_mm)),
+    mittel = mean(masse_mm, na.rm = TRUE),
+    s      = sd(masse_mm, na.rm = TRUE)
+  )
+</pre>
+  <p>Drei Dinge passieren hier: <code>args[1]</code> ist der erste
+  Aufruf-Parameter (hier der Maschinenname), <code>filter()</code>
+  wählt die passende Maschine aus, und <code>stop()</code> bricht mit
+  einer verständlichen Meldung ab, wenn die Benutzung falsch ist:</p>
+<pre>
+$ Rscript scripts/maschine.R M2
+# A tibble: 1 × 3
+      n mittel      s
+  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1    39   9.98 0.0400
+$ Rscript scripts/maschine.R
+Error: Benutzung: Rscript scripts/maschine.R &lt;M1|M2|M3&gt;
+Execution halted
+</pre>
+  <p>Ein Skript, drei Maschinen — ohne den Code dreimal zu kopieren.
+  Und der fehlende Aufruf-Parameter wird nicht stillschweigend
+  ignoriert, sondern sauber abgefangen.</p>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">Was liefert <code>commandArgs(trailingOnly =
+    TRUE)</code> in <code>maschine.R</code> zurück?</p>
+    <label><input type="radio" name="q4" value="0" data-grund="Falsch — Zeilen zählt nrow(daten); commandArgs liest die Kommandozeile des Aufrufs, nicht die Daten."> Die Anzahl der Zeilen der CSV-Datei</label>
+    <label><input type="radio" name="q4" value="1" data-grund="Richtig — bei Rscript scripts/maschine.R M2 liefert es den Vektor „M2“; das Skript greift mit args[1] darauf zu."> Ein Zeichenvektor mit den Argumenten hinter dem Skriptnamen</label>
+    <label><input type="radio" name="q4" value="2" data-grund="Falsch — die Versionsnummer liefert R.version bzw. Rscript --version; commandArgs hat nichts damit zu tun."> Die Versionsnummer von R</label>
+    <label><input type="radio" name="q4" value="3" data-grund="Falsch — commandArgs kennt nur die Argumente des Aufrufs; von geöffneten Dateien weiß es nichts."> Eine Liste aller geöffneten Dateien</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 6 — Der Exit-Code: was Automatisierung wirklich liest</h2>
+  <p>Wenn ein Programm endet, hinterlässt es der Shell eine Zahl: den
+  <strong>Exit-Code</strong>. <code>0</code> heißt „sauber
+  durchgelaufen", alles andere heißt „da ist etwas schiefgegangen".
+  Genau diese Zahl liest jede Automatisierung — ein nächtlicher Cron-
+  Job entscheidet danach, ob er eine Mail schickt oder still weiter
+  arbeitet.</p>
+<pre>
+$ Rscript -e 'stop("Datei nicht gefunden")'
+Error: Datei nicht gefunden
+Execution halted
+$ echo $?
+1
+</pre>
+  <p>R beendet sich mit Code <code>1</code>; die Shell zeigt ihn mit
+  <code>$?</code> (Linux/macOS). Und wichtig: Nach dem Fehler wird
+  <strong>nichts mehr</strong> ausgeführt — auch nicht der Rest des
+  Skripts.</p>
+  <div class="callout achtung">
+    <span class="label">Exit-Code ≠ korrektes Ergebnis</span>
+    <p>Der Exit-Code sagt nur, dass das Skript <em>lief</em> — nicht,
+      dass das Ergebnis <em>richtig</em> ist. Beispiel:
+      <code>Rscript scripts/maschine.R M4</code> läuft sauber durch
+      (Exit-Code 0), gibt aber <code>n = 0, mittel = NaN</code> aus,
+      weil es M4 in den Daten nicht gibt. Prüfungen wie „gibt es die
+      Maschine überhaupt?" gehören <strong>ins Skript</strong> — z. B.
+      mit <code>stopifnot()</code> oder einer eigenen
+      <code>if</code>-Prüfung.</p>
+  </div>
+
+  <div class="quiz" data-loesung="2">
+    <p class="frage">Ein nächtlicher Automatismus will wissen: War der
+    Lauf erfolgreich? Was liest er?</p>
+    <label><input type="radio" name="q5" value="0" data-grund="Falsch — Ausgabetext ist für Menschen; Maschinen entscheiden nach der Exit-Code-Zahl, nicht nach dem, was gedruckt wurde."> Die letzte Ausgabezeile des Skripts</label>
+    <label><input type="radio" name="q5" value="1" data-grund="Falsch — mit dem Erfolg des Laufs hat die Dateigröße nichts zu tun."> Die Dateigröße der CSV</label>
+    <label><input type="radio" name="q5" value="2" data-grund="Richtig — 0 heißt sauber durchgelaufen, jeder andere Code signalisiert einen Fehler; das ist die vereinbarte Sprache zwischen Programmen."> Den Exit-Code: 0 = Erfolg, alles andere = Fehler</label>
+    <label><input type="radio" name="q5" value="3" data-grund="Falsch — Warnungen ändern den Exit-Code nicht; ein Lauf mit Warnungen endet trotzdem mit 0."> Die Anzahl der gedruckten Warnungen</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 7 — Shebang: das Skript als Programm</h2>
+  <p>Zeile 1 von <code>maschine.R</code> sieht aus wie ein Kommentar,
+  ist aber keiner: <code>#!/usr/bin/env Rscript</code> ist der
+  <strong>Shebang</strong>. Er sagt Linux/macOS: führe diese Datei mit
+  dem Programm <code>Rscript</code> aus. Mit
+  <code>chmod +x scripts/maschine.R</code> wird die Datei ausführbar,
+  und danach genügt:</p>
+<pre>
+$ ./scripts/maschine.R M1
+# A tibble: 1 × 3
+      n mittel      s
+  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1    37   10.0 0.0315
+</pre>
+  <p>Das Skript ist jetzt selbst ein kleines Programm. (Unter Windows
+  funktioniert der Shebang nicht — dort ruft man
+  <code>Rscript</code> direkt auf.)</p>
+  <div class="callout">
+    <span class="label">Historisch: <code>R CMD BATCH</code></span>
+    <p>Der ältere Vorgänger von <code>Rscript</code>; er schreibt eine
+      Protokolldatei <code>.Rout</code>. In alten Unterlagen wirst du
+      ihm begegnen — neuere Skripte benutzen
+      <code>Rscript</code>.</p>
+  </div>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage">Was bedeutet die Zeile
+    <code>#!/usr/bin/env Rscript</code> am Dateianfang?</p>
+    <label><input type="radio" name="q6" value="0" data-grund="Richtig — das ist die Shebang-Zeile: das Betriebssystem (Linux/macOS) startet die Datei mit dem Programm Rscript."> Linux/macOS soll die Datei mit Rscript ausführen</label>
+    <label><input type="radio" name="q6" value="1" data-grund="Falsch — # ist für R zwar ein Kommentar, aber die Shell liest diese Zeile, bevor R sie überhaupt sieht."> R soll die Zeile als Kommentar ignorieren</label>
+    <label><input type="radio" name="q6" value="2" data-grund="Falsch — Zugriffsrechte regelt chmod, nicht der Shebang."> Die Datei darf nur von Administrator:innen gelesen werden</label>
+    <label><input type="radio" name="q6" value="3" data-grund="Falsch — Shebang-Skripte laufen gerade ohne RStudio; RStudio braucht kein Skript, das per Terminal läuft."> Das Skript braucht zwingend RStudio</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du!</div>
+  <p>Alles im Terminal (in RStudio: <code>Tools → Terminal</code> oder
+  der Tab „Terminal"), im Projektordner <code>pmm-km7-04</code>:</p>
+  <ol>
+    <li><strong>Vorhersage zuerst.</strong> Du stehst im Terminal im
+      Projektordner. Was wird <code>Rscript scripts/analyse.R</code>
+      ausgeben — und unterscheidet sich das vom Ergebnis von
+      <code>Ctrl + Shift + S</code>? Schreib die Vorhersage hin, dann
+      führe aus.</li>
+    <li><strong>Einzeiler.</strong> Schätze vor der Ausführung: Was
+      gibt <code>Rscript -e 'cat(mean(1:100), "\n")'</code> aus? Prüfe
+      danach. (Tipp: <code>1:100</code> ist der Vektor 1…100.)</li>
+    <li><strong>Falscher Ordner.</strong> Gehe im Terminal nach Hause
+      (<code>cd ~</code>) und rufe das Skript mit vollem Pfad auf
+      (<code>Rscript ~/pfad/zu/pmm-km7-04/scripts/analyse.R</code>).
+      Welcher Fehler kommt — und welcher Exit-Code? (Die Antwort steht
+      bei den typischen Fehlern, aber versuch es erst selbst.)</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+
+  <h3>Fehler 1 — „Objekt nicht gefunden", obwohl es in RStudio lief</h3>
+<pre>
+Error: object 'daten' not found
+</pre>
+  <p>In RStudio war <code>daten</code> noch im Environment — von den
+  Zeilen davor. Rscript startet <strong>leer</strong>. Lösung: alles,
+  was das Skript braucht, steht <em>in der Datei</em>
+  (<code>library()</code>, <code>read_csv()</code>). Die frische
+  Session erzwingt Skript-Disziplin — genau das ist ihr Sinn.</p>
+
+  <h3>Fehler 2 — Der relative Pfad gilt vom Aufruf-Ordner</h3>
+<pre>
+$ Rscript ~/projekte/pmm-km7-04/scripts/analyse.R
+Error: 'data/betriebsdaten.csv' does not exist
+</pre>
+  <p>Du rufst von zu Hause (<code>~</code>) auf — dann sucht R
+  <code>data/</code> in <code>~</code>, nicht neben dem Skript.
+  Relative Pfade gelten vom <strong>Arbeitsverzeichnis des
+  Aufrufs</strong>, nicht vom Ordner der Skript-Datei. Lösung: erst
+  <code>cd</code> in den Projektordner, dann aufrufen.</p>
+
+  <h3>Fehler 3 — Nach dem Fehler läuft nichts mehr</h3>
+<pre>
+Error: 'data/betriebsdaten.csv' does not exist
+Execution halted
+</pre>
+  <p>Rscript bricht beim ersten Fehler ab. Steht weiter unten im
+  Skript noch Code — z.&nbsp;B. <code>write_csv()</code> der Ergebnisse —
+  wird er <strong>nicht</strong> ausgeführt. In der Automatisierung ist
+  das gewollt: eine halbe Auswertung ist gefährlicher als keine.</p>
+
+  <h3>Fehler 4 — Der Plot landet in <code>Rplots.pdf</code></h3>
+<pre>
+<span class="cmt"># ✗ erwartet: ein Plot-Fenster — gesehen: nichts</span>
+</pre>
+  <p>Nicht-interaktiv gibt es kein Grafikfenster; R schreibt Plots
+  still in <code>Rplots.pdf</code>. In Skripten speicherst du
+  explizit: <code>ggsave("plots/masse.png", p)</code>. Dann weiß die
+  Automatisierung, wo das Bild landet.</p>
+
+  <div class="quiz" data-loesung="3">
+    <p class="frage">Du rufst <code>Rscript
+    /home/ana/projekt/scripts/analyse.R</code> aus deinem Home-Ordner
+    auf und bekommst <code>'data/betriebsdaten.csv' does not
+    exist</code>. Warum?</p>
+    <label><input type="radio" name="q7" value="0" data-grund="Falsch — die Meldung sagt, dass der Pfad nicht gefunden wurde, nicht dass die Datei beschädigt ist."> Die CSV-Datei ist beschädigt</label>
+    <label><input type="radio" name="q7" value="1" data-grund="Falsch — read_csv() funktioniert unter Rscript identisch; hier passt nur der Pfad nicht."> Rscript kann CSV-Dateien nicht einlesen</label>
+    <label><input type="radio" name="q7" value="2" data-grund="Falsch — ein Tippfehler wäre möglich, aber der Grund hier ist der Ordner, aus dem du aufrufst."> Der Dateiname hat einen Tippfehler</label>
+    <label><input type="radio" name="q7" value="3" data-grund="Richtig — data/ wird relativ zum Arbeitsverzeichnis des Aufrufs gesucht, also in deinem Home-Ordner statt im Projekt."> Relative Pfade gelten vom Aufruf-Ordner, nicht vom Skript-Ordner</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Baustein</th><th>Wofür</th></tr>
+    <tr><td>Console vs. Terminal</td><td>Console = R-REPL (Prompt <code>&gt;</code>); Terminal = Betriebssystem, startet Programme</td></tr>
+    <tr><td><code>Rscript</code></td><td><code>.R</code>-Datei komplett ausführen — kein Prompt, beendet sich selbst</td></tr>
+    <tr><td>Frische Session</td><td>Nur was im Skript steht — gleicher Code + Daten = gleiches Ergebnis</td></tr>
+    <tr><td><code>-e</code></td><td>Einzelnen Ausdruck ausführen, ohne Datei</td></tr>
+    <tr><td><code>commandArgs()</code></td><td>Argumente vom Aufruf lesen — ein Skript, viele Einsätze</td></tr>
+    <tr><td>Exit-Code</td><td><code>0</code> = Erfolg, sonst Fehler; nach einem Fehler läuft nichts mehr</td></tr>
+    <tr><td>Shebang</td><td><code>#!/usr/bin/env Rscript</code> + <code>chmod +x</code> → Skript als Programm</td></tr>
+    <tr><td><code>R CMD BATCH</code></td><td>Historischer Vorgänger; schreibt eine <code>.Rout</code>-Protokolldatei</td></tr>
+  </table>
+  <p><strong>Ausblick:</strong> Damit ist der Werkzeugkasten komplett:
+  Projekt, Skript — und jetzt der Automatismus. Genau auf diesem
+  Fundament laufen ab KM8 die <strong>Regelkarten</strong>
+  (<code>qcc</code>): einmal pro Charge automatisch auswerten, Alarm
+  nur, wenn es nötig ist. Für die nächste Auswertungsstufe geht es
+  weiter mit <a href="../SA-01-datenvisualisierung-ggplot/lesson.html">SA-01
+  — Daten visualisieren (ggplot)</a>.</p>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Du machst dein KM7-04-Skript automatisierungstauglich:
+  <code>Rscript</code>-Lauf aus dem Terminal, ein eigenes Skript mit
+  Aufruf-Argumenten und ein bewusst provozierter Fehler mit
+  Exit-Code. Details:
+  <a href="hausaufgabe.md">Aufgabe KM7-05 — Rscript &amp; die
+  Kommandozeile</a>. — <strong>Abgabe:</strong> nach Vorgabe deiner
+  Lehrperson.</p>
+</section>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> R4DS 2e,
+  <a href="https://r4ds.hadley.nz/workflow-scripts">Kap. 6 — Workflow:
+  scripts and projects</a>.</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Zurück zum Überblick: <a href="../SA-00-was-kann-r/praesentation.html">SA-00 —
+  Was kann R?</a> · Zurück: <a href="../KM7-04-rstudio-projekt-und-skript/lesson.html">KM7-04 —
+  RStudio, Projektordner &amp; R-Skripte</a> · Weiter: <a href="../SA-01-datenvisualisierung-ggplot/lesson.html">SA-01 —
+  Daten visualisieren</a></p>
+</footer>
+
+</body>
+</html>
