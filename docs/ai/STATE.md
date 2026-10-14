@@ -1,6 +1,6 @@
 # Project State
 
-Current status as of 2026-10-13.
+Current status as of 2026-10-14.
 
 ## Current Focus
 **Lernplattform (#27):** GitHub Pages liefert nur noch `index.html`, `assets/`
@@ -21,6 +21,16 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] #33 CLOSED 2026-10-14 — Datenquellen-Sammlung für den Statistikunterricht
+      gestartet: neues Top-Level-Verzeichnis `Projekte/datenquellen-statistikunterricht/`
+      (`README.md` + erste Quellen-Datei `quellen/femizid-taeter-nationalitaet.md`)
+      — Recherche zu „Femizid & Täter-Nationalität": Parlamentsanfragen PA 18374/J
+      (PKS 2019–2023, disaggregiert Bundesland × Geschlecht × Alter × Nationalität)
+      und PA 453/J (2024), Statistik-Austria-Prävalenzstudie 2021 (inkl. .ods-OGD),
+      AÖF-Jahreslisten 2019–2025, BMJ-Studie/Koordinierungsstelle/Eurostat/UNODC;
+      alle 24 Links per curl verifiziert (200); Methodik-Kapitel (Nennerproblem,
+      kleine n, Simpson, Operationalisierung) als Unterrichtsanschlüsse.
+      Root-README-Aufbau-Tabelle um `Projekte/` erweitert. Commit `2c59448`.
 - [x] #32 CLOSED 2026-10-13 — Lesson `KM7-05` (Rscript & Kommandozeile): neue
       Prepared Lesson unter `unterricht/KM7-05-rscript-und-kommandozeile/` —
       Lektion = Präsentation, 7 Quizfragen (Rotation 2/0/3/1/2/0/3),

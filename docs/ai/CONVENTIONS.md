@@ -25,6 +25,7 @@ Follow these without question. Do not deviate unless explicitly told.
 - Legal documents: `lehrplan/RIS/` (RIS law-text PDFs only, ISO-date prefix)
 - Knowledge persistence: `docs/ai/`
 - Reference materials: `Unterlagen/`
+- Long-running projects: `Projekte/<slug>/` mit eigener `README.md`; Quellen-/Datensammlungen je Themenfeld als eigene Datei im Unterordner, Schema nach `Projekte/datenquellen-statistikunterricht/` (#33)
 - Class extracts: `lehrplan/pmm-hwit/4HWIT/`, `lehrplan/pmm-hwit/5HWIT/`
 - KM-Steckbriefe (didaktisch): `lehrplan/kompetenzmodule/`
 - Each class folder may have its own `README.md`

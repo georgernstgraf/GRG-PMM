@@ -3,6 +3,25 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-10-14: Datenquellen-Sammlung als eigenes `Projekte/`-Verzeichnis (#33)
+
+- **Choice:** Öffentliche Datenquellen für den Statistikunterricht werden in
+  einem neuen Top-Level-Ordner `Projekte/datenquellen-statistikunterricht/`
+  gesammelt — `README.md` (Zweck, Verzeichnis, Template-Schema) plus **eine
+  Quellen-Datei pro Themenfeld** unter `quellen/<thema>.md`. Erster Eintrag:
+  `femizid-taeter-nationalitaet.md` (Parlamentsanfragen PA 18374/J + PA 453/J,
+  Statistik-Austria-Prävalenzstudie mit .ods-OGD, AÖF-Jahreslisten, BMJ-Studie/
+  Koordinierungsstelle/Eurostat/UNODC + Methodik-Kapitel).
+- **Reason:** Die Sammlung ist ein langfristiges, wachsendes Vorhaben — weder
+  Unterrichtsmaterial einer Einheit (`unterricht/`) noch Referenzmaterial
+  eines Themas (`Unterlagen/`) noch AI-Knowledge (`docs/ai/`). Aus jeder
+  Quellen-Datei kann später eine Lesson werden (create-lesson-Konvention).
+  Methodische Fallstricke (Nennerproblem, kleine n, Simpson-Paradox,
+  Operationalisierung) sind explizit als Unterrichtsstoff dokumentiert.
+- **Tradeoff:** Vierter Top-Level-Ordner neben `lehrplan/`, `unterricht/`,
+  `Unterlagen/` — Abgrenzung: `Projekte/` =Projekt-bezogene, wachsende
+  Ablagen mit eigener README; Root-README-Aufbau-Tabelle wurde nachgezogen.
+
 ## 2026-10-12: Knowledge-Checks ins private T-Repo (`GRG-PMM-T`), nicht ins Unterrichts-Repo (#31)
 
 - **Choice:** Exam- und Lösungsdateien gehören in das private
