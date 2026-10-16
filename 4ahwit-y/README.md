@@ -2,41 +2,19 @@
 
 ## Aufgaben
 
-Kanonische Liste aller Aufgaben — Details im jeweiligen Tagesordner.
-
+- 2026-10-16 unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck -> Aufgabe: ALLE R-Sachen -  die Übungen machen und in Dein Repo einpflegen
 - 2026-09-18: GitHub-User + Repository „PMM" anlegen, Repo-Link mailen (Details im Verlauf unten)
 - 2026-09-25: Betriebsdaten auswerten (mean/median/sd/IQR, pnorm, Histogramm) — Commit im PMM-Repo → [2026-09-25__r-kennzahlen-und-verteilungen/](./2026-09-25__r-kennzahlen-und-verteilungen/)
 - 2026-10-02: sd vs. var & n−1 erklären, Setup fertig, dbinom nachrechnen → [2026-10-02-binomialkoeffizient-pascalsches-dreieck/](./2026-10-02-binomialkoeffizient-pascalsches-dreieck/)
 - 2026-10-09: OpenCode-Prompt „3. Klasse mit R effizienter lösen" (PROMPT.md/ANSWER.md) → [20206-10-09_opencode/](./20206-10-09_opencode/)
+
+- 2026-10-16 unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck
 
 ## 2026-10-02 Wiederholungswünsche
 
 - Konfidenzintervalle (CI) für Mittelwert und Anteilswert, zweiseitig, (einseitig)
 - binomiale Verteilung
 - normalverteilung
-
-## PMM Unterlagen
-
-> Teilung der Klasse 4AHWIT (große Klasse → Kohorten x/y).
-> Gemeinsames Material: `unterricht/` (vorbereitete Einheiten mit
-> `KM<#>`-/`SA`-Präfix) und `lehrplan/pmm-hwit/` (Semesterpläne).
-> Hier liegt kohorten-spezifisches Material und Log.
-
-## Lessons-Übersicht (Bestellzettel für On-demand)
-
-| Nr. | Ziel-UE | Thema | Quelle | Typ | Quiz | Status |
-| ----- | --------- | ------- | -------- | ----- | ------ | -------- |
-| SA-01 | UE 1 (schulautonom, 4HWIT WS) | Datenvisualisierung mit ggplot | schulautonom, R4DS Kap. 1 | Erstkontakt | C | kanonisch unter unterricht/ |
-| SA-02 | UE 2 (schulautonom, 4HWIT WS) | Daten transformieren mit dplyr | schulautonom, R4DS Kap. 3 | Erstkontakt | B | kanonisch unter unterricht/ |
-| SA-03 | UE 3 (schulautonom, 4HWIT WS) | Daten einlesen & deskriptive Statistik | schulautonom, R4DS Kap. 7+10 | Erstkontakt | A | kanonisch unter unterricht/ |
-| 04 | UE 4 (KM7, 4HWIT WS) | R rechnet: Kennzahlen & Verteilungen | KM5, Navarro Kap. 9–10 | Wiederholung | D·C·B·A | live (DS 2026-09-25) |
-
-Nächste freie Nr.: **05** · nächste Quiz-Richtige: **D**.
-
-**Ablage (2026-09-28):** Terminierte Lessons liegen im Datums-Ordner
-`YYYY-MM-DD__thema/` (`lesson.html` + Tages-README). Vorbereitete Lektionen
-liegen kanonisch unter `../unterricht/` (`SA-01…SA-03`); das frühere
-Kohorten-`prepared-lessons/` wurde aufgelöst.
 
 ## 2026-09-18
 
@@ -59,19 +37,3 @@ im terminal mit winget:
 wir haben einen github user angelegt und mit diesem ein Repository erzeugt, name "PMM"
 und an grafg@... den Link zum Repo geschickt.
 
-## Lektionen SA-01–SA-03 (UE 1–3, schulautonome R-Toolchain)
-
-Teach-Workspace als Spiegel von Kohorte x: MISSION, RESOURCES, NOTES.
-Die Lessons liegen kanonisch unter `../unterricht/` (R-Code verifiziert,
-je 1 Quiz, HÜ-Links auf die gemeinsamen Einheiten-Master). Gemeinsame
-Assets: `../assets/`.
-
-- Lektion SA-01 (UE 1, ggplot): `../unterricht/SA-01-datenvisualisierung-ggplot/lesson.html`
-- Lektion SA-02 (UE 2, dplyr): `../unterricht/SA-02-daten-transformieren-dplyr/lesson.html`
-- Lektion SA-03 (UE 3, einlesen & deskriptiv, Betriebsdaten): `../unterricht/SA-03-daten-einlesen-deskriptiv/lesson.html`
-- Hausaufgaben (Master): `../unterricht/SA-01-datenvisualisierung-ggplot/hausaufgabe.md`,
-  `../unterricht/SA-02-daten-transformieren-dplyr/hausaufgabe.md`,
-  `../unterricht/SA-03-daten-einlesen-deskriptiv/hausaufgabe.md`
-
-**Pflegeregel:** Kohorte x ist der Master — Korrekturen immer zuerst in
-`4ahwit-x/` einpflegen, dann nach `4ahwit-y/` spiegeln.
