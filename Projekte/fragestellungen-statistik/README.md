@@ -19,6 +19,8 @@ Erstellt: 2026-10-19
 |---|---|
 | `km7.md` | Fragestellungen KM7 (4HWIT, WS) |
 | `km9a.md` | Fragestellungen KM9a (5HWIT, WS) |
+| `klima-klimawandel.md` | Themenfile Klima/Klimaerwärmung (Trend-Regression, lokal vs. global) |
+| `corona-impfmythen.md` | Themenfile Impfungen/Corona-Mythen (Übersterblichkeit, Base-Rate, Simpson) |
 | `daten/<name>.csv` | kuratierte Datensätze |
 | `daten/<name>.md` | Metadaten je Datensatz (Quelle, Lizenz, Stand, R-Einlesen) |
 | `daten/_index/datasets.csv` | Rdatasets-Katalog (~3.600 Datensätze) als Suchkatalog |
@@ -35,7 +37,10 @@ Erstellt: 2026-10-19
 3. **Eurostat** (<https://ec.europa.eu/eurostat>) — API
    (`…/statistics/1.0/data/<code>?lang=EN&format=JSON&…`) oder eleganter das
    [`eurostat`-R-Paket](https://cran.r-project.org/package=eurostat);
-   EU-Vergleiche für Umwelt-/Energie-Blöcke.
+   EU-Vergleiche für Umwelt-/Energie-/Demografie-Blöcke.
+4. **Our World in Data** (<https://github.com/owid/covid-19-data>) —
+   kuratierte COVID-/Gesundheits-/Klimadaten (CC BY 4.0); Gesamtsatz
+   98 MB → nur Länderschnitte kuratieren; Grapher-Per-Chart-CSVs sind klein.
 
 ## Format einer Fragestellung
 
@@ -57,4 +62,4 @@ Erstellt: 2026-10-19
 - **Lizenzen:** Rdatasets spiegelt Paket-Daten — Lizenz pro Paket prüfen
   (steht in den Doku-Links); Statistik Austria/Eurostat: CC BY 4.0
   (Namensnennung, auch im Unterricht gut vorbildlich).
-- KeinDatensatz ohne `Rscript`-Einlese-Check ins Repo.
+- Kein Datensatz ohne `Rscript`-Einlese-Check ins Repo.
