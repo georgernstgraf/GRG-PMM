@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion SA-04 — Daten einlesen II: die raue Wirklichkeit</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","quiz.js,theme.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+</head>
+<body>
+
+<header class="meta">
+  <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-pressed="false">Dunkel</button>
+  <span class="kicker">Lektion SA-04 · Daten einlesen II</span>
+  <h1>Die Datei, die nicht mitspielt</h1>
+  <p class="subtitle">Semikolon statt Komma, Titelzeilen über der
+  Tabelle, <code>***</code> statt Leerstellen, Excel mit Stolpersteinen —
+  wie echte Dateien aus der freien Wildbahn wirklich aussehen und wie du
+  sie mit <code>readr</code> und <code>readxl</code> sicher einliest.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>R4DS 2e (englisch), Pflicht —
+     <a href="https://r4ds.hadley.nz/data-import">Kap. 7 — Data
+     import</a>: dort stehen alle Einlese-Argumente, die wir heute
+     brauchen. Für Excel zusätzlich freiwillig
+     <a href="https://r4ds.hadley.nz/spreadsheets">Kap. 21 —
+     Spreadsheets</a>.</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>In SA-03 war die Welt noch freundlich:
+  <code>assets/betriebsdaten.csv</code> — Komma als Trennzeichen, Kopfzeile
+  in Zeile 1, <code>read_csv()</code> lief in drei Sekunden durch.</p>
+  <p>Heute holen wir <strong>echte Daten aus der freien Wildbahn</strong>:
+  die globale Temperaturreihe der NASA (GISTEMP), die österreichische
+  Verurteilungsstatistik (Statistik Austria) und eine Excel-Datei aus der
+  Werkstatt. Und auf einmal läuft <em>nichts</em> mehr: R meldet
+  Parsing-Probleme, die Jahresspalte ist plötzlich Text, und die
+  Statistik-Austria-Datei scheint „nur eine einzige Spalte" zu haben.</p>
+  <p><strong>Was macht Dateien „gemein" — und wie bringst du jede
+  davon trotzdem sicher nach R?</strong> Genau das ist der Alltag jeder
+  Datenauswertung: niemals sind die Daten so sauber, wie man sie
+  gerne hätte.</p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+  <p>Das steht am Ende der Doppelstunde in deiner Console — dieselben
+  NASA-Daten, aber sauber eingelesen: Jahr und Anomalie als Zahlen,
+  fehlende Werte als echte <code>NA</code>, bereit zum Plotten:</p>
+<pre>
+&gt; anomalie
+# A tibble: 4 × 2
+   jahr anomalie
+  &lt;dbl&gt;    &lt;dbl&gt;
+1  2022     0.89
+2  2023     1.17
+3  2024     1.28
+4  2025     1.18
+</pre>
+  <p>Und im zweiten Teil: aus einer „hässlichen" Excel-Datei dieselben
+  Maschinen-Kennzahlen wie in SA-03 — obwohl zwei Messungen ausgefallen
+  sind und die Datei ein Extra-Sheet voller Notizen hat.</p>
+</section>
+
+<section>
+  <h2>Schritt 1 — Erst hinschauen, dann einlesen</h2>
+  <p>Der wichtigste Trick heute kostet eine Zeile: <em>lies die ersten
+  Zeilen der Datei als Text</em>, bevor du irgendetwas anderes tust.</p>
+<pre>
+readLines("daten/gistemp_roh.csv", n = 2)
+#&gt; [1] "Land-Ocean: Global Means"
+#&gt; [2] "Year,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec,J-D,D-N,DJF,MAM,JJA,SON"
+</pre>
+  <p>Zwei Zeilen Text verraten dir vier Dinge, die du vor dem Einlesen
+  wissen musst:</p>
+  <table>
+    <tr><th>Was du siehst</th><th>Was es bedeutet</th><th>Dein Argument</th></tr>
+    <tr><td>Zeile 1 ist ein Titel, keine Kopfzeile</td><td>Preamble — die Datei wurde für Menschen exportiert</td><td><code>skip = 1</code></td></tr>
+    <tr><td>Werte durch Beistrich getrennt</td><td>Komma-CSV</td><td><code>read_csv()</code></td></tr>
+    <tr><td><code>***</code> taucht statt Zahlen auf</td><td>NA-Marker des Hauses NASA</td><td><code>na = "***"</code></td></tr>
+    <tr><td><code>-.19</code> statt <code>-0.19</code></td><td>Zahl ohne führende Null — R-Parsing verträgt das</td><td>nichts nötig</td></tr>
+  </table>
+  <p>Wenn du <code>readLines()</code> überspringst, findest du jedes der
+  vier Probleme später trotzdem — dann nur als verwirrende Fehlermeldung
+  statt als Klartext.</p>
+</section>
+
+<section>
+  <h2>Schritt 2 — Preamble: <code>skip = 1</code></h2>
+  <p>Was passiert wohl, wenn wir die NASA-Datei naiv einlesen — ohne
+  Rücksicht auf die Titelzeile? Rate einmal, dann führe aus:</p>
+<pre>
+g &lt;- read_csv("daten/gistemp_roh.csv")
+#&gt; Warning: One or more parsing issues, call `problems()` on your data frame for details
+</pre>
+  <p>Kein harter Fehler — aber ein Warnsignal. R hat Zeile 1 als
+  Kopfzeile genommen („Land-Ocean: Global Means" — eine einzige Spalte!),
+  und ab Zeile 2 passen dann 18 Felder nicht in eine Spalte. Die
+  Meldung <code>problems()</code> zeigt dir genau das.</p>
+  <p>Die Lösung: die Preamble überspringen, die echte Kopfzeile liegt
+  in Zeile 2:</p>
+<pre>
+g &lt;- read_csv("daten/gistemp_roh.csv", skip = 1)
+#&gt; Spalten: Year Jan Feb Mar … J-D D-N DJF MAM JJA SON
+</pre>
+  <p>Jetzt stimmen die 19 Spaltennamen. Fertig? Nicht ganz — der nächste
+  Stolperstein wartet schon.</p>
+
+  <div class="quiz" data-loesung="2">
+    <p class="frage">Was passiert beim naiven <code>read_csv()</code>
+    ohne <code>skip</code> mit der NASA-Datei, deren erste Zeile
+    „Land-Ocean: Global Means" ist?</p>
+    <label><input type="radio" name="q1" value="0" data-grund="Falsch — der Import bricht nicht ab; read_csv liest weiter und meldet nur Parsing-Probleme per Warnung."> R bricht mit einem harten Fehler ab</label>
+    <label><input type="radio" name="q1" value="1" data-grund="Falsch — genau umgekehrt: die Titelspalte wird Kopfzeile, und die 18 Felder der Datenzeilen passen nicht hinein."> Die 18 Datenspalten werden sauber benannt</label>
+    <label><input type="radio" name="q1" value="2" data-grund="Richtig — die Titelzeile wird als einzige Kopfzeile gelesen; die vielen Felder pro Datenzeile lösen Parsing-Probleme aus."> Eine einzige Spalte mit Parsing-Problemen</label>
+    <label><input type="radio" name="q1" value="3" data-grund="Falsch — überspringen tut nur skip (oder comment); ohne Argument nimmt read_csv Zeile 1 als Kopfzeile."> Die Titelzeile wird automatisch übersprungen</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 3 — <code>***</code> und der schleichende Typen-Fehler</h2>
+  <p>Kontrolliere nach jedem Einlesen die Spaltentypen — zum Beispiel
+  die Jahresanomalie in <code>J-D</code>:</p>
+<pre>
+class(g$`J-D`)
+#&gt; [1] "character"
+</pre>
+  <p><strong>Text!</strong> Obwohl die Spalte fast nur Zahlen enthält.
+  Der Grund: frühe Jahre haben statt DJF-Werten den Marker
+  <code>***</code> („gibt es nicht"), und ein einziger Textwert macht
+  die ganze Spalte zum Text. Das ist der <em>gefährlichste</em> Fehler
+  von heute, weil er <em>keine</em> Warnung produziert: Mittelwerte
+  liefern später einfach <code>NA</code>, ohne dass R etwas sagt.</p>
+  <p>readr kann den Marker beim Einlesen als fehlenden Wert deklarieren
+  — <code>na</code> nimmt mehrere Zeichen entgegen:</p>
+<pre>
+g &lt;- read_csv("daten/gistemp_roh.csv", skip = 1, na = "***")
+class(g$`J-D`)
+#&gt; [1] "numeric"
+sum(is.na(g$`J-D`))
+#&gt; [1] 1
+</pre>
+  <p>Nur noch <em>eine</em> echte Lücke — das laufende Jahr, das noch
+  nicht abgeschlossen ist. Solche Lücken gehören nicht weggefiltert,
+  sondern benannt; <code>drop_na()</code> nimmt sie für die Auswertung
+  aus dem Datensatz:</p>
+<pre>
+anomalie &lt;- g |&gt;
+  select(jahr = Year, anomalie = `J-D`) |&gt;
+  drop_na(anomalie)
+anomalie |> filter(jahr &gt;= 2022)
+#&gt; # A tibble: 4 × 2
+#&gt;    jahr anomalie
+#&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1  2022     0.89
+#&gt; 2  2023     1.17
+#&gt; 3  2024     1.28
+#&gt; 4  2025     1.18
+</pre>
+  <p>Damit ist die NASA-Reihe startklar — und du hast zwei der vier
+  Gemeinheiten aus Schritt 1 sicher entschärft.</p>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage">Die Jahresspalte <code>J-D</code> kommt nach
+    <code>skip = 1</code> als <code>character</code> statt
+    <code>numeric</code> zurück. Woran liegt das?</p>
+    <label><input type="radio" name="q2" value="0" data-grund="Richtig — ein einziger Textwert wie der NA-Marker *** zwingt readr, die ganze Spalte als Text zu lesen; na = &quot;***&quot; behebt es."> An den ***-Markern, die als Text in der Spalte stehen</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Falsch — Zahlen ohne führende Null wie -.19 parst R problemlos als Zahl; sie erzwingen keinen Texttyp."> An Zahlen wie -.19 ohne führende Null</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Falsch — die Kopfzeile benennt die Spalte nur; über den Spaltentyp entscheidet der Inhalt der Zellen, nicht der Name."> Am Spaltennamen J-D mit Bindestrich</label>
+    <label><input type="radio" name="q2" value="3" data-grund="Falsch — die Preamble-Zeile ist längst übersprungen; sie liegt gar nicht mehr in den Daten."> An der Preamble-Zeile, die noch mitgelesen wird</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+<section>
+  <h2>Schritt 4 — Semikolon: <code>read_csv2()</code> und das Komma-Dezimal</h2>
+  <p>Nächster Download: die Verurteilungsstatistik von Statistik Austria
+  (Open-Data-Portal, Datei <code>OGD_krimi001_KRIMI_1.csv</code>).
+  <code>readLines()</code> — du kennst ja inzwischen das Ritual:</p>
+<pre>
+readLines("daten/OGD_krimi001_KRIMI_1.csv", n = 2)
+#&gt; [1] "C-A10-0;C-KRIMEA9-0;F-KRIM-1"
+#&gt; [2] "A10-2012;KRIMEA9-1;14383"
+</pre>
+  <p>Kein Preamble-Titel, aber ein anderer Trenner:
+  <strong>Semikolon</strong>. Der ist in Österreich und Deutschland
+  Standard, weil das Komma ja als <em>Dezimaltrennzeichen</em> gebraucht
+  wird (10,02 mm). Genau dafür gibt es eine eigene Funktion:</p>
+<pre>
+k &lt;- read_csv2("daten/OGD_krimi001_KRIMI_1.csv")
+#&gt; ℹ Using "','" as decimal and "'.'" as grouping mark.
+#&gt; # A tibble: 280 × 3
+#&gt;   `C-A10-0` `C-KRIMEA9-0` `F-KRIM-1`
+#&gt;   &lt;chr&gt;     &lt;chr&gt;              &lt;dbl&gt;
+#&gt; 1 A10-2012  KRIMEA9-1          14383
+#&gt; 2 A10-2012  KRIMEA9-2           1261
+</pre>
+  <p><code>read_csv2()</code> ist der „europäische" Bruder von
+  <code>read_csv()</code>: Semikolon als Trenner, Komma als Dezimal-
+  und Punkt als Gruppierungszeichen. Wer hier <code>read_csv()</code>
+  nimmt, bekommt statt drei Spalten <em>eine</em> einzige voller Text —
+  der dritte Klassiker von heute.</p>
+  <p>Was macht die Meldung unter dem Einlesen? Sie nennt dir die
+  <em>Locale</em> — die Ländereinstellung, die Dezimal- und Gruppierungs-
+  zeichen festlegt. Die passt auch in die andere Richtung: eine
+  österreichische Datei mit Punkt-Dezimalen liest man mit expliziter
+  Locale:</p>
+<pre>
+read_csv2(I("maschine;masse_mm\nM1;10.02\nM1;9.92\n"),
+          locale = locale(decimal_mark = "."))
+#&gt; # A tibble: 2 × 2
+#&gt;   maschine masse_mm
+#&gt;   &lt;chr&gt;      &lt;dbl&gt;
+#&gt; 1 M1         10.0
+#&gt; 2 M1          9.92
+</pre>
+  <p>(Mit <code>I()</code> sagst du readr: das ist buchstäblich ein
+  Daten-Text, kein Dateiname — praktisch für Mini-Tests genau wie
+  hier.)</p>
+
+  <div class="quiz" data-loesung="3">
+    <p class="frage">Deine Kollegin liest die Statistik-Austria-Datei
+    mit <code>read_csv()</code> ein und behauptet danach, die Datei
+    enthalte „nur eine Spalte voller Text". Was ist passiert?</p>
+    <label><input type="radio" name="q3" value="0" data-grund="Falsch — leere Dateien oder Zeilen meldet R anders; hier kommen alle 280 Zeilen an, nur in einer einzigen Spalte zusammengeklebt."> Die Datei ist leer oder unvollständig</label>
+    <label><input type="radio" name="q3" value="1" data-grund="Falsch — die Kodierung UTF-8 ist hier in Ordnung; sie ändert nichts an der Zahl der Spalten."> Eine falsche Zeichenkodierung hat alles zerstört</label>
+    <label><input type="radio" name="q3" value="2" data-grund="Falsch — Kopfzeilen mit Bindestrichen liest R problemlos; sie zwingen nur Backticks bei der Auswahl ab."> Die Spaltennamen mit Bindestrichen haben R verwirrt</label>
+    <label><input type="radio" name="q3" value="3" data-grund="Richtig — read_csv teilt an Kommas; da die Datei Semikolons als Trenner nutzt, bleibt jede Zeile ein einziger Textbrocken in einer Spalte."> read_csv trennt an Kommas — die Datei trennt aber an Semikolons</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — Excel: Sheets, Leerzeichen und „n. gemessen"</h2>
+  <p>CSV war noch die freundliche Variante. Jetzt:
+  <code>betriebsdaten_licht.xlsx</code> — dieselben Maschinendaten wie
+  in SA-03, nur eben aus dem echten Büroalltag: als Excel, mit einem
+  Notizen-Sheet und zwei ausgefallenen Messungen.</p>
+  <p>Auch hier gilt: <strong>erst hinschauen</strong>. Bei Excel heißt
+  das: Welche Sheets gibt es überhaupt?</p>
+<pre>
+excel_sheets("daten/betriebsdaten_licht.xlsx")
+#&gt; [1] "Notizen"   "Messwerte"
+</pre>
+  <p>Das erste Sheet ist <em>nicht</em> die Tabelle! Wer ohne
+  <code>sheet</code>-Angabe einliest, bekommt still die Notizen —
+  kein Fehler, einfach die falschen Daten. Also immer das Sheet
+  nennen:</p>
+<pre>
+b &lt;- read_excel("daten/betriebsdaten_licht.xlsx", sheet = "Messwerte")
+b
+#&gt; # A tibble: 120 × 3
+#&gt;   Maschine Charge `Masse in mm`
+#&gt;   &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt;
+#&gt; 1 M1         101 10
+#&gt; 2 M1         101 10.02
+#&gt; 3 M1         101 9.92
+</pre>
+  <p>Zwei Gemeinheiten auf einen Schlag:</p>
+  <ul>
+    <li>Der Spaltenname <code>Masse in mm</code> enthält Leerzeichen —
+    in R erreichst du sie nur mit Backticks: <code>b$`Masse in mm`</code>.
+    Für saubere Arbeit: <code>rename(masse_mm = `Masse in mm`)</code>.</li>
+    <li>Die Spalte ist wieder <code>character</code>! In dieser Datei
+    sind zwei Messungen ausgefallen; in den Zellen steht
+    „n. gemessen", und schon ist die ganze Spalte Text. Genau wie bei
+    den <code>***</code> der NASA — nur mit anderem Marker.</li>
+  </ul>
+  <p>Und genauso lautet die Lösung: den Marker beim Einlesen als NA
+  deklarieren, dann den Rest in Zahlen verwandeln:</p>
+<pre>
+b &lt;- read_excel("daten/betriebsdaten_licht.xlsx",
+                sheet = "Messwerte", na = "n. gemessen") |&gt;
+  mutate(`Masse in mm` = as.numeric(`Masse in mm`))
+
+b |&gt; group_by(Maschine) |&gt;
+  summarise(n = sum(!is.na(`Masse in mm`)),
+            mittel = mean(`Masse in mm`, na.rm = TRUE))
+#&gt; # A tibble: 3 × 3
+#&gt;   Maschine     n mittel
+#&gt;   &lt;chr&gt;    &lt;int&gt;  &lt;dbl&gt;
+#&gt; 1 M1          37  10.0
+#&gt; 2 M2          39   9.98
+#&gt; 3 M3          38  10.1
+</pre>
+  <p>Vergleiche mit SA-03: M3 hatte dort <code>n = 40</code> — heute
+  fehlen zwei Messungen, <code>n = 38</code>. Die Kennzahl hat sich
+  geändert, <em>weil die Datenbasis ehrlicher geworden ist</em>: zwei
+  Messungen gab es schlicht nicht. Fehlende Werte sind keine
+  Peinlichkeit, sondern Information — solange man sie sichtbar
+  behandelt statt heimlich mitzuzählen.</p>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">In der Excel-Datei steht in zwei Zellen der
+    Messwert-Spalte „n. gemessen". Was ist der sauberste Weg, die
+    Spalte als Zahlen mit echten <code>NA</code> zu bekommen?</p>
+    <label><input type="radio" name="q4" value="0" data-grund="Falsch — als Text gelesen bleiben die Werte „10.02“ &amp; Co. Text; ein Mittelwert ergäbe NA statt 10.0."> Zuerst normal einlesen, nichts weiter tun — Text genügt für mean()</label>
+    <label><input type="radio" name="q4" value="1" data-grund="Richtig — na = &quot;n. gemessen&quot; macht beim Einlesen echte NA daraus, as.numeric() verwandelt den Rest der Textspalte in Zahlen."> na = "n. gemessen" beim Einlesen, danach as.numeric()</label>
+    <label><input type="radio" name="q4" value="2" data-grund="Falsch — skip springt Zeilen am Anfang über; hier stehen die Marker mitten in der Spalte, nicht in einer eigenen Zeile."> skip = 2 angeben, um die Markerzeilen zu überspringen</label>
+    <label><input type="radio" name="q4" value="3" data-grund="Falsch — Notizen wechseln zu lassen hilft nichts; das Problem liegt in der Messwerte-Spalte, nicht im falschen Sheet."> Das Notizen-Sheet einlesen und dort die Werte nachschlagen</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 6 — Kodierte Dateien: Joins statt Raten</h2>
+  <p>Zurück zur Verurteilungsstatistik. Schau noch einmal auf die
+  Spaltennamen: <code>C-A10-0</code>, <code>C-KRIMEA9-0</code>,
+  <code>F-KRIM-1</code>. Kein Mensch liest daraus „Jahr, Gerichts-
+  sprengel, Anzahl". Amtsstatistik exportiert <em>Codes</em> — die
+  Übersetzung steckt in separaten <strong>Dimensions-Dateien</strong>,
+  die zum selben Datensatz gehören:</p>
+<pre>
+readLines("daten/OGD_krimi001_KRIMI_1_C-KRIMEA9-0.csv", n = 3)
+#&gt; [1] "code;name;;en_name;de_desc;de_link;en_desc;en_link;de_syn;en_syn"
+#&gt; [2] "KRIMEA9-1;LG für Strafsachen Wien;KRIMJ93-1;Regional court district of Vienna;;;;;"
+#&gt; [3] "KRIMEA9-2;LG Eisenstadt;KRIMJ93-1;Regional court district of Eisenstadt;;;;;"
+</pre>
+  <p>Dasselbe Spiel wie beim Femizid-Datensatz aus KM7: Die Daten-
+  tabelle enthält die Zahlen, die Dimensions-Datei die Klartexte —
+  und <code>left_join()</code> aus SA-02 klebt sie zusammen:</p>
+<pre>
+jahr_dim &lt;- read_csv2("daten/OGD_krimi001_KRIMI_1_C-A10-0.csv") |&gt;
+  mutate(jahr = as.integer(str_sub(code, 5)))
+
+sprengel &lt;- read_csv2("daten/OGD_krimi001_KRIMI_1_C-KRIMEA9-0.csv") |&gt;
+  filter(str_starts(code, "KRIMEA9")) |&gt;
+  select(gericht_code = code, gericht = name, olg = FK)
+
+delikte &lt;- k |&gt;
+  left_join(jahr_dim |> select(code, jahr),
+            by = c("C-A10-0" = "code")) |&gt;
+  left_join(sprengel, by = c("C-KRIMEA9-0" = "gericht_code")) |&gt;
+  select(jahr, gericht, olg, delikte = `F-KRIM-1`)
+
+delikte |> filter(jahr == 2024, str_detect(gericht, "Wien"))
+#&gt; # A tibble: 2 × 4
+#&gt;    jahr gericht                 olg       delikte
+#&gt;   &lt;int&gt; &lt;chr&gt;                   &lt;chr&gt;       &lt;dbl&gt;
+#&gt; 1  2024 LG für Strafsachen Wien KRIMJ93-1   11510
+#&gt; 2  2024 LG Wiener Neustadt      KRIMJ93-1    2514
+</pre>
+  <p>Ein Achtung noch, bevor du Summen bildest: Die Tabelle enthält
+  auch <strong>Aggregatzeilen</strong> — OLG-Summen (Codes
+  <code>KRIMJ93-*</code>) und eine „Nicht klassifizierbar"-Zeile.
+  Wer die mit draufaddiert, zählt Delikte doppelt. Prüfe Ausprägungen
+  <em>immer</em> mit <code>count()</code> oder <code>table()</code>,
+  bevor du <code>sum()</code> vertraust — im Amts-Excel beginnt
+  Sicherheit mit Misstrauen.</p>
+
+  <div class="quiz" data-loesung="2">
+    <p class="frage">Warum stehen in der Datentabelle Codes wie
+    <code>KRIMEA9-7</code> statt „LG Linz", und woher weiß R die
+    Klartexte?</p>
+    <label><input type="radio" name="q5" value="0" data-grund="Falsch — R kann Codes nicht selbst auflösen; ohne Dimensions-Datei bleibt KRIMEA9-7 ein bedeutungsloser String."> R übersetzt die Codes automatisch aus dem Internet</label>
+    <label><input type="radio" name="q5" value="1" data-grund="Falsch — auf Rätsel verzichtet Amtsstatistik bewusst: Codes sind stabil, sprachneutral und maschinenlesbar — deshalb der Join-Weg."> Die Statistiker wollten Rätsel aufgeben, Text gäbe es nicht</label>
+    <label><input type="radio" name="q5" value="2" data-grund="Richtig — Codes sind eindeutig und unabhängig von Sprachen; die Klartexte kommen per left_join() aus der Dimensions-Datei des Datensatzes."> Codes sind stabiler und mehrsprachig — Klartexte liefert der Join mit der Dimensions-Datei</label>
+    <label><input type="radio" name="q5" value="3" data-grund="Falsch — die Dimensions-Datei gehört zum Datensatz dazu und ist heruntergeladen; nur verwenden muss man sie eben selbst."> Die Klartexte sind verloren, die Datei wurde nie mitgeliefert</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Jetzt du!</h2>
+  <p>Alle Dateien liegen in <code>daten/</code> neben dieser Lesson.
+  Arbeitseinstieg: RStudio-Projekt öffnen, Arbeitsverzeichnis ist der
+  Repo-Root (Pfade wie unten). Vor jeder Ausführung <strong>erst
+  vorhersagen</strong>, dann laufen lassen.</p>
+  <ol>
+    <li><strong>Vorhersage:</strong> Was liefert
+    <code>readLines("daten/OGD_krimi001_KRIMI_1.csv", n = 1)</code>
+    für einen Typ — Buchstaben, Zahlen, beides? Dann ausführen und
+    mit Schritt 1 vergleichen: Hat diese Datei eine Preamble?</li>
+    <li><strong>Strompreise sauber einlesen:</strong> Lies
+    <code>daten/strompreise-auszug.xlsx</code> (ein Sheet!) mit
+    <code>read_excel()</code> ein und berechne den Mittelwert von
+    <code>Preis_EUR_kWh</code>. Warum brauchst du hier weder
+    <code>skip</code> noch <code>na</code>?</li>
+    <li><strong>Excel retten:</strong> Nimm
+    <code>betriebsdaten_licht.xlsx</code> und vergleiche zwei Einlese-
+    Varianten: einmal ohne, einmal mit
+    <code>na = "n. gemessen"</code>. Was ändert sich am
+    <code>class()</code> der Masse-Spalte — und warum liefert
+    <code>mean()</code> ohne die NA-Behandlung <code>NA</code>?</li>
+  </ol>
+</section>
+<section>
+  <h2>Typische Fehler — die drei Klassiker</h2>
+  <p>Alle drei Fehler passieren nicht laut, sondern leise. Genau deshalb
+  sind sie so gemein:</p>
+
+  <p><strong>1. Falscher Trenner — eine Spalte voller Text.</strong></p>
+<pre>
+# Anti-Beispiel: Statistik-Austria-Datei mit read_csv
+k &lt;- read_csv("daten/OGD_krimi001_KRIMI_1.csv")
+#&gt; # A tibble: 280 × 1  … jede Zeile ein einziger Textbrocken
+</pre>
+  <p>Kein Fehler, keine Warnung — nur sinnlose Daten. Richtig:
+  <code>read_csv2()</code> (Semikolon), notfalls
+  <code>read_delim(delim = ";")</code>.</p>
+
+  <p><strong>2. NA-Marker übersehen — Zahlen werden Text.</strong></p>
+<pre>
+# Anti-Beispiel: NASA-Datei ohne na-Argument
+g &lt;- read_csv("daten/gistemp_roh.csv", skip = 1)
+mean(g$`J-D`)
+#&gt; [1] NA          # die ganze Spalte ist character!
+</pre>
+  <p>Das Bösese: <em>keine</em> Warnung. R gibt brav <code>NA</code>
+  zurück, als hätte es gerechnet. Immer <code>class()</code> prüfen —
+  oder gleich <code>na =</code> beim Einlesen mitgeben.</p>
+
+  <p><strong>3. Excel: das erste Sheet ist nicht die Tabelle.</strong></p>
+<pre>
+# Anti-Beispiel: ohne sheet-Angabe
+b &lt;- read_excel("daten/betriebsdaten_licht.xlsx")
+#&gt; # A tibble: 4 × 1  … die Notizen, nicht die Messwerte!
+</pre>
+  <p>Silently wrong: 4 Zeilen Hinweistext statt 120 Messungen. Immer
+  <code>excel_sheets()</code> zuerst, dann <code>sheet =</code>
+  explizit.</p>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage">Was verbindet die drei Klassiker — falscher
+    Trenner, vergessener NA-Marker, falsches Excel-Sheet?</p>
+    <label><input type="radio" name="q6" value="0" data-grund="Richtig — readr/readxl liefern in allen drei Fällen still falsche oder unbrauchbare Daten; nur der aktive Blick in die Daten (class, count, Ausgabe) entlarvt sie."> R läuft ohne Fehlermeldung durch und liefert trotzdem falsche Daten</label>
+    <label><input type="radio" name="q6" value="1" data-grund="Falsch — im Gegenteil: alle drei produzieren keine harte Fehlermeldung; sonst wären sie ja harmlos."> Sie brechen den Import jeweils mit einer klaren Fehlermeldung ab</label>
+    <label><input type="radio" name="q6" value="2" data-grund="Falsch — alle drei betreffen das Einlesen selbst; sie haben mit den Koordinaten der Datei im Ordner nichts zu tun."> Sie passieren nur bei falschen Dateipfaden</label>
+    <label><input type="radio" name="q6" value="3" data-grund="Falsch — Encoding-Probleme zeigen sich als Wirrwarr-Zeichen; die drei Klassiker verändern Struktur und Typen, nicht die Umlaute."> Sie beschädigen die Datei dauerhaft auf der Festplatte</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+
+  <div class="quiz" data-loesung="3">
+    <p class="frage">Du willst die Gesamtdelikte 2024 über alle
+    Gerichtssprengel summieren. Die Datentabelle enthält auch
+    OLG-Summenzeilen. Was tust du?</p>
+    <label><input type="radio" name="q7" value="0" data-grund="Falsch — sum() beschwert sich nicht über Doppelzählungen; das Ergebnis wäre falsch und sähe trotzdem glaubwürdig aus."> Einfach summieren — sum() merkt Doppels schon</label>
+    <label><input type="radio" name="q7" value="1" data-grund="Falsch — Aggregatzeilen zu löschen verliert Information; sie müssen nur aus der eigenen Summe herausgefiltert werden, nicht aus der Datei."> Die OLG-Zeilen aus der Datei löschen und neu einlesen</label>
+    <label><input type="radio" name="q7" value="2" data-grund="Falsch — Mittelwerte über Sprengel mischen Größenordnungen; gesucht ist eine Summe über die LG-Zeilen ohne Aggregate."> Statt summieren den Mittelwert über alle Zeilen nehmen</label>
+    <label><input type="radio" name="q7" value="3" data-grund="Richtig — erst count()/table() zeigt die Ausprägungen, dann filterst du die Aggregate heraus und summierst nur die LG-Zeilen."> Erst die Ausprägungen zählen, dann Aggregate herausfiltern und summieren</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">Welche Reihenfolge ist beim Einlesen einer
+    unbekannten Datei die sicherste?</p>
+    <label><input type="radio" name="q8" value="0" data-grund="Falsch — erst lesen und dann schauen heißt, die Probleme schon erlebt zu haben; der Vorspann kostet eine Zeile und verrät alles."> Sofort read_csv() und bei Warnung die Datei öffnen</label>
+    <label><input type="radio" name="q8" value="1" data-grund="Richtig — die ersten Zeilen als Text zeigen Trenner, Preamble, NA-Marker und Kopfzeile, bevor irgendwas schiefgeht."> Erst readLines() auf die ersten Zeilen, dann gezielt einlesen</label>
+    <label><input type="radio" name="q8" value="2" data-grund="Falsch — ein einziges read_csv() passt nur, wenn man Trenner, Preamble und NA-Marker schon kennt — genau das weiß man vorher nicht."> Alle Varianten (read_csv, read_csv2, read_excel) einmal ausprobieren</label>
+    <label><input type="radio" name="q8" value="3" data-grund="Falsch — R kann unmöglich wissen, wie eine fremde Datei gemeint ist; die Verantwortung fürs korrekte Einlesen bleibt bei dir."> Auf readrs automatische Erkennung vertrauen und nichts prüfen</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Hürde</th><th>Erkennen an…</th><th>Werkzeug</th></tr>
+    <tr><td>Preamble (Titelzeile)</td><td>Zeile 1 ist Text, kein Header</td><td><code>skip = 1</code></td></tr>
+    <tr><td>NA-Marker (<code>***</code>, „n. gemessen")</td><td>Spalte wird <code>character</code> statt <code>numeric</code></td><td><code>na = "…"</code>, <code>as.numeric()</code>, <code>drop_na()</code></td></tr>
+    <tr><td>Semikolon-Datei</td><td><code>readLines</code> zeigt <code>;</code></td><td><code>read_csv2()</code>, ggf. <code>locale(decimal_mark = …)</code></td></tr>
+    <tr><td>Excel mit mehreren Sheets</td><td><code>excel_sheets()</code></td><td><code>read_excel(sheet = "…")</code></td></tr>
+    <tr><td>Spaltennamen mit Leerzeichen</td><td>Backticks nötig</td><td><code>rename()</code> direkt nach dem Einlesen</td></tr>
+    <tr><td>Kodierte amtliche Tabellen</td><td>Spalten wie <code>C-A10-0</code></td><td><code>left_join()</code> mit Dimensions-Datei</td></tr>
+    <tr><td>Aggregatzeilen</td><td><code>count()</code> zeigt OLG-Summen o. Ä.</td><td>herausfiltern <em>vor</em> <code>sum()</code></td></tr>
+  </table>
+  <p><strong>Ausblick:</strong> Alles, was du heute aus Dateien gelesen
+  hast, gibt es auch <em>live aus dem Internet</em>: Eurostat und
+  Statistik Austria liefern ihre Daten über APIs direkt als JSON —
+  ein Format, das aussieht wie verschachtelte Listen und genau
+  desselben Respekts bedarf wie heutige Dateien. Das ist das Thema
+  der nächsten Lektion dieser Serie.</p>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Du führst die komplette Kette selbst durch: NASA-Datei sauber
+  einlesen und die Erwärmung sichtbar machen, die Verurteilungs-
+  statistik per Joins lesbar machen und die Werkstatt-Excel retten.
+  Details: <a href="aufgabe.md">Aufgabe SA-04 — Daten einlesen II</a>.
+  — <strong>Abgabe:</strong> nach Vorgabe deiner Lehrperson.</p>
+</section>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> R4DS 2e,
+  <a href="https://r4ds.hadley.nz/data-import">Kap. 7 — Data
+  import</a> und
+  <a href="https://r4ds.hadley.nz/spreadsheets">Kap. 21 —
+  Spreadsheets</a>.</p>
+  <p>Woher die Daten stammen: NASA GISS (GISTEMP, gemeinfrei) ·
+  Statistik Austria Open Data
+  (<code>OGD_krimi001_KRIMI_1</code>, CC BY 4.0) ·
+  Eurostat (<code>nrg_pc_204</code>, CC BY 4.0) — Details in
+  <code>daten/README.md</code>.</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Zurück zum Überblick: <a href="../SA-00-was-kann-r/praesentation.html">SA-00 —
+  Was kann R?</a> · Zurück: <a href="../SA-03-daten-einlesen-deskriptiv/lesson.html">SA-03 —
+  Daten einlesen &amp; deskriptiv</a> · Serie: Datenaufbereitung
+  (SA-04 …)</p>
+</footer>
+
+</body>
+</html>

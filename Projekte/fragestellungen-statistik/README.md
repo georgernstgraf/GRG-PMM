@@ -56,6 +56,12 @@ Erstellt: 2026-10-19
 
 ## Ehrlichkeits-Regeln
 
+- **🎓 Übungs-Rohmaterial bleibt roh:** Lektionen (z. B. SA-04) nutzen
+  Dateien bewusst *un*-aufbereitet — Preamble, `***`, kodierte Spalten
+  sind der Lernstoff. Agenten und Lehrperson kuratieren sie **nicht
+  vor**; das würde die Aufgabe zerstören. (Lesson-Ordner unter
+  `unterricht/` dürfen eigene `daten/`-Ordner für Schüler-Downloads
+  tragen, da nur `unterricht/` auf der Lernplattform deployt wird.)
 - **Beobachtungsdaten ≠ Versuchsdaten:** DoE-Fragestellungen mit
   Observationsdaten sind Schein-Fragestellungen. Entweder echte
   Versuchsdatensätze (`agridat`, gekennzeichnet „aus publiziertem Versuch")

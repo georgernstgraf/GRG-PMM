@@ -156,20 +156,26 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | d/p/q/r | density / probability / quantile / random | R-Funktionsfamilien für Verteilungen (`dnorm`, `pnorm`, `qnorm`, `rnorm`, …); UE 4 (KM7, 4HWIT WS) |
 | choose / dbinom / pbinom | — | `choose(n,k)` Koeffizient · `dbinom(k,n,p)` genau k · `pbinom(k,n,p)` höchstens k; UE 4 (KM5-Wiederholung, `KM5-01`) |
 | data frame | — | Tabellarische Datenstruktur in R (Zeilen = Beobachtungen, Spalten = Variablen) |
+| Dimensions-Datei | — | Beim Statistik-Austria-OGD-Portal: separate Übersetzungsdatei, die Codes (`KRIMEA9-7`) in Klartexte („LG Linz") übersetzt — per `left_join()` an die Datentabelle kleben; SA-04 |
 | DSL | Domain-Specific Language | Interne Mini-Sprachen in R (Formel-Interface `y ~ x`, ggplot2, dplyr) — via NSE umgesetzt |
 | Exit-Code | Exit Status | Rückgabewert eines Programms an die Shell (0 = Erfolg, sonst Fehler); Automatisierungen entscheiden danach über Erfolg/Misserfolg; KM7-05 |
 | ggplot2 | — | Visualisierungspaket nach Grammar of Graphics; UE 1 (KM7, 4HWIT WS) |
 | Grammar of Graphics | — | Schichten-Logik hinter ggplot2: Daten + `aes` + `geom` + stats/scales/facets |
 | IDE | Integrated Development Environment | Programmier-Oberfläche zum Schreiben und Ausführen von Code; RStudio ist die R-IDE; KM7-04 |
 | ISLR | An Introduction to Statistical Learning (Buch) | Weiterführende Lektüre (statlearning.com), frei verfügbar |
+| locale | Ländereinstellung | Legt Dezimal-/Gruppierungszeichen fest: `read_csv2()` nimmt Komma als Dezimal, `locale(decimal_mark = ".")` stellt um; SA-04 |
 | LSR | Learning Statistics with R (Navarro) | Freie Statistik-Lektüre; Anker für Verteilungen/Tests (Kap. 9–16) |
 | ML | Machine Learning | Bewusst **out of scope** (siehe `selbststudium/MISSION.md`) |
+| NA-Marker | — | Zeichen für fehlende Werte in Dateien (NASA: `***`, Werkstatt: „n. gemessen") — per `na =` beim Einlesen deklarieren, sonst wird die ganze Spalte Text; SA-04 |
 | NSE | Non-Standard Evaluation | Auswertungstrick hinter dplyr & Co. (Ausdrücke werden im Daten-Kontext evaluiert) |
 | palmerpenguins | — | Pinguin-Datensatz (344 Zeilen, 3 Arten) für UE 1–2 und UE 4 (KM7, 4HWIT WS); Lizenz CC0 |
 | Pipe | `%>%` bzw. `\|>` | Verkettet Operationen lesbar von links nach rechts; UE 2 (KM7, 4HWIT WS) |
+| Preamble | — | Titel-/Kommentarzeile(n) über der eigentlichen Kopfzeile einer Datei (z. B. „Land-Ocean: Global Means") — per `skip = 1` überspringen; SA-04 |
 | R-Projekt | `.Rproj` | Ordner mit Projektdatei `<name>.Rproj`; Doppelklick öffnet RStudio mit festgelegtem Arbeitsverzeichnis; KM7-04 |
 | R-Skript | — | Datei (`*.R`) mit R-Befehlen, gespeichert und wiederholbar ausführbar (`Ctrl + Enter`); KM7-04 |
 | R4DS | R for Data Science (Wickham, Çetinkaya-Rundel, Grolemund; 2e) | Hauptlektüre der Toolchain; r4ds.hadley.nz; UE 1–3 (KM7, 4HWIT WS) |
+| read_csv2 | — | readrs „europäischer" CSV-Bruder: Semikolon als Trenner, Komma als Dezimalzeichen (österr./dt. Export-Standard); SA-04 |
+| readxl | — | Excel-Einlese-Paket (`read_excel()`, `excel_sheets()`); Sheets immer zuerst listen, `sheet =` explizit setzen, Textzellen per `na =` abfangen; SA-04 |
 | REPL | Read-Eval-Print-Loop | Interaktive R-Konsole (Prompt `>`): Ausdruck eingeben, Enter, R wertet aus und druckt; KM7-05 |
 | Rscript | — | Batch-Läufer von R: liest eine `.R`-Datei komplett aus (frische Session, kein Prompt) und beendet sich; Exit-Code signalisiert Erfolg/Fehler; KM7-05 |
 | RStudio | — | IDE für R (Posit); Oberfläche zu R — „erst R, dann RStudio"; KM7-04 |

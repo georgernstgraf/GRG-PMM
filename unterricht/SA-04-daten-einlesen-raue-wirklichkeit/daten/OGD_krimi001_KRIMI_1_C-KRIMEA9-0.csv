@@ -1,0 +1,23 @@
+code;name;FK;en_name;de_desc;de_link;en_desc;en_link;de_syn;en_syn
+KRIMEA9-1;LG für Strafsachen Wien;KRIMJ93-1;Regional court district of Vienna;;;;;;
+KRIMEA9-2;LG Eisenstadt;KRIMJ93-1;Regional court district of Eisenstadt;;;;;;
+KRIMEA9-3;LG Korneuburg;KRIMJ93-1;Regional court district of Korneuburg;;;;;;
+KRIMEA9-4;LG Krems an der Donau;KRIMJ93-1;Regional court district of Krems/Donau;;;;;;
+KRIMEA9-5;LG St. Pölten;KRIMJ93-1;Regional court district of St. Pölten;;;;;;
+KRIMEA9-6;LG Wiener Neustadt;KRIMJ93-1;Regional court district of Wr. Neustadt;;;;;;
+KRIMEA9-7;LG Linz;KRIMJ93-2;Regional court district of Linz;;;;;;
+KRIMEA9-8;LG Ried im Innkreis;KRIMJ93-2;Regional court district of Ried/Innkreis;;;;;;
+KRIMEA9-9;LG Steyr;KRIMJ93-2;Regional court district of Steyr;;;;;;
+KRIMEA9-10;LG Wels;KRIMJ93-2;Regional court district of Wels;;;;;;
+KRIMEA9-11;LG Salzburg;KRIMJ93-2;Regional court district of Salzburg;;;;;;
+KRIMEA9-12;LG für Strafsachen Graz;KRIMJ93-3;Regional court district of Graz;;;;;;
+KRIMEA9-13;LG Leoben;KRIMJ93-3;Regional court district of Leoben;;;;;;
+KRIMEA9-14;LG Klagenfurt;KRIMJ93-3;Regional court district of Klagenfurt;;;;;;
+KRIMEA9-15;LG Innsbruck;KRIMJ93-4;Regional court district of Innsbruck;;;;;;
+KRIMEA9-16;LG Feldkirch;KRIMJ93-4;Regional court district of Feldkirch;;;;;;
+KRIMEA9-0;Nicht klassifizierbar <0>;KRIMJ93-0;Not classifiable <0> ;;;;;;
+KRIMJ93-1;OLG Wien;;Vienna;;;;;;
+KRIMJ93-2;OLG Linz;;Linz;;;;;;
+KRIMJ93-3;OLG Graz;;Graz;;;;;;
+KRIMJ93-4;OLG Innsbruck;;Innsbruck;;;;;;
+KRIMJ93-0;Nicht klassifizierbar <0>;;Not classifiable <0>;;;;;;
