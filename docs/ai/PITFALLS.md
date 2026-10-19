@@ -30,3 +30,20 @@ Read this file carefully before making changes in affected areas.
 - **Bullet-Listen per edit-Tool umordnen = Verlustrisiko (2026-10-19, #34).** Beim Drehen der Aufgabenlisten ging ein Eintrag zwischen zwei edit-Schritten verloren (`4ahwit-x/README.md`, 10-06-Zeile) und die Überschrift wurde kurzzeitig doppelt — erst der `git diff`-Check hat es gezeigt. Beim Umordnen von Listen immer danach `git diff` gegen die Ausgangsliste prüfen (Zeilenanzahl + alle Datumsangaben vorhanden).
 - **Faktcheck-Rechenfehler in Prüfungsfragen (2026-10-19, GRG-PMM-T #5).** Aus dem Bauch notierte Wahrscheinlichkeiten waren falsch: „M1/M2/M3-Ausschussquote ≈ 1,91/1,94/2,03" statt korrekt 0/0/6 (Absolutzahlen) bzw. 0/0/15 % (Quoten); `pbinom(2,20,0.1)` = 0,677 statt 0,93. Jede Zahl in Prüfungs- und Solution-Dateien per `Rscript` gegen `assets/betriebsdaten.csv`/`palmerpenguins` rechnen — auch „plausible" Werte.
 - **5AHWIT-DS-Inhalte können uncommitted bleiben (2026-10-19).** Die DS 7.10./14.10. haben keine Repo-Belege (nur Überschrift `2026-10-14_chi_quadrat_schulübung`) — Stoff-Recherchen dürfen dort nicht blind aus dem README schließen, sondern müssen beim Lehrer nachgefragt werden. Prüfungs-Basis für 5AHWIT ist bewusst nur der belegte Stoff; ergänzter Stoff erfordert Block-Nachschärfe.
+- **Statistik-Austria-OGD-Datensatznamen täuschen (2026-10-19, #36).**
+  `OGD_krimi001_KRIMI_1` heißt „KRIMI", ist aber die **Verurteilungs-
+  statistik** (sämtliche den Verurteilungen zugrunde liegenden Delikte,
+  Gerichtsperspektive) — **nicht** die PKS-Anzeigenstatistik. Vor jeder
+  Kennzeichnung die Meta-Seite prüfen:
+  `https://data.statistik.gv.at/web/meta.jsp?dataset=<ID>` (Feld
+  „Attribute description" nennt die Messzahlen-Bedeutung). Zudem enthalten
+  die Tabellen **OLG-Aggregatzeilen** (`KRIMJ93-*`) und „Nicht
+  klassifizierbar" (`KRIMEA9-0`) — vor dem Summieren herausfiltern, sonst
+  Doppelzählung. Kodiertes CSV + `C-<dim>`-Dimension-Files per `left_join`
+  lesbar machen.
+- **Eurostat-Statistics-API: `format=TSV` scheitert (2026-10-19, #36).**
+  Die API meldet „Invalid value for 'wsOutputFormat'" bei TSV; nutzbar ist
+  `format=JSON` (JSON-STAT 2.0, Dimension-Filter als Query-Params, z. B.
+  `unit=KWH&lastTimePeriod=3`). Konvertierung nach tidy CSV via
+  `jsonlite` (expand.grid über gedrehte Dimensions-Level, Werte über
+  linearen Index zuordnen). Alternativ das `eurostat`-R-Paket.

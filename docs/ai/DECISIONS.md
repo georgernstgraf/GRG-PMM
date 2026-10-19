@@ -439,3 +439,29 @@ Each entry documents WHAT was decided and WHY.
   Callout „Exit-Code ≠ korrektes Ergebnis"; `Fatal error: cannot open
   file` → Exit-Code 2 (falscher Skriptpfad). Glossar: 6 Begriffe
   (Rscript, Terminal, REPL, Exit-Code, Batch-Ausführung, Shebang).
+
+## 2026-10-19: Fragestellungen-Statistik — drei Datenpfeiler, agridat für DoE (#36)
+
+- **Choice:** Das Projekt `Projekte/fragestellungen-statistik/` (KM7/KM9a)
+  stützt sich auf drei Datenpfeiler: **Rdatasets** (sofort-CSVs aus R-Paketen,
+  Katalog in `daten/_index/datasets.csv`), **Statistik Austria OGD**
+  (Kriminalstatistik/Verurteilungen, VPI, Ökosteuern als CSV) und
+  **Eurostat** (JSON-API bzw. `eurostat`-R-Paket). Kuratierte CSVs kommen
+  nur mit `<name>.md`-Metadaten (Quelle, Lizenz, Stand, Einlese-Check)
+  ins Repo. Die DoE-UEs von KM9a werden mit **echten publizierten
+  Versuchsdatensätzen aus `agridat`** gefüllt statt mit Observationsdaten;
+  Blöcke ohne offene Datenbasis (Annahmestichproben, RSM-sequenziell,
+  FM-Instandhaltung) sind offen als 🏭 Eigenmaterial gekennzeichnet.
+- **Why:** Öffentliche Beobachtungsdaten können Versuchsplanung nicht
+  ersetzen — Schein-Fragestellungen wären didaktisch unehrlich.
+  `agridat` löst das Problem mit Feldversuchen (Cochran & Cox), die man
+  auswerten (nicht nachspielen) kann. Rdatasets-Index bleibt Suchwerkzeug
+  (~3.600 Einträge), nicht blind geklonter Datenbestand.
+- **Tradeoff:** Eurostat-CSVs veralten (Filter `lastTimePeriod=3` — Abruf
+  muss vor Unterricht wiederholt werden); agridat-Lizenzen sind pro Paket
+  zu prüfen; Statistik-Austria-Energiebilanzen sind nicht im OGD-Portal
+  (STATcube braucht Lizenz) → Eurostat als Ersatz.
+- **Reichweite:** Erster Lauf nur KM7+KM9a; KM8/KM9b folgen bei der
+  SS-2027-Planung. Ablage-Konvention ersetzt die #33-Struktur
+  (`datenquellen-statistikunterricht/`-Ordner war 2026-10-15 in `c10d653`
+  „un-wslob" aufgelöst worden; Femizid-File liegt direkt in `Projekte/`).

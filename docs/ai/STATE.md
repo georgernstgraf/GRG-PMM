@@ -3,6 +3,14 @@
 Current status as of 2026-10-19.
 
 ## Current Focus
+**Fragestellungen-Statistik (#36):** Neues Langprojekt
+`Projekte/fragestellungen-statistik/` — aus KM7/KM9a abgeleitete
+Fragestellungen mit kuratiertem Datenmaterial (Statistik Austria OGD,
+Eurostat, Rdatasets/agridat). Erster Lauf committed (2026-10-19,
+`c426fca`): 9 KM7- + 8 KM9a-Fragestellungen, 9 kuratierte CSVs mit
+Metadaten, Rdatasets-Katalog als Suchwerkzeug; Rückverlinkung in
+Ressourcen-Matrix und Semesterplänen.
+
 **Lernplattform (#27):** GitHub Pages liefert nur noch `index.html`, `assets/`
 und `unterricht/` (`.github/workflows/pages.yml`, umgestellt von legacy
 Branch-Deploy); Kohorten (`4ahwit-*`, `5ahwit`), `selbststudium/` und
@@ -21,6 +29,18 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] 2026-10-19 — Projekt `fragestellungen-statistik` erster Lauf (#36, Commit
+      `c426fca`): KM7-Map (9 Fragestellungen) + KM9a-Map (8) nach festem Format
+      (Frage → Quelle → R-Weg → Aufgabenskizze → UE-Anker → Status); 9
+      kuratierte CSVs (Eurostat nrg_pc_204 tidy, Verurteilungsstatistik-OGD
+      tidy, AER cps1985/gss7402/houseprices, agridat cochran.factorial/
+      chinloy.fractionalfactorial/cochran.latin/cox.stripsplit) je mit
+      Metadaten-File, alle per `Rscript` einlesgeprüft; Rdatasets-Katalog
+      (3.648 Einträge) in `daten/_index/`; alle externen Links per curl
+      verifiziert (200). Ehrlichkeits-Regeln: Observationsdaten ≠
+      Versuchsdaten → DoE via agridat, Annahmestichproben/RSM/FM-Instandhaltung
+      als 🏭 Eigenmaterial markiert. Rückverlinkung: Ressourcen-Matrix,
+      jg4/jg5-Semesterpläne, Root-README. Details: DECISIONS/PITFALLS.
 - [x] 2026-10-19 — WÜ-Set für alle drei Klassen gebaut (GRG-PMM-T #5, Commit
       `a224ee0`): 4AHWIT-x 20.10. (Setup, SA-00, R-Basics, ggplot, Git, Block E
       R/R-GUI/RStudio — Live-Stoff vom 13.10.), 5AHWIT 21.10. (Setup, VS Code/

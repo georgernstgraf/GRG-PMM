@@ -23,7 +23,7 @@ GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturaf
 | `.nojekyll` | Bypass Jekyll on GitHub Pages |
 | `docs/ai/` | Structured knowledge files for AI agent persistence |
 | `Unterlagen/` | Teaching reference materials and scripts |
-| `Projekte/` | Long-running projects, one folder per project (`<slug>/` with `README.md` + topic subfolders); first: `datenquellen-statistikunterricht/` (public data sources for statistics teaching, `quellen/<thema>.md` per topic) (#33) |
+| `Projekte/` | Long-running projects, one folder per project; data-project scheme per `fragestellungen-statistik/` (#36): one file per KM (`km7.md`, `km9a.md`) + curated `daten/<name>.csv` with `<name>.md` metadata (source, license, R read-check) + `daten/_index/datasets.csv` (Rdatasets catalog as search tool); single deep-dive source files sit directly in `Projekte/` (`femizid-taeter-nationalitaet.md`) |
 | *(kein `.opencode/`)* | Skills live in `opencode-helpers/skills/`, symlinked via `~/.config/opencode/skills` |
 
 ## HTML Page Anatomy (all pages)
