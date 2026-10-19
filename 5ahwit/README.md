@@ -1,6 +1,6 @@
 # 5AHWIT
 
-## Aufgaben .. neueste oben
+## Aufgaben
 
 - 2026-10-14_chi-quadrat-test
 - 2026-09-23: Setup-HÜ — PMM-Repo auf GitHub anlegen (public, mit README) + Wiederholungswünsche der 4. Klasse im Repo-README festhalten → [2026-09-23__setup_fertig/](./2026-09-23__setup_fertig/)

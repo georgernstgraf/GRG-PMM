@@ -3,12 +3,10 @@
 ## Aufgaben
 
 - 2026-10-16 unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck -> Aufgabe: ALLE R-Sachen -  die Übungen machen und in Dein Repo einpflegen
-- 2026-09-18: GitHub-User + Repository „PMM" anlegen, Repo-Link mailen (Details im Verlauf unten)
-- 2026-09-25: Betriebsdaten auswerten (mean/median/sd/IQR, pnorm, Histogramm) — Commit im PMM-Repo → [2026-09-25__r-kennzahlen-und-verteilungen/](./2026-09-25__r-kennzahlen-und-verteilungen/)
-- 2026-10-02: sd vs. var & n−1 erklären, Setup fertig, dbinom nachrechnen → [2026-10-02-binomialkoeffizient-pascalsches-dreieck/](./2026-10-02-binomialkoeffizient-pascalsches-dreieck/)
 - 2026-10-09: OpenCode-Prompt „3. Klasse mit R effizienter lösen" (PROMPT.md/ANSWER.md) → [20206-10-09_opencode/](./20206-10-09_opencode/)
-
-- 2026-10-16 unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck
+- 2026-10-02: sd vs. var & n−1 erklären, Setup fertig, dbinom nachrechnen → [2026-10-02-binomialkoeffizient-pascalsches-dreieck/](./2026-10-02-binomialkoeffizient-pascalsches-dreieck/)
+- 2026-09-25: Betriebsdaten auswerten (mean/median/sd/IQR, pnorm, Histogramm) — Commit im PMM-Repo → [2026-09-25__r-kennzahlen-und-verteilungen/](./2026-09-25__r-kennzahlen-und-verteilungen/)
+- 2026-09-18: GitHub-User + Repository „PMM" anlegen, Repo-Link mailen (Details im Verlauf unten)
 
 ## 2026-10-02 Wiederholungswünsche
 

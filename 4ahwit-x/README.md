@@ -2,10 +2,8 @@
 
 ## Aufgaben
 
-Kanonische Liste aller Aufgaben — Details im jeweiligen Tagesordner bzw. der verlinkten Lesson.
-
-- 2026-09-22: HÜ-Kontrolle Setup (git/VS Code/R/RStudio) + Start R-Basics UE 1 → [2026-09-22_git_vscode_Rstudio_installation/](./2026-09-22_git_vscode_Rstudio_installation/)
 - 2026-10-06: SA-01 ggplot als Selbststudium-Aufgabe, ins persönliche git pushen → [unterricht/SA-01-datenvisualisierung-ggplot/](../unterricht/SA-01-datenvisualisierung-ggplot/)
+- 2026-09-22: HÜ-Kontrolle Setup (git/VS Code/R/RStudio) + Start R-Basics UE 1 → [2026-09-22_git_vscode_Rstudio_installation/](./2026-09-22_git_vscode_Rstudio_installation/)
 
 ## 2026-10-06__was kann r
 
