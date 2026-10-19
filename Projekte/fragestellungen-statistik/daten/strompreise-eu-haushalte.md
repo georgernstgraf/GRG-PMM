@@ -3,7 +3,7 @@
 - **Herkunft:** Eurostat `nrg_pc_204` — „Electricity prices for household
   consumers - bi-annual data"; JSON-API-Abruf
   (`…/statistics/1.0/data/nrg_pc_204?lang=EN&format=JSON&unit=KWH&lastTimePeriod=3`)
-  und Konvertierung nach tidy-CSV (Skript-Ablauf im Issue #36-Kommentar)
+  und Konvertierung nach tidy-CSV (Rezept: `daten/_build/build_data.R`)
 - **Inhalt:** 12.771 Zeilen · Spalten: `geo, geo_name, siec, nrg_cons, unit,
   tax, currency, jahr_halbjahr, zeitpunkt, preis` (letzte 3 Halbjahre;
   `nrg_cons` = Verbrauchsbänder, `tax` = Steuer-Behandlung, `preis` = EUR/kWh)
