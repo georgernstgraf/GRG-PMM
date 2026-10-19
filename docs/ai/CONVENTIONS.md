@@ -82,6 +82,11 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
 - Klein geschriebene Klassenordner am Repo-Root = Kohorten-Ablagen
   (`5ahwit/`, `4ahwit-x/`, `4ahwit-y/`); GROSSBUCHSTABEN unter
   `lehrplan/pmm-hwit/` (Zweig-Ebene) = Lehrplan-Extrakte. Nie mischen.
+- **Kohorten-README `## Aufgaben` (2026-10-19, #34):** Liste läuft **neueste
+  oben** (absteigend nach ISO-Datum), **ohne Lead-in-Zeile** — `## Aufgaben`
+  und direkt darunter der erste Eintrag. Kanonische Regel im `homework`-Skill
+  (opencode-helpers #113); bestehende aufsteigende Listen einmalig komplett
+  drehen, einzelne Einträge nie umformulieren oder löschen.
 - Kohorten-Teilungen großer Klassen: Suffix `-x`/`-y`.
 - Kohorten-Dirs dürfen nur kohorten-spezifisches Material halten;
   gemeinsames Material bleibt unter `unterricht/` (vorbereitete Einheiten)

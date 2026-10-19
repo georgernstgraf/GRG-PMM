@@ -3,6 +3,31 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-10-19: WÜ-Format 35 MC + 3 Freitext, kein Notenschlüssel (GRG-PMM-T #5)
+
+- **Choice:** Wissensüberprüfungen ab 20.10. mit **35 MC à 4 P + 3 Freitext à
+  15 P = 152 P** (bisher 25 MC + 3 FT = 145 P). In den Solutions-Dateien steht
+  **keine Notenlegende/kein Notenschlüssel** — nur die Punkteaufteilung und
+  Erwartungshorizonte.
+- **Why:** „30–40 MC, die sind immer schnell beantwortet" — der Lehrer
+  bevorzugt breite MC-Abdeckung; der Notenschlüssel war in den ersten
+  Prüfungsdateien eine Agenten-Zutat (10-%-Staffelung ab 90 %) und wurde auf
+  Hinweis wieder entfernt.
+- **Konsequenz:** Punkte→Note-Übersetzung erfolgt außerhalb der Prüfungsdateien.
+
+## 2026-10-19: Kohorten-README-Aufgabenliste — neueste oben, keine Lead-in-Zeile (#34)
+
+- **Choice:** Die `## Aufgaben`-Sektion im Kohorten-README läuft **absteigend
+  nach ISO-Datum** (neueste Aufgabe ganz oben) und hat **keine Lead-in-Zeile**
+  („Kanonische Liste aller Aufgaben …" entfällt).
+- **Why:** „Im Kohorten-README ist die neueste Aufgabe immer OBEN" — die
+  vorherige homework-Skill-Regel (aufsteigend + Lead-in) setzte sich gegen die
+  Lehrpraxis durch; `5ahwit` war schon von Hand so geführt
+  („## Aufgaben .. neueste oben").
+- **Konsequenz:** Regel ist im `homework`-Skill verankert (opencode-helpers
+  #113, Commit `7633210`); bestehende aufsteigende Listen werden einmalig
+  komplett gedreht (x/y/5ahwit, Commit `0ee09e9`).
+
 ## 2026-10-14: Datenquellen-Sammlung als eigenes `Projekte/`-Verzeichnis (#33)
 
 - **Choice:** Öffentliche Datenquellen für den Statistikunterricht werden in

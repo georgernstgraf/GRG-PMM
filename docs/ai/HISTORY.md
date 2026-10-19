@@ -29,3 +29,19 @@ Entries here are no longer active truth. Never delete from this file.
 - **Alt:** Quiz-Markup beschrieben als `<div class="quiz" data-loesung="N">` mit `input[type=radio]`, `.feedback`, `.erklaerung` (richtig) und optional `.hinweis` (falsch).
 - **Origin:** CONVENTIONS.md
 - **Reason der Ablösung:** Seit Commit `00e1c7f` ist das Markup kanonisch `data-grund` pro Option + farbiges `.feedback` (`.richtig`/`.falsch`); `.erklaerung`/`.hinweis` waren toter Text (CSS in `a2d4487` entfernt). In #24 korrigiert.
+
+## 2026-10-19 (SUPERSEDED 2026-10-19, origin: HANDOFF.md, reason: GRG-PMM-T #5 — WÜ 13.10. wurde nie gehalten, Stoff erweitert (R/R-GUI/RStudio) und neu aufbereitet): Wissensüberprüfung 4AHWIT-x am 2026-10-13
+- **Alt:** Erste WÜ der Kohorte x: 25 MC + 3 Freitext (145 P) — Setup, SA-00,
+  R-Basics, ggplot (Selbststudium), Git. Nach der Prüfung ggf. Anpassungen,
+  dann GRG-PMM-T #4 schließen.
+- **Origin:** HANDOFF.md
+- **Reason der Ablösung:** Die Prüfung fand nicht statt; sie wurde durch die
+  WÜ vom 2026-10-20 ersetzt (35 MC + 3 FT, 152 P, zusätzlich Block R/R-GUI/
+  RStudio). GRG-PMM-T #4 geschlossen, Nachfolger #5.
+
+## 2026-10-19 (SUPERSEDED 2026-10-19, origin: HANDOFF.md, reason: 5ahwit-README nach bc91c78/b423672 ohne `## Hausaufgaben`-Sektion — Verweis existiert nicht mehr): 5ahwit `## Hausaufgaben` verweist auf fehlende Ablage
+- **Alt:** `5ahwit/README.md` Sektion `## Hausaufgaben` verweist auf
+  `hausaufgaben/` — Ordner existiert nicht. Ablage anlegen oder Verweis entfernen.
+- **Origin:** HANDOFF.md
+- **Reason der Ablösung:** Die Sektion ist seit den README-Kürzungen
+  (`b423672`, `86c107d`) nicht mehr vorhanden; der Befund ist gegenstandslos.

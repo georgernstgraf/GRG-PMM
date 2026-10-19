@@ -2,20 +2,26 @@
 
 ## Open Tasks
 
-### 5ahwit: `## Hausaufgaben` verweist auf fehlende Ablage
-**Priority:** low
-**Context:** `5ahwit/README.md` Sektion `## Hausaufgaben` verweist auf
-`hausaufgaben/` („Kohorten-Kopien der Master-HAs") — der Ordner existiert
-nicht. Festgestellt bei Homework-Discovery 2026-10-12.
-**Action:** Ablage anlegen (Kopien aus `unterricht/SA-0N-*/hausaufgabe.md`)
-oder Verweis aus dem README entfernen.
+### WÜ-Korrekturen nach 20./21./23.10. (GRG-PMM-T #5)
+**Priority:** high (Prüfungen laufen diese Woche)
+**Context:** Drei WÜ gebaut und committed (GRG-PMM-T `a224ee0`): 4AHWIT-x
+2026-10-20 (Setup, SA-00, R-Basics, ggplot, Git, Block E R/R-GUI/RStudio),
+5AHWIT 2026-10-21 (Setup, VS Code/Workspace, GitHub-Workflow, R-On-Ramp,
+Chi-Quadrat), 4AHWIT-y 2026-10-23 (Setup, R-Grundlagen, Kennzahlen/Verteilungen,
+Binomialverteilung mit R, sd/var/n−1). Je 35 MC + 3 FT = 152 P, kein
+Notenschlüssel. GRG-PMM-T #4 (WÜ 13.10., nie gehalten) geschlossen.
+**Action:** Nach den Terminen per `knowledge-assessment` korrigieren, dann
+GRG-PMM-T #5 schließen.
 
-### Wissensüberprüfung 4AHWIT-x am 2026-10-13 (GRG-PMM-T #4)
-**Priority:** high (Prüfung ist morgen)
-**Context:** Erste WÜ der Kohorte x: 25 MC + 3 Freitext (145 P) — Setup,
-SA-00, R-Basics, ggplot (Selbststudium), Git. Dateien committed in
-`GRG-PMM-T/4ahwit-x/`. Grundlage war der korrigierte README-Verlauf (#31).
-**Action:** Nach der Prüfung: ggf. Anpassungen, dann GRG-PMM-T #4 schließen.
+### 5AHWIT: DS-Stoff 7.10. + 14.10. nur in Erinnerung, nicht im Repo
+**Priority:** medium
+**Context:** Bei der Stoff-Recherche für die 5AHWIT-WÜ fehlt der Beleg für
+die DS 7.10. und 14.10. — im Repo steht nur die Überschrift
+`2026-10-14_chi_quadrat_schulübung`. Lehrer-Angabe mündlich: dort lief
+Chi-Vertiefung/Setup; konkretes Thema für 7.10. nie genannt.
+**Action:** Verlauf in `5ahwit/README.md` nachziehen (Tagesordner oder
+README-Absatz), sonst bleibt jede spätere Recherche (Prüfungen, WÜ) für
+diese Termine lückenhaft.
 
 ### Andere Repos auf die neue lehrplan-Ordnung ziehen (opencode-helpers #92)
 **Priority:** medium

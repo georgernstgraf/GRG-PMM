@@ -1,6 +1,6 @@
 # Project State
 
-Current status as of 2026-10-14.
+Current status as of 2026-10-19.
 
 ## Current Focus
 **Lernplattform (#27):** GitHub Pages liefert nur noch `index.html`, `assets/`
@@ -21,6 +21,23 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] 2026-10-19 — WÜ-Set für alle drei Klassen gebaut (GRG-PMM-T #5, Commit
+      `a224ee0`): 4AHWIT-x 20.10. (Setup, SA-00, R-Basics, ggplot, Git, Block E
+      R/R-GUI/RStudio — Live-Stoff vom 13.10.), 5AHWIT 21.10. (Setup, VS Code/
+      Workspace, GitHub-Workflow, R-On-Ramp, Chi-Quadrat KM7-02), 4AHWIT-y
+      23.10. (Setup, R-Grundlagen, Kennzahlen/Verteilungen, Binomialverteilung
+      mit R, sd/var/n−1). Je 35 MC à 4 P + 3 FT à 15 P = 152 P; alle Zahlen per
+      `Rscript` gegen `assets/betriebsdaten.csv`/`palmerpenguins` verifiziert.
+      Kein Notenschlüssel in den Solutions (Lehrer-Wunsch: nur Punktezahl).
+      Vorläufer WÜ 13.10. nie gehalten → GRG-PMM-T #4 geschlossen.
+- [x] #34 CLOSED 2026-10-19 — Kohorten-READMEs: kanonische Aufgabenlisten auf
+      „neueste oben, keine Lead-in-Zeile" umgestellt (x/y/5ahwit), Commit
+      `0ee09e9`; Regel im `homework`-Skill verankert (opencode-helpers #113,
+      Commit `7633210`, Issue geschlossen).
+- [x] 2026-10-19 — Missing-Pull im GRG-PMM-Klon nachgeholt: `bc91c78` („aufg.",
+      Lehrperson-Commit vom 16.10. aus der y-Stunde) war lokal nachzuziehen;
+      darin dokumentiert: y arbeitet an KM5-01 (Binomial), Aufgabe „ALLE
+      R-Sachen" ins persönliche Repo.
 - [x] #33 CLOSED 2026-10-14 — Datenquellen-Sammlung für den Statistikunterricht
       gestartet: neues Top-Level-Verzeichnis `Projekte/datenquellen-statistikunterricht/`
       (`README.md` + erste Quellen-Datei `quellen/femizid-taeter-nationalitaet.md`)
