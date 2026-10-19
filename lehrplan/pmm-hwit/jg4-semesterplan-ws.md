@@ -10,7 +10,8 @@ Bonus-UE (siehe unten).
 **Werkzeug:** R / RStudio · **Didaktik:** R4DS-„Whole Game" —
 Visualisierung vor Syntax (UE 1–3 in Buch-Reihenfolge)
 **KM-Steckbrief:** `lehrplan/kompetenzmodule/km7.md` · **Ressourcen-Anker:**
-`lehrplan/ressourcen-matrix.md`
+`lehrplan/ressourcen-matrix.md` · **Daten-Fragestellungen (offene Quellen):**
+`Projekte/fragestellungen-statistik/km7.md`
 
 > **Vorwissen aus JG3 (KM5+KM6):** Statistik beginnt laut Lehrplan in der
 > 3. Klasse. Die Schüler:innen sollten Verteilungen, Parameter/Schätzwerte,

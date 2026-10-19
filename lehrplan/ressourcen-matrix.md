@@ -148,5 +148,8 @@ aber von Kolleg:innen unterrichtet — **kein Material-Backlog für Georg**
   `lehrplan/pmm-hwit/LEHRPLAN.md`
 - **Ressourcen für Georgs Selbststudium:**
   `selbststudium/RESOURCES.md`
+- **Fragestellungen + kuratiertes Datenmaterial für KM7/KM9a
+  (Statistik Austria OGD, Eurostat, Rdatasets):**
+  `Projekte/fragestellungen-statistik/` (#36)
 
-Stand: 2026-07-23
+Stand: 2026-10-19

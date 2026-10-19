@@ -62,7 +62,7 @@ Der Lehrplan folgt **BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5** —
 | `GLOSSAR.md` | Abkürzungen & Fachbegriffe (AQL, DoE, R4DS, KM, …) |
 | `Unterlagen/` | Thematische Referenzmaterialien und Skripten |
 | `docs/` | Zentrale Dokumente (Projektangaben, AI-Wissensdateien) |
-| `Projekte/` | Langfristige Vorhaben, z. B. [`datenquellen-statistikunterricht/`](./Projekte/datenquellen-statistikunterricht/) — öffentliche Datenquellen für den Statistikunterricht |
+| `Projekte/` | Langfristige Vorhaben: [`fragestellungen-statistik/`](./Projekte/fragestellungen-statistik/) — Fragestellungen + kuratiertes Datenmaterial für KM7/KM9a (Statistik Austria OGD, Eurostat, Rdatasets); [`femizid-taeter-nationalitaet.md`](./Projekte/femizid-taeter-nationalitaet.md) — Detail-Recherche Kriminalstatistik/Chi² |
 
 ### Nutzung (lokal & GitHub Pages)
 
