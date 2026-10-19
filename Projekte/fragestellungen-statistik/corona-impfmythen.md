@@ -128,3 +128,6 @@ Methodik.
 | OWID-Artikel <https://ourworldindata.org/covid-vaccinations> | Impfdaten global, Methodik/Denominatoren | 🔗 |
 | US CDC / England ONS (via OWID-Grapher) | alters- und status-spezifische Todesraten | 🔗 |
 | OWID Excess-Mortality-Datensatz (im `owid-covid-data.csv` enthalten: `excess_mortality_*`) | Estimated excess deaths | 🔗 (im Gesamtsatz) |
+
+Konflikt-Übung „gemeldete COVID-Tode vs. Übersterblichkeit" (monatlich
+kuratiert): [`datensaetze-im-widerspruch.md`](datensaetze-im-widerspruch.md) F-W2.

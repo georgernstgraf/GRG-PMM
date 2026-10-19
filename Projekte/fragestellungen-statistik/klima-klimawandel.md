@@ -77,3 +77,6 @@ Statistische Antwortmuster (nicht morally judging, sondern methodisch):
 | GeoSphere Austria Data Hub (<https://data.hub.geosphere.at>) | Österreichische Stationsdaten (historisch), API | 🔗 |
 | HISTALP (<https://www.zamg.ac.at/histalp/>) | Lange Klimareihen Greater Alpine Region | 🔗 |
 | Eurostat-Umweltindikatoren (Treibhausgase via `eurostat`-Paket, z. B. `t2020_30`-Familie) | Emissionen statt Temperaturen | 🔗 (siehe km7.md F8) |
+
+Widerspruchs-Übung mit zwei Temperatur-Quellen (GISTEMP vs. HadCRUT5,
+Basisperioden-Auflösung): [`datensaetze-im-widerspruch.md`](datensaetze-im-widerspruch.md) F-W1.

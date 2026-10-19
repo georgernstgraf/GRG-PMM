@@ -21,6 +21,7 @@ Erstellt: 2026-10-19
 | `km9a.md` | Fragestellungen KM9a (5HWIT, WS) |
 | `klima-klimawandel.md` | Themenfile Klima/Klimaerwärmung (Trend-Regression, lokal vs. global) |
 | `corona-impfmythen.md` | Themenfile Impfungen/Corona-Mythen (Übersterblichkeit, Base-Rate, Simpson) |
+| `datensaetze-im-widerspruch.md` | Themenfile konfligierende Datensätze (Praktiken-Checkliste, 4 Konflikt-Paare) |
 | `daten/<name>.csv` | kuratierte Datensätze |
 | `daten/<name>.md` | Metadaten je Datensatz (Quelle, Lizenz, Stand, R-Einlesen) |
 | `daten/_index/datasets.csv` | Rdatasets-Katalog (~3.600 Datensätze) als Suchkatalog |
