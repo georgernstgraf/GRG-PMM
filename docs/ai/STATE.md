@@ -9,7 +9,12 @@ Fragestellungen mit kuratiertem Datenmaterial (Statistik Austria OGD,
 Eurostat, Rdatasets/agridat). Erster Lauf committed (2026-10-19,
 `c426fca`): 9 KM7- + 8 KM9a-Fragestellungen, 9 kuratierte CSVs mit
 Metadaten, Rdatasets-Katalog als Suchwerkzeug; Rückverlinkung in
-Ressourcen-Matrix und Semesterplänen.
+Ressourcen-Matrix und Semesterplänen. Erweiterung (2026-10-19,
+`e168d49`): Themenfiles `klima-klimawandel.md` (GISTEMP-Trend,
+GeoSphere-Stationen) und `corona-impfmythen.md` (Übersterblichkeit,
+Base-Rate-Fehlschluss, Simpson-Paradox) + 3 weitere kuratierte CSVs
+(tempanomalien-global, wochensterbefaelle-oesterreich,
+covid-impfquote-vs-todesrate) — 12 CSVs gesamt.
 
 **Lernplattform (#27):** GitHub Pages liefert nur noch `index.html`, `assets/`
 und `unterricht/` (`.github/workflows/pages.yml`, umgestellt von legacy

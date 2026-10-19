@@ -465,3 +465,18 @@ Each entry documents WHAT was decided and WHY.
   SS-2027-Planung. Ablage-Konvention ersetzt die #33-Struktur
   (`datenquellen-statistikunterricht/`-Ordner war 2026-10-15 in `c10d653`
   „un-wslob" aufgelöst worden; Femizid-File liegt direkt in `Projekte/`).
+
+## 2026-10-19: Themenfiles quer zu den KM-Files im Fragestellungen-Projekt (#36)
+
+- **Choice:** Über-KM-thematische Felder (Klima/Klimawandel,
+  Impfungen/Corona-Mythen) bekommen eigene Themenfiles
+  (`klima-klimawandel.md`, `corona-impfmythen.md`) neben den KM-Files
+  (`km7.md`, `km9a.md`) — nicht als Einträge in den KM-Files.
+- **Why:** Diese Themen spannen mehrere KM/UE-Blöcke auf (Regression in
+  KM7-UE5, Simpson in KM7-UE7, Modellvergleich Richtung KM9a-RSM) und
+  tragen einen eigenen, sensitiv-didaktischen Rahmen (Ehrlichkeits-
+  Abschnitte), der in einer KM-Tabelle Platz wegnehmen würde.
+- **Tradeoff:** Fragestellungen liegen jetzt an zwei Orten (KM-File für
+  Standard-Blöcke, Themenfile für Querschnittsthemen); das Projekt-README
+  listet beide Ebenen. AÖF/Femizid bleibt als Vertiefungsfile in
+  `Projekte/` selbst (dort etabliert, #33-Tradition).

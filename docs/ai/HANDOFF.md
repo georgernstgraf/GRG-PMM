@@ -4,12 +4,17 @@
 
 ### Fragestellungen-Statistik (#36) — Weiterführung nach erstem Lauf
 **Priority:** low (Langprojekt, kein Termin)
-**Context:** Erster Lauf (KM7+KM9a) ist committed (`c426fca`). Offen:
-Eigenmaterial-Blöcke (Annahmestichproben ISO-Tabellen/Simulation,
-RSM-sequenziell, FM-Instandhaltung), AÖF-Femizid-Listen digitalisieren
-(bewusst als Schüler-Aufgabe konzipiert), Eurostat-CSVs vor Unterricht
-frisch ziehen (`lastTimePeriod=3`-Filter veraltet), KM8/KM9b bei der
-SS-2027-Planung ergänzen. Konvention: `Projekte/fragestellungen-statistik/README.md`.
+**Context:** Erster Lauf (KM7+KM9a) ist committed (`c426fca`); Themen
+Klima/Klimaerwärmung und Impfungen/Corona-Mythen sind ergänzt
+(`e168d49`: klima-klimawandel.md, corona-impfmythen.md + 3 CSVs, 12
+kuratierte CSVs gesamt). Offen: Eigenmaterial-Blöcke
+(Annahmestichproben ISO-Tabellen/Simulation, RSM-sequenziell,
+FM-Instandhaltung), AÖF-Femizid-Listen digitalisieren (bewusst als
+Schüler-Aufgabe konzipiert), Eurostat-CSVs vor Unterricht frisch ziehen
+(`lastTimePeriod=3`-Filter veraltet), altersstratifizierte AT-Impfdaten
+(F-C3) bei Aufgaben-Bau kuratieren, GeoSphere-Stations-CSV (F-K3) bei
+Aufgaben-Bau ziehen, KM8/KM9b bei der SS-2027-Planung ergänzen.
+Konvention: `Projekte/fragestellungen-statistik/README.md`.
 
 ### WÜ-Korrekturen nach 20./21./23.10. (GRG-PMM-T #5)
 **Priority:** high (Prüfungen laufen diese Woche)

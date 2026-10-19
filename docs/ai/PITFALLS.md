@@ -47,3 +47,22 @@ Read this file carefully before making changes in affected areas.
   `unit=KWH&lastTimePeriod=3`). Konvertierung nach tidy CSV via
   `jsonlite` (expand.grid über gedrehte Dimensions-Level, Werte über
   linearen Index zuordnen). Alternativ das `eurostat`-R-Paket.
+- **OWID-Datenzugriff hat drei Stolpersteine (2026-10-19, #36).**
+  (1) Österreich meldet keine Impfquoten mehr an OWID (seit Mitte 2023)
+  — exakte Stichdaten liefern NA; pro Land den letzten gemeldeten Wert
+  ≤ Stichtag nehmen und das Datum in einer Spalte führen. (2) Der
+  Gesamtsatz `owid-covid-data.csv` (98 MB) ist nur via
+  `raw.githubusercontent.com/owid/covid-19-data/master/public/data/`
+  beziehbar — `covid.ourworldindata.org` löst hier nicht auf (DNS);
+  OWID-Grapher-Voll-Exporte großer Charts (600k Zeilen) antworten
+  wiederholt 503. Kuratierte Schnitte aus dem Gesamtsatz bauen, nicht
+  am Grapher vorbei-removen. (3) Grapher-CSV-URLs brauchen
+  `?v=1&csvType=full&useColumnShortNames=true` für volle Historie;
+  Slug-Raten (404) erst über Web-Recherche klären.
+- **Statistik-Austria-OGD `BEV_BEW` ist eine Bevölkerungsprognose
+  (2026-10-19, #36).** `OGD_bevbewegung_BEV_BEW_2` heißt
+  „Bevölkerungsbewegung", enthält aber Projektionsvarianten
+  (Haupt-/Wachstums-/Alterungsszenario, F-S25V1–V11) — keine
+  beobachteten Sterbefälle. Für Übersterblichkeit: Eurostat
+  `demo_r_mwk_ts` (Wochensterbefälle; **ohne** AGE-Dimension — Filter
+  `unit=NR&sex=T&geo=AT`).
