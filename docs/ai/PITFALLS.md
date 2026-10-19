@@ -66,3 +66,17 @@ Read this file carefully before making changes in affected areas.
   beobachteten Sterbefälle. Für Übersterblichkeit: Eurostat
   `demo_r_mwk_ts` (Wochensterbefälle; **ohne** AGE-Dimension — Filter
   `unit=NR&sex=T&geo=AT`).
+- **Eurostat-Arbeitsmarkt-API: Alters-Dimension stillschweigend (2026-10-19, #36).**
+  `une_rt_a` kennt **kein** `age=TOTAL` — gültige Codes sind Y15-24,
+  Y15-74, Y20-64, … Ohne Alters-Filter bekommt man stillschweigend
+  Y15-24 (Jugendarbeitslosigkeit ~10–12 %) statt der Gesamtquote (~5 %);
+  Symptom: plausibel klingende, aber falsche Zahlen. Für die Gesamtquote
+  `age=Y15-74` explizit setzen. Der Datensatz für die Arbeitslosenquote
+  nach *nationaler* Definition (`une_rt_n`) ist aus der Dissemination
+  entfernt (404) — AMS-Werte nur noch via AMS-PDF/Seite oder data.gv.at.
+- **HadCRUT-URLs tragen die Versionsnummer im Pfad (2026-10-19, #36).**
+  `https://hadleyserver.metoffice.gov.uk/hadcrut5/data/HadCRUT.5.2.0.0/analysis/…`
+  — bei einem Versionsupdate (Release Notes prüfen: metoffice.gov.uk/
+  hadobs/hadcrut5/index.html) ist der 404 vorprogrammiert. Met Office-
+  Landing (`/hadobs/hadcrut5/data/current/download.html`) rendert die
+  Datei-Links nur per JS.

@@ -13,7 +13,9 @@ FM-Instandhaltung), AÖF-Femizid-Listen digitalisieren (bewusst als
 Schüler-Aufgabe konzipiert), Eurostat-CSVs vor Unterricht frisch ziehen
 (`lastTimePeriod=3`-Filter veraltet), altersstratifizierte AT-Impfdaten
 (F-C3) bei Aufgaben-Bau kuratieren, GeoSphere-Stations-CSV (F-K3) bei
-Aufgaben-Bau ziehen, KM8/KM9b bei der SS-2027-Planung ergänzen.
+Aufgaben-Bau ziehen, AMS-Zeitreihe (nationale Quote, F-W3) bzw.
+PKS-Anzeigen-Reihe (F-W4) aus PDFs kuratieren, KM8/KM9b bei der
+SS-2027-Planung ergänzen.
 Konvention: `Projekte/fragestellungen-statistik/README.md`.
 
 ### WÜ-Korrekturen nach 20./21./23.10. (GRG-PMM-T #5)

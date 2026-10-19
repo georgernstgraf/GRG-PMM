@@ -14,7 +14,11 @@ Ressourcen-Matrix und Semesterplänen. Erweiterung (2026-10-19,
 GeoSphere-Stationen) und `corona-impfmythen.md` (Übersterblichkeit,
 Base-Rate-Fehlschluss, Simpson-Paradox) + 3 weitere kuratierte CSVs
 (tempanomalien-global, wochensterbefaelle-oesterreich,
-covid-impfquote-vs-todesrate) — 12 CSVs gesamt.
+covid-impfquote-vs-todesrate) — 12 CSVs gesamt. Dritte Erweiterung
+(2026-10-19, `851578a`): Themenfile `datensaetze-im-widerspruch.md`
+(statistische Praktiken-Checkliste, 4 Konflikt-Paare) + 3 CSVs
+(tempanomalien-zwei-quellen, covid-at-gemeldet-vs-uebersterblichkeit,
+arbeitslosigkeit-at-ilo) — 15 kuratierte CSVs gesamt.
 
 **Lernplattform (#27):** GitHub Pages liefert nur noch `index.html`, `assets/`
 und `unterricht/` (`.github/workflows/pages.yml`, umgestellt von legacy
