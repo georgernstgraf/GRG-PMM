@@ -2,6 +2,18 @@
 
 ## Open Tasks
 
+### Lektionsserie Datenaufbereitung: SA-05–SA-07 (#37)
+**Priority:** medium (Reihe läuft nach Bedarf, eine Lesson pro Sitzung)
+**Context:** SA-04 gebaut (`7f70261`). Offen: **SA-05** JSON & APIs
+(`jsonlite`, Eurostat/OGD live, echte API-Rohantworten als Übungsmaterial —
+Kopien liegen in `/tmp/opencode/`, ggf. frisch ziehen), **SA-06**
+Aufbereitung `unlist()` & Konvertieren (JSON-STAT → tidy, Technik aus
+`daten/_build/build_data.R` als Lernstoff), **SA-07** Postgres
+(`DBI`/`RPostgres`, echter Schul-Server laut Lehrer-Angabe). Format:
+neues Lesson-Layout (`lesson.html` = Präsentation, `aufgabe.md`,
+Vorlage, optionaler `daten/`-Ordner, 🎓 Rohmaterial bleibt roh).
+Materialbasis: echte (raue) Projektdaten.
+
 ### Fragestellungen-Statistik (#36) — Weiterführung nach erstem Lauf
 **Priority:** low (Langprojekt, kein Termin)
 **Context:** Erster Lauf (KM7+KM9a) ist committed (`c426fca`); Themen

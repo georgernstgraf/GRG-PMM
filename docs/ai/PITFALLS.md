@@ -80,3 +80,30 @@ Read this file carefully before making changes in affected areas.
   hadobs/hadcrut5/index.html) ist der 404 vorprogrammiert. Met Office-
   Landing (`/hadobs/hadcrut5/data/current/download.html`) rendert die
   Datei-Links nur per JS.
+- **Excel-Übungsdateien mit writexl: R-Spalten sind homogen (2026-10-19, #37).**
+  Wer in R einer numerischen Spalte zwei Textzellen zuweist
+  („n. gemessen"), koerziert die **ganze Spalte** zu character —
+  writexl schreibt dann alles als Text, und readxl liest die Spalte als
+  `character` statt gemischt numeric/NA. Für die SA-04-Didaktik
+  gewollt („Spalte kommt als Text" ist realer Excel-Schmerz), aber
+  wissen: ein *echt* gemischtes Excel (Zahl-Zellen + einzelne
+  Text-Zellen) erzeugt readrl-Verhalten „numeric + NA mit Warnung" —
+  writexl kann das nicht abbilden. Zusätzlich: readxl-`na = "…"` wirkt
+  nur auf den Marker; danach braucht es `as.numeric()` für den Rest.
+- **Eurostat nrg_pc_204: alte Band-Codes sind leer (2026-10-19, #37).**
+  `KWH3500`, `KWH1200` u. a. haben in den letzten Perioden keine Werte —
+  Filter darauf liefern still NA-Spalten (writexl schreibt dann leere
+  Zellen, readxl gibt eine `logical`-Spalte zurück!). Gültige Bänder
+  vor dem Kuratieren per `table()` prüfen; `stopifnot(!any(is.na(...)))`
+  als Guard in Builds. Nutzbar aktuell: `KWH_LT1000`, `KWH1000-2499`,
+  `KWH2500-4999`, `KWH5000-14999`, `KWH_GE15000`, `TOT_KWH`.
+- **readLines heißt `n`, nicht `n_max` (2026-10-19, #37).** Base-R-
+  `readLines(con, n = 2)` — im Gegensatz zu readr (`n_max`). Beim
+  Erst-Hinschauen-Ritual („readLines n_max=2") läuft man in
+  „unused argument".
+- **`pkill -f` trifft die eigene Shell (2026-10-19, #37).** Enthält der
+  Kommandozeilen-String das Suchmuster selbst (z. B. `pkill -f
+  "http.server"` in einer Zeile, die auch `git commit` enthält), tötet
+  pkill den eigenen Befehl (SIGTERM) — Ausgabe „Killed by SIGTERM".
+  Server-PIDs gezielt beenden oder Muster wählen, das der eigene
+  Befehl nicht enthält.

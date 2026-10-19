@@ -3,6 +3,17 @@
 Current status as of 2026-10-19.
 
 ## Current Focus
+**Lektionsserie Datenaufbereitung (#37):** SA-04 „Daten einlesen II: die
+raue Wirklichkeit" ist gebaut und committed (2026-10-19, `7f70261`) —
+erste Lesson im neuen Format (`lesson.html` = Präsentation, `aufgabe.md`,
+Tages-README-Vorlage, `daten/`-Unterordner mit rohem Übungsmaterial:
+NASA-GISTEMP, OGD-Verurteilungen + Dimensions-Dateien, 2 erzeugte
+Excel-Übungsdateien). Quiz-8-Fragen, Playwright-Klick-Test grün.
+Offen: SA-05 (JSON & APIs), SA-06 (`unlist` & Konvertieren), SA-07
+(Postgres, echter Schul-Server) — je eine Lesson pro Sitzung.
+Lesson-Struktur-Doku (AGENTS/README/CONVENTIONS/ARCHITECTURE) auf
+neues Format nachgezogen.
+
 **Fragestellungen-Statistik (#36):** Neues Langprojekt
 `Projekte/fragestellungen-statistik/` — aus KM7/KM9a abgeleitete
 Fragestellungen mit kuratiertem Datenmaterial (Statistik Austria OGD,
@@ -38,6 +49,19 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] 2026-10-19 — Lektion **SA-04** „Daten einlesen II: die raue
+      Wirklichkeit" (#37, Commit `7f70261`): 6 Schritte (readLines-Ritual,
+      Preamble/`skip`, NA-Marker/char-Falle, `read_csv2`/`locale`, Excel
+      Sheets/„n. gemessen", OGD-Codes + Joins + Aggregatzeilen), 3
+      Vorhersage-Aufgaben, 3 typische Fehler, Quiz 8 Fragen (Rotation
+      2·0·3·1·2·0·3·1), `aufgabe.md` mit Kontrollwerten (Anomalie 2024 =
+      1.28 · LG-Summe 2024 = 45 958 · M3 n = 38), Tages-README-Vorlage,
+      Navigator + 6 Glossar-Begriffe. `daten/` mit rohem Übungsmaterial
+      (NASA gemeinfrei, StatA CC BY 4.0, 2 writexl-erzeugte Excels,
+      Herkunft dokumentiert). Verifikation: R-Blöcke per `Rscript`,
+      Live-Server 200er, **Playwright-Klick-Test** (falsch/richtig-
+      Begründungen, Theme-Toggle). 🎓-Schutzkonvention ins
+      Projekt-README; Lesson-Struktur-Doku überall nachgezogen.
 - [x] 2026-10-19 — Projekt `fragestellungen-statistik` erster Lauf (#36, Commit
       `c426fca`): KM7-Map (9 Fragestellungen) + KM9a-Map (8) nach festem Format
       (Frage → Quelle → R-Weg → Aufgabenskizze → UE-Anker → Status); 9

@@ -53,7 +53,7 @@ Der Lehrplan folgt **BGBl. II Nr. 262/2015, Anlage 1.28, Abschnitt 5** —
 | `lehrplan/` | Lehrplan-Konvention, **Fach-Ebene** (Root): `METADATA.md`, `RIS/`, `kompetenzmodule/`, KM-keyed Ressourcen (`ressourcen-matrix.md`, `r4ds-abdeckung.md`) |
 | `lehrplan/RIS/` | Gesetzestext-PDFs (BGBl. II Nr. 262/2015, ISO-Datum-Präfix) |
 | `lehrplan/pmm-hwit/` | **Zweig-Ebene**: `LEHRPLAN.md` (Extrakt), `RIS.md`, Klassen-Extrakte `4HWIT/`+`5HWIT/`, Semesterpläne `jg{3,4,5}-semesterplan-{ws,ss}.md` |
-| `unterricht/` | Vorbereitete Einheiten (flach): `<PREFIX>-<NN>-<slug>/` mit `praesentation.html` + `hausaufgabe.md` + `lesson.html` (`KM<#>` = Kompetenzmodul, `SA` = schulautonom) |
+| `unterricht/` | Vorbereitete Einheiten (flach): `<PREFIX>-<NN>-<slug>/` mit `lesson.html` (zugleich Präsentation), `aufgabe.md` + Tages-README-Vorlage, optionaler `daten/`-Unterordner für Schüler-Downloads (`KM<#>` = Kompetenzmodul, `SA` = schulautonom) |
 | `assets/` | **Ein zentraler Ordner** für CSS/JS/Daten, die alle Seiten referenzieren (Loader, Theme, Quiz, `betriebsdaten.csv`) |
 | `4ahwit-x/`, `4ahwit-y/`, `5ahwit/` | Kohorten-Ablagen (klein, Repo-Root): Klassen-Hub, Datums-Ordner (`YYYY-MM-DD__thema/`), Teach-Workspace |
 | `selbststudium/` | Lern-Workspace der Lehrperson (R/Statistik): `prepared-lessons/`, `reference/`, `learning-records/` |

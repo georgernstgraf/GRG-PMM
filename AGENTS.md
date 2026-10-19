@@ -15,7 +15,7 @@ This repository contains coursework for **Prozessmanagement (PMM)** at HTL Speng
   - `RIS/` — Legal curriculum PDFs from RIS (BGBl. II Nr. 262/2015), named `YYYY-MM-DD_*.pdf` with ISO-date prefix (Kundmachungsdatum)
   - `kompetenzmodule/` (KM-Steckbriefe KM3–KM9b) + `ressourcen-matrix.md`, `r4ds-abdeckung.md` — **Fach-Ebene** (formunabhängig)
   - `pmm-hwit/` — **Zweig-Ebene**: `LEHRPLAN.md` (complete extract, all Jahrgänge), `RIS.md` (legal status/amendments), `4HWIT/` + `5HWIT/` class extracts, `jg{3,4,5}-semesterplan-{ws,ss}.md` semester plans
-- `unterricht/` — Teaching layer (repo root). Prepared units lie **flat** as `<PREFIX>-<NN>-<slug>/` (`KM<#>` = Kompetenzmodul, `SA` = schulautonom; `<NN>` runs per KM) with `praesentation.html` + `hausaufgabe.md` + `lesson.html`. **No Zweig-Fach folder** — semester plans live in `lehrplan/pmm-hwit/`
+- `unterricht/` — Teaching layer (repo root). Prepared units lie **flat** as `<PREFIX>-<NN>-<slug>/` (`KM<#>` = Kompetenzmodul, `SA` = schulautonom; `<NN>` runs per KM) with `lesson.html` (also the presentation — no separate slide deck), `aufgabe.md` and day-README template `<PREFIX>-<NN>-<slug>.md`; an optional `daten/` subfolder holds raw student-download data (#37). **No Zweig-Fach folder** — semester plans live in `lehrplan/pmm-hwit/`
 - `assets/` — **Single shared asset folder** (repo root): CSS, JS (`loader.js`, `quiz.js`, `theme.js`, `github-pages-link.js`, `site.js`), data (`betriebsdaten.csv`). All pages load these via the generic inline bootstrap (no repo name baked in).
 - Cohort folders (`4ahwit-x/`, `4ahwit-y/`, `5ahwit/`) hold **dated** lessons `YYYY-MM-DD__thema/lesson.html` (e.g. `4ahwit-y/2026-09-25__r-kennzahlen-und-verteilungen/`); undated lessons are canonical under `unterricht/` (cohort `prepared-lessons/` dissolved 2026-09-28, #20)
 - `selbststudium/` — Self-study workspace for learning R and statistics (Teach skill), incl. `prepared-lessons/`
@@ -125,13 +125,17 @@ user wants to learn R, statistics, or any PMM-relevant topic.
   „Wiederholung Verteilungen aus KM5 für 4AHWIT UE 4"); Bau nach globalem
   `create-lesson`-Skill (themenfokussierter Kicker, R-Code per Rscript
   verifiziert).
-- **Ablage (2026-09-28, #20):** vorbereitete (undatierte) Einheiten liegen
+- **Ablage (2026-09-28, #20; aktualisiert 2026-10-19, #37):** vorbereitete (undatierte) Einheiten liegen
   **flach** unter `unterricht/` als `<PREFIX>-<NN>-<slug>/` (`KM<#>` =
   Kompetenzmodul, `SA` = schulautonom; `<NN>` läuft **pro KM**) mit
-  `praesentation.html` + `hausaufgabe.md` + `lesson.html`. Semesterpläne
-  liegen in `lehrplan/pmm-hwit/`. Terminierte/abgehaltene Lektionen liegen
-  in `<klasse>/YYYY-MM-DD__thema/lesson.html` (Kohorten-`prepared-lessons/`
-  wurden aufgelöst).
+  `lesson.html` (zugleich Präsentation — kein separater Foliensatz),
+  `aufgabe.md` (Aufgabe = Mitarbeit, Abschnitt auch am Lesson-Ende) und
+  Tages-README-Vorlage `<PREFIX>-<NN>-<slug>.md`; ein eigener
+  `daten/`-Unterordner pro Lesson ist erlaubt (Schüler-Downloads — nur
+  `unterricht/` wird auf GitHub Pages deployt; Übungs-Rohmaterial bleibt
+  bewusst roh, 🎓). Semesterpläne liegen in `lehrplan/pmm-hwit/`.
+  Terminierte/abgehaltene Lektionen liegen in
+  `<klasse>/YYYY-MM-DD__thema/lesson.html`.
 - **Lesson = immer 90 Minuten** (eine Doppelstunde) — auch Wiederholungen.
 - **Quiz ohne harte Obergrenze:** der Skill entscheidet die Fragenzahl selbst,
   so viele wie nötig (nicht mehr 1–5 gedeckelt); Richtige-Positionen rotieren.
