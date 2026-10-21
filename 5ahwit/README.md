@@ -1,7 +1,17 @@
 # 5AHWIT
 
-## Aufgaben
+# Tests
 
+- 13.1.2027 (Umfang: Wintersemester 2026/27)
+- 20.1.2027 (Ersatztermin)
+
+## Aufgaben vom ...
+- 2026-10-21_themen:
+  in `Projekte/fragestellungen-statistik` (insbesondere km9a.md) sind mögliche statistische Fragestellungen,
+  die wir statistisch beantworten werden. Schaue Dich darin um!
+  1) Erstelle in Deinem Repo einen Ordner (zb 2026-10-16_hü) und lege darin ein README.md an mit folgenden Inhalten:
+  2) Drei Themengebiete, welche Dich interessieren
+  3) zu jedem dieser "interessanten" Themen: Welche FRAGE wollen wir an die Daten stellen?
 - 2026-10-14_chi-quadrat-test
 - 2026-09-23: Setup-HÜ — PMM-Repo auf GitHub anlegen (public, mit README) + Wiederholungswünsche der 4. Klasse im Repo-README festhalten → [2026-09-23__setup_fertig/](./2026-09-23__setup_fertig/)
 
