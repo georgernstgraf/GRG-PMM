@@ -22,6 +22,7 @@ Erstellt: 2026-10-19
 | `klima-klimawandel.md` | Themenfile Klima/Klimaerwärmung (Trend-Regression, lokal vs. global) |
 | `corona-impfmythen.md` | Themenfile Impfungen/Corona-Mythen (Übersterblichkeit, Base-Rate, Simpson) |
 | `datensaetze-im-widerspruch.md` | Themenfile konfligierende Datensätze (Praktiken-Checkliste, 4 Konflikt-Paare) |
+| `kuriose-quellen.md` | Themenfile kurioser Alltag (Vornamen, Hunde, Radzählstellen, Pizza, Spotify, LEGO, Billboard, Schokolade, APIs) |
 | `daten/<name>.csv` | kuratierte Datensätze |
 | `daten/<name>.md` | Metadaten je Datensatz (Quelle, Lizenz, Stand, R-Einlesen) |
 | `daten/_index/datasets.csv` | Rdatasets-Katalog (~3.600 Datensätze) als Suchkatalog |
