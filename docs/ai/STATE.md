@@ -1,6 +1,6 @@
 # Project State
 
-Current status as of 2026-10-19.
+Current status as of 2026-10-21.
 
 ## Current Focus
 **Lektionsserie Datenaufbereitung (#37):** SA-04 „Daten einlesen II: die
@@ -31,6 +31,18 @@ covid-impfquote-vs-todesrate) — 12 CSVs gesamt. Dritte Erweiterung
 (tempanomalien-zwei-quellen, covid-at-gemeldet-vs-uebersterblichkeit,
 arbeitslosigkeit-at-ilo) — 15 kuratierte CSVs gesamt.
 
+**Kuriose Quellen (#36, 2026-10-21):** Themenfile
+`kuriose-quellen.md` mit 16 Fragestellungen aus Alltag/Popkultur
+(Vornamen, Hunde je Bezirk, Radverkehrszählstellen, Todesursachen,
+Wiener-Linien-Takt, Wahlen, Spotify, Pizza, Billboard, LEGO,
+Schokoladenduft-RCT, Schokoladenkuchen-DoE, Eurostat Zeitverwendung/
+Apfelernte, Alkoholkonsum, JSON-APIs) + Ideen-Parkplatz. 7 neue
+kuratierte CSVs mit Metadaten (`vornamen-oesterreich-top100`,
+`schokoladenduft-buchladen`, `schokoladenkuchen-bruchwinkel`,
+`pizza-verkauf-2015`, `billboard-top100-2000`, `spotify-songs`,
+`lego-preise`) — 22 CSVs gesamt; Build `daten/_build/build_data4.R`;
+alle per `Rscript` geprüft, Commit `5587a60`.
+
 **Lernplattform (#27):** GitHub Pages liefert nur noch `index.html`, `assets/`
 und `unterricht/` (`.github/workflows/pages.yml`, umgestellt von legacy
 Branch-Deploy); Kohorten (`4ahwit-*`, `5ahwit`), `selbststudium/` und
@@ -49,6 +61,16 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] 2026-10-21 — Themenfile `kuriose-quellen.md` (#36, Commit `5587a60`):
+      16 Fragestellungen aus kuriosen offenen Daten (F-C1…F-C16) —
+      Wien/Österreich (Vornamen, Hunde, Radzählstellen, Todesursachen,
+      Öffi-Takt, Wahlen), Popkultur (Spotify, Pizza, Billboard, LEGO,
+      Schokoladen-RCT, Kuchen-DoE), Europa (Eurostat Zeitverwendung,
+      Apfelernte, Alkohol), API-Spielwiese (SWAPI/PokéAPI/Open-Meteo);
+      Ideen-Parkplatz mit 6 weiteren Funken. 7 kuratierte CSVs +
+      Metadaten + `build_data4.R` (22 CSVs gesamt); alle Links per
+      `curl` 200 (Wien-`gogv`-Downloads am 21.10. temporär 503),
+      alle CSVs per `Rscript` eingelesen, Build deterministisch.
 - [x] 2026-10-19 — Lektion **SA-04** „Daten einlesen II: die raue
       Wirklichkeit" (#37, Commit `7f70261`): 6 Schritte (readLines-Ritual,
       Preamble/`skip`, NA-Marker/char-Falle, `read_csv2`/`locale`, Excel

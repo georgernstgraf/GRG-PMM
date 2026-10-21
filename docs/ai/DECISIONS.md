@@ -480,3 +480,33 @@ Each entry documents WHAT was decided and WHY.
   Standard-Blöcke, Themenfile für Querschnittsthemen); das Projekt-README
   listet beide Ebenen. AÖF/Femizid bleibt als Vertiefungsfile in
   `Projekte/` selbst (dort etabliert, #33-Tradition).
+
+## 2026-10-21: „Kuriose" Daten als Querschnitts-Themenfile (#36)
+
+- **Choice:** Alltags-/Popkultur-Datenquellen (Vornamen, Hunde, Rad-
+  zählstellen, Pizza, Spotify, Billboard, LEGO, Schokoladenexperimente)
+  bekommen ein eigenes Themenfile `kuriose-quellen.md` mit F-C-Nummern,
+  nicht Einträge in `km7.md`/`km9a.md`.
+- **Why:** Der verbindende Rahmen ist Motivation, nicht Fachinhalt —
+  die Fragen spannen EDA, Tests, Verteilungen und DoE auf einmal auf.
+  Ein eigenes File hält die KM-Files bei den Standard-Blöcken und macht
+  die „Fun"-Schiene sichtbar.
+- **Tradeoff:** Vierte Ablage-Ebene neben KM-Files, Themenfiles und
+  `daten/`; README-Tabelle muss mitgepflegt werden.
+- **Kuratierungs-Entscheid:** Statistik-Austria-Vornamen nur als
+  Top-100-Slice je Jahr × Geschlecht (8.400 Zeilen) ins Repo — die
+  28-MB-Roh-CSV bleibt Live-Übung (`read.csv2`), nicht Repo-Ballast.
+  Rdatasets-Quellen werden 1:1 kopiert (Original-Spaltennamen, `rownames`
+  bleibt), damit die Doku-Links und `Rscript`-Checks eindeutig bleiben.
+
+## 2026-10-21: Nur echte Versuche als DoE-Material — auch bei „Fun"-Daten (#36)
+
+- **Choice:** Die kuriosen DoE-Beispiele (Schokoladenduft-RCT,
+  Schokoladenkuchen 3×6) sind publizierte, randomisierte bzw.
+  vollfaktorielle Versuche; Beobachtungsdaten (Pizza, Spotify, LEGO,
+  Vornamen) bleiben explizit EDA-/Test-Material.
+- **Why:** Die Ehrlichkeits-Regel des Projekts gilt unabhängig vom
+  Unterhaltungswert; ein „Fun"-Datensatz darf keine Schein-DoE werden.
+- **Tradeoff:** Zwei der kuriosen Fragen (F-C11/F-C12) sind
+  englischsprachige Fremdversuche — Kennzeichnung „echter Versuch" in
+  Metadaten und im Themenfile bleibt Pflicht.

@@ -19,14 +19,18 @@ Materialbasis: echte (raue) Projektdaten.
 **Context:** Erster Lauf (KM7+KM9a) ist committed (`c426fca`); Themen
 Klima/Klimaerwärmung und Impfungen/Corona-Mythen sind ergänzt
 (`e168d49`: klima-klimawandel.md, corona-impfmythen.md + 3 CSVs, 12
-kuratierte CSVs gesamt). Offen: Eigenmaterial-Blöcke
+kuratierte CSVs gesamt). Vierte Erweiterung (`5587a60`, 2026-10-21):
+`kuriose-quellen.md` (F-C1…F-C16) + 7 CSVs (22 gesamt);
+`build_data4.R`. Offen: Eigenmaterial-Blöcke
 (Annahmestichproben ISO-Tabellen/Simulation, RSM-sequenziell,
 FM-Instandhaltung), AÖF-Femizid-Listen digitalisieren (bewusst als
 Schüler-Aufgabe konzipiert), Eurostat-CSVs vor Unterricht frisch ziehen
 (`lastTimePeriod=3`-Filter veraltet), altersstratifizierte AT-Impfdaten
 (F-C3) bei Aufgaben-Bau kuratieren, GeoSphere-Stations-CSV (F-K3) bei
 Aufgaben-Bau ziehen, AMS-Zeitreihe (nationale Quote, F-W3) bzw.
-PKS-Anzeigen-Reihe (F-W4) aus PDFs kuratieren, KM8/KM9b bei der
+PKS-Anzeigen-Reihe (F-W4) aus PDFs kuratieren, Wien-`gogv`-Downloads
+(Hunde, Radzählstellen) nach 503 wieder prüfen und ggf. kuratieren,
+Ideen-Parkplatz aus `kuriose-quellen.md` ausformulieren, KM8/KM9b bei der
 SS-2027-Planung ergänzen.
 Konvention: `Projekte/fragestellungen-statistik/README.md`.
 
@@ -95,6 +99,11 @@ pro Einheit statt Stücke pro Los"; LR schreiben, `jg3-verlauf.html`
 auf ✅; danach L05 bauen.
 
 ## Erledigt (dieser Zyklus)
+- **GRG-PMM #36:** Themenfile `kuriose-quellen.md` (16 Fragestellungen
+  F-C1…F-C16 + Ideen-Parkplatz) und 7 kuratierte Alltagsdatensätze
+  (Vornamen Top 100, Schokoladenduft-RCT, Schokoladenkuchen-DoE, Pizza,
+  Billboard, Spotify, LEGO) mit Metadaten und `build_data4.R`; alle
+  Links per `curl`, alle CSVs per `Rscript` geprüft. Commit `5587a60`.
 - **GRG-PMM #32:** neue Prepared Lesson `KM7-05` „Rscript und die
   Kommandozeile" (Terminal, frische Session, `commandArgs()`, Exit-Code,
   Shebang; Callout „Exit-Code ≠ korrektes Ergebnis"); Navigator + Glossar

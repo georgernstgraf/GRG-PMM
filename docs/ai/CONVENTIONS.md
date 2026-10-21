@@ -176,3 +176,20 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
 - Zielbild: schmaler, zentrierter Satzspiegel wie `lesson.html` — keine
   randfüllende Breite. Solche Änderungen immer gegen `height` 800 prüfen
   (reveal schrumpft nicht, siehe PITFALLS).
+
+## Offene Daten beschaffen (#36)
+- **data.gv.at ist seit dem Portal-Umbau eine SPA:** Die alte
+  CKAN-API (`/katalog/api/3/action/package_search`) liefert HTML.
+  Katalogsuche über `https://www.data.gv.at/api/hub/search/search?q=<begriff>`
+  (Parameter heißt `q`, nicht `query`), Details je Datensatz über
+  `/api/hub/search/datasets/<id>` — dort stehen `distributions` mit
+  `access_url`, Format und Lizenz.
+- **Statistik Austria OGD:** Datensatz-Code aus dem Katalog
+  (`https://data.statistik.gv.at/web/catalog.jsp`), Daten-CSV unter
+  `https://data.statistik.gv.at/data/<CODE>.csv`, Dimensions-Files unter
+  `.../<CODE>_C-<DIM>-0.csv` (Semikolon, kodierte Codes).
+- **Rdatasets-Kopien:** kuratierte CSVs aus Rdatasets werden 1:1
+  übernommen (Original-Spaltennamen inkl. `rownames`); die
+  `<name>.md`-Metadaten nennen Paket, Lizenz, Original-URL und
+  Kontrollwerte. Kein Umbenennen — sonst brechen Doku-Links und
+  `Rscript`-Vergleiche.

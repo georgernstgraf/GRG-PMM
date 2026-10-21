@@ -107,3 +107,23 @@ Read this file carefully before making changes in affected areas.
   pkill den eigenen Befehl (SIGTERM) — Ausgabe „Killed by SIGTERM".
   Server-PIDs gezielt beenden oder Muster wählen, das der eigene
   Befehl nicht enthält.
+- **data.gv.at: alte CKAN-API liefert HTML statt JSON (2026-10-21, #36).**
+  Nach dem Portal-Umbau ist `www.data.gv.at` eine Single-Page-App; ein
+  `curl` auf `/katalog/api/3/action/package_search` gibt die SPA-Hülle
+  (HTTP 200, HTML) zurück — kein Fehler, aber unbrauchbar. Richtig ist
+  `/api/hub/search/search?q=…` (Parameter `q`; `query` wird ignoriert und
+  liefert den vollen Katalog) bzw. `/api/hub/search/datasets/<id>` für
+  Details; `/api/hub/repo/...` antwortet leer.
+- **wien.gv.at-`gogv`-Downloadlinks können 503 liefern, während die
+  Datensatzseiten erreichbar sind (2026-10-21, #36).** Die Kurzlinks wie
+  `https://www.wien.gv.at/gogv/l9ogdhundevie` antworteten mit
+  „Angebot vorübergehend nicht verfügbar" (HTTP 503, HTML), auch mit
+  Browser-User-Agent; die data.gv.at-Datensatzseiten und die
+  Wien-Statistik-Seiten waren 200. Vor Kuratierung erneut ziehen, nicht
+  als toten Link interpretieren.
+- **Rangrichtung bei `ave()` leicht verdreht (2026-10-21, #36).**
+  `ave(-x, g, FUN = function(v) rank(-v))` dreht die Richtung zweimal —
+  Ergebnis: häufigster Wert auf dem *letzten* Rang. Für „Top-N nach
+  Häufigkeit" erst `order(..., -anzahl, name)` und dann
+  `ave(seq_len(n), g, FUN = seq_along)` als Rang verwenden (deterministisch
+  bei Gleichstand).
