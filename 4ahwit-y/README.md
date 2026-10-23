@@ -2,6 +2,7 @@
 
 ## Aufgaben
 
+- 2026-10-23 über die Ferien: bitte schaue Die Projekte/fragestellungen-statistik an und nenne (als Abgabe in Deinem Repo) Wunschthemen zur statistischen Bearbeitung!
 - 2026-10-16 unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck -> Aufgabe: ALLE R-Sachen -  die Übungen machen und in Dein Repo einpflegen
 - 2026-10-09: OpenCode-Prompt „3. Klasse mit R effizienter lösen" (PROMPT.md/ANSWER.md) → [20206-10-09_opencode/](./20206-10-09_opencode/)
 - 2026-10-02: sd vs. var & n−1 erklären, Setup fertig, dbinom nachrechnen → [2026-10-02-binomialkoeffizient-pascalsches-dreieck/](./2026-10-02-binomialkoeffizient-pascalsches-dreieck/)
@@ -34,4 +35,3 @@ im terminal mit winget:
 
 wir haben einen github user angelegt und mit diesem ein Repository erzeugt, name "PMM"
 und an grafg@... den Link zum Repo geschickt.
-
