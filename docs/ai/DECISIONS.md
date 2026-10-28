@@ -6,7 +6,7 @@ Each entry documents WHAT was decided and WHY.
 ## 2026-10-19: WÜ-Format 35 MC + 3 Freitext, kein Notenschlüssel (GRG-PMM-T #5)
 
 - **Choice:** Wissensüberprüfungen ab 20.10. mit **35 MC à 4 P + 3 Freitext à
-  15 P = 152 P** (bisher 25 MC + 3 FT = 145 P). In den Solutions-Dateien steht
+  15 P = 185 P** (bisher 25 MC + 3 FT = 145 P). In den Solutions-Dateien steht
   **keine Notenlegende/kein Notenschlüssel** — nur die Punkteaufteilung und
   Erwartungshorizonte.
 - **Why:** „30–40 MC, die sind immer schnell beantwortet" — der Lehrer
