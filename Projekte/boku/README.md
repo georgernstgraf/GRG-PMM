@@ -46,6 +46,10 @@ source("arten-ranking.R")   # Fenster; dev.off() schließt es,
                             # ggsave("ranking.png", width = 8, height = 6.5)
 ```
 
+Danach steht `ranking` (data.frame, 20 Zeilen, Spalten `germanName`,
+`speciesName`, `family`, `n`, `sammel_taxon`) im Environment — `head(ranking)`
+oder `ranking$n` direkt weiterverwenden.
+
 **Skript-Modus (schreibt eine Datei, wenn `OUT=` gesetzt ist):**
 
 ```sh
@@ -62,6 +66,11 @@ source .env && OUT=/tmp/arten-ranking.png Rscript arten-ranking.R
 Ohne `OUT=` wird in einer Skript-Session nichts geschrieben — bewusst, damit
 kein `Rplots.pdf` im Ordner landet. Welches Device aktiv ist, verrät
 `getOption("device")` (X11-Funktion = Fenster, PDF-Funktion = Datei).
+
+Der Ablauf steckt komplett in `main()`, das am Dateiende aufgerufen wird
+(`ranking <- main()`). Grund: `on.exit(dbDisconnect()` funktioniert nur in
+einem Funktions-Frame — am Top-Level einer gesourcten Datei liefe der Handler
+zu spät und RPostgres antwortet mit `bad_weak_ptr`.
 
 `arten-ranking.R` lädt das Top-20-Ranking (die CTE aus `joins.md`) und zeichnet
 es als horizontales Balkendiagramm; Sammel-Einträge auf Familienebene

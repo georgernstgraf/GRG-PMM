@@ -202,3 +202,16 @@ Read this file carefully before making changes in affected areas.
   ohne `OUT=` auch nichts — bei „warum sehe ich kein Fenster?" zuerst
   `getOption("device")` und `interactive()` prüfen.
   Verifiziert: `R -q -e 'interactive()'` → FALSE, `R --interactive` → TRUE.
+- **`on.exit(dbDisconnect())` am Top-Level einer gesourcten Datei →
+  `bad_weak_ptr` (2026-10-29, #37).** `source("arten-ranking.R")` brach mit
+  `Error: bad_weak_ptr` ab, `Rscript arten-ranking.R` lief — der Fehler liegt
+  nicht am Server und nicht an `.env`. `bad_weak_ptr` ist RPostgres' Meldung
+  für „Verbindung ist schon freigegeben" (so auch in der eigenen Testsuite).
+  Ursache: am Top-Level einer gesourcten Datei gibt es keinen Funktions-Frame;
+  der `on.exit`-Handler feuert erst nach dem Abbau des Auswertungs-Kontexts,
+  wenn RPostgres das Verbindungsobjekt bereits finalisiert hat.
+  Reproduziert (4 Varianten): Top-Level + `on.exit` → Fehler; Top-Level +
+  explizites `dbDisconnect()` → OK; `on.exit` **in einer Funktion** → OK.
+  Regel: DB-Verbindungen immer in einer Funktion aufbauen und schließen
+  (`main()` + `ranking <- main()` am Dateiende), dann laufen Skript- und
+  `source()`-Aufruf identisch.
