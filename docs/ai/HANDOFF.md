@@ -13,6 +13,10 @@ Aufbereitung `unlist()` & Konvertieren (JSON-STAT → tidy, Technik aus
 neues Lesson-Layout (`lesson.html` = Präsentation, `aufgabe.md`,
 Vorlage, optionaler `daten/`-Ordner, 🎓 Rohmaterial bleibt roh).
 Materialbasis: echte (raue) Projektdaten.
+Toolchain für SA-07 steht seit 2026-10-29 (#38): `libpq-dev` installiert,
+`DBI` 1.3.0 + `RPostgres` 1.4.10 in der User-Lib, `Postgres()`-Smoke-Test
+grün. Offen für SA-07: Zugangsdaten/Erreichbarkeit des Schul-Servers
+klären (nur Lehrer-Angabe vorhanden, kein dokumentierter Host).
 
 ### Fragestellungen-Statistik (#36) — Weiterführung nach erstem Lauf
 **Priority:** low (Langprojekt, kein Termin)

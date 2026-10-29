@@ -127,3 +127,18 @@ Read this file carefully before making changes in affected areas.
   Häufigkeit" erst `order(..., -anzahl, name)` und dann
   `ave(seq_len(n), g, FUN = seq_along)` als Rang verwenden (deterministisch
   bei Gleichstand).
+- **`RPostgres` scheitert an fehlendem `libpq-dev` (2026-10-29, #38).**
+  `install.packages(c("DBI", "RPostgres"))` baut `DBI` sauber, bricht aber bei
+  `RPostgres` mit `fatal error: libpq-fe.h: No such file or directory` ab
+  (`ANTICONF`, „libpq was not found"). Falle: `postgresql-client*` ist auf
+  think installiert, das **Entwicklungspaket** `libpq-dev` aber nicht — damit
+  fehlen `libpq-fe.h` **und** `pg_config` (beide aus `libpq-dev`), also genau
+  die zwei Erkennungswege des Configure-Skripts (`pg_config` im PATH bzw.
+  `libpq.pc` über `pkg-config`). `libssl-dev`/`pkg-config` waren vorhanden,
+  `DBI` lief. Fix (Ubuntu 26.04, libpq-dev 18.6): `sudo apt install -y
+  libpq-dev`, dann `install.packages("RPostgres")` erneut; Prüfen mit
+  `pg_config --version` und `pkg-config --exists libpq && echo ok`.
+  Verifikation: `class(Postgres())` → `"PqDriver"`, `dbGetInfo()` meldet
+  `client.version 18/6`. Gleiches Muster wie die Header-Falle oben — auf
+  Schul-/Klassenrechnern (SA-07 nutzt einen echten Schul-Postgres-Server)
+  zuerst die `-dev`-Pakete prüfen, nicht die R-Seite debuggen.

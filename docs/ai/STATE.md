@@ -1,6 +1,6 @@
 # Project State
 
-Current status as of 2026-10-21.
+Current status as of 2026-10-29.
 
 ## Current Focus
 **Lektionsserie Datenaufbereitung (#37):** SA-04 „Daten einlesen II: die
@@ -61,6 +61,13 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] #38 CLOSED 2026-10-29 — R-Postgres-Toolchain auf think repariert:
+      `install.packages("RPostgres")` scheiterte an fehlendem `libpq-dev`
+      (`fatal error: libpq-fe.h`, kein `pg_config`). `sudo apt install -y
+      libpq-dev` (18.6, Ubuntu 26.04) → `DBI` 1.3.0 + `RPostgres` 1.4.10
+      in der User-Lib; Smoke-Test `class(Postgres())` = `PqDriver`,
+      `dbGetInfo()` meldet `client.version 18/6`. Vorbereitung für SA-07;
+      Pitfall dokumentiert.
 - [x] 2026-10-21 — Themenfile `kuriose-quellen.md` (#36, Commit `5587a60`):
       16 Fragestellungen aus kuriosen offenen Daten (F-C1…F-C16) —
       Wien/Österreich (Vornamen, Hunde, Radzählstellen, Todesursachen,
@@ -202,6 +209,8 @@ unterricht ohne Zweig-Fach-Ordner).
   (Arbeitsverzeichnis = Repo-Root). Betriebsdaten `assets/betriebsdaten.csv`
   (nur M3 hat Ausschuss: 4 von 40 bei ±0,15 mm — M1/M2 sauber; KM5-02s
   „6 von 40" ist ein Szenario, nicht die CSV).
+- Postgres-Zugriff in R steht seit 2026-10-29 (`DBI` 1.3.0, `RPostgres`
+  1.4.10, `libpq` 18.6 via apt `libpq-dev`) — SA-07 kann gebaut werden.
 - Nutzung: `./serve.sh` → `http://localhost:8000/`; **kein `file://`** (Firefox).
 - Web-Assets: ein Top-Level `assets/`; Bootstrap + Badge generisch (CONVENTIONS).
 
