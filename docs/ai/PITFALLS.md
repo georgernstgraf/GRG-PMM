@@ -194,3 +194,11 @@ Read this file carefully before making changes in affected areas.
   Lösung: `ranking$n <- as.numeric(ranking$n)` direkt nach `dbGetQuery()`.
   Zweite Stolperstelle im selben Code: `label_number(big.mark = ".")` warnt,
   solange `decimal.mark` nicht ebenfalls gesetzt ist.
+- **`R -e '…'` ist nicht interaktiv — nur `R` im Terminal ist es
+  (2026-10-29, #37).** `interactive()` ist bei `Rscript` **und** bei `R -e`
+  `FALSE`; das Default-Device ist dort die PDF-Funktion, bei `R` im Terminal
+  `X11`, in RStudio `RStudioGD`. Ein Skript, das `print(plot)` nur bei
+  `interactive()` ausführt, zeigt daher mit `R -e` nichts an und schreibt
+  ohne `OUT=` auch nichts — bei „warum sehe ich kein Fenster?" zuerst
+  `getOption("device")` und `interactive()` prüfen.
+  Verifiziert: `R -q -e 'interactive()'` → FALSE, `R --interactive` → TRUE.
