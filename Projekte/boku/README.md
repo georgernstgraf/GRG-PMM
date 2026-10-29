@@ -34,17 +34,38 @@ Server nicht antwortet — er tut das sporadisch.
 ### R-Skripte
 
 R-Skripte parsen `.env` **nicht** selbst; sie erwarten die exportierten
-Variablen und brechen mit einer klaren Meldung ab, wenn eine fehlt:
+Variablen und brechen mit einer klaren Meldung ab, wenn eine fehlt.
+
+**Interaktiv (Diagramm im X11-Fenster):**
 
 ```sh
-source .env && Rscript arten-ranking.R                      # RStudio/Plot-Fenster
+source .env && R          # .env muss vor dem R-Start gesourct sein
+```
+```r
+source("arten-ranking.R")   # Fenster; dev.off() schließt es,
+                            # ggsave("ranking.png", width = 8, height = 6.5)
+```
+
+**Skript-Modus (schreibt eine Datei, wenn `OUT=` gesetzt ist):**
+
+```sh
 source .env && OUT=/tmp/arten-ranking.png Rscript arten-ranking.R
 ```
 
+| Aufruf | `interactive()` | Default-Device | Ergebnis |
+|---|---|---|---|
+| `R` im Terminal | TRUE | `X11` | Plot-Fenster |
+| RStudio, „Source" | TRUE | `RStudioGD` | Plots-Pane |
+| `R -e 'source(…)'` | FALSE | pdf | nur mit `OUT=`, sonst Meldung |
+| `Rscript …` | FALSE | pdf | nur mit `OUT=`, sonst Meldung |
+
+Ohne `OUT=` wird in einer Skript-Session nichts geschrieben — bewusst, damit
+kein `Rplots.pdf` im Ordner landet. Welches Device aktiv ist, verrät
+`getOption("device")` (X11-Funktion = Fenster, PDF-Funktion = Datei).
+
 `arten-ranking.R` lädt das Top-20-Ranking (die CTE aus `joins.md`) und zeichnet
 es als horizontales Balkendiagramm; Sammel-Einträge auf Familienebene
-(„Karpfenfisch“) sind grau abgesetzt. Ohne `OUT=` wird in einer Skript-Session
-nichts geschrieben — bewusst, damit kein `Rplots.pdf` im Ordner landet.
+(„Karpfenfisch“) sind grau abgesetzt.
 
 ## Inhalt von `.env`
 
