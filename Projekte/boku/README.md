@@ -10,6 +10,7 @@ für Fragestellungen mit realer Datenbasis.
 | `psqlx` | psql-Wrapper, liest `.env` (Zugangsdaten) |
 | `.env` | `PG*`-Variablen, mode 600, **gitignored** |
 | `joins.md` | Schema, Fremdschlüssel, fertige Join-Queries, Fallstricke |
+| `arten-ranking.R` | R-Skript: Top 20 der häufigsten Taxa als Balkendiagramm |
 | `.RData` / `.Rhistory` | R-Artefakte aus der ersten Erkundung (gitignored) |
 
 ## Bedienung
@@ -29,6 +30,21 @@ anderes env-File per `PSQLX_ENV=/pfad/zur/.env`. Das Passwort wird nie
 ausgegeben, `--no-password` verhindert Hängen an einem Prompt, und
 `PGCONNECT_TIMEOUT=10` (per Umgebungsvariable änderbar) bricht ab, wenn der
 Server nicht antwortet — er tut das sporadisch.
+
+### R-Skripte
+
+R-Skripte parsen `.env` **nicht** selbst; sie erwarten die exportierten
+Variablen und brechen mit einer klaren Meldung ab, wenn eine fehlt:
+
+```sh
+source .env && Rscript arten-ranking.R                      # RStudio/Plot-Fenster
+source .env && OUT=/tmp/arten-ranking.png Rscript arten-ranking.R
+```
+
+`arten-ranking.R` lädt das Top-20-Ranking (die CTE aus `joins.md`) und zeichnet
+es als horizontales Balkendiagramm; Sammel-Einträge auf Familienebene
+(„Karpfenfisch“) sind grau abgesetzt. Ohne `OUT=` wird in einer Skript-Session
+nichts geschrieben — bewusst, damit kein `Rplots.pdf` im Ordner landet.
 
 ## Inhalt von `.env`
 

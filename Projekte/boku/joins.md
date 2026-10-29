@@ -64,16 +64,19 @@ weiterverwenden:
 
 ```sql
 WITH ranking AS (
-  SELECT f."germanName", count(*) AS n
+  SELECT f."germanName", f."speciesName", f.family, count(*) AS n
   FROM   fish_catches c JOIN fish_species f ON f.id = c."speciesId"
-  GROUP  BY 1
+  GROUP  BY 1,2,3
   ORDER  BY n DESC          -- bestimmt mit LIMIT, WELCHE 20 Zeilen kommen
   LIMIT  20
 )
 SELECT * FROM ranking ORDER BY n DESC;   -- bestimmt nur die Darstellung
 ```
 
-Drei Dinge, die hier schiefgehen:
+Kontrollwerte (2026-10-29): Platz 1 Bachforelle 86.326 · Platz 6
+Karpfenfisch 27.974 · Platz 20 Marmorgrundel 3.298.
+
+Fünf Dinge, die hier schiefgehen:
 
 - Das innere `ORDER BY` ist **nur zusammen mit `LIMIT`** wirksam — es wählt die
   Zeilen aus. Die Reihenfolge der Ausgabe legt das äußere `ORDER BY` fest; ohne
@@ -85,6 +88,17 @@ Drei Dinge, die hier schiefgehen:
 - Platz 6 dieser Liste ist `Cyprinidae` („Karpfenfisch") — ein Sammel-Eintrag
   auf Familienebene, keine Art. Die Tabelle als „häufigste Taxa" beschriften
   oder Sammelzeilen (`speciesName = family`) kennzeichnen.
+- `GROUP BY 1,2,3` bei `SELECT a, b, count(*)` knallt mit
+  `aggregate functions are not allowed in GROUP BY` — Position 3 zeigt auf das
+  Aggregat. Die Ordinalform verrät nicht, worauf sie zeigt, bis es zu spät ist.
+- `(f."speciesName" = f.family) AS sammel_taxon` im SELECT scheitert an
+  `column "f.family" must appear in the GROUP BY clause`: PostgreSQL erkennt
+  funktionale Abhängigkeit nur über den Primärschlüssel, nicht über
+  „speciesName bestimmt family". Lösung: `f.family` mitselektieren und mit
+  `GROUP BY` abdecken, das Flag in R bilden.
+
+Als R-Skript umgesetzt (Laden in eine Variable + Balkendiagramm):
+`arten-ranking.R` im selben Ordner.
 
 Fänge pro Jahr und Fluss, inkl. Jahre ohne Fänge:
 
