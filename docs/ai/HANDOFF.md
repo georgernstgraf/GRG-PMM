@@ -15,8 +15,11 @@ Vorlage, optionaler `daten/`-Ordner, 🎓 Rohmaterial bleibt roh).
 Materialbasis: echte (raue) Projektdaten.
 Toolchain für SA-07 steht seit 2026-10-29 (#38): `libpq-dev` installiert,
 `DBI` 1.3.0 + `RPostgres` 1.4.10 in der User-Lib, `Postgres()`-Smoke-Test
-grün. Offen für SA-07: Zugangsdaten/Erreichbarkeit des Schul-Servers
-klären (nur Lehrer-Angabe vorhanden, kein dokumentierter Host).
+grün. **Datenzugang geklärt (2026-10-29, `0487102`):** Server erreichbar,
+read-only Account, Schema + fertige Joins in `Projekte/boku/joins.md`,
+Erkundung per `Projekte/boku/psqlx` (sourcet `.env`). Für SA-07 noch zu
+tun: Lesson inkl. `daten/`-Ordner bauen — der Join-Graph aus `joins.md`
+ist der Lernstoff (siehe auch #37-Kommentar vom 2026-10-29).
 
 ### Fragestellungen-Statistik (#36) — Weiterführung nach erstem Lauf
 **Priority:** low (Langprojekt, kein Termin)

@@ -14,6 +14,14 @@ Offen: SA-05 (JSON & APIs), SA-06 (`unlist` & Konvertieren), SA-07
 Lesson-Struktur-Doku (AGENTS/README/CONVENTIONS/ARCHITECTURE) auf
 neues Format nachgezogen.
 
+**SA-07-Datenbasis (2026-10-29, #37, Commit `0487102`):** Schul-Postgres
+ist erreichbar (`pg_isready` grün, PostgreSQL 16.15). Neuer Ordner
+`Projekte/boku/` — `psqlx` (psql-Wrapper auf `.env`/`PG*`, read-only
+erzwungen, Passwort nie ausgegeben), `joins.md` (ER-Graph, 3 FKs, 6
+verifizierte Abfragen, Fallstricke), `README.md`, `.env` (gitignored).
+Datenbasis: `fish_catches` 464.654 · `samplings` 10.497 · `river_sites`
+6.260 · `fish_species` 125, 1998–2024; 4-Tabellen-INNER-JOIN verlustfrei.
+
 **Fragestellungen-Statistik (#36):** Neues Langprojekt
 `Projekte/fragestellungen-statistik/` — aus KM7/KM9a abgeleitete
 Fragestellungen mit kuratiertem Datenmaterial (Statistik Austria OGD,
@@ -211,6 +219,8 @@ unterricht ohne Zweig-Fach-Ordner).
   „6 von 40" ist ein Szenario, nicht die CSV).
 - Postgres-Zugriff in R steht seit 2026-10-29 (`DBI` 1.3.0, `RPostgres`
   1.4.10, `libpq` 18.6 via apt `libpq-dev`) — SA-07 kann gebaut werden.
+  Server + Zugang sind bestätigt (`Projekte/boku/`, #37, `0487102`);
+  Schema/Join-Graph in `Projekte/boku/joins.md`.
 - Nutzung: `./serve.sh` → `http://localhost:8000/`; **kein `file://`** (Firefox).
 - Web-Assets: ein Top-Level `assets/`; Bootstrap + Badge generisch (CONVENTIONS).
 

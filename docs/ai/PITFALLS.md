@@ -142,3 +142,28 @@ Read this file carefully before making changes in affected areas.
   `client.version 18/6`. Gleiches Muster wie die Header-Falle oben — auf
   Schul-/Klassenrechnern (SA-07 nutzt einen echten Schul-Postgres-Server)
   zuerst die `-dev`-Pakete prüfen, nicht die R-Seite debuggen.
+- **`"fishName"` gibt es nicht — Artname nur über den Join (2026-10-29, #37).**
+  Die erste R-Erkundung (`Projekte/boku/.Rhistory`) fragte
+  `SELECT "fishName" … FROM fish_catches` — die Spalte existiert dort nicht.
+  `fish_catches` trägt nur `"speciesId"` (integer, FK auf `fish_species.id`);
+  der Name steht als `fish_species."speciesName"`/`"germanName"`.
+  Verwechslungsfalle: die gleichnamig klingende Spalte `fish_catches."fishId"`
+  ist **Text** (Individuen-/Markierungskennung), **kein** FK, und zeigt
+  nirgendwo hin.
+- **Postgres-Datenqualität: `'NA'` als Text, Kategorie-Schreibweisen, stille
+  `NULL`s (2026-10-29, #37).** In der BOKU-DB `clx` gilt: `assessment` hat
+  `'strip'` (4.579) / `'Strip'` (1.430) / `'strip '` mit Schlussleerzeichen (8)
+  sowie `'Seber-LeCren'`/`'seber-LeCren'` — ohne `lower(btrim(...))` zerfällt
+  eine Kategorie in drei. `assessment = 'NA'` ist **Text** (2.383 Zeilen),
+  `IS NULL` filtert davon nichts. 30,6 % der Fänge haben kein
+  `"totalWeightGr"`, 2,3 % keine Länge — `avg()`/`n()` immer mit
+  `IS NOT NULL` bzw. `count(spalte)` kombinieren. `recapture` ist durchgehend
+  `false` (trotz 17 gesetzter `"pitDec"`), also als Merkmal unbrauchbar.
+  Für Jahresauswertungen: 6 von 10.497 Befischungen haben keinen Fang
+  (INNER JOIN verliert sie), `samplings.year` weicht in 9 Zeilen vom Jahr aus
+  `"catchDate"` ab — eine Zeitquelle festlegen und im Text nennen.
+- **`.env` war im public Repo nicht ignoriert (2026-10-29, #37).** Der
+  BOKU-Ordner enthielt nur untracked Dateien; ein `git add .` hätte das
+  DB-Passwort committet (GitHub Pages-Repo ist öffentlich). Vor jedem
+  Datenbank-Projekt prüfen: `git check-ignore -v <pfad>/.env`. Jetzt global
+  in der Root-`.gitignore`.

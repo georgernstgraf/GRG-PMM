@@ -1,6 +1,6 @@
 # Architecture
 
-Living structural map of the system as of 2026-10-14.
+Living structural map of the system as of 2026-10-29.
 Overwritten when structural changes occur during a session.
 
 ## Overview
@@ -24,6 +24,7 @@ GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturaf
 | `docs/ai/` | Structured knowledge files for AI agent persistence |
 | `Unterlagen/` | Teaching reference materials and scripts |
 | `Projekte/` | Long-running projects, one folder per project; data-project scheme per `fragestellungen-statistik/` (#36): one file per KM (`km7.md`, `km9a.md`), cross-cutting theme files (`klima-klimawandel.md`, `corona-impfmythen.md`, `datensaetze-im-widerspruch.md`, `kuriose-quellen.md`) + curated `daten/<name>.csv` with `<name>.md` metadata (source, license, R read-check) + `daten/_index/datasets.csv` (Rdatasets catalog as search tool) + `daten/_build/build_data*.R` (deterministic build scripts); single deep-dive source files sit directly in `Projekte/` (`femizid-taeter-nationalitaet.md`) |
+| `Projekte/boku/` | Database project for the school Postgres (`clx`, BOKU fish survey, read-only): `psqlx` (psql wrapper sourcing `.env` with `PG*` vars, forces `default_transaction_read_only`, never prints the password), `.env` (credentials, mode 600, gitignored), `joins.md` (ER graph, 3 FKs, verified queries, data-quality pitfalls), `README.md`; R artefacts `.RData`/`.Rhistory` remain local |
 | *(kein `.opencode/`)* | Skills live in `opencode-helpers/skills/`, symlinked via `~/.config/opencode/skills` |
 
 ## HTML Page Anatomy (all pages)

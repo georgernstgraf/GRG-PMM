@@ -193,3 +193,22 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   `<name>.md`-Metadaten nennen Paket, Lizenz, Original-URL und
   Kontrollwerte. Kein Umbenennen — sonst brechen Doku-Links und
   `Rscript`-Vergleiche.
+
+## Datenbank-Zugang (psqlx, #37, 2026-10-29)
+- **Ein Wrapper pro Datenbank-Projekt:** `Projekte/boku/psqlx` sourcet die
+  `.env` im eigenen Ordner (`PSQLX_ENV` überschreibt den Pfad) und
+  `exec`t `psql --no-password "$@"` — kein Argument-Parsing, keine
+  eingebetteten Zugangsdaten, keine Connection-URI im Skript.
+- **Zugangsdaten nur in `.env`** (`PG*` + Alias `READONLY_DB_PASSWORD`),
+  mode 600, `.env` global in der Root-`.gitignore` (public repo). Doku
+  nennt Variablennamen, nie Host oder Account.
+- **Read-only ist doppelt gesichert:** Account-Rechte + `PGOPTIONS=-c
+  default_transaction_read_only=on`; `PSQLX_RW=1` hebt nur die
+  Session-Sperre auf (ohne Schreibrechte am Account bleibt es read-only).
+- **Schema-Erkundung liefert nach `joins.md`:** FK-Graph aus
+  `pg_constraint`, Kardinalitäten per `count(*)`-Gegenprobe (INNER-JOIN
+  muss die Basistabelle verlustfrei reproduzieren), dazu eine
+  Fallstricke-Tabelle. Neue Erkenntnisse gehören dort hin, nicht in
+  Chat-Protokolle.
+- **bash-Wrapper werden mit `shellcheck` geprüft**, bevor sie committet
+  werden (`shellcheck psqlx` muss still bleiben).

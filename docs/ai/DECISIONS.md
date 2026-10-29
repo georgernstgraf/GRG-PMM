@@ -3,6 +3,25 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-10-29: Schema-Erkundung per psql-Wrapper statt per R (#37)
+
+- **Choice:** Der Join-Graph der Schul-Postgres-DB (`clx`) wird mit `psql`
+  erkundet, nicht mit `DBI`/`RPostgres`. Dafür liegt
+  `Projekte/boku/psqlx` (dünner bash-Wrapper) neben einer `.env` mit den
+  `PG*`-Variablen; das R-Erkunden bleibt für die Lesson selbst.
+- **Why:** Joins lassen sich in SQL schneller prüfen (`\d+`, FK-Katalog,
+  `count(*)`-Gegenprobe) als über R-Objekte; R soll in der Lesson das
+  Werkzeug der Schüler:innen sein, nicht das Debug-Werkzeug der Vorbereitung.
+- **Konsequenz:** `.env` ist die **einzige** Quelle der Verbindungsdaten
+  (`PGHOST/PGPORT/PGDATABASE/PGUSER/PGPASSWORD/PGSSLMODE` plus Alias
+  `READONLY_DB_PASSWORD` für den R-Code aus der ersten Erkundung) und steht
+  in der Root-`.gitignore`. Das Repo ist public — Host und Account-Name
+  werden in der Doku bewusst nicht wiederholt, nur Variablennamen.
+- **Wrapper-Semantik:** `--no-password` (nie interaktiv fragen),
+  `default_transaction_read_only=on` per `PGOPTIONS` (abschaltbar mit
+  `PSQLX_RW=1`), Zielzeile auf stderr, Passwort nie auf stdout. Alle
+  Argumente gehen unverändert an `psql` (`-c`, `-f`, `-l`, interaktiv).
+
 ## 2026-10-19: WÜ-Format 35 MC + 3 Freitext, kein Notenschlüssel (GRG-PMM-T #5)
 
 - **Choice:** Wissensüberprüfungen ab 20.10. mit **35 MC à 4 P + 3 Freitext à
