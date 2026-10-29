@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# psqlx — psql-Wrapper für den BOKU-Server (clx).
+#
+# Liest die Zugangsdaten aus dem .env-File neben diesem Skript (PGHOST,
+# PGPORT, PGDATABASE, PGUSER, PGPASSWORD, PGSSLMODE) und reicht alle
+# Argumente unverändert an psql weiter.
+#
+#   ./psqlx                                  interaktive Sitzung
+#   ./psqlx -c 'select 1'                    Einzelabfrage
+#   ./psqlx -f joins.sql                     Datei ausführen
+#   ./psqlx -l                               Datenbanken listen
+#   PSQLX_ENV=/pfad/zu/.env ./psqlx          anderes env-File
+#   PSQLX_RW=1 ./psqlx                       Schreibzugriff erlauben
+set -euo pipefail
+
+here=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+env_file=${PSQLX_ENV:-"$here/.env"}
+
+if [[ ! -r $env_file ]]; then
+  echo "psqlx: env-File '$env_file' nicht lesbar." >&2
+  exit 1
+fi
+
+# shellcheck source=/dev/null
+source "$env_file"
+
+# Passwort darf auch nur unter dem R-Namen gesetzt sein.
+: "${PGPASSWORD:=${READONLY_DB_PASSWORD:-}}"
+if [[ -z $PGPASSWORD ]]; then
+  echo "psqlx: kein Passwort in '$env_file' (PGPASSWORD/READONLY_DB_PASSWORD)." >&2
+  exit 1
+fi
+
+# Read-only doppelt abgesichert: der Account ist es ohnehin, die Session
+# zusätzlich. Abschaltbar mit PSQLX_RW=1.
+if [[ ${PSQLX_RW:-0} != 1 ]]; then
+  PGOPTIONS="-c default_transaction_read_only=on ${PGOPTIONS:-}"
+fi
+
+export PGPASSWORD PGOPTIONS
+
+# Nie das Passwort ausgeben — nur das Ziel.
+echo "psqlx: ${PGUSER}@${PGHOST}:${PGPORT}/${PGDATABASE} (sslmode=${PGSSLMODE:-prefer})" >&2
+
+# --no-password: niemals interaktiv nach dem Passwort fragen.
+exec psql --no-password "$@"

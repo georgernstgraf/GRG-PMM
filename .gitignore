@@ -4,3 +4,6 @@ transcript.md
 # R-Artefakte
 .RData
 .Rhistory
+
+# Zugangsdaten (public repo → niemals committen)
+.env
