@@ -218,3 +218,11 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   Chat-Protokolle.
 - **bash-Wrapper werden mit `shellcheck` geprüft**, bevor sie committet
   werden (`shellcheck psqlx` muss still bleiben).
+- **R-Skripte parsen `.env` nicht** — sie erwarten exportierte `PG*`-Variablen
+  (`source .env && Rscript …`) und brechen mit Hinweis ab, wenn eine fehlt.
+  Asymmetrie bewusst: `psqlx` sourcet selbst, R-Skripte nicht.
+- **R-Skripte rendern nur mit `OUT=`** (ggsave) oder interaktiv (RStudio);
+  in einer `Rscript`-Session ohne `OUT` wird nichts geschrieben, damit kein
+  `Rplots.pdf` im Arbeitsverzeichnis landet.
+- **Rückgabewerte aus SQL vor dem Plotten typisieren:** `count(*)` kommt als
+  `integer64`, `as.numeric()` verhindert stille Formatierungsfehler.

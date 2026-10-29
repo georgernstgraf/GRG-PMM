@@ -178,3 +178,19 @@ Read this file carefully before making changes in affected areas.
   überschreibbar). Folge für SA-07: die Lesson darf nicht am toten Server
   hängen — Fallback einplanen (lokaler Docker-Postgres mit den
   `daten/`-CSVs) und den Live-Teil als „wenn erreichbar" kennzeichnen.
+- **R-Skript + `Rscript` legt still ein `Rplots.pdf` ins Arbeitsverzeichnis
+  (2026-10-29, #37).** Ein `print(ggplot)` am Skriptende öffnet in einer
+  nicht-interaktiven Session das Default-PDF-Device und schreibt
+  `Rplots.pdf` in das aktuelle Verzeichnis — beim Aufruf aus dem Repo-Root
+  und aus dem Projektordner lagen danach zwei solcher Dateien herum.
+  Muster: `OUT=` → `ggsave()`, `interactive()` → `print()`, sonst nur eine
+  Meldung. Merksatz: Plot-Skripte, die „nur anzeigen", schreiben in
+  Skript-Sessions nichts.
+- **`count(*)` aus RPostgres ist `integer64` — `format()` ignoriert dann
+  `big.mark` (2026-10-29, #37).** Die Fangzahlen kamen als
+  `bit64::integer64` zurück, `format(n, big.mark = ".")` lieferte deshalb
+  „86326" statt „86.326" (nur eine Warnung, kein Fehler); die Achse war
+  korrekt, weil `scales::label_number()` intern nach `numeric` wandelt.
+  Lösung: `ranking$n <- as.numeric(ranking$n)` direkt nach `dbGetQuery()`.
+  Zweite Stolperstelle im selben Code: `label_number(big.mark = ".")` warnt,
+  solange `decimal.mark` nicht ebenfalls gesetzt ist.
