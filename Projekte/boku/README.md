@@ -26,7 +26,9 @@ Der Wrapper sourcet `.env` selbst — kein `source .env` vorher nötig. Er
 setzt `default_transaction_read_only=on` für die Session; Schreibzugriff
 (nur mit einem Schreib-Account überhaupt möglich) via `PSQLX_RW=1`. Ein
 anderes env-File per `PSQLX_ENV=/pfad/zur/.env`. Das Passwort wird nie
-ausgegeben, `--no-password` verhindert Hängen an einem Prompt.
+ausgegeben, `--no-password` verhindert Hängen an einem Prompt, und
+`PGCONNECT_TIMEOUT=10` (per Umgebungsvariable änderbar) bricht ab, wenn der
+Server nicht antwortet — er tut das sporadisch.
 
 ## Inhalt von `.env`
 

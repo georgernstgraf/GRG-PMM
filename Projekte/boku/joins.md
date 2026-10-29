@@ -49,7 +49,7 @@ Zeilenvervielfachung durchgehend INNER-joinbar.
 
 ## Nützliche Aggregationen
 
-Arten ranking (die Abfrage, die im R-Verlauf als `"fishName"` scheiterte —
+Arten-Ranking (die Abfrage, die im R-Verlauf als `"fishName"` scheiterte —
 die Spalte heißt `fish_species."speciesName"` und liegt in der Nachbartabelle):
 
 ```sql
@@ -58,6 +58,33 @@ FROM   fish_catches c JOIN fish_species f ON f.id = c."speciesId"
 GROUP  BY 1,2 ORDER BY n DESC;
 -- Spitze: Salmo trutta 86.326 · Thymallus thymallus 51.932 · Alburnus alburnus 51.637
 ```
+
+Top 20 über eine CTE — Zwischenergebnis benennen, im selben Statement
+weiterverwenden:
+
+```sql
+WITH ranking AS (
+  SELECT f."germanName", count(*) AS n
+  FROM   fish_catches c JOIN fish_species f ON f.id = c."speciesId"
+  GROUP  BY 1
+  ORDER  BY n DESC          -- bestimmt mit LIMIT, WELCHE 20 Zeilen kommen
+  LIMIT  20
+)
+SELECT * FROM ranking ORDER BY n DESC;   -- bestimmt nur die Darstellung
+```
+
+Drei Dinge, die hier schiefgehen:
+
+- Das innere `ORDER BY` ist **nur zusammen mit `LIMIT`** wirksam — es wählt die
+  Zeilen aus. Die Reihenfolge der Ausgabe legt das äußere `ORDER BY` fest; ohne
+  das wäre die Reihenfolge nicht garantiert. `ORDER BY n` (ohne `DESC`) liest
+  das Ranking von Platz 20 nach Platz 1.
+- `count(*)` ohne Alias heißt als Ausgabespalte `count`; `ORDER BY count`
+  funktioniert dann zwar, kippt aber bei einer zweiten Aggregatspalte oder einer
+  echten Spalte `count` stillschweigend auf etwas anderes. Deshalb `AS n`.
+- Platz 6 dieser Liste ist `Cyprinidae` („Karpfenfisch") — ein Sammel-Eintrag
+  auf Familienebene, keine Art. Die Tabelle als „häufigste Taxa" beschriften
+  oder Sammelzeilen (`speciesName = family`) kennzeichnen.
 
 Fänge pro Jahr und Fluss, inkl. Jahre ohne Fänge:
 

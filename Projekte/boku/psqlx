@@ -11,6 +11,7 @@
 #   ./psqlx -l                               Datenbanken listen
 #   PSQLX_ENV=/pfad/zu/.env ./psqlx          anderes env-File
 #   PSQLX_RW=1 ./psqlx                       Schreibzugriff erlauben
+#   PGCONNECT_TIMEOUT=30 ./psqlx             längerer Connect-Timeout
 set -euo pipefail
 
 here=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
@@ -36,6 +37,10 @@ fi
 if [[ ${PSQLX_RW:-0} != 1 ]]; then
   PGOPTIONS="-c default_transaction_read_only=on ${PGOPTIONS:-}"
 fi
+
+# Der Schul-Server bricht sporadisch weg; ohne Connect-Timeout hängt psql
+# beliebig lange in einem TCP-Connect (libpq-Default: kein Timeout).
+export PGCONNECT_TIMEOUT="${PGCONNECT_TIMEOUT:-10}"
 
 export PGPASSWORD PGOPTIONS
 
