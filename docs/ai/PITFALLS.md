@@ -167,3 +167,14 @@ Read this file carefully before making changes in affected areas.
   DB-Passwort committet (GitHub Pages-Repo ist öffentlich). Vor jedem
   Datenbank-Projekt prüfen: `git check-ignore -v <pfad>/.env`. Jetzt global
   in der Root-`.gitignore`.
+- **Schul-Postgres `clx` bricht sporadisch weg — Connect-Timeout setzen
+  (2026-10-29, #37).** Der Host verweigert zeitweise jede Verbindung
+  (`psql: SSL error: unexpected eof while reading`, danach
+  `pg_isready` → „no response"), ohne dass sich Account oder `.env`
+  geändert hätten. Ohne `PGCONNECT_TIMEOUT` hängt libpq dann **beliebig
+  lange** im TCP-Connect (libpq-Default: kein Timeout) — ein Testaufruf
+  lief 120 s in einen Timeout statt 10 s in eine Fehlermeldung. `psqlx`
+  setzt deshalb `PGCONNECT_TIMEOUT=10` (per Umgebungsvariable
+  überschreibbar). Folge für SA-07: die Lesson darf nicht am toten Server
+  hängen — Fallback einplanen (lokaler Docker-Postgres mit den
+  `daten/`-CSVs) und den Live-Teil als „wenn erreichbar" kennzeichnen.

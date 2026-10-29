@@ -205,6 +205,12 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
 - **Read-only ist doppelt gesichert:** Account-Rechte + `PGOPTIONS=-c
   default_transaction_read_only=on`; `PSQLX_RW=1` hebt nur die
   Session-Sperre auf (ohne Schreibrechte am Account bleibt es read-only).
+- **Immer `PGCONNECT_TIMEOUT` setzen** (im Wrapper: 10 s): ohne Timeout
+  hängt libpq bei einem toten Host unbegrenzt, statt schnell zu scheitern.
+- **SQL-Beispiele in `joins.md` werden vor dem Commit ausgeführt**, nicht
+  nur geschrieben — bei nicht erreichbarem Server ersatzweise gegen einen
+  Wegwerf-Datenträger (`BEGIN; create temp table …; ROLLBACK;`), damit
+  Syntax und Spaltenauflösung belegt sind.
 - **Schema-Erkundung liefert nach `joins.md`:** FK-Graph aus
   `pg_constraint`, Kardinalitäten per `count(*)`-Gegenprobe (INNER-JOIN
   muss die Basistabelle verlustfrei reproduzieren), dazu eine
