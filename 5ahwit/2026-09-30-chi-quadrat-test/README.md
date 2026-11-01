@@ -4,7 +4,7 @@
 
 ## daten einlesen,
 
-mit read.csv(r"(C:\Users\georg\repos\georgernstgraf\GRG-PMM\assets\betriebsdaten.csv)")
+mit read.csv("../assets/betriebsdaten.csv")
 
 > daten_massiert <- mutate(daten,iok = if_else(
 

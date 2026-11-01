@@ -5,15 +5,17 @@
 - 13.1.2027 (Umfang: Wintersemester 2026/27)
 - 20.1.2027 (Ersatztermin)
 
-## Aufgaben vom ...
+## Aufgaben
+
 - 2026-10-21_themen:
   in `Projekte/fragestellungen-statistik` (insbesondere km9a.md) sind mögliche statistische Fragestellungen,
   die wir statistisch beantworten werden. Schaue Dich darin um!
   1) Erstelle in Deinem Repo einen Ordner (zb 2026-10-16_hü) und lege darin ein README.md an mit folgenden Inhalten:
   2) Drei Themengebiete, welche Dich interessieren
-  3) zu jedem dieser "interessanten" Themen: Welche FRAGE wollen wir an die Daten stellen?
-- 2026-10-14_chi-quadrat-test
+  3) zu jedem dieser "interessanten" Themen: Welche FRAGE wollen wir an die Daten stellen? → [Projekte/fragestellungen-statistik/](../Projekte/fragestellungen-statistik/)
+- 2026-09-30: Chi-Quadrat-Test (KM7-02) — Navarro Kap. 12, RStudio-Projekt `pmm-km7-02` → [2026-09-30-chi-quadrat-test/](./2026-09-30-chi-quadrat-test/)
 - 2026-09-23: Setup-HÜ — PMM-Repo auf GitHub anlegen (public, mit README) + Wiederholungswünsche der 4. Klasse im Repo-README festhalten → [2026-09-23__setup_fertig/](./2026-09-23__setup_fertig/)
+- 2026-09-16: Lektion SA-01 durcharbeiten + Hausaufgabe UE 1 → [unterricht/SA-01-datenvisualisierung-ggplot/](../unterricht/SA-01-datenvisualisierung-ggplot/hausaufgabe.md)
 
 ## 2026-10-14_chi_quadrat_schulübung
 
@@ -37,7 +39,7 @@ Auswertung aller 18 abgegebenen Repos:
 ausdrücklich „nicht verstanden"), Boxplot/Grafikwahl 2×, Z-Test, Binomial-
 verteilung und Teststärke je 1×. Kein Wunsch betrifft DoE/RSM — also genau
 den Stoff, der UE 1 eröffnet. Das deckt sich mit der in
-[LR 0001](teach/learning-records/0001-vorwissen-onramp.md) offenen Lücke:
+[LR 0001](../selbststudium/learning-records/01-vorwissen.md) offenen Lücke:
 KM7 (Tests, ANOVA) und `lm()`-Lesekompetenz sind Voraussetzung für UE 1.
 
 **Daraus:** Fünf Prepared Lessons in `unterricht/` (siehe Tabelle oben),
@@ -57,7 +59,7 @@ Cheatsheet). In der DS: Lektion 01 (ggplot) live, Lektion 02 (dplyr) als
 Nachbereitung; Lektion 03 (Daten einlesen & deskriptiv, Betriebsdaten)
 als Vorbereitung auf die nächste DS. HÜ: Lektion 01 durcharbeiten +
 Hausaufgabe UE 1. Abweichung vom Semesterplan dokumentiert
-([learning-record 0001](teach/learning-records/0001-vorwissen-onramp.md)).
+([learning-record 0001](../selbststudium/learning-records/01-vorwissen.md)).
 
 ### 2026-09-09
 

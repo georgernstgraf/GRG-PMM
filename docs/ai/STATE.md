@@ -208,9 +208,9 @@ unterricht ohne Zweig-Fach-Ordner).
 - [ ] JG3 Phase 0: L04 Abschnitt 3 (Poisson) durcharbeiten, dann L04 ✅; danach L05+.
 
 ## Notes
-- 2026-10-12: Ordnername `4ahwit-y/20206-10-09_opencode/` enthält einen
-  Datumstippfehler (`20206` statt `2026`) — bewusst **nicht** umbenannt
-  (README-Verlauf + Aufgabe.md verweisen darauf); Pitfall siehe PITFALLS.md.
+- 2026-11-01: Ordnername `4ahwit-y/2026-10-09_opencode/` (früher `20206-…`) per
+  `git mv` korrigiert, README-Link nachgezogen (#119); die frühere
+  „eingefroren"-Regel ist aufgehoben (Pitfall siehe PITFALLS.md).
   `5ahwit/README.md` Sektion `## Hausaufgaben` verweist auf eine
   `hausaufgaben/`-Ablage, die (noch) nicht existiert — Klärung offen.
 - R 4.5.x mit `tidyverse`, `palmerpenguins`; Verifikation per `Rscript`

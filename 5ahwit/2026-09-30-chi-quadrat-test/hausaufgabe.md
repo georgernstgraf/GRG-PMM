@@ -5,7 +5,7 @@ Name: _____________ &nbsp;&nbsp;&nbsp; Abgabe: _____________
 **Lektüre:** Navarro, [Statistik für Human- und Sozialwissenschaftler](https://learningstatisticswithr.com/book/)
 (Pflicht) — **Kap. 12, Chi-Quadrat-Tests**. Aufgaben 4 und 6 beziehen sich
 auf das Kapitel. Voraussetzung ist
-[Lektion KM5-02](../KM5-02-binomialverteilung-und-annahmeschwelle/lesson.html)
+[Lektion KM5-02](../../unterricht/KM5-02-binomialverteilung-und-annahmeschwelle/lesson.html)
 (Binomialverteilung) — der Anpassungstest ist ihre Anwendung.
 
 > **Setup-Ritual:** RStudio-Projekt `pmm-km7-02`, Skript `analyse.R`.
@@ -135,14 +135,14 @@ lapply(split(quoten, quoten$maschine), function(q) {
 | M3 | 34 / 6 | 36 / 4,0 | | |
 
 > Warum `suppressWarnings()`? Der Test warnt auch hier vor der
-> Näherung — in Aufgabe 5 siehtst du, ob die Warnung berechtigt ist.
+> Näherung — in Aufgabe 5 siehst du, ob die Warnung berechtigt ist.
 
 **b)** Welche Maschine fällt statistisch auf? In <strong>welche
 Richtung</strong> weicht sie ab — und wie erkennst du das, wenn der Test
 nur einen p-Wert liefert? ____________________
 
 **c)** Erkläre in 3 Sätzen, warum ein Anpassungstest gegen eine
-Sollverteilung <em>kein</em> Güftest für den Prozess ist.
+Sollverteilung <em>kein</em> Gütetest für den Prozess ist.
 
 _________________________________________________
 
