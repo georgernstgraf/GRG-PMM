@@ -1,8 +1,20 @@
 # Project State
 
-Current status as of 2026-10-29.
+Current status as of 2026-11-02.
 
 ## Current Focus
+**Quiz-Format 2.0 + KM7-02-Umbau (#40, 2026-11-02):** `assets/quiz.js`
+unterstützt jetzt Lernquizzes (Checkboxen, 0–4 richtig, Überprüfen-Button,
+Färbung, Infokugeln, Nochmal versuchen, Show-Modal) und bleibt zum
+Radio-Altmodus kompatibel. KM7-02 hat fünf Quizze (20 Fragen, Schwierigkeit
+leicht → schwer, eine 0-Richtige-Frage), `Übungsbeispiele.md` mit Beispiel
+1–3 und einen `<details>`-Block „Lehrplan & Einordnung"; `praesentation.html`
+und `hausaufgabe.md` sind weg. Serien-Aufräumen (#22): Folien-Sätze in
+KM5-02/03, KM6-01, KM7-01–03 entfernt, neun Tages-README-Vorlagen gelöscht,
+Navigator-Links bereinigt. Verifikation: Link-Check 0 tot, Headless-Chrome-
+Klicktest grün, `node --check` grün. Offen: die übrigen acht Lessons auf
+Format 2.0 umrüsten (bewusst zurückgestellt).
+
 **Lektionsserie Datenaufbereitung (#37):** SA-04 „Daten einlesen II: die
 raue Wirklichkeit" ist gebaut und committed (2026-10-19, `7f70261`) —
 erste Lesson im neuen Format (`lesson.html` = Präsentation, `aufgabe.md`,

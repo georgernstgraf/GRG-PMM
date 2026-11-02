@@ -529,3 +529,29 @@ Each entry documents WHAT was decided and WHY.
 - **Tradeoff:** Zwei der kuriosen Fragen (F-C11/F-C12) sind
   englischsprachige Fremdversuche — Kennzeichnung „echter Versuch" in
   Metadaten und im Themenfile bleibt Pflicht.
+
+## 2026-11-02: Quiz-Format 2.0 und Übungsbeispiele statt Tages-README-Vorlage (#40)
+
+- **Choice:** Lernquizzes arbeiten mit **Checkboxen** und einer
+  **Lösungsmenge** (`data-loesung="0,2"`, 0–4 richtige Optionen), einem
+  **Überprüfen-Button je Quiz** (keine Sofort-Auswertung), Färbung der
+  Karten (weiches Neongrün/Rot) und **Infokugeln**, die erst nach der
+  Prüfung Lösungsmenge und `data-grund`-Begründungen zeigen (Hover, Fokus,
+  Tipp). Danach wird der Button zu „Nochmal versuchen".
+- **Why:** Das Quiz ist ein **Lernquiz**, kein Punkttest — die Wahrheit zu
+  den Fragen zählt, nicht die Quote. Mehrfach-richtig entspricht dem
+  WÜ-Format (Knowledge Assessments) und verhindert Rate-Erfolge.
+- **Show-Modal:** Dasselbe DOM wird per CSS-Klasse bildschirmfüllend
+  (Backdrop-Blur, Kreuz oben rechts, Escape schließt) — Beamer-/Klassenmodus
+  ohne zweiten Foliensatz.
+- **Übungsbeispiele:** Jede Lesson erzeugt drei abzugebende Beispiele
+  (`Übungsbeispiele.md`, Beispiel 1–3, je ≥ 2 Teilaufgaben). Die Lehrperson
+  weist daraus zu („als Hausübung: Beispiel 2"); der Begriff „Hausübung"
+  kommt in keiner Schülerdatei vor.
+- **Kein Template mehr:** Tages-README-Vorlagen entfallen; die Lehrperson
+  pflegt das Kohorten-README selbst. Lehrplan/KM/Runtime stehen als
+  `<details>`-Block in der Lesson.
+- **Tradeoff:** `assets/quiz.js` trägt zwei Modi (Checkbox = Format 2.0,
+  Radio = Altmodus mit Sofort-Auswertung), damit die übrigen Lessons
+  unverändert laufen. Kein Framework (kein Alpine/Reveal) — Vanilla-JS im
+  zentralen Asset.

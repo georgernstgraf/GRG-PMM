@@ -215,3 +215,6 @@ Read this file carefully before making changes in affected areas.
   Regel: DB-Verbindungen immer in einer Funktion aufbauen und schließen
   (`main()` + `ranking <- main()` am Dateiende), dann laufen Skript- und
   `source()`-Aufruf identisch.
+- **Quiz-Optionen müssen rotiert werden (2026-11-02, #40).** Beim Schreiben von Lernquizzen landet die richtige Antwort reflexartig auf Position 0 — dann ist das Quiz durch reines Anklicken der ersten Option lösbar. Nach dem Bau prüfen: `grep -o 'data-loesung="[^"]*"' lesson.html` muss über die Optionen streuen; die Lösungsmenge wird beim Umsortieren mitgezogen.
+- **`assets/quiz.js` erkennt den Modus am Markup (2026-11-02, #40).** Checkboxen → Lernquiz (Button, Färbung, Infokugeln); Radios → Altmodus mit Sofort-Auswertung. Wer eine alte Lesson auf Format 2.0 hebt, muss die Radios durch Checkboxen ersetzen und `data-loesung` von einer Zahl auf eine Indexliste umstellen — sonst bleibt die alte Mechanik aktiv.
+- **Infokugeln brauchen Hover *und* Klick (2026-11-02, #40).** Am Beamer ohne Maus und auf Tablets ist Hover nicht erreichbar; das Widget behandelt `click` deshalb als Toggle. Beim Testen beide Wege prüfen.
