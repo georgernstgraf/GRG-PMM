@@ -92,28 +92,29 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   gemeinsames Material bleibt unter `unterricht/` (vorbereitete Einheiten)
   bzw. `lehrplan/pmm-hwit/` (Semesterpläne).
 - **Master/Kopien-Modell (#14):** `unterricht/` hält die Master-Einheiten
-  (`lesson.html` = Lektion und Präsentation in einem, `aufgabe.md`,
-  Tages-README-Vorlage) — Kohorten-
-  Abweichungen werden als **Kopien im Kohortenordner** gepflegt (z. B.
-  `hausaufgaben/`), Master-Dateien werden nie direkt angefasst.
+  (`lesson.html` = Lektion und Präsentation in einem, `Übungsbeispiele.md`) —
+  Kohorten-Abweichungen werden als **Kopien im Kohortenordner** gepflegt
+  (z. B. `hausaufgaben/`), Master-Dateien werden nie direkt angefasst.
 - Teach-Workspace-Layout: 4ahwit-x/y halten die Workspace-Dateien am
   Ordner-Root (MISSION, RESOURCES, NOTES); 5ahwit nutzt das SWP-Muster
   (nach `GRG-SWP/3ahwii/teach/`): alles unter `teach/`
   (`MISSION.md`, `RESOURCES.md`, `NOTES.md`, `reference/`,
   `learning-records/`) plus Klassenhub-README mit UE-Tabelle.
-- **Lektionsablage (2026-09-28, #20; aktualisiert 2026-10-19, #37):**
+- **Lektionsablage (2026-09-28, #20; aktualisiert 2026-10-19, #37;
+  Umbau 2026-11-02, #40):**
   vorbereitete (undatierte) Einheiten liegen **flach** unter
   `unterricht/` als `<PREFIX>-<NN>-<slug>/` (`KM<#>` =
   Kompetenzmodul, `SA` = schulautonom; `<NN>` läuft pro KM) mit
-  `lesson.html` (zugleich Präsentation, kein separater Foliensatz),
-  `aufgabe.md` und Tages-README-Vorlage `<PREFIX>-<NN>-<slug>.md`;
-  optionaler `daten/`-Unterordner für Schüler-Downloads (nur
-  `unterricht/` wird deployt; Übungs-Rohmaterial bleibt roh, 🎓).
-  Semesterpläne bleiben in `lehrplan/pmm-hwit/`; die Kohorten-
-  `prepared-lessons/` wurden aufgelöst. Terminierte/abgehaltene
+  `lesson.html` (zugleich Präsentation, kein separater Foliensatz) und
+  `Übungsbeispiele.md` (Beispiel 1–3, je ≥ 2 Teilaufgaben); eine
+  Tages-README-Vorlage gibt es **nicht** mehr — die Lehrperson pflegt das
+  Kohorten-README selbst. Optionaler `daten/`-Unterordner für
+  Schüler-Downloads (nur `unterricht/` wird deployt; Übungs-Rohmaterial
+  bleibt roh, 🎓). Semesterpläne bleiben in `lehrplan/pmm-hwit/`; die
+  Kohorten-`prepared-lessons/` wurden aufgelöst. Terminierte/abgehaltene
   Lektionen liegen im Datums-Ordner
-  `<klasse>/YYYY-MM-DD__thema/lesson.html` plus Tages-README (Aufgabe als
-  erster eigener `## Aufgabe`-Abschnitt, Pflicht).
+  `<klasse>/YYYY-MM-DD__thema/lesson.html`; das README dazu schreibt die
+  Lehrperson.
 - **lehrplan-Ebenen (2026-09-29, #21):** **Fach-Ebene** am `lehrplan/`-Root =
   `METADATA.md`, `RIS/`, `kompetenzmodule/` (KM-Steckbriefe) und KM-keyed
   Ressourcen (`ressourcen-matrix.md`, `r4ds-abdeckung.md`) — formunabhängig.

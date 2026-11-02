@@ -13,7 +13,7 @@
   <button type="button" class="theme-toggle" id="theme-toggle"
           aria-pressed="false">Dunkel</button>
   <span class="kicker">Lektion KM7-02 · Häufigkeiten vergleichen</span>
-  <span class="ort">vor UE 1 · 5AHWIT WS · Wiederholung aus KM7</span>
+  <span class="ort">Wiederholung aus KM7</span>
   <h1>Chi-Test: passen die Häufigkeiten?</h1>
   <p class="subtitle">Zwei Arten, ein Test — und ein Warnhinweis, den R dir
   nicht unterschlägt.</p>
@@ -82,13 +82,53 @@ tab
       gezählt — wir hätten plötzlich 120 statt 116 Fälle.</li>
   </ul>
 
-  <div class="quiz" data-loesung="0">
-    <p class="frage">Warum steht in der Bedingung ausdrücklich
-    <code>is.na(masse_mm)</code> zuerst?</p>
-    <label><input type="radio" name="q0" value="0" data-grund="Richtig — if_else() braucht für jeden Zweig einen Wert. Ohne den NA-Zweig würden die vier fehlenden Messungen still zu „in Toleranz" und die Tabelle hätte 120 statt 116 Fälle."> Damit fehlende Werte nicht versehentlich als „in Toleranz" gezählt werden</label>
-    <label><input type="radio" name="q0" value="1" data-grund="Falsch — R wirft NA-Zeilen beim tabulieren nicht weg. Entscheidend ist die Kategorie, in die sie fallen, nicht ob sie in der Tabelle erscheinen."> Weil R sonst die fehlenden Werte aus der Tabelle wirft</label>
-    <label><input type="radio" name="q0" value="2" data-grund="Falsch — die Reihenfolge ist hier unkritisch; entscheidend ist, dass NA-Fälle überhaupt behandelt werden, nicht ob sie zuerst geprüft werden."> Weil die Reihenfolge der Bedingungen in if_else() das Ergebnis verändert</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz 1" data-stufe="leicht">
+    <div class="frage" data-loesung="0">
+      <p class="frage-text">Warum steht in der Bedingung ausdrücklich
+      <code>is.na(masse_mm)</code> zuerst?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q1" value="0" data-grund="Richtig — if_else() braucht für jeden Zweig einen Wert. Ohne den NA-Zweig würden die vier fehlenden Messungen still zu „in Toleranz" und die Tabelle hätte 120 statt 116 Fälle."> Damit fehlende Werte nicht versehentlich als „in Toleranz" gezählt werden</label>
+        <label><input type="checkbox" name="q1" value="1" data-grund="Falsch — R wirft NA-Zeilen beim Tabulieren nicht weg. Entscheidend ist, in welche Kategorie sie fallen."> Weil R die fehlenden Werte sonst aus der Tabelle wirft</label>
+        <label><input type="checkbox" name="q1" value="2" data-grund="Falsch — die Reihenfolge der Bedingungen ändert das Ergebnis hier nicht; entscheidend ist, dass NA-Fälle überhaupt behandelt werden."> Weil die Reihenfolge der Bedingungen das Ergebnis verändert</label>
+        <label><input type="checkbox" name="q1" value="3" data-grund="Falsch — die Tabelle hat 116 gültige Fälle; 110 ist nur die Spaltensumme von „in Toleranz"."> Damit die Tabelle am Ende nur 110 Fälle hat</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="1,3">
+      <p class="frage-text">Worauf arbeitet der Chi-Quadrat-Test?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q2" value="1" data-grund="Falsch — Messwerte wie masse_mm gehören in den t-Test; der Chi-Test braucht Kategorien."> Auf Messwerten wie <code>masse_mm</code></label>
+        <label><input type="checkbox" name="q2" value="2" data-grund="Richtig — die Kreuztabelle der beiden Merkmale ist die Arbeitsgrundlage des Unabhängigkeitstests."> Auf der Kreuztabelle zweier Merkmale</label>
+        <label><input type="checkbox" name="q2" value="3" data-grund="Falsch — Prozentzahlen ohne Fallzahl verlieren die Information über die Stichprobengröße; der Test braucht ganze Anzahlen."> Auf Prozentzahlen ohne Fallzahl</label>
+        <label><input type="checkbox" name="q2" value="0" data-grund="Richtig — der Test vergleicht Anzahlen in Kategorien, nicht Messwerte."> Auf Häufigkeiten in Kategorien</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="2">
+      <p class="frage-text">Wie viele gültige Messungen stehen in der
+      Tabelle?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q3" value="2" data-grund="Falsch — 110 ist nur die Spaltensumme von „in Toleranz", nicht die Gesamtzahl."> 110</label>
+        <label><input type="checkbox" name="q3" value="3" data-grund="Falsch — 40 ist die Zeilensumme von M3, nicht die Gesamtzahl der Messungen."> 40</label>
+        <label><input type="checkbox" name="q3" value="0" data-grund="Richtig — 37 + 39 + 34 + 0 + 0 + 6 = 116; die vier fehlenden Werte sind NA und zählen nicht mit."> 116</label>
+        <label><input type="checkbox" name="q3" value="1" data-grund="Falsch — 120 wäre die Zahl, wenn die vier fehlenden Messungen fälschlich als „in Toleranz" gezählt würden."> 120</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="1">
+      <p class="frage-text">Welche Bedingung erzeugt die Kategorie
+      „in Toleranz"?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q4" value="3" data-grund="Falsch — is.na() markiert fehlende Werte, nicht die Toleranzlage."> <code>is.na(masse_mm)</code></label>
+        <label><input type="checkbox" name="q4" value="0" data-grund="Richtig — Sollmaß 10,00 mm mit ± 0,15 mm Toleranz: der Abstand zum Sollmaß darf höchstens 0,15 sein."> <code>abs(masse_mm - 10) &lt;= 0.15</code></label>
+        <label><input type="checkbox" name="q4" value="1" data-grund="Falsch — das wäre eine einseitige Grenze; die Toleranz gilt in beide Richtungen."> <code>masse_mm &gt; 10</code></label>
+        <label><input type="checkbox" name="q4" value="2" data-grund="Falsch — 9 bis 11 wäre ± 1 mm, also die zehnfache Toleranz."> <code>masse_mm</code> zwischen 9 und 11</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
   </div>
 </section>
 
@@ -174,14 +214,55 @@ chisq.test(tab)
       verworfen.</strong></p>
   </div>
 
-  <div class="quiz" data-loesung="2">
-    <p class="frage">Der Chi-Test ergibt <code>X&sup2; = 12,022</code> bei
-    <code>df = 2</code> und <code>p = 0,0025</code>. Was bedeutet
-    das?</p>
-    <label><input type="radio" name="q1" value="0" data-grund="Falsch — 0,25 % ist die Wahrscheinlichkeit für eine so große Abweichung unter der Annahme, dass es keinen Zusammenhang gibt; nicht die Wahrscheinlichkeit, dass der Zusammenhang falsch ist."> Die Wahrscheinlichkeit, dass der Zusammenhang falsch ist, beträgt 0,25 %</label>
-    <label><input type="radio" name="q1" value="1" data-grund="Falsch — die 0,25 % beziehen sich auf die beobachtete Verteilung, nicht auf eine mögliche Zukunft. Der Test sagt nichts über kommende Lose aus."> In 0,25 % aller Chargen wird M3 so viele Ausschusteile liefern</label>
-    <label><input type="radio" name="q1" value="2" data-grund="Richtig — die Abweichung wäre ohne Zusammenhang so selten, dass wir H0 verwerfen. Ein Zusammenhang zwischen Maschine und Toleranzlage ist sehr wahrscheinlich."> Ohne Zusammenhang wäre eine so große Abweichung in 0,25 % der Fälle zu sehen — H0 wird verworfen</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz 2" data-stufe="mittel">
+    <div class="frage" data-loesung="3">
+      <p class="frage-text">Wie berechnet man die erwartete Häufigkeit einer
+      Zelle unter H0?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q5" value="1" data-grund="Falsch — das ist die Formel für den Zellbeitrag zur Teststatistik, nicht für die Erwartung."> (beobachtet − erwartet)² / erwartet</label>
+        <label><input type="checkbox" name="q5" value="2" data-grund="Falsch — gleichmäßige Verteilung wäre eine andere Nullhypothese; hier ergeben sich die Erwartungen aus den Randsummen."> Gesamtsumme / Anzahl der Zellen</label>
+        <label><input type="checkbox" name="q5" value="3" data-grund="Falsch — diese Division hat keine statistische Bedeutung."> Spaltensumme / Zeilensumme</label>
+        <label><input type="checkbox" name="q5" value="0" data-grund="Richtig — die Randsummen erzwingen die Erwartung: Zeilensumme mal Spaltensumme durch Gesamtsumme."> (Zeilensumme · Spaltensumme) / Gesamtsumme</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="2">
+      <p class="frage-text">Eine 3×2-Tabelle hat wie viele
+      Freiheitsgrade?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q6" value="2" data-grund="Falsch — 5 wäre Zellenzahl minus eins; die Formel lautet (Zeilen − 1) · (Spalten − 1)."> 5</label>
+        <label><input type="checkbox" name="q6" value="3" data-grund="Falsch — 3 ist die Zahl der Zeilen, nicht der Freiheitsgrade."> 3</label>
+        <label><input type="checkbox" name="q6" value="0" data-grund="Richtig — df = (3 − 1) · (2 − 1) = 2; nur die frei wählbaren Zellen zählen."> 2</label>
+        <label><input type="checkbox" name="q6" value="1" data-grund="Falsch — 6 ist die Zahl der Zellen; die Randsummen nehmen aber Freiheit weg."> 6</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="1,2">
+      <p class="frage-text">Der Test ergibt <code>X² = 12,022</code>,
+      <code>df = 2</code>, <code>p = 0,0025</code>. Welche Aussagen sind
+      richtig?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q7" value="3" data-grund="Falsch — der Test sagt nichts über künftige Chargen; er bezieht sich auf die beobachtete Verteilung."> In 0,25 % aller künftigen Chargen liefert M3 so viele Ausschussteile</label>
+        <label><input type="checkbox" name="q7" value="0" data-grund="Richtig — 0,25 % ist die Wahrscheinlichkeit einer so großen Abweichung unter der Annahme, dass kein Zusammenhang besteht."> Ohne Zusammenhang wäre eine so große Abweichung in 0,25 % der Fälle zu sehen</label>
+        <label><input type="checkbox" name="q7" value="1" data-grund="Richtig — 0,0025 liegt unter jedem üblichen Signifikanzniveau; H0 wird verworfen."> H0 wird verworfen</label>
+        <label><input type="checkbox" name="q7" value="2" data-grund="Falsch — das vertauscht p-Wert und Irrtumswahrscheinlichkeit; p ist keine Wahrscheinlichkeit dafür, dass der Zusammenhang falsch ist."> Die Wahrscheinlichkeit, dass der Zusammenhang falsch ist, beträgt 0,25 %</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="3">
+      <p class="frage-text">Welche Zelle trägt am meisten zur Teststatistik
+      bei?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q8" value="1" data-grund="Falsch — M2 außerhalb trägt 2,02 bei, deutlich weniger als M3."> M2 außerhalb (Beitrag 2,02)</label>
+        <label><input type="checkbox" name="q8" value="2" data-grund="Falsch — M1 außerhalb trägt 1,91 bei; die relative Abweichung ist groß, der Nenner aber auch."> M1 außerhalb (Beitrag 1,91)</label>
+        <label><input type="checkbox" name="q8" value="3" data-grund="Falsch — M3 in Toleranz trägt nur 0,41 bei, weil die Abweichung dort klein ist."> M3 in Toleranz (Beitrag 0,41)</label>
+        <label><input type="checkbox" name="q8" value="0" data-grund="Richtig — (6 − 2,07)² / 2,07 = 7,47; der kleinste Nenner bei großer Abweichung liefert den größten Beitrag."> M3 außerhalb (Beitrag 7,47)</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
   </div>
 </section>
 
@@ -233,14 +314,55 @@ chisq.test(c(in_Toleranz = 37, ausserhalb = 0), p = c(0.9, 0.1))
       <em>Vergleichstest</em>.</p>
   </div>
 
-  <div class="quiz" data-loesung="1">
-    <p class="frage">Eine Maschine hat 0 Ausschusteile in 37 Messungen, der
-    Sollwert sind 10 %. Der Anpassungstest ergibt p = 0,043. Was
-    bedeutet das?</p>
-    <label><input type="radio" name="q2" value="0" data-grund="Falsch — der Test unterscheidet nicht „besser" von „schlechter", er unterscheidet nur „wie erwartet" von „anders". Beide Richtungen lösen ihn aus."> Die Maschine ist besser als die Vorgabe, der Test bestätigt das</label>
-    <label><input type="radio" name="q2" value="1" data-grund="Richtig — erwartet waren 3,7 Fehler, beobachtet 0. Das ist eine Abweichung, deshalb wird H0 verworfen. Ob sie gut oder schlecht ist, sagt der Test nicht."> Die Maschine weicht statistisch von der Vorgabe ab — in welche Richtung, sagt der Test nicht</label>
-    <label><input type="radio" name="q2" value="2" data-grund="Falsch — p = 0,043 liegt unter 0,05, die Nullhypothese wird also verworfen. Er wird nicht abgelehnt."> H0 wird nicht verworfen, weil 0 Fehler die Vorgabe übertreffen</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz 3" data-stufe="mittel">
+    <div class="frage" data-loesung="2">
+      <p class="frage-text">Was fragt der Anpassungstest?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q9" value="2" data-grund="Falsch — Mittelwerte sind metrisch; dafür ist der t-Test zuständig."> Ob zwei Mittelwerte verschieden sind</label>
+        <label><input type="checkbox" name="q9" value="3" data-grund="Falsch — die Stichprobengröße ist Thema von KM7-03 (Teststärke), nicht des Anpassungstests."> Wie groß die Stichprobe sein muss</label>
+        <label><input type="checkbox" name="q9" value="0" data-grund="Richtig — er vergleicht die beobachtete Verteilung mit einer vorgegebenen Sollverteilung."> Ob eine beobachtete Verteilung zu einer Sollverteilung passt</label>
+        <label><input type="checkbox" name="q9" value="1" data-grund="Falsch — ob zwei Merkmale zusammenhängen, fragt der Unabhängigkeitstest."> Ob zwei Merkmale zusammenhängen</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="1">
+      <p class="frage-text">M3 hat 6 von 40 Ausschussteilen, die Sollquote ist
+      10 %. Der Anpassungstest ergibt <code>p = 0,29</code>. Was heißt
+      das?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q10" value="3" data-grund="Falsch — der Test ist nicht „kaputt"; 6 von 40 sind bei 10 % einfach normal (Binomialverteilung aus KM5-02)."> Der Test ist unbrauchbar, weil die Fallzahl zu klein ist</label>
+        <label><input type="checkbox" name="q10" value="0" data-grund="Richtig — 15 % beobachtet gegen 10 % gefordert ist bei 40 Fällen statistisch nicht unterscheidbar; H0 bleibt bestehen."> Die Abweichung von der Sollquote ist statistisch nicht unterscheidbar</label>
+        <label><input type="checkbox" name="q10" value="1" data-grund="Falsch — p = 0,29 liegt deutlich über 0,05; es gibt keinen signifikanten Befund."> M3 liegt signifikant über der Sollquote</label>
+        <label><input type="checkbox" name="q10" value="2" data-grund="Falsch — ein hoher p-Wert ist kein Beweis für Einhaltung, nur fehlende Evidenz dagegen."> M3 hält die Sollquote exakt ein</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="2,3">
+      <p class="frage-text">M1 hat 0 Ausschussteile in 37 Messungen, die
+      Sollquote ist 10 %. Der Anpassungstest ergibt <code>p = 0,043</code>.
+      Welche Aussagen sind richtig?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q11" value="2" data-grund="Falsch — der Test bestätigt keine Überlegenheit; er erkennt nur, dass die Verteilung anders ist als vorgegeben."> Die Maschine ist besser als die Vorgabe, der Test bestätigt das</label>
+        <label><input type="checkbox" name="q11" value="3" data-grund="Falsch — p = 0,043 liegt unter 0,05, H0 wird also verworfen."> H0 wird nicht verworfen, weil 0 Fehler die Vorgabe übertreffen</label>
+        <label><input type="checkbox" name="q11" value="0" data-grund="Richtig — erwartet waren 3,7 Fehler, beobachtet 0; das ist eine signifikante Abweichung."> Die Maschine weicht statistisch von der Vorgabe ab</label>
+        <label><input type="checkbox" name="q11" value="1" data-grund="Richtig — die Abweichung geht in die gute Richtung, aber der Test liefert kein Vorzeichen und kein Qualitätsurteil."> Die Abweichung geht in die gute Richtung, das sagt der Test aber nicht</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="1,3">
+      <p class="frage-text">Welche Aussagen über den Anpassungstest sind
+      richtig?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q12" value="3" data-grund="Falsch — der Test liefert nur einen p-Wert, kein Vorzeichen für die Richtung."> Er liefert die Richtung der Abweichung als Vorzeichen</label>
+        <label><input type="checkbox" name="q12" value="0" data-grund="Richtig — er erkennt jede Abweichung, auch die in die gute Richtung."> Er erkennt Abweichungen in beide Richtungen</label>
+        <label><input type="checkbox" name="q12" value="1" data-grund="Falsch — ein signifikantes Ergebnis heißt nur „anders als vorgegeben", nicht „schlechter Prozess"."> Ein signifikantes Ergebnis heißt automatisch schlechter Prozess</label>
+        <label><input type="checkbox" name="q12" value="2" data-grund="Richtig — die Sollverteilung wird über den Parameter p vorgegeben."> Er vergleicht mit einer vorgegebenen Sollverteilung</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
   </div>
 </section>
 
@@ -283,6 +405,56 @@ fisher.test(tab)
       <strong>nie</strong> die Warnung ignorieren: Sie ist der einzige
       Hinweis, dass dein Ergebnis nicht so belastbar ist, wie es
       aussieht.</p>
+  </div>
+
+  <div class="quiz" data-titel="Quiz 4" data-stufe="schwer">
+    <div class="frage" data-loesung="3">
+      <p class="frage-text">Drei von sechs erwarteten Häufigkeiten liegen
+      unter 5. Ist die 80-%-Regel erfüllt?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q13" value="1" data-grund="Falsch — 3 von 6 sind die Hälfte, nicht 80 %."> Ja — 3 von 6 sind mehr als 80 %</label>
+        <label><input type="checkbox" name="q13" value="2" data-grund="Falsch — die Regel bezieht sich auf die erwarteten, nicht auf die beobachteten Häufigkeiten."> Ja — die beobachteten Häufigkeiten sind alle groß genug</label>
+        <label><input type="checkbox" name="q13" value="3" data-grund="Falsch — die Regel gilt für jeden Chi-Test, nicht nur für 2×2-Tabellen."> Nein — die Regel gilt nur für 2×2-Tabellen</label>
+        <label><input type="checkbox" name="q13" value="0" data-grund="Richtig — 3 von 6 sind 50 %; verlangt sind mindestens 80 % der Zellen mit Erwartung ≥ 5."> Nein — nur 50 % der Zellen liegen bei ≥ 5</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="2">
+      <p class="frage-text">Was ist bei verletzter 80-%-Regel die richtige
+      Antwort?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q14" value="2" data-grund="Falsch — die Warnung zu unterdrücken ändert nichts an der Näherung."> Die Warnung mit <code>suppressWarnings()</code> abschalten</label>
+        <label><input type="checkbox" name="q14" value="3" data-grund="Falsch — Prozentwerte statt Anzahlen machen den Test ungültig."> Prozentwerte statt Anzahlen übergeben</label>
+        <label><input type="checkbox" name="q14" value="0" data-grund="Richtig — Fisher rechnet exakt, ohne die Näherung, die hier nicht trägt."> <code>fisher.test()</code> verwenden</label>
+        <label><input type="checkbox" name="q14" value="1" data-grund="Falsch — correct = FALSE versteckt das Problem, statt es zu lösen."> <code>chisq.test(tab, correct = FALSE)</code> verwenden</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="1">
+      <p class="frage-text">Was berechnet
+      <code>outer(rowSums(tab), colSums(tab)) / sum(tab)</code>?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q15" value="3" data-grund="Falsch — p-Werte liefert der Test, nicht diese Rechnung."> Die p-Werte der Zellen</label>
+        <label><input type="checkbox" name="q15" value="0" data-grund="Richtig — das ist die Erwartungsmatrix unter Unabhängigkeit, Zelle für Zelle."> Die Matrix der erwarteten Häufigkeiten</label>
+        <label><input type="checkbox" name="q15" value="1" data-grund="Falsch — die Teststatistik entsteht erst aus (beobachtet − erwartet)² / erwartet."> Die Teststatistik X²</label>
+        <label><input type="checkbox" name="q15" value="2" data-grund="Falsch — die Freiheitsgrade sind eine Zahl aus der Tabellengröße, keine Matrix."> Die Freiheitsgrade der Tabelle</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="">
+      <p class="frage-text">Welche Aussage ist richtig? (Es kann auch keine
+      sein.)</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q16" value="2" data-grund="Falsch — Fisher ist gerade für kleine Häufigkeiten in Kategorien gedacht, nicht für metrische Daten."> <code>fisher.test()</code> ist nur für metrische Daten gedacht</label>
+        <label><input type="checkbox" name="q16" value="3" data-grund="Falsch — M1 zeigt das Gegenteil: 0 Ausschussteile können signifikant von einer Sollquote abweichen."> Bei 0 Ausschussteilen ist ein Test immer nicht signifikant</label>
+        <label><input type="checkbox" name="q16" value="0" data-grund="Falsch — correct = FALSE macht den Test nicht exakt; er ändert nur die Kontinuitätskorrektur bei 2×2-Tabellen."> <code>correct = FALSE</code> macht den Chi-Test exakt</label>
+        <label><input type="checkbox" name="q16" value="1" data-grund="Falsch — die Warnung betrifft die Gültigkeit der Näherung, nicht die Darstellung."> Die Warnung betrifft nur die Grafikausgabe</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
   </div>
 </section>
 
@@ -355,6 +527,56 @@ chisq.test(tab, correct = FALSE)
   t-Test aus <a href="../KM7-01-mittelwertsvergleich-t-test/lesson.html">KM7-01</a>
   da. Falsch angewandt liefert der Chi-Test auf quantisierte Daten eine Zahl
   ohne Bedeutung.</p>
+
+  <div class="quiz" data-titel="Quiz 5" data-stufe="schwer">
+    <div class="frage" data-loesung="3">
+      <p class="frage-text">Was ist an
+      <code>chisq.test(c(0.90, 0.10))</code> falsch?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q17" value="1" data-grund="Falsch — die Zahl der Argumente ist nicht das Problem; zwei Kategorien sind zulässig."> Es sind zu wenige Kategorien</label>
+        <label><input type="checkbox" name="q17" value="2" data-grund="Falsch — chisq.test() akzeptiert einen Vektor; die Form ist nicht der Fehler."> Ein Vektor ist als Eingabe nicht erlaubt</label>
+        <label><input type="checkbox" name="q17" value="3" data-grund="Falsch — die Summe ist nicht das Problem; die Werte sind einfach keine Zählungen."> Die Summe der Werte ist nicht 1</label>
+        <label><input type="checkbox" name="q17" value="0" data-grund="Richtig — der Test braucht ganze Anzahlen; Prozentzahlen verlieren die Stichprobengröße."> Es sind Prozentzahlen statt Häufigkeiten</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="2">
+      <p class="frage-text">Was bewirkt <code>correct = FALSE</code> bei
+      verletzter Voraussetzung?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q18" value="2" data-grund="Falsch — die Erwartungswerte werden davon nicht neu berechnet."> Er berechnet die Erwartungswerte neu</label>
+        <label><input type="checkbox" name="q18" value="3" data-grund="Falsch — die Freiheitsgrade folgen aus der Tabellengröße, nicht aus diesem Parameter."> Er korrigiert die Freiheitsgrade</label>
+        <label><input type="checkbox" name="q18" value="0" data-grund="Richtig — der Schalter ändert nur die Kontinuitätskorrektur bei 2×2-Tabellen, nicht die Näherung."> Er versteckt das Problem, statt es zu lösen</label>
+        <label><input type="checkbox" name="q18" value="1" data-grund="Falsch — die Näherung bleibt bestehen; der Parameter macht den Test nicht exakt."> Er ersetzt die Näherung durch eine exakte Rechnung</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="1">
+      <p class="frage-text">Jemand testet mit dem Chi-Test, ob sich die
+      Mittelwerte zweier Gruppen unterscheiden. Was ist das richtige
+      Werkzeug?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q19" value="3" data-grund="Falsch — ein Boxplot zeigt die Verteilung, testet aber nichts."> Ein Boxplot der beiden Gruppen</label>
+        <label><input type="checkbox" name="q19" value="0" data-grund="Richtig — Mittelwerte sind metrisch; dafür ist der t-Test aus KM7-01 zuständig."> Der t-Test aus KM7-01</label>
+        <label><input type="checkbox" name="q19" value="1" data-grund="Falsch — der Chi-Test arbeitet auf Häufigkeiten in Kategorien, nicht auf Mittelwerten."> Der Chi-Test, aber mit mehr Zellen</label>
+        <label><input type="checkbox" name="q19" value="2" data-grund="Falsch — fisher.test() ist ein exakter Chi-Test für Häufigkeiten, kein Mittelwertstest."> <code>fisher.test()</code> auf die Messwerte</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+
+    <div class="frage" data-loesung="1,3">
+      <p class="frage-text">Welche Aussagen sind richtig?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q20" value="1" data-grund="Falsch — der Unabhängigkeitstest sagt nur, dass ein Zusammenhang besteht, nicht welcher."> Der Unabhängigkeitstest sagt, welcher Zusammenhang besteht</label>
+        <label><input type="checkbox" name="q20" value="2" data-grund="Richtig — der Anpassungstest erkennt jede Abweichung, auch die in die gute Richtung."> Ein Anpassungstest erkennt auch Abweichungen in die gute Richtung</label>
+        <label><input type="checkbox" name="q20" value="3" data-grund="Falsch — ein signifikanter Test zeigt einen Zusammenhang, keine Ursache."> Ein signifikanter Chi-Test beweist Kausalität</label>
+        <label><input type="checkbox" name="q20" value="0" data-grund="Richtig — die beiden Tests beantworten verschiedene Fragen; p = 0,0025 und p = 0,29 können gleichzeitig gelten."> Unabhängigkeitstest und Anpassungstest können gleichzeitig signifikant bzw. nicht signifikant sein</label>
+      </div>
+      <p class="feedback" aria-live="polite"></p>
+    </div>
+  </div>
 </section>
 
 <section>
@@ -375,19 +597,41 @@ chisq.test(tab, correct = FALSE)
     so ein Test überhaupt etwas, wenn gar nichts ist — und wie hängt das
     von der Stichprobengröße ab?
     <a href="../KM7-03-teststaerke-und-stichprobenumfang/lesson.html">Lektion
-    KM7-03</a> beantwortet sie. Vorab-Überblick:
-    <a href="../KM7-03-teststaerke-und-stichprobenumfang/praesentation.html">Folien
-    KM7-03</a>.</p>
+    KM7-03</a> beantwortet sie.</p>
 </section>
 
 <section>
-  <div class="baustein">Aufgabe</div>
-  <p>Vertiefe die Häufigkeitsanalyse mit der
-  <a href="hausaufgabe.md">Aufgabe KM7-02 — Chi-Quadrat-Test</a>: beide
-  Testtypen an den Betriebsdaten, Teststatistik von Hand, Voraussetzungen
-  prüfen und den exakten Test als Alternative.
-  — <strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
+  <div class="baustein">Übungsbeispiele</div>
+  <p>Drei abzugebende Beispiele vertiefen die Häufigkeitsanalyse —
+  vollständig in
+  <a href="Übungsbeispiele.md">Übungsbeispiele.md</a>:</p>
+  <ol>
+    <li><strong>Beispiel 1 — Die Chi-Tests an den Betriebsdaten:</strong>
+      beide Testtypen, Teststatistik von Hand, Voraussetzungen prüfen und
+      den exakten Test als Alternative begründen.</li>
+    <li><strong>Beispiel 2 — Selbsttest im WÜ-Format:</strong> acht Fragen
+      mit vier Optionen (0–4 richtig) samt Musterlösung.</li>
+    <li><strong>Beispiel 3 — Transfer:</strong> Anpassungstest an einer
+      Sollverteilung und Unabhängigkeitstest im Wareneingang.</li>
+  </ol>
+  <p><strong>Abgabe:</strong> Commit in deinem PMM-Repo nach Vorgabe deiner
+  Lehrperson.</p>
 </section>
+
+<details class="lehrplan">
+  <summary>Lehrplan &amp; Einordnung</summary>
+  <ul>
+    <li><strong>Lehrplan:</strong> PMM (HWIT), JG4 — Statistische Tests
+      (Chi-Quadrat-Tests), Semesterplan
+      <code>lehrplan/pmm-hwit/jg4-semesterplan-ws.md</code></li>
+    <li><strong>KM-Bezug:</strong> KM7 (Statistische Tests) — Wiederholung
+      aus der 4. Klasse; Anschluss an DoE/ANOVA und KM7-03
+      (Teststärke)</li>
+    <li><strong>Runtime:</strong> R / tidyverse, <code>chisq.test()</code>,
+      <code>fisher.test()</code>, <code>table()</code>,
+      <code>if_else()</code></li>
+  </ul>
+</details>
 
 <footer class="navi">
   <p><strong>Quelle zum Weiterlesen:</strong> Navarro,
