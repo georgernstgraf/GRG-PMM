@@ -12,11 +12,22 @@
 //      </div>
 //      …
 //    </div>
-//    data-loesung ist die Lösungsmenge (0-basierte Indizes, 0 bis 4 erlaubt).
-//    Das Skript injiziert Badge, „Show"-Button, Infokugeln und den
-//    „Überprüfen"-Button; nach dem Prüfen färben sich die Karten, die
-//    Infokugeln zeigen Lösungsmenge und Begründungen (Hover, Fokus, Tipp).
-//    Danach wird der Button zu „Nochmal versuchen" und setzt alles zurück.
+//    data-loesung ist die Lösungsmenge als 0-basierte DOM-Positionen der
+//    Optionen (0 bis 4 erlaubt; leer = keine Option ist richtig). Das
+//    value-Attribut der Checkboxen ist für die Auswertung bedeutungslos
+//    und sollte der DOM-Position entsprechen.
+//
+//    Das Skript injiziert das Badge und — pro Frage — den zentrierten
+//    „Überprüfen"-Button sowie je Antwortoption eine kleine Infokugel.
+//    Nach dem Prüfen bekommt jede Option ihre Farbe allein danach, ob das
+//    Häkchen richtig gesetzt war: grün = Entscheidung korrekt (angekreuzt,
+//    obwohl Lösung — oder nicht angekreuzt, obwohl keine Lösung), rot =
+//    Entscheidung falsch (fälschlich angekreuzt oder die richtige
+//    übersehen). Die Infokugel einer Option zeigt bei Hover/Fokus/Tipp
+//    genau diese Option samt ihrer Begründung (data-grund); die Kugeln
+//    bleiben bis zum ersten Prüfen verborgen, damit die Begründungen die
+//    Antwort nicht verraten. Danach wird der Button zu „Nochmal versuchen"
+//    und setzt die Frage zurück. Kein Punktestand — die Wahrheit zählt.
 //
 // 2) Altmodus (Radio, genau eine Richtige, Sofort-Auswertung) — bleibt für
 //    die Lessons aus der Zeit vor Format 2.0 unverändert:
@@ -42,6 +53,8 @@
     var klon = label.cloneNode(true);
     var input = klon.querySelector("input");
     if (input) { input.remove(); }
+    var kugel = klon.querySelector(".infokugel");
+    if (kugel) { kugel.remove(); }
     return klon.textContent.trim();
   }
 
@@ -55,32 +68,6 @@
     return true;
   }
 
-  // ---------- Modal (Show) ----------
-
-  function modalSchliessen(quiz) {
-    quiz.classList.remove("quiz-modal");
-    document.body.classList.remove("quiz-modal-offen");
-    var backdrop = document.querySelector(".quiz-backdrop");
-    if (backdrop) { backdrop.parentNode.removeChild(backdrop); }
-    var schliessen = quiz.querySelector(".quiz-close");
-    if (schliessen) { schliessen.hidden = true; }
-  }
-
-  function modalOeffnen(quiz) {
-    var offen = document.querySelector(".quiz.quiz-modal");
-    if (offen && offen !== quiz) { modalSchliessen(offen); }
-    quiz.classList.add("quiz-modal");
-    document.body.classList.add("quiz-modal-offen");
-    var backdrop = document.createElement("div");
-    backdrop.className = "quiz-backdrop";
-    backdrop.addEventListener("click", function () { modalSchliessen(quiz); });
-    document.body.appendChild(backdrop);
-    var schliessen = quiz.querySelector(".quiz-close");
-    if (schliessen) { schliessen.hidden = false; }
-    var erster = quiz.querySelector("input");
-    if (erster) { erster.focus(); }
-  }
-
   // ---------- Lernquiz (Format 2.0) ----------
 
   function lernquiz(quiz) {
@@ -88,7 +75,7 @@
     if (!fragen.length) { return; }
     quiz.classList.add("quiz--lern");
 
-    // Kopf: Badge + Show
+    // Kopf: nur das Badge (Titel · Stufe)
     var kopf = document.createElement("div");
     kopf.className = "quiz-kopf";
     var badge = document.createElement("span");
@@ -97,31 +84,28 @@
     var stufe = quiz.getAttribute("data-stufe");
     badge.textContent = stufe ? titel + " · " + stufe : titel;
     kopf.appendChild(badge);
-    var show = document.createElement("button");
-    show.type = "button";
-    show.className = "quiz-show";
-    show.textContent = "Show";
-    show.title = "Quiz bildschirmfüllend zeigen";
-    show.addEventListener("click", function () { modalOeffnen(quiz); });
-    kopf.appendChild(show);
-    var schliessen = document.createElement("button");
-    schliessen.type = "button";
-    schliessen.className = "quiz-close";
-    schliessen.textContent = "×";
-    schliessen.setAttribute("aria-label", "Quiz schließen");
-    schliessen.hidden = true;
-    schliessen.addEventListener("click", function () { modalSchliessen(quiz); });
-    kopf.appendChild(schliessen);
     quiz.insertBefore(kopf, quiz.firstChild);
 
-    // Fragen vorbereiten: Infokugel + Sprechblase
     for (var f = 0; f < fragen.length; f++) {
-      (function (frage) {
+      frageVorbereiten(fragen[f]);
+    }
+  }
+
+  function frageVorbereiten(frage) {
+    var menge = loesungsmenge(frage);
+    var optionen = frage.querySelector(".optionen");
+    var labels = optionen ? optionen.querySelectorAll(":scope > label") : [];
+    var teile = [];
+
+    // Je Option: Infokugel im Label, Sprechblase als Geschwister dahinter
+    for (var i = 0; i < labels.length; i++) {
+      (function (label, position) {
+        var input = label.querySelector("input");
         var kugel = document.createElement("button");
         kugel.type = "button";
         kugel.className = "infokugel";
         kugel.textContent = "i";
-        kugel.setAttribute("aria-label", "Lösung und Begründung anzeigen");
+        kugel.setAttribute("aria-label", "Begründung dieser Antwort anzeigen");
         kugel.setAttribute("aria-expanded", "false");
         kugel.hidden = true;
 
@@ -129,129 +113,81 @@
         blase.className = "infoblase";
         blase.hidden = true;
 
-        var text = frage.querySelector(".frage-text");
-        var anker = text || frage.firstChild;
-        frage.insertBefore(kugel, anker);
-        frage.appendChild(blase);
-
-        function blaseFuellen() {
-          var menge = loesungsmenge(frage);
-          var labels = frage.querySelectorAll("label");
-          var html = document.createElement("div");
-          var kopfzeile = document.createElement("p");
-          kopfzeile.className = "infoblase-kopf";
-          kopfzeile.textContent = menge.length === 0
-            ? "Richtig: keine Option ankreuzen"
-            : "Richtig: " + menge.length + (menge.length === 1 ? " Option" : " Optionen");
-          html.appendChild(kopfzeile);
-          var liste = document.createElement("ul");
-          for (var i = 0; i < labels.length; i++) {
-            var input = labels[i].querySelector("input");
-            var wert = input ? parseInt(input.value, 10) : -1;
-            var istRichtig = menge.indexOf(wert) !== -1;
-            var li = document.createElement("li");
-            li.className = istRichtig ? "ist-richtig" : "ist-falsch";
-            var marke = document.createElement("strong");
-            marke.textContent = (istRichtig ? "✓ " : "✗ ") + optionstext(labels[i]);
-            li.appendChild(marke);
-            var grund = input ? input.getAttribute("data-grund") : "";
-            if (grund) {
-              var g = document.createElement("span");
-              g.className = "infoblase-grund";
-              g.textContent = " — " + grund;
-              li.appendChild(g);
-            }
-            liste.appendChild(li);
-          }
-          html.appendChild(liste);
-          blase.innerHTML = "";
-          blase.appendChild(html);
+        var istRichtig = menge.indexOf(position) !== -1;
+        var marke = document.createElement("strong");
+        marke.className = istRichtig ? "ist-richtig" : "ist-falsch";
+        marke.textContent = (istRichtig ? "✓ " : "✗ ") + optionstext(label);
+        blase.appendChild(marke);
+        var grund = input ? input.getAttribute("data-grund") : "";
+        if (grund) {
+          var g = document.createElement("span");
+          g.className = "infoblase-grund";
+          g.textContent = " — " + grund;
+          blase.appendChild(g);
         }
 
         function blaseZeigen(zeigen) {
-          if (zeigen) { blaseFuellen(); }
           blase.hidden = !zeigen;
           kugel.setAttribute("aria-expanded", zeigen ? "true" : "false");
         }
 
+        // preventDefault: der Klick auf die Kugel darf das Kästchen
+        // nicht umschalten (Kugel liegt im Label)
+        kugel.addEventListener("click", function (e) {
+          e.preventDefault();
+          blaseZeigen(blase.hidden);
+        });
         kugel.addEventListener("mouseenter", function () { blaseZeigen(true); });
         kugel.addEventListener("mouseleave", function () { blaseZeigen(false); });
         kugel.addEventListener("focus", function () { blaseZeigen(true); });
         kugel.addEventListener("blur", function () { blaseZeigen(false); });
-        kugel.addEventListener("click", function () {
-          blaseZeigen(blase.hidden);
-        });
 
-        frage._kugel = kugel;
-        frage._blase = blase;
-      })(fragen[f]);
+        label.appendChild(kugel);
+        label.parentNode.insertBefore(blase, label.nextSibling);
+        teile.push({ label: label, input: input, kugel: kugel, blase: blase });
+      })(labels[i], i);
     }
 
-    // Prüfen / Nochmal versuchen
+    // Zentrierter Überprüfen-Button je Frage
     var knopf = document.createElement("button");
     knopf.type = "button";
     knopf.className = "quiz-pruefen";
     knopf.textContent = TEXT_PRUEFEN;
-    quiz.appendChild(knopf);
 
-    var geprueft = false;
+    function pruefen() {
+      var gewaehlt = [];
+      for (var i = 0; i < teile.length; i++) {
+        var input = teile[i].input;
+        var angekreuzt = input ? input.checked : false;
+        if (angekreuzt) { gewaehlt.push(i); }
+        var klasse = angekreuzt === (menge.indexOf(i) !== -1)
+          ? "opt-richtig" : "opt-falsch";
+        teile[i].label.classList.remove("opt-richtig", "opt-falsch");
+        teile[i].label.classList.add(klasse);
+        teile[i].kugel.hidden = false;
+      }
+      frage._geprueft = true;
+      knopf.textContent = TEXT_NOCHMAL;
+      knopf.classList.add("nochmal");
+    }
 
     function zuruecksetzen() {
-      geprueft = false;
-      for (var i = 0; i < fragen.length; i++) {
-        var frage = fragen[i];
-        frage.classList.remove("richtig", "falsch");
-        var feedback = frage.querySelector(".feedback");
-        if (feedback) {
-          feedback.textContent = "";
-          feedback.className = "feedback";
-        }
-        if (frage._kugel) {
-          frage._kugel.hidden = true;
-          frage._kugel.setAttribute("aria-expanded", "false");
-        }
-        if (frage._blase) { frage._blase.hidden = true; }
-        var inputs = frage.querySelectorAll("input[type=checkbox]");
-        for (var k = 0; k < inputs.length; k++) { inputs[k].checked = false; }
+      frage._geprueft = false;
+      for (var i = 0; i < teile.length; i++) {
+        teile[i].label.classList.remove("opt-richtig", "opt-falsch");
+        teile[i].kugel.hidden = true;
+        teile[i].blase.hidden = true;
+        if (teile[i].input) { teile[i].input.checked = false; }
       }
       knopf.textContent = TEXT_PRUEFEN;
       knopf.classList.remove("nochmal");
     }
 
-    function pruefen() {
-      for (var i = 0; i < fragen.length; i++) {
-        var frage = fragen[i];
-        var inputs = frage.querySelectorAll("input[type=checkbox]");
-        var gewaehlt = [];
-        for (var k = 0; k < inputs.length; k++) {
-          if (inputs[k].checked) { gewaehlt.push(parseInt(inputs[k].value, 10)); }
-        }
-        var ok = gleich(gewaehlt, loesungsmenge(frage));
-        frage.classList.remove("richtig", "falsch");
-        frage.classList.add(ok ? "richtig" : "falsch");
-        var feedback = frage.querySelector(".feedback");
-        if (feedback) {
-          feedback.textContent = ok
-            ? "Richtig — die Infokugel zeigt die Begründung."
-            : "Falsch — die Infokugel zeigt die Lösung und die Begründung.";
-          feedback.className = "feedback " + (ok ? "richtig" : "falsch");
-        }
-        if (frage._kugel) { frage._kugel.hidden = false; }
-      }
-      geprueft = true;
-      knopf.textContent = TEXT_NOCHMAL;
-      knopf.classList.add("nochmal");
-    }
-
     knopf.addEventListener("click", function () {
-      if (geprueft) { zuruecksetzen(); } else { pruefen(); }
+      if (frage._geprueft) { zuruecksetzen(); } else { pruefen(); }
     });
 
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && quiz.classList.contains("quiz-modal")) {
-        modalSchliessen(quiz);
-      }
-    });
+    frage.appendChild(knopf);
   }
 
   // ---------- Altmodus (Radio, sofortige Auswertung) ----------
