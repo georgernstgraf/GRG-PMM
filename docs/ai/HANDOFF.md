@@ -105,22 +105,23 @@ Chat (teach-Skill).
 pro Einheit statt Stücke pro Los"; LR schreiben, `jg3-verlauf.html`
 auf ✅; danach L05 bauen.
 
-### Quiz-Format-2.0-Restyling uncommitted: `assets/lesson.css` + `assets/quiz.js`
-**Priority:** high (vor dem nächsten Lesson-Push auf Pages)
-**Context:** `4a5ae13` (2026-11-03, #22) hat die KM7-02-`lesson.html` samt
-einem bereits vorhandenen Quiz-1-Rework committed (Fragen neu sortiert,
-neue Grenzfall-Frage „10,15 mm", `niveau`-Badges ★ statt `data-stufe`).
-Die zugehörige Hälfte liegt aber noch uncommitted im Working Tree:
-`assets/lesson.css` (`.niveau`-Styling, Infokugeln im Label,
-Show/Close-Button-Styling entfernt) und `assets/quiz.js` (224 Zeilen
-umgebaut). Die Lesson referenziert das bereits — ohne die Assets fehlt
-auf GitHub Pages das Badge-Styling; prüfen, ob `quiz.js`-Verhalten zum
-neuen Markup passt. Zusätzlich untracked: `5ahwit/2026-11-04_wh_chi2/`
-(Wiederholungsmaterial für morgen: `basics.R` + `m1_m2_m3.csv`) —
-Commit-Entscheidung offen (Kohortenordner wird nicht deployed).
-**Action:** Assets gegen die Lesson(s) testen, dann committen + pushen.
+### Quiz-Format-2.0-Restyling: Klick-Check der Lernquizze nachziehen
+**Priority:** low (Assets seit `2e2fe73` committed; nur noch der
+Browser-Klicktest offen)
+**Context:** `assets/lesson.css` + `assets/quiz.js` (Niveau-Badges,
+Infokugeln im Label) sind seit 2026-11-03 gepusht; `node --check` grün,
+nur KM7-02 nutzt das neue `niveau`-Markup. Offen bleibt der manuelle
+Klick-Check (Quiz prüfen → färben → Infokugeln → Nochmal versuchen →
+Show-Modal) über `./serve.sh`, insbesondere dass die übrigen Lessons mit
+dem umgebauten `quiz.js` unverändert laufen.
+**Action:** Bei nächster Lesson-Arbeit einmal durchklicken.
 
 ## Erledigt (dieser Zyklus)
+- **GRG-PMM #40 (Nachtrag):** Quiz-Format-2.0-Styling-Rework
+  (`assets/lesson.css` + `assets/quiz.js`) committed und gepusht
+  (`2e2fe73`, 2026-11-03) — war aus der #40-Session uncommitted liegen
+  geblieben. Wiederholungsmaterial `5ahwit/2026-11-04_wh_chi2/`
+  (basics.R + CSV) mitgenommen (`5b862ce`).
 - **GRG-PMM #22 (Teil):** KM7-02-Erklärungen nachgeschärft (`4a5ae13`,
   2026-11-03): M3-Zellbeitrag aufgedröselt, „alle sechs Zellen"-Präzisierung,
   Merke-Callout „hier keimt die Warning" (Vorwärtsverweis auf Schritt 5),
