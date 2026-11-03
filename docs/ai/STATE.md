@@ -220,6 +220,11 @@ unterricht ohne Zweig-Fach-Ordner).
 - [ ] JG3 Phase 0: L04 Abschnitt 3 (Poisson) durcharbeiten, dann L04 ✅; danach L05+.
 
 ## Notes
+- 2026-11-03: KM7-02-Erklärungen nachgeschärft (`4a5ae13`, #22); die
+  Muster stehen jetzt als Abschnitt „Schülerperspektive" im
+  create-lesson-Skill (opencode-helpers #123). **Offen:**
+  `assets/lesson.css` + `assets/quiz.js` (Quiz-Format-2.0-Restyling) sind
+  noch uncommitted, die KM7-02-Lesson referenziert sie bereits (HANDOFF).
 - 2026-11-01: Ordnername `4ahwit-y/2026-10-09_opencode/` (früher `20206-…`) per
   `git mv` korrigiert, README-Link nachgezogen (#119); die frühere
   „eingefroren"-Regel ist aufgehoben (Pitfall siehe PITFALLS.md).

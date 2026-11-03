@@ -105,7 +105,29 @@ Chat (teach-Skill).
 pro Einheit statt Stücke pro Los"; LR schreiben, `jg3-verlauf.html`
 auf ✅; danach L05 bauen.
 
+### Quiz-Format-2.0-Restyling uncommitted: `assets/lesson.css` + `assets/quiz.js`
+**Priority:** high (vor dem nächsten Lesson-Push auf Pages)
+**Context:** `4a5ae13` (2026-11-03, #22) hat die KM7-02-`lesson.html` samt
+einem bereits vorhandenen Quiz-1-Rework committed (Fragen neu sortiert,
+neue Grenzfall-Frage „10,15 mm", `niveau`-Badges ★ statt `data-stufe`).
+Die zugehörige Hälfte liegt aber noch uncommitted im Working Tree:
+`assets/lesson.css` (`.niveau`-Styling, Infokugeln im Label,
+Show/Close-Button-Styling entfernt) und `assets/quiz.js` (224 Zeilen
+umgebaut). Die Lesson referenziert das bereits — ohne die Assets fehlt
+auf GitHub Pages das Badge-Styling; prüfen, ob `quiz.js`-Verhalten zum
+neuen Markup passt. Zusätzlich untracked: `5ahwit/2026-11-04_wh_chi2/`
+(Wiederholungsmaterial für morgen: `basics.R` + `m1_m2_m3.csv`) —
+Commit-Entscheidung offen (Kohortenordner wird nicht deployed).
+**Action:** Assets gegen die Lesson(s) testen, dann committen + pushen.
+
 ## Erledigt (dieser Zyklus)
+- **GRG-PMM #22 (Teil):** KM7-02-Erklärungen nachgeschärft (`4a5ae13`,
+  2026-11-03): M3-Zellbeitrag aufgedröselt, „alle sechs Zellen"-Präzisierung,
+  Merke-Callout „hier keimt die Warning" (Vorwärtsverweis auf Schritt 5),
+  df-Abschnitt vertieft (Frei/Fest-Gitter + Kalibrierungssatz). Die Muster
+  flossen verallgemeinert als Abschnitt „Schülerperspektive
+  (Erklärungsempathie)" in den create-lesson-Skill (opencode-helpers #123,
+  Commit `d93acb0`).
 - **GRG-PMM #36:** Themenfile `kuriose-quellen.md` (16 Fragestellungen
   F-C1…F-C16 + Ideen-Parkplatz) und 7 kuratierte Alltagsdatensätze
   (Vornamen Top 100, Schokoladenduft-RCT, Schokoladenkuchen-DoE, Pizza,

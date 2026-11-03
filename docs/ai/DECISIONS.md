@@ -555,3 +555,25 @@ Each entry documents WHAT was decided and WHY.
   Radio = Altmodus mit Sofort-Auswertung), damit die übrigen Lessons
   unverändert laufen. Kein Framework (kein Alpine/Reveal) — Vanilla-JS im
   zentralen Asset.
+
+## 2026-11-03: KM7-02-Erklärungsmodell + Schülerperspektive in den Skill (#22, opencode-helpers #123)
+
+- **Choice:** Die KM7-02-Lesson wurde an vier Stellen erklärend
+  nachgeschärft (Commit `4a5ae13`): Zellbeitrags-Zerlegung mit
+  aufgedröselter M3-Division, „alle sechs Zellen"-Präzisierung,
+  Merke-Callout, der „seltene Zellen zählen mehr" als Ursache der
+  Chi-Approximations-Warning benennt (Vorwärtsverweis auf Schritt 5 statt
+  Doppelung), und ein df-Abschnitt mit Frei/Fest-Gitter + Kalibrierungssatz.
+- **Why:** In der Überarbeitungs-Session fielen wiederkehrende
+  Erklärungslücken auf (Abkürzungen ohne Einführung, übersprungene
+  Rechenschritte, Warning unverbunden neben der Formel). Die Lehrperson
+  wünschte statt fachspezifischer Anweisungslisten eine allgemeine Regel:
+  Empathie mit dem Erstkontakt-Leser.
+- **Choice (Skill-Ebene):** Die Muster gingen verallgemeinert als Abschnitt
+  „Schülerperspektive (Erklärungsempathie)" in den `create-lesson`-Skill
+  (opencode-helpers #123, Commit `d93acb0`) — sparsam mit Fachjargon, nichts
+  Unerklärtes werfen, Warnings als Konsequenz eingeführter Konzepte,
+  Empathie vor Knappheit. Die sechs verworfenen Statistik-Spezialmuster
+  stehen dort nur als „Beispielhaft"-Zeile.
+- **Tradeoff:** Die Regel ist weicher als eine Checkliste und entzieht sich
+  mechanischer Verifikation — sie liegt beim LM-Urteil beim Bau/Nachziehen.
