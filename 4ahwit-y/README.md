@@ -1,15 +1,25 @@
-# 4AHWIT — Kohorte y
+# 4AHWIT PMMy
 
 ## Aufgaben
 
 ## 2026-11-06_chisq:
 
-1. read_excel oder ähnlich recherchieren. ein excel file generieren (oder kopieren) und in eine R Datenstruktur laden.
-2. write_csv: excel als csv schreiben, Ordner "output/".
+siehe entsprechender Projekt-Ordner
 
-## 2026-10-23 über die Ferien
+### Aufgabe read/write
 
-bitte schaue die Projekte/fragestellungen-statistik an und nenne (als Abgabe in Deinem Repo) Wunschthemen zur statistischen Bearbeitung! → [Projekte/fragestellungen-statistik/](../Projekte/fragestellungen-statistik/)
+- Lege in Deinem Repo-Root ein neues R Projekt an, name zb. "2026-11-08_chisq"
+- read_excel oder ähnlich recherchieren. ein excel file generieren
+ (oder kopieren), in data/ speichern, und in eine R Datenstruktur laden.
+- write_csv: Daten als csv schreiben, Ordner "output/".
+
+## 2026-10-23
+
+Inhalt der Stunde: knowledge-assessment
+
+### Aufgabe über die Ferien: Interessensbekundung
+
+bitte schaue die Projekte/fragestellungen-statistik an und nenne (als Abgabe in Deinem Repo) Wunschthemen zur statistischen Bearbeitung! (darf auch was völlig Anderes sein!)
 
 ## 2026-10-16 unterricht
 
