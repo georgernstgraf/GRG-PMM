@@ -1,4 +1,5 @@
 library(tidyverse)
+setwd("/home/georg/repos/georgernstgraf/GRG-PMM/5ahwit/2026-11-04_wh_chi2")
 raw <- read_csv("./m1_m2_m3.csv")
 
 daten <- raw |> mutate(iok = if_else(is.na(masse_mm), NA,

@@ -2,8 +2,19 @@
 
 ## Aufgaben
 
-- 2026-10-23 über die Ferien: bitte schaue die Projekte/fragestellungen-statistik an und nenne (als Abgabe in Deinem Repo) Wunschthemen zur statistischen Bearbeitung! → [Projekte/fragestellungen-statistik/](../Projekte/fragestellungen-statistik/)
-- 2026-10-16 unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck -> Aufgabe: ALLE R-Sachen -  die Übungen machen und in Dein Repo einpflegen → [unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck/](../unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck/lesson.html)
+## 2026-11-06_chisq:
+
+1. read_excel oder ähnlich recherchieren. ein excel file generieren (oder kopieren) und in eine R Datenstruktur laden.
+2. write_csv: excel als csv schreiben, Ordner "output/".
+
+## 2026-10-23 über die Ferien
+
+bitte schaue die Projekte/fragestellungen-statistik an und nenne (als Abgabe in Deinem Repo) Wunschthemen zur statistischen Bearbeitung! → [Projekte/fragestellungen-statistik/](../Projekte/fragestellungen-statistik/)
+
+## 2026-10-16 unterricht
+
+KM5-01-binomialkoeffizient-pascalsches-dreieck -> Aufgabe: ALLE R-Sachen -  die Übungen machen und in Dein Repo einpflegen → [unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck/](../unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck/lesson.html)
+
 - 2026-10-09: OpenCode-Prompt „3. Klasse mit R effizienter lösen" (PROMPT.md/ANSWER.md) → [2026-10-09_opencode/](./2026-10-09_opencode/)
 - 2026-10-02: sd vs. var & n−1 erklären, Setup fertig, dbinom nachrechnen → [2026-10-02-binomialkoeffizient-pascalsches-dreieck/](./2026-10-02-binomialkoeffizient-pascalsches-dreieck/)
 - 2026-09-25: Betriebsdaten auswerten (mean/median/sd/IQR, pnorm, Histogramm) — Commit im PMM-Repo → [2026-09-25__r-kennzahlen-und-verteilungen/](./2026-09-25__r-kennzahlen-und-verteilungen/)
