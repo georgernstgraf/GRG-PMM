@@ -23,18 +23,17 @@ bitte schaue die Projekte/fragestellungen-statistik an und nenne (als Abgabe in 
 
 ## 2026-10-16 unterricht
 
+### Aufgabe, bis 23.10
+
 KM5-01-binomialkoeffizient-pascalsches-dreieck -> Aufgabe: ALLE R-Sachen -  die Übungen machen und in Dein Repo einpflegen → [unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck/](../unterricht/KM5-01-binomialkoeffizient-pascalsches-dreieck/lesson.html)
 
-- 2026-10-09: OpenCode-Prompt „3. Klasse mit R effizienter lösen" (PROMPT.md/ANSWER.md) → [2026-10-09_opencode/](./2026-10-09_opencode/)
-- 2026-10-02: sd vs. var & n−1 erklären, Setup fertig, dbinom nachrechnen → [2026-10-02-binomialkoeffizient-pascalsches-dreieck/](./2026-10-02-binomialkoeffizient-pascalsches-dreieck/)
-- 2026-09-25: Betriebsdaten auswerten (mean/median/sd/IQR, pnorm, Histogramm) — Commit im PMM-Repo → [2026-09-25__r-kennzahlen-und-verteilungen/](./2026-09-25__r-kennzahlen-und-verteilungen/)
-- 2026-09-18: GitHub-User + Repository „PMM" anlegen, Repo-Link mailen (Details im Verlauf unten)
+## 2026-10-09 Unterricht
 
-## 2026-10-02 Wiederholungswünsche
+siehe Ordner
 
-- Konfidenzintervalle (CI) für Mittelwert und Anteilswert, zweiseitig, (einseitig)
-- binomiale Verteilung
-- normalverteilung
+### Aufgabe bis 16.10:
+
+siehe Ordner
 
 ## 2026-09-18
 
@@ -56,3 +55,9 @@ im terminal mit winget:
 
 wir haben einen github user angelegt und mit diesem ein Repository erzeugt, name "PMM"
 und an grafg@... den Link zum Repo geschickt.
+
+### Aufgabe 1: bis 25.9.
+
+- Repo erstellen
+- Initial commit pushen
+- Link verschicken
