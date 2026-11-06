@@ -142,6 +142,8 @@ chisq.test(tabelle)
   <strong>beobachtete</strong> Häufigkeit mit der, die sich unter der
   Nullhypothese <em>ergeben müsste</em>. Das Wort
   „Chi-Quadrat" beschreibt genau dieses Rechenwerk.</p>
+  <p>Am Ende liegt die Tabelle zusätzlich als <strong>CSV-Datei</strong>
+  im Projekt — das Ergebnis, das man weitergeben kann (Schritt 7).</p>
 </section>
 
 <section>
@@ -506,6 +508,152 @@ fisher.test(tab)
 </section>
 
 <section>
+  <h2>Schritt 7 — Das Ergebnis sichern</h2>
+  <p>„Der Table" kann drei Dinge meinen. Alle drei lassen sich schreiben —
+  aber sie brauchen verschiedene Formen:</p>
+
+  <table>
+    <tr><th>Form</th><th>Gestalt</th><th>Wofür</th></tr>
+    <tr><td><strong>Testform</strong></td>
+        <td><code>table</code> oder numerische Matrix, Labels nur in
+            <code>dimnames</code></td>
+        <td><code>chisq.test()</code>, <code>fisher.test()</code>,
+            Erwartungswerte</td></tr>
+    <tr><td><strong>Dateiform</strong></td>
+        <td>Data Frame, Labels als <em>eigene Spalte</em></td>
+        <td><code>write_csv()</code>, Excel, Abgabe</td></tr>
+  </table>
+
+  <p>Die Kreuztabelle ist ein <code>table</code>-Objekt, kein Data Frame —
+  deshalb braucht es einen Umweg. Der kürzeste, der die Maschinennamen
+  <strong>nicht</strong> verliert:</p>
+<pre>
+as.data.frame.matrix(tab) |&gt;
+  rownames_to_column("maschine") |&gt;
+  write_csv("ergebnisse/kreuztabelle.csv")
+<span class="cmt"># maschine,ausserhalb,in_Toleranz
+# M1,0,37
+# M2,0,39
+# M3,6,34</span>
+</pre>
+  <p><code>as.data.frame.matrix()</code> hält die <strong>breite</strong>
+  Form (Zeilen = Maschinen), <code>rownames_to_column()</code> rettet die
+  Zeilenbeschriftung — sonst geht sie verloren, weil
+  <code>write_csv()</code> grundsätzlich keine Zeilennamen schreibt.</p>
+
+  <p>Für die Weiterarbeit mit <code>dplyr</code> oder <code>ggplot</code>
+  ist die <strong>lange</strong> Form praktischer:</p>
+<pre>
+lang &lt;- as.data.frame(tab) |&gt; as_tibble() |&gt;
+  set_names(c("maschine", "iok", "n"))
+<span class="cmt"># M1 ausserhalb 0 · M1 in_Toleranz 37 · … — 6 Zeilen</span>
+</pre>
+
+  <h3>Die drei Wege, die scheitern</h3>
+<pre>
+write_csv(tab, "tab.csv")
+<span class="cmt"># ✗ is.data.frame(x) is not TRUE — write_csv nimmt nur Data Frames</span>
+
+write.csv(tab, "tab.csv")
+<span class="cmt"># ⚠ schreibt, aber die 1. Spalte ist unbenannt -> beim Wiedereinlesen "X"</span>
+
+write.csv(tab, "tab.csv", row.names = FALSE)
+<span class="cmt"># ⚠ kein Fehler, aber M1/M2/M3 sind weg — bei einer table tragen
+#   die Zeilennamen die Information</span>
+</pre>
+
+  <div class="callout achtung">
+    <span class="label">Data Frame rein, Zahlen raus</span>
+    <p><code>as.matrix(urxn)</code> auf einem Data Frame mit der
+      Textspalte <code>maschine</code> macht <strong>alle</strong> Zellen zu
+      Text — eine Matrix kann keine Typen mischen. <code>chisq.test()</code>
+      antwortet dann mit <em>invalid 'type' (character) of argument</em>.
+      Erst die Labelspalte abtrennen, dann umwandeln:
+      <code>as.matrix(urxn[, -1])</code>.</p>
+  </div>
+
+  <h3>Welches Format für welche Datei?</h3>
+  <table>
+    <tr><th>Aufruf</th><th>Ergebnis</th><th>Für</th></tr>
+    <tr><td><code>write_csv()</code></td><td>UTF-8 ohne BOM, Komma, Punkt</td><td>R, Python, Git — Standard</td></tr>
+    <tr><td><code>write_excel_csv()</code></td><td>UTF-8 <em>mit</em> BOM, Komma</td><td>Excel: Umlaute stimmen</td></tr>
+    <tr><td><code>write_csv2()</code></td><td>Semikolon, Dezimalkomma</td><td>Excel im deutschsprachigen Raum</td></tr>
+  </table>
+
+  <p>Auch das Testergebnis ist nur ein Objekt mit Feldern — eine Zeile pro
+  Test, wenn du mehrere rechnest:</p>
+<pre>
+res &lt;- chisq.test(tab)
+broom::tidy(res)
+<span class="cmt"># statistic  p.value parameter method
+#      12.0  0.00245         2 Pearson's Chi-squared test</span>
+</pre>
+
+  <p>Und die erwarteten Häufigkeiten als eigene Tabelle — didaktisch die
+  schönste Abgabe, weil „beobachtet gegen erwartet" dann als Datei
+  daneben liegt:</p>
+<pre>
+as.data.frame(res$expected) |&gt;
+  rownames_to_column("maschine") |&gt;
+  write_csv("ergebnisse/erwartet.csv")
+</pre>
+
+  <p>Kontrolle, dass nichts verloren ging — immer einmal zurücklesen:</p>
+<pre>
+read_csv("ergebnisse/kreuztabelle.csv") |&gt;
+  column_to_rownames("maschine") |&gt;
+  as.matrix() |&gt;
+  chisq.test()
+<span class="cmt"># → X-squared = 12.022, df = 2, p-value = 0.002452 — identisch zum Original</span>
+</pre>
+
+  <div class="callout tipp">
+    <span class="label">Zielordner</span>
+    <p><code>write_csv()</code> legt keine Ordner an. Fehlt
+      <code>ergebnisse/</code>, kommt <code>Cannot open file for
+      writing</code>. Vorher <code>dir.create("ergebnisse",
+      showWarnings = FALSE)</code> oder den Ordner im Projekt anlegen.</p>
+  </div>
+
+  <div class="quiz" data-titel="Quiz 7 — Ergebnis sichern">
+    <div class="frage" data-loesung="0">
+      <p class="frage-text"><span class="niveau">★ leicht</span> Was
+      passiert bei <code>write_csv(tab, "tab.csv")</code>, wenn
+      <code>tab</code> eine <code>table</code> ist?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q22" value="0" data-grund="Richtig — write_csv() nimmt nur Data Frames; eine table ist keiner und wird mit is.data.frame(x) is not TRUE abgelehnt."> Es kommt ein Fehler, weil <code>write_csv()</code> nur Data Frames annimmt</label>
+        <label><input type="checkbox" name="q22" value="1" data-grund="Falsch — der Aufruf scheitert vor dem Schreiben; die Datei entsteht gar nicht."> Die Tabelle wird geschrieben, aber ohne Kopfzeile</label>
+        <label><input type="checkbox" name="q22" value="2" data-grund="Falsch — auch die Zahlen werden nicht geschrieben; der Fehler tritt vorher auf."> Nur die Zahlen werden geschrieben, die Labels fehlen</label>
+        <label><input type="checkbox" name="q22" value="3" data-grund="Falsch — es gibt keine automatische Umwandlung; as.data.frame() muss man selbst aufrufen."> R wandelt die Tabelle automatisch in einen Data Frame um</label>
+      </div>
+    </div>
+
+    <div class="frage" data-loesung="2">
+      <p class="frage-text"><span class="niveau">★★ mittel</span>
+      <code>write.csv(tab, "tab.csv", row.names = FALSE)</code> läuft ohne
+      Fehler. Was ist trotzdem falsch?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q23" value="0" data-grund="Falsch — die Zahlen selbst sind korrekt; sie stehen nur ohne ihre Beschriftung da."> Die Häufigkeiten sind falsch berechnet</label>
+        <label><input type="checkbox" name="q23" value="1" data-grund="Falsch — der Fehler wäre laut, nicht still: write_csv() auf einer table bricht mit einer Meldung ab."> Es hätte ein Fehler kommen müssen</label>
+        <label><input type="checkbox" name="q23" value="2" data-grund="Richtig — die Maschinennamen stecken in den Zeilennamen; row.names = FALSE wirft sie weg, die Tabelle ist danach anonym."> Die Maschinennamen fehlen, weil sie nur in den Zeilennamen steckten</label>
+        <label><input type="checkbox" name="q23" value="3" data-grund="Falsch — Trennzeichen und Dezimalpunkt sind bei write.csv() in Ordnung; das Problem ist die fehlende Beschriftung."> Das Trennzeichen ist falsch, Excel liest alles in einer Spalte</label>
+      </div>
+    </div>
+
+    <div class="frage" data-loesung="1">
+      <p class="frage-text"><span class="niveau">★★★ schwer</span> Du willst
+      die geschriebene CSV wieder testen. Welche Kette funktioniert?</p>
+      <div class="optionen">
+        <label><input type="checkbox" name="q24" value="0" data-grund="Falsch — read_csv() liefert einen Data Frame mit Textspalte; chisq.test() scheitert an invalid type (character)."> <code>read_csv()</code> direkt an <code>chisq.test()</code></label>
+        <label><input type="checkbox" name="q24" value="1" data-grund="Richtig — column_to_rownames() macht die Labelspalte zu Zeilennamen, as.matrix() gibt die numerische Matrix, und der Test liefert denselben p-Wert."> <code>read_csv()</code> → <code>column_to_rownames()</code> → <code>as.matrix()</code> → <code>chisq.test()</code></label>
+        <label><input type="checkbox" name="q24" value="2" data-grund="Falsch — as.matrix() auf dem ganzen Data Frame macht wegen der Textspalte alles zu Text."> <code>read_csv()</code> → <code>as.matrix()</code> → <code>chisq.test()</code></label>
+        <label><input type="checkbox" name="q24" value="3" data-grund="Falsch — read.csv() liest zwar ein, aber die Textspalte bleibt; ohne Umwandlung in eine numerische Matrix scheitert der Test genauso."> <code>read.csv()</code> direkt an <code>chisq.test()</code></label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
   <div class="baustein">Jetzt du!</div>
   <ol>
     <li><strong>Vorhersage zuerst.</strong> Welche Zelle der Tabelle
@@ -519,6 +667,8 @@ fisher.test(tab)
       Berechne alle erwarteten Häufigkeiten mit
       <code>outer(rowSums(tab), colSums(tab)) / sum(tab)</code>. Welcher
       Anteil liegt unter 5, und welches Testverfahren folgt daraus?</li>
+    <li>Sichere die Kreuztabelle als <code>ergebnisse/kreuztabelle.csv</code>
+      und lies sie zur Kontrolle zurück. Kommt derselbe p-Wert heraus?</li>
   </ol>
 </section>
 
@@ -615,6 +765,9 @@ chisq.test(tab, correct = FALSE)
     <tr><td>Richtung</td><td>Ein Anpassungstest erkennt Abweichung in <em>beide</em> Richtungen</td></tr>
     <tr><td>Voraussetzung</td><td>80 % der erwarteten Häufigkeiten &ge; 5</td></tr>
     <tr><td><code>fisher.test()</code></td><td>Exakter Test, wenn die Näherung nicht trägt</td></tr>
+    <tr><td>Tabelle als Datei</td><td><code>as.data.frame.matrix()</code> → <code>rownames_to_column()</code> → <code>write_csv()</code></td></tr>
+    <tr><td>Zeilennamen</td><td>Überleben keine CSV — vorher zu einer Spalte machen</td></tr>
+    <tr><td>Testergebnis</td><td><code>broom::tidy()</code> liefert X&sup2;, df, p als Data Frame</td></tr>
   </table>
   <p><strong>Ausblick:</strong> Beide Tests hier waren
     <em>Signifikanz</em>-Tests. Die offene Frage bleibt: Wie oft findet
@@ -631,8 +784,9 @@ chisq.test(tab, correct = FALSE)
   <a href="Übungsbeispiele.md">Übungsbeispiele.md</a>:</p>
   <ol>
     <li><strong>Beispiel 1 — Die Chi-Tests an den Betriebsdaten:</strong>
-      beide Testtypen, Teststatistik von Hand, Voraussetzungen prüfen und
-      den exakten Test als Alternative begründen.</li>
+      beide Testtypen, Teststatistik von Hand, Voraussetzungen prüfen,
+      den exakten Test als Alternative begründen — und das Ergebnis als
+      CSV sichern.</li>
     <li><strong>Beispiel 2 — Selbsttest im WÜ-Format:</strong> acht Fragen
       mit vier Optionen (0–4 richtig) samt Musterlösung.</li>
     <li><strong>Beispiel 3 — Transfer:</strong> Anpassungstest an einer

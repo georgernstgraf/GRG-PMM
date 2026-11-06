@@ -53,7 +53,7 @@ daten |&gt;
 # 2 M2         9.98
 # 3 M3        10.1</span>
 </pre>
-  <p>Ein Aufruf, drei Zeilen, fertig. Bis dahin sind es fünf Schritte —
+  <p>Ein Aufruf, drei Zeilen, fertig. Bis dahin sind es neun Schritte —
   und du gehst sie in dieser Lektion selbst.</p>
 </section>
 
@@ -260,6 +260,222 @@ kennzahlen
 </section>
 
 <section>
+  <h2>Schritt 6 — „Source" verwirft nichts</h2>
+  <p>Nein — <strong>„Source" verwirft nichts.</strong> Es führt die Datei
+  von oben nach unten in <em>derselben</em> Konsole aus, die Ausgabe hängt
+  unten an, und alle Objekte im Environment bleiben. Was du willst („frisch
+  anfangen"), ist ein anderer Befehl.</p>
+
+  <table>
+    <tr><th></th><th>was es ist</th><th>wie es leer wird</th></tr>
+    <tr><td><strong>Konsole</strong></td>
+        <td>Protokoll dessen, was gelaufen ist</td>
+        <td><code>Ctrl + L</code> (nur Anzeige, Zustand bleibt!)</td></tr>
+    <tr><td><strong>Environment</strong></td>
+        <td>die Objekte im Speicher (<code>daten</code>, <code>tab</code>,
+            <code>urxn</code> …)</td>
+        <td><strong>Restart R</strong></td></tr>
+    <tr><td><strong>Skript</strong></td>
+        <td>die Quelle der Wahrheit</td>
+        <td>wird nie geleert</td></tr>
+  </table>
+
+  <p>„Alte Konsole verworfen" ist deshalb das falsche Ziel: Die
+  Konsolenausgabe ist egal, das <strong>Environment</strong> ist das
+  Problem. Ein Objekt von vorhin kann einen Fehler verdecken — zum Beispiel
+  läuft <code>chisq.test(tab)</code> weiter, obwohl die Zeile
+  <code>tab &lt;- table(...)</code> im Skript einen Tippfehler hat, weil
+  <code>tab</code> noch von Hand in der Konsole entstanden ist.</p>
+
+  <div class="quiz" data-loesung="2">
+    <p class="frage">Was passiert, wenn du im Editor auf „Source" klickst?</p>
+    <label><input type="radio" name="q6" value="0" data-grund="Falsch — Source löscht nichts. Die Konsolenausgabe bleibt stehen und die Objekte im Environment auch."> Die Konsole wird geleert und alle Objekte werden gelöscht</label>
+    <label><input type="radio" name="q6" value="1" data-grund="Falsch — Source startet R nicht neu; es schickt die Datei in die laufende Session."> RStudio startet R neu und führt dann das Skript aus</label>
+    <label><input type="radio" name="q6" value="2" data-grund="Richtig — Source führt die Datei von oben nach unten in derselben Konsole aus; das Environment bleibt unverändert."> Das Skript läuft in derselben Konsole von oben nach unten, das Environment bleibt</label>
+    <label><input type="radio" name="q6" value="3" data-grund="Falsch — Speichern ist Ctrl/Cmd+S; Source führt zusätzlich aus."> Das Skript wird nur gespeichert, aber nicht ausgeführt</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 7 — Der Workflow: entwickeln, debuggen, kalt prüfen</h2>
+  <p>Vier Schritte, und der letzte ist der, den man gern überspringt:</p>
+  <ol>
+    <li><strong>Entwickeln</strong> — <code>Ctrl + Enter</code> — Zeile
+      oder Auswahl ausführen (Konsole = Notizzettel).</li>
+    <li><strong>Debuggen</strong> — <code>Ctrl + Alt + B</code> — Anfang
+      bis Cursor ausführen.</li>
+    <li><strong>Prüfen</strong> — <code>Ctrl + Shift + F10</code> —
+      Restart R (leeres Environment!).</li>
+    <li><strong>Dann</strong> — <code>Ctrl + Shift + S</code> — Source:
+      den ganzen Skript kalt durchlaufen.</li>
+  </ol>
+
+  <p>Schritt 3 und 4 sind der eigentliche Test: <strong>Das Skript muss aus
+  einem leeren R heraus laufen.</strong> Wenn nach dem Restart
+  <code>could not find function "read_csv"</code> kommt, fehlt
+  <code>library(tidyverse)</code> — genau der Fehler, der beim zeilenweisen
+  Arbeiten unsichtbar bleibt. Wenn es durchläuft und die Ausgabedatei neu
+  schreibt, ist die Auswertung reproduzierbar. Das ist die Definition, die
+  in dieser Lektion gilt: ein Skript, das in einem Jahr noch läuft.</p>
+
+  <p>Zwei Nebenwirkungen von Restart R, die man kennen muss: geladene
+  Pakete sind weg (deshalb <code>library()</code> oben im Skript), und
+  <code>getwd()</code> ist wieder die Projektwurzel.</p>
+
+  <table>
+    <tr><th>Knopf im Editor</th><th>Kürzel</th><th>Was passiert</th></tr>
+    <tr><td><strong>Run</strong></td><td><code>Ctrl + Enter</code></td>
+        <td>aktuelle Zeile oder Auswahl</td></tr>
+    <tr><td><strong>Source</strong></td><td><code>Ctrl + Shift + S</code></td>
+        <td>ganze Datei, <em>still</em> — nur <code>print</code> und Ausgaben erscheinen</td></tr>
+    <tr><td><strong>Source with Echo</strong></td>
+        <td><code>Ctrl + Shift + Enter</code></td>
+        <td>ganze Datei, jede Zeile wird mitgezeigt — gut zum Vorführen</td></tr>
+    <tr><td><strong>Source on Save</strong></td><td>Häkchen</td>
+        <td>beim Speichern läuft das Skript — beim Entwickeln lästig</td></tr>
+  </table>
+
+  <p>Damit „kalt" auch stimmt, zwei Schalter: RStudio stellt den Speicher
+  standardmäßig wieder her. Unter <em>Tools → Global Options → General</em>
+  deshalb <strong>Restore .RData into workspace at startup</strong> auf
+  <code>No</code> und <strong>Save workspace to .RData on exit</strong> auf
+  <code>Never</code>. Oder pro Projekt in der <code>.Rproj</code>, dann gilt
+  es für alle, die das Projekt öffnen:</p>
+<pre>
+RestoreWorkspace: No
+SaveWorkspace: No
+</pre>
+
+  <div class="callout">
+    <span class="label">In einem Satz</span>
+    <p>Die Konsole ist ein Notizzettel, das Environment ist der Zustand,
+      das Skript ist das Ergebnis — „Source" wiederholt das Ergebnis auf
+      dem vorhandenen Zustand, „Restart R, dann Source" prüft, ob das
+      Ergebnis auch allein steht.</p>
+  </div>
+
+  <div class="quiz" data-loesung="1">
+    <p class="frage">Du willst prüfen, ob dein Skript wirklich allein
+    läuft. Was tust du?</p>
+    <label><input type="radio" name="q7" value="0" data-grund="Falsch — Source allein läuft auf dem vorhandenen Zustand; Objekte von vorhin können Fehler verdecken."> Auf „Source" klicken, mehr braucht es nicht</label>
+    <label><input type="radio" name="q7" value="1" data-grund="Richtig — Restart R leert das Environment, Source führt danach den ganzen Skript von null durch."> Restart R, dann Source</label>
+    <label><input type="radio" name="q7" value="2" data-grund="Falsch — Ctrl/Cmd+L löscht nur die Anzeige der Konsole; die Objekte im Environment bleiben."> <code>Ctrl + L</code>, dann Source</label>
+    <label><input type="radio" name="q7" value="3" data-grund="Falsch — der Besen löscht Objekte, aber keine geladenen Pakete; ein echter Kaltstart ist Restart R."> Das Environment mit dem Besen leeren, dann Source</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 8 — Viewer und Presentation</h2>
+  <p>Rechts unten sind es nicht vier Tabs, sondern sechs. <strong>Viewer</strong>
+  und <strong>Presentation</strong> sind beide Browser-Fenster innerhalb von
+  RStudio — der Unterschied ist, <em>was</em> sie anzeigen.</p>
+
+  <table>
+    <tr><th>Tab</th><th>Zeigt</th></tr>
+    <tr><td>Files</td><td>dein Projekt auf der Platte</td></tr>
+    <tr><td>Plots</td><td>statische Grafiken aus dieser Sitzung</td></tr>
+    <tr><td>Packages</td><td>installierte Pakete, Install und Update</td></tr>
+    <tr><td>Help</td><td><code>?funktion</code>, Vignetten, <code>??suche</code></td></tr>
+    <tr><td><strong>Viewer</strong></td><td>erzeugten Web-Inhalt (Widgets, HTML-Vorschau, Shiny)</td></tr>
+    <tr><td><strong>Presentation</strong></td><td>HTML-Foliendecks (reveal.js, .Rpres) im Vortragsmodus</td></tr>
+  </table>
+
+  <h3>Viewer — ein Browsertab, den RStudio für dich aufmacht</h3>
+  <p>Der Viewer zeigt <strong>von R erzeugten Web-Inhalt</strong>:
+  <code>htmlwidgets</code> wie <code>plotly</code>, <code>leaflet</code>
+  oder <code>DT</code>-Tabellen erscheinen dort automatisch, HTML-Ausgaben
+  von Quarto und R Markdown ebenfalls (umschaltbar unter
+  <em>Tools → Global Options → R Markdown → Show output preview in</em>).
+  Auch eine lokale HTML-Datei kannst du dort öffnen:</p>
+<pre>
+rstudioapi::viewer("lesson.html")
+<span class="cmt"># oder im Files-Tab: Rechtsklick → View in Browser</span>
+</pre>
+  <p>Er hat Refresh, Zoom und „Show in new window" — aber keine
+  Adresszeile.</p>
+
+  <h3>Presentation — ein Folien-Player</h3>
+  <p>Der Presentation-Tab blättert ein HTML-Foliendeck im Vollbild durch,
+  eine Folie pro Bildschirm, mit Pfeiltasten und Leertaste. Gedacht ist er
+  für Quartos <code>revealjs</code>-Format; historisch war es der Player
+  für <code>.Rpres</code> (R Presentations) und für
+  <code>ioslides</code>- und <code>slidy</code>-Decks. Das Tab erscheint
+  erst, wenn ein solches Deck gerendert wird.</p>
+
+  <div class="callout tipp">
+    <span class="label">Deine lesson.html</span>
+    <p>Unsere Lektionen sind keine reveal.js-Decks, sondern handgebaute
+      HTML-Seiten mit <code>assets/lesson.css</code> — der
+      Presentation-Tab bleibt dafür leer. Zum Ansehen nimm den Viewer;
+      für „genau wie auf GitHub Pages" den Live-Server
+      (<code>./serve.sh</code>), weil Firefox lokale Dateien mit
+      Verweisen in Elternordner blockt.</p>
+  </div>
+
+  <div class="quiz" data-loesung="0">
+    <p class="frage">Wofür ist der Viewer-Tab da?</p>
+    <label><input type="radio" name="q8" value="0" data-grund="Richtig — der Viewer zeigt Web-Inhalt, den R erzeugt hat: Widgets, HTML-Vorschauen, Shiny-Apps."> Er zeigt von R erzeugten Web-Inhalt wie Widgets und HTML-Vorschauen</label>
+    <label><input type="radio" name="q8" value="1" data-grund="Falsch — die Dateien auf der Platte zeigt der Files-Tab."> Er zeigt die Dateien des Projekts auf der Platte</label>
+    <label><input type="radio" name="q8" value="2" data-grund="Falsch — Hilfeseiten und Vignetten liegen im Help-Tab."> Er zeigt Hilfeseiten und Vignetten zu Funktionen</label>
+    <label><input type="radio" name="q8" value="3" data-grund="Falsch — das Folien-Blättern im Vollbild ist der Presentation-Tab."> Er blättert Foliendecks im Vortragsmodus durch</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 9 — Pfade, die halten</h2>
+  <p>Ein Pfad im Skript ist ein Versprechen über die Ordnerstruktur. Es
+  hält nur, wenn es relativ formuliert ist:</p>
+
+  <table>
+    <tr><th></th><th>absolut<br><code>/home/georg/…</code>, <code>C:/Users/…</code></th><th>relativ<br><code>daten/x.csv</code></th></tr>
+    <tr><td><strong>funktioniert</strong></td><td>genau einmal, auf einem Rechner</td><td>überall, wo die Ordnerstruktur gleich ist</td></tr>
+    <tr><td><strong>bricht bei</strong></td><td>anderem Benutzer, anderem Laufwerk, Abgabe</td><td>falschem Arbeitsverzeichnis</td></tr>
+    <tr><td><strong>legitim bei</strong></td><td>Einmal-Exploration, <code>file.choose()</code>, <code>tempdir()</code>, Pfad aus einer Umgebungsvariable</td><td>allem, was im Skript bleibt und geteilt wird</td></tr>
+  </table>
+
+  <p>Feinheiten, die in der Praxis wirklich beißen:</p>
+  <ul>
+    <li><strong><code>~</code> ist absolut in Verkleidung</strong> —
+      <code>~</code> ist das Home des jeweiligen Benutzers.</li>
+    <li><strong>Backslashes</strong> aus dem Windows-Explorer sind zu
+      verdoppeln oder durch <code>/</code> zu ersetzen — R akzeptiert
+      <code>/</code> auch unter Windows.</li>
+    <li><strong>Daten, die zur Analyse gehören, liegen im Projekt</strong>
+      und werden relativ angesprochen — nicht per <code>../</code> aus dem
+      Projekt herausklettern.</li>
+  </ul>
+
+  <p>Diagnose statt Raten:</p>
+<pre>
+getwd()                        <span class="cmt"># wo bin ich?</span>
+list.files("daten")            <span class="cmt"># was liegt dort?</span>
+file.exists("daten/betriebsdaten.csv")   <span class="cmt"># ist die Datei da?</span>
+
+<span class="cmt"># Daten ins Projekt holen statt nach außen zeigen:</span>
+dir.create("daten", showWarnings = FALSE)
+file.copy("../../assets/betriebsdaten.csv", "daten/betriebsdaten.csv")
+</pre>
+
+  <p>Die Fehlermeldung <code>cannot open file</code> nennt immer den
+  <em>aufgelösten</em> Pfad — vergleiche ihn mit <code>getwd()</code>.
+  Genau daran erkennt man den Unterschied zwischen „Datei fehlt" und
+  „Arbeitsverzeichnis ist falsch".</p>
+
+  <div class="quiz" data-loesung="3">
+    <p class="frage">Du bekommst <code>cannot open file:
+    'daten/betriebsdaten.csv'</code>. Was prüfst du zuerst?</p>
+    <label><input type="radio" name="q9" value="0" data-grund="Falsch — eine beschädigte CSV würde anders scheitern, nämlich erst beim Parsen der Zeilen."> Ob die CSV-Datei beschädigt ist</label>
+    <label><input type="radio" name="q9" value="1" data-grund="Falsch — ein fehlendes Paket erzeugt eine andere Meldung (could not find function)."> Ob das Paket <code>readr</code> installiert ist</label>
+    <label><input type="radio" name="q9" value="2" data-grund="Falsch — die Meldung betrifft den Pfad, nicht das Trennzeichen; ein Semikolon würde erst beim Einlesen auffallen."> Ob die Datei Semikolons statt Kommas nutzt</label>
+    <label><input type="radio" name="q9" value="3" data-grund="Richtig — die Meldung nennt den aufgelösten Pfad; der Vergleich mit getwd() und list.files() zeigt, ob das Projekt offen ist."> Ob <code>getwd()</code> die Projektwurzel ist und <code>list.files("daten")</code> die Datei zeigt</label>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
   <div class="baustein">Jetzt du!</div>
   <p>Alles im Skript, Zeile für Zeile mit <code>Ctrl + Enter</code>:</p>
   <ol>
@@ -276,6 +492,10 @@ kennzahlen
     <li><strong>Prüfen.</strong> Gib <code>getwd()</code> aus. Endet die
       Ausgabe auf <code>pmm-km7-04</code>? Wenn nicht: Ist das Projekt
       geöffnet (Doppelklick auf die <code>.Rproj</code>-Datei)?</li>
+    <li><strong>Kaltstart.</strong> <code>Ctrl + Shift + F10</code>, dann
+      <code>Ctrl + Shift + S</code>. Läuft das Skript aus einem leeren R
+      durch, ohne dass du vorher etwas in der Konsole getippt hast? Was
+      fehlt, fehlt im Skript.</li>
   </ol>
 </section>
 
@@ -324,8 +544,11 @@ read_csv("C:\\Users\\Anna\\Downloads\\betriebsdaten.csv")
     <tr><td>R vs. Taschenrechner</td><td>Das Skript speichert den Weg — wiederholbar und prüfbar</td></tr>
     <tr><td>R vs. RStudio</td><td>R rechnet (Motor), RStudio bedient (Cockpit); erst R, dann RStudio</td></tr>
     <tr><td>Vier Fenster</td><td>Editor = Skript, Console = rechnen, Environment = Objekte, Files = Dateien</td></tr>
+    <tr><td>Viewer / Presentation</td><td>Viewer zeigt erzeugten Web-Inhalt, Presentation blättert Foliendecks</td></tr>
     <tr><td>Projekt</td><td>Ein Ordner mit <code>.Rproj</code>; bestimmt das Arbeitsverzeichnis</td></tr>
     <tr><td>Arbeitsverzeichnis</td><td><code>getwd()</code> zeigt es; Pfade immer relativ</td></tr>
+    <tr><td>Kaltstart</td><td><code>Ctrl + Shift + F10</code>, dann <code>Ctrl + Shift + S</code> — Skript muss aus leerem R laufen</td></tr>
+    <tr><td><code>~</code> und <code>../</code></td><td>Beide sind absolute Pfade in Verkleidung — Daten ins Projekt kopieren</td></tr>
     <tr><td>Skript</td><td><code>#</code> Kommentar, <code>&lt;-</code> Zuweisung, <code>Ctrl + Enter</code> ausführen</td></tr>
     <tr><td>Namen</td><td>snake_case, beschreibend, Groß-/Kleinschreibung zählt</td></tr>
   </table>

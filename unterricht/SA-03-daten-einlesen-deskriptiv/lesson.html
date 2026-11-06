@@ -68,9 +68,9 @@ fertigung &lt;- read_csv("assets/betriebsdaten.csv")
   was es gefunden hat. Der erste Reflex danach — <strong>immer</strong>:</p>
 <pre>
 glimpse(fertigung)
-<span class="cmt"># → maschine  = <chr>  (Text: M1, M2, M3)
-#   charge    = <dbl>  (Zahl)
-#   masse_mm  = <dbl>  (Zahl) — paar Zeilen mit <NA></span>
+<span class="cmt"># → maschine  = &lt;chr&gt;  (Text: M1, M2, M3)
+#   charge    = &lt;dbl&gt;  (Zahl)
+#   masse_mm  = &lt;dbl&gt;  (Zahl) — paar Zeilen mit &lt;NA&gt;</span>
 </pre>
   <p><code>chr</code> = Text, <code>dbl</code> = Dezimalzahl. Ein Blick
   auf die Typen erspart dir die seltsamsten Fehler später: Wer auf
@@ -84,6 +84,48 @@ summary(fertigung$masse_mm)
   <p>Da stehen sie schon: <strong>4 fehlende Messwerte</strong> (Sensor
   hat ausgeworfen, Teil trotzdem gefertigt). Merk dir die Zahl — sie
   gleich.</p>
+</section>
+
+<section>
+  <h2>Zwischenstopp — <code>read.csv</code> oder <code>read_csv</code>?</h2>
+  <p>Beide lesen CSV, aber sie kommen aus zwei Welten:
+  <code>read.csv()</code> gehört zu base R und ist immer da;
+  <code>read_csv()</code> kommt aus <code>readr</code> und gehört zum
+  tidyverse.</p>
+  <table>
+    <tr><th></th><th><code>read.csv()</code></th><th><code>read_csv()</code></th></tr>
+    <tr><td><strong>Trenner / Dezimal</strong></td><td><code>,</code> / <code>.</code></td>
+        <td><code>,</code> / <code>.</code> — nur so</td></tr>
+    <tr><td><strong>europäisch</strong></td>
+        <td><code>read.csv2()</code>: <code>;</code> / <code>,</code></td>
+        <td><code>read_csv2()</code>: <code>;</code> / <code>,</code></td></tr>
+    <tr><td><strong>Ergebnis</strong></td><td><code>data.frame</code></td>
+        <td><code>tibble</code>, druckt die Spaltentypen</td></tr>
+    <tr><td><strong>Spaltennamen</strong></td>
+        <td><code>check.names = TRUE</code> — Leerzeichen und Sonderzeichen
+            werden zu Punkten</td>
+        <td>bleiben roh</td></tr>
+    <tr><td><strong>Kommentarzeichen</strong></td>
+        <td><code>comment.char = ""</code> (bei <code>read.table()</code>
+            wäre <code>#</code> aktiv und würde Felder abschneiden)</td>
+        <td>keins</td></tr>
+    <tr><td><strong>Encoding</strong></td>
+        <td><code>fileEncoding = "UTF-8"</code> bei Umlauten</td>
+        <td><code>locale(encoding = "UTF-8")</code></td></tr>
+    <tr><td><strong>Zeilennamen</strong></td><td>möglich</td><td>nie</td></tr>
+  </table>
+  <p>Seit R 4.0 ist <code>stringsAsFactors = FALSE</code> Default — der
+  alte <code>as.character()</code>-Reflex ist überflüssig.</p>
+
+  <div class="callout tipp">
+    <span class="label">Warum du beides siehst</span>
+    <p>Im Unterricht ist <code>read_csv()</code> der Standard: Es druckt die
+      Typen und passt zu den Verben aus SA-02. Die Bau-Skripte im Repo
+      (<code>Projekte/…/_build/</code>) nutzen bewusst base R mit
+      <code>read.csv2()</code> und <code>write.csv()</code>, damit sie ohne
+      ein einziges Paket laufen. Beides ist richtig —
+      <code>read.csv()</code> ist der paketfreie Weg, nicht der falsche.</p>
+  </div>
 </section>
 
 <section>
@@ -162,7 +204,7 @@ fertigung |&gt;
 <pre>
 fertigung &lt;- read_csv("messwerte_komma.csv")   <span class="cmt"># Werte wie "10,05"</span>
 glimpse(fertigung)
-<span class="cmt"># → masse_mm = <chr>! R hat die Zahlen als Text gelesen</span>
+<span class="cmt"># → masse_mm = &lt;chr&gt;! R hat die Zahlen als Text gelesen</span>
 </pre>
   <p>Deutsche CSV-Dateien nutzen oft <code>,</code> als Dezimalzeichen —
   <code>read_csv()</code> erwartet <code>.</code>. Erste Diagnose immer:

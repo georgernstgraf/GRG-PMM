@@ -6,8 +6,9 @@
 (Binomialverteilung) — der Anpassungstest ist ihre Anwendung.
 
 > **Setup-Ritual:** RStudio-Projekt `pmm-km7-02`, Skript `analyse.R`.
-> **Daten:** `assets/betriebsdaten.csv` — Sollmaß 10,00 mm, Toleranz
-> ± 0,15 mm. Gültige Messungen: 116 (vier fehlen und werden NA).
+> **Daten:** `daten/betriebsdaten.csv` (aus `assets/betriebsdaten.csv` ins
+> Projekt kopiert) — Sollmaß 10,00 mm, Toleranz ± 0,15 mm. Gültige
+> Messungen: 116 (vier fehlen und werden NA).
 
 ---
 
@@ -17,7 +18,7 @@
 
 ```r
 library(tidyverse)
-daten <- read_csv(".../assets/betriebsdaten.csv") |>
+daten <- read_csv("daten/betriebsdaten.csv") |>
   mutate(iok = if_else(is.na(masse_mm), NA,
               if_else(abs(masse_mm - 10) > 0.15,
                       "ausserhalb", "in_Toleranz")))
@@ -125,6 +126,32 @@ Güteurteil über den Prozess ist.
 3. Ein Kollege sagt: „Der Chi-Test sagt, dass M3 schlecht ist, weil
    0,0025 < 0,05." Hat er recht? Begründe in zwei Sätzen — denke an die
    Richtung und daran, was ein Anpassungstest gerade **nicht** kann.
+
+### 1h. Ergebnis sichern
+
+Die Kreuztabelle soll als Datei abgegeben werden — nicht als Screenshot.
+
+```r
+# Testform -> Dateiform: Labels werden eine Spalte
+urxn <- as.data.frame.matrix(tab) |>
+  rownames_to_column("maschine")
+
+dir.create("ergebnisse", showWarnings = FALSE)
+write_csv(urxn, "ergebnisse/kreuztabelle.csv")
+```
+
+1. Öffne die Datei im Editor. Steht `maschine` als erste Spalte drin, und
+   stimmen die sechs Zahlen?
+2. Warum scheitert `write_csv(tab, "tab.csv")`, und warum verliert
+   `write.csv(tab, "tab.csv", row.names = FALSE)` die Maschinen **ohne**
+   Fehlermeldung?
+3. Lies die Datei zurück, mach die Labelspalte zu Zeilennamen
+   (`column_to_rownames()`) und teste erneut. Kommt `X-squared = 12.022`
+   heraus?
+4. Zusatz: Schreibe das Testergebnis als einzeilige CSV
+   (`broom::tidy(res)`) und die erwarteten Häufigkeiten als
+   `ergebnisse/erwartet.csv`. Was fehlt in der Datei, wenn du
+   `row.names = FALSE` vergisst?
 
 ---
 
