@@ -1,4 +1,4 @@
-# Hausaufgabe UE 3 — Daten einlesen & deskriptive Statistik
+# Aufgabe SA-03 — Daten einlesen & deskriptive Statistik
 
 Name: _____________ &nbsp;&nbsp;&nbsp; Abgabe: _____________
 

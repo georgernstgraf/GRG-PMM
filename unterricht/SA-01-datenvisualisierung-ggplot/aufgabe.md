@@ -1,4 +1,4 @@
-# Hausaufgabe UE 1 — Daten visualisieren
+# Aufgabe SA-01 — Daten visualisieren
 
 Name: _____________ &nbsp;&nbsp;&nbsp; Abgabe: _____________
 

@@ -1,4 +1,4 @@
-# Hausaufgabe UE 2 — Daten transformieren & Workflow
+# Aufgabe SA-02 — Daten transformieren & Workflow
 
 Name: _____________ &nbsp;&nbsp;&nbsp; Abgabe: _____________
 
@@ -104,7 +104,7 @@ angewendet wurden — und jeweils ein Beispiel aus deinem eigenen Code:
 2. _________________________________________________
 
 **b)** Lege ein RStudio-**Projekt** namens `pmm-ue02` an, speichere dein Skript
-darin als `analyse.R` und habe alle Hausaufgaben-Pipes in diesem Skript.
+darin als `analyse.R` und habe alle Pipes aus den Beispielen in diesem Skript.
 Führe das Skript mit `Ctrl + Shift + S` komplett aus — gibt es eine
 Fehlermeldung? Wenn ja: was sagt sie?
 

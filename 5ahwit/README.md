@@ -15,7 +15,7 @@
   3) zu jedem dieser "interessanten" Themen: Welche FRAGE wollen wir an die Daten stellen? → [Projekte/fragestellungen-statistik/](../Projekte/fragestellungen-statistik/)
 - 2026-09-30: Chi-Quadrat-Test (KM7-02) — Navarro Kap. 12, RStudio-Projekt `pmm-km7-02` → [2026-09-30-chi-quadrat-test/](./2026-09-30-chi-quadrat-test/)
 - 2026-09-23: Setup-HÜ — PMM-Repo auf GitHub anlegen (public, mit README) + Wiederholungswünsche der 4. Klasse im Repo-README festhalten → [2026-09-23__setup_fertig/](./2026-09-23__setup_fertig/)
-- 2026-09-16: Lektion SA-01 durcharbeiten + Hausaufgabe UE 1 → [unterricht/SA-01-datenvisualisierung-ggplot/](../unterricht/SA-01-datenvisualisierung-ggplot/hausaufgabe.md)
+- 2026-09-16: Lektion SA-01 durcharbeiten + Hausaufgabe UE 1 → [unterricht/SA-01-datenvisualisierung-ggplot/](../unterricht/SA-01-datenvisualisierung-ggplot/aufgabe.md)
 
 ## 2026-10-14_chi_quadrat_schulübung
 

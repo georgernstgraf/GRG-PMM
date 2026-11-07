@@ -55,7 +55,7 @@ Weiteres Material (nur Verweise, keine Kopien):
   `../unterricht/SA-01-datenvisualisierung-ggplot/lesson.html`
 - Lektion SA-02 (nächste DS): `../unterricht/SA-02-daten-transformieren-dplyr/lesson.html`
 - Hausaufgabe UE 1:
-  `../unterricht/SA-01-datenvisualisierung-ggplot/hausaufgabe.md`
+  `../unterricht/SA-01-datenvisualisierung-ggplot/aufgabe.md`
 
 ## 2026-09-15
 

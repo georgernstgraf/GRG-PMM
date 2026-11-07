@@ -1,4 +1,4 @@
-# Übungsbeispiele KM7-02 — Der Chi-Quadrat-Test
+# Aufgabe KM7-02 — Der Chi-Quadrat-Test
 
 **Lektüre:** Navarro, [Statistik für Human- und Sozialwissenschaftler](https://learningstatisticswithr.com/book/)
 (Pflicht) — **Kap. 12, Chi-Quadrat-Tests**. Voraussetzung ist
