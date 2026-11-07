@@ -1,19 +1,23 @@
 # Project State
 
-Current status as of 2026-11-02.
+Current status as of 2026-11-07.
 
 ## Current Focus
-**Quiz-Format 2.0 + KM7-02-Umbau (#40, 2026-11-02):** `assets/quiz.js`
-unterstützt jetzt Lernquizzes (Checkboxen, 0–4 richtig, Überprüfen-Button,
-Färbung, Infokugeln, Nochmal versuchen, Show-Modal) und bleibt zum
-Radio-Altmodus kompatibel. KM7-02 hat fünf Quizze (20 Fragen, Schwierigkeit
-leicht → schwer, eine 0-Richtige-Frage), `Übungsbeispiele.md` mit Beispiel
-1–3 und einen `<details>`-Block „Lehrplan & Einordnung"; `praesentation.html`
-und `hausaufgabe.md` sind weg. Serien-Aufräumen (#22): Folien-Sätze in
-KM5-02/03, KM6-01, KM7-01–03 entfernt, neun Tages-README-Vorlagen gelöscht,
-Navigator-Links bereinigt. Verifikation: Link-Check 0 tot, Headless-Chrome-
-Klicktest grün, `node --check` grün. Offen: die übrigen acht Lessons auf
-Format 2.0 umrüsten (bewusst zurückgestellt).
+**Quiz-Format 2.0 ohne Stufen/Modal (#42, 2026-11-07, laufend):** Der
+Skill und die Assets sind angeglichen — `data-stufe`/`niveau` und das
+Show-Modal sind gestrichen, der Titel steht als `Quiz: <thema-slug>` im
+`h3`-Badge, Fragen sind `<fieldset>`/`<legend>` mit lesson-präfixierten
+`name`, einer Infokugel je Option und einer versteckten `aria-live`-
+Statuszeile. Aufgaben-Dateien heißen jetzt einheitlich `aufgabe.md`.
+Umgestellt sind **KM6-01 (11 Fragen), KM7-01 (11), KM7-02 (24), KM7-03
+(11)**; KM6-01/KM7-02 tragen den `<details>`-Block. Faktisch korrigiert:
+4 statt 6 Ausschussteile (10,15 mm ist in Toleranz, `round()`-Vergleich),
+Chi-Test X² 7,87 / p 0,0195 statt 12,02 / 0,0025, KM7-01-Standardfehler
+der Differenz (z = 5,11 statt 12,02), KM7-03-Fehlerarten-Tabelle (Fehler
+1./2. Art waren vertauscht). Offen: KM5-01/02/03, KM7-04/05, SA-01–04
+umstellen; SA-00 als Lesson bauen; Präsentationen auflösen; Lehrplan-
+Details für die übrigen Lessons; Docs-Nachlauf (u. a. historische
+5ahwit-Prüfungsdateien behalten die alten 6er-Zahlen als Beleg).
 
 **Lektionsserie Datenaufbereitung (#37):** SA-04 „Daten einlesen II: die
 raue Wirklichkeit" ist gebaut und committed (2026-10-19, `7f70261`) —

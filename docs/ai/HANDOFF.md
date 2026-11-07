@@ -105,16 +105,22 @@ Chat (teach-Skill).
 pro Einheit statt Stücke pro Los"; LR schreiben, `jg3-verlauf.html`
 auf ✅; danach L05 bauen.
 
-### Quiz-Format-2.0-Restyling: Klick-Check der Lernquizze nachziehen
-**Priority:** low (Assets seit `2e2fe73` committed; nur noch der
-Browser-Klicktest offen)
-**Context:** `assets/lesson.css` + `assets/quiz.js` (Niveau-Badges,
-Infokugeln im Label) sind seit 2026-11-03 gepusht; `node --check` grün,
-nur KM7-02 nutzt das neue `niveau`-Markup. Offen bleibt der manuelle
-Klick-Check (Quiz prüfen → färben → Infokugeln → Nochmal versuchen →
-Show-Modal) über `./serve.sh`, insbesondere dass die übrigen Lessons mit
-dem umgebauten `quiz.js` unverändert laufen.
-**Action:** Bei nächster Lesson-Arbeit einmal durchklicken.
+### Quiz-Format 2.0 auf alle Lessons nachziehen (#42)
+**Priority:** high (läuft; vier von dreizehn Lessons umgestellt)
+**Context:** Skill (`opencode-helpers` #124) und Assets sind angeglichen:
+keine Stufen (`data-stufe`/`niveau`), kein Show-Modal, Titel als
+`Quiz: <thema-slug>`, `fieldset`/`legend`, lesson-präfixierte `name`,
+Infokugel je Option, `aria-live`-Status. Aufgaben-Dateien heißen
+`aufgabe.md`. Fertig: KM6-01, KM7-01, KM7-02, KM7-03 (je mit
+Klicktest, Blindprobe und Gegenlesung). Datenkorrektur: 4 statt 6
+Ausschussteile; KM7-02 deshalb X² 7,87 / p 0,0195, Fisher 0,0335.
+**Action:** Batches KM5-01/02/03, KM7-04/05, SA-04 umstellen (gleiche
+Qualitätsachse: Abdeckungsmatrix, Distraktoren aus Fehlern, Zahlen per
+`Rscript`); danach SA-01–03 auf 90 min vertiefen (Folien ernten) und
+SA-00 als Lesson bauen; Präsentationen löschen, `assets/slides.css`
+entfernen, `5ahwit/2026-09-30`-README auf die KM7-02-Lesson verlinken,
+`<details>`-Blöcke und Docs nachziehen. Historische 5ahwit-Prüfungsdateien
+(2026-10-21) behalten die alten 6er-Zahlen bewusst als Beleg.
 
 ## Erledigt (dieser Zyklus)
 - **GRG-PMM #40 (Nachtrag):** Quiz-Format-2.0-Styling-Rework

@@ -577,3 +577,27 @@ Each entry documents WHAT was decided and WHY.
   stehen dort nur als „Beispielhaft"-Zeile.
 - **Tradeoff:** Die Regel ist weicher als eine Checkliste und entzieht sich
   mechanischer Verifikation — sie liegt beim LM-Urteil beim Bau/Nachziehen.
+
+## 2026-11-07: Quiz ohne Stufen und Modal, aufgabe.md, korrigierte Chi-Daten (#42)
+
+- **Choice:** Das Quiz-Format 2.0 wird **ohne** `data-stufe`,
+  `niveau`-Sterne und **ohne Show-Modal** weitergeführt (überschreibt die
+  entsprechenden Teile von #40). Der Titel steht als `Quiz: <thema-slug>`
+  im injizierten `h3`; Fragen sind `<fieldset>`/`<legend>`, ein
+  „Überprüfen"-Button je **Frage**, je **Option** eine Infokugel und eine
+  Entscheidungsfärbung, dazu eine versteckte `aria-live`-Statuszeile.
+  `name` ist lesson-präfixiert, `value` = DOM-Position.
+- **Why:** Stufen und Modal waren im Widget nie konsistent umgesetzt und
+  im Unterricht nicht gefordert; die Feldset-Semantik ist für
+  Screenreader die ehrliche Struktur, und der Klicktest bleibt einfach.
+- **Aufgaben-Datei:** `aufgabe.md` (nicht `Übungsbeispiele.md`) — deckt
+  sich mit AGENTS.md und der neuesten Lesson SA-04.
+- **Datenkorrektur:** 10,15 mm liegt bei ± 0,15 mm **in** Toleranz; der
+  ungerundete R-Vergleich zählt es wegen der Binärdarstellung fälschlich
+  als Ausschuss. Konsequent: 4 statt 6 Ausschussteile, KM7-02 X² 7,871 /
+  p 0,0195, Fisher 0,0335, Erwartungen 1,28/1,34/1,38. Gleiches gilt für
+  die M1-Schranke 9,92 mm (exakt auf der Schranke, R zählt sie als
+  Ausreißer).
+- **Tradeoff:** Historische Prüfungs- und Kohortendateien behalten die
+  alten 6er-Zahlen als Beleg; sie werden nicht rückdatiert. Der Nachweis
+  der neuen Werte steht in `KM6-01`/`KM7-02` und im Issue #42.

@@ -92,7 +92,7 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   gemeinsames Material bleibt unter `unterricht/` (vorbereitete Einheiten)
   bzw. `lehrplan/pmm-hwit/` (Semesterpläne).
 - **Master/Kopien-Modell (#14):** `unterricht/` hält die Master-Einheiten
-  (`lesson.html` = Lektion und Präsentation in einem, `Übungsbeispiele.md`) —
+  (`lesson.html` = Lektion und Präsentation in einem, `aufgabe.md`) —
   Kohorten-Abweichungen werden als **Kopien im Kohortenordner** gepflegt
   (z. B. `hausaufgaben/`), Master-Dateien werden nie direkt angefasst.
 - Teach-Workspace-Layout: 4ahwit-x/y halten die Workspace-Dateien am
@@ -106,7 +106,7 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   `unterricht/` als `<PREFIX>-<NN>-<slug>/` (`KM<#>` =
   Kompetenzmodul, `SA` = schulautonom; `<NN>` läuft pro KM) mit
   `lesson.html` (zugleich Präsentation, kein separater Foliensatz) und
-  `Übungsbeispiele.md` (Beispiel 1–3, je ≥ 2 Teilaufgaben); eine
+  `aufgabe.md` (Beispiel 1–3, je ≥ 2 Teilaufgaben); eine
   Tages-README-Vorlage gibt es **nicht** mehr — die Lehrperson pflegt das
   Kohorten-README selbst. Optionaler `daten/`-Unterordner für
   Schüler-Downloads (nur `unterricht/` wird deployt; Übungs-Rohmaterial
@@ -157,11 +157,15 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
 - Nutzung ausschließlich über den **Live-Server** (`./serve.sh`) oder
   GitHub Pages — **kein `file://`** (Firefox blockiert `file://`-Subressourcen
   aus Eltern-/Geschwisterverzeichnissen; siehe PITFALLS).
-- Quiz-Markup ist vereinheitlicht: `<div class="quiz" data-loesung="N">` mit
-  `input[type=radio]` (0-basierte `value`), je Option `data-grund` und
-  `<p class="feedback" aria-live="polite">`. `assets/quiz.js` zeigt beim
-  `change` sofort die Begründung der gewählten Option und färbt `.feedback`
-  mit `.richtig`/`.falsch` — ein Skript für Klassen und Selbststudium.
+- Quiz-Markup ist vereinheitlicht (Format 2.0, #42): `<div class="quiz"
+  data-titel="Quiz: <thema-slug>">` mit je Frage `<fieldset class="frage"
+  data-loesung="0,2">`, Frage im `<legend class="frage-text">`, vier
+  Checkbox-Optionen in `.optionen` (0-basierte `value`, lesson-präfixierter
+  `name`, je Option `data-grund`). **Keine Stufen** (`data-stufe`,
+  `niveau`) und **kein Show-Modal**; ein „Überprüfen"-Button je Frage,
+  Infokugel je Option, Färbung je Option, versteckte `aria-live`-Statuszeile.
+  Der Radio-Altmodus bleibt in `quiz.js` für alte Kohorten-Kopien lesbar,
+  wird aber nicht mehr neu gebaut.
 - Initialisierung in über `loader.js` geladenen Skripten (`quiz.js`,
   `theme.js`, …) läuft über einen **`readyState`-Guard**, nicht über einen
   bloßen `DOMContentLoaded`-Listener:
