@@ -80,6 +80,30 @@ dhyper(x, m, n, k)
   <p>Aber eines bleibt erhalten: Jede <strong>konkrete Stichprobe</strong>
   (welche 10 der 40 Teile auch immer) ist <strong>gleich
   wahrscheinlich</strong>. Und daraus bauen wir die Verteilung.</p>
+
+  <div class="quiz" data-titel="Quiz: schrumpfende-chancen">
+    <fieldset class="frage">
+      <legend class="frage-text">Warum bricht im M3-Los die Kernvoraussetzung
+      der Binomialverteilung?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km5-03-q1" value="0" data-grund="Falsch — die Größe n = 10 ist nicht das Problem. Das Problem ist, dass sich die defekt-Chance mit jedem Zug verschiebt."> Weil die Stichprobe mit 10 aus 40 Teilen zu klein ist, um etwas auszusagen</label>
+        <label><input type="checkbox" data-richtig name="km5-03-q1" value="1" data-grund="Richtig — ohne Zurücklegen schrumpft das Los: 4/40 beim 1. Zug, danach 3/39 oder 5/39. p ist keine Konstante mehr, sondern eine bedingte Wahrscheinlichkeit."> Nach jedem Zug ändert sich p — die Chance auf „defekt“ hängt davon ab, was schon gezogen wurde</label>
+        <label><input type="checkbox" name="km5-03-q1" value="2" data-grund="Falsch — 4/40 = 0,100 ist eine ganz normale Wahrscheinlichkeit. Sie gilt nur für den 1. Zug, danach stimmt sie nicht mehr."> Weil 4/40 = 10 % keine gültige Wahrscheinlichkeit ist</label>
+        <label><input type="checkbox" name="km5-03-q1" value="3" data-grund="Falsch — defekt und gut sind zwei Sorten, das Merkmal ist binär. Gebrochen ist die Konstanz von p, nicht die Zwei-Sorten-Struktur."> Weil defekt/gut kein Merkmal mit zwei Sorten ist</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche zwei Aussagen zum Ziehen ohne
+      Zurücklegen im M3-Los stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km5-03-q2" value="0" data-grund="Richtig — genau diese Gleichbehandlung aller Stichproben bleibt erhalten, und darauf baut der nächste Schritt die Verteilung."> Jede konkrete Stichprobe von 10 der 40 Teile ist gleich wahrscheinlich</label>
+        <label><input type="checkbox" data-richtig name="km5-03-q2" value="1" data-grund="Richtig — die Chance pendelt mit jedem Zug: 3/39 ≈ 0,077 nach einem defekten 1. Zug, 5/39 ≈ 0,128 nach einem guten."> Ab dem 2. Zug ist P(defekt) eine bedingte Wahrscheinlichkeit — 3/39 oder 5/39, je nachdem, was der 1. Zug brachte</label>
+        <label><input type="checkbox" name="km5-03-q2" value="2" data-grund="Falsch — 0,100 gilt nur für den 1. Zug. Danach liegt sie bei 3/39 ≈ 0,077 oder 5/39 ≈ 0,128, je nachdem, was schon gezogen wurde."> P(defekt) bleibt für alle 10 Züge bei 0,100</label>
+        <label><input type="checkbox" name="km5-03-q2" value="3" data-grund="Falsch — genau das Gegenteil: p ist keine Konstante mehr, und damit ist die Kernvoraussetzung der Binomialverteilung gebrochen."> Die Binomialverteilung bleibt anwendbar, weil p konstant bleibt</label>
+      </div>
+    </fieldset>
+  </div>
 </section>
 
 <section>
@@ -92,7 +116,7 @@ dhyper(x, m, n, k)
   Auswahlakte, deren Wege sich <strong>multiplizieren</strong>:</p>
 <pre>
 choose(4, 2)     <span class="cmt"># → 6   Wege: WELCHE 2 der 4 Defekten es sind</span>
-choose(36, 8)    <span class="cmt"># → 6,3e7   Wege: WELCHE 8 der 36 Guten die restlichen sind</span>
+choose(36, 8)    <span class="cmt"># → 3,0e7   Wege: WELCHE 8 der 36 Guten die restlichen sind</span>
 choose(40, 10)   <span class="cmt"># → 8,5e8   alle möglichen 10er-Stichproben überhaupt</span>
 </pre>
   <p>Der Zähler zählt die Stichproben mit <em>genau</em> 2 Defekten, der
@@ -123,13 +147,40 @@ P(X = x) = choose(M, x) * choose(N-M, n-x) / choose(N, n)
       <strong>k</strong> = <em>Kugeln gezogen</em> (Stichprobengröße).</p>
   </div>
 
-  <div class="quiz" data-loesung="1">
-    <p class="frage">Los mit N = 100 Stück, M = 5 defekt. Du ziehst n = 10.
-    Welcher <code>dhyper</code>-Aufruf berechnet P(genau 1 defekt)?</p>
-    <label><input type="radio" name="q1" value="0" data-grund="Falsch — der zweite Parameter ist m = M (Defekte im Los), der dritte n = N−M (Gute). Hier sind beide 5, aber das ist Zufall — gemeint waren m = 5, n = 95."> <code>dhyper(1, 5, 5, 10)</code></label>
-    <label><input type="radio" name="q1" value="1" data-grund="Richtig — m = 5 Matches (Defekte), n = 95 Non-matches (Gute), k = 10 gezogene Stück: exakt unser Los."> <code>dhyper(1, 5, 95, 10)</code></label>
-    <label><input type="radio" name="q1" value="2" data-grund="Falsch — das ist die Binomial-Näherung mit konstantem p. Sie verlangt p konstant, aber ohne Zurücklegen ändert sich p mit jedem Zug."> <code>dbinom(1, 10, 5/100)</code></label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: formel-und-parameter">
+    <fieldset class="frage">
+      <legend class="frage-text">Los mit N = 100 Stück, M = 5 defekt. Du
+      ziehst n = 10. Welcher <code>dhyper</code>-Aufruf berechnet
+      P(genau 1 defekt)?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km5-03-q3" value="0" data-grund="Falsch — der zweite Parameter ist m = M (Defekte im Los), der dritte n = N−M (Gute). Hier sind beide 5, aber das ist Zufall — gemeint waren m = 5, n = 95."> <code>dhyper(1, 5, 5, 10)</code></label>
+        <label><input type="checkbox" data-richtig name="km5-03-q3" value="1" data-grund="Richtig — m = 5 Matches (Defekte), n = 95 Non-matches (Gute), k = 10 gezogene Stück: exakt unser Los."> <code>dhyper(1, 5, 95, 10)</code></label>
+        <label><input type="checkbox" name="km5-03-q3" value="2" data-grund="Falsch — das ist die Binomial-Näherung mit konstantem p. Sie verlangt p konstant, aber ohne Zurücklegen ändert sich p mit jedem Zug."> <code>dbinom(1, 10, 5/100)</code></label>
+        <label><input type="checkbox" name="km5-03-q3" value="3" data-grund="Falsch — m und n sind vertauscht: 95 als Matches hieße 95 defekte Stücke im Los. m zählt die Defekten (5), n die Guten (95)."> <code>dhyper(5, 95, 1, 10)</code></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">M3-Los (N = 40, M = 4, n = 10). Welche zwei
+      Ausdrücke berechnen P(genau 3 defekte)?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km5-03-q4" value="0" data-grund="Richtig — 3 aus den 4 Defekten wählen, die restlichen 7 aus den 36 Guten, geteilt durch alle 10er-Stichproben: 0,0394."> <code>choose(4, 3) * choose(36, 7) / choose(40, 10)</code></label>
+        <label><input type="checkbox" data-richtig name="km5-03-q4" value="1" data-grund="Richtig — x = 3 aus m = 4 Matches, der Rest aus n = 36 Non-matches, k = 10 gezogen. R rechnet exakt dieselbe Formel: 0,0394."> <code>dhyper(3, 4, 36, 10)</code></label>
+        <label><input type="checkbox" name="km5-03-q4" value="2" data-grund="Falsch — neben den 3 Defekten sind es 7 gute Teile, nicht 8: n − x = 10 − 3 = 7. Mit 8 wären es 11 Teile in der Stichprobe."> <code>choose(4, 3) * choose(36, 8) / choose(40, 10)</code></label>
+        <label><input type="checkbox" name="km5-03-q4" value="3" data-grund="Falsch — der dritte Parameter ist N − M = 36, die guten Stücke — nicht die Losgröße 40 (typische Parameterfalle)."> <code>dhyper(3, 4, 40, 10)</code></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Wie viele verschiedene 10er-Stichproben mit
+      genau 2 Defekten gibt es im M3-Los?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km5-03-q5" value="0" data-grund="Richtig — die zwei Auswahlakte multiplizieren sich: choose(4, 2) · choose(36, 8) = 6 · 30 260 340 = 181 562 040."> 181 562 040 — 6 Wege für die Defekten mal 30 260 340 Wege für die Guten</label>
+        <label><input type="checkbox" name="km5-03-q5" value="1" data-grund="Falsch — 6 zählt nur den ersten Auswahlakt (welche 2 der 4 Defekten). Zu jedem Defekt-Paar kommen noch 30 260 340 Auswahlen der 8 guten Teile."> 6 — das ist die Zahl der Wege, welche 2 der 4 Defekten dabei sind</label>
+        <label><input type="checkbox" name="km5-03-q5" value="2" data-grund="Falsch — das ist der Nenner choose(40, 10): alle Stichproben überhaupt, egal wie viele Defekte. Gesucht sind nur die mit genau 2."> 847 660 528 — alle möglichen 10er-Stichproben überhaupt</label>
+        <label><input type="checkbox" name="km5-03-q5" value="3" data-grund="Falsch — Auswahlakte multiplizieren sich, sie addieren sich nicht: 6 + 30 260 340 übersieht fast alle Kombinationen."> 30 260 346 — die Wege für Defekte und Gute addiert</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -162,13 +213,28 @@ E(X) = 10 * 4 / 40   <span class="cmt"># → 1 — im Mittel 1 Ausschussteil pro
   <strong>Erwartungswert ist der Schwerpunkt, Modalwert der höchste
   Balken.</strong></p>
 
-  <div class="quiz" data-loesung="0">
-    <p class="frage">Im Los N = 200, M = 15, n = 20 ist der häufigste Wert
-    x = 1. Was heißt <strong>E(X) = 1,5</strong>?</p>
-    <label><input type="radio" name="q2" value="0" data-grund="Richtig — E(X) ist der Durchschnitt über viele Wiederholungen des Ziehexperiments. Er darf zwischen erreichbaren Werten liegen, weil kein einzelner Zug ihn zeigen muss."> Im Mittel über viele Wiederholungen des Ziehexperiments sind 1,5 Defekte in der Stichprobe — auch wenn x = 1,5 nie vorkommt</label>
-    <label><input type="radio" name="q2" value="1" data-grund="Falsch — der Erwartungswert ist ein Durchschnitt, kein häufigster Wert. Der häufigste Wert (höchster Balken) ist hier x = 1."> In der Hälfte der Stichproben sind 1,5 Defekte drin</label>
-    <label><input type="radio" name="q2" value="2" data-grund="Falsch — die Standardabweichung misst die Streuung, nicht den Durchschnitt. E(X) = 1,5 sagt nichts über die halbe Stichprobe."> Die Stichprobe streut um 1,5 Standardabweichungen um den Mittelwert</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: tafel-und-erwartungswert">
+    <fieldset class="frage">
+      <legend class="frage-text">Im Los N = 200, M = 15, n = 20 ist der
+      häufigste Wert x = 1. Was heißt <strong>E(X) = 1,5</strong>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km5-03-q6" value="0" data-grund="Richtig — E(X) ist der Durchschnitt über viele Wiederholungen des Ziehexperiments. Er darf zwischen erreichbaren Werten liegen, weil kein einzelner Zug ihn zeigen muss."> Im Mittel über viele Wiederholungen des Ziehexperiments sind 1,5 Defekte in der Stichprobe — auch wenn x = 1,5 nie vorkommt</label>
+        <label><input type="checkbox" name="km5-03-q6" value="1" data-grund="Falsch — der Erwartungswert ist ein Durchschnitt, kein häufigster Wert. Der häufigste Wert (höchster Balken) ist hier x = 1."> In der Hälfte der Stichproben sind 1,5 Defekte drin</label>
+        <label><input type="checkbox" name="km5-03-q6" value="2" data-grund="Falsch — die Standardabweichung misst die Streuung, nicht den Durchschnitt. E(X) = 1,5 sagt nichts über die halbe Stichprobe."> Die Stichprobe streut um 1,5 Standardabweichungen um den Mittelwert</label>
+        <label><input type="checkbox" name="km5-03-q6" value="3" data-grund="Falsch — der Erwartungswert ist kein Wahrscheinlichkeits-Split zwischen zwei Werten; er ist der Durchschnitt, der Schwerpunkt der Balken."> Mit Wahrscheinlichkeit 0,5 sind es 1 Defekt und mit 0,5 sind es 2</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text"><code>phyper(1, 4, 36, 10)</code> liefert
+      0,7441. Was bedeutet der Wert?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km5-03-q7" value="0" data-grund="Richtig — phyper rechnet kumuliert inklusive der Grenze: P(X ≤ 1) = dhyper(0) + dhyper(1) = 0,2999 + 0,4442."> Die Wahrscheinlichkeit für höchstens 1 defektes Teil — die Balken x = 0 und x = 1 zusammen</label>
+        <label><input type="checkbox" name="km5-03-q7" value="1" data-grund="Falsch — genau 1 liefert dhyper(1, …) = 0,4442. phyper(1, …) zählt zusätzlich den Balken x = 0 mit."> Die Wahrscheinlichkeit für genau 1 defektes Teil</label>
+        <label><input type="checkbox" name="km5-03-q7" value="2" data-grund="Falsch — mehr als 1 ist das Gegenereignis: 1 − phyper(1, …) = 0,2559."> Die Wahrscheinlichkeit für mehr als 1 defektes Teil</label>
+        <label><input type="checkbox" name="km5-03-q7" value="3" data-grund="Falsch — mindestens 1 schließt die 2, 3 und 4 ein; phyper(1, …) deckt aber nur 0 und 1 ab. Für „1 oder mehr“ bräuchte es 1 − phyper(0, …)."> Die Wahrscheinlichkeit für mindestens 1 defektes Teil</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -192,14 +258,29 @@ dhyper(2, 4, 36, 10)       <span class="cmt"># → 0.2142 — 21 Prozentpunkte!<
   erlaubt). Wer hier schlampig liest, liegt um fast 21 Prozentpunkte daneben
   — in der Prüfpraxis ist das geldwert.</p>
 
-  <div class="quiz" data-loesung="2">
-    <p class="frage">Prüfplan: „bei 2 oder mehr Defekten wird das Los
-    zurückgewiesen" (N = 40, M = 4, n = 10). Mit welchem Aufruf berechnet
-    man die Wahrscheinlichkeit, dass der Plan anschlägt?</p>
-    <label><input type="radio" name="q3" value="0" data-grund="Falsch — das ist P(höchstens 1 defekt), die Wahrscheinlichkeit, dass der Plan NICHT anschlägt. Das Gegenereignis fehlt."> <code>phyper(1, 4, 36, 10)</code></label>
-    <label><input type="radio" name="q3" value="1" data-grund="Falsch — phyper(2, …) zählt die 2 mit, aber hier ist die 2 die Grenze des Anschlags („2 oder mehr"). Richtig wäre 1 - phyper(1, …)."> <code>1 - phyper(2, 4, 36, 10)</code></label>
-    <label><input type="radio" name="q3" value="2" data-grund="Richtig — „2 oder mehr" ist das Gegenereignis von „höchstens 1". phyper(1, …) deckt 0 und 1 ab, 1 minus das ist der Anschlag."> <code>1 - phyper(1, 4, 36, 10)</code></label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: grenze-und-gegenereignis">
+    <fieldset class="frage">
+      <legend class="frage-text">Prüfplan: „bei 2 oder mehr Defekten wird
+      das Los zurückgewiesen“ (N = 40, M = 4, n = 10). Mit welchem Aufruf
+      berechnet man die Wahrscheinlichkeit, dass der Plan anschlägt?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km5-03-q8" value="0" data-grund="Falsch — das ist P(höchstens 1 defekt), die Wahrscheinlichkeit, dass der Plan NICHT anschlägt. Das Gegenereignis fehlt."> <code>phyper(1, 4, 36, 10)</code></label>
+        <label><input type="checkbox" name="km5-03-q8" value="1" data-grund="Falsch — phyper(2, …) zählt die 2 mit, aber hier ist die 2 die Grenze des Anschlags („2 oder mehr“). Richtig wäre 1 − phyper(1, …)."> <code>1 - phyper(2, 4, 36, 10)</code></label>
+        <label><input type="checkbox" data-richtig name="km5-03-q8" value="2" data-grund="Richtig — „2 oder mehr“ ist das Gegenereignis von „höchstens 1“. phyper(1, …) deckt 0 und 1 ab, 1 minus das ist der Anschlag: 0,2559."> <code>1 - phyper(1, 4, 36, 10)</code></label>
+        <label><input type="checkbox" name="km5-03-q8" value="3" data-grund="Falsch — das ist P(höchstens 2) = 0,958. Der Anschlag (2 oder mehr) liegt bei 0,2559 — das Gegenereignis von „höchstens 1“."> <code>phyper(2, 4, 36, 10)</code></label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche zwei Aufrufe liefern
+      P(mehr als 3 defekte) im M3-Los?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km5-03-q9" value="0" data-grund="Richtig — „mehr als 3“ dreht bei 3 um: phyper(3, …) deckt 0 bis 3 ab, 1 minus das sind die 4."> <code>1 - phyper(3, 4, 36, 10)</code></label>
+        <label><input type="checkbox" data-richtig name="km5-03-q9" value="1" data-grund="Richtig — mit M = 4 Defekten im Los ist x = 4 der einzige Wert über 3: dhyper(4, …) = 0,0023 liefert denselben Wert."> <code>dhyper(4, 4, 36, 10)</code></label>
+        <label><input type="checkbox" name="km5-03-q9" value="2" data-grund="Falsch — das ist P(höchstens 3) = 0,9977, also fast das Gegenteil des Gesuchten."> <code>phyper(3, 4, 36, 10)</code></label>
+        <label><input type="checkbox" name="km5-03-q9" value="3" data-grund="Falsch — das schließt den 4er-Balken aus und liefert 0: mehr als 4 Defekte gibt es im Los nicht."> <code>1 - phyper(4, 4, 36, 10)</code></label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -224,6 +305,31 @@ dbinom(3, 6, 6/45)
   <p>Dasselbe Muster wie im Betrieb: endlicher Vorrat, ohne Zurücklegen,
   zwei Sorten (Gewinnzahl / keine Gewinnzahl). Urne, Los, Lotto — ein
   Modell, drei Kostüme.</p>
+
+  <div class="quiz" data-titel="Quiz: lotto-6-aus-45">
+    <fieldset class="frage">
+      <legend class="frage-text">Beim Lotto „6 aus 45“ liefert
+      <code>dbinom(3, 6, 6/45)</code> 0,0309, <code>dhyper(3, 6, 39, 6)</code>
+      nur 0,0224. Warum überschätzt <code>dbinom</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km5-03-q10" value="0" data-grund="Richtig — die Ziehung ohne Zurücklegen verschiebt die Quote von Zug zu Zug; die Binomial-Näherung hält p = 6/45 starr und überschätzt deshalb."> Binomial setzt p = 6/45 für jeden Zug konstant — ohne Zurücklegen ändert sich die Quote aber mit jedem Zug</label>
+        <label><input type="checkbox" name="km5-03-q10" value="1" data-grund="Falsch — es geht nicht um die Reihenfolge der Bälle. Der Fehler steckt im konstanten p: Das Los merkt sich die gezogenen Bälle."> Weil <code>dbinom</code> für die Ziehungsreihenfolge der 6 Bälle rechnet</label>
+        <label><input type="checkbox" name="km5-03-q10" value="2" data-grund="Falsch — 0,0309 gegen 0,0224 ist rund 38 % daneben, kein Rundungsrauschen."> Gar nicht — beide Aufrufe rechnen dasselbe, der Unterschied ist Rundung</label>
+        <label><input type="checkbox" name="km5-03-q10" value="3" data-grund="Falsch — die hypergeometrische Rechnung ist exakt, ganz gleich wie viele Gewinnzahlen es sind. Das Modell passt, nur der Binomial-Aufruf ist naiv."> Weil 6 Gewinnzahlen zu viele sind, um sie exakt zu rechnen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Wie wahrscheinlich sind höchstens 2
+      Richtige bei „6 aus 45“?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km5-03-q11" value="0" data-grund="Richtig — phyper(2, 6, 39, 6) zählt die Balken 0, 1 und 2 inklusive zusammen: fast 98 % aller Tipps."> 0,9762 — <code>phyper(2, 6, 39, 6)</code>, fast 98 % aller Tipps</label>
+        <label><input type="checkbox" name="km5-03-q11" value="1" data-grund="Falsch — 0,0224 ist dhyper(3, 6, 39, 6): die Wahrscheinlichkeit für genau 3 Richtige, nicht für höchstens 2."> 0,0224 — das ist <code>dhyper(3, 6, 39, 6)</code></label>
+        <label><input type="checkbox" name="km5-03-q11" value="2" data-grund="Falsch — 1 − phyper(2, …) = 0,0238 gehört zu „3 oder mehr“, nicht zu „höchstens 2“."> 0,0238 — das ist das Gegenereignis: 3 oder mehr Richtige</label>
+        <label><input type="checkbox" name="km5-03-q11" value="3" data-grund="Falsch — dbinom(2, 6, 6/45) = 0,1504 ist erstens „genau 2“ statt „höchstens 2“ und zweitens schon wegen des konstanten p die falsche Verteilung."> 0,1504 — der binomial gerechnete Wert für genau 2 Richtige</label>
+      </div>
+    </fieldset>
+  </div>
 </section>
 
 <section>
@@ -248,13 +354,28 @@ dbinom(2, 10, 0.1)         <span class="cmt"># → 0.1937 — 10 % relativ daneb
   Binomialverteilung. Beim M3-Los mit einem Viertel des Loses in der
   Stichprobe ist das kein Schönheitsfehler mehr.</p>
 
-  <div class="quiz" data-loesung="1">
-    <p class="frage">Ein Los hat N = 10.000 Stück, M = 500 defekt, du ziehst
-    n = 20. Darf man hier binomial rechnen?</p>
-    <label><input type="radio" name="q4" value="0" data-grund="Falsch — die Losgröße allein entscheidet nicht. Es zählt das Verhältnis n/N: 20/10000 = 0,2 % liegt deutlich unter der 5-%-Grenze — also darf man sehr wohl näherungsweise binomial rechnen."> Nein — ohne Zurücklegen ist die Binomialverteilung prinzipiell falsch und darf nie verwendet werden</label>
-    <label><input type="radio" name="q4" value="1" data-grund="Richtig — n/N = 0,2 % liegt weit unter der 5-%-Faustregel. Das Los merkt sich die 20 gezogenen Stück praktisch nicht, p bleibt nahezu konstant."> Ja — n/N = 0,2 %, das Los merkt sich die Stichprobe praktisch nicht</label>
-    <label><input type="radio" name="q4" value="2" data-grund="Falsch — es gibt keinen „10.000-Stück-Mindestumfang". Die Faustregel vergleicht Stichprobe und Los, nie die absolute Losgröße."> Ja — weil N = 10.000 über einer festen Mindestlosgröße von 10.000 Stück liegt</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: binomial-naeherung">
+    <fieldset class="frage">
+      <legend class="frage-text">Ein Los hat N = 10.000 Stück, M = 500
+      defekt, du ziehst n = 20. Darf man hier binomial rechnen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km5-03-q12" value="0" data-grund="Falsch — die Losgröße allein entscheidet nicht. Es zählt das Verhältnis n/N: 20/10.000 = 0,2 % liegt deutlich unter der 5-%-Grenze — also darf man sehr wohl näherungsweise binomial rechnen."> Nein — ohne Zurücklegen ist die Binomialverteilung prinzipiell falsch und darf nie verwendet werden</label>
+        <label><input type="checkbox" data-richtig name="km5-03-q12" value="1" data-grund="Richtig — n/N = 0,2 % liegt weit unter der 5-%-Faustregel. Das Los merkt sich die 20 gezogenen Stück praktisch nicht, p bleibt nahezu konstant."> Ja — n/N = 0,2 %, das Los merkt sich die Stichprobe praktisch nicht</label>
+        <label><input type="checkbox" name="km5-03-q12" value="2" data-grund="Falsch — es gibt keinen „10.000-Stück-Mindestumfang“. Die Faustregel vergleicht Stichprobe und Los, nie die absolute Losgröße."> Ja — weil N = 10.000 über einer festen Mindestlosgröße liegt</label>
+        <label><input type="checkbox" name="km5-03-q12" value="3" data-grund="Falsch — die Faustregel fragt nicht, wie viele Defekte das Los hat, sondern nur nach n/N: 20/10.000 = 0,2 %."> Nein — 500 defekte Stücke sind zu viele für die Faustregel</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Los N = 2.000, M = 200 defekt, n = 20.
+      Welche zwei Aussagen stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km5-03-q13" value="0" data-grund="Richtig — das Los merkt sich die 20 gezogenen Stück praktisch nicht, die Quote bewegt sich kaum: die 5-%-Faustregel ist erfüllt."> n/N = 20/2.000 = 1 % — die Faustregel ist erfüllt, Binomial mit p = 0,1 ist gute Näherung</label>
+        <label><input type="checkbox" data-richtig name="km5-03-q13" value="1" data-grund="Richtig — dhyper(2, 200, 1800, 20) = 0,2866 gegen dbinom(2, 20, 0.1) = 0,2852: bei n/N = 1 % ist der Unterschied rund 0,5 % relativ."> dhyper und dbinom für x = 2 liegen nur rund 0,5 % relativ auseinander</label>
+        <label><input type="checkbox" name="km5-03-q13" value="2" data-grund="Falsch — beim M3-Los sind es 10 aus 40 = 25 %. Hier sind es 20 aus 2.000 = 1 %, die Regel ist erfüllt."> n/N = 25 % — das Los verhält sich wie das M3-Los</label>
+        <label><input type="checkbox" name="km5-03-q13" value="3" data-grund="Falsch — Binomial bleibt eine Näherung, sie ist nur gut: 0,2852 gegen 0,2866. Exakt gleich wird sie nie."> Weil das Los so groß ist, liefert Binomial exakt dasselbe wie die Hypergeometrische</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -342,6 +463,25 @@ dhyper(2, 4, 36, 10)    <span class="cmt"># → 0.2142 — n = 36 GUTE, nicht 40
   — <strong>Abgabe:</strong> nach Vorgabe deiner Lehrperson.</p>
 </section>
 
+<details class="lehrplan">
+  <summary>Lehrplan &amp; Einordnung</summary>
+  <ul>
+    <li><strong>Lehrplan:</strong> KM5 „Statistische Grundlagen:
+      Verteilungen &amp; Schätzer“ (3. Semester), Teil
+      Wahrscheinlichkeitsverteilungen — hier als Wiederholung vor
+      Semesterstart der 5. Klasse; KM-Steckbrief
+      <code>lehrplan/kompetenzmodule/km5.md</code></li>
+    <li><strong>KM-Bezug:</strong> Ziehen ohne Zurücklegen aus einem
+      endlichen Los (hypergeometrische Verteilung) — baut auf KM5-01
+      (Binomialkoeffizient) und KM5-02 (Binomialverteilung und
+      Annahmeschwelle) auf; Grundlage für die Inferenz in KM7
+      (t-Test, Chi-Test)</li>
+    <li><strong>Runtime:</strong> R 4.5, Base-R <code>dhyper()</code>,
+      <code>phyper()</code>, <code>choose()</code>,
+      <code>dbinom()</code> — keine Zusatzpakete</li>
+  </ul>
+</details>
+
 <footer class="navi">
   <p><strong>Quelle zum Weiterlesen:</strong> Navarro,
   <a href="https://learningstatisticswithr.com/book/">Kap. 9</a>
@@ -352,6 +492,10 @@ dhyper(2, 4, 36, 10)    <span class="cmt"># → 0.2142 — n = 36 GUTE, nicht 40
   KM5-02 — Binomialverteilung und Annahmeschwelle</a>.</p>
   <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
   ist zu klein, solange du den Code dabei hast.</p>
+  <p>Weiter: <a href="../KM6-01-boxplot-und-grafikwahl/lesson.html">Lektion
+  KM6-01 — Boxplot und Grafikwahl</a> — von Verteilungsmodellen zur
+  explorativen Grafik (der Ausblick auf die Poissonverteilung folgt, wenn
+  sie im Unterricht dran ist).</p>
 </footer>
 
 </body>
