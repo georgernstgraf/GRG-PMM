@@ -59,14 +59,14 @@ _________________________________________________
 ## 3. Power berechnen — mit den echten Daten
 
 Aus Lektion KM7-01: M1 gegen M3 mit 40 Messungen je Maschine, Differenz
-0,0633 mm; M1 gegen M2 mit 40 Messungen, Differenz 0,0238 mm bei
+0,0622 mm; M1 gegen M2 mit 40 Messungen, Differenz 0,0236 mm bei
 Streuung 0,036 mm.
 
 **a)** Berechne die Power beider Vergleiche:
 
 ```r
-power.t.test(n = 40, delta = 0.0633, sd = 0.05)
-power.t.test(n = 40, delta = 0.0238, sd = 0.036)
+power.t.test(n = 40, delta = 0.0622, sd = 0.05)
+power.t.test(n = 40, delta = 0.0236, sd = 0.036)
 ```
 
 | Vergleich | Power | β = 1 − Power |
