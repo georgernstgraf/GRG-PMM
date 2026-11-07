@@ -13,121 +13,595 @@
   <button type="button" class="theme-toggle" id="theme-toggle"
           aria-pressed="false">Dunkel</button>
   <span class="kicker">Lektion SA-02 · Daten transformieren mit dplyr</span>
-  <span class="ort">UE 2 · 4AHWIT WS · schulautonom</span>
   <h1>Wiegen, was zählt: Daten transformieren</h1>
-  <p class="subtitle">filter, mutate, summarise — und die Pipe, die sie verbindet.</p>
+  <p class="subtitle">Fünf dplyr-Verben, die Pipe, fehlende Werte und der
+  Workflow für Skripte, die man in drei Wochen noch versteht.</p>
 </header>
 
 <div class="callout tipp">
   <span class="label">Lektüre</span>
-  <p>R4DS 2e (englisch, <a href="https://r4ds.hadley.nz/transform">Kap. 3 Data transformation</a>)
-     — lies Kapitel 3 vor der Aufgabe. Die Fragen beziehen sich auf
-     das Kapitel: <a href="aufgabe.md">Aufgabe SA-02</a>.</p>
+  <p>R4DS 2e (englisch), Pflicht:
+     <a href="https://r4ds.hadley.nz/data-transform">Kap. 3 — Data
+     transformation</a>. Dazu als Handwerksstil zwei kurze Kapitel:
+     <a href="https://r4ds.hadley.nz/workflow-style">Kap. 4 — Workflow:
+     code style</a> und
+     <a href="https://r4ds.hadley.nz/workflow-scripts">Kap. 6 — Workflow:
+     scripts and projects</a>.</p>
 </div>
 
 <section>
   <div class="baustein">Einstiegsfrage</div>
   <p>Von der letzten Lektion kennst du die Pinguine. Jetzt wird es
-  betrieblich: <strong>Wie schwer ist eine „typische" Pinguin-Art — und
+  betrieblich: <strong>Wie schwer ist eine „typische“ Pinguin-Art — und
   unterscheidet sich das nach Geschlecht?</strong></p>
-  <p>Mit Plots allein antwortet man darauf vage („irgendwie schwerer").
+  <p>Mit Plots allein antwortet man darauf vage („irgendwie schwerer“).
   Mit <code>dplyr</code> antwortest du mit <em>einer Zahl</em> — und Zahlen
   kann man gegen Toleranzen und Grenzwerte prüfen. Das ist Qualitätsarbeit.</p>
+  <p>In der zweiten Beispielwelle stellen wir dieselbe Frage schärfer:
+  <strong>Welche Art auf welcher Insel wiegt im Schnitt am meisten — und
+  wie streut das Gewicht?</strong> Auch darauf gibt dir dplyr eine Tabelle
+  als Antwort.</p>
 </section>
 
 <section>
   <div class="baustein">Ziel-Artefakt</div>
+  <p>Diese Pipe beantwortet die Einstiegsfrage:</p>
 <pre>
-penguins |>
-  filter(sex == "female") |>
-  group_by(species) |>
+penguins |&gt;
+  filter(sex == "female") |&gt;
+  group_by(species) |&gt;
   summarise(gewicht_g = mean(body_mass_g, na.rm = TRUE))
-<span class="cmt"># → 3 Zeilen: Adelie 3369, Chinstrap 3527, Gentoo 4680 (gerundet)</span>
 </pre>
+  <table>
+    <tr><th>species</th><th>gewicht_g</th></tr>
+    <tr><td>Adelie</td><td>3369</td></tr>
+    <tr><td>Chinstrap</td><td>3527</td></tr>
+    <tr><td>Gentoo</td><td>4680</td></tr>
+  </table>
   <p>Drei Verben, drei Zeilen Ausgabe, eine saubere Antwort. Der Win von
   heute: Du liest diese Pipe vor dir her und weißt <em>ohne Ausführen</em>,
   was sie tut.</p>
 </section>
 
 <section>
-  <h2>Verb 1 — filter (Zeilen wählen)</h2>
+  <h2>Schritt 1 — Die Pipe: lesen wie einen Satz</h2>
+  <p>Die Pipe <code>|&gt;</code> (Rohrleitung) reicht das Ergebnis links als
+  <strong>erstes Argument</strong> an die Funktion rechts weiter. So liest
+  sich eine Kette wie ein Rezept statt wie eine Verschachtelung:</p>
 <pre>
-penguins |&gt; filter(species == "Gentoo")
-<span class="cmt"># → nur Gentoo-Zeilen: von 344 auf 124</span>
-</pre>
-  <p><code>filter()</code> behält, was die Bedingung erfüllt. Achtung:
-  Vergleichen macht <code>==</code> (gleich), zuweisen macht
-  <code>&lt;-</code>. Ein einzelnes <code>=</code> ist hier ein Fehler.</p>
+<span class="cmt"># Ohne Pipe — von innen nach außen, rückwärts denken</span>
+summarise(
+  filter(penguins, species == "Gentoo"),
+  gram = mean(body_mass_g, na.rm = TRUE)
+)
 
-  <div class="quiz" data-loesung="1">
-    <p class="frage">Wie viele Zeilen behält
-    <code>filter(species == "Gentoo", sex == "male")</code>?</p>
-    <label><input type="radio" name="q2" value="0" data-grund="Falsch, weil mehrere Bedingungen in filter() mit UND verknüpft werden; weibliche Gentoo-Zeilen bleiben nicht."> Alle Gentoo-Zeilen, männliche und weibliche zusammen</label>
-    <label><input type="radio" name="q2" value="1" data-grund="Richtig, weil filter() beide Bedingungen mit UND verknüpft: nur männliche Gentoo-Zeilen."> Nur die Gentoo-Zeilen, die männlich sind</label>
-    <label><input type="radio" name="q2" value="2" data-grund="Falsch, weil zusätzlich species == &quot;Gentoo&quot; gelten muss; männliche Zeilen anderer Arten bleiben nicht."> Nur die männlichen Zeilen, egal welcher Art</label>
-    <p class="feedback" aria-live="polite"></p>
+<span class="cmt"># Mit Pipe — von oben nach unten, wie ein Rezept</span>
+penguins |&gt;
+  filter(species == "Gentoo") |&gt;
+  summarise(gram = mean(body_mass_g, na.rm = TRUE))
+<span class="cmt">#&gt; 1 Zeile: gram = 5076 — der Gentoo-Mittelwert</span>
+</pre>
+  <p>Ohne Pipe dachtest du rückwärts: was ganz außen steht, läuft zuerst.
+  Mit der Pipe liest man von oben nach unten — Schritt für Schritt, so wie
+  die Auswertung wirklich abläuft. Jedes dplyr-Verb nimmt eine Tabelle an
+  und gibt eine Tabelle zurück; deshalb lassen sich die Verben an die Pipe
+  hängen wie Waggons an eine Lokomotive.</p>
+</section>
+
+<section>
+  <h2>Schritt 2 — Die fünf dplyr-Verben</h2>
+  <p>dplyr ist eine kleine Grammatik mit genau fünf Verben. Alles, was du
+  heute baust, besteht aus Kombinationen dieser fünf:</p>
+  <table>
+    <tr><th>Verb</th><th>Macht</th><th>Vorsicht</th></tr>
+    <tr><td><code>filter()</code></td><td><strong>Zeilen</strong> nach Bedingung behalten</td><td>Verwechslungs-Klassiker mit select</td></tr>
+    <tr><td><code>select()</code></td><td><strong>Spalten</strong> auswählen</td><td>derselbe Klassiker</td></tr>
+    <tr><td><code>mutate()</code></td><td>neue Spalte <strong>berechnen</strong></td><td>überschreibt gleichnamige Spalten</td></tr>
+    <tr><td><code>arrange()</code></td><td>Zeilen <strong>sortieren</strong></td><td><code>desc()</code> für absteigend</td></tr>
+    <tr><td><code>summarise()</code></td><td>zu <strong>einer Zeile</strong> zusammenfassen</td><td><code>na.rm = TRUE</code>!</td></tr>
+  </table>
+  <p>Ein Verb pro Pipe-Schritt — so bleibt jede Zeile Code ein Gedanke.
+  Die Verben hängen alle an der Pipe aus Schritt 1.</p>
+</section>
+
+<section>
+  <h2>Schritt 3 — filter() &amp; select(): Zeilen und Spalten</h2>
+  <p><code>filter()</code> behält, was die Bedingung erfüllt. Mehrere
+  Bedingungen trennst du mit Komma — das heißt UND:</p>
+<pre>
+<span class="cmt"># Zeilen: nur Gentoo (Vergleich ==, nicht =)</span>
+penguins |&gt; filter(species == "Gentoo")
+<span class="cmt">#&gt; 124 Zeilen — alle Gentoo-Pinguine</span>
+
+<span class="cmt"># Zeilen: Gentoo UND schwerer als 5 kg (Komma = und)</span>
+penguins |&gt; filter(species == "Gentoo", body_mass_g &gt; 5000)
+<span class="cmt">#&gt; 61 Zeilen</span>
+
+<span class="cmt"># Zeilen: Flügellänge über 210 mm</span>
+penguins |&gt; filter(flipper_length_mm &gt; 210)
+<span class="cmt">#&gt; 100 Zeilen</span>
+</pre>
+  <p>Achte auf die Zeichen: Vergleichen macht <code>==</code> (ist gleich),
+  zuweisen macht <code>&lt;-</code>. Ein einzelnes <code>=</code> ist hier
+  ein Fehler — mehr dazu in den typischen Fehlern.</p>
+  <p>Und <code>select()</code> wählt Spalten statt Zeilen — es schneidet
+  die Tabelle so zu, dass nur übrig bleibt, was die Auswertung braucht:</p>
+<pre>
+penguins |&gt; select(species, island, body_mass_g)
+<span class="cmt">#&gt; alle 344 Zeilen, aber nur 3 Spalten</span>
+</pre>
+
+  <div class="callout achtung">
+    <span class="label">Der Klassiker</span>
+    <p><code>filter</code> = Zeilen (behalten/weglassen) ·
+    <code>select</code> = Spalten (auswählen/abwählen). Die beiden
+    Verben zu vertauschen ist der häufigste Fehler in dieser Lektion.</p>
   </div>
 
-  <h2>Verb 2 — mutate (Spalten umformen/neu)</h2>
-<pre>
-penguins |&gt; mutate(gewicht_kg = body_mass_g / 1000)
-<span class="cmt"># → alle 344 Zeilen + eine neue Spalte ganz rechts</span>
-</pre>
+  <div class="quiz" data-titel="Quiz: filter-und-select">
+    <fieldset class="frage">
+      <legend class="frage-text">Was leistet <code>select()</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-02-q1" value="0" data-grund="Falsch — Zeilen nach Bedingung behalten macht filter(); select() wählt Spalten aus."> Zeilen auswählen, die eine Bedingung erfüllen</label>
+        <label><input type="checkbox" data-richtig name="sa-02-q1" value="1" data-grund="Richtig — select() behält genau die genannten Spalten; die übrigen Spalten fallen aus der Ansicht."> Spalten aus der Tabelle auswählen, zum Beispiel species und body_mass_g</label>
+        <label><input type="checkbox" name="sa-02-q1" value="2" data-grund="Falsch — eine Kennzahl aus vielen Zeilen berechnet summarise(); select() verändert keine Werte."> Eine einzige Kennzahl aus vielen Zeilen berechnen</label>
+        <label><input type="checkbox" name="sa-02-q1" value="3" data-grund="Falsch — Zeilen sortieren macht arrange(); select() lässt die Reihenfolge der Zeilen unverändert."> Die Zeilen der Tabelle sortieren</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Wie viele Zeilen behält
+      <code>penguins |&gt; filter(species == "Gentoo",
+      body_mass_g &gt; 5000)</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-02-q2" value="0" data-grund="Falsch — 124 sind alle Gentoo-Zeilen; die zweite Bedingung behält nur die über 5000 g schweren darunter, und das sind 61."> 124 — alle Gentoo-Zeilen</label>
+        <label><input type="checkbox" data-richtig name="sa-02-q2" value="1" data-grund="Richtig — das Komma verknüpft mit UND: beide Bedingungen müssen erfüllt sein, das ergibt 61 Zeilen."> 61 — beide Bedingungen müssen gleichzeitig erfüllt sein</label>
+        <label><input type="checkbox" name="sa-02-q2" value="2" data-grund="Falsch — 115 sind die Pinguine über 4500 g insgesamt; hier filterst du zusätzlich auf die Art Gentoo."> 115 — alle Pinguine über 4,5 kg</label>
+        <label><input type="checkbox" name="sa-02-q2" value="3" data-grund="Falsch — filter() behält nur die Zeilen, die die Bedingung erfüllen; die übrigen 344 − 61 Zeilen fallen weg."> 344 — der filter verändert die Tabelle nicht</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche zwei Aussagen über
+      <code>filter()</code> und <code>select()</code> stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q3" value="0" data-grund="Richtig — filter() prüft jede Zeile gegen die Bedingung und behält nur die erfüllten."> filter() behält Zeilen, deren Werte die Bedingung erfüllen</label>
+        <label><input type="checkbox" data-richtig name="sa-02-q3" value="1" data-grund="Richtig — select() schneidet die Tabelle auf die genannten Spalten zu; die Zeilenzahl bleibt gleich."> select() behält die genannten Spalten und lässt die Zeilenzahl unverändert</label>
+        <label><input type="checkbox" name="sa-02-q3" value="2" data-grund="Falsch — select() nimmt Spaltennamen, keine Bedingung; species == &quot;Gentoo&quot; ist keine Spaltenauswahl. Gentoo-Zeilen behalten macht filter()."> select(species == "Gentoo") filtert die Tabelle auf Gentoo-Zeilen</label>
+        <label><input type="checkbox" name="sa-02-q3" value="3" data-grund="Falsch — filter() verändert Spalten nie; es behält oder verwirft nur Zeilen."> filter(species == "Gentoo") entfernt die Spalte species</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Wie viele Zeilen behält
+      <code>penguins |&gt; filter(flipper_length_mm &gt; 210)</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q4" value="0" data-grund="Richtig — die Flügellängen-Spalte hat 2 fehlende Werte; über 210 mm liegen 100 der Pinguine."> 100</label>
+        <label><input type="checkbox" name="sa-02-q4" value="1" data-grund="Falsch — 124 gehört zu species == &quot;Gentoo&quot;; die Flügellänge filtert unabhängig von der Art."> 124 — so viele wie die Gentoo-Zeilen</label>
+        <label><input type="checkbox" name="sa-02-q4" value="2" data-grund="Falsch — 115 zählen die Pinguine über 4500 g; die Flügellänge ist eine andere Bedingung."> 115 — so viele wie die Pinguine über 4,5 kg</label>
+        <label><input type="checkbox" name="sa-02-q4" value="3" data-grund="Falsch — 152 sind alle Adelie-Pinguine; ohne Art-Bedingung filtert die Flügellänge quer durch alle drei Arten."> 152 — so viele wie die Adelie-Zeilen</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 4 — mutate() &amp; arrange(): rechnen und ordnen</h2>
   <p><code>mutate()</code> (umformen) rechnet Spalte für Spalte: aus
   Gramm Kilogramm, aus Millimeter Zoll, aus zwei Werten eine Differenz.
-  Bestehende Spalten bleiben unangetastet.</p>
+  Bestehende Spalten bleiben unangetastet — die neue kommt ganz rechts
+  dazu:</p>
+<pre>
+<span class="cmt"># Gramm → Kilogramm: neue Spalte, Einheiten sauber</span>
+penguins |&gt;
+  mutate(kg = body_mass_g / 1000) |&gt;
+  select(species, kg) |&gt;
+  head(3)
+<span class="cmt">#&gt; Adelie  3.75   Adelie  3.80   Adelie  3.25</span>
+</pre>
+  <p>Wichtig für die Praxis: Rechenregeln gehören in <strong>eine</strong>
+  Spalte mit Klartext-Namen (<code>kg</code>, <code>sd_g</code>) — nicht
+  in den Kopf, wo die Regel drei Wochen später verloren ist. Bestehende
+  Spalten werden nur überschrieben, wenn du denselben Namen wiederverwendest.</p>
+  <p><code>arrange()</code> sortiert die Zeilen — aufsteigend von selbst,
+  mit <code>desc()</code> (absteigend) kommt das Größte zuerst. Fehlende
+  Werte setzt R dabei standardmäßig ans Ende: sortiert wird über die
+  echten Zahlen hinweg, die <code>NA</code>-Zeilen rutschen nach hinten.</p>
+<pre>
+<span class="cmt"># Sortieren: die schwersten zuerst</span>
+penguins |&gt;
+  select(species, body_mass_g) |&gt;
+  arrange(desc(body_mass_g)) |&gt;
+  head(3)
+<span class="cmt">#&gt; Gentoo 6300   Gentoo 6050   Gentoo 6000</span>
+</pre>
 
-  <h2>Verb 3 — summarise + group_by (schrumpfen)</h2>
+  <div class="quiz" data-titel="Quiz: mutate-und-arrange">
+    <fieldset class="frage">
+      <legend class="frage-text">Was macht <code>mutate()</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q5" value="0" data-grund="Richtig — mutate() rechnet Zeile für Zeile eine neue Spalte aus (oder ersetzt eine bestehende) und behält alle Zeilen."> Es berechnet eine neue Spalte und behält alle Zeilen</label>
+        <label><input type="checkbox" name="sa-02-q5" value="1" data-grund="Falsch — Zeilen wegwerfen macht filter(); mutate() verändert die Zahl der Zeilen nie."> Es wirft Zeilen weg, die eine Bedingung nicht erfüllen</label>
+        <label><input type="checkbox" name="sa-02-q5" value="2" data-grund="Falsch — viele Zeilen auf eine zusammenfassen macht summarise(); mutate() gibt pro Zeile einen Wert zurück."> Es schrumpft viele Zeilen auf eine zusammen</label>
+        <label><input type="checkbox" name="sa-02-q5" value="3" data-grund="Falsch — Zeilen ordnen macht arrange(); mutate() lässt die Reihenfolge unverändert."> Es ordnet die Zeilen nach Größe</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was steht in der <code>kg</code>-Spalte der
+      ersten Ausgabezeile von
+      <code>mutate(kg = body_mass_g / 1000)</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q6" value="0" data-grund="Richtig — der erste Pinguin wiegt 3750 g; durch 1000 geteilt sind das 3.75 kg."> 3.75 — 3750 Gramm umgerechnet in Kilogramm</label>
+        <label><input type="checkbox" name="sa-02-q6" value="1" data-grund="Falsch — 3750 ist der Rohwert in Gramm; der Code teilt durch 1000, das Ergebnis ist 3.75."> 3750 — mutate rechnet nur, wenn du es extra anordnest</label>
+        <label><input type="checkbox" name="sa-02-q6" value="2" data-grund="Falsch — im Code steht nur / 1000; eine weitere Division durch 10 geschieht nirgends."> 0.375 — die Zahl wurde zusätzlich durch 10 geteilt</label>
+        <label><input type="checkbox" name="sa-02-q6" value="3" data-grund="Falsch — R deutet keine Einheiten; es rechnet exakt, was der Code vorgibt: 3750 / 1000."> 37500 — R hat die Spalte als Zentimeter gelesen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was steht oben, wenn du
+      <code>arrange(desc(body_mass_g))</code> laufen lässt?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q7" value="0" data-grund="Richtig — desc() sortiert absteigend; die drei schwersten Pinguine sind Gentoo mit 6300, 6050 und 6000 g."> Gentoo mit 6300, 6050 und 6000 Gramm</label>
+        <label><input type="checkbox" name="sa-02-q7" value="1" data-grund="Falsch — arrange() sortiert die Zeilen um; die erste Zeile der Rohdaten (Adelie, 3750) rutscht dadurch ans Ende der 3-kg-Gruppe."> Adelie mit 3750 Gramm — die erste Zeile der Tabelle bleibt oben</label>
+        <label><input type="checkbox" name="sa-02-q7" value="2" data-grund="Falsch — arrange() setzt fehlende Werte standardmäßig ans Ende; zuerst kommen die echten Zahlen."> Eine Zeile mit NA — fehlende Werte stehen bei desc() zuerst</label>
+        <label><input type="checkbox" name="sa-02-q7" value="3" data-grund="Falsch — 5076, 3733 und 3701 sind Gruppenmittelwerte aus summarise(); arrange() sortiert die rohen Zeilenwerte, keine Kennzahlen."> Die drei Mittelwerte 5076, 3733 und 3701</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — group_by() + summarise(): die Antwort-Maschine</h2>
   <p><code>summarise()</code> (zusammenfassen) macht aus vielen Zeilen
-  eine: Mittelwert, Minimum, Anzahl. Mit <code>group_by()</code>
-  davor geschieht das <em>pro Gruppe</em>:</p>
+  eine: Mittelwert, Minimum, Anzahl. Mit <code>group_by()</code> davor
+  geschieht das <em>pro Gruppe</em> — eine Gruppe = eine Zeile:</p>
 <pre>
 penguins |&gt;
   group_by(species) |&gt;
-  summarise(gewicht_g = mean(body_mass_g, na.rm = TRUE))
-<span class="cmt"># → 3 Zeilen (eine pro Art) statt 1 Zeile für alles</span>
+  summarise(
+    n    = n(),
+    gram = mean(body_mass_g, na.rm = TRUE),
+    sd_g = sd(body_mass_g, na.rm = TRUE)
+  )
 </pre>
-  <p>Und das <code>na.rm = TRUE</code>? Ein einziger <code>NA</code> — und
-  dein Mittelwert wäre auch <code>NA</code>. Warum? R weigert sich, über
-  fehlende Werte hinwegzumitteln, ohne dass du es es erlaubst.
-  <code>na.rm = TRUE</code> ist die Erlaubnis: „ignoriere die fehlenden."</p>
-
-  <h2>Das Klebeband: die Pipe <code>|&gt;</code></h2>
-  <p>Die Pipe (Rohrleitung) reicht das Ergebnis links an die Funktion
-  rechts weiter — lesbar wie ein Satz:</p>
+  <table>
+    <tr><th>species</th><th>n</th><th>gram</th><th>sd_g</th></tr>
+    <tr><td>Adelie</td><td>152</td><td>3701</td><td>459</td></tr>
+    <tr><td>Chinstrap</td><td>68</td><td>3733</td><td>384</td></tr>
+    <tr><td>Gentoo</td><td>124</td><td>5076</td><td>504</td></tr>
+  </table>
+  <p>Die drei Bausteine der Tabelle: <code>n()</code> zählt die Zeilen der
+  Gruppe, <code>mean()</code> fasst das Gewicht zum Durchschnitt zusammen,
+  <code>sd()</code> misst die Streuung (Standardabweichung) — also, wie
+  weit die Einzelgewichte typischerweise vom Mittelwert streuen. Genau das
+  war das Ziel-Artefakt, nur ohne den filter auf Weibchen.</p>
+  <p>Gruppen können noch feiner sein — nach Art <em>und</em> Insel:</p>
 <pre>
-penguins |&gt;            <span class="cmt"># nimm die Pinguin-Tabelle …</span>
-  filter(sex == "male") |&gt;     <span class="cmt"># … behalte die Männchen …</span>
-  group_by(species) |&gt;         <span class="cmt"># … gruppiere nach Art …</span>
-  summarise(gewicht_g = mean(body_mass_g, na.rm = TRUE))
-<span class="cmt"># … und fasse je Gruppe zusammen.</span>
+penguins |&gt;
+  group_by(species, island) |&gt;
+  summarise(
+    n    = n(),
+    gram = mean(body_mass_g, na.rm = TRUE),
+    sd_g = sd(body_mass_g, na.rm = TRUE),
+    .groups = "drop"
+  )
 </pre>
-  <p>Ohne Pipe sähe das aus wie Plätzchen in Plätzchen:
-  <code>summarise(group_by(filter(penguins, …)), …)</code> — von innen
-  nach außen, schwer lesbar. Mit Pipe liest man von oben nach unten.</p>
+  <table>
+    <tr><th>species</th><th>island</th><th>n</th><th>gram</th><th>sd_g</th></tr>
+    <tr><td>Adelie</td><td>Biscoe</td><td>44</td><td>3710</td><td>488</td></tr>
+    <tr><td>Adelie</td><td>Dream</td><td>56</td><td>3688</td><td>455</td></tr>
+    <tr><td>Adelie</td><td>Torgersen</td><td>52</td><td>3706</td><td>445</td></tr>
+    <tr><td>Chinstrap</td><td>Dream</td><td>68</td><td>3733</td><td>384</td></tr>
+    <tr><td>Gentoo</td><td>Biscoe</td><td>124</td><td>5076</td><td>504</td></tr>
+  </table>
+  <p>Gentoo auf Biscoe: 5,1 kg — Kopf und Schulter über allen anderen
+  Gruppen. Die Inseln sind übrigens unterschiedlich besetzt: 168 Pinguine
+  sitzen auf Biscoe, 124 auf Dream, 52 auf Torgersen. Das kannst du mit
+  einer Kurzform der Antwort-Maschine selbst prüfen —
+  <code>count(island)</code> zählt die Zeilen je Insel:</p>
+<pre>
+penguins |&gt; count(island)
+<span class="cmt">#&gt; Biscoe 168 · Dream 124 · Torgersen 52</span>
+</pre>
+
+  <div class="callout tipp">
+    <span class="label">Antwort auf die Einstiegsfrage</span>
+    <p>Adelie-Weibchen wiegen im Mittel 3369 g, Chinstrap-Weibchen 3527 g,
+    Gentoo-Weibchen 4680 g — Gentoo-Weibchen sind rund 1,3 kg schwerer als
+    Adelie-Weibchen.</p>
+  </div>
+
+  <p>Zwei Feinheiten an der Antwort-Maschine, auf die du achten solltest:</p>
+  <p><strong>Erstens:</strong> Achte auf Adelie/Torgersen — <code>n</code>
+  zeigt 52, aber der Mittelwert rechnet über nur 51 Werte. <code>n()</code>
+  zählt alle Zeilen der Gruppe; <code>mean(..., na.rm = TRUE)</code>
+  ignoriert zusätzlich die Zeile mit fehlendem Gewicht. Genau dieser
+  Unterschied führt uns zum Thema des nächsten Schritts: fehlende Werte.</p>
+  <p><strong>Zweitens:</strong> Der Hinweis „<code>summarise() has
+  regrouped the output</code>“, den R bei mehrstufiger Gruppierung
+  meldet, heißt: die Gruppierung bleibt nach dem Zusammenfassen teilweise
+  bestehen (hier: nach <code>species</code>). Mit
+  <code>.groups = "drop"</code> gibst du die Gruppierung vollständig frei
+  und bekommst eine ganz gewöhnliche Tabelle zurück.</p>
+
+  <div class="quiz" data-titel="Quiz: group-by-summarise">
+    <fieldset class="frage">
+      <legend class="frage-text">In der Art×Insel-Tabelle zeigt
+      Adelie/Torgersen <code>n = 52</code>, aber der Mittelwert rechnet
+      über nur 51 Werte. Warum?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q8" value="0" data-grund="Richtig — n() zählt alle 52 Zeilen der Gruppe; mean(..., na.rm = TRUE) lässt die Zeile mit fehlendem Gewicht weg und rechnet über 51 Werte."> n() zählt alle Zeilen der Gruppe; der Mittelwert ignoriert die Zeile mit fehlendem Gewicht</label>
+        <label><input type="checkbox" name="sa-02-q8" value="1" data-grund="Falsch — n() zählt Zeilen, unabhängig davon ob Werte fehlen; genau deshalb zeigt es 52 statt 51."> n() zählt nur die Zeilen, in denen eine Zahl steht</label>
+        <label><input type="checkbox" name="sa-02-q8" value="2" data-grund="Falsch — n() zählt korrekt; die Differenz von 52 auf 51 kommt ausschließlich vom fehlenden Gewichtswert."> R hat eine Zeile versehentlich doppelt gezählt</label>
+        <label><input type="checkbox" name="sa-02-q8" value="3" data-grund="Falsch — das Runden verändert nur die Anzeige, nie die Zahl der Werte, über die gerechnet wird."> Der Mittelwert ist gerundet, deshalb fehlt ein Wert</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche Kennzahlen kannst du in einer
+      <code>summarise()</code>-Zeile berechnen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q9" value="0" data-grund="Richtig — n() zählt die Zeilen der Gruppe; in der Antwort-Tabelle steht es als eigene Spalte."> n() — die Zeilen der Gruppe zählen</label>
+        <label><input type="checkbox" data-richtig name="sa-02-q9" value="1" data-grund="Richtig — mean() fasst die Gruppenwerte zum Mittelwert zusammen, wie in gram = mean(body_mass_g, na.rm = TRUE)."> mean() — den Mittelwert</label>
+        <label><input type="checkbox" data-richtig name="sa-02-q9" value="2" data-grund="Richtig — sd() misst die Streuung der Gruppenwerte, wie in sd_g = sd(body_mass_g, na.rm = TRUE)."> sd() — die Standardabweichung</label>
+        <label><input type="checkbox" name="sa-02-q9" value="3" data-grund="Falsch — filter() ist ein eigenes Verb und fasst nichts zusammen; summarise() berechnet Kennzahlen, es wählt keine Zeilen aus."> filter() — innerhalb von summarise() Zeilen auswählen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche Zeile steht in der Antwort-Tabelle
+      der Weibchen (Ziel-Artefakt) für Gentoo?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q10" value="0" data-grund="Richtig — die Ziel-Pipe filtert auf Weibchen; Gentoo-Weibchen wiegen im Mittel 4680 g."> Gentoo: 4680 g</label>
+        <label><input type="checkbox" name="sa-02-q10" value="1" data-grund="Falsch — 5076 g ist der Gentoo-Mittelwert über beide Geschlechter; bei den Weibchen sind es 4680 g."> Gentoo: 5076 g</label>
+        <label><input type="checkbox" name="sa-02-q10" value="2" data-grund="Falsch — 3701 g ist der Adelie-Mittelwert über beide Geschlechter; die Adelie-Weibchen wiegen 3369 g."> Adelie: 3701 g</label>
+        <label><input type="checkbox" name="sa-02-q10" value="3" data-grund="Falsch — 384 g ist die Standardabweichung der Chinstrap-Gruppe aus der Antwort-Maschine; der Chinstrap-Mittelwert der Weibchen liegt bei 3527 g."> Chinstrap: 384 g</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Wie viele Zeilen hat jede der drei
+      Inseln in der Pinguin-Tabelle?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q11" value="0" data-grund="Richtig — count(island) zeigt genau diese Verteilung: Biscoe 168, Dream 124, Torgersen 52."> Biscoe 168, Dream 124, Torgersen 52</label>
+        <label><input type="checkbox" name="sa-02-q11" value="1" data-grund="Falsch — vertauscht: auf Biscoe sitzen die meisten Pinguine (168), auf Dream 124."> Biscoe 124, Dream 168, Torgersen 52</label>
+        <label><input type="checkbox" name="sa-02-q11" value="2" data-grund="Falsch — die Inseln sind ungleich besetzt; 168 Zeilen hat allein Biscoe."> Jede Insel hat genau 168 Zeilen</label>
+        <label><input type="checkbox" name="sa-02-q11" value="3" data-grund="Falsch — das sind Teile der Art×Insel-Tabelle; die Inselsummen sind 168, 124 und 52."> Biscoe 56, Dream 68, Torgersen 52</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 6 — NA: fehlende Messwerte verstehen</h2>
+  <p><code>NA</code> (Not Available) ist <strong>nicht</strong> Null und
+  nicht leer — es ist ein eigener Zustand: „hier fehlt ein Wert“. Warum
+  das wichtig ist, zeigt ein Mini-Vektor:</p>
+<pre>
+x &lt;- c(3750, 3800, NA, 3250)
+
+mean(x)
+<span class="cmt">#&gt; NA — ansteckend!</span>
+
+mean(x, na.rm = TRUE)
+<span class="cmt">#&gt; 3600 — NA aus der Rechnung entfernt</span>
+
+is.na(x)
+<span class="cmt">#&gt; FALSE FALSE TRUE FALSE</span>
+</pre>
+  <p><code>is.na()</code> prüft Wert für Wert, ob etwas fehlt — praktisch,
+  wenn du zählen willst, <em>wo</em> die Lücken sind. Die Pinguin-Tabelle
+  hat echte Lücken: 2 Pinguine fehlen bei den Längen- und Gewichts-
+  messungen, 11 Pinguine haben kein eingetragenes Geschlecht.</p>
+
+  <div class="callout achtung">
+    <span class="label">Wichtig</span>
+    <p><code>NA</code> steckt jede Rechnung an: ein einziger
+    fehlender Wert macht das gesamte <code>mean()</code>-Ergebnis zu
+    <code>NA</code>. Deshalb steht in der Antwort-Maschine überall
+    <code>na.rm = TRUE</code>. Aber frag <strong>zuerst, <em>warum</em></strong>
+    ein Wert fehlt — bevor du ihn wegrechnest.</p>
+  </div>
+
+  <p>Diese Frage ist nicht Akademie. Bei den Pinguinen fehlen die Werte
+  bei echten Messproblemen (ein Pinguin, der in der Falle nicht vermessen
+  wurde, hat schlicht kein Gewicht). In Betriebsdaten kann ein fehlender
+  Wert aber auch heißen: Messung vergessen, Sensor ausgefallen,
+  Nachmessen verweigert. Die Ursache entscheidet, ob <code>na.rm = TRUE</code>
+  ehrlich ist — oder ob du damit gerade den Defekt unsichtbar machst.</p>
+
+  <div class="quiz" data-titel="Quiz: na-verstehen">
+    <fieldset class="frage">
+      <legend class="frage-text">Was liefert
+      <code>mean(c(3750, 3800, NA, 3250))</code> — ohne
+      <code>na.rm</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q12" value="0" data-grund="Richtig — ein einziger fehlender Wert steckt die Rechnung an; mean() gibt NA zurück."> NA — der fehlende Wert steckt die Rechnung an</label>
+        <label><input type="checkbox" name="sa-02-q12" value="1" data-grund="Falsch — 3600 ist das Ergebnis MIT na.rm = TRUE; ohne das Argument kommt NA, R lässt nichts automatisch weg."> 3600 — R lässt den fehlenden Wert automatisch weg</label>
+        <label><input type="checkbox" name="sa-02-q12" value="2" data-grund="Falsch — NA ist nicht 0; R rechnet gar nicht erst, sondern gibt NA zurück."> 2700 — R zählt den fehlenden Wert als 0</label>
+        <label><input type="checkbox" name="sa-02-q12" value="3" data-grund="Falsch — gerade das Tückische: mean() bricht nicht ab, es gibt schlicht NA zurück."> R bricht mit einer Fehlermeldung ab</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche zwei Aussagen über
+      <code>NA</code> stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q13" value="0" data-grund="Richtig — is.na() prüft Wert für Wert und liefert für jeden fehlenden Wert TRUE (im Beispiel: FALSE FALSE TRUE FALSE)."> is.na(x) zeigt für jeden fehlenden Wert TRUE</label>
+        <label><input type="checkbox" data-richtig name="sa-02-q13" value="1" data-grund="Richtig — na.rm = TRUE wirkt nur innerhalb der Rechnung; die Tabelle selbst behält ihre fehlenden Werte."> na.rm = TRUE entfernt fehlende Werte nur aus der Rechnung, nicht aus der Tabelle</label>
+        <label><input type="checkbox" name="sa-02-q13" value="2" data-grund="Falsch — 0 ist eine gemessene Zahl, NA heißt „es gab keinen Wert“; die beiden Zustände sind fundamental verschieden."> NA ist dasselbe wie 0</label>
+        <label><input type="checkbox" name="sa-02-q13" value="3" data-grund="Falsch — umgekehrt: ein einziger NA macht das gesamte mean()-Ergebnis zu NA; genau das nennt man ansteckend."> Ein NA steckt genau eine Berechnung an, aber nie das ganze Ergebnis</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Die Pinguin-Tabelle hat fehlende Werte.
+      Was ist der erste Schritt im Umgang damit?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q14" value="0" data-grund="Richtig — erst die Ursache verstehen (Messproblem? Sensor? nicht erhoben?), dann mit na.rm = TRUE bewusst rechnen."> Erst fragen, warum fehlt ein Wert — bevor du ihn wegrechnest</label>
+        <label><input type="checkbox" name="sa-02-q14" value="1" data-grund="Falsch — ohne Verständnis der Ursache wirfst du Information weg, die erklärt, warum gerade dort fehlt."> Alle Zeilen mit NA sofort aus der Tabelle löschen</label>
+        <label><input type="checkbox" name="sa-02-q14" value="2" data-grund="Falsch — erfundene Ersatzwerte verfälschen die Kennzahlen; na.rm = TRUE ist der ehrlichere Weg."> Die NAs mit dem Mittelwert auffüllen, damit nichts mehr NA liefert</label>
+        <label><input type="checkbox" name="sa-02-q14" value="3" data-grund="Falsch — NA steckt Rechnungen an; ohne na.rm = TRUE werden Mittelwerte einfach NA."> Nichts tun — R behandelt NA von selbst wie eine normale Zahl</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 7 — Code-Stil: lesbar ist wartbar (Kap. 4)</h2>
+  <p>Zwei Pipes können rechnerisch dasselbe tun und trotzdem grundverschieden
+  lesbar sein. So sieht guter Stil aus:</p>
+<pre>
+<span class="cmt"># Guter Stil: snake_case, Leerzeichen, kurze Zeilen</span>
+body_mass_kg &lt;- penguins |&gt;   <span class="cmt"># Pipe am ZEILENENDE</span>
+  filter(species == "Gentoo") |&gt;
+  mutate(kg = body_mass_g / 1000)
+</pre>
+  <table>
+    <tr><th>Regel</th><th>Warum</th></tr>
+    <tr><td>Namen: <code>snake_case</code></td><td>keine Rätsel über Groß-/Kleinschreibung</td></tr>
+    <tr><td>Leerzeichen um Operatoren</td><td><code>kg = g / 1000</code> statt <code>kg=g/1000</code></td></tr>
+    <tr><td><code>|&gt;</code> ans Zeilenende</td><td>ggplot-<code>+</code>-Regel — gleiche Logik</td></tr>
+  </table>
+  <p>Stil ist <strong>kein Ästhetik-Thema</strong>: Du liest deinen Code in
+  drei Wochen wieder — schreibe für dieses Du. Dieselbe Regel kennst du
+  schon aus SA-01: dort steht das <code>+</code> der ggplot-Kette am
+  Zeilenende, hier die Pipe. Ein Gedanke, zwei Werkzeuge.</p>
+</section>
+
+<section>
+  <h2>Schritt 8 — Skripte &amp; Projekte (Kap. 6)</h2>
+  <p>Ab heute arbeitest du in einem <strong>RStudio-Projekt</strong> —
+  einem eigenen Verzeichnis pro Auswertung. Dann stimmen alle Pfade von
+  selbst:</p>
+<pre>
+pmm-ue02/            <span class="cmt"># ein Ordner = ein Projekt</span>
+  pmm-ue02.Rproj     <span class="cmt"># File → New Project → New Directory</span>
+  analyse.R          <span class="cmt"># dein Skript</span>
+  messwerte.csv      <span class="cmt"># Daten liegen daneben</span>
+</pre>
+
+  <div class="callout tipp">
+    <span class="label">Faustregel</span>
+    <p>Projekt-Ordner = Wurzel. Relative Pfade (<code>"messwerte.csv"</code>)
+    statt absoluter (<code>"C:/Users/…"</code>). Dann läuft dein Skript
+    auch auf dem Rechner der Kollegin.</p>
+  </div>
+
+  <p>Warum das wichtig wird: Bis jetzt kamen die Pinguine per
+  <code>data()</code> mit dem Paket — sie leben <em>im</em> R. Echte
+  Betriebsdaten liegen als Datei auf der Festplatte, und genau da
+  entscheidet der Pfad, ob dein Skript läuft. In der nächsten Lektion
+  liest du echte CSV-Dateien ein — relative Pfade werden dann zum Alltag.</p>
+
+  <div class="quiz" data-titel="Quiz: stil-und-projekte">
+    <fieldset class="frage">
+      <legend class="frage-text">Welche zwei Stil-Regeln aus Kap. 4
+      erkennst du im Beispiel von Schritt 7?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q15" value="0" data-grund="Richtig — body_mass_kg und kg heißen mit Unterstrich statt mit Binnenmajuskeln; so bleibt die Schreibweise vorhersehbar."> Namen im snake_case, zum Beispiel body_mass_kg</label>
+        <label><input type="checkbox" data-richtig name="sa-02-q15" value="1" data-grund="Richtig — die Pipe steht ans Zeilenende, der nächste Schritt beginnt in der neuen Zeile; so liest sich die Kette von oben nach unten."> Die Pipe |&gt; steht ans Zeilenende, nicht an den Zeilenanfang</label>
+        <label><input type="checkbox" name="sa-02-q15" value="2" data-grund="Falsch — Kap. 4 empfiehlt die Pipe ans Zeilenende (gleiche Regel wie das + von ggplot in SA-01)."> Die Pipe steht am Zeilenanfang, damit sie auffällt</label>
+        <label><input type="checkbox" name="sa-02-q15" value="3" data-grund="Falsch — kurze, sauber umbrochene Zeilen sind die Regel; lange Zeilen brechen im Editor und im Kopf."> Möglichst lange Zeilen, um weniger Zeilen zu brauchen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Warum legt man jede Auswertung in ein
+      RStudio-Projekt?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-02-q16" value="0" data-grund="Richtig — der Projekt-Ordner ist die Wurzel: relative Pfade wie messwerte.csv funktionieren damit überall, auch auf einem anderen Rechner."> Ein Projekt-Ordner ist die Wurzel — relative Pfade funktionieren dann überall</label>
+        <label><input type="checkbox" name="sa-02-q16" value="1" data-grund="Falsch — Pakete werden einmal installiert und über library() geladen; das hängt nicht am Projekt."> R lädt in einem Projekt die Pakete automatisch schneller</label>
+        <label><input type="checkbox" name="sa-02-q16" value="2" data-grund="Falsch — umgekehrt: absolute Pfade wie C:/Users/… brechen auf anderen Rechnern; relative Pfade sind die Lösung."> Absolute Pfade wie C:/Users/… funktionieren nur im Projekt</label>
+        <label><input type="checkbox" name="sa-02-q16" value="3" data-grund="Falsch — ein Projekt ist nur ein Ordner mit Konfiguration; er sichert nichts in die Cloud."> Ein Projekt speichert die Daten automatisch in der Cloud</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Vier Behauptungen über
+      <code>select()</code> — welche davon stimmt wirklich?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-02-q17" value="0" data-grund="Falsch — select() berührt nur Spalten; alle Zeilen bleiben stehen, auch die mit fehlenden Werten."> select() entfernt Zeilen, deren Werte fehlen</label>
+        <label><input type="checkbox" name="sa-02-q17" value="1" data-grund="Falsch — select() nimmt Spaltennamen, keine Bedingung; Gentoo-Zeilen behalten ist die Aufgabe von filter(), nicht von select()."> select(species == "Gentoo") behält die Gentoo-Zeilen</label>
+        <label><input type="checkbox" name="sa-02-q17" value="2" data-grund="Falsch — das Sortieren macht arrange(); select() ändert die Reihenfolge der Zeilen nie."> select() sortiert die Zeilen nach Spaltennamen</label>
+        <label><input type="checkbox" name="sa-02-q17" value="3" data-grund="Falsch — das Rechnen macht mutate(); select() wählt Spalten nur aus, ohne Werte zu verändern."> select() berechnet aus bestehenden Spalten neue Werte</label>
+      </div>
+    </fieldset>
+  </div>
 </section>
 
 <section>
   <div class="baustein">Jetzt du!</div>
+  <p>Vor jeder Ausführung gilt das Ritual: <strong>erst vorhersagen,
+  hinschreiben, dann ausführen</strong>. Schreibe die Pipes in dein
+  Skript aus Schritt 8.</p>
   <ol>
-    <li><strong>Vorhersage zuerst:</strong> Wie viele Zeilen hat
-      <code>penguins |&gt; filter(flipper_length_mm &gt; 210)</code>?
-      Erst raten und notieren, dann ausführen.</li>
-    <li>Baue die Ziel-Pipe um auf <strong>Männchen</strong> und Spaltenname
-      <code>gewicht_kg</code> (in Kilogramm, via <code>mutate</code>).</li>
-    <li><strong>Vorhersage:</strong> Was passiert mit der Ausgabe, wenn
-      du <code>na.rm = TRUE</code> weglässt? Prüfe deine Vorhersage.</li>
+    <li><strong>Vorhersage zuerst:</strong> Was liefert
+      <code>penguins |&gt; filter(species == "Adelie") |&gt; nrow()</code>?
+      Und was passiert, wenn du <code>select</code> statt
+      <code>filter</code> schreibst? Notiere beide Vorhersagen, dann
+      ausführen.</li>
+    <li><strong>Ausführen:</strong> Wie viele Pinguine wiegen mehr als
+      4,5 kg? (Pipe: <code>filter(body_mass_g &gt; 4500)</code> +
+      <code>nrow()</code>.) Zeige danach die drei schwersten mit
+      <code>select()</code> und <code>arrange(desc(body_mass_g))</code>.</li>
+    <li><strong>Übertrag:</strong> Baue die Ziel-Pipe um auf
+      <strong>Männchen</strong> (<code>sex == "male"</code>) und gebe das
+      Gewicht in Kilogramm aus — via <code>mutate()</code>, Spaltenname
+      <code>gewicht_kg</code>, gerundet auf eine Nachkommastelle.</li>
+    <li><strong>Vorhersage zum Schluss:</strong> Was passiert mit der
+      Ausgabe der Ziel-Pipe, wenn du <code>na.rm = TRUE</code> weglässt?
+      Notiere deine Vorhersage — dann prüfen.</li>
   </ol>
 </section>
 
 <section>
   <div class="baustein">Typische Fehler</div>
-  <h3><code>=</code> statt <code>==</code> im filter</h3>
+
+  <p><strong>1. <code>=</code> statt <code>==</code> im filter</strong></p>
 <pre>
 penguins |&gt; filter(species = "Gentoo")
-<span class="cmt"># ✗ "Filter expression must refer to ..." — Vergleichen ist ==</span>
+<span class="cmt"># ✗ „We detected a named input. This usually means that you've</span>
+<span class="cmt">#    used = instead of ==. Did you mean species == &quot;Gentoo&quot;?“</span>
 </pre>
-  <h3>Filter-Ergebnis gespeichert — geglaubt</h3>
+
+  <div class="callout achtung">
+    <span class="label">Merke</span>
+    <p><code>=</code> übergibt, <code>==</code> vergleicht. Im filter
+    vergleichtest du — also <code>==</code>. Zuweisen macht
+    <code>&lt;-</code>.</p>
+  </div>
+
+  <p><strong>2. <code>na.rm</code> vergessen — eine Zahl raus, aber die
+  falsche: NA</strong></p>
+<pre>
+penguins |&gt; summarise(gram = mean(body_mass_g))
+<span class="cmt">#&gt; NA — und R warnt NICHT. mean() gibt schlicht NA zurück.</span>
+</pre>
+  <p>Das ist der laute-freie Fehler: keine Meldung, nur <code>NA</code>.
+  Erklärung kennst du aus Schritt 6 — ein fehlender Wert steckt die
+  Rechnung an. Regel: bei <code>mean()</code>, <code>sd()</code> und
+  Kollegen in <code>summarise()</code> immer mitdenken, ob fehlende Werte
+  vorhanden sein können.</p>
+
+  <p><strong>3. <code>group_by()</code> vor <code>ggplot()</code> — die
+  Gruppierung versinkt still</strong></p>
+<pre>
+penguins |&gt; group_by(species) |&gt; ggplot(aes(x = body_mass_g)) +
+  geom_histogram()
+<span class="cmt"># → EIN Histogramm, als gäbe es keine Gruppen</span>
+</pre>
+  <p>Du erwartest drei kleine Histogramme — eins pro Art — und bekommst
+  <em>ein</em> Histogramm über alle 344 Pinguine. Der Grund: ggplot liest
+  die dplyr-Gruppierung nicht aus dem Datensatz; die Gruppe muss in die
+  <strong>Zeichnung</strong> hinein — <code>aes(fill = species)</code>
+  (Histogramme übereinander) oder <code>+ facet_wrap(~species)</code>
+  (drei Panels). Und für die Antwort-Tabelle gehört nach
+  <code>group_by()</code> ohnehin ein <code>summarise()</code>.</p>
+
+  <p><strong>4. Filter-Ergebnis gespeichert — geglaubt</strong></p>
 <pre>
 penguins |&gt; filter(species == "Gentoo")
 <span class="cmt"># → zeigt 124 Zeilen an, aber penguins ist UNVERÄNDERT</span>
@@ -140,24 +614,29 @@ penguins |&gt; filter(species == "Gentoo")
 <section>
   <h2>Zusammenfassung</h2>
   <table>
-    <tr><th>Verb</th><th>Wofür</th></tr>
-    <tr><td><code>filter()</code></td><td>Zeilen wählen (UND-Verknüpfung)</td></tr>
-    <tr><td><code>mutate()</code></td><td>Spalten umformen/neu rechnen</td></tr>
-    <tr><td><code>group_by()</code></td><td>Gruppen bilden für alles Folgende</td></tr>
-    <tr><td><code>summarise()</code></td><td>Viele Zeilen → eine Kennzahl</td></tr>
-    <tr><td><code>|&gt;</code></td><td>Schritt für Schritt verketten</td></tr>
+    <tr><th>Konzept</th><th>Das Wichtigste</th></tr>
+    <tr><td>Pipe <code>|&gt;</code></td><td>Ergebnis links → erstes Argument rechts — Rezept statt Verschachtelung</td></tr>
+    <tr><td><code>filter</code> vs <code>select</code></td><td>Zeilen vs. Spalten</td></tr>
+    <tr><td><code>mutate()</code></td><td>Rechnen in eigene Spalte, klare Namen</td></tr>
+    <tr><td><code>arrange()</code></td><td>Sortieren — aufsteigend von selbst, <code>desc()</code> für absteigend</td></tr>
+    <tr><td><code>NA</code></td><td>Ansteckend — <code>na.rm = TRUE</code> (und fragen, <em>warum</em>)</td></tr>
+    <tr><td><code>group_by() + summarise()</code></td><td>Eine Gruppe = eine Zeile — <code>n()</code>, <code>mean()</code>, <code>sd()</code> als Antwort-Tabelle</td></tr>
+    <tr><td>Stil &amp; Projekte</td><td><code>|&gt;</code> ans Zeilenende · <code>snake_case</code> · ein Projekt pro Ordner</td></tr>
   </table>
-  <p>Plot (Lektion 01) + Verben (heute) = Werkbank. Nächste UE:
-  eigene Daten einlesen und die erste deskriptive Auswertung —
-  <a href="../SA-03-daten-einlesen-deskriptiv/praesentation.html">Folien UE 3</a>.</p>
+  <p><strong>Ausblick:</strong> 344 Pinguine kamen per <code>data()</code>
+  ins R — sie leben <em>im</em> R. Echte Betriebsdaten kommen als CSV- oder
+  Excel-Datei von der Festplatte. Wie die hereinkommen — und wie man sie
+  <em>ausfragt</em> (Mittelwert, Streuung, Histogramm): das ist das Thema
+  der nächsten Lektion dieser Serie, SA-03.</p>
 </section>
 
 <section>
   <div class="baustein">Aufgabe</div>
   <p>Vertiefe die dplyr-Verben mit der
   <a href="aufgabe.md">Aufgabe SA-02 — Daten transformieren &amp; Workflow</a>:
-  erst Vorhersagen hinschreiben, dann mit R prüfen.
-  — <strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
+  erst Vorhersagen hinschreiben, dann mit R prüfen — inklusive
+  Antwort-Tabelle, Code-Stil-Review und RStudio-Projekt.
+  — <strong>Abgabe:</strong> nach Vorgabe deiner Lehrperson.</p>
 </section>
 
 <details class="lehrplan">
@@ -167,8 +646,8 @@ penguins |&gt; filter(species == "Gentoo")
       schulautonomer Werkzeug-Block (UE 2 des Semesterplans
       <code>lehrplan/pmm-hwit/jg4-semesterplan-ws.md</code>,
       R4DS-„Whole Game“); SA-02 ist UE 2 „Daten transformieren &amp;
-      Workflow“ — filter/select/mutate/summarise, Pipe
-      (Lektüre-Anker R4DS Kap. 3–6)</li>
+      Workflow“ — filter/select/mutate/arrange/summarise, Pipe, NA,
+      Code-Stil und Projekte (Lektüre-Anker R4DS Kap. 3, 4 und 6)</li>
     <li><strong>KM-Bezug:</strong> kein eigenes KM — die R-Toolchain
       (UE 1–3) wird laut KM7-Steckbrief
       (<code>lehrplan/kompetenzmodule/km7.md</code>) schulautonom
@@ -176,19 +655,29 @@ penguins |&gt; filter(species == "Gentoo")
       die Verben zur Voraussetzung für alle Gruppenauswertungen
       ab SA-03 und für die Inferenz-UE 4–5 (KM5/KM6-Recap)</li>
     <li><strong>Runtime:</strong> R 4.5 / tidyverse —
-      <code>dplyr</code> (<code>filter()</code>, <code>mutate()</code>,
-      <code>group_by()</code>, <code>summarise()</code>), native Pipe
-      <code>|&gt;</code> (Base R)</li>
+      <code>dplyr</code> (<code>filter()</code>, <code>select()</code>,
+      <code>mutate()</code>, <code>arrange()</code>,
+      <code>group_by()</code>, <code>summarise()</code>,
+      <code>count()</code>, <code>nrow()</code>), native Pipe
+      <code>|&gt;</code> (Base R), Daten
+      <code>palmerpenguins::penguins</code></li>
   </ul>
 </details>
 
 <footer class="navi">
   <p><strong>Quelle zum Weiterlesen:</strong> R4DS 2e,
-  <a href="https://r4ds.hadley.nz/transform">Kap. 3</a> (Hauptlektüre).</p>
+  <a href="https://r4ds.hadley.nz/data-transform">Kap. 3 — Data
+  transformation</a> (Hauptlektüre),
+  <a href="https://r4ds.hadley.nz/workflow-style">Kap. 4 — code
+  style</a> und
+  <a href="https://r4ds.hadley.nz/workflow-scripts">Kap. 6 — scripts
+  and projects</a>.</p>
   <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
   ist zu klein, solange du den Code dabei hast.</p>
-  <p>Zurück: <a href="../SA-01-datenvisualisierung-ggplot/lesson.html">Lektion SA-01 —
-  Erste Plots mit ggplot2</a></p>
+  <p>Zurück: <a href="../SA-01-datenvisualisierung-ggplot/lesson.html">SA-01 —
+  Erste Plots mit ggplot2</a> · Weiter: <a href="../SA-03-daten-einlesen-deskriptiv/lesson.html">SA-03 —
+  Daten einlesen &amp; deskriptiv</a> — echte Dateien statt
+  <code>data()</code> · Serie: Datenaufbereitung (SA-02 …)</p>
 </footer>
 
 </body>
