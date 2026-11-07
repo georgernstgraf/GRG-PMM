@@ -3,12 +3,17 @@
 Current status as of 2026-11-07.
 
 ## Current Focus
-**Quiz-Format 2.0 ohne Stufen/Modal (#42, 2026-11-07, laufend):** Der
+**Quiz-Format 2.1 ohne Stufen/Modal (#42, 2026-11-07, laufend):** Der
 Skill und die Assets sind angeglichen — `data-stufe`/`niveau` und das
 Show-Modal sind gestrichen, der Titel steht als `Quiz: <thema-slug>` im
 `h3`-Badge, Fragen sind `<fieldset>`/`<legend>` mit lesson-präfixierten
 `name`, einer Infokugel je Option und einer versteckten `aria-live`-
 Statuszeile. Aufgaben-Dateien heißen jetzt einheitlich `aufgabe.md`.
+Seit Format **2.1** steht die Lösungsmenge je Option als `data-richtig`
+(kein `data-loesung` mehr), und `quiz.js` mischt die Optionen beim Laden
+(Fisher-Yates) — Handrotation entfällt, der KM7-03-Zyklus ist damit
+strukturell unmöglich. SA-03 behält seine 6er-Zahl bewusst und verweist
+per Hinweis-Callout auf die korrekten 4 in KM6-01/KM7-01.
 Umgestellt sind **KM6-01 (11 Fragen), KM7-01 (11), KM7-02 (24), KM7-03
 (11)**; KM6-01/KM7-02 tragen den `<details>`-Block. Faktisch korrigiert:
 4 statt 6 Ausschussteile (10,15 mm ist in Toleranz, `round()`-Vergleich),

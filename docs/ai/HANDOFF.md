@@ -105,15 +105,19 @@ Chat (teach-Skill).
 pro Einheit statt Stücke pro Los"; LR schreiben, `jg3-verlauf.html`
 auf ✅; danach L05 bauen.
 
-### Quiz-Format 2.0 auf alle Lessons nachziehen (#42)
+### Quiz-Format 2.1 auf alle Lessons nachziehen (#42)
 **Priority:** high (läuft; vier von dreizehn Lessons umgestellt)
 **Context:** Skill (`opencode-helpers` #124) und Assets sind angeglichen:
 keine Stufen (`data-stufe`/`niveau`), kein Show-Modal, Titel als
 `Quiz: <thema-slug>`, `fieldset`/`legend`, lesson-präfixierte `name`,
 Infokugel je Option, `aria-live`-Status. Aufgaben-Dateien heißen
 `aufgabe.md`. Fertig: KM6-01, KM7-01, KM7-02, KM7-03 (je mit
-Klicktest, Blindprobe und Gegenlesung). Datenkorrektur: 4 statt 6
-Ausschussteile; KM7-02 deshalb X² 7,87 / p 0,0195, Fisher 0,0335.
+Klicktest, Blindprobe und Gegenlesung). Seit 2026-11-07 **Format 2.1**:
+Lösungsmenge als `data-richtig` je Option, `quiz.js` mischt die
+Optionen beim Laden — neue Lessons direkt in 2.1 schreiben (kein
+`data-loesung`, keine Handrotation). Datenkorrektur: 4 statt 6
+Ausschussteile; KM7-02 deshalb X² 7,87 / p 0,0195, Fisher 0,0335;
+SA-03 behält die 6er-Zahl bewusst mit Hinweis-Callout.
 **Action:** Batches KM5-01/02/03, KM7-04/05, SA-04 umstellen (gleiche
 Qualitätsachse: Abdeckungsmatrix, Distraktoren aus Fehlern, Zahlen per
 `Rscript`); danach SA-01–03 auf 90 min vertiefen (Folien ernten) und

@@ -1,20 +1,23 @@
 // Quiz-Widget — zwei Modi, ein Skript:
 //
-// 1) Lernquiz (Format 2.0, Checkboxen, Mehrfach-richtig):
+// 1) Lernquiz (Format 2.1, Checkboxen, Mehrfach-richtig):
 //    <div class="quiz" data-titel="Quiz: thema-slug">
-//      <fieldset class="frage" data-loesung="0,2">
+//      <fieldset class="frage">
 //        <legend class="frage-text">…</legend>
 //        <div class="optionen">
-//          <label><input type="checkbox" name="km7-02-q1" value="0" data-grund="…"> …</label>
+//          <label><input type="checkbox" name="km7-02-q1" data-richtig data-grund="…"> …</label>
+//          <label><input type="checkbox" name="km7-02-q1" data-grund="…"> …</label>
 //          …
 //        </div>
 //      </fieldset>
 //      …
 //    </div>
-//    data-loesung ist die Lösungsmenge als 0-basierte DOM-Positionen der
-//    Optionen (0 bis 4 erlaubt; leer = keine Option ist richtig). Das
-//    value-Attribut der Checkboxen ist für die Auswertung bedeutungslos
-//    und sollte der DOM-Position entsprechen.
+//    Die Lösungsmenge steht je Option an der Option selbst: data-richtig
+//    (Attribut vorhanden = richtig; 0-richtig-Fragen tragen es nirgends).
+//    Die Reihenfolge im Markup ist bedeutungslos — das Skript mischt die
+//    Optionen beim Laden (Fisher-Yates), damit Positionen nie erratbar
+//    sind; Positionen oder Buchstaben werden nirgends kodiert. Das
+//    value-Attribut der Checkboxen ist für die Auswertung bedeutungslos.
 //
 //    Das Skript injiziert den Titel als h3-Badge sowie — pro Frage — den
 //    zentrierten „Überprüfen"-Button und je Antwortoption eine kleine
@@ -40,15 +43,18 @@
   var TEXT_PRUEFEN = "Überprüfen";
   var TEXT_NOCHMAL = "Nochmal versuchen";
 
-  function loesungsmenge(frage) {
-    var roh = frage.getAttribute("data-loesung") || "";
-    var teile = roh.split(",");
-    var menge = [];
-    for (var i = 0; i < teile.length; i++) {
-      var n = parseInt(teile[i].trim(), 10);
-      if (!isNaN(n)) { menge.push(n); }
+  // Optionen mischen: Position im Markup ist bedeutungslos, also darf sie
+  // auch nichts verraten. Einmal beim Laden — „Nochmal versuchen" behält
+  // die Reihenfolge, damit die Begründungen nicht wandern.
+  function optionenMischen(optionen) {
+    var labels = optionen.querySelectorAll(":scope > label");
+    var karten = [];
+    for (var i = 0; i < labels.length; i++) { karten.push(labels[i]); }
+    for (var j = karten.length - 1; j > 0; j--) {
+      var k = Math.floor(Math.random() * (j + 1));
+      var tausch = karten[j]; karten[j] = karten[k]; karten[k] = tausch;
     }
-    return menge;
+    for (var m = 0; m < karten.length; m++) { optionen.appendChild(karten[m]); }
   }
 
   function optionstext(label) {
@@ -83,14 +89,14 @@
   }
 
   function frageVorbereiten(frage) {
-    var menge = loesungsmenge(frage);
     var optionen = frage.querySelector(".optionen");
+    if (optionen) { optionenMischen(optionen); }
     var labels = optionen ? optionen.querySelectorAll(":scope > label") : [];
     var teile = [];
 
     // Je Option: Infokugel im Label, Sprechblase als Geschwister dahinter
     for (var i = 0; i < labels.length; i++) {
-      (function (label, position) {
+      (function (label) {
         var input = label.querySelector("input");
         var kugel = document.createElement("button");
         kugel.type = "button";
@@ -104,7 +110,7 @@
         blase.className = "infoblase";
         blase.hidden = true;
 
-        var istRichtig = menge.indexOf(position) !== -1;
+        var istRichtig = input ? input.hasAttribute("data-richtig") : false;
         var marke = document.createElement("strong");
         marke.className = istRichtig ? "ist-richtig" : "ist-falsch";
         marke.textContent = (istRichtig ? "✓ " : "✗ ") + optionstext(label);
@@ -135,8 +141,8 @@
 
         label.appendChild(kugel);
         label.parentNode.insertBefore(blase, label.nextSibling);
-        teile.push({ label: label, input: input, kugel: kugel, blase: blase });
-      })(labels[i], i);
+        teile.push({ label: label, input: input, kugel: kugel, blase: blase, istRichtig: istRichtig });
+      })(labels[i]);
     }
 
     // Zentrierter Überprüfen-Button je Frage
@@ -150,7 +156,7 @@
       for (var i = 0; i < teile.length; i++) {
         var input = teile[i].input;
         var angekreuzt = input ? input.checked : false;
-        var richtig = angekreuzt === (menge.indexOf(i) !== -1);
+        var richtig = angekreuzt === teile[i].istRichtig;
         if (!richtig) { alleRichtig = false; }
         teile[i].label.classList.remove("opt-richtig", "opt-falsch");
         teile[i].label.classList.add(richtig ? "opt-richtig" : "opt-falsch");

@@ -101,36 +101,36 @@ Teststärke (Power) = 1 - &beta; = P(einen echten Unterschied finden)
 </pre>
 
   <div class="quiz" data-titel="Quiz: fehlerarten">
-    <fieldset class="frage" data-loesung="0">
+    <fieldset class="frage">
       <legend class="frage-text">Ein t-Test ergibt <code>p = 0,31</code>.
       Die beiden Maschinen unterscheiden sich aber tatsächlich um 0,03 mm.
       Was ist passiert?</legend>
       <div class="optionen">
-        <label><input type="checkbox" name="km7-03-q1" value="0" data-grund="Richtig — der Test hat einen echten Unterschied nicht erkannt. Genau das ist Fehler 2. Art; der p-Wert zeigt dieses Risiko nicht an."> Fehler 2. Art: der Test war nicht sensitiv genug</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q1" value="0" data-grund="Richtig — der Test hat einen echten Unterschied nicht erkannt. Genau das ist Fehler 2. Art; der p-Wert zeigt dieses Risiko nicht an."> Fehler 2. Art: der Test war nicht sensitiv genug</label>
         <label><input type="checkbox" name="km7-03-q1" value="1" data-grund="Falsch — p = 0,31 ist kein Nachweis für Gleichheit; der Test hat nur nichts gefunden."> Der Test hat bewiesen, dass die Maschinen gleich sind</label>
         <label><input type="checkbox" name="km7-03-q1" value="2" data-grund="Falsch — Fehler 1. Art wäre ein gefundener Unterschied, den es nicht gibt. Hier wurde ein echter Unterschied übersehen."> Fehler 1. Art: der Test hat einen Unterschied gefunden, wo keiner ist</label>
         <label><input type="checkbox" name="km7-03-q1" value="3" data-grund="Falsch — der Test ist nicht defekt; bei kleiner Power ist ein nicht-signifikantes Ergebnis erwartbar."> Der Test war fehlerhaft programmiert</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="1">
+    <fieldset class="frage">
       <legend class="frage-text">H0 ist wahr, der Test meldet aber einen
       Unterschied. Welcher Fehler ist das?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km7-03-q2" value="0" data-grund="Falsch — Fehler 2. Art ist das Übersehen eines echten Unterschieds."> Fehler 2. Art (β)</label>
-        <label><input type="checkbox" name="km7-03-q2" value="1" data-grund="Richtig — ein Fehlalarm bei wahrer H0 ist der Fehler 1. Art, gesteuert über α."> Fehler 1. Art (α)</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q2" value="1" data-grund="Richtig — ein Fehlalarm bei wahrer H0 ist der Fehler 1. Art, gesteuert über α."> Fehler 1. Art (α)</label>
         <label><input type="checkbox" name="km7-03-q2" value="2" data-grund="Falsch — ein Rechenfehler ist kein statistischer Fehlertyp."> Ein Rechenfehler im Test</label>
         <label><input type="checkbox" name="km7-03-q2" value="3" data-grund="Falsch — die Power ist die Trefferwahrscheinlichkeit bei falscher H0, nicht dieser Fall."> Ein Power-Fehler</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="0,2">
+    <fieldset class="frage">
       <legend class="frage-text">Welche zwei Aussagen über die Power
       stimmen?</legend>
       <div class="optionen">
-        <label><input type="checkbox" name="km7-03-q3" value="0" data-grund="Richtig — die Power ist die Wahrscheinlichkeit, einen echten Unterschied auch zu finden."> Sie ist die Wahrscheinlichkeit, einen echten Unterschied zu finden</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q3" value="0" data-grund="Richtig — die Power ist die Wahrscheinlichkeit, einen echten Unterschied auch zu finden."> Sie ist die Wahrscheinlichkeit, einen echten Unterschied zu finden</label>
         <label><input type="checkbox" name="km7-03-q3" value="1" data-grund="Falsch — 1 − α ist die Wahrscheinlichkeit, H0 bei wahrer H0 nicht zu verwerfen; die Power gehört zur falschen H0."> Sie ist 1 − α</label>
-        <label><input type="checkbox" name="km7-03-q3" value="2" data-grund="Richtig — Power = 1 − β, wobei β das Fehler-2-Art-Risiko ist."> Sie ist 1 − β</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q3" value="2" data-grund="Richtig — Power = 1 − β, wobei β das Fehler-2-Art-Risiko ist."> Sie ist 1 − β</label>
         <label><input type="checkbox" name="km7-03-q3" value="3" data-grund="Falsch — die Power sagt nichts über die Wahrscheinlichkeit von H0; sie setzt einen echten Effekt voraus."> Sie sagt, wie wahrscheinlich H0 wahr ist</label>
       </div>
     </fieldset>
@@ -200,37 +200,37 @@ sapply(c(0.10, 0.08, 0.06, 0.04, 0.02, 0.01), function(d) {
   </div>
 
   <div class="quiz" data-titel="Quiz: power-und-stichprobe">
-    <fieldset class="frage" data-loesung="2">
+    <fieldset class="frage">
       <legend class="frage-text">Ein Versuch soll einen Unterschied von
       0,06 mm finden (n ≈ 12 je Maschine). Soll er zusätzlich 0,03 mm
       finden können, wie viele Daten braucht er dann ungefähr?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km7-03-q4" value="0" data-grund="Falsch — eine Verdopplung auf 24 würde die Power nur leicht heben; für die Halbierung des Effekts braucht es etwa das Vierfache."> Rund 24 — doppelt so viele</label>
         <label><input type="checkbox" name="km7-03-q4" value="1" data-grund="Falsch — der Aufwand wächst quadratisch, nicht sprunghaft; die Antwort ist 4×, nicht 100×."> Rund 1200 — der Aufwand wächst sprunghaft</label>
-        <label><input type="checkbox" name="km7-03-q4" value="2" data-grund="Richtig — n wächst mit 1/δ². Halbierter Effekt heißt viermal so viele Daten: 12 → rund 45 (44,59 bei δ = 0,03)."> Rund 45 — etwa viermal so viele</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q4" value="2" data-grund="Richtig — n wächst mit 1/δ². Halbierter Effekt heißt viermal so viele Daten: 12 → rund 45 (44,59 bei δ = 0,03)."> Rund 45 — etwa viermal so viele</label>
         <label><input type="checkbox" name="km7-03-q4" value="3" data-grund="Falsch — n bleibt nicht gleich: ein kleinerer Effekt braucht mehr Daten, nicht dieselbe Menge."> Rund 12 — der Aufwand bleibt gleich</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="1">
+    <fieldset class="frage">
       <legend class="frage-text">Was bedeutet <code>n ∝ 1/δ²</code> für die
       Planung?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km7-03-q5" value="0" data-grund="Falsch — bei doppeltem Effekt braucht man nur ein Viertel der Daten; n und δ laufen gegenläufig."> Doppelter Effekt braucht doppelt so viele Daten</label>
-        <label><input type="checkbox" name="km7-03-q5" value="1" data-grund="Richtig — halbierter Effekt heißt viermal so viele Daten; n wächst quadratisch mit dem Kehrwert."> Halbierter Effekt braucht viermal so viele Daten</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q5" value="1" data-grund="Richtig — halbierter Effekt heißt viermal so viele Daten; n wächst quadratisch mit dem Kehrwert."> Halbierter Effekt braucht viermal so viele Daten</label>
         <label><input type="checkbox" name="km7-03-q5" value="2" data-grund="Falsch — n hängt nicht linear vom Effekt ab, sondern von seinem Quadrat."> Doppelter Effekt braucht die Hälfte der Daten</label>
         <label><input type="checkbox" name="km7-03-q5" value="3" data-grund="Falsch — die Formel beschreibt den Zusammenhang, nicht die Streuung; sd geht separat ein."> Die Streuung ist für die Planung unerheblich</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="0,2">
+    <fieldset class="frage">
       <legend class="frage-text">Ein Test findet bei 40 Messungen einen
       Unterschied (p = 0,005); die Power für diesen Effekt war 0,83. Welche
       zwei Aussagen stimmen?</legend>
       <div class="optionen">
-        <label><input type="checkbox" name="km7-03-q6" value="0" data-grund="Richtig — der Test hat den Effekt gefunden, obwohl die Power nur 83 % betrug; ein Treffer ist kein Beweis für hohe Power."> Der Effekt wurde gefunden, obwohl die Power nur 83 % betrug</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q6" value="0" data-grund="Richtig — der Test hat den Effekt gefunden, obwohl die Power nur 83 % betrug; ein Treffer ist kein Beweis für hohe Power."> Der Effekt wurde gefunden, obwohl die Power nur 83 % betrug</label>
         <label><input type="checkbox" name="km7-03-q6" value="1" data-grund="Falsch — ein signifikantes Ergebnis garantiert keine hohe Power; es kann auch ein Glückstreffer sein."> Ein signifikantes Ergebnis garantiert eine hohe Power</label>
-        <label><input type="checkbox" name="km7-03-q6" value="2" data-grund="Richtig — die Power gehört in den Testbericht, weil der p-Wert über das Fehler-2-Art-Risiko nichts sagt."> Die Power gehört zusätzlich zum p-Wert in den Bericht</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q6" value="2" data-grund="Richtig — die Power gehört in den Testbericht, weil der p-Wert über das Fehler-2-Art-Risiko nichts sagt."> Die Power gehört zusätzlich zum p-Wert in den Bericht</label>
         <label><input type="checkbox" name="km7-03-q6" value="3" data-grund="Falsch — p = 0,005 ist die Irrtumswahrscheinlichkeit, nicht die Power."> p = 0,005 heißt: die Power ist 99,5 %</label>
       </div>
     </fieldset>
@@ -270,36 +270,36 @@ sapply(c(50, 100, 200, 400, 1000, 4000), function(n) {
   </div>
 
   <div class="quiz" data-titel="Quiz: signifikanz-und-relevanz">
-    <fieldset class="frage" data-loesung="1">
+    <fieldset class="frage">
       <legend class="frage-text">Ein Experiment zeigt bei n = 4000 pro
       Gruppe einen statistisch signifikanten Unterschied von 0,005 mm —
       ein Dreißigstel der zulässigen Abweichung. Wie ist das zu
       bewerten?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km7-03-q7" value="0" data-grund="Falsch — formal ist das eine gültige Rechnung; solche p-Werte sind bei 4000 Messungen möglich."> Das Experiment war fehlerhaft — solche p-Werte sind unmöglich</label>
-        <label><input type="checkbox" name="km7-03-q7" value="1" data-grund="Richtig — mit genügend Daten wird jeder noch so kleine Effekt nachweisbar; Signifikanz ersetzt keine Relevanzbetrachtung."> Formal korrekt, praktisch bedeutungslos</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q7" value="1" data-grund="Richtig — mit genügend Daten wird jeder noch so kleine Effekt nachweisbar; Signifikanz ersetzt keine Relevanzbetrachtung."> Formal korrekt, praktisch bedeutungslos</label>
         <label><input type="checkbox" name="km7-03-q7" value="2" data-grund="Falsch — 0,005 mm werden bei 4000 Messungen sauber nachweisbar; die Stichprobe war zu groß, nicht zu klein."> Die Stichprobengröße war zu klein für den Effekt</label>
         <label><input type="checkbox" name="km7-03-q7" value="3" data-grund="Falsch — der Test misst den Effekt korrekt; das Problem ist die fehlende praktische Relevanz, nicht die Messung."> Der Effekt ist groß und prozessrelevant</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="0,2">
+    <fieldset class="frage">
       <legend class="frage-text">Warum ist Signifikanz kein Gütebeweis?</legend>
       <div class="optionen">
-        <label><input type="checkbox" name="km7-03-q8" value="0" data-grund="Richtig — mit genügend Daten wird fast jeder Effekt signifikant, auch ein bedeutungsloser."> Mit genügend Daten wird fast jeder Effekt signifikant</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q8" value="0" data-grund="Richtig — mit genügend Daten wird fast jeder Effekt signifikant, auch ein bedeutungsloser."> Mit genügend Daten wird fast jeder Effekt signifikant</label>
         <label><input type="checkbox" name="km7-03-q8" value="1" data-grund="Falsch — ein kleiner p-Wert sagt nichts über die Größe des Effekts."> Ein kleiner p-Wert bedeutet einen großen Effekt</label>
-        <label><input type="checkbox" name="km7-03-q8" value="2" data-grund="Richtig — ob ein Effekt am Prozess etwas ändert, muss fachlich beurteilt werden, nicht statistisch."> Die praktische Relevanz muss man fachlich beurteilen</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q8" value="2" data-grund="Richtig — ob ein Effekt am Prozess etwas ändert, muss fachlich beurteilt werden, nicht statistisch."> Die praktische Relevanz muss man fachlich beurteilen</label>
         <label><input type="checkbox" name="km7-03-q8" value="3" data-grund="Falsch — die Power ersetzt die Relevanzprüfung nicht; sie sagt nur, wie sicher ein Effekt gefunden wird."> Die Power ersetzt die Relevanzprüfung</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="2">
+    <fieldset class="frage">
       <legend class="frage-text">Warum reichten für denselben 0,02-mm-Effekt
       100 Teile, obwohl 4000 auch „funktionieren"?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km7-03-q9" value="0" data-grund="Falsch — die Power steigt mit n, aber der zusätzliche Aufwand bringt keinen Erkenntnisgewinn."> Weil 4000 Teile zu ungenaue Messwerte liefern</label>
         <label><input type="checkbox" name="km7-03-q9" value="1" data-grund="Falsch — 4000 Teile erkennen den Effekt sogar sicherer; sie sind nur unnötig teuer."> Weil 4000 Teile den Effekt nicht erkennen können</label>
-        <label><input type="checkbox" name="km7-03-q9" value="2" data-grund="Richtig — 100 Teile erreichen bereits 80 % Power; die restlichen 3900 kosten nur Geld und Zeit."> Weil 100 Teile schon 80 % Power erreichen — der Rest ist Verschwendung</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q9" value="2" data-grund="Richtig — 100 Teile erreichen bereits 80 % Power; die restlichen 3900 kosten nur Geld und Zeit."> Weil 100 Teile schon 80 % Power erreichen — der Rest ist Verschwendung</label>
         <label><input type="checkbox" name="km7-03-q9" value="3" data-grund="Falsch — die Relevanz des Effekts hängt nicht von der Stichprobengröße ab."> Weil der Effekt bei 100 Teilen relevanter wird</label>
       </div>
     </fieldset>
@@ -387,25 +387,25 @@ power.t.test(n = 10, delta = 0.06, sd = 0.05, type = "paired")
   Irrtum der ganzen Teststatistik.</p>
 
   <div class="quiz" data-titel="Quiz: power-t-test-anwendung">
-    <fieldset class="frage" data-loesung="1">
+    <fieldset class="frage">
       <legend class="frage-text">Warum scheitert
       <code>power.t.test(delta = 0.02, sd = 0.05, power = 0.8,
       sig.level = 0.05)</code>?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km7-03-q10" value="0" data-grund="Falsch — die Argumente sind syntaktisch korrekt; das Problem ist die Anzahl der Unbekannten."> Weil <code>power.t.test()</code> kein <code>sig.level</code> kennt</label>
-        <label><input type="checkbox" name="km7-03-q10" value="1" data-grund="Richtig — genau eine der fünf Größen muss fehlen; hier fehlt n, aber es sind zu viele Argumente gesetzt."> Weil genau eine der fünf Größen fehlen muss</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q10" value="1" data-grund="Richtig — genau eine der fünf Größen muss fehlen; hier fehlt n, aber es sind zu viele Argumente gesetzt."> Weil genau eine der fünf Größen fehlen muss</label>
         <label><input type="checkbox" name="km7-03-q10" value="2" data-grund="Falsch — <code>delta</code> und <code>sd</code> sind zulässige Argumente."> Weil <code>delta</code> und <code>sd</code> nicht gemeinsam erlaubt sind</label>
         <label><input type="checkbox" name="km7-03-q10" value="3" data-grund="Falsch — die Funktion braucht kein <code>n</code>; sie soll es gerade berechnen."> Weil <code>n</code> immer angegeben werden muss</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="0,1">
+    <fieldset class="frage">
       <legend class="frage-text">Ein Bericht berechnet die Power erst
       <em>nach</em> dem Versuch aus dem gefundenen Effekt. Welche zwei
       Aussagen stimmen?</legend>
       <div class="optionen">
-        <label><input type="checkbox" name="km7-03-q11" value="0" data-grund="Richtig — die Power gehört vor den Versuch, mit einer Abschätzung der Streuung aus Vorversuchen."> Die Power gehört vor den Versuch, nicht danach</label>
-        <label><input type="checkbox" name="km7-03-q11" value="1" data-grund="Richtig — eine nachträgliche Power aus dem Ergebnis rechtfertigt nichts; sie sagt nur, was man gefunden hat."> Eine nachträgliche Power ist zur Rechtfertigung wertlos</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q11" value="0" data-grund="Richtig — die Power gehört vor den Versuch, mit einer Abschätzung der Streuung aus Vorversuchen."> Die Power gehört vor den Versuch, nicht danach</label>
+        <label><input type="checkbox" data-richtig name="km7-03-q11" value="1" data-grund="Richtig — eine nachträgliche Power aus dem Ergebnis rechtfertigt nichts; sie sagt nur, was man gefunden hat."> Eine nachträgliche Power ist zur Rechtfertigung wertlos</label>
         <label><input type="checkbox" name="km7-03-q11" value="2" data-grund="Falsch — die nachträgliche Rechnung ändert den p-Wert nicht."> Sie macht den p-Wert kleiner</label>
         <label><input type="checkbox" name="km7-03-q11" value="3" data-grund="Falsch — Relevanz lässt sich nicht durch Power ersetzen."> Sie ersetzt die fachliche Relevanzprüfung</label>
       </div>

@@ -179,6 +179,17 @@ fertigung |&gt;
   summarise(anteil = mean(ausser, na.rm = TRUE))
 <span class="cmt"># → anteil: 0.052 — also 6 von 116 verwertbaren Teilen: 5,2 %</span>
 </pre>
+  <div class="callout achtung">
+    <span class="label">Bewusst stehen gelassen: 6 statt 4</span>
+    <p>Diese binäre Prüfung zählt <em>6</em> Teile als Ausschuss. Davon
+    sind zwei Grenzfälle, die rechnerisch knapp außerhalb liegen, weil
+    10,15 sich binär nicht exakt darstellen lässt
+    (<code>abs(10.15 - 10)</code> ist <code>0.15000000000000036</code>) —
+    fachlich sind es <strong>4</strong> Ausschussteile. Warum, und wie man
+    Grenzvergleiche sauber rundet, steht in
+    <a href="../KM6-01-boxplot-und-grafikwahl/lesson.html">KM6-01</a> und
+    <a href="../KM7-01-mittelwertsvergleich-t-test/lesson.html">KM7-01</a>.</p>
+  </div>
   <p>Welche Maschine die 6 Teile geliefert hat, klärst du in der
   Aufgabe — mit denselben zwei Verben.</p>
 </section>

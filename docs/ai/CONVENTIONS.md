@@ -157,13 +157,16 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
 - Nutzung ausschließlich über den **Live-Server** (`./serve.sh`) oder
   GitHub Pages — **kein `file://`** (Firefox blockiert `file://`-Subressourcen
   aus Eltern-/Geschwisterverzeichnissen; siehe PITFALLS).
-- Quiz-Markup ist vereinheitlicht (Format 2.0, #42): `<div class="quiz"
-  data-titel="Quiz: <thema-slug>">` mit je Frage `<fieldset class="frage"
-  data-loesung="0,2">`, Frage im `<legend class="frage-text">`, vier
-  Checkbox-Optionen in `.optionen` (0-basierte `value`, lesson-präfixierter
-  `name`, je Option `data-grund`). **Keine Stufen** (`data-stufe`,
-  `niveau`) und **kein Show-Modal**; ein „Überprüfen"-Button je Frage,
-  Infokugel je Option, Färbung je Option, versteckte `aria-live`-Statuszeile.
+- Quiz-Markup ist vereinheitlicht (Format 2.1, #42): `<div class="quiz"
+  data-titel="Quiz: <thema-slug>">` mit je Frage `<fieldset class="frage">`,
+  Frage im `<legend class="frage-text">`, vier Checkbox-Optionen in
+  `.optionen` (lesson-präfixierter `name`, je Option `data-grund`). Die
+  Lösungsmenge steht **je Option** als `data-richtig` am Input — **kein
+  `data-loesung`, keine Positionskodierung**: `quiz.js` mischt die
+  Optionen beim Laden (Fisher-Yates), Reihenfolge und `value` sind
+  bedeutungslos. **Keine Stufen** (`data-stufe`, `niveau`) und **kein
+  Show-Modal**; ein „Überprüfen"-Button je Frage, Infokugel je Option,
+  Färbung je Option, versteckte `aria-live`-Statuszeile.
   Der Radio-Altmodus bleibt in `quiz.js` für alte Kohorten-Kopien lesbar,
   wird aber nicht mehr neu gebaut.
 - Initialisierung in über `loader.js` geladenen Skripten (`quiz.js`,

@@ -3,6 +3,23 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-11-07: Quiz-Format 2.1 — Lösungsmenge je Option, Optionen mischt quiz.js (#42)
+
+- **Choice:** Die Lösungsmenge steht **je Option** als `data-richtig` am
+  Input; `data-loesung` am Feldset entfällt. `quiz.js` mischt die Optionen
+  beim Laden per Fisher-Yates; „Nochmal versuchen" behält die Reihenfolge
+  (Begründungen bleiben am Platz). `value` ist endgültig bedeutungslos.
+  0-richtig-Fragen = nirgends `data-richtig`. Radio-Altmodus unverändert.
+- **Why:** Die Positionskodierung (`data-loesung` = DOM-Positionen) erzwang
+  Handrotation über A/B/C/D und produzierte genau daraus den KM7-03-Fehler
+  (Zyklus 0-1-0-2-1, Position D nie richtig). Shuffle macht Rotation
+  strukturell garantiert statt prüfpflichtig — die #42-Abnahme
+  „Positionen rotiert" ist damit **überholt** (Issue-Kommentar).
+- **Konsequenz:** CONVENTIONS „Format 2.1"; PITFALLS-Regel ersetzt
+  (Rotation ist kein Prüfschritt mehr); Migration KM6-01, KM7-01, KM7-02,
+  KM7-03 (70 Fragen, 76 `data-richtig`); KM7-02-Quiznamen nachgezogen
+  (`km7-02-qN`). `verify_quiz.py`-Rotationsprüfung entfällt.
+
 ## 2026-10-29: Schema-Erkundung per psql-Wrapper statt per R (#37)
 
 - **Choice:** Der Join-Graph der Schul-Postgres-DB (`clx`) wird mit `psql`

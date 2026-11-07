@@ -129,34 +129,34 @@ ggplot(daten, aes(x = maschine, y = masse_mm)) +
   M1 und M2 liegen vollständig innerhalb.</p>
 
   <div class="quiz" data-titel="Quiz: boxplot-fuenf-zahlen">
-    <fieldset class="frage" data-loesung="1,2">
+    <fieldset class="frage">
       <legend class="frage-text">Die Box reicht von Q1 bis Q3. Welche
       zwei Aussagen folgen daraus?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km6-01-q1" value="0" data-grund="Falsch — Q1 und Q3 sind Quartile, nicht die Extremwerte. Die Antennen reichen zu den äußersten Werten, die keine Ausreißer sind."> Q1 und Q3 sind Minimum und Maximum der Daten</label>
-        <label><input type="checkbox" name="km6-01-q1" value="1" data-grund="Richtig — zwischen Q1 und Q3 liegen die mittleren 50 % der Messwerte: 25 % darunter, 25 % darüber."> Zwischen Q1 und Q3 liegen 50 % der Messwerte</label>
-        <label><input type="checkbox" name="km6-01-q1" value="2" data-grund="Richtig — die Boxhöhe ist per Definition der Interquartilsabstand IQR = Q3 − Q1."> Die Höhe der Box ist der IQR = Q3 − Q1</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q1" value="1" data-grund="Richtig — zwischen Q1 und Q3 liegen die mittleren 50 % der Messwerte: 25 % darunter, 25 % darüber."> Zwischen Q1 und Q3 liegen 50 % der Messwerte</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q1" value="2" data-grund="Richtig — die Boxhöhe ist per Definition der Interquartilsabstand IQR = Q3 − Q1."> Die Höhe der Box ist der IQR = Q3 − Q1</label>
         <label><input type="checkbox" name="km6-01-q1" value="3" data-grund="Falsch — der Median liegt nur bei symmetrischer Verteilung mittig. Bei M3 liegt er mit 10,06 näher an Q1 (10,02) als an Q3 (10,11)."> Der Median liegt immer genau in der Mitte der Box</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="0,2,3">
+    <fieldset class="frage">
       <legend class="frage-text">Welche drei Aussagen folgen aus der
       Kennzahlen-Tabelle?</legend>
       <div class="optionen">
-        <label><input type="checkbox" name="km6-01-q2" value="0" data-grund="Richtig — 0,09 mm von 0,30 mm Toleranzbreite sind 30 %."> M3 nutzt 30 % der Toleranzbreite (IQR 0,09 mm)</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q2" value="0" data-grund="Richtig — 0,09 mm von 0,30 mm Toleranzbreite sind 30 %."> M3 nutzt 30 % der Toleranzbreite (IQR 0,09 mm)</label>
         <label><input type="checkbox" name="km6-01-q2" value="1" data-grund="Falsch — M3 hat mit 10,06 mm den größten Median der drei Maschinen, nicht den kleinsten."> M3 hat den kleinsten Median der drei Maschinen</label>
-        <label><input type="checkbox" name="km6-01-q2" value="2" data-grund="Richtig — M2 liegt bei 17 %, M1 bei 13 %; M2 nutzt also mehr des erlaubten Fensters."> M2 nutzt mit 17 % mehr Toleranzbreite als M1 mit 13 %</label>
-        <label><input type="checkbox" name="km6-01-q2" value="3" data-grund="Richtig — 0,09 mm gegen 0,04 mm ist mehr als das Doppelte (2,25-fach)."> M3 streut mehr als doppelt so stark wie M1</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q2" value="2" data-grund="Richtig — M2 liegt bei 17 %, M1 bei 13 %; M2 nutzt also mehr des erlaubten Fensters."> M2 nutzt mit 17 % mehr Toleranzbreite als M1 mit 13 %</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q2" value="3" data-grund="Richtig — 0,09 mm gegen 0,04 mm ist mehr als das Doppelte (2,25-fach)."> M3 streut mehr als doppelt so stark wie M1</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="0,1">
+    <fieldset class="frage">
       <legend class="frage-text">Welche zwei Probleme zeigt M3
       gleichzeitig?</legend>
       <div class="optionen">
-        <label><input type="checkbox" name="km6-01-q3" value="0" data-grund="Richtig — der IQR ist mit 0,09 mm deutlich größer als bei M1 (0,04) und M2 (0,05)."> Die Streuung ist größer als bei M1 und M2</label>
-        <label><input type="checkbox" name="km6-01-q3" value="1" data-grund="Richtig — der Median liegt mit 10,06 mm um 0,06 mm über dem Sollmaß 10,00 mm."> Die Lage ist zu hoch — der Median liegt 0,06 mm über dem Sollmaß</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q3" value="0" data-grund="Richtig — der IQR ist mit 0,09 mm deutlich größer als bei M1 (0,04) und M2 (0,05)."> Die Streuung ist größer als bei M1 und M2</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q3" value="1" data-grund="Richtig — der Median liegt mit 10,06 mm um 0,06 mm über dem Sollmaß 10,00 mm."> Die Lage ist zu hoch — der Median liegt 0,06 mm über dem Sollmaß</label>
         <label><input type="checkbox" name="km6-01-q3" value="2" data-grund="Falsch — M3 hat gar keine fehlenden Messwerte; die vier NA-Werte verteilen sich auf M1 (3) und M2 (1)."> Es fehlen zu viele Messwerte — nur 36 von 40 Teilen sind verwertbar</label>
         <label><input type="checkbox" name="km6-01-q3" value="3" data-grund="Falsch — M3 hat 40 gültige Messwerte. Die Stichprobengröße ist Teil der Versuchsplanung, nicht der Boxplot-Diagnose."> Die Stichprobe ist zu klein — 40 Teile reichen für keine Aussage</label>
       </div>
@@ -245,36 +245,36 @@ boxplot_stats &lt;- daten |&gt;
   </div>
 
   <div class="quiz" data-titel="Quiz: ausreisser-und-ausschuss">
-    <fieldset class="frage" data-loesung="1">
+    <fieldset class="frage">
       <legend class="frage-text">Für M2 gilt Q1 = 9,95, Q3 = 10,00 und
       IQR = 0,05. Wo liegt die untere Schranke?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km6-01-q4" value="0" data-grund="Falsch — 9,95 − 1 × 0,05 rechnet mit dem einfachen IQR; die Boxplot-Regel nutzt das 1,5-fache."> Bei 9,900 mm</label>
-        <label><input type="checkbox" name="km6-01-q4" value="1" data-grund="Richtig — 9,95 − 1,5 × 0,05 = 9,95 − 0,075 = 9,875 mm."> Bei 9,875 mm</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q4" value="1" data-grund="Richtig — 9,95 − 1,5 × 0,05 = 9,95 − 0,075 = 9,875 mm."> Bei 9,875 mm</label>
         <label><input type="checkbox" name="km6-01-q4" value="2" data-grund="Falsch — 9,85 ist die untere Toleranzgrenze, nicht die statistische Schranke."> Bei 9,850 mm</label>
         <label><input type="checkbox" name="km6-01-q4" value="3" data-grund="Falsch — hier wurde der dreifache IQR abgezogen (9,95 − 0,15); die Regel nutzt das 1,5-fache."> Bei 9,800 mm</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="2">
+    <fieldset class="frage">
       <legend class="frage-text">Ein Teil misst 9,84 mm. Bei M3 liegt es
       unter der unteren Schranke (9,885 mm) und außerhalb der Toleranz
       (9,85 mm). Was ist es?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km6-01-q5" value="0" data-grund="Falsch — die Toleranz entscheidet unabhängig von der Schranke: 9,84 &lt; 9,85, also Ausschuss."> Nur ein Ausreißer — die Toleranz spielt keine Rolle</label>
         <label><input type="checkbox" name="km6-01-q5" value="1" data-grund="Falsch — 9,84 liegt unter der unteren Schranke 9,885, also auch statistisch untypisch; es ist beides."> Nur Ausschuss — unter der Schranke heißt nicht Ausreißer</label>
-        <label><input type="checkbox" name="km6-01-q5" value="2" data-grund="Richtig — 9,84 liegt unter 9,885 (Ausreißer) und unter 9,85 (Ausschuss). Beide Kategorien sind unabhängig."> Ausreißer und Ausschuss — beide Kategorien treffen zu</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q5" value="2" data-grund="Richtig — 9,84 liegt unter 9,885 (Ausreißer) und unter 9,85 (Ausschuss). Beide Kategorien sind unabhängig."> Ausreißer und Ausschuss — beide Kategorien treffen zu</label>
         <label><input type="checkbox" name="km6-01-q5" value="3" data-grund="Falsch — 9,84 liegt unter beiden Grenzen. Nähe zur Toleranz ändert nichts an der Klassifikation."> Weder noch — 9,84 ist zu nah an der Toleranz</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="2">
+    <fieldset class="frage">
       <legend class="frage-text">Welche Bedingung zählt die
       Ausschussteile fachlich korrekt?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km6-01-q6" value="0" data-grund="Falsch — wegen der Binärdarstellung liefert sie für 10,15 mm TRUE und zählt 6 statt 4 Teile."> <code>abs(masse_mm - 10) &gt; 0.15</code></label>
         <label><input type="checkbox" name="km6-01-q6" value="1" data-grund="Falsch — sie zählt auch die beiden Teile exakt auf der Grenze als Ausschuss (6 statt 4)."> <code>abs(masse_mm - 10) &gt;= 0.15</code></label>
-        <label><input type="checkbox" name="km6-01-q6" value="2" data-grund="Richtig — Runden entfernt den Binär-Artefakt; der Grenzwert 0,15 bleibt in Toleranz, gezählt werden 4 Teile."> <code>round(abs(masse_mm - 10), 10) &gt; 0.15</code></label>
+        <label><input type="checkbox" data-richtig name="km6-01-q6" value="2" data-grund="Richtig — Runden entfernt den Binär-Artefakt; der Grenzwert 0,15 bleibt in Toleranz, gezählt werden 4 Teile."> <code>round(abs(masse_mm - 10), 10) &gt; 0.15</code></label>
         <label><input type="checkbox" name="km6-01-q6" value="3" data-grund="Falsch — `as.integer()` macht aus demselben Gleitkomma-Vergleich nur 0/1; die Grenzfälle bleiben falsch gezählt."> <code>as.integer(abs(masse_mm - 10) &gt; 0.15)</code></label>
       </div>
     </fieldset>
@@ -348,34 +348,34 @@ ggplot(daten, aes(x = charge, y = masse_mm, colour = maschine)) +
   </div>
 
   <div class="quiz" data-titel="Quiz: grafikwahl-und-grenzen">
-    <fieldset class="frage" data-loesung="2">
+    <fieldset class="frage">
       <legend class="frage-text">Du willst <em>abzählen</em>, wie viele
       Teile je Maschine außerhalb der Toleranz lagen. Welche Grafik?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km6-01-q7" value="0" data-grund="Falsch — der Boxplot zeigt die Verteilung der Masse je Maschine. Für eine reine Häufigkeitszählung je Kategorie ist er der falsche Typ."> Ein Boxplot je Maschine mit Toleranzlinien — er zeigt die Verteilung</label>
         <label><input type="checkbox" name="km6-01-q7" value="1" data-grund="Falsch — ein Histogramm zeigt die Verteilung einer metrischen Größe in Klassen. Die Toleranzlage ist aber eine Kategorie mit zwei Ausprägungen."> Ein Histogramm der Masse mit einer Linie bei 9,85 mm</label>
-        <label><input type="checkbox" name="km6-01-q7" value="2" data-grund="Richtig — Maschine und Toleranzlage sind Kategorien; gesucht ist eine Häufigkeit je Kategorie, nicht eine Verteilung."> Ein Balkendiagramm mit der Anzahl je Maschine und Toleranzlage</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q7" value="2" data-grund="Richtig — Maschine und Toleranzlage sind Kategorien; gesucht ist eine Häufigkeit je Kategorie, nicht eine Verteilung."> Ein Balkendiagramm mit der Anzahl je Maschine und Toleranzlage</label>
         <label><input type="checkbox" name="km6-01-q7" value="3" data-grund="Falsch — Charge ist das Fertigungslos, keine metrische Größe. Ein Streudiagramm zeigt Zusammenhänge zwischen Messwerten, keine Häufigkeiten."> Ein Streudiagramm von Masse gegen Charge — es zeigt den Zusammenhang</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="0,1,3">
+    <fieldset class="frage">
       <legend class="frage-text">Welche drei Aussagen zu Histogramm und
       Balkendiagramm stimmen?</legend>
       <div class="optionen">
-        <label><input type="checkbox" name="km6-01-q8" value="0" data-grund="Richtig — metrische Werte gehen ineinander über; deshalb stoßen die Balken des Histogramms aneinander."> Beim Histogramm stoßen die Balken an, weil metrische Werte ineinander übergehen</label>
-        <label><input type="checkbox" name="km6-01-q8" value="1" data-grund="Richtig — Kategorien haben keine natürliche Ordnung; die Lücke macht das sichtbar."> Beim Balkendiagramm bleiben Lücken, weil die Kategorien nichts miteinander zu tun haben</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q8" value="0" data-grund="Richtig — metrische Werte gehen ineinander über; deshalb stoßen die Balken des Histogramms aneinander."> Beim Histogramm stoßen die Balken an, weil metrische Werte ineinander übergehen</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q8" value="1" data-grund="Richtig — Kategorien haben keine natürliche Ordnung; die Lücke macht das sichtbar."> Beim Balkendiagramm bleiben Lücken, weil die Kategorien nichts miteinander zu tun haben</label>
         <label><input type="checkbox" name="km6-01-q8" value="2" data-grund="Falsch — 29 verschiedene Messwerte (alle Maschinen zusammen) ergeben 29 einzelne Balken. Eine Verteilung mit Klassen zeigt erst das Histogramm."> Für 29 verschiedene Messwerte ist ein Balkendiagramm die bessere Wahl</label>
-        <label><input type="checkbox" name="km6-01-q8" value="3" data-grund="Richtig — das Histogramm teilt die Werte in Klassen ein; die Balkenbreite ist die Klassenbreite."> Das Histogramm fasst Werte in Klassen zusammen</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q8" value="3" data-grund="Richtig — das Histogramm teilt die Werte in Klassen ein; die Balkenbreite ist die Klassenbreite."> Das Histogramm fasst Werte in Klassen zusammen</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="0,1">
+    <fieldset class="frage">
       <legend class="frage-text">Welche zwei Fragen kann der Boxplot
       allein <em>nicht</em> beantworten?</legend>
       <div class="optionen">
-        <label><input type="checkbox" name="km6-01-q9" value="0" data-grund="Richtig — ob die Lageverschiebung statistisch echt ist, klärt der t-Test; der Boxplot zeigt sie nur."> Ob die Lageverschiebung statistisch echt ist</label>
-        <label><input type="checkbox" name="km6-01-q9" value="1" data-grund="Richtig — ob die Ausschussquote von der Maschine abhängt, prüft der Chi-Test an der Kreuztabelle."> Ob die Ausschussquote von der Maschine abhängt</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q9" value="0" data-grund="Richtig — ob die Lageverschiebung statistisch echt ist, klärt der t-Test; der Boxplot zeigt sie nur."> Ob die Lageverschiebung statistisch echt ist</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q9" value="1" data-grund="Richtig — ob die Ausschussquote von der Maschine abhängt, prüft der Chi-Test an der Kreuztabelle."> Ob die Ausschussquote von der Maschine abhängt</label>
         <label><input type="checkbox" name="km6-01-q9" value="2" data-grund="Falsch — die Streuung zeigt der Boxplot direkt: Die Boxhöhe ist der IQR."> Wie stark eine Maschine um den Median streut</label>
         <label><input type="checkbox" name="km6-01-q9" value="3" data-grund="Falsch — der Median ist die Linie in der Box; er ist die zentrale Information des Boxplots."> Wo der Median der Verteilung liegt</label>
       </div>
@@ -440,24 +440,24 @@ ggplot(daten, aes(x = masse_mm)) + geom_bar()
   einteilt.</p>
 
   <div class="quiz" data-titel="Quiz: code-fallen">
-    <fieldset class="frage" data-loesung="0,1">
+    <fieldset class="frage">
       <legend class="frage-text">Welche zwei Aussagen zu den typischen
       Fehlern stimmen?</legend>
       <div class="optionen">
-        <label><input type="checkbox" name="km6-01-q10" value="0" data-grund="Richtig — bei fehlenden Werten bricht quantile() ohne na.rm komplett ab; es liefert nicht bloß NA."> <code>quantile()</code> bricht ohne <code>na.rm</code> ab, sobald NA im Vektor sind</label>
-        <label><input type="checkbox" name="km6-01-q10" value="1" data-grund="Richtig — die Funktion gibt eine Liste zurück; die Ausreißer stehen in der Komponente $out."> <code>boxplot.stats()</code> liefert eine Liste; die Ausreißer stehen in <code>$out</code></label>
+        <label><input type="checkbox" data-richtig name="km6-01-q10" value="0" data-grund="Richtig — bei fehlenden Werten bricht quantile() ohne na.rm komplett ab; es liefert nicht bloß NA."> <code>quantile()</code> bricht ohne <code>na.rm</code> ab, sobald NA im Vektor sind</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q10" value="1" data-grund="Richtig — die Funktion gibt eine Liste zurück; die Ausreißer stehen in der Komponente $out."> <code>boxplot.stats()</code> liefert eine Liste; die Ausreißer stehen in <code>$out</code></label>
         <label><input type="checkbox" name="km6-01-q10" value="2" data-grund="Falsch — genau das ist der Fehler: Ohne $out bekommt man die ganze Liste, nicht den Ausreißer-Vektor."> <code>boxplot.stats()</code> liefert direkt den Vektor der Ausreißer</label>
         <label><input type="checkbox" name="km6-01-q10" value="3" data-grund="Falsch — mean() liefert NA, ohne abzubrechen und ohne Warnung; nur quantile() wirft einen Fehler."> <code>mean()</code> bricht ohne <code>na.rm</code> ab und liefert keinen Wert</label>
       </div>
     </fieldset>
 
-    <fieldset class="frage" data-loesung="2">
+    <fieldset class="frage">
       <legend class="frage-text">Was zeigt
       <code>ggplot(daten, aes(x = masse_mm)) + geom_bar()</code>?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km6-01-q11" value="0" data-grund="Falsch — geom_bar() teilt nicht in Klassen ein; genau das ist der Unterschied zum Histogramm."> Ein Histogramm mit automatisch gewählten Klassen</label>
         <label><input type="checkbox" name="km6-01-q11" value="1" data-grund="Falsch — der Code läuft; stat_count() zählt die Werte je Kategorie und entfernt nur die vier fehlenden Messwerte."> Einen Fehler, weil ggplot keine stetige x-Achse kennt</label>
-        <label><input type="checkbox" name="km6-01-q11" value="2" data-grund="Richtig — jeder der 29 verschiedenen Messwerte wird eine eigene Kategorie; das ergibt 29 Balken, aber keine Verteilung."> 29 einzelne Balken — einen je gemessenem Wert</label>
+        <label><input type="checkbox" data-richtig name="km6-01-q11" value="2" data-grund="Richtig — jeder der 29 verschiedenen Messwerte wird eine eigene Kategorie; das ergibt 29 Balken, aber keine Verteilung."> 29 einzelne Balken — einen je gemessenem Wert</label>
         <label><input type="checkbox" name="km6-01-q11" value="3" data-grund="Falsch — fehlende Werte werden entfernt, nicht gezählt. Vier NA-Werte ergeben keinen Balken."> Vier Balken — einen für jeden fehlenden Messwert</label>
       </div>
     </fieldset>

@@ -86,9 +86,11 @@ Regeln:
 - Was man live zeigt, steht auf den Folien: Der Code ist das
   Unterrichtsskript, nicht Deko.
 
-## 5. Hausaufgaben-Format
+## 5. Aufgaben-Format (`aufgabe.md`)
 
-- Kopf: `# Hausaufgabe UE <n> — <Thema>` + Name/Abgabe-Zeile.
+- Kopf: `# Aufgabe <KM-Prefix> — <Thema>` + Name/Abgabe-Zeile (seit #42;
+  früher „Hausaufgabe UE <n>"). Wortlaut im Text: „Aufgabe"/„Mitarbeit",
+  nicht „Hausaufgabe"/„HA"/„HÜ".
 - 4–6 Aufgaben, **vorhersageorientiert**: erst Vorhersage mit der Hand,
   dann R prüfen (`Vorhersage: ___ · R-Ergebnis: ___`). Das trainiert
   mentalen Code-Ausführung — die Grundskill, auf der später alles sitzt.
