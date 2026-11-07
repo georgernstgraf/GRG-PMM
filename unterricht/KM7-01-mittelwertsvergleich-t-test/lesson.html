@@ -13,7 +13,6 @@
   <button type="button" class="theme-toggle" id="theme-toggle"
           aria-pressed="false">Dunkel</button>
   <span class="kicker">Lektion KM7-01 · Mittelwerte vergleichen</span>
-  <span class="ort">vor UE 1 · 5AHWIT WS · Wiederholung aus KM7</span>
   <h1>Sind die Maschinen wirklich unterschiedlich?</h1>
   <p class="subtitle">Der t-Test — und warum „der Unterschied ist
   signifikant" nicht das Ende der Antwort ist.</p>
@@ -25,8 +24,8 @@
      für Human- und Sozialwissenschaftler</a> (deutsch) — Kap. 13
      (t-Tests). Lies das Kapitel vor der Aufgabe; die Aufgabenfragen
      beziehen sich direkt darauf. Ergänzend NIST/SEMATECH e-Handbook,
-     Kap. 7 (<a href="https://www.itl.nist.gov/div898/handbook/pri/pri.htm">Handbook
-     of Statistical Methods</a>).</p>
+     Kap. 7 (<a href="https://www.itl.nist.gov/div898/handbook/ppc/ppc.htm">Product
+     and Process Comparisons</a>).</p>
 </div>
 
 <section>
@@ -63,7 +62,8 @@ t.test(masse_mm ~ maschine,
 <pre>
 library(tidyverse)
 
-daten &lt;- read_csv("../../assets/betriebsdaten.csv")
+daten &lt;- read_csv("assets/betriebsdaten.csv")
+<span class="cmt"># Arbeitsverzeichnis = Repo-Root</span>
 <span class="cmt"># → Rows: 120 Columns: 3
 #     maschine  &lt;chr&gt;  ·  charge  &lt;dbl&gt;  ·  masse_mm  &lt;dbl&gt;</span>
 </pre>
@@ -115,7 +115,7 @@ H1:  Die Maschinen haben unterschiedliche Mittelwerte
   immer nur <strong>H0</strong> — und die Logik ist bewusst
   asymmetrisch:</p>
 <pre>
-p &lt; 0,05  →  H0 wird verworfen: der Effekt ist echt (zu gut Glück)
+p &lt; 0,05  →  H0 wird verworfen: der Effekt ist echt (nicht bloß Glück)
 p &ge; 0,05  →  H0 bleibt: der Effekt war nicht erkennbar
 </pre>
   <p>Der Fehler, der hier am häufigsten passiert: <strong>ein
@@ -138,35 +138,70 @@ t.test(masse_mm ~ maschine, data = ...,
 #     ... is less than 0</span>
 </pre>
 
-  <div class="quiz" data-loesung="1">
-    <p class="frage">Ein Test ergibt <code>p = 0,42</code>. Was heißt das?</p>
-    <label><input type="radio" name="q1" value="0" data-grund="Falsch — p = 0,42 ist keine stattgefundene Nicht-Identität, sondern schlicht keine ausreichende Evidenz gegen H0."> Die beiden Maschinen sind gleich</label>
-    <label><input type="radio" name="q1" value="1" data-grund="Richtig — H0 wurde nicht verworfen; die Wirkung ist mit diesen Daten nicht nachweisbar, nicht widerlegt."> H0 wird nicht verworfen — ein Effekt war nicht nachweisbar</label>
-    <label><input type="radio" name="q1" value="2" data-grund="Falsch — bei p &ge; 0,05 verwirft man H0 gerade nicht, man behält sie bei."> H0 wird verworfen, weil der Effekt zu klein ist</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: hypothesen-und-p-wert">
+    <fieldset class="frage" data-loesung="1">
+      <legend class="frage-text">Ein Test ergibt <code>p = 0,42</code>.
+      Was heißt das?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-01-q1" value="0" data-grund="Falsch — p = 0,42 ist kein Beleg für Gleichheit, sondern nur fehlende Evidenz gegen H0."> Die beiden Maschinen sind gleich</label>
+        <label><input type="checkbox" name="km7-01-q1" value="1" data-grund="Richtig — H0 wurde nicht verworfen; der Effekt ist mit diesen Daten nicht nachweisbar, aber auch nicht widerlegt."> H0 wird nicht verworfen — ein Effekt war nicht nachweisbar</label>
+        <label><input type="checkbox" name="km7-01-q1" value="2" data-grund="Falsch — bei p ≥ 0,05 verwirft man H0 gerade nicht."> H0 wird verworfen, weil der Effekt zu klein ist</label>
+        <label><input type="checkbox" name="km7-01-q1" value="3" data-grund="Falsch — ein p-Wert über 0,05 ist ein normales Ergebnis, kein Hinweis auf einen ungültigen Test."> Der Test ist ungültig, weil p über 0,05 liegt</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage" data-loesung="0,3">
+      <legend class="frage-text">Welche zwei Aussagen zur Testlogik
+      stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-01-q2" value="0" data-grund="Richtig — geprüft wird ausschließlich H0; H1 ist die Gegenhypothese, die die Abweichung beschreibt."> Geprüft wird H0; H1 ist die Gegenhypothese</label>
+        <label><input type="checkbox" name="km7-01-q2" value="1" data-grund="Falsch — ein p-Wert ≥ 0,05 ist kein Beweis für Gleichheit, nur fehlende Evidenz dagegen."> Ein p-Wert ≥ 0,05 beweist, dass die Mittelwerte gleich sind</label>
+        <label><input type="checkbox" name="km7-01-q2" value="2" data-grund="Falsch — der p-Wert ist die Wahrscheinlichkeit der Daten unter H0, nicht die Wahrscheinlichkeit von H0."> Der p-Wert ist die Wahrscheinlichkeit, dass H0 wahr ist</label>
+        <label><input type="checkbox" name="km7-01-q2" value="3" data-grund="Richtig — „nicht nachweisbar" ist die korrekte Lesart; mehr sagt der Test nicht."> Ein p-Wert ≥ 0,05 heißt: mit diesen Daten nicht nachweisbar</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage" data-loesung="0">
+      <legend class="frage-text">Du willst wissen, ob sich eine Maschine
+      gegenüber dem Sollmaß in <em>irgendeine</em> Richtung verändert hat.
+      Welcher Test ist passend?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-01-q3" value="0" data-grund="Richtig — beide Richtungen zählen, also zweiseitig; das ist in R der Standard."> Zweiseitig, weil beide Richtungen zählen</label>
+        <label><input type="checkbox" name="km7-01-q3" value="1" data-grund="Falsch — einseitig prüft nur eine Richtung (z. B. „größer"); eine Veränderung nach unten würde übersehen."> Einseitig, weil nur „zu groß" zählt</label>
+        <label><input type="checkbox" name="km7-01-q3" value="2" data-grund="Falsch — die Testrichtung hängt von der Frage ab, nicht von der Stichprobengröße."> Einseitig, weil die Stichprobe klein ist</label>
+        <label><input type="checkbox" name="km7-01-q3" value="3" data-grund="Falsch — die Richtung legt man vor dem Test fest; der p-Wert entscheidet nicht über das Design."> Das entscheidet der p-Wert</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
 <section>
   <h2>Schritt 3 — Der z-Test: wenn &sigma; bekannt ist</h2>
   <p>Der <strong>z-Test</strong> ist der einfachste Fall: Du weißt die
-  Grundgesamtheits-Streuung &sigma; genau. Dann geht die Unsicherheit
-  eines Mittelwerts aus <code>n</code> Messungen direkt hervor:</p>
+  Grundgesamtheits-Streuung &sigma; genau. Für den Vergleich zweier
+  Mittelwerte brauchst du den <strong>Standardfehler der Differenz</strong>
+  — beide Unsicherheiten zählen:</p>
 <pre>
-Standardfehler = &sigma; / &radic;n
+Standardfehler = sqrt(&sigma;1&sup2;/n1 + &sigma;2&sup2;/n2)
 </pre>
-  <p>37 Messungen, &sigma; = 0,032 mm:</p>
+  <p>Für M1 gegen M3 mit s1 = 0,0315 (n = 37) und s2 = 0,0696
+  (n = 40):</p>
 <pre>
-0.0315 / sqrt(37)
-<span class="cmt"># → 0.005178</span>
+sqrt(0.0315^2 / 37 + 0.0696^2 / 40)
+<span class="cmt"># → 0.0122</span>
 </pre>
-  <p>Die mittlere Abweichung eines Messwerts vom wahren Mittelwert ist
-  also rund 0,005 mm groß. Und der geprüfte Effekt ist 0,062 mm — das
-  ist mehr als das Zwölffache. Der Effekt gewinnt klar.</p>
+  <p>Der geprüfte Effekt ist 0,0622 mm — das ist rund das Fünffache des
+  Standardfehlers:</p>
 <pre>
-z = 0.06225 / 0.005178
-<span class="cmt"># → 12.02</span>
+z = 0.06225 / 0.0122
+<span class="cmt"># → 5.11</span>
 </pre>
+  <div class="callout">
+    <span class="label">Nicht den einfachen Standardfehler nehmen</span>
+    <p>0,0315 / &radic;37 ≈ 0,0052 beschreibt nur die Unsicherheit von
+    M1. In die Differenz gehen <em>beide</em> Gruppen ein — deshalb die
+    Summe der Varianzen im Nenner.</p>
+  </div>
 
   <div class="callout">
     <span class="label">Der Grund, warum es den z-Test kaum noch gibt</span>
@@ -186,9 +221,13 @@ z = 0.06225 / 0.005178
   <code>s</code> mitdenkt:</p>
 <pre>
 t = (Differenz der Mittelwerte - 0)
-    --------------------------------
-     Streuung / &radic;n
+    ---------------------------------
+     sqrt(s1&sup2;/n1 + s2&sup2;/n2)
 </pre>
+  <p>Mit geschätzten Streuungen ist der Nenner unsicher — das fängt die
+  t-Verteilung über die Freiheitsgrade ab. Hier liegt t = −5,11 fast
+  gleichauf mit dem z-Wert: Bei n ≈ 40 ist die Schätzung schon gut, der
+  Unterschied zwischen beiden Verfahren klein.</p>
   <p>M1 gegen M3, ungepaart, mit ungleichen Streuungen (das ist der
   <strong>Welch</strong>-Test, R macht den automatisch):</p>
 <pre>
@@ -212,13 +251,39 @@ t.test(masse_mm ~ maschine, data = vergleich)
   95-%-Schranke liegt weiter von null weg. <strong>Weniger Daten →
   strengeres Urteil.</strong></p>
 
-  <div class="quiz" data-loesung="0">
-    <p class="frage">Warum nennt R beim ungepaarten Test die
-    Freiheitsgrade <code>55.272</code> und nicht <code>55</code>?</p>
-    <label><input type="radio" name="q2" value="0" data-grund="Richtig — Welch gewichtet die Gruppen nach ihren Streuungen und liefert darum eine nicht ganzzahlige Freiheitsgradzahl."> Weil die Gruppen unterschiedliche Streuungen haben und Welch sie gegeneinander abwägt</label>
-    <label><input type="radio" name="q2" value="1" data-grund="Falsch — R rundet Freiheitsgrade nicht; die Nachkommastellen sind das Ergebnis der Welch-Gewichtung."> Weil R die Freiheitsgrade nicht auf rundet</label>
-    <label><input type="radio" name="q2" value="2" data-grund="Falsch — die Zahl hängt an den Streuungen der beiden Gruppen, nicht an der Rundung."> Weil die Stichprobe zu klein für ganzzahlige Grade ist</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: z-test-und-t-test">
+    <fieldset class="frage" data-loesung="0">
+      <legend class="frage-text">Warum nennt R beim ungepaarten Test die
+      Freiheitsgrade <code>55.272</code> und nicht <code>55</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-01-q4" value="0" data-grund="Richtig — Welch gewichtet die Gruppen nach ihren Streuungen und liefert darum eine nicht ganzzahlige Freiheitsgradzahl."> Weil die Gruppen unterschiedliche Streuungen haben und Welch sie gegeneinander abwägt</label>
+        <label><input type="checkbox" name="km7-01-q4" value="1" data-grund="Falsch — R rundet Freiheitsgrade nicht; die Nachkommastellen sind das Ergebnis der Welch-Gewichtung."> Weil R die Freiheitsgrade nicht aufrundet</label>
+        <label><input type="checkbox" name="km7-01-q4" value="2" data-grund="Falsch — die Zahl hängt an den Streuungen der beiden Gruppen, nicht an der Stichprobengröße allein."> Weil die Stichprobe zu klein für ganzzahlige Grade ist</label>
+        <label><input type="checkbox" name="km7-01-q4" value="3" data-grund="Falsch — df ist nicht grundsätzlich gebrochen; beim gepaarten Test ist sie ganzzahlig (n − 1)."> Weil Freiheitsgrade immer Kommazahlen sind</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage" data-loesung="1,2">
+      <legend class="frage-text">Worin unterscheiden sich z-Test und
+      t-Test?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-01-q5" value="0" data-grund="Falsch — genau umgekehrt: der z-Test setzt die bekannte Grundgesamtheits-Streuung voraus, der t-Test schätzt sie."> Der z-Test nutzt die Stichproben-Streuung, der t-Test die Grundgesamtheits-Streuung</label>
+        <label><input type="checkbox" name="km7-01-q5" value="1" data-grund="Richtig — der z-Test braucht die bekannte Streuung der Grundgesamtheit."> Der z-Test setzt die bekannte Grundgesamtheits-Streuung voraus</label>
+        <label><input type="checkbox" name="km7-01-q5" value="2" data-grund="Richtig — der t-Test schätzt die Streuung aus der Stichprobe und ist deshalb konservativer."> Der t-Test schätzt die Streuung und ist deshalb konservativer</label>
+        <label><input type="checkbox" name="km7-01-q5" value="3" data-grund="Falsch — der t-Test gibt es auch ungepaart; die Paarung ist eine separate Entscheidung."> Der t-Test ist nur für gepaarte Daten gedacht</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage" data-loesung="0">
+      <legend class="frage-text">Wie groß ist der Standardfehler der
+      Differenz M1 gegen M3 (s = 0,0315 bzw. 0,0696; n = 37 bzw. 40)?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-01-q6" value="0" data-grund="Richtig — sqrt(0,0315²/37 + 0,0696²/40) ≈ 0,0122; beide Gruppen gehen ein."> Rund 0,0122 mm</label>
+        <label><input type="checkbox" name="km7-01-q6" value="1" data-grund="Falsch — das ist nur der Standardfehler von M1; die Unsicherheit von M3 fehlt."> Rund 0,0052 mm</label>
+        <label><input type="checkbox" name="km7-01-q6" value="2" data-grund="Falsch — Streuungen werden quadriert und durch n geteilt, nicht einfach addiert und durch sqrt(n) geteilt."> Rund 0,0115 mm</label>
+        <label><input type="checkbox" name="km7-01-q6" value="3" data-grund="Falsch — das ist nur der Standardfehler von M3; die Unsicherheit von M1 fehlt."> Rund 0,0110 mm</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -299,14 +364,39 @@ t = mean(d) / (sd(d) / sqrt(length(d)))
   die der Messwerte. Wer hier die Messwert-Streuung einsetzt, rechnet
   den falschen Test.</p>
 
-  <div class="quiz" data-loesung="2">
-    <p class="frage">Ein Automobilwerk prüft 40 linke und 40 rechte
-    Stoßfänger derselben <strong>Tagesschicht</strong> auf Gewichts-
-    gleichheit. Welcher Test passt?</p>
-    <label><input type="radio" name="q3" value="0" data-grund="Falsch — die Werte sind verbunden, weil dieselbe Schicht an beiden Seiten gearbeitet hat; ein ungepaarter Test wirft diese Information weg."> Ungepaart, weil zwei getrennte Stichproben vorliegen</label>
-    <label><input type="radio" name="q3" value="1" data-grund="Falsch — der z-Test käme nur zum Einsatz, wenn die Grundgesamtheits-Streuung bekannt wäre; die kennt man hier nicht."> Zwei-seitiger z-Test, da zwei Stichproben verglichen werden</label>
-    <label><input type="radio" name="q3" value="2" data-grund="Richtig — gleiche Schicht, gleicher Zeitpunkt: die Teile hängen paarweise zusammen, also gepaarter Test über 40 Paare."> Gepaart, weil die Teile aus derselben Schicht stammen</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: gepaart-oder-ungepaart">
+    <fieldset class="frage" data-loesung="2">
+      <legend class="frage-text">Ein Automobilwerk prüft 40 linke und 40
+      rechte Stoßfänger derselben <strong>Tagesschicht</strong> auf
+      Gewichtsgleichheit. Welcher Test passt?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-01-q7" value="0" data-grund="Falsch — die Werte sind verbunden, weil dieselbe Schicht an beiden Seiten gearbeitet hat; ein ungepaarter Test wirft diese Information weg."> Ungepaart, weil zwei getrennte Stichproben vorliegen</label>
+        <label><input type="checkbox" name="km7-01-q7" value="1" data-grund="Falsch — der z-Test käme nur zum Einsatz, wenn die Grundgesamtheits-Streuung bekannt wäre; die kennt man hier nicht."> Zweiseitiger z-Test, da zwei Stichproben verglichen werden</label>
+        <label><input type="checkbox" name="km7-01-q7" value="2" data-grund="Richtig — gleiche Schicht, gleicher Zeitpunkt: die Teile hängen paarweise zusammen, also gepaarter Test über 40 Paare."> Gepaart, weil die Teile aus derselben Schicht stammen</label>
+        <label><input type="checkbox" name="km7-01-q7" value="3" data-grund="Falsch — gleiche Gruppengröße allein begründet keine Paarung; entscheidend ist die inhaltliche Zuordnung."> Gepaart, weil beide Gruppen gleich groß sind</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage" data-loesung="0,2">
+      <legend class="frage-text">Woran erkennt man gepaarte Daten?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-01-q8" value="0" data-grund="Richtig — dieselbe Einheit wird zweimal gemessen; die Differenz pro Paar entfernt die gemeinsame Streuung."> Dieselbe Einheit wird zweimal gemessen (vorher/nachher)</label>
+        <label><input type="checkbox" name="km7-01-q8" value="1" data-grund="Falsch — gleiche Gruppengröße ist weder notwendig noch hinreichend für Paarung."> Beide Gruppen sind gleich groß</label>
+        <label><input type="checkbox" name="km7-01-q8" value="2" data-grund="Richtig — nur wenn sich die Werte sinnvoll zu Paaren zuordnen lassen, darf gepaart gerechnet werden."> Die Werte lassen sich sinnvoll zu Paaren zuordnen</label>
+        <label><input type="checkbox" name="km7-01-q8" value="3" data-grund="Falsch — Normalverteilung ist eine Voraussetzung, aber kein Kriterium für Paarung."> Beide Gruppen sind normalverteilt</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage" data-loesung="0">
+      <legend class="frage-text">Warum hat der gepaarte Test hier
+      <code>df = 9</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-01-q9" value="0" data-grund="Richtig — 10 Paare ergeben 10 Differenzen; df = n − 1 = 9."> Weil 10 Paare zu 10 Differenzen führen: df = n − 1 = 9</label>
+        <label><input type="checkbox" name="km7-01-q9" value="1" data-grund="Falsch — 40 + 40 − 2 = 78 wäre der ungepaarte Test; der gepaarte rechnet nur mit den 10 Differenzen."> Weil 40 + 40 − 2 = 78, aber R rundet auf 9</label>
+        <label><input type="checkbox" name="km7-01-q9" value="2" data-grund="Falsch — Welch ist der ungepaarte Fall; beim gepaarten Test ist df immer n − 1."> Weil Welch die Freiheitsgrade zusammenfasst</label>
+        <label><input type="checkbox" name="km7-01-q9" value="3" data-grund="Falsch — auch der gepaarte Test hat Freiheitsgrade, nämlich n − 1."> Weil der gepaarte Test keine Freiheitsgrade hat</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -367,21 +457,49 @@ mean(daten$masse_mm)
   einmal als Standardfunktion an. <code>qnorm()</code> und
   <code>qt()</code> liefern die Quantile beider Verteilungen, falls du
   eine Rechnung von Hand nachvollziehen willst.</p>
+
+  <div class="quiz" data-titel="Quiz: typische-fehlschluesse">
+    <fieldset class="frage" data-loesung="0">
+      <legend class="frage-text">Was liefert
+      <code>mean(daten$masse_mm)</code> ohne <code>na.rm</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-01-q10" value="0" data-grund="Richtig — ein NA im Vektor macht das ganze Ergebnis NA; die vier fehlenden Messungen kippen den Wert."> <code>NA</code>, weil vier Messwerte fehlen</label>
+        <label><input type="checkbox" name="km7-01-q10" value="1" data-grund="Falsch — R ignoriert fehlende Werte nicht still; ohne na.rm wird das Ergebnis NA."> Den Mittelwert der gültigen 116 Werte</label>
+        <label><input type="checkbox" name="km7-01-q10" value="2" data-grund="Falsch — es ist kein Fehler; R liefert NA und rechnet weiter."> Einen Fehler, der das Skript abbricht</label>
+        <label><input type="checkbox" name="km7-01-q10" value="3" data-grund="Falsch — der Mittelwert der drei Maschinen ist nicht gefragt; mean() über den ganzen Vektor liefert NA."> Die Mittelwerte der drei Maschinen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage" data-loesung="1,2">
+      <legend class="frage-text">Ein Test ergibt <code>p = 0,005</code> für
+      den Unterschied M1/M2 (0,024 mm). Welche zwei Aussagen stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-01-q11" value="0" data-grund="Falsch — ein kleiner p-Wert zeigt einen Unterschied, keine Qualität und keine Richtung."> Die bessere Maschine ist damit nachgewiesen</label>
+        <label><input type="checkbox" name="km7-01-q11" value="1" data-grund="Richtig — der Test zeigt einen statistischen Unterschied, aber kein Urteil über die Richtung."> Der Test zeigt einen Unterschied, keine Richtung</label>
+        <label><input type="checkbox" name="km7-01-q11" value="2" data-grund="Richtig — 0,024 mm sind ein Sechstel der Toleranz; ob das wirtschaftlich zählt, sagt der p-Wert nicht."> Ob der Unterschied relevant ist, sagt der p-Wert nicht</label>
+        <label><input type="checkbox" name="km7-01-q11" value="3" data-grund="Falsch — der p-Wert ist keine Wahrscheinlichkeit dafür, dass eine Maschine besser ist."> Der p-Wert ist die Wahrscheinlichkeit, dass M1 besser ist</label>
+      </div>
+    </fieldset>
+  </div>
 </section>
 
 <section>
   <h2>Zusammenfassung</h2>
   <table>
-    <tr><th>Baustein</th><th>Wofür</th></tr>
-    <tr><td>Effekt vs. Streuung</td><td>Ein Test vergleicht die Differenz der Mittelwerte mit dem Rauschen</td></tr>
-    <tr><td>H0 / H1</td><td>H0 ist die Arbeitshypothese; geprüft wird <em>nur</em> H0</td></tr>
-    <tr><td>p &lt; 0,05</td><td>H0 verwerfen — ein nachgewiesener Effekt</td></tr>
-    <tr><td>p &ge; 0,05</td><td>H0 bleibt — <em>kein Nachweis</em>, nicht „gleicher Mittelwert"</td></tr>
-    <tr><td>z-Test</td><td>&sigma; der Grundgesamtheit bekannt — in der Praxis fast nie</td></tr>
-    <tr><td>t-Test ungepaart</td><td>Zwei unabhängige Stichproben, Mittelwerte vergleichen</td></tr>
-    <tr><td>t-Test gepaart</td><td>Werte hängen paarweise zusammen; rechnet über die <em>Differenzen</em></td></tr>
-    <tr><td>df</td><td>Freiheitsgrade; weniger Daten → weitere 95-%-Schranken</td></tr>
-    <tr><td>Konfidenzintervall</td><td>Der Effekt mit seinem Unsicherheitsbereich — die ehrlichere Zahl</td></tr>
+    <thead>
+      <tr><th scope="col">Baustein</th><th scope="col">Wofür</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Effekt vs. Streuung</td><td>Ein Test vergleicht die Differenz der Mittelwerte mit dem Rauschen</td></tr>
+      <tr><td>H0 / H1</td><td>H0 ist die Arbeitshypothese; geprüft wird <em>nur</em> H0</td></tr>
+      <tr><td>p &lt; 0,05</td><td>H0 verwerfen — ein nachgewiesener Effekt</td></tr>
+      <tr><td>p &ge; 0,05</td><td>H0 bleibt — <em>kein Nachweis</em>, nicht „gleicher Mittelwert"</td></tr>
+      <tr><td>z-Test</td><td>&sigma; der Grundgesamtheit bekannt — in der Praxis fast nie</td></tr>
+      <tr><td>t-Test ungepaart</td><td>Zwei unabhängige Stichproben, Mittelwerte vergleichen</td></tr>
+      <tr><td>t-Test gepaart</td><td>Werte hängen paarweise zusammen; rechnet über die <em>Differenzen</em></td></tr>
+      <tr><td>df</td><td>Freiheitsgrade; weniger Daten → weitere 95-%-Schranken</td></tr>
+      <tr><td>Konfidenzintervall</td><td>Der Effekt mit seinem Unsicherheitsbereich — die ehrlichere Zahl</td></tr>
+    </tbody>
   </table>
   <p><strong>Ausblick:</strong> Drei Maschinen und drei Vergleiche — du
   hast jeden <em>paarweise</em> getestet. Was, wenn du alle drei auf
@@ -400,11 +518,25 @@ mean(daten$masse_mm)
   — <strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
 </section>
 
+<details class="lehrplan">
+  <summary>Lehrplan &amp; Einordnung</summary>
+  <ul>
+    <li><strong>Lehrplan:</strong> PMM (HWIT), 4. Jahrgang — Statistische
+      Tests (Mittelwertsvergleich), Semesterplan
+      <code>lehrplan/pmm-hwit/jg4-semesterplan-ws.md</code></li>
+    <li><strong>KM-Bezug:</strong> KM7 (Statistische Tests) — z- und
+      t-Test, gepaart/ungepaart; Querbezug zu KM6-01 (Boxplot) und
+      KM7-02/03</li>
+    <li><strong>Runtime:</strong> R 4.5 / tidyverse, <code>t.test()</code>,
+      <code>mean()</code>, <code>sd()</code>, <code>qt()</code></li>
+  </ul>
+</details>
+
 <footer class="navi">
   <p><strong>Quelle zum Weiterlesen:</strong> Navarro,
   <a href="https://learningstatisticswithr.com/book/">Kap. 13</a>
   (Hauptlektüre) · NIST/SEMATECH e-Handbook,
-  <a href="https://www.itl.nist.gov/div898/handbook/pri/pri.htm">Kap. 7</a>
+  <a href="https://www.itl.nist.gov/div898/handbook/ppc/ppc.htm">Kap. 7</a>
   (Product and Process Comparisons).</p>
   <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
   ist zu klein, solange du den Code dabei hast.</p>
