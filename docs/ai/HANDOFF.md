@@ -41,17 +41,6 @@ Ideen-Parkplatz aus `kuriose-quellen.md` ausformulieren, KM8/KM9b bei der
 SS-2027-Planung ergänzen.
 Konvention: `Projekte/fragestellungen-statistik/README.md`.
 
-### WÜ-Korrekturen nach 20./21./23.10. (GRG-PMM-T #5)
-**Priority:** high (Prüfungen laufen diese Woche)
-**Context:** Drei WÜ gebaut und committed (GRG-PMM-T `a224ee0`): 4AHWIT-x
-2026-10-20 (Setup, SA-00, R-Basics, ggplot, Git, Block E R/R-GUI/RStudio),
-5AHWIT 2026-10-21 (Setup, VS Code/Workspace, GitHub-Workflow, R-On-Ramp,
-Chi-Quadrat), 4AHWIT-y 2026-10-23 (Setup, R-Grundlagen, Kennzahlen/Verteilungen,
-Binomialverteilung mit R, sd/var/n−1). Je 35 MC + 3 FT = 152 P, kein
-Notenschlüssel. GRG-PMM-T #4 (WÜ 13.10., nie gehalten) geschlossen.
-**Action:** Nach den Terminen per `knowledge-assessment` korrigieren, dann
-GRG-PMM-T #5 schließen.
-
 ### 5AHWIT: DS-Stoff 7.10. + 14.10. nur in Erinnerung, nicht im Repo
 **Priority:** medium
 **Context:** Bei der Stoff-Recherche für die 5AHWIT-WÜ fehlt der Beleg für
@@ -107,6 +96,12 @@ auf ✅; danach L05 bauen.
 
 
 ## Erledigt (dieser Zyklus)
+- **GRG-PMM-T #5 (2026-11-07):** Alle drei WÜ korrigiert — 4ahwit-x/2026-10-20
+  (14), 5ahwit/2026-10-21 (17), 4ahwit-y/2026-10-23 (12): je Schüler
+  grading.md + email.json, Aggregate CLASS.md/GRADINGS.md/EMAIL.json.
+  Commits `4a44e37`, Noten-TSV `4a4546d`/`5b8d604` (#121). E-Mail-Payloads
+  liegen bereit je Klassenordner — Versand ist Sache der Lehrperson.
+  Issue geschlossen, Handoff-Eintrag entfernt.
 - **#42 komplett (2026-11-07):** Quiz-Format 2.1 in allen 11 Quiz-Lessons; SA-00–03 geerntet (SA-00 Neubau 90 min, SA-01–03 vertieft), alle `praesentation.html` gelöscht, `assets/slides.css` entfernt, Navigator + Folien-Querverweise (KM7-04/05, SA-04-Footer, km7-verlauf, 4ahwit-x/README, 5ahwit-Kopie) auf lesson.html, 20 GLOSSAR-Einträge, Docs angepasst. Alle Folien-Behauptungen per Rscript geprüft, fünf falsche korrigiert (342 statt 344 Punkte, Ausreißer-Demo 10.0475, ggplot2 4.0.3 „group_by ohne summarise" = 1 Panel, dplyr-Fehlermeldung, 8 statt 11 Spalten). **Beobachtung:** SA-04-Quiz hat fast nur 1-richtig-Verteilung (18 Fragen, einmal 2) — falls je nachgebessert.
 - **GRG-PMM #40 (Nachtrag):** Quiz-Format-2.0-Styling-Rework
   (`assets/lesson.css` + `assets/quiz.js`) committed und gepusht
