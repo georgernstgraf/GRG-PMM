@@ -103,18 +103,18 @@ daten |>
 daten |>
   filter(!is.na(masse_mm)) |>
   group_by(maschine) |>
-  summarise(ausserhalb = sum(abs(masse_mm - 10) > 0.15))
+  summarise(ausserhalb = sum(round(abs(masse_mm - 10), 10) > 0.15))
 ```
 
-| Maschine | Ausreißer (1,5 IQR) | außerhalb Toleranz |
+| Maschine | Ausreißer (1,5 × IQR, gerundet) | außerhalb Toleranz |
 |----------|----------------------|--------------------|
 | M1 | | |
 | M2 | | |
 | M3 | | |
 
-**c)** Der Qualitätsmanager wollte „die 6 Ausschusteile von M3
+**c)** Der Qualitätsmanager wollte „die 4 Ausschusteile von M3
 aussortieren". Was sagt ihm der Boxplot stattdessen? Erkläre in 3 Sätzen
-— denk an die Lage des Zau ns (Q1 − 1,5 · IQR) bei M3.
+— denk an die Lage der unteren Schranke (Q1 − 1,5 · IQR) bei M3.
 
 _________________________________________________
 
@@ -146,7 +146,7 @@ gesehen hast? ____________________
 ```r
 daten |>
   filter(!is.na(masse_mm)) |>
-  mutate(ausserhalb = abs(masse_mm - 10) > 0.15) |>
+  mutate(ausserhalb = round(abs(masse_mm - 10), 10) > 0.15) |>
   ggplot(aes(x = maschine, fill = ausserhalb)) +
   geom_bar() +
   labs(x = "Maschine", y = "Anzahl Teile", fill = "außerhalb Toleranz")

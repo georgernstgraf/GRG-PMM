@@ -66,6 +66,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | AQL | Acceptable Quality Limit | Schlechtester noch akzeptabler Qualitätszustand; Kerngröße ISO 2859, UE 9–10 (KM7, 4HWIT WS) |
 | ARL | Average Run Length | Mittlere Anzahl Punkte bis zum Regelkarten-Alarm; KM8 |
 | Ausschuss | Scrap (rejects) | Teile außerhalb der Toleranzgrenzen, als Anteil gemessen; Lektion 0003 (R-On-Ramp, 5AHWIT WS) |
+| Ausreißer | outlier | Punkt jenseits der 1,5-IQR-Schranke; **statistische** Kategorie, nicht spezifikationsbezogen — nicht mit Ausschuss verwechseln; `KM6-01` |
 | Badewannenkurve | Bathtub curve | Ausfallrate über der Lebensdauer: Früh-/Zufalls-/Verschleißphase; KM9b |
 | Bessel-Korrektur | Bessel's correction | Teilen durch n − 1 in `sd()`/`var()` macht die Stichprobenvarianz erwartungstreu; UE 4 (KM7, 4HWIT WS) |
 | Binomialkoeffizient | n choose k | `(n über k)`: Anzahl der Wege mit genau k Erfolgen unter n; `choose(n, k)`; UE 4 (KM5-Wiederholung, `KM5-01`) |
@@ -91,6 +92,7 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | Pascalsches Dreieck | Pascal's triangle | Zahlenmuster: Zeile n = die `(n über k)`; „zwei darüber addieren"; R: `choose(n, 0:n)`; UE 4 (KM5-Wiederholung, `KM5-01`) |
 | QS | Qualitätssicherung | Anwendungsdomäne des Fachs |
 | RBD | Reliability Block Diagram | Systemzuverlässigkeit: Serie/Parallel/k-aus-n; KM9b |
+| Schranke (Boxplot) | fence | Grenze für Ausreißer: Q1 − 1,5·IQR bzw. Q3 + 1,5·IQR; nicht die Toleranzgrenze; `KM6-01` |
 | Schätzwert / Parameter | estimate / parameter | x̄, s (aus der Stichprobe) schätzen μ, σ (Grundgesamtheit); UE 4 (KM7, 4HWIT WS) |
 | Shewhart | Walter A. Shewhart | Erfinder der Regelkarte (1930er); KM8 |
 | Sollwert | Target value | Zielwert eines Merkmals, auf den der Prozess mittig einstellt (z. B. 10,00 mm); Lektion 0003 (R-On-Ramp, 5AHWIT WS) |
