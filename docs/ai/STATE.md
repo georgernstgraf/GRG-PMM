@@ -23,7 +23,9 @@ und alle Folien-Querverweise (KM7-04/05, SA-04-Footer, km7-verlauf,
 4ahwit-x/README, 5ahwit-Kopie) auf lesson.html umgezogen, 20 neue
 GLOSSAR-Einträge. Alle Folien-Behauptungen gegen Rscript geprüft — fünf
 waren falsch/veraltet und wurden korrigiert (Details DECISIONS 2026-11-07).
-Harness `sa-harvest-test.mjs` über alle 5 Lessons grün.
+Harness `sa-harvest-test.mjs` über alle 5 Lessons grün (statischer
+Quiz-2.1-Vertragscheck; liegt ephemär in `/tmp/opencode/` wie schon
+`quiz21-test.mjs`).
 
 **Lektionsserie Datenaufbereitung (#37):** SA-04 „Daten einlesen II: die
 raue Wirklichkeit" ist gebaut und committed (2026-10-19, `7f70261`) —
