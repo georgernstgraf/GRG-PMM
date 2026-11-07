@@ -68,6 +68,9 @@ messwerte |>
 - Mittelwert: ________ &nbsp; Median: ________ &nbsp; sd: ________ &nbsp; IQR: ________
 - Liegt der Prozess mittig am Sollwert 10,0? Begründe mit zwei Kennzahlen
   (1–2 Sätze): _________________________________________________
+- Schwanz-Regel: Liegen `mean` und `median` nahe beieinander oder zieht
+  ein Schwanz einen der beiden? Was folgt für die Form der Verteilung?
+  (1 Satz): _________________________________________________
 
 ---
 
@@ -102,10 +105,51 @@ ggplot(penguins, aes(x = species, y = body_mass_g)) +
 - Welche Art hat den höchsten Median? ________ &nbsp; die größte Streuung? ________
 - Wie erkennst du Streuung am Boxplot (statt an Zahlen)? Erkläre mit
   Q1/Q3/IQR in einem Satz: _________________________________________________
+- Robustheit: Welches Streuungsmaß überlebt einen Ausreißer besser —
+  `sd()` oder `IQR()`? Und warum (Position in der sortierten Liste vs.
+  quadrierte Abweichung)? (1–2 Sätze):
+  _________________________________________________
 
 ---
 
-## 5. Vorhersagen (ohne R)
+## 5. Brücke zu KM 8: ±2 sd — erst vorhersagen, dann prüfen
+
+Die Eselsbrücke: Bei glockenförmiger Verteilung liegen grob 68 % der
+Werte innerhalb ±1 sd und 95 % innerhalb ±2 sd.
+
+**a) Vorhersage ohne R:** Wie viele der 20 `messwerte`-Teile dürften
+nach dieser Faustregel *außerhalb* von ±2 sd liegen? ________
+
+Prüfe mit R (zwei Wege sind erlaubt):
+
+```r
+sd_m <- sd(messwerte$mass_mm)
+mean_m <- mean(messwerte$mass_mm)
+sum(abs(messwerte$mass_mm - mean_m) > 2 * sd_m)
+```
+
+- Tatsächlich außerhalb: ________ &nbsp; Passt die Faustregel hier grob?
+  ________
+
+**b) Ausreißer-Experiment:** Hänge an die 20 Messwerte einen Ausreißer
+an — ein Teil, das beim Einlegen verschoben wurde:
+
+```r
+messwerte_x <- c(messwerte$mass_mm, 10.8)
+```
+
+Berechne `mean()`, `median()`, `sd()` und `IQR()` — einmal auf den
+Original-Daten, einmal auf `messwerte_x`:
+
+- Mittelwert vorher/nachher: ________ / ________ &nbsp;
+  Median: ________ / ________ &nbsp;
+  sd: ________ / ________ &nbsp; IQR: ________ / ________
+- Welche Maße rücken kaum? Werde die Faustregel aus der Lektion dafür
+  in einem Satz: _________________________________________________
+
+---
+
+## 6. Vorhersagen (ohne R)
 
 **a)**
 
@@ -128,7 +172,7 @@ Vorhersage: ________ &nbsp; R-Ergebnis: ________ / ________
 
 ---
 
-## 6. Kapitel-Check (Kap. 7 + 10)
+## 7. Kapitel-Check (Kap. 7 + 10)
 
 - Kap. 7 empfiehlt, beim Import die Datentypen zu **prüfen**. Welcher deiner
   Befehle aus Aufgabe 1 macht genau das? ________ &nbsp; Kurz warum:

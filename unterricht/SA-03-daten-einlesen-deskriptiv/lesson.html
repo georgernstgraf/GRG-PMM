@@ -13,9 +13,9 @@
   <button type="button" class="theme-toggle" id="theme-toggle"
           aria-pressed="false">Dunkel</button>
   <span class="kicker">Lektion SA-03 · Daten einlesen & deskriptive Statistik</span>
-  <span class="ort">UE 3 · 4AHWIT WS · schulautonom</span>
   <h1>Aus der Maschine in R: Daten einlesen & vermessen</h1>
-  <p class="subtitle">read_csv, Kennzahlen mit na.rm — und der erste Blick auf echte Betriebsdaten.</p>
+  <p class="subtitle">read_csv, das erste Ritual, die zwei EDA-Fragen —
+  und die ganze Kennzahlen-Kette von Mittelwert bis Boxplot.</p>
 </header>
 
 <div class="callout tipp">
@@ -32,6 +32,10 @@
   Toleranz ±0,15 mm. Die Messdaten liegen als CSV vor — 120 Teile aus
   10 Chargen. <strong>Eine der Maschinen läuft aus der Mitte:</strong>
   Welche? Und wie viele Teile hat sie schon daneben gefertigt?</p>
+  <p>Dazu stellen wir heute zwei Fragen, bevor irgendein Test oder eine
+  Regelkarte (KM 8) dran darf: <strong>Was ist typisch</strong> für die
+  Messwerte — und <strong>wie stark streut</strong> der Prozess?
+  Genau das ist der Kern der explorativen Datenanalyse (EDA).</p>
   <p>Plots (Lektion 01) und Verben (Lektion 02) kennst du. Was fehlt,
   ist der Schritt davor: die Daten <em>reinholen</em> — und danach
   vermessen mit Zahlen, die man einem Schichtleiter zeigen kann.</p>
@@ -65,25 +69,64 @@ fertigung &lt;- read_csv("assets/betriebsdaten.csv")
 <span class="cmt"># → 120 Zeilen, 3 Spalten. Pfad relativ zum Projekt-Ordner.</span>
 </pre>
   <p><code>read_csv()</code> (aus <code>readr</code>) meldet gleich mit,
-  was es gefunden hat. Der erste Reflex danach — <strong>immer</strong>:</p>
+  was es gefunden hat. Und dann kommt das <strong>erste Ritual</strong> —
+  drei Blicke, nach jedem Einlesen, ohne Ausnahme:</p>
 <pre>
 glimpse(fertigung)
 <span class="cmt"># → maschine  = &lt;chr&gt;  (Text: M1, M2, M3)
 #   charge    = &lt;dbl&gt;  (Zahl)
 #   masse_mm  = &lt;dbl&gt;  (Zahl) — paar Zeilen mit &lt;NA&gt;</span>
-</pre>
-  <p><code>chr</code> = Text, <code>dbl</code> = Dezimalzahl. Ein Blick
-  auf die Typen erspart dir die seltsamsten Fehler später: Wer auf
-  Text-Spalten rechnet, rechnet gegen Wände.</p>
 
-  <h2>Schritt 2 — Erster Eindruck: <code>summary()</code></h2>
-<pre>
-summary(fertigung$masse_mm)
-<span class="cmt"># → Min. 9.88 · Median 10.00 · Max. 10.20 — und NA's: 4</span>
+head(fertigung)
+<span class="cmt"># → die ersten 6 Zeilen als Stichprobe:
+#   M1 · Charge 101 · 10 / 10.02 / 9.92 / 10.03, dann M2 …
+#   Sieht eine Zeile so aus wie erwartet?</span>
+
+summary(fertigung)
+<span class="cmt"># → masse_mm: Min. 9.88 · Q1 9.98 · Median 10.00 · Mean 10.01
+#   Q3 10.05 · Max. 10.20 — und NA's: 4</span>
 </pre>
-  <p>Da stehen sie schon: <strong>4 fehlende Messwerte</strong> (Sensor
-  hat ausgeworfen, Teil trotzdem gefertigt). Merk dir die Zahl — sie
-  gleich.</p>
+  <p>Die drei Blicke beantworten je eine Frage — und zusammen ergeben
+  sie die Grundlage für alles Weitere:</p>
+  <table>
+    <tr><th>Frage</th><th>Befehl</th></tr>
+    <tr><td>Ist die Spalte Zahl oder Text?</td><td><code>glimpse()</code></td></tr>
+    <tr><td>Sieht eine Zeile so aus wie erwartet?</td><td><code>head()</code></td></tr>
+    <tr><td>Gibt es Extremwerte oder NA?</td><td><code>summary()</code></td></tr>
+  </table>
+
+  <div class="callout tipp">
+    <span class="label">Merke</span>
+    <p>Import ist <strong>kein</strong> Transport, sondern ein
+    Daten-Prüfvorgang. Die drei Befehle sind deine Prüfliste — wer sie
+    auslässt, entdeckt Fehler erst in der Auswertung, nicht beim
+    Einlesen. <code>chr</code> = Text, <code>dbl</code> = Dezimalzahl;
+    wer auf Text-Spalten rechnet, rechnet gegen Wände.</p>
+  </div>
+
+  <div class="quiz" data-titel="Quiz: einlesen-ritual">
+    <fieldset class="frage">
+      <legend class="frage-text">Welche zwei Aussagen zum ersten Ritual
+      (nach jedem Einlesen) stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q1" value="0" data-richtig data-grund="Richtig — glimpse() zeigt Zeilen, Spalten und den Typ je Spalte; hier maschine &lt;chr&gt;, charge &lt;dbl&gt;, masse_mm &lt;dbl&gt;."> glimpse() zeigt Zeilen, Spalten und den Typ je Spalte</label>
+        <label><input type="checkbox" name="sa-03-q1" value="1" data-richtig data-grund="Richtig — head() zeigt die ersten Zeilen als Stichprobe; du siehst, ob die Werte plausibel aussehen (M1, Charge 101, ~10,0)."> head() zeigt die ersten Zeilen — sieht eine Zeile aus wie erwartet?</label>
+        <label><input type="checkbox" name="sa-03-q1" value="2" data-grund="Falsch — summary() fasst zusammen (Min./Q1/Median/Mean/Q3/Max); die Daten einzeln ansehen tut head()."> summary() listet alle 120 Messwerte einzeln auf</label>
+        <label><input type="checkbox" name="sa-03-q1" value="3" data-grund="Falsch — glimpse() zeigt Typen, aber keine NA-Zähler; die meldet summary() mit „NA's: 4“."> glimpse() reicht allein — es zeigt die NA-Zahl gleich mit</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text"><code>summary()</code> meldet für
+      <code>masse_mm</code> „NA's: 4“. Was bedeutet die 4?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q2" value="0" data-richtig data-grund="Richtig — 4 der 120 Messungen sind als NA gelandet (Sensor hat ausgeworfen, Teil trotzdem gefertigt); genau deshalb braucht jede Kennzahl na.rm = TRUE."> Vier Messwerte fehlen — der Sensor hat ausgeworfen</label>
+        <label><input type="checkbox" name="sa-03-q2" value="1" data-grund="Falsch — Ausschuss zählst du über die Toleranz (6 Teile); NA's zählt fehlende Messwerte, keine schlechten."> Vier Teile sind Ausschuss</label>
+        <label><input type="checkbox" name="sa-03-q2" value="2" data-grund="Falsch — die 4 zählt fehlende Messwerte; welche Chargen davon berührt sind, zeigt erst group_by(charge)."> Vier Chargen sind betroffen</label>
+        <label><input type="checkbox" name="sa-03-q2" value="3" data-grund="Falsch — es gibt nur drei Maschinen; die 4 gehört zur Spalte masse_mm, nicht zu maschine."> Vier Maschinen wurden geprüft</label>
+      </div>
+    </fieldset>
+  </div>
 </section>
 
 <section>
@@ -126,10 +169,184 @@ summary(fertigung$masse_mm)
       ein einziges Paket laufen. Beides ist richtig —
       <code>read.csv()</code> ist der paketfreie Weg, nicht der falsche.</p>
   </div>
+
+  <div class="quiz" data-titel="Quiz: basis-gegen-tidyverse">
+    <fieldset class="frage">
+      <legend class="frage-text">Die Nachbarabteilung schickt eine
+      „europäische" CSV: Semikolon als Trenner, Komma als Dezimalzeichen
+      („10,05"). Was liest sie sauber ein?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q3" value="0" data-grund="Falsch — read_csv() trennt am Beistrich; die Semikolon-Datei bliebe eine einzige Textspalte voller Zeilen."> read_csv() — das Standard-Tool für jede CSV</label>
+        <label><input type="checkbox" name="sa-03-q3" value="1" data-richtig data-grund="Richtig — der „europäische“ Bruder in readr: Semikolon als Trenner, Komma als Dezimalzeichen, genau für dieses Format gebaut."> read_csv2() — Semikolon-Trenner, Komma als Dezimalzeichen</label>
+        <label><input type="checkbox" name="sa-03-q3" value="2" data-grund="Falsch — check.names bereinigt Spaltennamen; am Trenner und am Dezimalzeichen ändert es nichts."> read.csv() mit check.names = TRUE</label>
+        <label><input type="checkbox" name="sa-03-q3" value="3" data-grund="Falsch — summary() braucht schon eingelesene Daten; erst der passenden Trenner, dann die Kennzahlen."> summary() — erst die Kennzahlen, dann das Einlesen</label>
+      </div>
+    </fieldset>
+  </div>
 </section>
 
 <section>
-  <h2>Schritt 3 — Vermessen: Kennzahlen</h2>
+  <h2>Schritt 2 — EDA: die zwei großen Fragen</h2>
+  <p>Kapitel 10 von R4DS ordnet alles, was wir heute tun, unter zwei
+  Leitfragen. Erst die Fragen, dann die Werkzeuge — sonst werkelt man
+  planlos herum:</p>
+  <ol>
+    <li><strong>Variation:</strong> Was ist <em>typisch</em> für eine
+      Spalte, und wie weichen die Werte davon ab?</li>
+    <li><strong>Kovariation:</strong> Wie hängen Spalten
+      <em>miteinander</em> zusammen?</li>
+  </ol>
+  <p>Zu jeder Frage gibt es ein Standard-Werkzeug — und genau diese
+  Werkzeuge baust du heute auf:</p>
+  <table>
+    <tr><th>Frage</th><th>Werkzeug</th><th>R</th></tr>
+    <tr><td>Variation einer Zahl</td><td>Histogramm</td>
+        <td><code>geom_histogram()</code></td></tr>
+    <tr><td>Variation nach Gruppe</td><td>Boxplot</td>
+        <td><code>geom_boxplot()</code></td></tr>
+    <tr><td>Kennzahlen</td><td>Five-Number-Table</td>
+        <td><code>summarise()</code></td></tr>
+  </table>
+  <p>Variation fragst du zuerst ab: So sieht die Streuung der
+  <code>masse_mm</code> aus (Histogramm, Schritt 3). Kovariation bedeutet
+  hier: hängt das Maß von der Maschine ab? — das beantworten Boxplot und
+  <code>group_by()</code> weiter unten.</p>
+
+  <div class="callout achtung">
+    <span class="label">Achtung: explorativ ≠ beweisend</span>
+    <p>Die EDA erzeugt <strong>Hypothesen</strong> — „M3 läuft aus der
+    Mitte" ist nach heute eine belastbare Vermutung. Bestätigen kommt
+    später: mit statistischen Tests (KM 7) und Regelkarten (KM 8).
+    Wer aus einem Histogramm einen Beweis macht, hat die Grenze der EDA
+    überschritten.</p>
+  </div>
+
+  <div class="quiz" data-titel="Quiz: eda-zwei-fragen">
+    <fieldset class="frage">
+      <legend class="frage-text">Die EDA (Kap. 10) stellt zwei große
+      Fragen. Welche zwei?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q4" value="0" data-grund="Falsch — Mittelwert und Streuung sind Kennzahlen-Werkzeuge der EDA, nicht die Leitfragen selbst."> Mittelwert und Streuung</label>
+        <label><input type="checkbox" name="sa-03-q4" value="1" data-richtig data-grund="Richtig — die beiden Leitfragen der EDA; Histogramm, Boxplot und summarise() sind ihre Werkzeuge."> Variation — was ist typisch? · Kovariation — wie hängen Spalten zusammen?</label>
+        <label><input type="checkbox" name="sa-03-q4" value="2" data-grund="Falsch — das Import-Kapitel (7) liefert die Daten; die zwei EDA-Fragen stehen in Kap. 10 danach."> Einlesen und Export</label>
+        <label><input type="checkbox" name="sa-03-q4" value="3" data-grund="Falsch — EDA erzeugt Hypothesen, aber die zwei Leitfragen lauten Variation und Kovariation."> Hypothese und Beweis</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was darf die EDA — und was nicht?
+      (Zwei Aussagen stimmen.)</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q5" value="0" data-richtig data-grund="Richtig — explorativ heißt: Vermutungen sammeln; bestätigt wird später mit Tests (KM 7) und Regelkarten (KM 8)."> Sie erzeugt Hypothesen, die du später prüfst</label>
+        <label><input type="checkbox" name="sa-03-q5" value="1" data-richtig data-grund="Richtig — die zwei Leitfragen leiten jeden Blick: erst die Verteilung einer Spalte, dann ihr Zusammenspiel mit Gruppen."> Sie fragt nach Variation und Kovariation der Daten</label>
+        <label><input type="checkbox" name="sa-03-q5" value="2" data-grund="Falsch — EDA zeigt nur einen auffälligen Befund; beweisen kann sie Ursachen nicht, dafür brauchen wir Tests oder die Werkstatt vor Ort."> Sie beweist, dass M3 die Ausreißer-Ursache ist</label>
+        <label><input type="checkbox" name="sa-03-q5" value="3" data-grund="Falsch — Bestätigen kommt später; die EDA liefert die Hypothesen dazu, nicht den Beweis."> Sie ersetzt den Bestätigungstest</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 3 — Variation anschauen: das Histogramm</h2>
+  <p>Die erste EDA-Frage („was ist typisch, wie weicht es ab?")
+  beantwortest du bildlich mit dem Histogramm — plus eine gestrichelte
+  Linie beim Sollwert, damit das Auge weiß, woran es sich orientieren
+  soll:</p>
+<pre>
+ggplot(fertigung, aes(x = masse_mm)) +
+  geom_histogram(binwidth = 0.05, fill = "grey70", color = "white") +
+  geom_vline(xintercept = 10, linetype = "dashed") +
+  labs(x = "Maß (mm)", y = "Anzahl Teile",
+       title = "Fertigung — Sollwert 10,00 mm")
+</pre>
+  <p><code>geom_vline()</code> zeichnet eine <em>vertikale</em> Linie an
+  einer x-Position — hier der Sollwert 10. Die Balken links davon sind zu
+  kleine Teile, rechts davon zu große. Ohne die Linie wäre 10,00 nur eine
+  Zahl im Kopf; mit ihr sieht das Auge sofort, ob der Prozess mittig
+  sitzt.</p>
+  <p><code>binwidth</code> steuert, wie breit jeder Balken ist: Ein Balken
+  sammelt alle Messwerte, die in sein Fenster fallen. Die Spannweite
+  unserer Daten ist 9,88 bis 10,20 mm — bei <code>binwidth = 0.05</code>
+  ergibt das weniger als ein Dutzend Balken. Lässt du
+  <code>binwidth</code> weg, rät R selbst: es teilt die Spannweite in
+  30 gleich breite Bins. Zu groß gewählt (0,5 mm), verschmilzt alles zu
+  <em>einem</em> Balken; zu klein gewählt
+  (0,005 mm), entstehen viele leere Bins und ein zackiges Muster.
+  Deshalb: <strong>binwidth bewusst wählen, mehrfach testen</strong> —
+  die Bin-Größe ist Deutungssache, nicht Nebensache.</p>
+
+  <div class="quiz" data-titel="Quiz: histogramm-binwidth">
+    <fieldset class="frage">
+      <legend class="frage-text">Was zeichnet
+      <code>geom_vline(xintercept = 10, linetype = "dashed")</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q6" value="0" data-richtig data-grund="Richtig — die vertikale Sollwert-Linie bei 10; so sieht das Auge sofort, wie die Balken um 10,00 liegen."> Eine gestrichelte Linie bei x = 10 — der Sollwert</label>
+        <label><input type="checkbox" name="sa-03-q6" value="1" data-grund="Falsch — geom_vline() steht senkrecht (xintercept); eine horizontale Linie zeichnet geom_hline()."> Eine horizontale Linie bei y = 10</label>
+        <label><input type="checkbox" name="sa-03-q6" value="2" data-grund="Falsch — eine einzige Linie bei 10; für die Toleranzgrenzen 9,85 und 10,15 bräuchtest du zwei weitere vline-Aufrufe."> Die Toleranzgrenzen bei 9,85 und 10,15</label>
+        <label><input type="checkbox" name="sa-03-q6" value="3" data-grund="Falsch — vline zeichnet nur eine Linie an einer Position; sie glättet nichts und gehört zu keiner Verteilung."> Eine Linie, die die Balken glättet</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was passiert, wenn du
+      <code>geom_histogram()</code> <em>ohne</em> <code>binwidth</code>
+      laufen lässt?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q7" value="0" data-richtig data-grund="Richtig — das Default: 30 gleich breite Bins; bei unserer Spannweite 9,88–10,20 ist jedes gut 0,01 mm breit, und die Form wird zackig."> R wählt selbst — teilt die Spannweite in 30 gleich breite Bins</label>
+        <label><input type="checkbox" name="sa-03-q7" value="1" data-grund="Falsch — geom_histogram() läuft ohne Angabe durch; R rät (30 Bins), und genau das ist der Schludrigkeits-Fehler."> R bricht mit einer Fehlermeldung ab — binwidth ist Pflicht</label>
+        <label><input type="checkbox" name="sa-03-q7" value="2" data-grund="Falsch — ein Bin bekommst du nur mit zu großer binwidth (z. B. 0,5 mm); das Default sind 30 Bins."> Alles landet in einem einzigen Balken</label>
+        <label><input type="checkbox" name="sa-03-q7" value="3" data-grund="Falsch — R fragt nicht nach; es rät still, und du siehst erst im Plot, ob die Geschichte ehrlich ist."> R fragt nach, ob die Wahl passt</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 4 — Lagemaße: wo liegt die Verteilung?</h2>
+  <p>Das Bild sagt „irgendwo um 10". Die Zahl dazu: zwei Kennzahlen, die
+  die <em>Lage</em> der Verteilung beschreiben:</p>
+  <table>
+    <tr><th>Maß</th><th>Definition</th><th>Intuition</th></tr>
+    <tr><td><strong>Mittelwert</strong><br><code>mean(x)</code></td>
+        <td>Summe / Anzahl</td>
+        <td>Schwerpunkt — wo die Waage balanciert</td></tr>
+    <tr><td><strong>Median</strong><br><code>median(x)</code></td>
+        <td>mittlerer Wert (sortiert)</td>
+        <td>halbiert die Daten — 50 % drüber, 50 % darunter</td></tr>
+  </table>
+
+  <div class="callout tipp">
+    <span class="label">Eselsbrücke: der Schwanz zieht den Mittelwert</span>
+    <p>Mittel ≈ Median → die Verteilung ist symmetrisch ·
+      Mittel &gt; Median → <strong>rechtssteil</strong> (der Schwanz
+      hängt rechts, z. B. Fertigungszeiten: meist schnell, wenige sehr
+      lang) · Mittel &lt; Median → linkssteil.</p>
+  </div>
+
+  <h3>Wenn ein Wert schleicht: der Ausreißer-Test</h3>
+  <p>19 Teile bei rund 10,0 mm, ein Teil bei 10,8 mm (dasselbe Teil beim
+  Einlegen verschoben). Mit <code>rep()</code> wiederholst du Werte
+  kompakt — <code>rep(10.0, 8)</code> heißt „8-mal 10.0":</p>
+<pre>
+x &lt;- c(rep(9.95, 4), rep(10.0, 8), rep(10.05, 7), 10.8)
+mean(x)     <span class="cmt"># → 10.0475  — der Schwanz zieht ihn nach oben</span>
+median(x)   <span class="cmt"># → 10.00    — unbeeindruckt</span>
+</pre>
+  <p>Ein einziger Wert von 20 hebt den Mittelwert um gut 0,05 mm — der
+  Median rührt sich nicht, denn er zählt <em>Positionen</em>, nicht
+  Ausreißer. Genau deshalb sagt man: der <strong>Median ist robust</strong>,
+  der Mittelwert empfindlich.</p>
+
+  <div class="callout achtung">
+    <span class="label">Faustregel</span>
+    <p>Schiefe Verteilung oder Ausreißer → <strong>Median</strong>
+      berichten. Symmetrisch und sauber → <strong>Mittelwert</strong>.
+      Aber: erst <strong>gucken</strong> (Histogramm!), dann wählen —
+      die Faustregel ersetzt den Blick nicht.</p>
+  </div>
+
+  <h3>Zurück zu den Maschinen</h3>
+  <p>Jetzt die Kennzahlen-Kette auf den echten Daten:</p>
 <pre>
 fertigung |&gt;
   summarise(
@@ -142,11 +359,60 @@ fertigung |&gt;
 <span class="cmt"># → n: 120 · mitte: 10.014 · mitte_med: 10.000
 #   streu: 0.062 · iqr: 0.070</span>
 </pre>
-  <p>Mittelwert und Median liegen fast deckungsgleich bei 10,00 — der
-  Prozess <em>insgesamt</em> sitzt mittig. Aber „insgesamt" kann lügen,
-  wenn drei Maschinen mischen. Deshalb:</p>
+  <p>Mittelwert (10.014) und Median (10.000) liegen fast deckungsgleich —
+  nach der Schwanz-Regel: die Gesamtverteilung ist (grob) symmetrisch,
+  der Prozess <em>insgesamt</em> sitzt mittig. Aber „insgesamt" kann
+  lügen, wenn drei Maschinen mischen. Deshalb:</p>
 
-  <h2>Schritt 4 — Aufschlüsseln: <code>group_by()</code></h2>
+  <div class="quiz" data-titel="Quiz: lagemasse-ausreisser">
+    <fieldset class="frage">
+      <legend class="frage-text">Warum ergibt <code>mean(masse_mm)</code>
+      ohne <code>na.rm = TRUE</code> ein <code>NA</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q8" value="0" data-richtig data-grund="Richtig — vier fehlende Messwerte stehen in der Spalte; ohne na.rm = TRUE verweigert mean() die Rechnung: ein NA infiziert das Ergebnis."> Weil fehlende Messwerte drin sind und R dann verweigert</label>
+        <label><input type="checkbox" name="sa-03-q8" value="1" data-grund="Falsch — 120 Zeilen passen problemlos in den Arbeitsspeicher; das NA entsteht durch fehlende Werte, nicht durch die Größe."> Weil der Datensatz zu groß für den Arbeitsspeicher geladen</label>
+        <label><input type="checkbox" name="sa-03-q8" value="2" data-grund="Falsch — glimpse() zeigt masse_mm als &lt;dbl&gt; (Zahl); das Problem sind die NA-Werte, nicht der Typ."> Weil die Spalte masse_mm als Text statt als Zahl gelesen wurde</label>
+        <label><input type="checkbox" name="sa-03-q8" value="3" data-grund="Falsch — der Mittelwert liegt mit 10.014 nahe am Sollwert; das NA im Ergebnis hat mit dem Sollwert nichts zu tun."> Weil der Sollwert 10,00 nicht in den Daten vorkommt</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Wann ist der Mittelwert <em>größer</em>
+      als der Median?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q9" value="0" data-grund="Falsch — symmetrisch heißt Mittel ≈ Median; der Schwanz-Zug tritt gerade dort nicht auf."> Bei symmetrischer Verteilung — dort zählt der Schwanz doppelt</label>
+        <label><input type="checkbox" name="sa-03-q9" value="1" data-grund="Falsch — linkssteil heißt Mittel &lt; Median: der Schwanz hängt links und zieht nach unten."> Bei linkssteiler Verteilung — der linke Schwanz ist schwerer</label>
+        <label><input type="checkbox" name="sa-03-q9" value="2" data-richtig data-grund="Richtig — die Eselsbrücke: der Schwanz zieht den Mittelwert; große Werte rechts heben ihn über den Median."> Bei rechtssteiler Verteilung — der Schwanz zieht ihn nach rechts</label>
+        <label><input type="checkbox" name="sa-03-q9" value="3" data-grund="Falsch — die Ausreißer-Demo zeigt das Gegenteil: der Mittelwert kippt zu 10.0475, nur der Median bleibt bei 10.00."> Nie — Mittelwert und Median sind immer gleich</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Im Ausreißer-Beispiel (19 Teile bei
+      ~10,0, eins bei 10,8): Was beobachtest du?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q10" value="0" data-richtig data-grund="Richtig — der Einzelwert (1 von 20) hebt den Mittelwert um gut 0,05 mm; der Median rührt sich nicht, weil er Positionen zählt."> mean(x) = 10.0475 — der Schwanz zieht nach oben; median(x) = 10.00 bleibt</label>
+        <label><input type="checkbox" name="sa-03-q10" value="1" data-grund="Falsch — der Mittelwert mischt nur gewichtet (1/20); 10.8 als Ergebnis wäre unmöglich."> Beide steigen auf 10.8 — ein Wert macht mehr aus als 19</label>
+        <label><input type="checkbox" name="sa-03-q10" value="2" data-grund="Falsch — genau umgekehrt: der Mittelwert verändert sich (10.0475), der Median bleibt bei 10.00."> mean(x) = 10.00 und median(x) = 10.0475 — genau umgekehrt</label>
+        <label><input type="checkbox" name="sa-03-q10" value="3" data-grund="Falsch — der Mittelwert kippt zu 10.0475; nur der Median ist gegen Ausreißer gefeit."> Beide bleiben bei 10.00 — Ausreißer spielen keine Rolle</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche dieser Behauptungen über die
+      Ausreißer-Demo stimmt?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q11" value="0" data-grund="Falsch — 10.8 liegt über allen anderen Werten; der Mittelwert steigt auf 10.0475, er fällt nicht."> Der Mittelwert sinkt wegen des 10,8er-Teils unter 10,0</label>
+        <label><input type="checkbox" name="sa-03-q11" value="1" data-grund="Falsch — der Median ist der mittlere Wert der sortierten 20: er bleibt bei 10.00."> Der Median wandert mit nach 10.8</label>
+        <label><input type="checkbox" name="sa-03-q11" value="2" data-grund="Falsch — der Mittelwert ändert sich sichtbar (10.00 → 10.0475); nur der Median ist dagegen gefeit."> Ein Wert unter 20 kann die Lage nie verändern</label>
+        <label><input type="checkbox" name="sa-03-q11" value="3" data-grund="Falsch — der Median zählt Positionen, nicht Ausreißer; die mittleren zwei der 20 sortierten Werte sind 10.00."> Der Median liegt bei 10.05, weil der Ausreißer oben zählt</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — Aufschlüsseln: <code>group_by()</code></h2>
 <pre>
 fertigung |&gt;
   group_by(maschine) |&gt;
@@ -158,19 +424,145 @@ fertigung |&gt;
 </pre>
   <p>Das Ziel-Artefakt. <strong>M3 läuft nach oben UND streut am
   breitesten</strong> — doppelt verdächtig. M2 sitzt leicht tief, aber
-  eng.</p>
+  eng. Die Kovariations-Frage „hängt das Maß von der Maschine ab?" ist
+  damit vorläufig beantwortet: ja — und zwar beim Maß <em>und</em> bei
+  der Streuung.</p>
+</section>
 
-  <div class="quiz" data-loesung="0">
-    <p class="frage">Warum ergibt <code>mean(masse_mm)</code> ohne
-    <code>na.rm = TRUE</code> ein <code>NA</code>?</p>
-    <label><input type="radio" name="q3" value="0" data-grund="Richtig, weil fehlende Messwerte (NA's: 4) drin sind und R ohne na.rm = TRUE verweigert — ein NA infiziert das Ergebnis."> Weil fehlende Messwerte drin sind und R dann verweigert</label>
-    <label><input type="radio" name="q3" value="1" data-grund="Falsch, weil 120 Zeilen problemlos in den Arbeitsspeicher passen; das NA entsteht durch fehlende Werte."> Weil der Datensatz zu groß für den Arbeitsspeicher geladen</label>
-    <label><input type="radio" name="q3" value="2" data-grund="Falsch, weil glimpse masse_mm als &lt;dbl&gt; (Zahl) zeigt; das Problem sind die NA-Werte."> Weil die Spalte masse_mm als Text statt als Zahl</label>
-    <label><input type="radio" name="q3" value="3" data-grund="Falsch, weil das Vorkommen des Sollwerts nichts mit dem NA im Mittelwert zu tun hat."> Weil der Sollwert 10,00 nicht in den Daten vorkommt</label>
-    <p class="feedback" aria-live="polite"></p>
+<section>
+  <h2>Schritt 6 — Streuungsmaße: zwei Prozesse, gleicher Mittelwert</h2>
+  <p>Lage allein täuscht. Zwei Prozesse mit demselben Mittelwert können
+  grundverschieden arbeiten:</p>
+<pre>
+gruppe_a &lt;- c(9.9, 9.95, 10.0, 10.05, 10.1)   <span class="cmt"># eng</span>
+gruppe_b &lt;- c(9.5, 9.75, 10.0, 10.25, 10.5)   <span class="cmt"># weit</span>
+mean(gruppe_a); mean(gruppe_b)   <span class="cmt"># beide → 10</span>
+sd(gruppe_a);   sd(gruppe_b)     <span class="cmt"># → 0.079 · 0.395 — das Fünffache</span>
+</pre>
+  <p>Beide Mittelwerte sind exakt 10 — in der Schichtbesprechung klingen
+  beide Prozesse „im Soll". Die Streuung verrät den Unterschied:
+  Gruppe B ist fünfmal breiter. Diese drei Maße fassen Streuung
+  zusammen:</p>
+  <table>
+    <tr><th>Maß</th><th>Intuition</th><th>Robust?</th></tr>
+    <tr><td><strong>Varianz</strong> <code>var(x)</code></td>
+        <td>mittlere quadrierte Abweichung (Einheit mm²)</td><td>nein</td></tr>
+    <tr><td><strong>Standardabweichung</strong> <code>sd(x)</code></td>
+        <td>√Varianz — „typische Entfernung vom Mittel"</td><td>nein</td></tr>
+    <tr><td><strong>IQR</strong> <code>IQR(x)</code></td>
+        <td>Q3 − Q1 — die Spannweite der mittleren 50 %</td><td><strong>ja</strong></td></tr>
+  </table>
+  <p>Warum ist der IQR robust? Q1 und Q3 sind <em>Positionen</em> in der
+  sortierten Liste — sie rücken nicht, wenn ein Ausreißer am Rand
+  schleicht. Im Ausreißer-Beispiel oben bleibt <code>IQR(x)</code> bei
+  0.05, während <code>sd(x)</code> aufbläht. Die Varianz quadriert jede
+  Abweichung — ein Wert doppelt so weit vom Mittel zählt viermal so
+  schwer. Deshalb haben <code>var()</code> und <code>sd()</code> den
+  Ausreißer im Visier.</p>
+
+  <div class="callout tipp">
+    <span class="label">Brücke zu KM 8</span>
+    <p>Bei glockenförmiger Verteilung liegen grob <strong>68 %</strong>
+      aller Werte innerhalb ±1 sd und <strong>95 %</strong> innerhalb
+      ±2 sd — darauf bauen später die Regelkarten-Grenzen. Auf unseren
+      116 verwertbaren Messwerten liefert die Faustregel tatsächlich grob
+      71 % und 92 %: Die Regel gilt, aber sie ist eine Faustregel,
+      keine Formel-Garantie.</p>
   </div>
 
-  <h2>Schritt 5 — Zählen: der Ausschussanteil</h2>
+  <div class="quiz" data-titel="Quiz: streuung">
+    <fieldset class="frage">
+      <legend class="frage-text"><code>gruppe_a</code> (9.9 … 10.1) und
+      <code>gruppe_b</code> (9.5 … 10.5) — was unterscheidet die zwei
+      Prozesse?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q12" value="0" data-grund="Falsch — beide Mittelwerte sind exakt 10; Weite ist Sache der Streuung, nicht der Lage."> gruppe_b hat den höheren Mittelwert, weil die Werte weiter ausladen</label>
+        <label><input type="checkbox" name="sa-03-q12" value="1" data-richtig data-grund="Richtig — beide Mittelwerte sind 10; sd(gruppe_b) = 0.395 ist das Fünffache von sd(gruppe_a) = 0.079."> Der Mittelwert ist bei beiden gleich (10) — die Streuung ist das Fünffache</label>
+        <label><input type="checkbox" name="sa-03-q12" value="2" data-grund="Falsch — näher am Sollwert heißt engere Streuung; gruppe_a (±0,1) ist der enge Prozess."> gruppe_a streut breiter, weil die Werte näher am Sollwert liegen</label>
+        <label><input type="checkbox" name="sa-03-q12" value="3" data-grund="Falsch — umgekehrt: die Lage ist gleich, die Streuung unterscheidet (0.079 vs. 0.395)."> Die Streuung ist bei beiden gleich — nur der Mittelwert schiebt sich</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche Aussagen zu den Streuungsmaßen
+      stimmen? (Drei stimmen.)</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q13" value="0" data-richtig data-grund="Richtig — Q1 und Q3 sind Positionen in der sortierten Liste; sie rücken bei Ausreißern nicht, das Beispiel zeigt IQR(x) = 0.05."> IQR(x) = Q3 − Q1 — die Spannweite der mittleren 50 %, robust gegen Ausreißer</label>
+        <label><input type="checkbox" name="sa-03-q13" value="1" data-richtig data-grund="Richtig — die Quadrierung gibt Quadrat-Millimeter; sd() ist die Wurzel daraus und redet wieder in mm."> var(x) hat die Einheit mm² — für die Schichtbesprechung rechnet man sd</label>
+        <label><input type="checkbox" name="sa-03-q13" value="2" data-richtig data-grund="Richtig — so liest man sd im Prozess: ein typisches Teil liegt rund eine Standardabweichung weit von der Mitte entfernt."> sd(x) ist die typische Entfernung vom Mittelwert</label>
+        <label><input type="checkbox" name="sa-03-q13" value="3" data-grund="Falsch — nur der IQR ist robust; var() und sd() quadrieren jede Abweichung und werden von einem Ausreißer aufbläht."> Alle drei (var, sd, IQR) sind robust gegen Ausreißer</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Warum baut KM 8 die Regelkarten-Grenzen
+      auf der Standardabweichung auf?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q14" value="0" data-richtig data-grund="Richtig — die 68-95-Brücke: bei glockenförmiger Verteilung definiert ±2 sd die typische Regelkarten-Weite (auf unseren Daten grob 71 %/92 %)."> Weil ~68 % der Werte in ±1 sd und ~95 % in ±2 sd liegen</label>
+        <label><input type="checkbox" name="sa-03-q14" value="1" data-grund="Falsch — genau nicht: sd ist empfindlich; die 68-95-Brücke stammt aus der Verteilungstheorie, nicht aus Robustheit."> Weil die Standardabweichung robust gegen Ausreißer ist</label>
+        <label><input type="checkbox" name="sa-03-q14" value="2" data-grund="Falsch — die Varianz hat mm²; sd redet in mm und wird direkt mit der Toleranz verglichen."> Weil sd die Einheit mm² hat und so mit der Toleranz verrechnet wird</label>
+        <label><input type="checkbox" name="sa-03-q14" value="3" data-grund="Falsch — der IQR ist die robuste Alternative; die Regelkarten-Lehre in KM 8 baut bewusst auf der sd auf."> Weil der IQR für Regelkarten zu ungenau gerechnet wird</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 7 — Quantile &amp; Boxplot: dieselbe Info, zweimal gelesen</h2>
+  <p>Der Median ist der Spezialfall eines <em>Quantils</em> — einer
+  Position in der sortierten Liste. Das Beispiel <code>x</code> von
+  oben, komplett aufgeschlüsselt:</p>
+<pre>
+summary(x)
+<span class="cmt"># →    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+#      9.95   10.00   10.00   10.05   10.05   10.80</span>
+</pre>
+  <table>
+    <tr><th>Quantil</th><th>Wert</th><th>Bedeutung</th></tr>
+    <tr><td>0 % (Min)</td><td>9.95</td><td>kleinster Wert</td></tr>
+    <tr><td>25 % (Q1)</td><td>10.00</td><td>25 % der Werte sind kleiner</td></tr>
+    <tr><td>50 % (Median)</td><td>10.00</td><td>die Hälfte ist kleiner</td></tr>
+    <tr><td>75 % (Q3)</td><td>10.05</td><td>75 % der Werte sind kleiner</td></tr>
+    <tr><td>100 % (Max)</td><td>10.80</td><td>größter Wert (der verschobene)</td></tr>
+  </table>
+  <p>Dieselben Zahlen stecken im Boxplot — der Kasten reicht von Q1 bis
+  Q3 (seine Breite ist der IQR), der Median erscheint als Strich im
+  Kasten. Werte außerhalb des 1,5-IQR-Zauns zeichnet <code>ggplot</code>
+  als einzelne Punkte: der 10,8er-Teil wird so zum sichtbaren
+  Ausreißer. <strong>Kennzahlen und Plot erzählen dieselbe
+  Geschichte</strong> — einmal als Zahlen, einmal als Bild.</p>
+<pre>
+ggplot(data.frame(mass = x), aes(y = mass)) +
+  geom_boxplot()
+</pre>
+
+  <div class="quiz" data-titel="Quiz: quantile-boxplot">
+    <fieldset class="frage">
+      <legend class="frage-text">Im five-number-summary von
+      <code>x</code> steht Q3 = 10.05. Was bedeutet das?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q15" value="0" data-richtig data-grund="Richtig — das 75%-Quantil: 75 % der sortierten Werte liegen bei 10.05 oder darunter."> 75 % der sortierten Werte liegen bei 10.05 oder darunter</label>
+        <label><input type="checkbox" name="sa-03-q15" value="1" data-grund="Falsch — die mittleren 50 % liegen zwischen Q1 (10.00) und Q3 (10.05); oberhalb von Q3 sind es die oberen 25 %."> 75 % der Werte liegen zwischen 10.00 und 10.05</label>
+        <label><input type="checkbox" name="sa-03-q15" value="2" data-grund="Falsch — umgekehrt: nur die oberen 25 % liegen darüber; Q3 zählt von unten."> 75 % der Werte sind größer als 10.05</label>
+        <label><input type="checkbox" name="sa-03-q15" value="3" data-grund="Falsch — 10.8 ist das Maximum (100 %); Q3 = 10.05 betrifft die mittleren Werte, nicht den Ausreißer."> Der Ausreißer 10.8 gehört zur 75-%-Grenze</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was liest du am Boxplot von
+      <code>x</code> ab? (Zwei Aussagen stimmen.)</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q16" value="0" data-richtig data-grund="Richtig — der Kasten spannt Q1 bis Q3 auf; seine Breite ist genau der IQR."> Der Kasten reicht von Q1 (10.00) bis Q3 (10.05) — seine Breite ist der IQR</label>
+        <label><input type="checkbox" name="sa-03-q16" value="1" data-richtig data-grund="Richtig — der Median erscheint als Strich im Kasten; hier deckt er sich mit Q1, deshalb ist der Kasten schmal."> Der Median erscheint als Strich im Kasten</label>
+        <label><input type="checkbox" name="sa-03-q16" value="2" data-grund="Falsch — die Extremwerte liegen außerhalb; der 10,8er erscheint als eigener Punkt, weil er hinter dem 1,5-IQR-Zaun liegt."> Der Kasten reicht von Min (9.95) bis Max (10.8)</label>
+        <label><input type="checkbox" name="sa-03-q16" value="3" data-grund="Falsch — im Kasten liegt der Median (10.00); der Mittelwert (10.0475) taucht im Standard-Boxplot nicht als Strich auf."> Der Strich im Kasten zeigt den Mittelwert (10.0475)</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 8 — Zählen: der Ausschussanteil</h2>
   <p>Toleranz ±0,15 mm um den Sollwert 10,00. Alles außerhalb ist
   <strong>Ausschuss</strong>:</p>
 <pre>
@@ -190,8 +582,8 @@ fertigung |&gt;
     <a href="../KM6-01-boxplot-und-grafikwahl/lesson.html">KM6-01</a> und
     <a href="../KM7-01-mittelwertsvergleich-t-test/lesson.html">KM7-01</a>.</p>
   </div>
-  <p>Welche Maschine die 6 Teile geliefert hat, klärst du in der
-  Aufgabe — mit denselben zwei Verben.</p>
+  <p>Welche Maschine die 6 Teile geliefert hat, klärst du mit denselben
+  zwei Verben — <code>group_by()</code> plus <code>sum()</code>.</p>
 </section>
 
 <section>
@@ -203,14 +595,18 @@ fertigung |&gt;
     <li>Baue das Histogramm:
       <code>ggplot(fertigung, aes(x = masse_mm)) + geom_histogram(binwidth = 0.05)</code>
       — und ergänze eine gestrichelte Linie beim Sollwert:
-      <code>+ geom_vline(xintercept = 10, linetype = "dashed")</code>.</li>
+      <code>+ geom_vline(xintercept = 10, linetype = "dashed")</code>.
+      Teste auch <code>binwidth = 0.1</code> und
+      <code>binwidth = 0.02</code>: Welche erzählt die ehrlichste
+      Geschichte?</li>
     <li><strong>Vorhersage:</strong> Wie viele Ausschuss-Teile stecken in
       Charge 107? Prüfe mit <code>filter()</code> und <code>summarise()</code>.</li>
   </ol>
 </section>
 
 <section>
-  <div class="baustein">Typische Fehler</div>
+  <div class="baustein">Typische Fehler — die vier Klassiker</div>
+
   <h3>Dezimalkomma in der CSV</h3>
 <pre>
 fertigung &lt;- read_csv("messwerte_komma.csv")   <span class="cmt"># Werte wie "10,05"</span>
@@ -229,31 +625,89 @@ fertigung &lt;- read_csv("betriebsdaten.csv")
   <p>Die Fehlermeldung nennt den gesuchten Pfad. Vergleiche ihn mit dem
   echten Ort der Datei im Repo — meistens fehlen nur ein oder zwei
   Ordner-Ebenen.</p>
+
+  <h3>binwidth schludrig — R rät, du glaubst</h3>
+<pre>
+ggplot(fertigung, aes(x = masse_mm)) +
+  geom_histogram()               <span class="cmt"># R rät: 30 Bins über die Spannweite</span>
+ggplot(fertigung, aes(x = masse_mm)) +
+  geom_histogram(binwidth = 0.5) <span class="cmt"># alles in EINEM Balken — Geschichte weg</span>
+</pre>
+  <p>Ohne <code>binwidth</code> rät R — bei unserer Spannweite gut
+  0,01 mm je Balken, zackig und abhängig von den Extremwerten. Mit
+  0,5 mm verschmilzt alles zu einem Balken: selbst M3s Auslenkung
+  verschwindet. Bewusst wählen, mehrfach testen —
+  <code>binwidth</code> ist Deutungssache.</p>
+
+  <h3><code>sd</code> ohne <code>na.rm</code> — die Streuung ist weg</h3>
+<pre>
+fertigung |&gt;
+  group_by(maschine) |&gt;
+  summarise(s = sd(masse_mm))
+<span class="cmt"># → M1: NA   M2: NA   M3: 0.0696  — NA ist ansteckend</span>
+</pre>
+  <p>Wie beim Mittelwert verlangt auch <code>sd()</code>
+  <code>na.rm = TRUE</code>. Ohne es kippt jede Gruppe mit fehlenden
+  Werten zu <code>NA</code> — hier M1 (3 fehlende Messwerte) und M2
+  (einer), nur M3 hat keine. Kein Abbruch, keine Warnung — das Ergebnis
+  sieht nur unvollständig aus.</p>
+
+  <div class="quiz" data-titel="Quiz: typische-fehler">
+    <fieldset class="frage">
+      <legend class="frage-text">Diagnose:
+      <code>group_by(maschine) |&gt; summarise(s = sd(masse_mm))</code>
+      <em>ohne</em> <code>na.rm</code> — was erscheint?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q17" value="0" data-richtig data-grund="Richtig — M1 hat 3 fehlende Messwerte, M2 einen; M3 hat keine und rechnet darum brav (0.0696)."> NA für M1 und M2, ein Wert (0.0696) für M3</label>
+        <label><input type="checkbox" name="sa-03-q17" value="1" data-grund="Falsch — M3 hat keine fehlenden Messwerte; nur M1 und M2 kippen zu NA."> NA in allen drei Zeilen — jeder Maschine fehlen Messwerte</label>
+        <label><input type="checkbox" name="sa-03-q17" value="2" data-grund="Falsch — sd() verlangt wie mean() das na.rm = TRUE; ohne es infiziert das NA die Rechnung."> Ein Wert für alle drei — sd() ignoriert NA automatisch</label>
+        <label><input type="checkbox" name="sa-03-q17" value="3" data-grund="Falsch — kein Abbruch: R liefert still NA in den betroffenen Zeilen; genau das macht den Fehler tückisch."> Ein Fehler, der das Skript abbricht</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Ein Kollege zeigt ein Histogramm mit
+      <code>binwidth = 0.5</code>. Was ist die Folge?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-03-q18" value="0" data-richtig data-grund="Richtig — 0,5 mm ist breiter als die ganze Spannweite (0,32 mm); alles verschmilzt zu einem Balken, die Geschichte wird harmlos."> Ein einziger Balken um 10 — jede Auslenkung (auch M3) verschwindet</label>
+        <label><input type="checkbox" name="sa-03-q18" value="1" data-grund="Falsch — zu großes binwidth glättet; zackig wird es bei zu feinen Bins oder beim 30-Bin-Default."> Der Plot wird zackiger und ehrlicher</label>
+        <label><input type="checkbox" name="sa-03-q18" value="2" data-grund="Falsch — es läuft durch und zeichnet einen Balken; gerade das Leise macht die Falle gefährlich."> ggplot() bricht wegen der großen binwidth ab</label>
+        <label><input type="checkbox" name="sa-03-q18" value="3" data-grund="Falsch — die vline-Linie bleibt und zeichnet sich unabhängig von den Balken; nur die Balken-Form ist weg."> Der Sollwert bei 10 verschwindet aus dem Plot</label>
+      </div>
+    </fieldset>
+  </div>
 </section>
 
 <section>
   <h2>Zusammenfassung</h2>
   <table>
-    <tr><th>Werkzeug</th><th>Wofür</th></tr>
-    <tr><td><code>read_csv()</code></td><td>CSV einlesen, Typen melden</td></tr>
-    <tr><td><code>glimpse()</code></td><td>Erster Check: Zeilen, Spalten, Typen</td></tr>
-    <tr><td><code>summary()</code></td><td>Spannweite + NA-Zahl auf einen Blick</td></tr>
-    <tr><td><code>summarise(mean/median/sd/IQR)</code></td><td>Kennzahlen (mit <code>na.rm = TRUE</code>)</td></tr>
+    <tr><th>Konzept</th><th>Das Wichtigste</th></tr>
+    <tr><td>Import</td><td><code>read_csv()</code> in einem Projekt-Ordner, Pfade relativ</td></tr>
+    <tr><td>Erstes Ritual</td><td><code>glimpse()</code> · <code>head()</code> · <code>summary()</code> — nach jedem Einlesen</td></tr>
+    <tr><td>EDA-Fragen</td><td>Variation (Histogramm) · Kovariation (Boxplot/Gruppen)</td></tr>
+    <tr><td>Lagemaße</td><td>Mittelwert = Schwerpunkt, Median = Mitte — Schwanz-Regel</td></tr>
+    <tr><td>Streuung</td><td><code>sd</code> (empfindlich) vs. <code>IQR</code> (robust) — 68-95-Brücke zu KM 8</td></tr>
+    <tr><td>Quantile</td><td><code>summary()</code> ↔ Boxplot: dieselbe Geschichte zweimal gelesen</td></tr>
     <tr><td><code>group_by()</code></td><td>Kennzahlen pro Gruppe (Maschine, Charge)</td></tr>
-    <tr><td><code>abs(x - Soll) &gt; Toleranz</code></td><td>Ausschuss zählen</td></tr>
+    <tr><td>Ausschuss</td><td><code>abs(x - Soll) &gt; Toleranz</code>, Anteil via <code>mean()</code></td></tr>
   </table>
-  <p>Damit ist die R-Toolchain komplett: <em>Bild + Verben +
-  Datenreinholung.</em> Ab der nächsten DS geht es in die Statistik:
+  <p><strong>Ausblick:</strong> Alles bisher war <em>beschreiben</em>.
+  Ab der nächsten Einheit geht es in die Statistik:
   Wahrscheinlichkeitsverteilungen und Schätzwerte (KM5/KM6-Recap) —
-  <a href="../../lehrplan/pmm-hwit/jg4-semesterplan-ws.md">Semesterplan KM7</a>.</p>
+  <a href="../../lehrplan/pmm-hwit/jg4-semesterplan-ws.md">Semesterplan KM7</a>.
+  Und wenn die Datei <em>nicht</em> mitspielt (Semikolons, Titelzeilen,
+  ausgefallene Messungen), wartet die nächste Lektion dieser Serie:
+  Daten einlesen II.</p>
 </section>
 
 <section>
   <div class="baustein">Aufgabe</div>
   <p>Vertiefe Einlesen und deskriptive Statistik mit der
   <a href="aufgabe.md">Aufgabe SA-03 — Daten einlesen &amp; deskriptive Statistik</a>:
-  CSV einlesen, Kennzahlen je Maschine, Ausschuss zählen.
-  — <strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
+  CSV einlesen, Kennzahlen und Schwanz-Regel, Histogramm mit
+  <code>geom_vline()</code>, Boxplots vergleichen, die ±2-sd-Brücke
+  vorhersagen und gegen R prüfen. —
+  <strong>Abgabe:</strong> nach Vorgabe deiner Lehrperson.</p>
 </section>
 
 <details class="lehrplan">
@@ -264,20 +718,24 @@ fertigung &lt;- read_csv("betriebsdaten.csv")
       <code>lehrplan/pmm-hwit/jg4-semesterplan-ws.md</code>,
       R4DS-„Whole Game“); SA-03 ist UE 3 „Daten einlesen &amp;
       deskriptive Statistik“ — CSV/Excel, EDA
-      (Lektüre-Anker R4DS Kap. 7, 10, 20)</li>
+      (Lektüre-Anker R4DS Kap. 7 und 10)</li>
     <li><strong>KM-Bezug:</strong> kein eigenes KM — mit SA-03 ist
       die R-Toolchain (UE 1–3, laut KM7-Steckbrief
       <code>lehrplan/kompetenzmodule/km7.md</code> schulautonom
       flankierend) komplett; die deskriptiven Kennzahlen greifen das
       JG3-Vorwissen aus KM5/KM6 auf (Verteilungen,
-      Parameter/Schätzwerte) und sind Basis für die Inferenz-UE 4–5</li>
+      Parameter/Schätzwerte) und bauen die Brücke zu KM 8
+      (Regelkarten: ±1/±2 sd); Basis für die Inferenz-UE 4–5</li>
     <li><strong>Runtime:</strong> R 4.5 / tidyverse —
       <code>readr</code> (<code>read_csv()</code>,
       <code>read_csv2()</code>), <code>dplyr</code>
       (<code>glimpse()</code>, <code>group_by()</code>,
-      <code>summarise()</code>), Base R (<code>summary()</code>,
-      <code>mean()</code>, <code>median()</code>, <code>sd()</code>,
-      <code>IQR()</code>, <code>na.rm = TRUE</code>)</li>
+      <code>summarise()</code>, <code>mutate()</code>),
+      <code>ggplot2</code> (<code>geom_histogram()</code>,
+      <code>geom_vline()</code>, <code>geom_boxplot()</code>),
+      Base R (<code>summary()</code>, <code>head()</code>,
+      <code>mean()</code>, <code>median()</code>, <code>var()</code>,
+      <code>sd()</code>, <code>IQR()</code>, <code>na.rm = TRUE</code>)</li>
   </ul>
 </details>
 
@@ -287,8 +745,11 @@ fertigung &lt;- read_csv("betriebsdaten.csv")
   <a href="https://r4ds.hadley.nz/EDA.html">Kap. 10</a> (Hauptlektüre).</p>
   <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
   ist zu klein, solange du den Code dabei hast.</p>
-  <p>Zurück: <a href="../SA-02-daten-transformieren-dplyr/lesson.html">Lektion SA-02 —
-  Daten transformieren mit dplyr</a></p>
+  <p>Zurück: <a href="../SA-02-daten-transformieren-dplyr/lesson.html">SA-02 —
+  Daten transformieren mit dplyr</a> · Weiter: <a href="../SA-04-daten-einlesen-raue-wirklichkeit/lesson.html">SA-04 —
+  Daten einlesen II: die raue Wirklichkeit</a> · Danach in die
+  Inferenz: <a href="../KM7-01-mittelwertsvergleich-t-test/lesson.html">KM7-01 —
+  Mittelwertsvergleich (t-Test)</a></p>
 </footer>
 
 </body>
