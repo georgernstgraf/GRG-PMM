@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion SA-00 — Was kann R?</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","quiz.js,theme.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+</head>
+<body>
+
+<header class="meta">
+  <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-pressed="false">Dunkel</button>
+  <span class="kicker">Lektion SA-00 · Was kann R?</span>
+  <h1>Vom Taschenrechner zur Prozessentscheidung</h1>
+  <p class="subtitle">R und RStudio zum ersten Mal anfassen: rechnen,
+  Dateien lesen, Bilder zeigen, Gruppen vergleichen — in einer Sprache,
+  die sich speichern, prüfen und wiederholen lässt.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>R4DS 2e (englisch), Pflicht —
+     <a href="https://r4ds.hadley.nz/workflow-basics">Kap. 2 — Workflow:
+     basics</a>: dort stehen die Grundbegriffe, die wir heute benutzen
+     (Funktionen, Objekte, Code im Skript statt in der Konsole).</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>Drei Maschinen fertigen dieselbe Achse. Auf dem Tisch liegt eine
+  Tabelle mit 120 gemessenen Maßen, Sollmaß 10,00 mm, Toleranz
+  ± 0,15 mm. Die Chefin will morgen wissen: Passt der Prozess — und wenn
+  nicht, welche Maschine macht den Ärger?</p>
+  <p>Das lässt sich mit Excel beantworten, denkst du. Richtig — und ein
+  Kollege hat es vor Monaten so getan. Nur weiß heute niemand mehr,
+  welche Zellen er angeklickt hat und welche Formel in C17 stand.</p>
+  <p><strong>Mit welchem Werkzeug bekommst du dieselbe Antwort — aber so,
+  dass sie sich prüfen, teilen und morgen wiederholen lässt?</strong>
+  Genau dafür gibt es R. Heute siehst du, was dieses Werkzeug kann.</p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+  <p>Das steht am Ende der Doppelstunde in deiner Console: der Vergleich
+  der drei Pinguin-Arten — berechnet aus 344 Zeilen Daten mit vier Zeilen
+  Code:</p>
+<pre>
+<code>penguins |&gt;
+  group_by(species) |&gt;
+  summarise(n = n(), mittel = round(mean(body_mass_g, na.rm = TRUE)))
+#&gt; # A tibble: 3 × 3
+#&gt;   species       n mittel
+#&gt;   &lt;fct&gt;     &lt;int&gt;  &lt;dbl&gt;
+#&gt; 1 Adelie      152   3701
+#&gt; 2 Chinstrap    68   3733
+#&gt; 3 Gentoo      124   5076
+</code></pre>
+  <p>Und dazu die Antwort auf eine zweite Frage, die dein Bauchgefühl
+  nicht beantworten kann: ob der Unterschied zwischen Männchen und
+  Weibchen wirklich ist oder bloß Messrauschen. Dafür gibt es einen
+  Test — der liefert heute nur eine Zahl, verstehen tust du ihn in
+  KM 7.</p>
+</section>
+
+<section>
+  <h2>Erststart — zwei Fenster, ein Ritual</h2>
+  <p>R ist die Sprache, RStudio ist die Arbeitsumgebung, in der du sie
+  bequem bedienst. RStudio zeigt dir vier Bereiche; heute brauchst du
+  genau zwei: die <strong>Console</strong> unten (das Gesprächsfenster
+  mit R) und den <strong>Editor</strong> oben links (dein Skript). Die
+  anderen beiden zeigen gespeicherte Werte (Environment) und Bilder
+  (Plots) — dazu kommst du später.</p>
+  <p>Lege dein erstes Skript an: <em>File → New File → R Script</em>,
+  speichern als <code>analyse.R</code>. Ein Skript ist eine ganz normale
+  Textdatei — eine Zeile pro Befehl, von oben nach unten. Beim Speichern
+  bleibt es erhalten, auch wenn RStudio längst geschlossen ist.</p>
+  <p>Ausführen tust du eine Zeile so: Cursor in die Zeile setzen,
+  <kbd>Ctrl</kbd> + <kbd>Enter</kbd> drücken. R schickt die Zeile an die
+  Console, wertet sie aus und druckt die Antwort. Mehr passiert nicht —
+  und das ist der ganze Zauber.</p>
+  <p>Hier siehst du die beiden Fenster im Ablauf — Editor links,
+  Ergebnis in der Console:</p>
+<pre>
+<code># Editor: analyse.R — Zeile markieren, Ctrl+Enter
+2 + 2
+</code></pre>
+<pre>
+<code># Console: R hat geantwortet
+#&gt; [1] 4
+</code></pre>
+  <p>Die Console gehört zur Arbeit wie der Teller zum Essen — aber
+  <em>gespeichert</em> wird im Skript. Wer seinen Code nur in die
+  Console tippt, wirft ihn beim Schließen weg.</p>
+
+  <div class="quiz" data-titel="Quiz: erste-schritte">
+    <fieldset class="frage">
+      <legend class="frage-text">Dein Ergebnis soll in einem Jahr noch
+      genauso erzeugbar sein. Wo steht dafür der Code?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-00-q1" value="0" data-richtig data-grund="Richtig — das Skript ist eine gespeicherte Datei; sein Code läuft von oben nach unten und erzeugt dieselben Ergebnisse wieder und wieder."> Im Skript — der Code liegt als Datei vor und lässt sich erneut laufen lassen</label>
+        <label><input type="checkbox" name="sa-00-q1" value="1" data-grund="Falsch — die Console zeigt die Antwort sofort, aber ihr Inhalt ist weg, sobald du RStudio schließt."> In der Console — dort steht er zuverlässig</label>
+        <label><input type="checkbox" name="sa-00-q1" value="2" data-grund="Falsch — das Environment-Tab zeigt gespeicherte Werte (Zahlen, Tabellen), nicht den Code, der sie erzeugt hat."> Im Environment-Tab — dort sammelt R alles auf</label>
+        <label><input type="checkbox" name="sa-00-q1" value="3" data-grund="Falsch — der Plots-Tab zeigt Bilder; Code liegt dort nirgends."> Im Plots-Tab — Bilder reichen als Beleg</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Du schreibst im Skript:
+      <code>mittel &lt;- mean(c(10.01, 9.98, 10.03))</code> und führst die
+      Zeile mit <kbd>Ctrl</kbd> + <kbd>Enter</kbd> aus. Welche
+      <strong>zwei</strong> Aussagen stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-00-q2" value="0" data-richtig data-grund="Richtig — &lt;- speichert das Rechenergebnis unter dem Namen: Mittelwert aus drei Werten ist 30,02/3 = 10,00667."> Nach der Zeile enthält <code>mittel</code> den Wert 10.00667</label>
+        <label><input type="checkbox" name="sa-00-q2" value="1" data-grund="Richtig — die Zuweisung mit &lt;- druckt nichts; angezeigt wird erst, wenn du die Zeile mittel allein ausführst."> R druckt nichts — der Wert wird nur gespeichert</label>
+        <label><input type="checkbox" name="sa-00-q2" value="2" data-grund="Falsch — genau das Speichern mit &lt;- verhindert das; sichtbar wird der Wert erst, wenn du mittel selbst aufrufst."> R druckt sofort den Mittelwert aus</label>
+        <label><input type="checkbox" name="sa-00-q2" value="3" data-grund="Falsch — mean() aus einem Text kann keine Zahl ergeben; c() hier verbindet drei Zahlen zu einem Vektor."> R speichert die Zahlen als Text</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>R rechnet — sofort</h2>
+  <p>R ist zuerst ein Taschenrechner. Tippe <code>2 + 2</code> ins
+  Skript, führe aus, R antwortet <code>4</code>. Dasselbe gilt für
+  <code>10.01 + 9.98</code> oder für tausend Werte auf einmal — die
+  Rechenregeln sind dieselben, nur die Größenordnung wächst.</p>
+  <p>Interessant wird es mit <strong>Funktionen</strong>: vorbereitete
+  Rezepte, die du per Namen aufrufst. <code>mean(c(10.01, 9.98, 10.03))</code>
+  verbindet <code>c()</code> drei Zahlen zu einem Vektor (einer
+  Zahlenreihe) und <code>mean()</code> berechnet daraus den Mittelwert:</p>
+<pre>
+<code>mittel &lt;- mean(c(10.01, 9.98, 10.03))
+mittel
+#&gt; [1] 10.00667
+</code></pre>
+  <p>Zur Zahl: die drei Werte ergeben zusammen 30.02; geteilt durch drei
+  ist das 10.006666… R druckt standardmäßig sieben signifikante Stellen:
+  <code>10.00667</code>. Und der Pfeil <code>&lt;-</code>? Er
+  <strong>speichert</strong> das Ergebnis unter dem Namen
+  <code>mittel</code> — der Name holt den Wert später zurück. Beachte:
+  die Zuweisungs-Zeile druckt selbst nichts; siehst du den Wert nicht
+  mehr, führe <code>mittel</code> allein aus. So baut sich ein Skript
+  Schritt für Schritt auf: rechnen, speichern, weiter.</p>
+
+  <div class="callout tipp">
+    <span class="label">Merke</span>
+    <p>Regel das ganze Semester: <strong>Code steht im Skript, nicht in
+    der Konsole.</strong> Was du heute rechnest, läuft in einem Jahr
+    noch genauso.</p>
+  </div>
+</section>
+
+<section>
+  <h2>R liest Daten — echte Messwerte</h2>
+  <p>Der Taschenrechner war Aufwärmen. Jetzt kommt R, das Werkzeug:
+  Zahlen eintippen schreibt dir niemand vor — die liegen schon in
+  Dateien. Die Betriebsdaten der Achsenfertigung liegen im Repo als
+  CSV-Datei (Text mit Beistrich als Spaltentrenner):</p>
+<pre>
+<code>library(tidyverse)
+
+teile &lt;- read_csv("assets/betriebsdaten.csv")
+glimpse(teile)
+#&gt; Rows: 120
+#&gt; Columns: 3
+#&gt; $ maschine &lt;chr&gt; "M1", "M1", "M1", "M1", "M2", "M2", "M2", "M2", "M3", …
+#&gt; $ charge   &lt;dbl&gt; 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 1…
+#&gt; $ masse_mm &lt;dbl&gt; 10.00, 10.02, 9.92, 10.03, 9.96, 9.92, 9.94, 9.97, 10.03, …
+</code></pre>
+  <p>Was du hier siehst: <code>library(tidyverse)</code> lädt die
+  Werkzeugkiste (darunter <code>readr</code> fürs Einlesen und
+  <code>ggplot2</code> fürs Zeichnen). <code>read_csv()</code> liest die
+  Datei in eine Tabelle — einen <em>Tibble</em>, die moderne Form eines
+  data frames; die erste Zeile der Datei wird dabei zu den
+  Spaltennamen, die 120 Zeilen sind die Daten darunter.
+  <code>glimpse()</code> zeigt den ersten Blick: 120
+  Zeilen, 3 Spalten, und je Spalte den Typ.</p>
+  <table>
+    <tr><th>Spalte</th><th>Bedeutung</th></tr>
+    <tr><td><code>maschine</code></td><td>M1 / M2 / M3 — drei Fertigungsmaschinen (Typ <code>&lt;chr&gt;</code>: Text)</td></tr>
+    <tr><td><code>charge</code></td><td>Chargen-Nummer, zehn Chargen 101 bis 110 (Typ <code>&lt;dbl&gt;</code>: Zahl)</td></tr>
+    <tr><td><code>masse_mm</code></td><td>Gemessenes Maß, Soll 10,00 mm ± 0,15 (Typ <code>&lt;dbl&gt;</code>: Zahl)</td></tr>
+  </table>
+  <p>Die Typen-Kürzel bedeuten: <code>&lt;chr&gt;</code> ist Text,
+  <code>&lt;dbl&gt;</code> ist eine Dezimalzahl. Nur Zahlen lassen sich
+  rechnen — darauf baust du gleich.</p>
+  <p>Auffällig: in der Spalte <code>masse_mm</code> stehen vier Zeilen
+  ohne Wert. R liest sie als <code>NA</code> — „not available", ein
+  fehlender Messwert. Kein Fehler, sondern Information: diese Messung
+  gab es schlicht nicht. Vielleicht fiel das Messgerät aus. Später
+  lernst du, solche Lücken sauber zu behandeln; heute reicht der erste
+  Blick darauf.</p>
+  <p>120 Teile einlesen = eine Zeile Code. Bei 120.000 Teilen wäre es
+  <strong>dieselbe Zeile</strong> — nur die Tabelle wächst. Das ist der
+  erste Punkt, an dem R klar über Handarbeit hinausgeht.</p>
+
+  <div class="quiz" data-titel="Quiz: daten-einlesen">
+    <fieldset class="frage">
+      <legend class="frage-text">Der <code>glimpse()</code>-Blick zeigt
+      <code>Rows: 120, Columns: 3</code>. Welche <strong>zwei</strong>
+      Aussagen stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-00-q3" value="0" data-richtig data-grund="Richtig — die Spalte maschine steht in glimpse als &lt;chr&gt;: die Werte M1 bis M3 sind Text, keine Zahlen."> Die Spalte <code>maschine</code> ist vom Typ <code>&lt;chr&gt;</code></label>
+        <label><input type="checkbox" name="sa-00-q3" value="1" data-richtig data-grund="Richtig — jede Zeile ist ein Messwert; der Code bleibt bei jeder Datenmenge derselbe, nur die Tabelle wächst."> Bei 120.000 Teilen bleibt der Code dieselbe Zeile — die Tabelle wächst</label>
+        <label><input type="checkbox" name="sa-00-q3" value="2" data-grund="Falsch — die Kopfzeile wird zu den Spaltennamen; die 120 Zeilen sind nur die Daten darunter."> Die Kopfzeile der Datei zählt zu den 120 Zeilen</label>
+        <label><input type="checkbox" name="sa-00-q3" value="3" data-grund="Falsch — read_csv() liest nur; eine fehlende Datei bricht mit einer Fehlermeldung ab, statt sie zu erzeugen."> <code>read_csv()</code> legt die Datei an, wenn es sie nicht findet</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Vier Sätze über R kursieren im
+      Klassenzimmer. Wähle alle aus, die <strong>wahr</strong> sind.</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-00-q4" value="0" data-grund="Falsch — R ist eine Programmiersprache mit Code in Skripten; das Tabellenprogramm ist Excel — genau der Unterschied im Excel-Vergleich dieser Lektion."> „R ist ein Tabellenprogramm wie Excel, nur ohne Mausbedienung.“</label>
+        <label><input type="checkbox" name="sa-00-q4" value="1" data-grund="Falsch — gespeicherte Skripte lassen sich erneut laufen lassen; das Eintippen von Hand ist gerade das, was das Skript verhindert."> „Nach jeder Änderung muss man ein R-Skript neu eintippen.“</label>
+        <label><input type="checkbox" name="sa-00-q4" value="2" data-grund="Falsch — die Console speichert nichts in Dateien; gespeichert wird der Code im Skript."> „Die Console sichert den Code automatisch als Datei.“</label>
+        <label><input type="checkbox" name="sa-00-q4" value="3" data-grund="Falsch — read_csv() liest Dateien ein; rechnen kann R gerade mit den eingelesenen Spalten."> „R kann keine Dateien lesen — es rechnet nur, was man eintippt.“</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>R zeigt Daten — ein Bild statt 342 Zahlen</h2>
+  <p>Nächste Fähigkeit: R macht aus einer Tabelle ein Bild — und zwar
+  als Code, den du speichern und morgen wieder laufen lassen kannst.
+  Wir wechseln die Daten und nehmen den Pinguin-Datensatz
+  <code>penguins</code> aus dem Paket <code>palmerpenguins</code>: 344
+  Zeilen, jede Zeile ein Pinguin, gemessen auf drei Arten von
+  Flossenlänge bis Körpermasse.</p>
+<pre>
+<code>library(palmerpenguins)
+
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()
+</code></pre>
+  <p>Drei Bausteine stecken in dieser Zeilen-Familie:</p>
+  <ul>
+    <li><code>ggplot(penguins, …)</code> — hier kommen die Daten her.</li>
+    <li><code>aes(x = …, y = …)</code> — die Zuordnung: welche Spalte
+    auf die x-Achse, welche auf die y-Achse.</li>
+    <li><code>geom_point()</code> — die Zeichnung: jeder Pinguin als
+    Punkt. Zeilen ohne Messung bleiben weg, der Plot zeigt daher
+    <strong>342 Punkte</strong> statt 344.</li>
+  </ul>
+  <p>Das Bild verrät mehr als jede einzelne Zahl: die Wolke
+  wandert nach rechts oben. Längere Flosse, schwererer Körper — die
+  beiden Maße steigen zusammen. Keine Formel nötig, die Antwort ist ein
+  Bild, gezeichnet von ein paar Zeilen Code.</p>
+
+  <div class="quiz" data-titel="Quiz: daten-zeigen">
+    <fieldset class="frage">
+      <legend class="frage-text">Der Streuplot der Pinguine: Welche
+      <strong>zwei</strong> Aussagen stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-00-q5" value="0" data-richtig data-grund="Richtig — 344 Zeilen, aber 2 Pinguine haben keine Massung; der Plot lässt Zeilen ohne Achsen-Werte weg und zeigt 342 Punkte."> Es sind 342 Punkte — zwei Pinguine haben keine Messung</label>
+        <label><input type="checkbox" name="sa-00-q5" value="1" data-richtig data-grund="Richtig — die Wolke wandert nach rechts oben: längere Flosse, schwererer Körper."> Die Wolke wandert nach rechts oben — längere Flosse, schwererer Körper</label>
+        <label><input type="checkbox" name="sa-00-q5" value="2" data-grund="Falsch — jeder Punkt ist ein Pinguin; die drei Arten sind hier gar nicht farblich getrennt im Plot."> Jeder Punkt ist eine Art</label>
+        <label><input type="checkbox" name="sa-00-q5" value="3" data-grund="Falsch — Zeilen ohne Messung bleiben weg; gezeichnet werden die 342 gemessenen Pinguine, nicht alle 344 Zeilen."> Der Plot zeigt 344 Punkte — jede Zeile der Tabelle wird gezeichnet</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was macht <code>aes(x =
+      flipper_length_mm, y = body_mass_g)</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-00-q6" value="0" data-richtig data-grund="Richtig — aes ist die Zuordnung (Mapping): die Flossenlängen-Spalte gehört auf x, die Massen-Spalte auf y."> Es ordnet die Spalten den Achsen zu — Flossenlänge nach x, Masse nach y</label>
+        <label><input type="checkbox" name="sa-00-q6" value="1" data-grund="Falsch — die Punkte zeichnet geom_point(); aes ordnet nur zu."> Es zeichnet die Punkte in den Plot</label>
+        <label><input type="checkbox" name="sa-00-q6" value="2" data-grund="Falsch — sortieren gehört nicht zu aes; die Zuordnung legt nur fest, welche Spalte auf welche Achse kommt."> Es sortiert die Pinguine nach Flossenlänge</label>
+        <label><input type="checkbox" name="sa-00-q6" value="3" data-grund="Falsch — gespeichert wird mit &lt;-; aes legt nur fest, welche Spalte auf welche Achse kommt."> Es speichert die Achsenwerte für spätere Berechnungen</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>R rechnet mit Daten — Gruppen vergleichen</h2>
+  <p>Eine Frage folgt sofort: wie viel wiegt ein Adélie-Pinguin im
+  Schnitt — und wie viel ein Gentoo? Zwei Verb-Familien aus
+  <code>dplyr</code> beantworten das: <code>group_by()</code> bildet
+  Gruppen, <code>summarise()</code> rechnet je Gruppe eine Zahl aus.</p>
+<pre>
+<code>penguins |&gt;
+  group_by(species) |&gt;
+  summarise(n = n(), mittel = round(mean(body_mass_g, na.rm = TRUE)))
+#&gt; # A tibble: 3 × 3
+#&gt;   species       n mittel
+#&gt;   &lt;fct&gt;     &lt;int&gt;  &lt;dbl&gt;
+#&gt; 1 Adelie      152   3701
+#&gt; 2 Chinstrap    68   3733
+#&gt; 3 Gentoo      124   5076
+</code></pre>
+  <p>Lies die Pipe <code>|&gt;</code> wie einen Satz:
+  <strong>nimm → gruppiere → fasse zusammen</strong>. Die Pipe übergibt
+  das Ergebnis der einen Zeile an die nächste — so liest sich Code wie
+  ein Kochrezept, Schritt für Schritt.</p>
+  <p>Zur Deutung: <code>n = n()</code> zählt die Pinguine je Art — 152,
+  68 und 124 (zwei Pinguine haben keine Massung, sie zählen trotzdem
+  als Zeilen mit). Die Mittelwerte sind mit <code>round()</code> auf
+  ganze Gramm gerundet, damit die Tabelle lesbar bleibt. Und das
+  Wichtigste: Gentoos sind im Schnitt gut 1375 Gramm — also über ein
+  Kilo — schwerer als Adélies.</p>
+  <p>Hier lohnt ein Blick auf <code>na.rm = TRUE</code>. Nimm es
+  einmal weg:</p>
+<pre>
+<code>mean(penguins$body_mass_g)
+#&gt; [1] NA
+</code></pre>
+  <p>Keine Fehlermeldung, keine Warnung — einfach <code>NA</code>.
+  Der Grund: zwei Pinguine haben keine Massung, und sobald ein einziger
+  fehlender Wert im Vektor liegt, weigert sich <code>mean()</code>, die
+  Zahl zu berechnen. Mit <code>na.rm = TRUE</code> („na remove“)
+  lässt R die fehlenden Werte für <em>diese Rechnung</em> weg und
+  rechnet mit den verbleibenden 342 Werten.</p>
+
+  <div class="quiz" data-titel="Quiz: gruppen-vergleichen">
+    <fieldset class="frage">
+      <legend class="frage-text">Lies die Pipe wie einen Satz. Was tut
+      <code>penguins |&gt; group_by(species) |&gt; summarise(…)</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-00-q7" value="0" data-richtig data-grund="Richtig — die Pipe übergibt die Tabelle an group_by (Gruppen bilden), dann an summarise (je Gruppe eine Zahl ausrechnen)."> Nimm die Tabelle → gruppiere nach Art → fasse je Art zusammen</label>
+        <label><input type="checkbox" name="sa-00-q7" value="1" data-grund="Falsch — group_by() bildet Gruppen für die folgende Rechnung; sortiert wird nichts."> Sortiere die Pinguine alphabetisch nach Art</label>
+        <label><input type="checkbox" name="sa-00-q7" value="2" data-grund="Falsch — es gibt keinen Filter im Code; alle 344 Zeilen gehen in die Rechnung ein."> Nimm nur die Gentoo-Pinguine aus der Tabelle</label>
+        <label><input type="checkbox" name="sa-00-q7" value="3" data-grund="Falsch — nichts Zufälliges passiert; die drei Zeilen im Ergebnis sind die drei Gruppen."> Erzeuge per Zufall drei Zeilen aus der Tabelle</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Die Tabelle zeigt Adelie 152/3701,
+      Chinstrap 68/3733, Gentoo 124/5076. Welche <strong>zwei</strong>
+      Aussagen stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-00-q8" value="0" data-richtig data-grund="Richtig — 5076 − 3701 = 1375; gut 1375 Gramm sind über ein Kilo."> Gentoo ist im Schnitt rund 1375 g schwerer als Adélie</label>
+        <label><input type="checkbox" name="sa-00-q8" value="1" data-richtig data-grund="Richtig — n = n() zählt die Zeilen je Gruppe: 152, 68 und 124 Pinguine."> Die Spalte <code>n</code> zählt die Pinguine je Art</label>
+        <label><input type="checkbox" name="sa-00-q8" value="2" data-grund="Falsch — Gentoo liegt mit 5076 g am höchsten; die beiden anderen Arten wiegen um 3700 g."> Gentoo ist die leichteste der drei Arten</label>
+        <label><input type="checkbox" name="sa-00-q8" value="3" data-grund="Falsch — die häufigste Art ist Adélie mit 152; Chinstrap hat nur 68."> Chinstrap ist die häufigste Art</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text"><code>mean(penguins$body_mass_g)</code>
+      liefert <code>NA</code>. Was bewirkt
+      <code>na.rm = TRUE</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-00-q9" value="0" data-richtig data-grund="Richtig — na remove: die fehlenden Werte werden für diese Rechnung weggelassen, mit den restlichen 342 Werten gerechnet."> Die fehlenden Werte werden für diese Rechnung weggelassen</label>
+        <label><input type="checkbox" name="sa-00-q9" value="1" data-grund="Falsch — runden tut round(); na.rm betrifft nur die fehlenden Werte."> Alle Werte werden auf ganze Zahlen gerundet</label>
+        <label><input type="checkbox" name="sa-00-q9" value="2" data-grund="Falsch — aus der Tabelle löscht na.rm nichts; nur die Rechnung ignoriert die Lücken."> Die Zeilen mit NA werden aus der Tabelle gelöscht</label>
+        <label><input type="checkbox" name="sa-00-q9" value="3" data-grund="Falsch — na.rm steuert nur die Rechnung; der Plot ändert sich durch dieses Argument nicht."> Die NA-Zeilen werden im Plot farbig markiert</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>R prüft — Zufall oder echter Unterschied?</h2>
+  <p>Die vierte Fähigkeit ist die, die Process Manager am meisten
+  brauchen: R kann <em>prüfen</em>, ob ein Unterschied wirklich ist oder
+  nur Zufall. Der einfachste Test vergleicht zwei Gruppen — hier
+  Männchen und Weibchen:</p>
+<pre>
+<code>t.test(body_mass_g ~ sex, data = penguins)
+#&gt; 
+#&gt;  Welch Two Sample t-test
+#&gt; 
+#&gt; data:  body_mass_g by sex
+#&gt; t = -8.5545, df = 323.9, p-value = 4.794e-16
+</code></pre>
+  <p>Interessiert dich heute nur eine Zeile: der <strong>p-Wert</strong>,
+  4.794e-16 — also rund 5·10<sup>−16</sup>, praktisch null. Der p-Wert
+  ist die Wahrscheinlichkeit, dass bloßes Messrauschen einen
+  Unterschied dieser Größe erzeugt. Bei praktisch null heißt das: Wenn
+  es in Wahrheit nur Rauschen gäbe, sähest du so einen Unterschied fast
+  nie. Männchen und Weibchen unterscheiden sich <strong>echt</strong> —
+  das ist kein Messrauschen.</p>
+  <p>Du musst den p-Wert heute nicht ausrechnen können. Du sollst nur
+  verstehen, was R hier vor sich hat: einen Test, der zwei Gruppen
+  gegeneinander hält. Das volle Handwerk kommt in KM 7 — der Anfang
+  eines Werkzeugkastens mit t-Test, χ²-Test, ANOVA und
+  Annahmestichprobenprüfung nach ISO 2859/3951.</p>
+
+  <div class="quiz" data-titel="Quiz: pruefen-und-excel">
+    <fieldset class="frage">
+      <legend class="frage-text">Der t-Test liefert p ≈ 5·10<sup>−16</sup>.
+      Welche <strong>zwei</strong> Aussagen stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-00-q10" value="0" data-richtig data-grund="Richtig — der p-Wert ist die Wahrscheinlichkeit, dass bloßes Rauschen einen solchen Unterschied erzeugt; praktisch null heißt: kein Rauschen, echtes Ergebnis."> Praktisch null heißt: bloßes Rauschen kann diesen Unterschied fast nie erzeugen</label>
+        <label><input type="checkbox" name="sa-00-q10" value="1" data-richtig data-grund="Richtig — genau dieser Werkzeugkasten ist der Stoff von KM 7; der t-Test hier ist der Vorgeschmack."> Solche Prüfungen sind der Werkzeugkasten von KM 7 — t-Test, χ²-Test, ANOVA</label>
+        <label><input type="checkbox" name="sa-00-q10" value="2" data-grund="Falsch — der p-Wert misst das Rauschen, nicht die Existenz des Unterschieds; die Lektion erklärt ihn als Wahrscheinlichkeit unter bloßem Rauschen."> Die Wahrscheinlichkeit, dass der Unterschied nicht existiert, ist 5·10⁻¹⁶</label>
+        <label><input type="checkbox" name="sa-00-q10" value="3" data-grund="Falsch — der Test vergleicht Männchen und Weibchen; der Unterschied ist gerade nicht null."> Männchen und Weibchen wiegen im Schnitt gleich viel</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Excel gegen R: Welche <strong>drei</strong>
+      Aussagen stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-00-q11" value="0" data-richtig data-grund="Richtig — beim Wiederholen hilft R: das Skript einfach erneut laufen lassen, statt jeden Klick von Hand zu wiederholen."> Wiederholen: bei R lässt du das Skript erneut laufen</label>
+        <label><input type="checkbox" name="sa-00-q11" value="1" data-richtig data-grund="Richtig — jede Zeile Code steht in der Datei; in Excel bleibt fraglich, welche Formel in C17 stand."> Nachvollziehen: in R steht jede Zeile in der Datei</label>
+        <label><input type="checkbox" name="sa-00-q11" value="2" data-richtig data-grund="Richtig — dieselbe Zeile Code liest 120.000 Zeilen so, wie sie 120 liest; die Datenmenge ändert den Code nicht."> Wachsen: 120.000 Zeilen — gleicher Code, keine andere Methode nötig</label>
+        <label><input type="checkbox" name="sa-00-q11" value="3" data-grund="Falsch — auswertung_final2_wirklich.xlsx ist das Gegenbeispiel: Datei-Kopie-Wildwuchs statt einer nachvollziehbaren Versionsverwaltung."> Versionieren: auswertung_final2_wirklich.xlsx ist gutes Versionsmanagement</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Dein Kollege öffnet
+      <code>auswertung_final2_wirklich.xlsx</code> und fragt, wie das
+      Ergebnis zustande kam. Was kannst du mit deinem Skript, was er mit
+      der Mappe nicht kann?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-00-q12" value="0" data-richtig data-grund="Richtig — das Skript ist der Weg: jede Zeile nachlesbar, das Ganze läuft bei ihm genauso wieder."> Ich zeige ihm die Datei mit jeder Codezeile — er kann sie nachlesen und selbst laufen lassen</label>
+        <label><input type="checkbox" name="sa-00-q12" value="1" data-grund="Falsch — R rechnet nicht genauer als Excel; der Vorteil liegt im Weg, nicht in der Rechengenauigkeit."> Meine Zahlen stimmen besser, weil R genauer rechnet</label>
+        <label><input type="checkbox" name="sa-00-q12" value="2" data-grund="Falsch — die Diagrammqualität entscheidet hier nichts; der Punkt ist der nachvollziehbare Weg."> Ich kann prettigere Diagramme bauen</label>
+        <label><input type="checkbox" name="sa-00-q12" value="3" data-grund="Falsch — ohne Nachdenken entsteht keine Auswertung; R rechnet nur, was das Skript sagt."> Ich bekomme dieselbe Auswertung, ohne dass ich sie verstehe</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Warum nicht einfach Excel?</h2>
+  <p>Die Frage kennst du: Wenn Excel es auch rechnet, warum dann R?
+  Der Unterschied liegt nicht in der Rechenpower, sondern in dem, was
+  nach dem Ergebnis bleibt:</p>
+  <table>
+    <tr><th></th><th>Excel (Klick)</th><th>R (Skript)</th></tr>
+    <tr><td><strong>Wiederholen</strong></td><td>Alles von Hand — wieder</td><td>Skript erneut laufen lassen</td></tr>
+    <tr><td><strong>Nachvollziehen</strong></td><td>Welche Formel stand in C17?</td><td>Jede Zeile steht in der Datei</td></tr>
+    <tr><td><strong>Versionieren</strong></td><td><code>auswertung_final2_wirklich.xlsx</code></td><td>Git zeigt jede Änderung</td></tr>
+    <tr><td><strong>Wachsen</strong></td><td>120.000 Zeilen = Geduldsspiel</td><td>Gleicher Code, jede Größe</td></tr>
+  </table>
+
+  <div class="callout tipp">
+    <span class="label">Merke</span>
+    <p>Excel zeigt dir <em>ein</em> Ergebnis. Ein R-Skript zeigt dir
+    <em>den Weg</em> — und der Weg lässt sich prüfen, teilen und
+    wiederholen. Genau das verlangt die Matura.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Jetzt du!</h2>
+  <p>Arbeitseinstieg wie immer: RStudio-Projekt öffnen, Skript
+  <code>analyse.R</code> bereit, Arbeitsverzeichnis ist der Repo-Root
+  (Pfade wie unten). Vor jeder Ausführung <strong>erst vorhersagen</strong>,
+  dann laufen lassen.</p>
+  <ol>
+    <li><strong>Vorhersage:</strong> Was liefert
+    <code>teile |&gt; group_by(maschine) |&gt; summarise(n = sum(!is.na(masse_mm)),
+    mittel = mean(masse_mm, na.rm = TRUE))</code> — wie viele Zeilen,
+    und welche Mittelwerte ungefähr? <code>!is.na(x)</code> zählt die
+    Zeilen, in denen <code>x</code> tatsächlich gemessen wurde; fehlende
+    Werte zählen nicht mit. Dann ausführen und vergleichen
+    (Kontrolle: M1 37/10.0 · M2 39/9.98 · M3 40/10.1 — woher kommen
+    die 37, 39 und 40, wenn je Maschine 40 Zeilen liegen?).</li>
+    <li><strong>Flossenschwere:</strong> Baue den Streuplot aus der
+    Lektion selbst nach (<code>ggplot(penguins, aes(x =
+    flipper_length_mm, y = body_mass_g)) + geom_point()</code>).
+    Vorhersage vor dem Ausführen: wie viele Punkte zeigt der Plot —
+    und warum genau so viele?</li>
+    <li><strong>Gruppen prüfen:</strong> Führe
+    <code>t.test(body_mass_g ~ sex, data = penguins)</code> aus und
+    notiere die p-Wert-Zeile. Vorhersage: wenn du
+    <code>group_by(sex) |&gt; summarise(mean(body_mass_g, na.rm = TRUE))</code>
+    daneben legst — liegen die beiden Mittelwerte nah beieinander oder
+    klar getrennt? Passt das zum p-Wert?</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Typische Fehler — die drei Klassiker</h2>
+  <p>Alle drei Fehler passieren leise oder zu laut — jedenfalls dann,
+  wenn du sie zu kennen lernst, fallen sie nie wieder auf.</p>
+
+  <p><strong>1. Code nur in der Konsole getippt — morgen weg.</strong></p>
+<pre>
+<code># Anti-Beispiel: getippt in der Console, nie gespeichert
+&gt; mittel &lt;- mean(c(10.01, 9.98, 10.03))   # RStudio schließt → alles weg
+</code></pre>
+  <p>Die Console vergisst beim Schließen alles — das Skript nicht.
+  Richtig: Code gleich im Skript schreiben, von dort mit
+  <kbd>Ctrl</kbd> + <kbd>Enter</kbd> ausführen.</p>
+
+  <p><strong>2. Falscher Pfad — R findet die Datei nicht.</strong></p>
+<pre>
+<code># Anti-Beispiel: Pfad relativ zum Arbeitsverzeichnis gebaut, aber falsch
+teile &lt;- read_csv("betriebsdaten.csv")
+#&gt; Error: 'betriebsdaten.csv' does not exist in current working directory.
+</code></pre>
+  <p>R sucht vom <strong>Arbeitsverzeichnis</strong> aus — dem Ordner,
+  in dem dein RStudio-Projekt lebt. Zeigt dir <code>getwd()</code>.
+  Sitzt dein Projekt im Repo-Root, heißt der Pfad
+  <code>assets/betriebsdaten.csv</code>; liegt die Datei daneben, kommt
+  die Fehlermeldung. Die Meldung ist dein Freund: sie sagt dir genau,
+  wo R gesucht hat.</p>
+
+  <p><strong>3. <code>na.rm</code> vergessen — Mittelwert wird
+  <code>NA</code>.</strong></p>
+<pre>
+<code># Anti-Beispiel: fehlende Werte im Vektor, kein na.rm
+mean(penguins$body_mass_g)
+#&gt; [1] NA
+</code></pre>
+  <p>Kein Fehler, keine Warnung — nur ein stilles <code>NA</code>.
+  Sobald ein einziger fehlender Wert in der Spalte liegt, ziert R den
+  Mittelwert mit <code>NA</code>, statt zu raten. Richtig:
+  <code>na.rm = TRUE</code> setzen, dann rechnet R mit den verbleibenden
+  Werten.</p>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <tr><th>Fähigkeit</th><th>Befehl</th><th>Ergebnis</th></tr>
+    <tr><td>Rechnet</td><td><code>2 + 2</code>, <code>mean(c(…))</code></td><td>Zahl, sofort</td></tr>
+    <tr><td>Speichert</td><td><code>mittel &lt;- …</code></td><td>Name holt den Wert zurück</td></tr>
+    <tr><td>Liest</td><td><code>read_csv()</code>, <code>glimpse()</code></td><td>Tabelle mit Zeilen, Spalten, Typen</td></tr>
+    <tr><td>Zeigt</td><td><code>ggplot()</code> + <code>geom_point()</code></td><td>Streuplot statt Zahlenwand</td></tr>
+    <tr><td>Fasst zusammen</td><td><code>group_by() |&gt; summarise()</code></td><td>Kennzahlen je Gruppe</td></tr>
+    <tr><td>Prüft</td><td><code>t.test()</code></td><td>p-Wert — Zufall oder echt?</td></tr>
+  </table>
+  <p>Und der Merksatz von heute, der dich durch das ganze Semester
+  trägt: <strong>Code steht im Skript, nicht in der Konsole.</strong></p>
+  <p><strong>Ausblick:</strong> Die nächste Lektion dieser Serie macht
+  aus den rohen Punkten Bilder mit Aussage: mit
+  <code>ggplot2</code> gestaltest du Streuplots, Histogramme und
+  Balken — und entscheidest bewusst, welcher Fragetyp welcher Geom ist.
+  Weiter mit <a href="../SA-01-datenvisualisierung-ggplot/lesson.html">SA-01
+  — Daten visualisieren mit ggplot</a>.</p>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Drei Beispiele zum Abgeben: die Betriebsdaten-Kette komplett
+  selbst durchführen (Beispiel 1), ein Selbsttest im Wissensüberprüfungs-
+  Format (Beispiel 2) und der Transfer auf neue Daten — die
+  Pinguin-Inseln (Beispiel 3). Details:
+  <a href="aufgabe.md">Aufgabe SA-00 — Was kann R?</a> —
+  <strong>Abgabe:</strong> nach Vorgabe deiner Lehrperson.</p>
+</section>
+
+<details class="lehrplan">
+  <summary>Lehrplan &amp; Einordnung</summary>
+  <ul>
+    <li><strong>Lehrplan:</strong> PMM (HWIT) — schulautonomer
+      Werkzeug-Block „R-Basics“ (R4DS-„Whole Game“-Einstieg); kein
+      eigenes Kompetenzmodul — Vorläufer von KM 7, dessen
+      Prüf-Werkzeugkasten (t-Test, χ²-Test, ANOVA, Annahmestichproben-
+      prüfung nach ISO 2859/3951) hier zum ersten Mal angetippt wird.</li>
+    <li><strong>KM-Bezug:</strong> kein KM — schulautonomer Einstieg in
+      das Werkzeug R; Grundlage für SA-01 bis SA-04 und für KM 7.</li>
+    <li><strong>Runtime:</strong> R 4.5 / tidyverse —
+      <code>readr</code> (<code>read_csv()</code>, <code>glimpse()</code>),
+      <code>ggplot2</code> (<code>ggplot()</code>, <code>aes()</code>,
+      <code>geom_point()</code>), <code>dplyr</code>
+      (<code>group_by()</code>, <code>summarise()</code>, <code>n()</code>,
+      <code>mean()</code>, <code>round()</code>), <code>stats</code>
+      (<code>t.test()</code>), <code>palmerpenguins</code>
+      (Datensatz <code>penguins</code>, Lizenz CC0).</li>
+  </ul>
+</details>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> R4DS 2e,
+  <a href="https://r4ds.hadley.nz/workflow-basics">Kap. 2 — Workflow:
+  basics</a> (Hauptlektüre).</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Weiter: <a href="../SA-01-datenvisualisierung-ggplot/lesson.html">Lektion
+  SA-01 — Erste Plots mit ggplot2</a> — derselbe Datensatz, aber
+  deine eigenen Bilder · Serie: R-Basics (SA-00 …)</p>
+</footer>
+
+</body>
+</html>
