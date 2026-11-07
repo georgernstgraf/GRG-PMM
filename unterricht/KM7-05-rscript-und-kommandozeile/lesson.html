@@ -84,6 +84,30 @@ $ Rscript scripts/analyse.R
       <code>dir</code>) sind keine R-Funktionen, und R-Befehle wie
       <code>mean()</code> versteht das Terminal nicht.</p>
   </div>
+
+  <div class="quiz" data-titel="Quiz: console-vs-terminal">
+    <fieldset class="frage">
+      <legend class="frage-text">Console und Terminal liegen in RStudio
+      dicht beieinander. Welche zwei Aussagen trennen sie sauber?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-05-q1" value="0" data-grund="Richtig — in der Console tippst du R-Befehle; dort ist R, Zeile für Zeile."> Die Console gehört zu R — der Prompt <code>&gt;</code> wartet dort auf R-Befehle</label>
+        <label><input type="checkbox" data-richtig name="km7-05-q1" value="1" data-grund="Richtig — das Terminal kennt R gar nicht; seine Aufgabe ist es, Programme zu starten."> Das Terminal gehört dem Betriebssystem — es startet Programme</label>
+        <label><input type="checkbox" name="km7-05-q1" value="2" data-grund="Falsch — cd, ls (Windows: dir) sind Befehle ans Betriebssystem, keine R-Funktionen."> <code>cd</code> und <code>ls</code> sind R-Funktionen wie <code>mean()</code></label>
+        <label><input type="checkbox" name="km7-05-q1" value="3" data-grund="Falsch — R-Befehle wie mean() versteht das Terminal nicht; dort tippen Befehle ans Betriebssystem."> <code>mean()</code> kannst du direkt im Terminal ausführen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Du willst prüfen, ob <code>Rscript</code>
+      installiert ist. Was machst du?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-05-q2" value="0" data-grund="Richtig — Rscript wird zusammen mit R installiert; die Version prüfst du im Terminal mit Rscript --version."> Im Terminal: <code>Rscript --version</code></label>
+        <label><input type="checkbox" name="km7-05-q2" value="1" data-grund="Falsch — in der Console tippst du R-Befehle; Rscript --version ist ein Befehl ans Betriebssystem, den die Console nicht versteht."> In der Console: <code>Rscript --version</code></label>
+        <label><input type="checkbox" name="km7-05-q2" value="2" data-grund="Falsch — Ctrl + Shift + S führt ein Skript aus; es prüft nicht, ob Rscript installiert ist."> In RStudio mit <code>Ctrl + Shift + S</code></label>
+        <label><input type="checkbox" name="km7-05-q2" value="3" data-grund="Falsch — prüfen geht sehr wohl: Rscript --version im Terminal."> Gar nicht — das zeigt nur RStudio unter Help an</label>
+      </div>
+    </fieldset>
+  </div>
 </section>
 
 <section>
@@ -113,14 +137,28 @@ $ Rscript scripts/analyse.R
     <tr><td><strong>Für wen?</strong></td><td>zum Erkunden und Entwickeln</td><td>zum fertigen, wiederholbaren Lauf</td></tr>
   </table>
 
-  <div class="quiz" data-loesung="2">
-    <p class="frage">Was macht der Befehl <code>Rscript
-    scripts/analyse.R</code> im Terminal?</p>
-    <label><input type="radio" name="q1" value="0" data-grund="Falsch — öffnen und bearbeiten tut der Editor in RStudio; Rscript führt die Datei aus, ohne sie zu öffnen."> Er öffnet das Skript zur Bearbeitung</label>
-    <label><input type="radio" name="q1" value="1" data-grund="Falsch — Rscript ist nicht-interaktiv: es gibt keinen Prompt, es wird nichts angezeigt, das auf Eingabe wartet."> Er startet eine Konsole mit Prompt <code>&gt;</code></label>
-    <label><input type="radio" name="q1" value="2" data-grund="Richtig — Rscript liest die Datei komplett, führt jeden Befehl aus und beendet sich danach selbst."> Er liest die Datei komplett, führt sie aus und beendet sich</label>
-    <label><input type="radio" name="q1" value="3" data-grund="Falsch — anzeigen tut z.B. cat() oder less; Rscript führt den Code aus, er zeigt ihn nicht an."> Er zeigt nur den Inhalt der Datei an</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: rscript-lauf">
+    <fieldset class="frage">
+      <legend class="frage-text">Was macht der Befehl <code>Rscript
+      scripts/analyse.R</code> im Terminal?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-05-q3" value="0" data-grund="Falsch — öffnen und bearbeiten tut der Editor in RStudio; Rscript führt die Datei aus, ohne sie zu öffnen."> Er öffnet das Skript zur Bearbeitung</label>
+        <label><input type="checkbox" name="km7-05-q3" value="1" data-grund="Falsch — Rscript ist nicht-interaktiv: es gibt keinen Prompt und keine Rückfragen."> Er startet eine Konsole mit Prompt <code>&gt;</code></label>
+        <label><input type="checkbox" data-richtig name="km7-05-q3" value="2" data-grund="Richtig — Rscript macht genau eine Sache: eine .R-Datei komplett einlesen, komplett ausführen, sich dann beenden."> Er liest die Datei komplett, führt sie aus und beendet sich</label>
+        <label><input type="checkbox" name="km7-05-q3" value="3" data-grund="Falsch — anzeigen tut z. B. cat(); Rscript führt den Code aus, er zeigt ihn nicht an."> Er zeigt nur den Inhalt der Datei an</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Die Tabelle vergleicht die R-Console mit
+      <code>Rscript</code>. Welche zwei Unterschiede stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-05-q4" value="0" data-grund="Richtig — so steht es in der Tabelle: Die Console wartet auf deine Eingabe, Rscript läuft durch und beendet sich."> Rscript läuft durch und beendet sich — die Console wartet auf Eingabe</label>
+        <label><input type="checkbox" data-richtig name="km7-05-q4" value="1" data-grund="Richtig — Eingabe in der Console: Zeile für Zeile; bei Rscript: eine ganze Datei."> Rscript nimmt eine ganze Datei — die Console Zeile für Zeile</label>
+        <label><input type="checkbox" name="km7-05-q4" value="2" data-grund="Falsch — die Kennzahlen erscheinen im Terminal (siehe Ausgabe oben); es gibt nur keinen Prompt und keine Rückfragen."> Rscript zeigt keinerlei Ausgaben im Terminal an</label>
+        <label><input type="checkbox" name="km7-05-q4" value="3" data-grund="Falsch — Rscript läuft ohne Fenster, ohne Maus; genau dafür ist es da."> Rscript braucht wie die Console ein RStudio-Fenster</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -144,14 +182,29 @@ $ Rscript scripts/analyse.R
       <code>Rscript</code>.</p>
   </div>
 
-  <div class="quiz" data-loesung="0">
-    <p class="frage">Mit welchem Environment startet ein
-    Rscript-Lauf?</p>
-    <label><input type="radio" name="q2" value="0" data-grund="Richtig — leer heißt: nur was im Skript steht (library(), read_csv(), Zuweisungen), existiert während des Laufs."> Leer — es existiert nur, was im Skript steht</label>
-    <label><input type="radio" name="q2" value="1" data-grund="Falsch — Rscript lädt keinen gespeicherten Workspace; genau das wäre das Gegenteil von reproduzierbar."> Mit den Objekten aus der letzten RStudio-Sitzung</label>
-    <label><input type="radio" name="q2" value="2" data-grund="Falsch — installierte Pakete lädt library() im Skript; der Start selbst lädt nichts vor."> Mit allen installierten Paketen vorgeladen</label>
-    <label><input type="radio" name="q2" value="3" data-grund="Falsch — Dateien werden vom Skript mit read_csv() eingelesen; Rscript liest nichts automatisch."> Mit den Daten aus dem <code>data/</code>-Ordner</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: frische-session">
+    <fieldset class="frage">
+      <legend class="frage-text">Mit welchem Environment startet ein
+      Rscript-Lauf?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-05-q5" value="0" data-grund="Richtig — leer heißt: nur was im Skript steht (library(), read_csv(), Zuweisungen), existiert während des Laufs."> Leer — es existiert nur, was im Skript steht</label>
+        <label><input type="checkbox" name="km7-05-q5" value="1" data-grund="Falsch — Rscript lädt keinen gespeicherten Workspace; genau das wäre das Gegenteil von reproduzierbar."> Mit den Objekten aus der letzten RStudio-Sitzung</label>
+        <label><input type="checkbox" name="km7-05-q5" value="2" data-grund="Falsch — installierte Pakete lädt library() im Skript; der Start selbst lädt nichts vor."> Mit allen installierten Paketen vorgeladen</label>
+        <label><input type="checkbox" name="km7-05-q5" value="3" data-grund="Falsch — Dateien werden vom Skript mit read_csv() eingelesen; Rscript liest nichts automatisch."> Mit den Daten aus dem <code>data/</code>-Ordner</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Warum ist die frische Session die
+      Garantie, die Automatisierung braucht? Welche zwei Aussagen
+      stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-05-q6" value="0" data-grund="Richtig — das ist die Reproduzierbarkeit: das Ergebnis hängt nicht davon ab, was vorher auf dem Rechner passiert ist."> Gleicher Code + gleiche Daten = gleiches Ergebnis — egal, was vorher passierte</label>
+        <label><input type="checkbox" data-richtig name="km7-05-q6" value="1" data-grund="Richtig — weil das Environment leer startet, muss das Skript Pakete und Daten selbst laden."> Das Skript muss alles selbst mitbringen — <code>library()</code> oben, <code>read_csv()</code> für die Daten</label>
+        <label><input type="checkbox" name="km7-05-q6" value="2" data-grund="Falsch — was in RStudio noch im Speicher lag, existiert hier nicht; es gibt nichts zu merken."> Rscript merkt sich Objekte aus dem Herumprobieren und läuft so schneller</label>
+        <label><input type="checkbox" name="km7-05-q6" value="3" data-grund="Falsch — der Praxistest ist sogar umgekehrt: RStudio ganz schließen, neu öffnen — dann läuft das Skript von null."> Die Garantie gilt nur, wenn RStudio gleichzeitig offen ist</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -170,14 +223,28 @@ $ Rscript -e 'cat(2^10, "\n")'
   heraus eine kleine R-Rechnung anzustoßen, ohne eine Datei
   anzulegen.</p>
 
-  <div class="quiz" data-loesung="3">
-    <p class="frage">Wofür ist die Option <code>-e</code> bei
-    <code>Rscript</code> da?</p>
-    <label><input type="radio" name="q3" value="0" data-grund="Falsch — -e führt aus, es öffnet nichts; Dateien anlegen tut File → New File bzw. dein Editor."> Sie öffnet den Editor mit einer neuen Datei</label>
-    <label><input type="radio" name="q3" value="1" data-grund="Falsch — Umgebungsvariablen des Systems regelt die Shell; -e hat damit nichts zu tun."> Sie setzt die Umgebungsvariablen</label>
-    <label><input type="radio" name="q3" value="2" data-grund="Falsch — Ausgabeformate regeln die Skripte selbst (z.B. mit write_csv); -e betrifft das nicht."> Sie erzwingt die Ausgabe als Excel-Datei</label>
-    <label><input type="radio" name="q3" value="3" data-grund="Richtig — Rscript -e 'AUSDRUCK' führt genau diesen Ausdruck aus und beendet sich, ganz ohne Datei."> Sie führt einen einzelnen Ausdruck aus, ohne Datei</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: einzeiler-e">
+    <fieldset class="frage">
+      <legend class="frage-text">Wofür ist die Option <code>-e</code> bei
+      <code>Rscript</code> da?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-05-q7" value="0" data-grund="Falsch — -e führt aus, es öffnet nichts; Dateien anlegen tut File → New File bzw. dein Editor."> Sie öffnet den Editor mit einer neuen Datei</label>
+        <label><input type="checkbox" name="km7-05-q7" value="1" data-grund="Falsch — Umgebungsvariablen des Systems regelt die Shell; -e hat damit nichts zu tun."> Sie setzt die Umgebungsvariablen</label>
+        <label><input type="checkbox" name="km7-05-q7" value="2" data-grund="Falsch — Ausgabeformate regeln die Skripte selbst (z. B. mit write_csv); -e betrifft das nicht."> Sie erzwingt die Ausgabe als Excel-Datei</label>
+        <label><input type="checkbox" data-richtig name="km7-05-q7" value="3" data-grund="Richtig — Rscript -e 'AUSDRUCK' führt genau diesen Ausdruck aus und beendet sich, ganz ohne Datei."> Sie führt einen einzelnen Ausdruck aus, ohne Datei</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was passiert bei
+      <code>Rscript -e 'cat(2^10, "\n")'</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-05-q8" value="0" data-grund="Richtig — 2^10 ist 1024; cat() druckt es, danach beendet sich Rscript von selbst."> R führt den Ausdruck aus, druckt 1024 und beendet sich</label>
+        <label><input type="checkbox" name="km7-05-q8" value="1" data-grund="Falsch — -e gibt keinen Prompt; der Ausdruck läuft und Rscript beendet sich."> R startet eine Session mit Prompt und wartet auf weitere Eingaben</label>
+        <label><input type="checkbox" name="km7-05-q8" value="2" data-grund="Falsch — gerade das nicht: -e führt aus, ohne dass du eine Datei anlegst."> Es wird eine neue .R-Datei mit dem Ausdruck angelegt</label>
+        <label><input type="checkbox" name="km7-05-q8" value="3" data-grund="Falsch — der Ausdruck wird wirklich ausgeführt; seine Ausgabe erscheint im Terminal."> Der Ausdruck wird nur geprüft, aber nicht ausgeführt</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -223,14 +290,29 @@ Execution halted
   Und der fehlende Aufruf-Parameter wird nicht stillschweigend
   ignoriert, sondern sauber abgefangen.</p>
 
-  <div class="quiz" data-loesung="1">
-    <p class="frage">Was liefert <code>commandArgs(trailingOnly =
-    TRUE)</code> in <code>maschine.R</code> zurück?</p>
-    <label><input type="radio" name="q4" value="0" data-grund="Falsch — Zeilen zählt nrow(daten); commandArgs liest die Kommandozeile des Aufrufs, nicht die Daten."> Die Anzahl der Zeilen der CSV-Datei</label>
-    <label><input type="radio" name="q4" value="1" data-grund="Richtig — bei Rscript scripts/maschine.R M2 liefert es den Vektor „M2“; das Skript greift mit args[1] darauf zu."> Ein Zeichenvektor mit den Argumenten hinter dem Skriptnamen</label>
-    <label><input type="radio" name="q4" value="2" data-grund="Falsch — die Versionsnummer liefert R.version bzw. Rscript --version; commandArgs hat nichts damit zu tun."> Die Versionsnummer von R</label>
-    <label><input type="radio" name="q4" value="3" data-grund="Falsch — commandArgs kennt nur die Argumente des Aufrufs; von geöffneten Dateien weiß es nichts."> Eine Liste aller geöffneten Dateien</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: aufruf-argumente">
+    <fieldset class="frage">
+      <legend class="frage-text">Was liefert <code>commandArgs(trailingOnly =
+      TRUE)</code> in <code>maschine.R</code> zurück?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-05-q9" value="0" data-grund="Falsch — Zeilen zählt nrow(daten); commandArgs liest die Kommandozeile des Aufrufs, nicht die Daten."> Die Anzahl der Zeilen der CSV-Datei</label>
+        <label><input type="checkbox" data-richtig name="km7-05-q9" value="1" data-grund="Richtig — bei Rscript scripts/maschine.R M2 liefert es den Vektor „M2“; das Skript greift mit args[1] darauf zu."> Ein Zeichenvektor mit den Argumenten hinter dem Skriptnamen</label>
+        <label><input type="checkbox" name="km7-05-q9" value="2" data-grund="Falsch — die Versionsnummer liefert R.version bzw. Rscript --version; commandArgs hat nichts damit zu tun."> Die Versionsnummer von R</label>
+        <label><input type="checkbox" name="km7-05-q9" value="3" data-grund="Falsch — commandArgs kennt nur die Argumente des Aufrufs; von geöffneten Dateien weiß es nichts."> Eine Liste aller geöffneten Dateien</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">In <code>maschine.R</code> steht
+      <code>if (length(args) != 1) stop(...)</code>. Was passiert beim
+      Aufruf <code>Rscript scripts/maschine.R</code> ohne Argument?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-05-q10" value="0" data-grund="Richtig — stop() bricht mit einer verständlichen Meldung ab, wenn die Benutzung falsch ist; das Terminal zeigt: Error: Benutzung: …, Execution halted."> Das Skript bricht mit der Meldung „Benutzung: …“ ab — Execution halted</label>
+        <label><input type="checkbox" name="km7-05-q10" value="1" data-grund="Falsch — der fehlende Aufruf-Parameter wird nicht stillschweigend ignoriert, sondern sauber abgefangen."> Das Skript läuft weiter und wertet still alle drei Maschinen aus</label>
+        <label><input type="checkbox" name="km7-05-q10" value="2" data-grund="Falsch — Rscript stellt keine Rückfragen; es läuft durch oder bricht ab."> R fragt interaktiv nach, welche Maschine gemeint ist</label>
+        <label><input type="checkbox" name="km7-05-q10" value="3" data-grund="Falsch — commandArgs liefert nur, was tatsächlich hinter dem Skriptnamen steht; einen Standardwert gibt es nicht."> <code>commandArgs()</code> liefert M1 als Standardwert</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -265,14 +347,28 @@ $ echo $?
       <code>if</code>-Prüfung.</p>
   </div>
 
-  <div class="quiz" data-loesung="2">
-    <p class="frage">Ein nächtlicher Automatismus will wissen: War der
-    Lauf erfolgreich? Was liest er?</p>
-    <label><input type="radio" name="q5" value="0" data-grund="Falsch — Ausgabetext ist für Menschen; Maschinen entscheiden nach der Exit-Code-Zahl, nicht nach dem, was gedruckt wurde."> Die letzte Ausgabezeile des Skripts</label>
-    <label><input type="radio" name="q5" value="1" data-grund="Falsch — mit dem Erfolg des Laufs hat die Dateigröße nichts zu tun."> Die Dateigröße der CSV</label>
-    <label><input type="radio" name="q5" value="2" data-grund="Richtig — 0 heißt sauber durchgelaufen, jeder andere Code signalisiert einen Fehler; das ist die vereinbarte Sprache zwischen Programmen."> Den Exit-Code: 0 = Erfolg, alles andere = Fehler</label>
-    <label><input type="radio" name="q5" value="3" data-grund="Falsch — Warnungen ändern den Exit-Code nicht; ein Lauf mit Warnungen endet trotzdem mit 0."> Die Anzahl der gedruckten Warnungen</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: exit-code">
+    <fieldset class="frage">
+      <legend class="frage-text">Ein nächtlicher Automatismus will wissen:
+      War der Lauf erfolgreich? Was liest er?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-05-q11" value="0" data-grund="Falsch — Ausgabetext ist für Menschen; Maschinen entscheiden nach der Exit-Code-Zahl, nicht nach dem, was gedruckt wurde."> Die letzte Ausgabezeile des Skripts</label>
+        <label><input type="checkbox" name="km7-05-q11" value="1" data-grund="Falsch — mit dem Erfolg des Laufs hat die Dateigröße nichts zu tun."> Die Dateigröße der CSV</label>
+        <label><input type="checkbox" data-richtig name="km7-05-q11" value="2" data-grund="Richtig — 0 heißt sauber durchgelaufen, jeder andere Code signalisiert einen Fehler; das ist die vereinbarte Sprache zwischen Programmen."> Den Exit-Code: 0 = Erfolg, alles andere = Fehler</label>
+        <label><input type="checkbox" name="km7-05-q11" value="3" data-grund="Falsch — Warnungen ändern den Exit-Code nicht; ein Lauf mit Warnungen endet trotzdem mit 0."> Die Anzahl der gedruckten Warnungen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche zwei Aussagen über den Exit-Code
+      stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-05-q12" value="0" data-grund="Richtig — genau das ist die vereinbarte Sprache zwischen Programmen; der Cron-Job entscheidet danach, ob er eine Mail schickt."> 0 heißt sauber durchgelaufen, jeder andere Code heißt: etwas ist schiefgegangen</label>
+        <label><input type="checkbox" data-richtig name="km7-05-q12" value="1" data-grund="Richtig — nach dem Fehler wird nichts mehr ausgeführt, auch nicht der Rest des Skripts (z. B. kein write_csv() mehr)."> Nach einem Fehler bricht Rscript ab — der Rest des Skripts läuft nicht mehr</label>
+        <label><input type="checkbox" name="km7-05-q12" value="2" data-grund="Falsch — der Exit-Code sagt nur, dass das Skript lief; maschine.R M4 liefert n = 0, mittel = NaN und trotzdem Exit-Code 0."> Exit-Code 0 beweist, dass das Ergebnis richtig ist</label>
+        <label><input type="checkbox" name="km7-05-q12" value="3" data-grund="Falsch — jeder andere Code heißt nur allgemein „etwas ist schiefgegangen“; speziell eine fehlende Datei sagt er nicht."> Exit-Code 2 bedeutet immer: Die CSV-Datei fehlt</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -302,14 +398,29 @@ $ ./scripts/maschine.R M1
       <code>Rscript</code>.</p>
   </div>
 
-  <div class="quiz" data-loesung="0">
-    <p class="frage">Was bedeutet die Zeile
-    <code>#!/usr/bin/env Rscript</code> am Dateianfang?</p>
-    <label><input type="radio" name="q6" value="0" data-grund="Richtig — das ist die Shebang-Zeile: das Betriebssystem (Linux/macOS) startet die Datei mit dem Programm Rscript."> Linux/macOS soll die Datei mit Rscript ausführen</label>
-    <label><input type="radio" name="q6" value="1" data-grund="Falsch — # ist für R zwar ein Kommentar, aber die Shell liest diese Zeile, bevor R sie überhaupt sieht."> R soll die Zeile als Kommentar ignorieren</label>
-    <label><input type="radio" name="q6" value="2" data-grund="Falsch — Zugriffsrechte regelt chmod, nicht der Shebang."> Die Datei darf nur von Administrator:innen gelesen werden</label>
-    <label><input type="radio" name="q6" value="3" data-grund="Falsch — Shebang-Skripte laufen gerade ohne RStudio; RStudio braucht kein Skript, das per Terminal läuft."> Das Skript braucht zwingend RStudio</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: shebang">
+    <fieldset class="frage">
+      <legend class="frage-text">Was bedeutet die Zeile
+      <code>#!/usr/bin/env Rscript</code> am Dateianfang?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-05-q13" value="0" data-grund="Richtig — das ist die Shebang-Zeile: das Betriebssystem (Linux/macOS) startet die Datei mit dem Programm Rscript."> Linux/macOS soll die Datei mit Rscript ausführen</label>
+        <label><input type="checkbox" name="km7-05-q13" value="1" data-grund="Falsch — # ist für R zwar ein Kommentar, aber die Shell liest diese Zeile, bevor R sie überhaupt sieht."> R soll die Zeile als Kommentar ignorieren</label>
+        <label><input type="checkbox" name="km7-05-q13" value="2" data-grund="Falsch — Zugriffsrechte regelt chmod, nicht der Shebang."> Die Datei darf nur von Administrator:innen gelesen werden</label>
+        <label><input type="checkbox" name="km7-05-q13" value="3" data-grund="Falsch — Shebang-Skripte laufen gerade ohne RStudio; RStudio braucht kein Skript, das per Terminal läuft."> Das Skript braucht zwingend RStudio</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche zwei Schritte machen aus
+      <code>maschine.R</code> ein Programm, das du direkt mit
+      <code>./scripts/maschine.R M1</code> startest?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-05-q14" value="0" data-grund="Richtig — die Shebang-Zeile sagt Linux/macOS: führe diese Datei mit dem Programm Rscript aus."> Die Shebang-Zeile <code>#!/usr/bin/env Rscript</code> in Zeile 1</label>
+        <label><input type="checkbox" data-richtig name="km7-05-q14" value="1" data-grund="Richtig — mit chmod +x wird die Datei ausführbar; danach genügt der direkte Aufruf."> <code>chmod +x scripts/maschine.R</code> — die Datei wird ausführbar</label>
+        <label><input type="checkbox" name="km7-05-q14" value="2" data-grund="Falsch — unter Windows funktioniert der Shebang nicht; dort ruft man Rscript direkt auf."> Der Shebang funktioniert unter Windows genauso</label>
+        <label><input type="checkbox" name="km7-05-q14" value="3" data-grund="Falsch — R CMD BATCH ist der historische Vorgänger von Rscript (schreibt eine .Rout-Datei); modern ist Rscript."> <code>R CMD BATCH</code> muss zusätzlich installiert werden</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -377,16 +488,31 @@ Execution halted
   explizit: <code>ggsave("plots/masse.png", p)</code>. Dann weiß die
   Automatisierung, wo das Bild landet.</p>
 
-  <div class="quiz" data-loesung="3">
-    <p class="frage">Du rufst <code>Rscript
-    /home/ana/projekt/scripts/analyse.R</code> aus deinem Home-Ordner
-    auf und bekommst <code>'data/betriebsdaten.csv' does not
-    exist</code>. Warum?</p>
-    <label><input type="radio" name="q7" value="0" data-grund="Falsch — die Meldung sagt, dass der Pfad nicht gefunden wurde, nicht dass die Datei beschädigt ist."> Die CSV-Datei ist beschädigt</label>
-    <label><input type="radio" name="q7" value="1" data-grund="Falsch — read_csv() funktioniert unter Rscript identisch; hier passt nur der Pfad nicht."> Rscript kann CSV-Dateien nicht einlesen</label>
-    <label><input type="radio" name="q7" value="2" data-grund="Falsch — ein Tippfehler wäre möglich, aber der Grund hier ist der Ordner, aus dem du aufrufst."> Der Dateiname hat einen Tippfehler</label>
-    <label><input type="radio" name="q7" value="3" data-grund="Richtig — data/ wird relativ zum Arbeitsverzeichnis des Aufrufs gesucht, also in deinem Home-Ordner statt im Projekt."> Relative Pfade gelten vom Aufruf-Ordner, nicht vom Skript-Ordner</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: typische-fehler">
+    <fieldset class="frage">
+      <legend class="frage-text">Du rufst <code>Rscript
+      /home/ana/projekt/scripts/analyse.R</code> aus deinem Home-Ordner
+      auf und bekommst <code>'data/betriebsdaten.csv' does not
+      exist</code>. Warum?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-05-q15" value="0" data-grund="Falsch — die Meldung sagt, dass der Pfad nicht gefunden wurde, nicht dass die Datei beschädigt ist."> Die CSV-Datei ist beschädigt</label>
+        <label><input type="checkbox" name="km7-05-q15" value="1" data-grund="Falsch — read_csv() funktioniert unter Rscript identisch; hier passt nur der Pfad nicht."> Rscript kann CSV-Dateien nicht einlesen</label>
+        <label><input type="checkbox" name="km7-05-q15" value="2" data-grund="Falsch — ein Tippfehler wäre möglich, aber der Grund hier ist der Ordner, aus dem du aufrufst."> Der Dateiname hat einen Tippfehler</label>
+        <label><input type="checkbox" data-richtig name="km7-05-q15" value="3" data-grund="Richtig — data/ wird relativ zum Arbeitsverzeichnis des Aufrufs gesucht, also in deinem Home-Ordner statt im Projekt."> Relative Pfade gelten vom Aufruf-Ordner, nicht vom Skript-Ordner</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Ein Skript mit <code>plot(p)</code> läuft
+      unter Rscript durch — aber kein Plot-Fenster erscheint. Welche zwei
+      Aussagen stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-05-q16" value="0" data-grund="Richtig — genau das beschreibt Fehler 4: nicht-interaktiv gibt es kein Grafikfenster, der Plot landet still in Rplots.pdf."> Nicht-interaktiv gibt es kein Grafikfenster — der Plot landet in Rplots.pdf</label>
+        <label><input type="checkbox" data-richtig name="km7-05-q16" value="1" data-grund="Richtig — in Skripten speicherst du explizit mit ggsave(); dann weiß die Automatisierung, wo das Bild landet."> Lösung: im Skript explizit speichern, z. B. <code>ggsave("plots/masse.png", p)</code></label>
+        <label><input type="checkbox" name="km7-05-q16" value="2" data-grund="Falsch — das Skript läuft sauber durch (Exit-Code 0); es gibt nur kein Grafikfenster, der Plot wird ja geschrieben."> Der Lauf ist mit Exit-Code 1 abgebrochen</label>
+        <label><input type="checkbox" name="km7-05-q16" value="3" data-grund="Falsch — erzeugen kann R die Grafik durchaus; ohne explizites ggsave() landet sie nur unerwartet in Rplots.pdf."> Rscript kann keine Grafiken erzeugen — Plots gehen nur in RStudio</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -422,6 +548,24 @@ Execution halted
   Kommandozeile</a>. — <strong>Abgabe:</strong> nach Vorgabe deiner
   Lehrperson.</p>
 </section>
+
+<details class="lehrplan">
+  <summary>Lehrplan &amp; Einordnung</summary>
+  <ul>
+    <li><strong>Lehrplan:</strong> PMM (HWIT), 7. Semester (4HWIT,
+      Wintersemester) — KM7 „Statistische Tests &amp;
+      Annahmestichprobenprüfung"; schulautonom flankierender
+      R-Toolchain-Block, Semesterplan
+      <code>lehrplan/pmm-hwit/jg4-semesterplan-ws.md</code></li>
+    <li><strong>KM-Bezug:</strong> KM7 — Werkzeug-/Automatisierungsgrundlage
+      für die gesamte Auswertung; baut auf KM7-04 (RStudio, Projektordner
+      &amp; R-Skripte) auf und ist Fundament für die Regelkarten
+      (<code>qcc</code>) ab KM8</li>
+    <li><strong>Runtime:</strong> R 4.5, <code>Rscript</code>,
+      <code>commandArgs()</code>, <code>stop()</code> — Base-R, keine
+      Zusatzpakete</li>
+  </ul>
+</details>
 
 <footer class="navi">
   <p><strong>Quelle zum Weiterlesen:</strong> R4DS 2e,
