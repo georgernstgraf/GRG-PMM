@@ -133,40 +133,32 @@ code { font-size: 0.88em; background: var(--code-bg); padding: 0.1em 0.3em; }
 .quiz--lern .quiz-badge {
   font-family: "DejaVu Sans Mono", monospace;
   font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: #fff;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  background: var(--code-bg);
+  border: 1px solid var(--line);
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  background: linear-gradient(90deg, #2e7d32, #7fc98a);
+  margin: 0;
   white-space: nowrap;
 }
-.quiz--lern[data-stufe="mittel"] .quiz-badge { background: linear-gradient(90deg, #a06a00, #e0b23a); }
-.quiz--lern[data-stufe="schwer"] .quiz-badge { background: linear-gradient(90deg, #a00000, #e0705f); }
 .quiz--lern .frage {
   margin: 0 0 0.8rem;
   padding: 0.8rem 0.9rem 0.6rem;
   border: 1px solid var(--line);
   border-radius: 6px;
 }
+/* Frage als fieldset/legend: native Gruppe für Screenreader, ohne
+   Legenden-Kerbe im Rahmen (legend floatet, Optionen räumen darunter auf) */
+.quiz--lern fieldset.frage { min-width: 0; }
 .quiz--lern .frage-text { margin: 0 0 0.5rem; font-weight: bold; }
-
-/* Niveau-Kürzel am Fragenanfang (★ leicht bis ★★★ schwer) — die
-   Schwierigkeit steigt innerhalb jedes Quiz, alle Quizze sind
-   gleichwertig anspruchsvoll */
-.quiz--lern .niveau {
-  display: inline-block;
-  font-family: "DejaVu Sans Mono", monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  padding: 0.1rem 0.4rem;
-  margin-right: 0.45rem;
-  vertical-align: 0.12em;
-  white-space: nowrap;
+.quiz--lern legend.frage-text {
+  float: left;
+  width: 100%;
+  padding: 0;
 }
+.quiz--lern legend.frage-text + .optionen { clear: both; }
 
 /* Infokugel je Antwortoption (im Label), Sprechblase darunter */
 .quiz--lern .infokugel {
@@ -237,6 +229,19 @@ code { font-size: 0.88em; background: var(--code-bg); padding: 0.1em 0.3em; }
 }
 .quiz--lern .quiz-pruefen:hover { border-color: var(--muted); }
 
+/* Statuszeile für Screenreader — Farbe allein ist kein Feedback */
+.quiz--lern .quiz-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Zielfrage / Baustein-Kennzeichnung */
 .baustein {
   font-family: "DejaVu Sans Mono", monospace;
@@ -287,6 +292,8 @@ footer.navi {
   }
   body { max-width: none; padding: 1rem; font-size: 10.5pt; }
   .quiz label { break-inside: avoid; }
+  .quiz--lern .frage,
+  pre { break-inside: avoid; }
   pre { white-space: pre-wrap; }
   .theme-toggle { display: none; }
   .quiz--lern .quiz-pruefen,

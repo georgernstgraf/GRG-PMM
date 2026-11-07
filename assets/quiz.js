@@ -1,15 +1,14 @@
 // Quiz-Widget — zwei Modi, ein Skript:
 //
 // 1) Lernquiz (Format 2.0, Checkboxen, Mehrfach-richtig):
-//    <div class="quiz" data-stufe="leicht" data-titel="Quiz 1">
-//      <div class="frage" data-loesung="0,2">
-//        <p class="frage-text">…</p>
+//    <div class="quiz" data-titel="Quiz: thema-slug">
+//      <fieldset class="frage" data-loesung="0,2">
+//        <legend class="frage-text">…</legend>
 //        <div class="optionen">
-//          <label><input type="checkbox" name="q1" value="0" data-grund="…"> …</label>
+//          <label><input type="checkbox" name="km7-02-q1" value="0" data-grund="…"> …</label>
 //          …
 //        </div>
-//        <p class="feedback" aria-live="polite"></p>
-//      </div>
+//      </fieldset>
 //      …
 //    </div>
 //    data-loesung ist die Lösungsmenge als 0-basierte DOM-Positionen der
@@ -17,17 +16,20 @@
 //    value-Attribut der Checkboxen ist für die Auswertung bedeutungslos
 //    und sollte der DOM-Position entsprechen.
 //
-//    Das Skript injiziert das Badge und — pro Frage — den zentrierten
-//    „Überprüfen"-Button sowie je Antwortoption eine kleine Infokugel.
-//    Nach dem Prüfen bekommt jede Option ihre Farbe allein danach, ob das
-//    Häkchen richtig gesetzt war: grün = Entscheidung korrekt (angekreuzt,
-//    obwohl Lösung — oder nicht angekreuzt, obwohl keine Lösung), rot =
-//    Entscheidung falsch (fälschlich angekreuzt oder die richtige
-//    übersehen). Die Infokugel einer Option zeigt bei Hover/Fokus/Tipp
-//    genau diese Option samt ihrer Begründung (data-grund); die Kugeln
-//    bleiben bis zum ersten Prüfen verborgen, damit die Begründungen die
-//    Antwort nicht verraten. Danach wird der Button zu „Nochmal versuchen"
-//    und setzt die Frage zurück. Kein Punktestand — die Wahrheit zählt.
+//    Das Skript injiziert den Titel als h3-Badge sowie — pro Frage — den
+//    zentrierten „Überprüfen"-Button und je Antwortoption eine kleine
+//    Infokugel. Nach dem Prüfen bekommt jede Option ihre Farbe allein
+//    danach, ob das Häkchen richtig gesetzt war: grün = Entscheidung
+//    korrekt (angekreuzt, obwohl Lösung — oder nicht angekreuzt, obwohl
+//    keine Lösung), rot = Entscheidung falsch (fälschlich angekreuzt oder
+//    die richtige übersehen). Die Infokugel einer Option zeigt bei
+//    Hover/Fokus/Tipp genau diese Option samt ihrer Begründung
+//    (data-grund); die Kugeln bleiben bis zum ersten Prüfen verborgen,
+//    damit die Begründungen die Antwort nicht verraten. Danach wird der
+//    Button zu „Nochmal versuchen" und setzt die Frage zurück. Eine
+//    versteckte Statuszeile (aria-live) meldet das Ergebnis für
+//    Screenreader. Kein Punktestand, kein Show-Modal, keine Stufen —
+//    die Wahrheit zählt.
 //
 // 2) Altmodus (Radio, genau eine Richtige, Sofort-Auswertung) — bleibt für
 //    die Lessons aus der Zeit vor Format 2.0 unverändert:
@@ -58,16 +60,6 @@
     return klon.textContent.trim();
   }
 
-  function gleich(a, b) {
-    if (a.length !== b.length) { return false; }
-    var x = a.slice().sort();
-    var y = b.slice().sort();
-    for (var i = 0; i < x.length; i++) {
-      if (x[i] !== y[i]) { return false; }
-    }
-    return true;
-  }
-
   // ---------- Lernquiz (Format 2.0) ----------
 
   function lernquiz(quiz) {
@@ -75,14 +67,13 @@
     if (!fragen.length) { return; }
     quiz.classList.add("quiz--lern");
 
-    // Kopf: nur das Badge (Titel · Stufe)
+    // Kopf: nur der Titel — als Heading, damit die Blöcke in der
+    // Dokumentgliederung auftauchen (keine Stufen, kein Modal)
     var kopf = document.createElement("div");
     kopf.className = "quiz-kopf";
-    var badge = document.createElement("span");
+    var badge = document.createElement("h3");
     badge.className = "quiz-badge";
-    var titel = quiz.getAttribute("data-titel") || "Quiz";
-    var stufe = quiz.getAttribute("data-stufe");
-    badge.textContent = stufe ? titel + " · " + stufe : titel;
+    badge.textContent = quiz.getAttribute("data-titel") || "Quiz";
     kopf.appendChild(badge);
     quiz.insertBefore(kopf, quiz.firstChild);
 
@@ -155,17 +146,19 @@
     knopf.textContent = TEXT_PRUEFEN;
 
     function pruefen() {
-      var gewaehlt = [];
+      var alleRichtig = true;
       for (var i = 0; i < teile.length; i++) {
         var input = teile[i].input;
         var angekreuzt = input ? input.checked : false;
-        if (angekreuzt) { gewaehlt.push(i); }
-        var klasse = angekreuzt === (menge.indexOf(i) !== -1)
-          ? "opt-richtig" : "opt-falsch";
+        var richtig = angekreuzt === (menge.indexOf(i) !== -1);
+        if (!richtig) { alleRichtig = false; }
         teile[i].label.classList.remove("opt-richtig", "opt-falsch");
-        teile[i].label.classList.add(klasse);
+        teile[i].label.classList.add(richtig ? "opt-richtig" : "opt-falsch");
         teile[i].kugel.hidden = false;
       }
+      status.textContent = alleRichtig
+        ? "Geprüft: alle Optionen richtig beurteilt."
+        : "Geprüft: mindestens eine Option falsch beurteilt — die Infokugeln zeigen die Begründung.";
       frage._geprueft = true;
       knopf.textContent = TEXT_NOCHMAL;
       knopf.classList.add("nochmal");
@@ -173,6 +166,7 @@
 
     function zuruecksetzen() {
       frage._geprueft = false;
+      status.textContent = "";
       for (var i = 0; i < teile.length; i++) {
         teile[i].label.classList.remove("opt-richtig", "opt-falsch");
         teile[i].kugel.hidden = true;
@@ -187,7 +181,14 @@
       if (frage._geprueft) { zuruecksetzen(); } else { pruefen(); }
     });
 
+    // Versteckte Statuszeile: Farbe allein ist kein Feedback für
+    // Screenreader; kein Punktestand, nur richtig/falsch je Frage.
+    var status = document.createElement("p");
+    status.className = "quiz-status";
+    status.setAttribute("aria-live", "polite");
+
     frage.appendChild(knopf);
+    frage.appendChild(status);
   }
 
   // ---------- Altmodus (Radio, sofortige Auswertung) ----------
