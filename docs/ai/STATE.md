@@ -17,7 +17,11 @@ geprüft (Subagent-Port + Gegenprobe), alle Zahlen per `Rscript`.
 Lehrplan-Details-Blöcke und Weiter-Links in den fünf neuen Lessons
 ergänzt. **Offen:** SA-01–03 (2.1 beim 90-min-Ausbau), SA-00 als
 Lesson, Präsentationen auflösen, `assets/slides.css` entfernen,
-5ahwit/2026-09-30-README, restliche `<details>`-Blöcke.
+restliche Docs. **Mechanischer Rest erledigt (2026-11-07):** 5ahwit/
+2026-09-30-Präsentation gelöscht, README auf KM7-02, Details-Blöcke in
+SA-01–03 (`3418fbb`, `0815f04`); SA-00–03-Präsentationen bleiben bis
+zur Ernte bestehen (SA-00 ohne lesson.html, SA-01–03 ungeerntet),
+Docs markieren die Übergangszeit.
 
 **Lektionsserie Datenaufbereitung (#37):** SA-04 „Daten einlesen II: die
 raue Wirklichkeit" ist gebaut und committed (2026-10-19, `7f70261`) —

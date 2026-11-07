@@ -128,10 +128,17 @@ Harness-Falle: falsche-Wahl-Probe muss eine Option **ohne**
 `data-richtig` wählen (Mischen macht die erste Option zufällig).
 **Offen:** SA-01–03 auf 2.1 umstellen **beim** 90-min-Ausbau (doppelte
 Handarbeit vermeiden), SA-00 als Lesson bauen, Präsentationen löschen,
-`assets/slides.css` entfernen, 5ahwit/2026-09-30-README auf KM7-02
-verlinken, restliche `<details>`-Blöcke und Docs. Historische
+`assets/slides.css` entfernen, restliche Docs. Historische
 5ahwit-Prüfungsdateien (2026-10-21) behalten die alten 6er-Zahlen
 bewusst als Beleg.
+**Mechanischer Rest erledigt (2026-11-07, `3418fbb` + `0815f04`):**
+Kohorten-Präsentation 5ahwit/2026-09-30 gelöscht, README auf KM7-02
+verlinkt; Lehrplan-Details-Blöcke in SA-01–03; Docs (CONVENTIONS/
+ARCHITECTURE) auf Übergangszeit umgestellt. **Wichtig:** SA-00–03-
+Präsentationen bleiben bis zur Ernte — SA-00 hat KEIN lesson.html
+(Einheit wäre leer), SA-01–03 tragen ungeernteten Folienstoff;
+`slides.css` fällt erst danach. Navigator verlinkt SA-00 weiterhin auf
+die Präsentation (korrekt bis zum Lesson-Bau).
 
 ## Erledigt (dieser Zyklus)
 - **GRG-PMM #40 (Nachtrag):** Quiz-Format-2.0-Styling-Rework
