@@ -175,7 +175,13 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   `if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", start); } else { start(); }`
   — der Loader injiziert die Skripte asynchron nach dem Parsen (siehe PITFALLS).
 
-## Folien / reveal.js (#30)
+## Folien / reveal.js (#30) — ÜBERGANGSZEIT (#42)
+> **Status:** Nur noch vier Präsentationen existieren (SA-00–03); SA-00
+> hat gar kein `lesson.html`, SA-01–03 tragen ungeernteten Folienstoff
+> für den geplanten 90-min-Ausbau. `assets/slides.css` und dieser
+> Abschnitt entfallen erst nach der Ernte (SA-00 als Lesson gebaut,
+> SA-01–03 vertieft) — bis dahin unverändert gültig.
+
 - **Layout zentral in `assets/slides.css`**, nie pro `praesentation.html`.
   Die Datei hält Grundschrift (32px) und Lesemaß
   (`--pmm-slide-measure`, 1000px, zentriert, Print-Reset `max-width: none`).

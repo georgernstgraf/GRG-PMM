@@ -1,5 +1,7 @@
 # chitest folie
 
+> **Stoff und Quiz der Lektion:** [KM7-02 — Der Chi-Quadrat-Test](../../unterricht/KM7-02-chi-quadrat-test/lesson.html) — kanonische Lesson (Format 2.1); diese Kopie hier ist der Tages-Datensatz der DS vom 30.9.
+
 ## Aufgabe bis 13.10.
 
 ## daten einlesen,
