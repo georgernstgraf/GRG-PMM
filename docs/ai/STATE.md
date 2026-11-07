@@ -15,13 +15,15 @@ Subagent mit eigenem Chrome-Port; Klicktest-Harness
 `/tmp/opencode/quiz21-test.mjs`, beides ephemär). Jede Lesson doppelt
 geprüft (Subagent-Port + Gegenprobe), alle Zahlen per `Rscript`.
 Lehrplan-Details-Blöcke und Weiter-Links in den fünf neuen Lessons
-ergänzt. **Offen:** SA-01–03 (2.1 beim 90-min-Ausbau), SA-00 als
-Lesson, Präsentationen auflösen, `assets/slides.css` entfernen,
-restliche Docs. **Mechanischer Rest erledigt (2026-11-07):** 5ahwit/
-2026-09-30-Präsentation gelöscht, README auf KM7-02, Details-Blöcke in
-SA-01–03 (`3418fbb`, `0815f04`); SA-00–03-Präsentationen bleiben bis
-zur Ernte bestehen (SA-00 ohne lesson.html, SA-01–03 ungeerntet),
-Docs markieren die Übergangszeit.
+ergänzt. **Ernte abgeschlossen (2026-11-07):** SA-00 neu gebaut
+(lesson.html + aufgabe.md, 12 Fragen), SA-01–03 geerntet und auf 90 min
+vertieft (SA-01 18, SA-02 17, SA-03 18 Fragen, alle 2.1), alle
+`praesentation.html` gelöscht, `assets/slides.css` entfernt, Navigator
+und alle Folien-Querverweise (KM7-04/05, SA-04-Footer, km7-verlauf,
+4ahwit-x/README, 5ahwit-Kopie) auf lesson.html umgezogen, 20 neue
+GLOSSAR-Einträge. Alle Folien-Behauptungen gegen Rscript geprüft — fünf
+waren falsch/veraltet und wurden korrigiert (Details DECISIONS 2026-11-07).
+Harness `sa-harvest-test.mjs` über alle 5 Lessons grün.
 
 **Lektionsserie Datenaufbereitung (#37):** SA-04 „Daten einlesen II: die
 raue Wirklichkeit" ist gebaut und committed (2026-10-19, `7f70261`) —

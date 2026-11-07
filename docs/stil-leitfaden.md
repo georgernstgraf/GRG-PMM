@@ -100,20 +100,22 @@ Regeln:
 - Bezieht sich explizit auf die Lektüre (Kapitel-Verweis in der Aufgabe).
 - Keine Antwortdatei im Schüler-Ordner; Lösungen in der folgenden UE.
 
-## 6. Folien-Mikrostruktur (reveal.js)
+## 6. Lesson als Präsentation (seit #42; Folien-Ära beendet)
 
-- Theme-Overlay: `assets/slides.css` (Callouts `.callout`,
-  `.achtung`, `.tipp`; `.cmt`/`.out` in Code; `.fragment`).
-- Maximal ~18 Inhaltsfolien pro 90-Minuten-UE (Titel + Agenda + Lektüre
-  + ~14 + Jetzt du + Fehler + Zusammenfassung + HA-Hinweis).
-- Tabellen statt Absätzen für Übersichten; Callouts für die zwei bis
+- Kein separater Foliensatz und kein reveal.js mehr: die `lesson.html`
+  ist **zugleich die Präsentation** — selbst-contained, zentrales
+  `assets/lesson.css` (Callouts `.callout.tipp/.achtung`, `.baustein`;
+  `.cmt` in Code), kein CDN.
+- Ein Gedanke pro bildschirmgroßem Block; Code-Boxen hell, groß,
+  umbruchfreundlich; Tabellen für Übersichten; Callouts für die zwei bis
   drei Aussagen, die man mitnehmen muss.
-- Slides-Regel: Wenn eine Folie scrollen müsste — teilen oder kürzen.
+- Quiz-Format 2.1 in `assets/quiz.js` (Optionen gemischt, Lösungsmenge
+  je Option als `data-richtig`).
 
 ## 7. Sichtprobe vor Abgabe (Self-Check)
 
-1. Folie 2 ist eine Frage? 2. Ziel-Artefekt sichtbar? 3. Lektüre-Box mit
-   geprüfter URL? 4. „Jetzt du!"-Folie mit 3 Aufgaben? 5. Fehler-Folie
-   mit Anti-Beispiel? 6. Schlusstabelle + Ausblick-Frage? 7. HA
-   vorhersageorientiert und lektürebezogen? 8. Neuer Fachbegriff im
-   GLOSSAR? 9. Code-Blöcke kurz und lauffähig?
+1. Abschnitt 2 beantwortet die Einstiegsfrage? 2. Ziel-Artefakt sichtbar?
+   3. Lektüre-Box mit geprüfter URL? 4. „Jetzt du!"-Abschnitt mit 3
+   Aufgaben? 5. „Typische Fehler" mit Anti-Beispiel? 6. Schlusstabelle +
+   Ausblick? 7. Aufgabe lektürebezogen und transferierend? 8. Neuer
+   Fachbegriff im GLOSSAR? 9. Code-Blöcke kurz und lauffähig?

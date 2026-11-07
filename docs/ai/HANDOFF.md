@@ -105,42 +105,9 @@ Chat (teach-Skill).
 pro Einheit statt Stücke pro Los"; LR schreiben, `jg3-verlauf.html`
 auf ✅; danach L05 bauen.
 
-### Quiz-Format 2.1 auf alle Lessons nachziehen (#42)
-**Priority:** medium (Kern-Batch fertig; Rest hängt an SA-01–03-Ausbau)
-**Context:** Skill (`opencode-helpers` #124) und Assets sind angeglichen:
-keine Stufen (`data-stufe`/`niveau`), kein Show-Modal, Titel als
-`Quiz: <thema-slug>`, `fieldset`/`legend`, lesson-präfixierte `name`,
-Infokugel je Option, `aria-live`-Status. Format **2.1**: Lösungsmenge
-als `data-richtig` je Option, `quiz.js` mischt die Optionen beim Laden
-(Fisher-Yates) — kein `data-loesung`, keine Handrotation.
-**Umgestellt (8 von 11 Lessons mit Quiz):** KM6-01, KM7-01, KM7-02,
-KM7-03 (2.0-Zyklus) + **KM5-01, KM5-02, KM5-03, KM7-04, KM7-05, SA-04**
-(Subagent-Batch 2026-11-07, Spec `/tmp/opencode/quiz21-spec.md` —
-ephemär!; Klicktest-Harness `quiz21-test.mjs` ebenfalls in /tmp).
-Neu gebaut: `KM5-01/aufgabe.md` (fehlte ganz), Lehrplan-Details-Blöcke
-in KM5-01/02, KM7-04/05, SA-04; Weiter-Links (KM5-01→KM5-02,
-KM7-04→KM7-05, KM5-03→KM6-01, SA-04→KM7-01 als Ermessensentscheidung,
-SA-05 existiert noch nicht). Datenfehler korrigiert: KM5-03
-`choose(36, 8)` = 30 260 340 (stand 6,3e7). Fragenbestand: KM5-01 10,
-KM5-02 10 (war 2), KM5-03 13, KM7-04 20, KM7-05 16 (Schritt 1 hatte
-kein Quiz), SA-04 18 — je 4 Checkboxen, alle Zahlen per `Rscript`.
-Harness-Falle: falsche-Wahl-Probe muss eine Option **ohne**
-`data-richtig` wählen (Mischen macht die erste Option zufällig).
-**Offen:** SA-01–03 auf 2.1 umstellen **beim** 90-min-Ausbau (doppelte
-Handarbeit vermeiden), SA-00 als Lesson bauen, Präsentationen löschen,
-`assets/slides.css` entfernen, restliche Docs. Historische
-5ahwit-Prüfungsdateien (2026-10-21) behalten die alten 6er-Zahlen
-bewusst als Beleg.
-**Mechanischer Rest erledigt (2026-11-07, `3418fbb` + `0815f04`):**
-Kohorten-Präsentation 5ahwit/2026-09-30 gelöscht, README auf KM7-02
-verlinkt; Lehrplan-Details-Blöcke in SA-01–03; Docs (CONVENTIONS/
-ARCHITECTURE) auf Übergangszeit umgestellt. **Wichtig:** SA-00–03-
-Präsentationen bleiben bis zur Ernte — SA-00 hat KEIN lesson.html
-(Einheit wäre leer), SA-01–03 tragen ungeernteten Folienstoff;
-`slides.css` fällt erst danach. Navigator verlinkt SA-00 weiterhin auf
-die Präsentation (korrekt bis zum Lesson-Bau).
 
 ## Erledigt (dieser Zyklus)
+- **#42 komplett (2026-11-07):** Quiz-Format 2.1 in allen 11 Quiz-Lessons; SA-00–03 geerntet (SA-00 Neubau 90 min, SA-01–03 vertieft), alle `praesentation.html` gelöscht, `assets/slides.css` entfernt, Navigator + Folien-Querverweise (KM7-04/05, SA-04-Footer, km7-verlauf, 4ahwit-x/README, 5ahwit-Kopie) auf lesson.html, 20 GLOSSAR-Einträge, Docs angepasst. Alle Folien-Behauptungen per Rscript geprüft, fünf falsche korrigiert (342 statt 344 Punkte, Ausreißer-Demo 10.0475, ggplot2 4.0.3 „group_by ohne summarise" = 1 Panel, dplyr-Fehlermeldung, 8 statt 11 Spalten). **Beobachtung:** SA-04-Quiz hat fast nur 1-richtig-Verteilung (18 Fragen, einmal 2) — falls je nachgebessert.
 - **GRG-PMM #40 (Nachtrag):** Quiz-Format-2.0-Styling-Rework
   (`assets/lesson.css` + `assets/quiz.js`) committed und gepusht
   (`2e2fe73`, 2026-11-03) — war aus der #40-Session uncommitted liegen

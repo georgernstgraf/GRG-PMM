@@ -175,21 +175,13 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   `if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", start); } else { start(); }`
   — der Loader injiziert die Skripte asynchron nach dem Parsen (siehe PITFALLS).
 
-## Folien / reveal.js (#30) — ÜBERGANGSZEIT (#42)
-> **Status:** Nur noch vier Präsentationen existieren (SA-00–03); SA-00
-> hat gar kein `lesson.html`, SA-01–03 tragen ungeernteten Folienstoff
-> für den geplanten 90-min-Ausbau. `assets/slides.css` und dieser
-> Abschnitt entfallen erst nach der Ernte (SA-00 als Lesson gebaut,
-> SA-01–03 vertieft) — bis dahin unverändert gültig.
+## Folien / reveal.js — BEENDET (#42, 2026-11-07)
 
-- **Layout zentral in `assets/slides.css`**, nie pro `praesentation.html`.
-  Die Datei hält Grundschrift (32px) und Lesemaß
-  (`--pmm-slide-measure`, 1000px, zentriert, Print-Reset `max-width: none`).
-- Jede `praesentation.html` setzt nur noch Inhalt + `Reveal.initialize({…
-  width: 1280, height: 800 …})` und lädt `slides.css` über den Loader.
-- Zielbild: schmaler, zentrierter Satzspiegel wie `lesson.html` — keine
-  randfüllende Breite. Solche Änderungen immer gegen `height` 800 prüfen
-  (reveal schrumpft nicht, siehe PITFALLS).
+> Alle `praesentation.html`-Dateien sind gelöscht, `assets/slides.css`
+> entfernt. Die `lesson.html` ist die einzige Präsentationsform
+> (Grundregel 6); Seeleute, die alte Foliendateien suchen, finden sie in
+> der Git-Historie. Kein reveal.js, kein CDN, keine Folien-Links im
+> Navigator.
 
 ## Offene Daten beschaffen (#36)
 - **data.gv.at ist seit dem Portal-Umbau eine SPA:** Die alte

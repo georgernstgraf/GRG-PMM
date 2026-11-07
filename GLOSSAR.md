@@ -151,28 +151,44 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 
 | Begriff | Bedeutung | Kurzerklärung & Kontext |
 |---|---|---|
+| 68-95-Regel | „68–95“-Daumenregel | Bei glockenförmiger Verteilung liegen ~68 % der Werte im Bereich ±1 sd und ~95 % im Bereich ±2 sd um den Mittelwert — Faustregel, keine Formel-Garantie; Grundlage der Regelkarten (Brücke zu KM 8); SA-03 |
 | Arbeitsverzeichnis | Working Directory | Ordner, in dem R Dateien sucht und speichert; mit `getwd()` abfragbar; im RStudio-Projekt = Projektordner; KM7-04 |
 | Batch-Ausführung | Batch Mode | Ein Skript komplett und ohne Interaktion ausführen; in R per `Rscript`; KM7-05 |
-| CDN | Content Delivery Network | reveal.js-Folien laden Bibliotheken via CDN — keine lokale Installation nötig |
+| CDN | Content Delivery Network | Zentrale Auslieferung von Bibliotheken (CSS/JS) über das Netz statt lokale Dateien — im Repo nicht mehr im Einsatz, Lessons laufen ohne CDN |
 | CRAN | Comprehensive R Archive Network | Offizielles Paket-Repository für R |
 | d/p/q/r | density / probability / quantile / random | R-Funktionsfamilien für Verteilungen (`dnorm`, `pnorm`, `qnorm`, `rnorm`, …); UE 4 (KM7, 4HWIT WS) |
 | choose / dbinom / pbinom | — | `choose(n,k)` Koeffizient · `dbinom(k,n,p)` genau k · `pbinom(k,n,p)` höchstens k; UE 4 (KM5-Wiederholung, `KM5-01`) |
 | data frame | — | Tabellarische Datenstruktur in R (Zeilen = Beobachtungen, Spalten = Variablen) |
+| desc() | descending | dplyr-Helper für absteigende Sortierung in `arrange()`; SA-02 |
 | Dimensions-Datei | — | Beim Statistik-Austria-OGD-Portal: separate Übersetzungsdatei, die Codes (`KRIMEA9-7`) in Klartexte („LG Linz") übersetzt — per `left_join()` an die Datentabelle kleben; SA-04 |
+| dplyr | — | Paket der fünf Daten-Verben (filter, select, mutate, arrange, summarise); SA-02 |
+| dplyr-Verben | filter · select · mutate · arrange · summarise | Zeilen behalten / Spalten wählen / Spalte berechnen / sortieren / zusammenfassen; jeweils ein Verb pro Pipe-Schritt; SA-02 |
 | DSL | Domain-Specific Language | Interne Mini-Sprachen in R (Formel-Interface `y ~ x`, ggplot2, dplyr) — via NSE umgesetzt |
 | Exit-Code | Exit Status | Rückgabewert eines Programms an die Shell (0 = Erfolg, sonst Fehler); Automatisierungen entscheiden danach über Erfolg/Misserfolg; KM7-05 |
+| Facetting | facet_wrap() | Eine Mini-Grafik pro Gruppe statt Überlagerung mit Farbe — Gruppen vergleichen, ohne sie auf einen Plot zu drücken; SA-01 |
+| Five-Number-Summary | Min/Q1/Median/Q3/Max | Fünf Kennzahlen, die Lage und Streuung kompakt beschreiben; identisch mit der Boxplot-Lesung („dieselbe Info, zweimal gelesen"); SA-03 |
+| Geom | Geometrie | ggplot2-Baustein, der Daten zeichnet: `geom_point()` = jeder Pinguin ein Punkt, `geom_bar()` = Balken; Faustregel „ein Geom = ein Fragetyp"; SA-00/01 |
+| geom_smooth() | — | Glatte Trendlinie (loess) mit Vertrauensband; ohne `color`-Mapping eine Linie, mit Mapping eine pro Gruppe; SA-01 |
+| glimpse() | — | Datenstruktur + Spaltentypen anzeigen; Teil des „Ersten Rituals" vor jeder Auswertung; SA-00/01 |
 | ggplot2 | — | Visualisierungspaket nach Grammar of Graphics; UE 1 (KM7, 4HWIT WS) |
 | Grammar of Graphics | — | Schichten-Logik hinter ggplot2: Daten + `aes` + `geom` + stats/scales/facets |
+| group_by() | — | Gruppierungsschalter in dplyr: eine Gruppe = eine Zeile bei `summarise()`; allein ohne `summarise()` ändert sie nichts Sichtbares; SA-02 |
 | IDE | Integrated Development Environment | Programmier-Oberfläche zum Schreiben und Ausführen von Code; RStudio ist die R-IDE; KM7-04 |
+| is.na() | — | Test auf fehlende Werte: `is.na(x)` liefert TRUE/FALSE je Element; NA „steckt an" — jede Rechnung mit NA ergibt NA; SA-02/03 |
 | ISLR | An Introduction to Statistical Learning (Buch) | Weiterführende Lektüre (statlearning.com), frei verfügbar |
 | locale | Ländereinstellung | Legt Dezimal-/Gruppierungszeichen fest: `read_csv2()` nimmt Komma als Dezimal, `locale(decimal_mark = ".")` stellt um; SA-04 |
 | LSR | Learning Statistics with R (Navarro) | Freie Statistik-Lektüre; Anker für Verteilungen/Tests (Kap. 9–16) |
+| Mapping (vs. Einstellung) | — | `color = species` in `aes()` ordnet eine Spalte zu (Info aus den Daten) ≠ `color = "red"` im Geom (feste Deko, unverändert); SA-00/01 |
 | ML | Machine Learning | Bewusst **out of scope** (siehe `selbststudium/MISSION.md`) |
+| n() | — | dplyr-Helper: zählt die Zeilen je Gruppe in `summarise()` — zählt alle Zeilen, auch die mit NA; SA-02 |
+| NA | Not Available | Fehlender Wert in R; sobald einer im Vektor liegt, liefern `mean()` & Co. NA, bis `na.rm = TRUE` die Lücken für die Rechnung weglässt; SA-00 |
 | NA-Marker | — | Zeichen für fehlende Werte in Dateien (NASA: `***`, Werkstatt: „n. gemessen") — per `na =` beim Einlesen deklarieren, sonst wird die ganze Spalte Text; SA-04 |
+| na.rm | remove NA | Argument (`na.rm = TRUE`), das fehlende Werte aus einer Rechnung ausschließt — vergessen heißt meist NA statt Zahl; SA-00/02/03 |
 | NSE | Non-Standard Evaluation | Auswertungstrick hinter dplyr & Co. (Ausdrücke werden im Daten-Kontext evaluiert) |
 | palmerpenguins | — | Pinguin-Datensatz (344 Zeilen, 3 Arten) für UE 1–2 und UE 4 (KM7, 4HWIT WS); Lizenz CC0 |
 | Pipe | `%>%` bzw. `\|>` | Verkettet Operationen lesbar von links nach rechts; UE 2 (KM7, 4HWIT WS) |
 | Preamble | — | Titel-/Kommentarzeile(n) über der eigentlichen Kopfzeile einer Datei (z. B. „Land-Ocean: Global Means") — per `skip = 1` überspringen; SA-04 |
+| Quantil | Quantile | Position in der sortierten Liste: Q1 = 25 %, Median = 50 %, Q3 = 75 %; `quantile()` liefert das Fünf-Zahlen-Muster; SA-03 |
 | R-Projekt | `.Rproj` | Ordner mit Projektdatei `<name>.Rproj`; Doppelklick öffnet RStudio mit festgelegtem Arbeitsverzeichnis; KM7-04 |
 | R-Skript | — | Datei (`*.R`) mit R-Befehlen, gespeichert und wiederholbar ausführbar (`Ctrl + Enter`); KM7-04 |
 | R4DS | R for Data Science (Wickham, Çetinkaya-Rundel, Grolemund; 2e) | Hauptlektüre der Toolchain; r4ds.hadley.nz; UE 1–3 (KM7, 4HWIT WS) |
@@ -181,11 +197,16 @@ Diese Begriffe haben **zwei Bedeutungen** — Kontext entscheidet:
 | REPL | Read-Eval-Print-Loop | Interaktive R-Konsole (Prompt `>`): Ausdruck eingeben, Enter, R wertet aus und druckt; KM7-05 |
 | Rscript | — | Batch-Läufer von R: liest eine `.R`-Datei komplett aus (frische Session, kein Prompt) und beendet sich; Exit-Code signalisiert Erfolg/Fehler; KM7-05 |
 | RStudio | — | IDE für R (Posit); Oberfläche zu R — „erst R, dann RStudio"; KM7-04 |
+| sd() | Standard Deviation | Standardabweichung: typische Abweichung vom Mittelwert (Wurzel der Varianz); ohne `na.rm` → NA; SA-02/03 |
+| Schwanz-Regel | Eselsbrücke | Der Schwanz der Verteilung zieht den Mittelwert: Mittel ≈ Median = symmetrisch, Mittel > Median = rechtssteil (Ausreißer), Mittel < Median = linkssteil; SA-03 |
 | Shebang | `#!` | Erste Skript-Zeile (`#!/usr/bin/env Rscript`); sagt Linux/macOS, womit die Datei auszuführen ist (nach `chmod +x`); KM7-05 |
+| Simpson-Paradoxon | — | Trend kippt auf aggregierter Ebene: hier r = −0.24 gesamt trotz positiver Trends in jeder Art, weil die (in der Aggregation unsichtbare) Art die Höhenlage bestimmt; SA-01 |
 | Terminal | — | Kommandozeile des Betriebssystems (in RStudio als Tab); startet Programme wie `Rscript` — die Console ist das R-REPL, nicht das Terminal; KM7-05 |
 | snake_case | — | Namenskonvention: Kleinbuchstaben mit `_` (`mittel_wert`); KM7-04 |
 | tibble | — | Moderner data frame im tidyverse |
 | tidyverse | — | Paketsammlung (ggplot2, dplyr, readr, tidyr, …); UE 1–3 (KM7, 4HWIT WS) |
+| Variation / Kovariation | — | Die zwei EDA-Leitfragen: Wie stark variieren Werte einzeln (Variation), und welche Merkmale verändern sich gemeinsam (Kovariation)?; R4DS Kap. 10; SA-03 |
+| Vektor | — | Zahlenreihe per `c()` verbunden; Grundform, aus der `mean()` & Co. rechnen; SA-00 |
 | Whole Game | — | R4DS-Didaktik: erst das ganze Spiel erleben (Visualisierung!), dann Details; unser UE-1–3-Prinzip (KM7, 4HWIT WS) |
 
 ## 6. Lizenzen

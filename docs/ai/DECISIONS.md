@@ -3,6 +3,27 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-11-07: Folien-Ära beendet — SA-00–03 geerntet, `slides.css` entfernt (#42)
+
+- **Choice:** Die letzten vier reveal.js-Präsentationen (`praesentation.html`
+  in SA-00–03) sind gelöscht; SA-00 ist als echte 90-min-Lesson gebaut,
+  SA-01–03 um den ungeernteten Folienstoff vertieft, alle Quizze auf
+  Format 2.1. `assets/slides.css` ist entfernt; `unterricht/` enthält nur
+  mehr Lesson-Ordner (`lesson.html` + `aufgabe.md`, optional `daten/`).
+- **Why:** Zwei Formate für denselben Stoff sind doppelter Unterhalt
+  (#42-Kernmotiv); der Folienstoff war teils reicher als die Lessons
+  (SA-03: komplette Deskriptiv-Statistik, SA-02: `select`/`arrange`/Stil/
+  Projekte, SA-01: Setup/Ritual/Geom-Galerie). Ernte = Übernahme mit
+  kritischer Prüfung, nicht 1:1-Kopie — mehrere Folien-Behauptungen
+  erwiesen sich per Rscript als falsch oder veraltet (344→342 Punkte,
+  Ausreißer-Demo 10.0475 ≠ 10.04, „group_by ohne summarise ⇒ Panel“,
+  altes dplyr-„= statt ==“-Wording, 8 statt 11 Spalten).
+- **Konsequenz:** stil-leitfaden §6 neu (Lesson = Präsentation);
+  CONVENTIONS-Folien-Abschnitt entfernt; PITFALLS-reveal-Eintrag
+  historisiert; Navigator ohne Folien-Links; tote Folien-Links in
+  KM7-04/05, SA-04-Footer, km7-verlauf.html und 4ahwit-x/README
+  nachgezogen.
+
 ## 2026-11-07: Quiz-Format 2.1 — Lösungsmenge je Option, Optionen mischt quiz.js (#42)
 
 - **Choice:** Die Lösungsmenge steht **je Option** als `data-richtig` am

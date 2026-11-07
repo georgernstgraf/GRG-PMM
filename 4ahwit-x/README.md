@@ -13,7 +13,7 @@ Selbststudium-Aufgabe — nicht live unterrichtet.
 
 - alle Übungen von der Folie selber commiten!
 
-Aufgabe: <https://georgernstgraf.github.io/GRG-PMM/unterricht/SA-01-datenvisualisierung-ggplot/praesentation.html>
+Aufgabe: <https://georgernstgraf.github.io/GRG-PMM/unterricht/SA-01-datenvisualisierung-ggplot/lesson.html>
 
 Ins persönliche git pushen!!
 
@@ -49,7 +49,7 @@ Kontrolle mit Verifikation: `2026-09-22_hue-kontrolle.md`
 Weiteres Material (nur Verweise, keine Kopien):
 
 - Übersichtsfolie „Was kann R?":
-  `../unterricht/SA-00-was-kann-r/praesentation.html`
+  `../unterricht/SA-00-was-kann-r/lesson.html`
 - Lektion SA-01 (ggplot — **nicht** live am 22.9.; am 2026-10-06 als
   Selbststudium-Aufgabe verteilt, siehe Eintrag oben):
   `../unterricht/SA-01-datenvisualisierung-ggplot/lesson.html`
