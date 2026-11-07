@@ -20,7 +20,7 @@
 library(tidyverse)
 daten <- read_csv("daten/betriebsdaten.csv") |>
   mutate(iok = if_else(is.na(masse_mm), NA,
-              if_else(abs(masse_mm - 10) > 0.15,
+              if_else(round(abs(masse_mm - 10), 10) > 0.15,
                       "ausserhalb", "in_Toleranz")))
 tab <- table(daten$maschine, daten$iok)
 tab
@@ -30,8 +30,8 @@ tab
           ausserhalb  in_Toleranz
 M1                0           37
 M2                0           39
-M3                6           34
-Sum               6          110
+M3                4           36
+Sum               4          112
 ```
 
 ### 1b. Vorhersagen (ohne R — erst hinschreiben!)
@@ -74,7 +74,7 @@ fisher.test(tab)
 - Warum weichen die beiden p-Werte leicht ab?
 - Wie berechnet man die df? Zeige Formel und Zahlen.
 - R gibt eine Warnung aus. Schreib sie wörtlich auf.
-- Übersetze den Chi-p-Wert in einen deutschen Satz, in dem die Zahl 0,0025
+- Übersetze den Chi-p-Wert in einen deutschen Satz, in dem die Zahl 0,0195
   vorkommt. Was folgt daraus für H0?
 
 ### 1e. Anpassungstest
@@ -99,19 +99,19 @@ lapply(split(quoten, quoten$maschine), function(q) {
 |----------|-----------|----------|--------|--------|
 | M1 | 37 / 0 | 37 / 3,7 | | |
 | M2 | 39 / 0 | 39 / 3,9 | | |
-| M3 | 34 / 6 | 36 / 4,0 | | |
+| M3 | 36 / 4 | 36 / 4,0 | | |
 
-Welche Maschine fällt statistisch auf, in **welche Richtung** weicht sie ab —
-und wie erkennst du das, wenn der Test nur einen p-Wert liefert? Erkläre in
-drei Sätzen, warum ein Anpassungstest gegen eine Sollverteilung **kein**
-Güteurteil über den Prozess ist.
+Welche Maschinen fallen statistisch auf, in **welche Richtung** weichen sie
+ab — und wie erkennst du das, wenn der Test nur einen p-Wert liefert?
+Erkläre in drei Sätzen, warum ein Anpassungstest gegen eine Sollverteilung
+**kein** Güteurteil über den Prozess ist.
 
 ### 1f. Voraussetzungen prüfen
 
 1. Welche der sechs erwarteten Häufigkeiten liegen unter 5? Wie viele
    Prozent der Zellen sind das?
 2. Ist die 80-%-Regel erfüllt? Was bedeutet das für die Verlässlichkeit von
-   `p = 0,0025`?
+   `p = 0,0195`?
 3. R warnt auch beim Anpassungstest. Führe ihn ohne `suppressWarnings()`
    aus, notiere den Wortlaut und begründe, was daraus für alle p-Werte aus
    1e folgt.
@@ -124,7 +124,7 @@ Güteurteil über den Prozess ist.
    Anpassungstest: Welche Frage stellt welcher, und wie wird der Unterschied
    in R am Aufruf sichtbar?
 3. Ein Kollege sagt: „Der Chi-Test sagt, dass M3 schlecht ist, weil
-   0,0025 < 0,05." Hat er recht? Begründe in zwei Sätzen — denke an die
+   0,0195 < 0,05." Hat er recht? Begründe in zwei Sätzen — denke an die
    Richtung und daran, was ein Anpassungstest gerade **nicht** kann.
 
 ### 1h. Ergebnis sichern
@@ -146,7 +146,7 @@ write_csv(urxn, "ergebnisse/kreuztabelle.csv")
    `write.csv(tab, "tab.csv", row.names = FALSE)` die Maschinen **ohne**
    Fehlermeldung?
 3. Lies die Datei zurück, mach die Labelspalte zu Zeilennamen
-   (`column_to_rownames()`) und teste erneut. Kommt `X-squared = 12.022`
+   (`column_to_rownames()`) und teste erneut. Kommt `X-squared = 7.871`
    heraus?
 4. Zusatz: Schreibe das Testergebnis als einzeilige CSV
    (`broom::tidy(res)`) und die erwarteten Häufigkeiten als
@@ -181,13 +181,13 @@ ankreuzen, dann die Musterlösung lesen.
 - [ ] 5
 - [ ] 3
 
-**2.4** `chisq.test()` liefert `X² = 12,022`, `df = 2`, `p = 0,0025`. Welche
+**2.4** `chisq.test()` liefert `X² = 7,871`, `df = 2`, `p = 0,0195`. Welche
 Aussagen sind richtig?
 
-- [ ] Ohne Zusammenhang wäre eine so große Abweichung in 0,25 % der Fälle zu sehen
+- [ ] Ohne Zusammenhang wäre eine so große Abweichung in rund 2 % der Fälle zu sehen
 - [ ] H0 wird verworfen
-- [ ] Die Wahrscheinlichkeit, dass der Zusammenhang falsch ist, beträgt 0,25 %
-- [ ] In 0,25 % aller künftigen Chargen liefert M3 so viele Ausschussteile
+- [ ] Die Wahrscheinlichkeit, dass der Zusammenhang falsch ist, beträgt 1,95 %
+- [ ] In 1,95 % aller künftigen Chargen liefert M3 so viele Ausschussteile
 
 **2.5** M1 hat 0 Ausschussteile in 37 Messungen, die Sollquote ist 10 %. Der
 Anpassungstest ergibt `p = 0,043`. Welche Aussagen sind richtig?
@@ -214,7 +214,7 @@ Anpassungstest ergibt `p = 0,043`. Welche Aussagen sind richtig?
 **2.8** Welche Aussage ist richtig? (Es kann auch keine sein.)
 
 - [ ] Der Chi-Test sagt, welche Maschine die beste ist
-- [ ] `p = 0,0025` heißt 99,75 % Sicherheit
+- [ ] `p = 0,0195` heißt rund 2 % Irrtumswahrscheinlichkeit
 - [ ] `fisher.test()` ist nur für metrische Daten gedacht
 - [ ] Bei 0 Ausschussteilen ist ein Test immer nicht signifikant
 
@@ -225,7 +225,7 @@ Anpassungstest ergibt `p = 0,043`. Welche Aussagen sind richtig?
 | 2.1 | 1 | Der Test vergleicht Anzahlen in Kategorien; Messwerte gehören in den t-Test. |
 | 2.2 | 1 | Die Randsummen erzwingen die Erwartung: Zeile · Spalte / Gesamt. |
 | 2.3 | 1 | df = (3 − 1) · (2 − 1) = 2 — nur frei wählbare Zellen zählen. |
-| 2.4 | 1, 2 | 0,25 % ist die Wahrscheinlichkeit unter H0; daraus folgt Verwerfen. Optionen 3 und 4 vertauschen p-Wert mit Irrtumswahrscheinlichkeit bzw. Prognose. |
+| 2.4 | 1, 2 | rund 2 % ist die Wahrscheinlichkeit unter H0; daraus folgt Verwerfen. Optionen 3 und 4 vertauschen p-Wert mit Irrtumswahrscheinlichkeit bzw. Prognose. |
 | 2.5 | 1, 2 | Erwartet waren 3,7 Fehler, beobachtet 0 — eine Abweichung, aber ohne Richtungsurteil. |
 | 2.6 | 1, 2 | Bei zu kleinen Erwartungswerten ist Fisher exakt; `correct = FALSE` versteckt das Problem nur. |
 | 2.7 | 1, 2 | Zwei verschiedene Fragen, zwei verschiedene Tests. |
