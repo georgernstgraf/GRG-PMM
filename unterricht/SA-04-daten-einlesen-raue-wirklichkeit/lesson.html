@@ -88,6 +88,33 @@ readLines("daten/gistemp_roh.csv", n = 2)
   <p>Wenn du <code>readLines()</code> überspringst, findest du jedes der
   vier Probleme später trotzdem — dann nur als verwirrende Fehlermeldung
   statt als Klartext.</p>
+
+  <div class="quiz" data-titel="Quiz: erst-hinschauen">
+    <fieldset class="frage">
+      <legend class="frage-text">Die ersten zwei Zeilen der NASA-Datei
+      lauten „Land-Ocean: Global Means“ und
+      „Year,Jan,Feb,…“. Welches Einlese-Argument ziehst du
+      daraus ab?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-04-q1" value="0" data-grund="Falsch — die echte Kopfzeile steht in Zeile 2 und soll Kopfzeile bleiben; skip = 2 würde sie mitüberspringen und die erste Datenzeile zur Kopfzeile machen."> skip = 2, um Titel und Kopfzeile beide zu überspringen</label>
+        <label><input type="checkbox" data-richtig name="sa-04-q1" value="1" data-grund="Richtig — Zeile 1 ist ein Titel, keine Kopfzeile; die Preamble wird übersprungen, damit die 19 Spaltennamen aus Zeile 2 gelesen werden."> skip = 1 — die echte Kopfzeile liegt in Zeile 2</label>
+        <label><input type="checkbox" name="sa-04-q1" value="2" data-grund="Falsch — in den ersten zwei Zeilen steht kein einziger Stern; der ***-Marker zeigt sich erst in den Datenzeilen weiter unten."> na = &quot;***&quot;, weil in den ersten Zeilen Sterne stehen</label>
+        <label><input type="checkbox" name="sa-04-q1" value="3" data-grund="Falsch — Zeile 2 zeigt die Werte durch Beistrich getrennt; das ist eine Komma-CSV und bleibt bei read_csv()."> read_csv2(), weil die Datei Semikolons nutzt</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was ist die Zeile „Land-Ocean: Global
+      Means“ — und wie behandelt <code>read_csv()</code> sie ohne
+      weiteres Zutun?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-04-q2" value="0" data-grund="Richtig — die Datei wurde für Menschen exportiert; ohne skip nimmt R die Titelzeile als einzige Kopfzeile der Tabelle."> Eine Preamble: ein Titel für Menschen, den read_csv() ohne skip als Kopfzeile liest</label>
+        <label><input type="checkbox" name="sa-04-q2" value="1" data-grund="Falsch — eine Kopfzeile benennt alle Spalten einer Tabelle; hier steht in Zeile 1 nur ein Titeltext, die echten Spaltennamen liegen in Zeile 2."> Die Kopfzeile der ersten Spalte — die restlichen Spalten folgen ab Zeile 2</label>
+        <label><input type="checkbox" name="sa-04-q2" value="2" data-grund="Falsch — den Trenner erkennst du an den Beistrichen zwischen den Spaltennamen in Zeile 2, nicht am Titel."> Eine Zeile, die das Trennzeichen der Datei verrät</label>
+        <label><input type="checkbox" name="sa-04-q2" value="3" data-grund="Falsch — drop_na() nimmt Zeilen mit fehlenden Werten aus dem fertigen Datensatz; Titelzeilen über der Tabelle gehören mit skip weg."> Eine fehlende Zeile, die drop_na() automatisch entfernt</label>
+      </div>
+    </fieldset>
+  </div>
 </section>
 
 <section>
@@ -111,15 +138,30 @@ g &lt;- read_csv("daten/gistemp_roh.csv", skip = 1)
   <p>Jetzt stimmen die 19 Spaltennamen. Fertig? Nicht ganz — der nächste
   Stolperstein wartet schon.</p>
 
-  <div class="quiz" data-loesung="2">
-    <p class="frage">Was passiert beim naiven <code>read_csv()</code>
-    ohne <code>skip</code> mit der NASA-Datei, deren erste Zeile
-    „Land-Ocean: Global Means" ist?</p>
-    <label><input type="radio" name="q1" value="0" data-grund="Falsch — der Import bricht nicht ab; read_csv liest weiter und meldet nur Parsing-Probleme per Warnung."> R bricht mit einem harten Fehler ab</label>
-    <label><input type="radio" name="q1" value="1" data-grund="Falsch — genau umgekehrt: die Titelspalte wird Kopfzeile, und die 18 Felder der Datenzeilen passen nicht hinein."> Die 18 Datenspalten werden sauber benannt</label>
-    <label><input type="radio" name="q1" value="2" data-grund="Richtig — die Titelzeile wird als einzige Kopfzeile gelesen; die vielen Felder pro Datenzeile lösen Parsing-Probleme aus."> Eine einzige Spalte mit Parsing-Problemen</label>
-    <label><input type="radio" name="q1" value="3" data-grund="Falsch — überspringen tut nur skip (oder comment); ohne Argument nimmt read_csv Zeile 1 als Kopfzeile."> Die Titelzeile wird automatisch übersprungen</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: preamble-skip">
+    <fieldset class="frage">
+      <legend class="frage-text">Was passiert beim naiven
+      <code>read_csv()</code> ohne <code>skip</code> mit der NASA-Datei,
+      deren erste Zeile „Land-Ocean: Global Means“ ist?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-04-q3" value="0" data-grund="Falsch — der Import bricht nicht ab; read_csv liest weiter und meldet nur Parsing-Probleme per Warnung."> R bricht mit einem harten Fehler ab</label>
+        <label><input type="checkbox" name="sa-04-q3" value="1" data-grund="Falsch — genau umgekehrt: die Titelspalte wird Kopfzeile, und die 18 Felder der Datenzeilen passen nicht hinein."> Die 18 Datenspalten werden sauber benannt</label>
+        <label><input type="checkbox" data-richtig name="sa-04-q3" value="2" data-grund="Richtig — die Titelzeile wird als einzige Kopfzeile gelesen; die vielen Felder pro Datenzeile lösen Parsing-Probleme aus."> Eine einzige Spalte mit Parsing-Problemen</label>
+        <label><input type="checkbox" name="sa-04-q3" value="3" data-grund="Falsch — überspringen tut nur skip (oder comment); ohne Argument nimmt read_csv Zeile 1 als Kopfzeile."> Die Titelzeile wird automatisch übersprungen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">R meldet beim naiven Einlesen:
+      „One or more parsing issues, call <code>problems()</code>
+      …“. Was steckt hinter dieser Meldung?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-04-q4" value="0" data-grund="Richtig — kein harter Fehler, aber ein Warnsignal; problems() zeigt dir genau, welche Zeilen nicht gepasst haben."> Eine Warnung — R liest weiter; problems() listet die betroffenen Zeilen im Detail</label>
+        <label><input type="checkbox" name="sa-04-q4" value="1" data-grund="Falsch — R liest weiter und liefert einen Datensatz; die Warnung mahnt nur, ihn zu kontrollieren."> Ein harter Fehler — der Import bricht ab, und es entsteht kein Datensatz</label>
+        <label><input type="checkbox" name="sa-04-q4" value="2" data-grund="Falsch — die Datei hat alle Datenzeilen; das Problem ist die Titelzeile als Kopfzeile, nicht fehlender Inhalt."> Ein Hinweis, dass die Datei leer ist und keine Zeilen enthält</label>
+        <label><input type="checkbox" name="sa-04-q4" value="3" data-grund="Falsch — problems() zeigt nur an, was schiefgelaufen ist; behoben wird es durch das richtige Einlese-Argument (hier: skip = 1)."> Ein Angebot: problems() repariert die Probleme automatisch</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -166,15 +208,43 @@ anomalie |> filter(jahr &gt;= 2022)
   <p>Damit ist die NASA-Reihe startklar — und du hast zwei der vier
   Gemeinheiten aus Schritt 1 sicher entschärft.</p>
 
-  <div class="quiz" data-loesung="0">
-    <p class="frage">Die Jahresspalte <code>J-D</code> kommt nach
-    <code>skip = 1</code> als <code>character</code> statt
-    <code>numeric</code> zurück. Woran liegt das?</p>
-    <label><input type="radio" name="q2" value="0" data-grund="Richtig — ein einziger Textwert wie der NA-Marker *** zwingt readr, die ganze Spalte als Text zu lesen; na = &quot;***&quot; behebt es."> An den ***-Markern, die als Text in der Spalte stehen</label>
-    <label><input type="radio" name="q2" value="1" data-grund="Falsch — Zahlen ohne führende Null wie -.19 parst R problemlos als Zahl; sie erzwingen keinen Texttyp."> An Zahlen wie -.19 ohne führende Null</label>
-    <label><input type="radio" name="q2" value="2" data-grund="Falsch — die Kopfzeile benennt die Spalte nur; über den Spaltentyp entscheidet der Inhalt der Zellen, nicht der Name."> Am Spaltennamen J-D mit Bindestrich</label>
-    <label><input type="radio" name="q2" value="3" data-grund="Falsch — die Preamble-Zeile ist längst übersprungen; sie liegt gar nicht mehr in den Daten."> An der Preamble-Zeile, die noch mitgelesen wird</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: na-marker-typen">
+    <fieldset class="frage">
+      <legend class="frage-text">Die Jahresspalte <code>J-D</code> kommt
+      nach <code>skip = 1</code> als <code>character</code> statt
+      <code>numeric</code> zurück. Woran liegt das?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-04-q5" value="0" data-grund="Richtig — ein einziger Textwert wie der NA-Marker *** zwingt readr, die ganze Spalte als Text zu lesen; na = &quot;***&quot; behebt es."> An den ***-Markern, die als Text in der Spalte stehen</label>
+        <label><input type="checkbox" name="sa-04-q5" value="1" data-grund="Falsch — Zahlen ohne führende Null wie -.19 parst R problemlos als Zahl; sie erzwingen keinen Texttyp."> An Zahlen wie -.19 ohne führende Null</label>
+        <label><input type="checkbox" name="sa-04-q5" value="2" data-grund="Falsch — die Kopfzeile benennt die Spalte nur; über den Spaltentyp entscheidet der Inhalt der Zellen, nicht der Name."> Am Spaltennamen J-D mit Bindestrich</label>
+        <label><input type="checkbox" name="sa-04-q5" value="3" data-grund="Falsch — die Preamble-Zeile ist längst übersprungen; sie liegt gar nicht mehr in den Daten."> An der Preamble-Zeile, die noch mitgelesen wird</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Du liest ohne <code>na = &quot;***&quot;</code>
+      ein und rechnet später <code>mean(g$`J-D`)</code>. Was
+      passiert — und warum ist das der gefährlichste Fehler von
+      heute?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-04-q6" value="0" data-grund="Richtig — ein einziger Textwert macht die ganze Spalte zum Text; Mittelwerte liefern dann einfach NA, ohne dass R etwas sagt."> mean() liefert NA — ohne Warnung, weil die ganze Spalte character ist</label>
+        <label><input type="checkbox" name="sa-04-q6" value="1" data-grund="Falsch — genau das Fiese daran: keine Warnung, kein Abbruch; R gibt brav NA zurück, als hätte es gerechnet."> mean() bricht mit einer klaren Fehlermeldung ab</label>
+        <label><input type="checkbox" name="sa-04-q6" value="2" data-grund="Falsch — über Text kann R keinen Mittelwert bilden; die Spalte ist durch die Marker zum Text geworden."> mean() liefert die korrekte Zahl — die ***-Werte stören mean() nicht</label>
+        <label><input type="checkbox" name="sa-04-q6" value="3" data-grund="Falsch — automatisch als fehlend behandelt wird nur, was du mit na = &quot;***&quot; deklarierst; ohne das Argument sind es Textwerte."> mean() ignoriert die Marker automatisch wie fehlende Werte</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Nach <code>na = &quot;***&quot;</code>
+      meldet <code>sum(is.na(g$`J-D`))</code> den Wert 1. Was bedeutet
+      die 1 — und was gehört damit getan?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-04-q7" value="0" data-grund="Richtig — nur noch eine echte Lücke, das laufende, noch nicht abgeschlossene Jahr; solche Lücken gehören benannt, und drop_na() nimmt sie für die Auswertung aus dem Datensatz."> Eine echte Lücke — das laufende Jahr; benennen und per drop_na() ausnehmen</label>
+        <label><input type="checkbox" name="sa-04-q7" value="1" data-grund="Falsch — die Marker sind mit na = &quot;***&quot; bereits als fehlend deklariert; die 1 ist die echte Lücke des laufenden Jahres."> Ein Fehler von readr — ein Marker wurde übersehen</label>
+        <label><input type="checkbox" name="sa-04-q7" value="2" data-grund="Falsch — das laufende Jahr kann noch keinen Jahreswert haben; das ist kein Download-Defekt, sondern Inhalt der Datei."> Ein Zeichen, dass der Download unvollständig war</label>
+        <label><input type="checkbox" name="sa-04-q7" value="3" data-grund="Falsch — Lücken gehören benannt statt heimlich aufgefüllt; eine erfundene 0 würde der Temperaturreihe ein falsches Jahr anhängen."> Ein Grund, die Lücke mit 0 aufzufüllen, damit die Reihe lückenlos wird</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 <section>
@@ -223,15 +293,42 @@ read_csv2(I("maschine;masse_mm\nM1;10.02\nM1;9.92\n"),
   Daten-Text, kein Dateiname — praktisch für Mini-Tests genau wie
   hier.)</p>
 
-  <div class="quiz" data-loesung="3">
-    <p class="frage">Deine Kollegin liest die Statistik-Austria-Datei
-    mit <code>read_csv()</code> ein und behauptet danach, die Datei
-    enthalte „nur eine Spalte voller Text". Was ist passiert?</p>
-    <label><input type="radio" name="q3" value="0" data-grund="Falsch — leere Dateien oder Zeilen meldet R anders; hier kommen alle 280 Zeilen an, nur in einer einzigen Spalte zusammengeklebt."> Die Datei ist leer oder unvollständig</label>
-    <label><input type="radio" name="q3" value="1" data-grund="Falsch — die Kodierung UTF-8 ist hier in Ordnung; sie ändert nichts an der Zahl der Spalten."> Eine falsche Zeichenkodierung hat alles zerstört</label>
-    <label><input type="radio" name="q3" value="2" data-grund="Falsch — Kopfzeilen mit Bindestrichen liest R problemlos; sie zwingen nur Backticks bei der Auswahl ab."> Die Spaltennamen mit Bindestrichen haben R verwirrt</label>
-    <label><input type="radio" name="q3" value="3" data-grund="Richtig — read_csv teilt an Kommas; da die Datei Semikolons als Trenner nutzt, bleibt jede Zeile ein einziger Textbrocken in einer Spalte."> read_csv trennt an Kommas — die Datei trennt aber an Semikolons</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: trenner-und-locale">
+    <fieldset class="frage">
+      <legend class="frage-text">Deine Kollegin liest die
+      Statistik-Austria-Datei mit <code>read_csv()</code> ein und
+      behauptet danach, die Datei enthalte „nur eine Spalte voller
+      Text“. Was ist passiert?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-04-q8" value="0" data-grund="Falsch — leere Dateien oder Zeilen meldet R anders; hier kommen alle 280 Zeilen an, nur in einer einzigen Spalte zusammengeklebt."> Die Datei ist leer oder unvollständig</label>
+        <label><input type="checkbox" name="sa-04-q8" value="1" data-grund="Falsch — die Kodierung UTF-8 ist hier in Ordnung; sie ändert nichts an der Zahl der Spalten."> Eine falsche Zeichenkodierung hat alles zerstört</label>
+        <label><input type="checkbox" name="sa-04-q8" value="2" data-grund="Falsch — Kopfzeilen mit Bindestrichen liest R problemlos; sie zwingen nur Backticks bei der Auswahl ab."> Die Spaltennamen mit Bindestrichen haben R verwirrt</label>
+        <label><input type="checkbox" data-richtig name="sa-04-q8" value="3" data-grund="Richtig — read_csv teilt an Kommas; da die Datei Semikolons als Trenner nutzt, bleibt jede Zeile ein einziger Textbrocken in einer Spalte."> read_csv trennt an Kommas — die Datei trennt aber an Semikolons</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was macht <code>read_csv2()</code> anders
+      als <code>read_csv()</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-04-q9" value="0" data-grund="Richtig — der „europäische“ Bruder: genau diese Ländereinstellung nennt die Meldung beim Einlesen als Locale."> Semikolon als Trenner, Komma als Dezimal- und Punkt als Gruppierungszeichen</label>
+        <label><input type="checkbox" name="sa-04-q9" value="1" data-grund="Falsch — für Excel gibt es read_excel() aus readxl; read_csv2() liest weiterhin Texttabellen, nur mit anderem Trenner."> Es liest .xlsx-Excel-Dateien ein</label>
+        <label><input type="checkbox" name="sa-04-q9" value="2" data-grund="Falsch — skip musst du auch bei read_csv2() selbst setzen; geändert haben nur Trenner und Locale."> Es überspringt Preamble-Zeilen automatisch</label>
+        <label><input type="checkbox" name="sa-04-q9" value="3" data-grund="Falsch — mit passendem Trenner kommen Zahlen als Zahl an (F-KRIM-1 als Zahl); zu Text klebt nur der falsche Trenner."> Es macht alle Spalten zu Text, damit nichts schiefgeht</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Eine österreichische Datei nutzt
+      Semikolon als Trenner, aber Punkt-Dezimalzahlen wie
+      <code>10.02</code>. Wie liest du sie sicher ein?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-04-q10" value="0" data-grund="Richtig — der Trenner passt zu read_csv2(), und die explizite Locale legt das Dezimalzeichen passend zur Datei fest."> read_csv2() mit locale = locale(decimal_mark = &quot;.&quot;)</label>
+        <label><input type="checkbox" name="sa-04-q10" value="1" data-grund="Falsch — read_csv() trennt an Kommas; an der Semikolon-Datei bekämst du wieder eine einzige Textspalte."> read_csv() — der Punkt-Dezimalzahl wegen</label>
+        <label><input type="checkbox" name="sa-04-q10" value="2" data-grund="Falsch — die Punkte sind Dezimalzeichen, keine fehlenden Werte; das Dezimalzeichen wird über die Locale festgelegt, nicht über na."> na = &quot;.&quot;, um die Punkt-Dezimalen als fehlend zu deklarieren</label>
+        <label><input type="checkbox" name="sa-04-q10" value="3" data-grund="Falsch — skip überspringt Zeilen am Dateianfang; das Dezimalzeichen steckt in jeder Datenzeile."> skip = 1, um die Zeilen mit Dezimalpunkten zu überspringen</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -295,15 +392,41 @@ b |&gt; group_by(Maschine) |&gt;
   Peinlichkeit, sondern Information — solange man sie sichtbar
   behandelt statt heimlich mitzuzählen.</p>
 
-  <div class="quiz" data-loesung="1">
-    <p class="frage">In der Excel-Datei steht in zwei Zellen der
-    Messwert-Spalte „n. gemessen". Was ist der sauberste Weg, die
-    Spalte als Zahlen mit echten <code>NA</code> zu bekommen?</p>
-    <label><input type="radio" name="q4" value="0" data-grund="Falsch — als Text gelesen bleiben die Werte „10.02“ &amp; Co. Text; ein Mittelwert ergäbe NA statt 10.0."> Zuerst normal einlesen, nichts weiter tun — Text genügt für mean()</label>
-    <label><input type="radio" name="q4" value="1" data-grund="Richtig — na = &quot;n. gemessen&quot; macht beim Einlesen echte NA daraus, as.numeric() verwandelt den Rest der Textspalte in Zahlen."> na = "n. gemessen" beim Einlesen, danach as.numeric()</label>
-    <label><input type="radio" name="q4" value="2" data-grund="Falsch — skip springt Zeilen am Anfang über; hier stehen die Marker mitten in der Spalte, nicht in einer eigenen Zeile."> skip = 2 angeben, um die Markerzeilen zu überspringen</label>
-    <label><input type="radio" name="q4" value="3" data-grund="Falsch — Notizen wechseln zu lassen hilft nichts; das Problem liegt in der Messwerte-Spalte, nicht im falschen Sheet."> Das Notizen-Sheet einlesen und dort die Werte nachschlagen</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: excel-sheets-na">
+    <fieldset class="frage">
+      <legend class="frage-text">In der Excel-Datei steht in zwei Zellen
+      der Messwert-Spalte „n. gemessen“. Was ist der sauberste Weg, die
+      Spalte als Zahlen mit echten <code>NA</code> zu bekommen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-04-q11" value="0" data-grund="Falsch — als Text gelesen bleiben die Werte „10.02“ &amp; Co. Text; ein Mittelwert ergäbe NA statt 10.0."> Zuerst normal einlesen, nichts weiter tun — Text genügt für mean()</label>
+        <label><input type="checkbox" data-richtig name="sa-04-q11" value="1" data-grund="Richtig — na = &quot;n. gemessen&quot; macht beim Einlesen echte NA daraus, as.numeric() verwandelt den Rest der Textspalte in Zahlen."> na = &quot;n. gemessen&quot; beim Einlesen, danach as.numeric()</label>
+        <label><input type="checkbox" name="sa-04-q11" value="2" data-grund="Falsch — skip springt Zeilen am Anfang über; hier stehen die Marker mitten in der Spalte, nicht in einer eigenen Zeile."> skip = 2 angeben, um die Markerzeilen zu überspringen</label>
+        <label><input type="checkbox" name="sa-04-q11" value="3" data-grund="Falsch — das Problem liegt in der Messwerte-Spalte; das Notizen-Sheet enthält Hinweistext, keine Werte."> Das Notizen-Sheet einlesen und dort die Werte nachschlagen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Warum gehört <code>excel_sheets()</code>
+      vor jeden <code>read_excel()</code>-Aufruf auf eine unbekannte
+      Datei?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-04-q12" value="0" data-grund="Richtig — kein Fehler, einfach die falschen Daten: Zeilen Hinweistext statt 120 Messungen; deshalb immer excel_sheets() zuerst, dann sheet = explizit."> Das erste Sheet ist nicht immer die Tabelle — ohne sheet-Angabe bekommst du still die Notizen</label>
+        <label><input type="checkbox" name="sa-04-q12" value="1" data-grund="Falsch — es läuft still durch und liefert nur das falsche (erste) Sheet; gerade das macht die Falle so tückisch."> Weil read_excel() sonst mit einem Fehler abbricht</label>
+        <label><input type="checkbox" name="sa-04-q12" value="2" data-grund="Falsch — die Spaltennamen kommen aus dem gewählten Sheet; bereinigt werden sie mit rename(), nicht mit excel_sheets()."> Weil excel_sheets() die Spaltennamen bereinigt und Backticks erspart</label>
+        <label><input type="checkbox" name="sa-04-q12" value="3" data-grund="Falsch — sie liefern sehr wohl Zeilen: alle des ersten Sheets, nur eben die Notizen statt der Messwerte."> Weil Excel-Dateien ohne sheet-Angabe gar keine Zeilen liefern</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Der Spaltenname „Masse in mm“ enthält
+      Leerzeichen. Welche zwei Aussagen dazu stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-04-q13" value="0" data-grund="Richtig — Leerzeichen im Spaltennamen machen die Backticks nötig; nur so erreicht man die Spalte direkt."> In R erreichst du die Spalte nur mit Backticks: b$`Masse in mm`</label>
+        <label><input type="checkbox" data-richtig name="sa-04-q13" value="1" data-grund="Richtig — so heißt die Spalte danach wie eine übliche R-Variable und braucht keine Backticks mehr."> Sauberer: direkt nach dem Einlesen umbenennen — rename(masse_mm = `Masse in mm`)</label>
+        <label><input type="checkbox" name="sa-04-q13" value="2" data-grund="Falsch — ohne Backticks kann R den Namen mit Leerzeichen nicht lesen; die Backticks sind genau dafür da."> Ohne Backticks: b$Masse in mm funktioniert genauso</label>
+        <label><input type="checkbox" name="sa-04-q13" value="3" data-grund="Falsch — sie kommen an; nur ihr Name verlangt Backticks — oder gleich ein rename()."> Spalten mit Leerzeichen kann read_excel() gar nicht einlesen</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -353,15 +476,43 @@ delikte |> filter(jahr == 2024, str_detect(gericht, "Wien"))
   bevor du <code>sum()</code> vertraust — im Amts-Excel beginnt
   Sicherheit mit Misstrauen.</p>
 
-  <div class="quiz" data-loesung="2">
-    <p class="frage">Warum stehen in der Datentabelle Codes wie
-    <code>KRIMEA9-7</code> statt „LG Linz", und woher weiß R die
-    Klartexte?</p>
-    <label><input type="radio" name="q5" value="0" data-grund="Falsch — R kann Codes nicht selbst auflösen; ohne Dimensions-Datei bleibt KRIMEA9-7 ein bedeutungsloser String."> R übersetzt die Codes automatisch aus dem Internet</label>
-    <label><input type="radio" name="q5" value="1" data-grund="Falsch — auf Rätsel verzichtet Amtsstatistik bewusst: Codes sind stabil, sprachneutral und maschinenlesbar — deshalb der Join-Weg."> Die Statistiker wollten Rätsel aufgeben, Text gäbe es nicht</label>
-    <label><input type="radio" name="q5" value="2" data-grund="Richtig — Codes sind eindeutig und unabhängig von Sprachen; die Klartexte kommen per left_join() aus der Dimensions-Datei des Datensatzes."> Codes sind stabiler und mehrsprachig — Klartexte liefert der Join mit der Dimensions-Datei</label>
-    <label><input type="radio" name="q5" value="3" data-grund="Falsch — die Dimensions-Datei gehört zum Datensatz dazu und ist heruntergeladen; nur verwenden muss man sie eben selbst."> Die Klartexte sind verloren, die Datei wurde nie mitgeliefert</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="quiz" data-titel="Quiz: codes-joins-aggregate">
+    <fieldset class="frage">
+      <legend class="frage-text">Warum stehen in der Datentabelle Codes
+      wie <code>KRIMEA9-7</code> statt „LG Linz“, und woher weiß R die
+      Klartexte?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-04-q14" value="0" data-grund="Falsch — R kann Codes nicht selbst auflösen; ohne Dimensions-Datei bleibt KRIMEA9-7 ein bedeutungsloser String."> R übersetzt die Codes automatisch aus dem Internet</label>
+        <label><input type="checkbox" name="sa-04-q14" value="1" data-grund="Falsch — auf Rätsel verzichtet Amtsstatistik bewusst: Codes sind stabil, sprachneutral und maschinenlesbar — deshalb der Join-Weg."> Die Statistiker wollten Rätsel aufgeben, Text gäbe es nicht</label>
+        <label><input type="checkbox" data-richtig name="sa-04-q14" value="2" data-grund="Richtig — Codes sind eindeutig und unabhängig von Sprachen; die Klartexte kommen per left_join() aus der Dimensions-Datei des Datensatzes."> Codes sind stabiler und mehrsprachig — Klartexte liefert der Join mit der Dimensions-Datei</label>
+        <label><input type="checkbox" name="sa-04-q14" value="3" data-grund="Falsch — die Dimensions-Datei gehört zum Datensatz dazu und ist heruntergeladen; nur verwenden muss man sie eben selbst."> Die Klartexte sind verloren, die Datei wurde nie mitgeliefert</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">In der Join-Kette steht:
+      <code>left_join(sprengel, by = c(&quot;C-KRIMEA9-0&quot; =
+      &quot;gericht_code&quot;))</code>. Was leistet dieser
+      Schritt?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-04-q15" value="0" data-grund="Richtig — die Datentabelle enthält die Zahlen, die Dimensions-Datei die Klartexte; left_join() aus SA-02 klebt sie zeilenweise über den Code zusammen."> Er hängt die Klartext-Namen (gericht, olg) an die Datentabelle — gematcht über den Code</label>
+        <label><input type="checkbox" name="sa-04-q15" value="1" data-grund="Falsch — filter() selektiert Zeilen; left_join() behält die Zeilen der linken Tabelle und ergänzt Spalten."> Er filtert die Datentabelle auf Zeilen, deren Code in der Dimensions-Datei vorkommt</label>
+        <label><input type="checkbox" name="sa-04-q15" value="2" data-grund="Falsch — umbenennen tut select(); der Join ergänzt neue Spalten neben den bestehenden."> Er benennt die Codespalte C-KRIMEA9-0 in gericht um</label>
+        <label><input type="checkbox" name="sa-04-q15" value="3" data-grund="Falsch — zählen und summieren tun count()/summarise(); der Join verändert keine Werte, er ergänzt nur Spalten."> Er zählt die Delikte pro Gericht zusammen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Du willst die Gesamtdelikte 2024 über
+      alle Gerichtssprengel summieren. Die Datentabelle enthält auch
+      OLG-Summenzeilen. Was tust du?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-04-q16" value="0" data-grund="Falsch — sum() beschwert sich nicht über Doppelzählungen; das Ergebnis wäre falsch und sähe trotzdem glaubwürdig aus."> Einfach summieren — sum() merkt Doppels schon</label>
+        <label><input type="checkbox" name="sa-04-q16" value="1" data-grund="Falsch — Aggregatzeilen zu löschen verliert Information; sie müssen nur aus der eigenen Summe herausgefiltert werden, nicht aus der Datei."> Die OLG-Zeilen aus der Datei löschen und neu einlesen</label>
+        <label><input type="checkbox" name="sa-04-q16" value="2" data-grund="Falsch — Mittelwerte über Sprengel mischen Größenordnungen; gesucht ist eine Summe über die LG-Zeilen ohne Aggregate."> Statt summieren den Mittelwert über alle Zeilen nehmen</label>
+        <label><input type="checkbox" data-richtig name="sa-04-q16" value="3" data-grund="Richtig — erst count()/table() zeigt die Ausprägungen, dann filterst du die Aggregate heraus und summierst nur die LG-Zeilen."> Erst die Ausprägungen zählen, dann Aggregate herausfiltern und summieren</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -425,35 +576,29 @@ b &lt;- read_excel("daten/betriebsdaten_licht.xlsx")
   <code>excel_sheets()</code> zuerst, dann <code>sheet =</code>
   explizit.</p>
 
-  <div class="quiz" data-loesung="0">
-    <p class="frage">Was verbindet die drei Klassiker — falscher
-    Trenner, vergessener NA-Marker, falsches Excel-Sheet?</p>
-    <label><input type="radio" name="q6" value="0" data-grund="Richtig — readr/readxl liefern in allen drei Fällen still falsche oder unbrauchbare Daten; nur der aktive Blick in die Daten (class, count, Ausgabe) entlarvt sie."> R läuft ohne Fehlermeldung durch und liefert trotzdem falsche Daten</label>
-    <label><input type="radio" name="q6" value="1" data-grund="Falsch — im Gegenteil: alle drei produzieren keine harte Fehlermeldung; sonst wären sie ja harmlos."> Sie brechen den Import jeweils mit einer klaren Fehlermeldung ab</label>
-    <label><input type="radio" name="q6" value="2" data-grund="Falsch — alle drei betreffen das Einlesen selbst; sie haben mit den Koordinaten der Datei im Ordner nichts zu tun."> Sie passieren nur bei falschen Dateipfaden</label>
-    <label><input type="radio" name="q6" value="3" data-grund="Falsch — Encoding-Probleme zeigen sich als Wirrwarr-Zeichen; die drei Klassiker verändern Struktur und Typen, nicht die Umlaute."> Sie beschädigen die Datei dauerhaft auf der Festplatte</label>
-    <p class="feedback" aria-live="polite"></p>
-  </div>
+  <div class="quiz" data-titel="Quiz: die-drei-klassiker">
+    <fieldset class="frage">
+      <legend class="frage-text">Was verbindet die drei Klassiker —
+      falscher Trenner, vergessener NA-Marker, falsches
+      Excel-Sheet?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="sa-04-q17" value="0" data-grund="Richtig — readr/readxl liefern in allen drei Fällen still falsche oder unbrauchbare Daten; nur der aktive Blick in die Daten (class, count, Ausgabe) entlarvt sie."> R läuft ohne Fehlermeldung durch und liefert trotzdem falsche Daten</label>
+        <label><input type="checkbox" name="sa-04-q17" value="1" data-grund="Falsch — im Gegenteil: alle drei produzieren keine harte Fehlermeldung; sonst wären sie ja harmlos."> Sie brechen den Import jeweils mit einer klaren Fehlermeldung ab</label>
+        <label><input type="checkbox" name="sa-04-q17" value="2" data-grund="Falsch — alle drei betreffen das Einlesen selbst; sie haben mit den Koordinaten der Datei im Ordner nichts zu tun."> Sie passieren nur bei falschen Dateipfaden</label>
+        <label><input type="checkbox" name="sa-04-q17" value="3" data-grund="Falsch — Encoding-Probleme zeigen sich als Wirrwarr-Zeichen; die drei Klassiker verändern Struktur und Typen, nicht die Umlaute."> Sie beschädigen die Datei dauerhaft auf der Festplatte</label>
+      </div>
+    </fieldset>
 
-  <div class="quiz" data-loesung="3">
-    <p class="frage">Du willst die Gesamtdelikte 2024 über alle
-    Gerichtssprengel summieren. Die Datentabelle enthält auch
-    OLG-Summenzeilen. Was tust du?</p>
-    <label><input type="radio" name="q7" value="0" data-grund="Falsch — sum() beschwert sich nicht über Doppelzählungen; das Ergebnis wäre falsch und sähe trotzdem glaubwürdig aus."> Einfach summieren — sum() merkt Doppels schon</label>
-    <label><input type="radio" name="q7" value="1" data-grund="Falsch — Aggregatzeilen zu löschen verliert Information; sie müssen nur aus der eigenen Summe herausgefiltert werden, nicht aus der Datei."> Die OLG-Zeilen aus der Datei löschen und neu einlesen</label>
-    <label><input type="radio" name="q7" value="2" data-grund="Falsch — Mittelwerte über Sprengel mischen Größenordnungen; gesucht ist eine Summe über die LG-Zeilen ohne Aggregate."> Statt summieren den Mittelwert über alle Zeilen nehmen</label>
-    <label><input type="radio" name="q7" value="3" data-grund="Richtig — erst count()/table() zeigt die Ausprägungen, dann filterst du die Aggregate heraus und summierst nur die LG-Zeilen."> Erst die Ausprägungen zählen, dann Aggregate herausfiltern und summieren</label>
-    <p class="feedback" aria-live="polite"></p>
-  </div>
-
-  <div class="quiz" data-loesung="1">
-    <p class="frage">Welche Reihenfolge ist beim Einlesen einer
-    unbekannten Datei die sicherste?</p>
-    <label><input type="radio" name="q8" value="0" data-grund="Falsch — erst lesen und dann schauen heißt, die Probleme schon erlebt zu haben; der Vorspann kostet eine Zeile und verrät alles."> Sofort read_csv() und bei Warnung die Datei öffnen</label>
-    <label><input type="radio" name="q8" value="1" data-grund="Richtig — die ersten Zeilen als Text zeigen Trenner, Preamble, NA-Marker und Kopfzeile, bevor irgendwas schiefgeht."> Erst readLines() auf die ersten Zeilen, dann gezielt einlesen</label>
-    <label><input type="radio" name="q8" value="2" data-grund="Falsch — ein einziges read_csv() passt nur, wenn man Trenner, Preamble und NA-Marker schon kennt — genau das weiß man vorher nicht."> Alle Varianten (read_csv, read_csv2, read_excel) einmal ausprobieren</label>
-    <label><input type="radio" name="q8" value="3" data-grund="Falsch — R kann unmöglich wissen, wie eine fremde Datei gemeint ist; die Verantwortung fürs korrekte Einlesen bleibt bei dir."> Auf readrs automatische Erkennung vertrauen und nichts prüfen</label>
-    <p class="feedback" aria-live="polite"></p>
+    <fieldset class="frage">
+      <legend class="frage-text">Welche Reihenfolge ist beim Einlesen
+      einer unbekannten Datei die sicherste?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-04-q18" value="0" data-grund="Falsch — erst lesen und dann schauen heißt, die Probleme schon erlebt zu haben; der Vorspann kostet eine Zeile und verrät alles."> Sofort read_csv() und bei Warnung die Datei öffnen</label>
+        <label><input type="checkbox" data-richtig name="sa-04-q18" value="1" data-grund="Richtig — die ersten Zeilen als Text zeigen Trenner, Preamble, NA-Marker und Kopfzeile, bevor irgendwas schiefgeht."> Erst readLines() auf die ersten Zeilen, dann gezielt einlesen</label>
+        <label><input type="checkbox" name="sa-04-q18" value="2" data-grund="Falsch — ein einziges read_csv() passt nur, wenn man Trenner, Preamble und NA-Marker schon kennt — genau das weiß man vorher nicht."> Alle Varianten (read_csv, read_csv2, read_excel) einmal ausprobieren</label>
+        <label><input type="checkbox" name="sa-04-q18" value="3" data-grund="Falsch — R kann unmöglich wissen, wie eine fremde Datei gemeint ist; die Verantwortung fürs korrekte Einlesen bleibt bei dir."> Auf readrs automatische Erkennung vertrauen und nichts prüfen</label>
+      </div>
+    </fieldset>
   </div>
 </section>
 
@@ -486,6 +631,29 @@ b &lt;- read_excel("daten/betriebsdaten_licht.xlsx")
   — <strong>Abgabe:</strong> nach Vorgabe deiner Lehrperson.</p>
 </section>
 
+<details class="lehrplan">
+  <summary>Lehrplan &amp; Einordnung</summary>
+  <ul>
+    <li><strong>Lehrplan:</strong> PMM (HWIT), 4. Semester —
+      schulautonomer Werkzeug-Block (UE 1–3 des Semesterplans
+      <code>lehrplan/pmm-hwit/jg4-semesterplan-ws.md</code>,
+      R4DS-„Whole Game“); SA-04 vertieft UE 3 „Daten einlesen &amp;
+      deskriptive Statistik“ (Lektüre-Anker R4DS Kap. 7, freiwillig
+      Kap. 21)</li>
+    <li><strong>KM-Bezug:</strong> kein eigenes KM — schulautonome
+      Vertiefung zur Einlese-Praxis; baut auf SA-03
+      (<code>read_csv()</code>-Grundlagen) und SA-02
+      (<code>left_join()</code>) auf; kodierte Amts-Tabellen wie hier
+      tauchen auch beim Femizid-Datensatz aus KM7 auf</li>
+    <li><strong>Runtime:</strong> R 4.5 / tidyverse —
+      <code>readr</code> (<code>read_csv()</code>,
+      <code>read_csv2()</code>, <code>readLines()</code>),
+      <code>readxl</code> (<code>excel_sheets()</code>,
+      <code>read_excel()</code>), <code>dplyr</code>,
+      <code>tidyr</code> (<code>drop_na()</code>), <code>stringr</code></li>
+  </ul>
+</details>
+
 <footer class="navi">
   <p><strong>Quelle zum Weiterlesen:</strong> R4DS 2e,
   <a href="https://r4ds.hadley.nz/data-import">Kap. 7 — Data
@@ -501,8 +669,9 @@ b &lt;- read_excel("daten/betriebsdaten_licht.xlsx")
   ist zu klein, solange du den Code dabei hast.</p>
   <p>Zurück zum Überblick: <a href="../SA-00-was-kann-r/praesentation.html">SA-00 —
   Was kann R?</a> · Zurück: <a href="../SA-03-daten-einlesen-deskriptiv/lesson.html">SA-03 —
-  Daten einlesen &amp; deskriptiv</a> · Serie: Datenaufbereitung
-  (SA-04 …)</p>
+  Daten einlesen &amp; deskriptiv</a> · Weiter: <a href="../KM7-01-mittelwertsvergleich-t-test/lesson.html">KM7-01 —
+  Mittelwertsvergleich (t-Test)</a> — die erste Auswertung auf
+  frisch eingelesenen Daten · Serie: Datenaufbereitung (SA-04 …)</p>
 </footer>
 
 </body>
