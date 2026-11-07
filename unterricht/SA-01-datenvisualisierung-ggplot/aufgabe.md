@@ -22,12 +22,15 @@ glimpse(penguins)
 
 - Wie viele Zeilen (Pinguine)? ______ &nbsp; Wie viele Spalten? ______
 - Welchen Typ hat `species`? ________ &nbsp; `body_mass_g`? ________
+- Worin unterscheiden sich `install.packages("tidyverse")` und
+  `library(tidyverse)` — wann brauchst du welches? ________
 
 ---
 
-## 2. Die Einstiegsfrage nachbauen
+## 2. Die Grammatik übertragen
 
-Baue im **Skript** (nicht in der Konsole!) das Ziel-Bild aus der Stunde nach:
+Baue im **Skript** (nicht in der Konsole!) diesen Plot nach — er nutzt
+dieselbe Grammatik wie das Ziel-Bild der Stunde, aber andere Spalten:
 
 ```r
 ggplot(penguins,
@@ -74,6 +77,11 @@ Streudiagramm mit sinnvollen `labs()`-Achsentiteln. Ergänze `geom_smooth()`.
 
 - Deine Frage (in einem Satz): _________________________________________________
 - Was zeigt der Plot? (2 Sätze): _________________________________________________
+
+  _________________________________________________
+
+- Welcher Geom passt zu deiner Frage — Zusammenhang, Verteilung oder
+  Zählen von Kategorien? Und warum passt der andere hier nicht? ________
 
   _________________________________________________
 

@@ -13,40 +13,168 @@
   <button type="button" class="theme-toggle" id="theme-toggle"
           aria-pressed="false">Dunkel</button>
   <span class="kicker">Lektion SA-01 · Datenvisualisierung mit ggplot</span>
-  <span class="ort">UE 1 · 4AHWIT WS · schulautonom</span>
   <h1>Dein erster Plot: Pinguine vermessen</h1>
-  <p class="subtitle">Datenvisualisierung zuerst — die Frage, dann das Bild.</p>
+  <p class="subtitle">Datenvisualisierung zuerst — die Frage, dann das Bild.
+  Vom Setup über das Skelett der Grafik-Grammatik bis zum Skript als
+  Labortagebuch.</p>
 </header>
 
 <div class="callout tipp">
   <span class="label">Lektüre</span>
-  <p>R4DS 2e (englisch, <a href="https://r4ds.hadley.nz/data-visualize">Kap. 1 Data visualization</a>)
-     — lies Kapitel 1 vor der Aufgabe. Die Fragen beziehen sich auf
-     das Kapitel: <a href="aufgabe.md">Aufgabe SA-01</a>.</p>
+  <p>R4DS 2e (englisch) — beide Kapitel vor der Aufgabe lesen:
+     <a href="https://r4ds.hadley.nz/data-visualize">Kap. 1 Data
+     visualization</a> und
+     <a href="https://r4ds.hadley.nz/workflow-basics">Kap. 2 Workflow:
+     basics</a> (Skript, <code>&lt;-</code>, kurze Wege). Die Fragen
+     beziehen sich auf die Kapitel:
+     <a href="aufgabe.md">Aufgabe SA-01</a>.</p>
 </div>
 
 <section>
   <div class="baustein">Einstiegsfrage</div>
-  <p>Drei Pinguin-Arten leben auf derselben Insel, sehen ähnlich aus —
+  <p>Drei Pinguin-Arten leben auf denselben Inseln, sehen ähnlich aus —
   aber sind sie es? Konkreter: <strong>Wie hängt Schnabel-Länge mit
   Schnabel-Tiefe zusammen — und ist das bei allen drei Arten gleich?</strong></p>
   <p>Deine Augen können das beantworten. Aber nur, wenn die Daten als
-  Bild vor dir liegen. Genau das baust du in den nächsten 15 Minuten.</p>
+  Bild vor dir liegen. Genau das baust du in dieser Doppelstunde —
+  Schritt für Schritt, mit einer Grafik-Grammatik, die später jede
+  Auswertung trägt.</p>
 </section>
 
 <section>
   <div class="baustein">Ziel-Artefakt</div>
   <p>Das ist der Plot, den du am Ende bauen kannst — Streudiagramm
   (englisch: <em>scatterplot</em>), jeder Punkt ein Pinguin, die Farbe
-  zeigt die Art:</p>
+  zeigt die Art, Achsen und Titel tragen saubere Texte:</p>
 <pre>
-ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm,
-                     color = species)) +
-  geom_point()
-<span class="cmt"># → Punkte-Wolke: Adelie oben links, Gentoo rechts unten,
-#   Chinstrap oben rechts — zwei getrennte Muster sichtbar</span>
+ggplot(penguins,
+       aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point() +
+  labs(x = "Schnabellänge (mm)", y = "Schnabeltiefe (mm)",
+       title = "Drei Arten, zwei Wolken")
+<span class="cmt"># → Punkte-Wolke: Adelie oben links (kurz, tief), Chinstrap oben
+#   rechts, Gentoo rechts unten (lang, flach) — 342 Punkte</span>
 </pre>
-  <p>Ein Blick, drei Erkenntnisse. Syntax dafür: fünf Wörter. Los.</p>
+  <p>Ein Blick, drei Erkenntnisse: Längere Schnäbel sind <em>innerhalb
+  jeder Art</em> meist tiefer — und die Arten trennen die Wolken. Die
+  Syntax dafür: fünf Bausteine. Los.</p>
+</section>
+
+<section>
+  <h2>Setup — einmalig, dann nie wieder</h2>
+  <p>Zwei Zeilen kommen vor alles andere — und sie sind nicht
+  austauschbar:</p>
+<pre>
+<span class="cmt"># einmal pro Rechner (mit Anführungszeichen!)</span>
+install.packages("tidyverse")
+install.packages("palmerpenguins")
+
+<span class="cmt"># einmal pro R-Sitzung (ohne Anführungszeichen!)</span>
+library(tidyverse)
+library(palmerpenguins)
+</pre>
+  <p><code>install.packages()</code> lädt ein Paket aus dem Internet und
+  legt es auf deinem Rechner ab — das muss pro Rechner nur einmal
+  passieren. <code>library()</code> lädt ein bereits installiertes Paket
+  für <em>diese</em> R-Sitzung — jedes Mal, wenn du R neu öffnest.</p>
+  <p>Merken kannst du es so: <strong>Anführung ist Installation.</strong>
+  Anführungszeichen stehen bei <code>install.packages()</code>, weil der
+  Name dort erst als Text ankommt — R kennt das Paket ja noch nicht. Bei
+  <code>library()</code> existiert das Paket schon und R lädt es als
+  Objekt.</p>
+  <p><strong>tidyverse</strong> ist ein Paket-Paket: <code>ggplot2</code>
+  (Grafik), <code>dplyr</code> (Daten) und Freunde — unser Werkzeugkasten
+  für das ganze Semester. <strong>palmerpenguins</strong> ist unsere
+  Pinguin-Studie: 344 Beobachtungen, CC0 — frei nutzbar.</p>
+
+  <h2>Erstes Ritual: Daten anschauen, bevor du sie nutzt</h2>
+  <p>Nach dem Setup — und nach jedem späteren Einlesen — gilt dieselbe
+  Gewohnheit:</p>
+<pre>
+glimpse(penguins)   <span class="cmt"># Struktur + Typ jeder Spalte</span>
+head(penguins)      <span class="cmt"># die ersten 6 Zeilen</span>
+</pre>
+  <p><code>glimpse()</code> zeigt dir Zeilen- und Spaltenzahl plus den
+  Typ jeder Spalte. Die drei Typen, die dich hier treffen:</p>
+  <table>
+    <tr><th>Spalte</th><th>Typ</th><th>Bedeutung</th></tr>
+    <tr><td><code>species</code></td><td><code>fct</code></td><td>Art —
+      Kategorie mit festen Ausprägungen (Adelie, Chinstrap, Gentoo)</td></tr>
+    <tr><td><code>island</code></td><td><code>fct</code></td><td>Insel
+      (Biscoe, Dream, Torgersen)</td></tr>
+    <tr><td><code>bill_length_mm</code></td><td><code>dbl</code></td><td>Schnabel-
+      länge in mm — Dezimalzahl</td></tr>
+    <tr><td><code>bill_depth_mm</code></td><td><code>dbl</code></td><td>Schnabel-
+      tiefe in mm — Dezimalzahl</td></tr>
+    <tr><td><code>flipper_length_mm</code></td><td><code>int</code></td><td>Flossen-
+      größe in mm — ganze Zahl</td></tr>
+    <tr><td><code>body_mass_g</code></td><td><code>int</code></td><td>Körpermasse
+      in g — ganze Zahl</td></tr>
+  </table>
+  <p><code>fct</code> heißt <em>factor</em> (Kategorie),
+  <code>dbl</code> heißt <em>double</em> (Dezimalzahl), <code>int</code>
+  heißt <em>integer</em> (ganze Zahl). Alle acht Spalten kennen — die
+  beiden übrigen (<code>sex</code>, <code>year</code>) brauchen wir
+  heute nicht.</p>
+  <p>Auch <code>head()</code> lohnt sich: Die erste Zeile zeigt Adelie,
+  Insel Torgersen, 39.1 mm Schnabellänge — so fühlen sich die Daten an,
+  bevor du etwas daraus machst. Und wichtig für später: Nicht jede der
+  344 Zeilen trägt jeden Messwert. Genau deshalb werden wir gleich zwei
+  Zeilen aus dem Plot fallen lassen.</p>
+
+  <div class="callout tipp">
+    <span class="label">Regel Nummer 1</span>
+    <p>Neue Daten? <strong>Zuerst <code>glimpse()</code></strong>. Dann
+    weißt du, womit du arbeitest.</p>
+  </div>
+
+  <div class="quiz" data-titel="Quiz: setup-und-ritual">
+    <fieldset class="frage">
+      <legend class="frage-text">Welche zwei Aussagen zu
+      <code>install.packages()</code> und <code>library()</code>
+      stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q1" value="0" data-richtig
+        data-grund="Richtig — die Installation lädt das Paket einmalig aus dem Internet auf deinen Rechner; danach bleibt es da."> install.packages("tidyverse") brauchst du nur einmal pro Rechner</label>
+        <label><input type="checkbox" name="sa-01-q1" value="1" data-richtig
+        data-grund="Richtig — library() lädt ein bereits installiertes Paket für die aktuelle Sitzung; jedes neue R-Fenster braucht es erneut."> library(tidyverse) musst du in jeder neuen R-Sitzung erneut aufrufen</label>
+        <label><input type="checkbox" name="sa-01-q1" value="2"
+        data-grund="Falsch — library() lädt nichts aus dem Internet; es lädt ein Paket, das schon installiert auf deinem Rechner liegt."> library(tidyverse) lädt das Paket aus dem Internet neu</label>
+        <label><input type="checkbox" name="sa-01-q1" value="3"
+        data-grund="Falsch — install.packages() verlangt den Paketnamen als Text, also mit Anführungszeichen; ohne sie sucht R ein Objekt dieses Namens."> install.packages("tidyverse") schreibt man ohne Anführungszeichen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was steckt im
+      <code>tidyverse</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q2" value="0"
+        data-grund="Falsch — das ist palmerpenguins, die Pinguin-Studie; das tidyverse ist keine Datenquelle, sondern ein Paket-Paket."> Ein Datensatz mit 344 Pinguinen</label>
+        <label><input type="checkbox" name="sa-01-q2" value="1" data-richtig
+        data-grund="Richtig — das tidyverse bündelt ggplot2 für Grafik, dplyr für Daten und weitere Pakete — der gemeinsame Werkzeugkasten des Semesters."> Die Pakete ggplot2, dplyr und Freunde</label>
+        <label><input type="checkbox" name="sa-01-q2" value="2"
+        data-grund="Falsch — Grafik allein ist ggplot2; das tidyverse trägt zusätzlich Daten-Werkzeuge wie dplyr mit."> Nur Grafik-Funktionen, sonst nichts</label>
+        <label><input type="checkbox" name="sa-01-q2" value="3"
+        data-grund="Falsch — R selbst ist die Sprache bzw. das Programm; das tidyverse ist ein Bündel von Paketen, die darauf aufsetzen."> R selbst — das tidyverse ist die Sprache</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Ein Kollege nennt dir eine neue
+      Datentabelle. Was tust du zuerst?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q3" value="0"
+        data-grund="Falsch — Mittelwerte ohne Blick in die Struktur rechnen blind: unpassende Typen und Lücken merkst du erst, wenn das Ergebnis komisch aussieht."> Erst Mittelwerte berechnen, damit man ein Ergebnis hat</label>
+        <label><input type="checkbox" name="sa-01-q3" value="1" data-richtig
+        data-grund="Richtig — Regel Nummer 1: glimpse() zeigt Struktur, Spaltentypen und Zeilenzahl, bevor du irgendetwas daraus machst."> glimpse() — Struktur und Typen anschauen</label>
+        <label><input type="checkbox" name="sa-01-q3" value="2"
+        data-grund="Falsch — Plotten ohne vorheriges Anschauen führt oft zu mysteriösen Fehlern, die eine Glimpse-Sekunde verhindert hätte."> Sofort der Reihe nach plotten, das zeigt alles</label>
+        <label><input type="checkbox" name="sa-01-q3" value="3"
+        data-grund="Falsch — penguins steckt im bereits geladenen Paket palmerpenguins; installieren muss man nur das Paket, nicht den Datensatz."> install.packages(&quot;penguins&quot;), weil der Datensatz noch fehlt</label>
+      </div>
+    </fieldset>
+  </div>
 </section>
 
 <section>
@@ -55,9 +183,23 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm,
 ggplot(penguins)
 <span class="cmt"># → grauer Kasten, leer</span>
 </pre>
-  <p><code>ggplot(penguins)</code> heißt: „Nimm diesen Datensatz, und mach
-  eine Koordinatenfläche daraus." Nichts drin — wir sagen ja noch nicht,
-  <em>welche</em> Daten wo stehen sollen.</p>
+  <p><code>ggplot(penguins)</code> heißt: „Nimm diesen Datensatz, und
+  mach eine Koordinatenfläche daraus." Nichts drin — wir sagen ja noch
+  nicht, <em>welche</em> Daten wo stehen sollen.</p>
+  <p>Dieser Aufruf ist der erste von drei Bausteinen — dem Skelett
+  jeder ggplot-Grafik:</p>
+  <table>
+    <tr><th>Baustein</th><th>Was er sagt</th></tr>
+    <tr><td><code>ggplot(penguins)</code></td><td>mit welchen
+      <strong>Daten</strong></td></tr>
+    <tr><td><code>aes(x = …, y = …)</code></td><td>welche
+      <strong>Zuordnung</strong> (Mapping) — Spalte → Position</td></tr>
+    <tr><td><code>+ geom_…()</code></td><td><strong>wie
+      gezeichnet</strong> wird</td></tr>
+  </table>
+  <p>Jede Grafik, die du in diesem Kurs bauen wirst, folgt diesem
+  Muster — Daten, Zuordnung, Zeichnung. Was fehlt, ergänzt immer genau
+  der fehlende Baustein.</p>
 
   <h2>Schritt 2 — Mapping (Zuordnung)</h2>
   <p>Jetzt kommt <code>aes()</code> — kurz für <strong>aes</strong>thetics
@@ -79,9 +221,52 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
 <span class="cmt"># → 342 Punkte, alle gleich grau — 2 Zeilen ohne Messwerte fallen weg</span>
 </pre>
   <p>Da ist dein Streudiagramm. Man sieht: längere Schnäbel sind meist
-  flacher — und <em>doch</em>, es gibt zwei Inseln (Wolken) in der
-  Punktwolke. Aber warum?</p>
+  flacher — und <em>doch</em>, es gibt zwei Wolken in der Punktwolke.
+  Aber warum?</p>
+  <p>Die Zahl 342 statt 344 erklärt die Warning beim Ausführen: R
+  entfernt Zeilen, in denen ein gemappter Wert fehlt, und meldet das
+  kurz (<em>„Removed 2 rows containing missing values or values outside
+  the scale range (<code>geom_point()</code>)"</em>) — genau die
+  beiden Zeilen, die auch <code>glimpse()</code> nur indirekt zeigte.
+  Fehlende Werte sind kein Versehen, sondern Teil der Daten — hier
+  haben zwei Pinguine Messlücken.</p>
 
+  <div class="quiz" data-titel="Quiz: skelett-drei-bausteine">
+    <fieldset class="frage">
+      <legend class="frage-text">Welche drei Aussagen über das
+      ggplot-Skelett stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q4" value="0" data-richtig
+        data-grund="Richtig — ggplot(penguins) nennt den Datensatz, auf dem die ganze Grafik aufbaut."> ggplot(penguins) nennt die Daten, mit denen R arbeitet</label>
+        <label><input type="checkbox" name="sa-01-q4" value="1" data-richtig
+        data-grund="Richtig — aes() ist die Zuordnung: welche Spalte auf die x-Achse, welche auf die y-Achse kommt."> aes() ordnet Spalten Positionen zu — Spalte → Achse</label>
+        <label><input type="checkbox" name="sa-01-q4" value="2" data-richtig
+        data-grund="Richtig — der Geom entscheidet über die Darstellung: Punkte, Balken, Linien."> geom_…() entscheidet, wie die Daten gezeichnet werden</label>
+        <label><input type="checkbox" name="sa-01-q4" value="3"
+        data-grund="Falsch — der + verbindet die Bausteine, steht aber immer am Zeilenende der Zeile davor; am Zeilenanfang bricht der Befehl."> Der + verbindet die Bausteine — er steht am Zeilenanfang</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Du führst
+      <code>ggplot(penguins, aes(x = bill_length_mm,
+      y = bill_depth_mm))</code> aus — und siehst keinen einzigen
+      Punkt. Woran liegt das?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q5" value="0" data-richtig
+        data-grund="Richtig — die Zuordnung steht, aber der Geom fehlt; R kennt die Achsen, weiß aber nicht, wie es zeichnen soll."> Es fehlt ein Geom wie geom_point()</label>
+        <label><input type="checkbox" name="sa-01-q5" value="1"
+        data-grund="Falsch — bei falsch geschriebenen Spaltennamen bricht R mit object not found ab; hier gab es keine Fehlermeldung."> Die Spaltennamen sind falsch geschrieben</label>
+        <label><input type="checkbox" name="sa-01-q5" value="2"
+        data-grund="Falsch — penguins enthält 344 Zeilen mit Messwerten; glimpse() hat es dir ja gezeigt."> Der Datensatz penguins ist leer</label>
+        <label><input type="checkbox" name="sa-01-q5" value="3"
+        data-grund="Falsch — bill_length_mm und bill_depth_mm sind Dezimalzahlen (dbl); R kann sie auf Achsen zeigen."> Die Achsen können nur Text zeigen, keine Zahlen</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
   <h2>Schritt 4 — Farbe als dritte Information</h2>
 <pre>
 ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm,
@@ -90,17 +275,53 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm,
 <span class="cmt"># → dieselben Punkte, jetzt in drei Farben mit Legende</span>
 </pre>
   <p>Ein <code>color =</code> in <code>aes()</code> — und die zwei
-  Wolken haben Namen: Adelie und Gentoo/Chinstrap.</p>
+  Wolken haben Namen: Adelie und Gentoo/Chinstrap. Die Legende entsteht
+  von allein, pro Art eine Farbe.</p>
 
-  <div class="quiz" data-loesung="2">
-    <p class="frage">Wo gehört <code>color = species</code> hin, wenn die
-    Farbe <em>pro Pinguin</em> aus den Daten kommen soll?</p>
-    <label><input type="radio" name="q1" value="0" data-grund="Falsch, weil color in geom_point() eine Festlegung für alle Punkte wäre, keine Zuordnung pro Pinguin."> Innerhalb der Klammern von geom_point(), neben den Koordinaten</label>
-    <label><input type="radio" name="q1" value="1" data-grund="Falsch, weil ohne aes() die Farbe nicht aus der Spalte species gemappt würde."> Direkt in die Klammern von ggplot(), aber ohne aes()</label>
-    <label><input type="radio" name="q1" value="2" data-grund="Richtig, weil color in aes() eine Zuordnung aus den Daten ist — pro Punkt."> Innerhalb von aes() im ggplot()-Aufruf, neben x, y</label>
-    <p class="feedback" aria-live="polite"></p>
+  <div class="callout tipp">
+    <span class="label">Das Prinzip</span>
+    <p>Werte aus den Daten → äußerliche Eigenschaft des Plot-Elements.
+    <code>color = species</code> (Mapping, in <code>aes()</code>) ≠
+    <code>color = "red"</code> (Einstellung, in <code>geom_…()</code>).
+    Text in Anführungszeichen ist keine Spalte — R behandelt ihn als
+    einen festen Wert für alle Punkte.</p>
   </div>
 
+  <div class="quiz" data-titel="Quiz: mapping-vs-einstellung">
+    <fieldset class="frage">
+      <legend class="frage-text">Welche zwei Aussagen zum Prinzip
+      Mapping vs. Einstellung stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q6" value="0" data-richtig
+        data-grund="Richtig — color = species in aes() ist ein Mapping: die Farbe kommt pro Pinguin aus der Spalte species, die Legende entsteht von allein."> color = species in aes() ordnet jedem Pinguin eine Farbe aus der Spalte zu</label>
+        <label><input type="checkbox" name="sa-01-q6" value="1" data-richtig
+        data-grund="Richtig — color = &quot;red&quot; in geom_point() ist eine Einstellung: fest für alle Punkte, ohne Bezug zu den Daten."> color = &quot;red&quot; in geom_point() färbt alle Punkte gleich — eine Einstellung</label>
+        <label><input type="checkbox" name="sa-01-q6" value="2"
+        data-grund="Falsch — &quot;red&quot; ist keine Spalte, sondern Text; R malt alle Punkte in derselben Farbe und legt allenfalls einen einzigen Legende-Eintrag an."> color = &quot;red&quot; in aes() erzeugt eine Legende mit einer Farbe pro Art</label>
+        <label><input type="checkbox" name="sa-01-q6" value="3"
+        data-grund="Falsch — außerhalb von aes() ist color eine Einstellung: R sucht dann ein Objekt namens species und meldet object 'species' not found."> color = species außerhalb von aes() mappt die Spalte species</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche dieser Zeilen malt die Punkte
+      anhand der Art — mit Legende und drei Farben? (Es muss nicht
+      unbedingt eine von ihnen sein.)</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q7" value="0"
+        data-grund="Falsch — color = &quot;red&quot; ist eine Einstellung: alle 342 Punkte rot, keine Legende, keine Art-Information."> ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + geom_point(color = &quot;red&quot;)</label>
+        <label><input type="checkbox" name="sa-01-q7" value="1"
+        data-grund="Falsch — &quot;species&quot; in Anführungszeichen ist Text, keine Spalte; R malt eine einzige Farbe und trägt „species“ als Legende-Eintrag."> ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = &quot;species&quot;)) + geom_point()</label>
+        <label><input type="checkbox" name="sa-01-q7" value="2"
+        data-grund="Falsch — color = species außerhalb von aes() ist eine Einstellung; R sucht ein Objekt species und bricht mit object 'species' not found ab."> ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + geom_point(color = species)</label>
+        <label><input type="checkbox" name="sa-01-q7" value="3"
+        data-grund="Falsch — facet_wrap(~ species) trennt in drei Kacheln, färbt aber nichts; ohne color bleibt alles grau und ohne Legende."> facet_wrap(~ species) statt color = species</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
   <h2>Schritt 5 — Trennen statt färben: Facets</h2>
   <p>Alternative zu drei Farben: drei Teil-Plots, nebeneinander
   (<em>facetting</em>, zu deutsch „Kacheln"):</p>
@@ -110,9 +331,252 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
   facet_wrap(~ species)
 <span class="cmt"># → drei kleine Plots, eine Kachel pro Art</span>
 </pre>
-  <p>Färben <em>überlagert</em>, Facets <em>trennen</em>. Beides
-  beantwortet dieselbe Frage — praktisch gewinnt im Unterricht, was
-  besser lesbar ist.</p>
+  <p>Faustregel: <strong>Farbe zum Vergleichen</strong> — alles liegt
+  übereinander, die Art-Grenzen sind sichtbar.
+  <strong>Facetten zum Gegeneinanderstellen</strong> — jede Art bekommt
+  ihr eigenes Bild mit eigener Achsenansicht. Beides beantwortet
+  dieselbe Frage; praktisch gewinnt, was besser lesbar ist.</p>
+
+  <h2>Schritt 6 — Die Gleitschicht: <code>geom_smooth()</code></h2>
+  <p>Noch eine Schicht obendrauf — der Trend:</p>
+<pre>
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm,
+                     color = species)) +
+  geom_point() +
+  geom_smooth() +
+  labs(x = "Schnabellänge (mm)", y = "Schnabeltiefe (mm)",
+       title = "Drei Arten, zwei Wolken")
+<span class="cmt"># → Punkte + drei glatte Trendlinien, für jede Art eine,
+#   mit Schattenband (Vertrauensbereich)</span>
+</pre>
+  <p><code>geom_smooth()</code> legt einen Trend-Schleier über die
+  Punkte — eine glatte Linie mit Schattenband, das den Verlässlichkeits-
+  bereich zeigt. Für kleine Datensätze wie hier nutzt R eine flexible
+  Glättung (loess); darauf musst du dich heute nicht verlassen — der
+  Punkt ist: <strong>weil <code>color</code> gemappt ist, malt R für
+  jede Art eine eigene Linie.</strong></p>
+  <p>Und jetzt das eigentliche Aha: <strong>Innerhalb jeder Art
+  steigt</strong> die Tiefe mit der Länge (Korrelation r = 0.39 für
+  Adelie, 0.65 für Chinstrap, 0.64 für Gentoo). Lässt du die Färbung
+  weg, zeigt <em>eine</em> einzige Linie nach unten (r = −0.24).
+  Die drei Wolken liegen auf verschiedenen Höhen — die tiefen kurzen
+  Adelie-Schnäbel oben links, die flachen langen Gentoo-Schnäbel unten
+  rechts. Die Gesamtlinie gleicht diese Höhenunterschiede gegen die
+  Längenunterschiede aus und kippt deshalb.</p>
+  <p>Daraus folgt die wichtigste Regel des Tages:
+  <strong>Erst trennen (color), dann Trend lesen.</strong> Ohne Färbung
+  würdest du aus einer einzigen Abwärtslinie schließen, dass längere
+  Schnäbel flacher sind — und in jeder einzelnen Art wäre das falsch.</p>
+
+  <div class="quiz" data-titel="Quiz: facets-und-smooth">
+    <fieldset class="frage">
+      <legend class="frage-text">Was ist der Unterschied zwischen
+      <code>color = species</code> und
+      <code>facet_wrap(~ species)</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q8" value="0" data-richtig
+        data-grund="Richtig — Farbe überlagert alles in einem Bild, Facetten erzeugen eine Mini-Grafik pro Art."> Farbe überlagert in einem Bild; Facetten trennen in drei Kacheln nebeneinander</label>
+        <label><input type="checkbox" name="sa-01-q8" value="1"
+        data-grund="Falsch — facet_wrap() löscht nichts; alle 342 Punkte bleiben, nur auf drei Kacheln verteilt."> facet_wrap() löscht die Punkte der anderen Arten</label>
+        <label><input type="checkbox" name="sa-01-q8" value="2"
+        data-grund="Falsch — beide brauchen die Spalte species; der Unterschied liegt in der Darstellung, nicht in den Daten."> color = species braucht keine Spalte, facet_wrap() schon</label>
+        <label><input type="checkbox" name="sa-01-q8" value="3"
+        data-grund="Falsch — sie sind zwei verschiedene Mechanismen: Überlagerung mit Legende gegen Nebeneinander von Kacheln."> Beides ist derselbe Mechanismus mit anderem Namen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was malt <code>geom_smooth()</code> in
+      deinem Plot mit gemapptem <code>color = species</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q9" value="0" data-richtig
+        data-grund="Richtig — weil color in aes() gemappt ist, wird auch der Smooth pro Art berechnet und gezeichnet."> Für jede Art eine eigene Trendlinie mit Schattenband</label>
+        <label><input type="checkbox" name="sa-01-q9" value="1"
+        data-grund="Falsch — eine einzige Linie über alle Punkte entsteht genau dann, wenn color NICHT gemappt ist."> Eine einzige Trendlinie über alle Punkte hinweg</label>
+        <label><input type="checkbox" name="sa-01-q9" value="2"
+        data-grund="Falsch — geom_smooth() ist eine zusätzliche Schicht; die rohen Punkte bleiben sichtbar."> Die Punkte selbst in glatter Version — die rohen verschwinden</label>
+        <label><input type="checkbox" name="sa-01-q9" value="3"
+        data-grund="Falsch — der Smooth glättet über die Punkte hinweg; er verbindet sie nicht nacheinander wie eine Polyline."> Eine Linie, die die Punkte der Reihe nach verbindet</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Innerhalb jeder Art steigt die
+      Schnabeltiefe mit der Schnabellänge. Lässt du die Färbung weg,
+      zeigt eine einzige Trendlinie nach unten. Warum?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q10" value="0" data-richtig
+        data-grund="Richtig — die Art-Wolken liegen auf verschiedenen Höhen (Adelie kurz und tief, Gentoo lang und flach); die Gesamtlinie gleicht das aus und kippt nach unten."> Die Wolken liegen auf verschiedenen Höhen — die Gesamtlinie gleicht die Höhenunterschiede aus</label>
+        <label><input type="checkbox" name="sa-01-q10" value="1"
+        data-grund="Falsch — R rechnet in beiden Fällen korrekt; das Ergebnis ist unterschiedlich, weil die Betrachtungsebene anders ist."> R berechnet die Korrelation im einen Fall falsch</label>
+        <label><input type="checkbox" name="sa-01-q10" value="2"
+        data-grund="Falsch — die Punkte ändern sich nicht; nur die Linie ist eine andere, weil sie alle Arten zusammen glättet."> Die Punkte selbst verschieben sich, sobald die Farbe fehlt</label>
+        <label><input type="checkbox" name="sa-01-q10" value="3"
+        data-grund="Falsch — ohne Farbe hat R weiterhin alle 342 Punkte; es fehlt keine Datenbasis, nur die Trennung nach Art."> Ohne Farbe hat R zu wenig Daten und erfindet einen Abwärtstrend</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 7 — Andere Frage, anderer Geom</h2>
+  <p>Dein Streudiagramm beantwortet eine Frage: hängen zwei Zahlen
+  zusammen? Andere Fragen brauchen andere Geoms:</p>
+<pre>
+<span class="cmt"># Verteilung: Wie hoch wiegen die Pinguine?</span>
+ggplot(penguins, aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 250) +
+  labs(x = "Körpermasse (g)", y = "Anzahl Pinguine")
+
+<span class="cmt"># Kategorien: Wie viele pro Art?</span>
+ggplot(penguins, aes(x = species)) +
+  geom_bar()
+</pre>
+  <p>Das Histogramm teilt die Masse in Klassen der Breite 250 g
+  (<code>binwidth = 250</code>) und zählt, wie viele Pinguine in jede
+  Klasse fallen: der vollste Balken liegt bei 3.375–3.625 g mit
+  <strong>48 Pinguinen</strong>. Es zeigt zwei Höcker — leichte Arten
+  (Adelie, Chinstrap) um 3.500–4.000 g, die schwere Art (Gentoo) um
+  5.000 g. Zwei Höcker im Histogramm sind ein Hinweis, dass da zwei
+  Populationen mischen — hier sind es eben die Arten.</p>
+  <p>Das Säulendiagramm (<code>geom_bar()</code>) zählt von selbst, wie
+  viele Pinguine jede Kategorie hat: <strong>Adelie 152, Chinstrap 68,
+  Gentoo 124</strong>. Merk dir den Kontrast:
+  <code>geom_bar()</code> zählt Kategorien,
+  <code>geom_histogram()</code> zählt Klassen einer Zahlenspalte. Auf
+  einer Zahlenspalte malt <code>geom_bar()</code> einen Strich pro
+  Messwert — sinnlos, wenn du Klassen willst.</p>
+  <p>Die Faustregel lautet: <strong>Ein Geom = ein Fragetyp.</strong>
+  Zusammenhang zweier Zahlen → <code>geom_point()</code>. Verteilung
+  einer Zahl → <code>geom_histogram()</code>. Zählen von Kategorien →
+  <code>geom_bar()</code>. Trend → <code>geom_smooth()</code>. Nicht
+  das Werkzeug wählen und dann die Frage verbiegen — umgekehrt.</p>
+
+  <div class="quiz" data-titel="Quiz: geoms-und-fragetyp">
+    <fieldset class="frage">
+      <legend class="frage-text">Du willst wissen: Wie viele Pinguine
+      gibt es pro Art? Welcher Geom passt?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q11" value="0" data-richtig
+        data-grund="Richtig — geom_bar() zählt von selbst, wie viele Zeilen jede Kategorie (hier jede Art) hat: 152, 68, 124."> geom_bar()</label>
+        <label><input type="checkbox" name="sa-01-q11" value="1"
+        data-grund="Falsch — geom_point() malt jeden Pinguin als eigenen Punkt; auf der species-Achse stapeln sich dann 152, 68 und 124 Punkte übereinander."> geom_point()</label>
+        <label><input type="checkbox" name="sa-01-q11" value="2"
+        data-grund="Falsch — geom_histogram() braucht eine Zahlenspalte, die es in Klassen teilt; species ist eine Kategorie (fct), keine Zahl."> geom_histogram()</label>
+        <label><input type="checkbox" name="sa-01-q11" value="3"
+        data-grund="Falsch — geom_smooth() malt Trendlinien über Werte; Zählen von Kategorien ist nicht sein Job."> geom_smooth()</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Das Histogramm mit
+      <code>binwidth = 250</code>: Der vollste Balken liegt in der
+      Klasse 3.375–3.625 g. Wie viele Pinguine zählt er?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q12" value="0" data-richtig
+        data-grund="Richtig — in dieser 250-g-Klasse liegen 48 der 342 gewerteten Pinguine; sie ist die bevölkerungsreichste."> 48</label>
+        <label><input type="checkbox" name="sa-01-q12" value="1"
+        data-grund="Falsch — 152 ist die Gesamtzahl aller Adelie-Pinguine; eine einzelne Masse-Klasse ist natürlich kleiner."> 152</label>
+        <label><input type="checkbox" name="sa-01-q12" value="2"
+        data-grund="Falsch — 342 sind alle gezeichneten Punkte des Streudiagramms; das Histogramm verteilt sie auf viele Klassen."> 342</label>
+        <label><input type="checkbox" name="sa-01-q12" value="3"
+        data-grund="Falsch — 124 sind alle Gentoo-Pinguine; die Klasse um 3.500 g liegt unterhalb der Gentoo-Massen."> 124</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche zwei Zeilen beantworten
+      Verteilungs- und Zählfragen mit dem passenden Geom?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q13" value="0" data-richtig
+        data-grund="Richtig — das Histogramm zeigt die Verteilung der Zahlenspalte body_mass_g in 250-g-Klassen."> ggplot(penguins, aes(x = body_mass_g)) + geom_histogram(binwidth = 250)</label>
+        <label><input type="checkbox" name="sa-01-q13" value="1" data-richtig
+        data-grund="Richtig — geom_bar() zählt die Ausprägungen der Kategorie species: 152, 68, 124."> ggplot(penguins, aes(x = species)) + geom_bar()</label>
+        <label><input type="checkbox" name="sa-01-q13" value="2"
+        data-grund="Falsch — das Histogramm braucht eine Zahlenspalte; species ist eine Kategorie und kann nicht in Klassen geteilt werden."> ggplot(penguins, aes(x = species)) + geom_histogram()</label>
+        <label><input type="checkbox" name="sa-01-q13" value="3"
+        data-grund="Falsch — geom_bar() auf einer Zahlenspalte läuft zwar durch, malt aber einen Strich pro Messwert; Klassen brauchen das Histogramm."> ggplot(penguins, aes(x = body_mass_g)) + geom_bar()</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Workflow: Skript statt Konsole (Kap. 2)</h2>
+  <p>RStudio hat vier Fenster. <strong>Oben links schreibst du das
+  Skript</strong> — unten links antwortet die Konsole. Enter im Skript
+  macht nur eine neue Zeile; ausführen tut der Shortcut
+  <code>Ctrl + Enter</code>.</p>
+<pre>
+<span class="cmt"># Skript = dein Labortagebuch: lesbar, wiederholbar, startbar</span>
+gewicht &lt;- c(3750, 3800, 3250)   <span class="cmt"># &lt;- speichert (nicht = !)</span>
+mean(gewicht)                     <span class="cmt"># → 3600</span>
+</pre>
+  <p><code>c()</code> verbindet drei Zahlen zu einem <em>Vektor</em> —
+  ein Objekt mit mehreren Werten. <code>&lt;-</code> speichert es unter
+  dem Namen <code>gewicht</code>; <code>mean()</code> rechnet den
+  Mittelwert: (3750 + 3800 + 3250) / 3 = 3600.</p>
+
+  <div class="callout tipp">
+    <span class="label">RStudio-Shortcuts</span>
+    <p><code>Alt + -</code> tippt <code>&lt;-</code> ·
+      <code>Ctrl + Enter</code> führt die aktuelle Zeile aus ·
+      <code>Ctrl + Shift + S</code> startet das ganze Skript.</p>
+  </div>
+  <p>Warum das Skript? Konsole = Nachfragen. Skript =
+  Nachvollziehen. Alles, was du heute tust, landet im Skript — morgen
+  kannst du dieselben Zeilen erneut ausführen und das Ergebnis steht
+  wieder da. Die Konsole merkt sich deine Befehle zwar (Pfeiltaste
+  nach oben), aber der saubere Weg zur Wiederholbarkeit ist das
+  Skript.</p>
+
+  <div class="quiz" data-titel="Quiz: skript-und-shortcuts">
+    <fieldset class="frage">
+      <legend class="frage-text">Was macht
+      <code>gewicht &lt;- c(3750, 3800, 3250)</code> — und was liefert
+      <code>mean(gewicht)</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q14" value="0" data-richtig
+        data-grund="Richtig — c() verbindet die drei Zahlen zu einem Vektor, &lt;- speichert ihn, und (3750 + 3800 + 3250) / 3 = 3600."> gewicht speichert alle drei Zahlen; mean(gewicht) liefert 3600</label>
+        <label><input type="checkbox" name="sa-01-q14" value="1"
+        data-grund="Falsch — c() verbindet alle drei Werte; nur der letzte Wert zu speichern würde c() weglassen: gewicht &lt;- 3250."> gewicht speichert nur die letzte Zahl — 3250</label>
+        <label><input type="checkbox" name="sa-01-q14" value="2"
+        data-grund="Falsch — der Mittelwert ist (3750 + 3800 + 3250) / 3 = 3600, nicht 3500."> mean(gewicht) liefert 3500</label>
+        <label><input type="checkbox" name="sa-01-q14" value="3"
+        data-grund="Falsch — &lt;- speichert; vergleichen tut ==. Hier wird nichts verglichen, sondern ein Objekt angelegt."> &lt;- vergleicht gewicht mit den drei Zahlen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Warum arbeitest du im Skript statt
+      nur in der Konsole? Welche zwei Aussagen stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q15" value="0" data-richtig
+        data-grund="Richtig — das Skript bleibt als Datei gespeichert; morgen läuft dieselbe Analyse erneut ab."> Das Skript bleibt gespeichert — du kannst morgen dieselben Befehle wieder ausführen</label>
+        <label><input type="checkbox" name="sa-01-q15" value="1" data-richtig
+        data-grund="Richtig — das Skript ist dein Labortagebuch: jeder kann (auch dein zukünftiges Ich) nachlesen, was du gerechnet hast."> Andere — und dein zukünftiges Ich — können nachvollziehen, was du gerechnet hast</label>
+        <label><input type="checkbox" name="sa-01-q15" value="2"
+        data-grund="Falsch — R merkt sich die Befehls-Historie (Pfeiltaste nach oben); aber der saubere Weg zur Wiederholbarkeit ist das Skript, nicht die Konsole."> Konsole-Befehle verschwinden unwiderruflich — es gibt keine Geschichte</label>
+        <label><input type="checkbox" name="sa-01-q15" value="3"
+        data-grund="Falsch — dieselben Befehle laufen überall; der Unterschied ist Speicherung und Nachvollziehbarkeit, nicht der Funktionsumfang."> Manche Befehle laufen nur im Skript, nicht in der Konsole</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Du willst genau die Zeile ausführen,
+      auf der der Cursor im Skript steht. Welcher Shortcut passt?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q16" value="0" data-richtig
+        data-grund="Richtig — Ctrl + Enter führt die aktuelle Zeile (bzw. Markierung) im Skript aus."> Ctrl + Enter</label>
+        <label><input type="checkbox" name="sa-01-q16" value="1"
+        data-grund="Falsch — Ctrl + Shift + S startet das ganze Skript von oben bis unten, nicht nur die eine Zeile."> Ctrl + Shift + S</label>
+        <label><input type="checkbox" name="sa-01-q16" value="2"
+        data-grund="Falsch — Alt + - tippt das Zuordnungszeichen &lt;-; es führt nichts aus."> Alt + -</label>
+        <label><input type="checkbox" name="sa-01-q16" value="3"
+        data-grund="Falsch — Enter im Skript macht nur eine neue Zeile; ausführen tut es nicht."> Enter — genug, das Skript läuft dann von oben nach unten</label>
+      </div>
+    </fieldset>
+  </div>
 </section>
 
 <section>
@@ -123,53 +587,119 @@ ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
     <li><strong>Vorhersage zuerst:</strong> Was malt
       <code>ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) + geom_point()</code>?
       Schreib deine Vorhersage auf — <em>bevor</em> du Enter drückst.</li>
-    <li>Führe den Code aus. Deckt sich dein Bild mit der Vorhersage?</li>
-    <li>Ändere eine Zeile so, dass du die drei Arten als
-      <strong>drei Kacheln</strong> siehst statt in drei Farben.</li>
+    <li>Führe den Code aus. Deckt sich dein Bild mit der Vorhersage?
+      Färbe denselben Plot dann nach <code>island</code> — welche Insel
+      hat nur <em>eine</em> Art?</li>
+    <li>Errate <strong>vorher</strong>, dann ausführen:
+      <code>ggplot(penguins, aes(x = species, y = body_mass_g)) + geom_point()</code> —
+      ist das lesbar? Was wäre besser? (Tipp: <code>geom_boxplot()</code>)</li>
   </ol>
 </section>
 
 <section>
   <div class="baustein">Typische Fehler</div>
-  <h3>Der <code>+</code> steht am Zeilenanfang</h3>
-<pre>
-ggplot(penguins, aes(x = body_mass_g, y = species))
-  + geom_point()   <span class="cmt"># ✗ Fehlermeldung: "Cannot use `+` with ..."</span>
-</pre>
-  <p>Plötzlich ist die Hälfte weg? Der <code>+</code> muss <strong>immer
-  am Zeilenende</strong> stehen — R weiß sonst nicht, dass die Zeile
-  weitergeht.</p>
 
-  <h3>Spaltenname falsch geschrieben</h3>
+  <h3>① Der <code>+</code> steht am Zeilenanfang</h3>
 <pre>
-ggplot(penguins, aes(x = Bill_Length, y = body_mass_g))
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm))
+  + geom_point()   <span class="cmt"># ✗ Fehlermeldung: "Cannot use `+` with a single argument."</span>
+</pre>
+  <p>R wertet die erste Zeile schon aus — die leere Leinwand — und
+  findet dann ein <code>+</code>, das mit nichts mehr verbinden kann.
+  Der <code>+</code> muss <strong>immer am Zeilenende</strong> stehen:
+  so liest R beide Zeilen als einen Befehl.</p>
+
+  <h3>② <code>aes()</code> vergessen</h3>
+<pre>
+ggplot(penguins) + geom_point(aes(y = body_mass_g))
+<span class="cmt"># ✗ "`geom_point()` requires the following missing aesthetics: x"</span>
+</pre>
+  <p>R weiß nicht, was auf die x-Achse gehört — es gibt keine Zuordnung
+  für x. Ohne <code>aes()</code> mit Spaltennamen fehlt genau der
+  Baustein „Zuordnung", den das Skelett verlangt.</p>
+
+  <h3>③ Farbe festgenagelt statt gemappt</h3>
+<pre>
+geom_point(color = "red")
+<span class="cmt"># läuft ohne Fehler — aber: alle 342 Punkte rot, keine Legende</span>
+</pre>
+  <p>Der leiseste Fehler von allen: kein Fehler, keine Warning — nur
+  die Frage geht verloren. Außerhalb von <code>aes()</code> ist
+  <code>color =</code> eine Einstellung für alle Punkte. Information
+  kommt nur durch das Mapping in <code>aes()</code>.</p>
+
+  <h3>④ Spaltenname falsch geschrieben</h3>
+<pre>
+ggplot(penguins, aes(x = Bill_Length, y = bill_depth_mm))
 <span class="cmt"># ✗ "object 'Bill_Length' not found" — Spalten heißen klein_mit_unterstrich</span>
 </pre>
-  <p>Die Fehlermeldung nennt dir das fehlende Objekt — lies sie, statt zu
+  <p>R kennt die Groß-/Kleinschreibung und verzeiht nichts. Die
+  Fehlermeldung nennt dir das fehlende Objekt — lies sie, statt zu
   raten. Fehlerlesen ist eine Fähigkeit, keine Strafe.</p>
+
+  <div class="quiz" data-titel="Quiz: typische-fehler">
+    <fieldset class="frage">
+      <legend class="frage-text">R meldet:
+      <code>object 'Bill_Length' not found</code>. Was ist
+      passiert?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q17" value="0" data-richtig
+        data-grund="Richtig — R kennt Groß-/Kleinschreibung und verzeiht nichts; die Spalte heißt bill_length_mm, nicht Bill_Length."> Der Spaltenname ist falsch geschrieben</label>
+        <label><input type="checkbox" name="sa-01-q17" value="1"
+        data-grund="Falsch — die Meldung nennt Bill_Length, nicht penguins; der Datensatz wurde gefunden, gefehlt hat nur die Spalte."> Das Paket palmerpenguins ist nicht geladen</label>
+        <label><input type="checkbox" name="sa-01-q17" value="2"
+        data-grund="Falsch — existieren tut die Spalte, nur unter ihrem echten Namen; die Meldung meint das gesuchte Objekt."> Die Spalte existiert unter dem Namen, aber ohne Messwerte</label>
+        <label><input type="checkbox" name="sa-01-q17" value="3"
+        data-grund="Falsch — Spaltennamen in aes() schreibt man ohne Anführungszeichen; das Problem ist die Schreibweise, nicht das Format."> R erwartet den Namen in Anführungszeichen</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Dein Befehl zerbricht in zwei Zeilen
+      — das <code>+</code> steht am Zeilenanfang und R meldet
+      „Cannot use `+` with a single argument". Welche zwei Aussagen
+      stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="sa-01-q18" value="0" data-richtig
+        data-grund="Richtig — R wertet die erste Zeile schon aus (die leere Leinwand) und findet dann ein + ohne Gegenstück."> R wertet die erste Zeile schon aus und kann das + dann nicht mehr anfügen</label>
+        <label><input type="checkbox" name="sa-01-q18" value="1" data-richtig
+        data-grund="Richtig — am Zeilenende liest R beide Zeilen als einen Befehl; erst dann funktioniert die Schichten-Verbindung."> Der + gehört an das Zeilenende der Zeile davor, dann liest R beide Zeilen als einen Befehl</label>
+        <label><input type="checkbox" name="sa-01-q18" value="2"
+        data-grund="Falsch — das Geom ist ja da; das Problem ist die Zeilenteilung, nicht die fehlende Schicht."> Die Meldung zeigt, dass geom_point() fehlt — du musst nur das Geom ergänzen</label>
+        <label><input type="checkbox" name="sa-01-q18" value="3"
+        data-grund="Falsch — gedreht wird es schlimmer: ein Befehl, der mit + beginnt, verweist auf nichts, was davor liegt."> Der Fehler verschwindet, wenn du die Zeilen drehst: + zuerst, ggplot dahinter</label>
+      </div>
+    </fieldset>
+  </div>
 </section>
 
 <section>
   <h2>Zusammenfassung</h2>
   <table>
-    <tr><th>Baustein</th><th>Wofür</th></tr>
-    <tr><td><code>ggplot(data)</code></td><td>Leinwand + Daten</td></tr>
-    <tr><td><code>aes(x, y, color)</code></td><td>Mapping (Zuordnung) der Spalten</td></tr>
-    <tr><td><code>geom_point()</code></td><td>Punkte zeichnen (Geom)</td></tr>
-    <tr><td><code>facet_wrap(~ …)</code></td><td>Trennen in Kacheln</td></tr>
-    <tr><td><code>+</code> am Zeilenende</td><td>Schichten verbinden</td></tr>
+    <tr><th>Konzept</th><th>Das Wichtigste</th></tr>
+    <tr><td><code>glimpse()</code></td><td>Immer zuerst — Daten anschauen, dann nutzen</td></tr>
+    <tr><td>Setup</td><td><code>install.packages()</code> einmal pro Rechner · <code>library()</code> pro Sitzung</td></tr>
+    <tr><td>ggplot-Skelett</td><td>Daten (<code>ggplot()</code>) · Zuordnung (<code>aes()</code>) · Zeichnung (<code>geom_…()</code>)</td></tr>
+    <tr><td>Mapping vs. Einstellung</td><td><code>color = species</code> (Info) ≠ <code>color = "red"</code> (Deko)</td></tr>
+    <tr><td><code>facet_wrap()</code></td><td>Eine Mini-Grafik pro Gruppe — Vergleiche werden sichtbar</td></tr>
+    <tr><td><code>geom_smooth()</code></td><td>Trend pro gefärbter Gruppe — erst trennen, dann Trend lesen</td></tr>
+    <tr><td>Geoms</td><td>Ein Geom = ein Fragetyp (Streuung, Verteilung, Kategorie)</td></tr>
+    <tr><td>Skript</td><td><code>&lt;-</code> speichert · <code>Ctrl+Enter</code> führt aus — alles bleibt nachvollziehbar</td></tr>
   </table>
-  <p>Nächste Lektion machst du aus dieser Ansicht <em>Arbeit</em>: Daten
-  filtern, umformen, zusammenfassen. Vorab-Überblick:
-  <a href="../SA-02-daten-transformieren-dplyr/praesentation.html">Folien UE 2</a>.</p>
+  <p><strong>Ausblick:</strong> 344 Zeilen, 3 Arten — was, wenn du erst
+  <em>filtern</em> oder <em>zusammenfassen</em> müsstest, bevor du
+  plottest? Genau dafür lernen wir im nächsten Schritt
+  <code>dplyr</code>: <a href="../SA-02-daten-transformieren-dplyr/lesson.html">Lektion
+  SA-02 — Daten transformieren mit dplyr</a>.</p>
 </section>
 
 <section>
   <div class="baustein">Aufgabe</div>
   <p>Vertiefe die Visualisierung mit der
   <a href="aufgabe.md">Aufgabe SA-01 — Daten visualisieren</a>:
-  Setup-Ritual, Vorhersagen mit der Hand, dann eigene Plots in R.
-  — <strong>Abgabe:</strong> Commit in deinem PMM-Repo.</p>
+  Setup-Ritual, Vorhersagen mit der Hand, Mapping vs. Einstellung,
+  eigene Plots in R. — <strong>Abgabe:</strong> nach Vorgabe deiner
+  Lehrperson.</p>
 </section>
 
 <details class="lehrplan">
@@ -189,17 +719,22 @@ ggplot(penguins, aes(x = Bill_Length, y = body_mass_g))
       (Annahmestichprobe, Femizid-Datensatz)</li>
     <li><strong>Runtime:</strong> R 4.5 / tidyverse —
       <code>ggplot2</code> (<code>ggplot()</code>, <code>aes()</code>,
-      <code>geom_point()</code>, <code>facet_wrap()</code>),
+      <code>geom_point()</code>, <code>geom_smooth()</code>,
+      <code>geom_histogram()</code>, <code>geom_bar()</code>,
+      <code>facet_wrap()</code>, <code>labs()</code>),
       <code>palmerpenguins</code> (Datensatz <code>penguins</code>)</li>
   </ul>
 </details>
 
 <footer class="navi">
   <p><strong>Quelle zum Weiterlesen:</strong> R4DS 2e,
-  <a href="https://r4ds.hadley.nz/data-visualize">Kap. 1</a> (Hauptlektüre).</p>
+  <a href="https://r4ds.hadley.nz/data-visualize">Kap. 1</a> (Hauptlektüre)
+  und <a href="https://r4ds.hadley.nz/workflow-basics">Kap. 2</a>
+  (Workflow: basics).</p>
   <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
   ist zu klein, solange du den Code dabei hast.</p>
-  <p>Weiter: <a href="../SA-02-daten-transformieren-dplyr/lesson.html">Lektion SA-02 —
+  <p>Zurück: <a href="../SA-00-was-kann-r/lesson.html">Lektion SA-00 —
+  Was kann R?</a> · Weiter: <a href="../SA-02-daten-transformieren-dplyr/lesson.html">Lektion SA-02 —
   Daten transformieren mit dplyr</a></p>
 </footer>
 
