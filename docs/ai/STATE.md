@@ -3,26 +3,21 @@
 Current status as of 2026-11-07.
 
 ## Current Focus
-**Quiz-Format 2.1 ohne Stufen/Modal (#42, 2026-11-07, laufend):** Der
-Skill und die Assets sind angeglichen — `data-stufe`/`niveau` und das
-Show-Modal sind gestrichen, der Titel steht als `Quiz: <thema-slug>` im
-`h3`-Badge, Fragen sind `<fieldset>`/`<legend>` mit lesson-präfixierten
-`name`, einer Infokugel je Option und einer versteckten `aria-live`-
-Statuszeile. Aufgaben-Dateien heißen jetzt einheitlich `aufgabe.md`.
-Seit Format **2.1** steht die Lösungsmenge je Option als `data-richtig`
-(kein `data-loesung` mehr), und `quiz.js` mischt die Optionen beim Laden
-(Fisher-Yates) — Handrotation entfällt, der KM7-03-Zyklus ist damit
-strukturell unmöglich. SA-03 behält seine 6er-Zahl bewusst und verweist
-per Hinweis-Callout auf die korrekten 4 in KM6-01/KM7-01.
-Umgestellt sind **KM6-01 (11 Fragen), KM7-01 (11), KM7-02 (24), KM7-03
-(11)**; KM6-01/KM7-02 tragen den `<details>`-Block. Faktisch korrigiert:
-4 statt 6 Ausschussteile (10,15 mm ist in Toleranz, `round()`-Vergleich),
-Chi-Test X² 7,87 / p 0,0195 statt 12,02 / 0,0025, KM7-01-Standardfehler
-der Differenz (z = 5,11 statt 12,02), KM7-03-Fehlerarten-Tabelle (Fehler
-1./2. Art waren vertauscht). Offen: KM5-01/02/03, KM7-04/05, SA-01–04
-umstellen; SA-00 als Lesson bauen; Präsentationen auflösen; Lehrplan-
-Details für die übrigen Lessons; Docs-Nachlauf (u. a. historische
-5ahwit-Prüfungsdateien behalten die alten 6er-Zahlen als Beleg).
+**Quiz-Format 2.1 — Kern-Batch fertig (#42, 2026-11-07):** Skill und
+Assets sind angeglichen (`data-richtig` je Option, `quiz.js` mischt
+beim Laden, kein `data-loesung`, keine Stufen, kein Modal). Umgestellt
+sind jetzt **10 Lessons**: KM6-01, KM7-01–03 (2.0-Zyklus) sowie
+KM5-01 (10 Fragen + neues `aufgabe.md`), KM5-02 (2→10 Fragen), KM5-03
+(13, Datenfehler `choose(36, 8)` korrigiert), KM7-04 (20), KM7-05 (16,
+Schritt 1 neu abgedeckt), SA-04 (18) — der Sechser-Batch lief als
+Subagent-Batch (Spec `/tmp/opencode/quiz21-spec.md`, je Lesson ein
+Subagent mit eigenem Chrome-Port; Klicktest-Harness
+`/tmp/opencode/quiz21-test.mjs`, beides ephemär). Jede Lesson doppelt
+geprüft (Subagent-Port + Gegenprobe), alle Zahlen per `Rscript`.
+Lehrplan-Details-Blöcke und Weiter-Links in den fünf neuen Lessons
+ergänzt. **Offen:** SA-01–03 (2.1 beim 90-min-Ausbau), SA-00 als
+Lesson, Präsentationen auflösen, `assets/slides.css` entfernen,
+5ahwit/2026-09-30-README, restliche `<details>`-Blöcke.
 
 **Lektionsserie Datenaufbereitung (#37):** SA-04 „Daten einlesen II: die
 raue Wirklichkeit" ist gebaut und committed (2026-10-19, `7f70261`) —
@@ -90,6 +85,16 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] 2026-11-07 — **Quiz-2.1-Sechser-Batch** (#42, Subagent-Batch nach
+      Context-Economy-Regel, Commits `8d1d60a` KM5-01 (+aufgabe.md),
+      `9dd5a07` KM5-02 (2→10 Fragen), `6c696a6` KM5-03 (+Datenfehler
+      choose(36,8)), `2435b74` KM7-04 (20 Fragen), `b255bdb` KM7-05
+      (16, Schritt 1 neu), `e555c78` SA-04 (18)): je Lesson ein
+      Hintergrund-Subagent mit Spec-File und eigenem Chrome-Port,
+      Rückgabe nur Kurzberichte; Hauptsession machte Gegenprobe
+      (Struktur-Grep + eigener Klicktest) und Commits. Nebeneffekt:
+      opencode-helpers #126 — Context-Economy-Regel jetzt in
+      AGENTS.global.md verankert (`5b1b749` dort).
 - [x] #38 CLOSED 2026-10-29 — R-Postgres-Toolchain auf think repariert:
       `install.packages("RPostgres")` scheiterte an fehlendem `libpq-dev`
       (`fatal error: libpq-fe.h`, kein `pg_config`). `sudo apt install -y

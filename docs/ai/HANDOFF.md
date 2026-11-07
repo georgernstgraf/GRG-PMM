@@ -106,25 +106,32 @@ pro Einheit statt Stücke pro Los"; LR schreiben, `jg3-verlauf.html`
 auf ✅; danach L05 bauen.
 
 ### Quiz-Format 2.1 auf alle Lessons nachziehen (#42)
-**Priority:** high (läuft; vier von dreizehn Lessons umgestellt)
+**Priority:** medium (Kern-Batch fertig; Rest hängt an SA-01–03-Ausbau)
 **Context:** Skill (`opencode-helpers` #124) und Assets sind angeglichen:
 keine Stufen (`data-stufe`/`niveau`), kein Show-Modal, Titel als
 `Quiz: <thema-slug>`, `fieldset`/`legend`, lesson-präfixierte `name`,
-Infokugel je Option, `aria-live`-Status. Aufgaben-Dateien heißen
-`aufgabe.md`. Fertig: KM6-01, KM7-01, KM7-02, KM7-03 (je mit
-Klicktest, Blindprobe und Gegenlesung). Seit 2026-11-07 **Format 2.1**:
-Lösungsmenge als `data-richtig` je Option, `quiz.js` mischt die
-Optionen beim Laden — neue Lessons direkt in 2.1 schreiben (kein
-`data-loesung`, keine Handrotation). Datenkorrektur: 4 statt 6
-Ausschussteile; KM7-02 deshalb X² 7,87 / p 0,0195, Fisher 0,0335;
-SA-03 behält die 6er-Zahl bewusst mit Hinweis-Callout.
-**Action:** Batches KM5-01/02/03, KM7-04/05, SA-04 umstellen (gleiche
-Qualitätsachse: Abdeckungsmatrix, Distraktoren aus Fehlern, Zahlen per
-`Rscript`); danach SA-01–03 auf 90 min vertiefen (Folien ernten) und
-SA-00 als Lesson bauen; Präsentationen löschen, `assets/slides.css`
-entfernen, `5ahwit/2026-09-30`-README auf die KM7-02-Lesson verlinken,
-`<details>`-Blöcke und Docs nachziehen. Historische 5ahwit-Prüfungsdateien
-(2026-10-21) behalten die alten 6er-Zahlen bewusst als Beleg.
+Infokugel je Option, `aria-live`-Status. Format **2.1**: Lösungsmenge
+als `data-richtig` je Option, `quiz.js` mischt die Optionen beim Laden
+(Fisher-Yates) — kein `data-loesung`, keine Handrotation.
+**Umgestellt (8 von 11 Lessons mit Quiz):** KM6-01, KM7-01, KM7-02,
+KM7-03 (2.0-Zyklus) + **KM5-01, KM5-02, KM5-03, KM7-04, KM7-05, SA-04**
+(Subagent-Batch 2026-11-07, Spec `/tmp/opencode/quiz21-spec.md` —
+ephemär!; Klicktest-Harness `quiz21-test.mjs` ebenfalls in /tmp).
+Neu gebaut: `KM5-01/aufgabe.md` (fehlte ganz), Lehrplan-Details-Blöcke
+in KM5-01/02, KM7-04/05, SA-04; Weiter-Links (KM5-01→KM5-02,
+KM7-04→KM7-05, KM5-03→KM6-01, SA-04→KM7-01 als Ermessensentscheidung,
+SA-05 existiert noch nicht). Datenfehler korrigiert: KM5-03
+`choose(36, 8)` = 30 260 340 (stand 6,3e7). Fragenbestand: KM5-01 10,
+KM5-02 10 (war 2), KM5-03 13, KM7-04 20, KM7-05 16 (Schritt 1 hatte
+kein Quiz), SA-04 18 — je 4 Checkboxen, alle Zahlen per `Rscript`.
+Harness-Falle: falsche-Wahl-Probe muss eine Option **ohne**
+`data-richtig` wählen (Mischen macht die erste Option zufällig).
+**Offen:** SA-01–03 auf 2.1 umstellen **beim** 90-min-Ausbau (doppelte
+Handarbeit vermeiden), SA-00 als Lesson bauen, Präsentationen löschen,
+`assets/slides.css` entfernen, 5ahwit/2026-09-30-README auf KM7-02
+verlinken, restliche `<details>`-Blöcke und Docs. Historische
+5ahwit-Prüfungsdateien (2026-10-21) behalten die alten 6er-Zahlen
+bewusst als Beleg.
 
 ## Erledigt (dieser Zyklus)
 - **GRG-PMM #40 (Nachtrag):** Quiz-Format-2.0-Styling-Rework
