@@ -162,6 +162,7 @@ code { font-size: 0.88em; background: var(--code-bg); padding: 0.1em 0.3em; }
 
 /* Infokugel je Antwortoption (im Label), Sprechblase darunter */
 .quiz--lern .infokugel {
+  position: relative;
   display: inline-block;
   vertical-align: middle;
   width: 1.25rem;
@@ -177,9 +178,17 @@ code { font-size: 0.88em; background: var(--code-bg); padding: 0.1em 0.3em; }
   font-size: 0.8rem;
   line-height: 1.2rem;
   cursor: help;
+  /* Touch: kein Doppeltap-Zoom, kein Auswahl-/Kontextmenü beim Halten */
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 .quiz--lern .infokugel:hover,
-.quiz--lern .infokugel:focus { border-color: var(--muted); }
+.quiz--lern .infokugel:focus,
+.quiz--lern .infokugel[aria-expanded="true"] { border-color: var(--muted); }
+/* Offene Blase sichtbar an der Kugel markieren */
+.quiz--lern .infokugel[aria-expanded="true"] { background: var(--line); }
 /* hidden-Attribut gegen die display-Regel oben absichern */
 .quiz--lern .infokugel[hidden],
 .quiz--lern .infoblase[hidden] { display: none !important; }
@@ -195,6 +204,30 @@ code { font-size: 0.88em; background: var(--code-bg); padding: 0.1em 0.3em; }
 .quiz--lern .infoblase .ist-richtig { color: var(--ok); }
 .quiz--lern .infoblase .ist-falsch { color: var(--accent); }
 .quiz--lern .infoblase-grund { color: var(--muted); }
+
+/* Touch-Geräte: größere Kugel, größerer Blasentext und eine unsichtbare
+   Trefferfläche (≈40×36px) um den Kreis. Bewusst kein 44-px-Quadrat:
+   die Optionen stehen dicht untereinander (12px Lücke), eine 44px-Fläche
+   würde die Kugeln benachbarter Zeilen überlappen. Nur unter (hover: none),
+   damit der Desktop-Hoverbereich unverändert bleibt. */
+@media (hover: none) {
+  .quiz--lern .infokugel {
+    width: 1.75rem;
+    height: 1.75rem;
+    line-height: 1.65rem;
+    font-size: 0.95rem;
+  }
+  .quiz--lern .infokugel::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2.5rem;
+    height: 2.25rem;
+    transform: translate(-50%, -50%);
+  }
+  .quiz--lern .infoblase { font-size: 0.95rem; }
+}
 
 /* Färbung je Option nach dem Prüfen — allein eine Bewertung des
    Häkchens: grün = Entscheidung korrekt, rot = Entscheidung falsch */

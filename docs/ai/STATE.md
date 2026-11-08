@@ -1,8 +1,19 @@
 # Project State
 
-Current status as of 2026-11-07.
+Current status as of 2026-11-08.
 
 ## Current Focus
+**Infokugeln touch-fähig (#43, 2026-11-08):** Die Quiz-Infokugeln waren auf
+dem Handy nur über „wildes Herumrühren" erreichbar, weil Touch `mouseenter`
+und `focus` **vor** `click` feuert und der Toggle die Blase damit sofort
+wieder schloss. `assets/quiz.js` nutzt jetzt Pointer-Events mit
+`pointerType`-Filter, `:focus-visible` für Tastaturfokus und einen
+`document`-`pointerdown`-Listener zum Schließen bei Tap daneben;
+`assets/lesson.css` vergrößert Kugel (1.75rem) und Trefferfläche auf
+`@media (hover: none)` und unterdrückt iOS-Kontextmenü/Doppeltap-Zoom.
+Verifiziert mit CDP-Touch-Test über zwei Lessons (KM7-02, SA-02) in beiden
+Modi. Details: PITFALLS 2026-11-08.
+
 **Quiz-Format 2.1 — Kern-Batch fertig (#42, 2026-11-07):** Skill und
 Assets sind angeglichen (`data-richtig` je Option, `quiz.js` mischt
 beim Laden, kein `data-loesung`, keine Stufen, kein Modal). Umgestellt

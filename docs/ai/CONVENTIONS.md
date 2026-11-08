@@ -167,6 +167,14 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   bedeutungslos. **Keine Stufen** (`data-stufe`, `niveau`) und **kein
   Show-Modal**; ein „Überprüfen"-Button je Frage, Infokugel je Option,
   Färbung je Option, versteckte `aria-live`-Statuszeile.
+  **Infokugel-Bedienung:** Desktop öffnet per Hover (`pointerenter` mit
+  `pointerType === "mouse"`), Touch per Tap — der Tap toggelt und lässt die
+  Blase offen (zweiter Tap oder Tap daneben schließt). Tastatur öffnet über
+  `:focus-visible`. Kein `mouseenter`/`mouseleave` mehr (siehe PITFALLS,
+  Touch-Doppeleffekt), keine Long-Press-Variante: die Begründungen sind
+  mehrzeilig und müssen ohne gehaltenen Finger lesbar sein. Auf Touch
+  (`@media (hover: none)`) ist die Kugel größer (1.75rem) und hat eine
+  unsichtbare Trefferfläche (2.5rem × 2.25rem), Desktop bleibt bei 1.25rem.
   Der Radio-Altmodus bleibt in `quiz.js` für alte Kohorten-Kopien lesbar,
   wird aber nicht mehr neu gebaut.
 - Initialisierung in über `loader.js` geladenen Skripten (`quiz.js`,

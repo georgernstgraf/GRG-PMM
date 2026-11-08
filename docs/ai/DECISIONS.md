@@ -3,6 +3,27 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-11-08: Infokugeln — Tap toggelt, kein Long-Press, 28-px-Kugel auf Touch (#43)
+
+- **Choice:** Auf Touch öffnet **ein Tap** die Begründungsblase und lässt
+  sie offen; zweiter Tap oder Tap daneben schließt. Hover bleibt
+  Desktop-only (`pointerenter`/`pointerleave` mit `pointerType === "mouse"`),
+  Tastatur öffnet über `:focus-visible`. Auf `@media (hover: none)`:
+  Kugel 1.75rem, unsichtbare Trefferfläche 2.5rem × 2.25rem.
+- **Why:** Der gemeldete „Hover geht nur mit Herumrühren"-Effekt war ein
+  doppelter Toggle: Touch feuert `mouseenter` und `focus` vor `click`, der
+  Klick-Toggle schloss die eben geöffnete Blase sofort. Long-Press wurde
+  verworfen, weil die Begründungen mehrzeilig sind — beim Loslassen wäre
+  die Blase weg und Scrollen blockiert. Kein 44-px-Quadrat als
+  Trefferfläche, weil die Option-Zeilen nur 12px auseinanderliegen und
+  sich die Flächen benachbarter Kugeln sonst überlappen (Fehltreffer).
+- **Konsequenz:** `assets/quiz.js` (Pointer-Events + `aussenklickSchliessen`),
+  `assets/lesson.css` (Touch-Block), CONVENTIONS/PITFALLS/STATE ergänzt.
+  Verifikation per CDP-Touch-Test gegen `--headless=new`-Chrome
+  (`Emulation.setEmulatedMedia` + `Input.dispatchTouchEvent`); Desktop nur
+  mit `--blink-settings=primaryHoverType=2,…` prüfbar, weil Headless
+  sonst dauerhaft `(hover: none)` meldet.
+
 ## 2026-11-07: Folien-Ära beendet — SA-00–03 geerntet, `slides.css` entfernt (#42)
 
 - **Choice:** Die letzten vier reveal.js-Präsentationen (`praesentation.html`

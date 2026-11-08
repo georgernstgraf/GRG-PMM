@@ -25,11 +25,12 @@
 //    danach, ob das Häkchen richtig gesetzt war: grün = Entscheidung
 //    korrekt (angekreuzt, obwohl Lösung — oder nicht angekreuzt, obwohl
 //    keine Lösung), rot = Entscheidung falsch (fälschlich angekreuzt oder
-//    die richtige übersehen). Die Infokugel einer Option zeigt bei
-//    Hover/Fokus/Tipp genau diese Option samt ihrer Begründung
-//    (data-grund); die Kugeln bleiben bis zum ersten Prüfen verborgen,
-//    damit die Begründungen die Antwort nicht verraten. Danach wird der
-//    Button zu „Nochmal versuchen" und setzt die Frage zurück. Eine
+//    die richtige übersehen). Die Infokugel einer Option zeigt genau diese
+//    Option samt ihrer Begründung (data-grund) — am Desktop per Hover/Fokus,
+//    auf Touch-Geräten per Tap, der die Blase offen lässt (zweiter Tap oder
+//    Tap daneben schließt sie). Die Kugeln bleiben bis zum ersten Prüfen
+//    verborgen, damit die Begründungen die Antwort nicht verraten. Danach
+//    wird der Button zu „Nochmal versuchen" und setzt die Frage zurück. Eine
 //    versteckte Statuszeile (aria-live) meldet das Ergebnis für
 //    Screenreader. Kein Punktestand, kein Show-Modal, keine Stufen —
 //    die Wahrheit zählt.
@@ -128,15 +129,38 @@
           kugel.setAttribute("aria-expanded", zeigen ? "true" : "false");
         }
 
+        // Zeigen/Schließen: Desktop öffnet per Hover, Touch per Tap.
+        // Auf Touch emuliert der Browser mouseenter VOR click — hinge der
+        // Hover an mouseenter, schlösse der Klick-Toggle die eben geöffnete
+        // Blase sofort wieder. Deshalb Pointer-Events mit Typfilter.
         // preventDefault: der Klick auf die Kugel darf das Kästchen
         // nicht umschalten (Kugel liegt im Label)
         kugel.addEventListener("click", function (e) {
           e.preventDefault();
           blaseZeigen(blase.hidden);
         });
-        kugel.addEventListener("mouseenter", function () { blaseZeigen(true); });
-        kugel.addEventListener("mouseleave", function () { blaseZeigen(false); });
-        kugel.addEventListener("focus", function () { blaseZeigen(true); });
+        if (window.PointerEvent) {
+          kugel.addEventListener("pointerenter", function (e) {
+            if (e.pointerType === "mouse") { blaseZeigen(true); }
+          });
+          kugel.addEventListener("pointerleave", function (e) {
+            if (e.pointerType === "mouse") { blaseZeigen(false); }
+          });
+        } else {
+          // Altbestand ohne Pointer Events: Hover wie früher
+          kugel.addEventListener("mouseenter", function () { blaseZeigen(true); });
+          kugel.addEventListener("mouseleave", function () { blaseZeigen(false); });
+        }
+        kugel.addEventListener("focus", function () {
+          // Nur Tastaturfokus öffnet: beim Tap feuert focus VOR click, der
+          // Klick-Toggle würde die eben geöffnete Blase sonst sofort wieder
+          // schließen. :focus-visible trennt Tastatur- von Zeigerfokus.
+          // Ohne :focus-visible-Unterstützung (alte Safari) bleibt das
+          // Öffnen per Tap/Klick — dort klappt Toggle weiterhin.
+          try {
+            if (kugel.matches(":focus-visible")) { blaseZeigen(true); }
+          } catch (err) { /* Selektor unbekannt: nichts tun */ }
+        });
         kugel.addEventListener("blur", function () { blaseZeigen(false); });
 
         label.appendChild(kugel);
@@ -229,9 +253,32 @@
     }
   }
 
+  // Auf Touch gibt es kein mouseleave: ein Tap außerhalb der Kugel schließt
+  // offene Blasen wieder. Desktop schließt ohnehin per Hover-Verlassen.
+  function aussenklickSchliessen(e) {
+    var blasen = document.querySelectorAll(".quiz--lern .infoblase:not([hidden])");
+    for (var i = 0; i < blasen.length; i++) {
+      var blase = blasen[i];
+      if (blase.contains(e.target)) { continue; }
+      // Die Kugel liegt im Label direkt vor der Blase (siehe frageVorbereiten)
+      var label = blase.previousElementSibling;
+      var kugel = label ? label.querySelector(".infokugel") : null;
+      if (kugel && kugel.contains(e.target)) { continue; }
+      blase.hidden = true;
+      if (kugel) { kugel.setAttribute("aria-expanded", "false"); }
+    }
+  }
+
   function start() {
     var quizzes = document.querySelectorAll(".quiz");
     for (var i = 0; i < quizzes.length; i++) { initialisieren(quizzes[i]); }
+    // Je Gerät einmal: Öffnen/Schließen außerhalb der Infokugeln beenden
+    if (window.PointerEvent) {
+      document.addEventListener("pointerdown", aussenklickSchliessen, true);
+    } else {
+      document.addEventListener("mousedown", aussenklickSchliessen, true);
+      document.addEventListener("touchstart", aussenklickSchliessen, true);
+    }
   }
 
   // Wird über assets/loader.js asynchron injiziert — dann ist DOMContentLoaded
