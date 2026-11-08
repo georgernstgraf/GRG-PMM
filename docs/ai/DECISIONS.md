@@ -1,7 +1,41 @@
+---
+type: Decisions
+title: DECISIONS — GRG-PMM
+description: Chronologische Entscheidungen — Ablage, Assets, Pages, Lehrplan-Layout, Quiz-Format
+tags: [pmm, entscheidungen, pages, lessons]
+generated: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
+verified: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
+status: stable
+sources:
+  - id: issue-45
+    resource: https://github.com/georgernstgraf/GRG-PMM/issues/45
+    title: Navigator-Bootstrap index.html
+  - id: issue-46
+    resource: https://github.com/georgernstgraf/GRG-PMM/issues/46
+    title: Lessons — Repo-Pfade durch deutsche Angaben ersetzen
+---
+
 # Decisions
 
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
+
+## 2026-11-08: Pages bleibt strikt die Lernplattform; Lessons ohne Repo-Pfade (#45/#46)
+
+- **Choice (#45):** Der Navigator-Defekt (unformatierte Startseite auf jedem Aufrufweg) war
+  kein Pfadproblem, sondern ein fehlender Aufruf `()` der inneren Funktion der
+  Bootstrap-Probe in `index.html`. Fix: ein Zeichenpaar (`222cf38`); das Bootstrap-Markup
+  bleibt danach byte-identisch zu den 25 funktionierenden Seiten — kein Sonderfall für
+  `index.html`, kein Repo-Name im Code.
+- **Choice (#46):** `lehrplan/` wird **nicht** in das Pages-Artefakt aufgenommen — Pages ist
+  ausschließlich die Lernplattform (`index.html` + `assets/` + `unterricht/`, 45 Dateien,
+  Artefakt-Beleg 1:1 zum Repo, nothing else leaks). Statt nur die zwei toten Links zu
+  reparieren, wurden alle 19 Repo-Pfad-Referenzen in Lesson-Seiten durch deutsche Angaben
+  ersetzt (`2dfe1b9`; Details: CONVENTIONS „Lesson-Sprache“).
+- **Reason:** Planungsmaterial gehört nicht auf die Schülerplattform; Pfade, die dort nie
+  auflösen, sind für Schüler:innen Rauschen und für Maintainer eine 404-Falle.
+- **Tradeoff:** Wer Semesterplan oder KM-Steckbrief öffnen will, geht über das Repo — die
+  Lernplattform verlinkt ihn bewusst nicht.
 
 ## 2026-11-08: Tabellen — Gitter, Querscroll im Container, 150-%-Deckel (#44)
 

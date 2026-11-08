@@ -1,3 +1,20 @@
+---
+type: Pitfalls
+title: PITFALLS — GRG-PMM
+description: Fehlbarkeitserfahrung — CDP-/Messfallen, Pages-Fallen, Datenquellen-Fallen, R-Stolpersteine
+tags: [pmm, cdp, pages, lehrplan, r]
+generated: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
+verified: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
+status: stable
+sources:
+  - id: issue-45
+    resource: https://github.com/georgernstgraf/GRG-PMM/issues/45
+    title: Navigator-Bootstrap index.html
+  - id: issue-46
+    resource: https://github.com/georgernstgraf/GRG-PMM/issues/46
+    title: Lessons — Repo-Pfade durch deutsche Angaben ersetzen
+---
+
 # Pitfalls
 
 Things that do not work, subtle bugs, and non-obvious constraints.
@@ -226,3 +243,5 @@ Read this file carefully before making changes in affected areas.
 - **`display:block` auf Tabellen ist NICHT dasselbe wie ein Scroll-Wrapper (2026-11-08, #44).** Der verbreitete Trick `table{display:block;overflow-x:auto}` verhindert zwar Seiten-Überlauf, drückt aber die anonyme Tabelle auf ihre **min-content**-Breite: Spalten schrumpfen auf das längste Wort, Zellen brechen in 3–4 Zeilen, Zeilen werden 3× hoch (gemessen: Kopf 57 px, Datenzeilen 102 px statt 35/57 px). Eine echte Tabelle im Wrapper (`display:table; width:max-content`) verteilt die Spalten nach max-content und bleibt einzeilig. Merke: `max-content` ohne Deckel wird bei Fließtext-Zellen mehrere Bildschirme breit → `max-width: 150%` als Kompromiss.
 - **Druck klappt Querscroll-Container ab (2026-11-08, #44).** `overflow-x:auto` und `display:block` auf Tabellen schneiden beim Drucken die rechten Spalten stillschweigend ab (kein Fehler, nur fehlender Inhalt). Pflicht im `@media print`: `table{display:table;width:100%;overflow:visible}` **und** die Hülle auf `overflow:visible`; Linien auf `#8a8a8a` abdunkeln, weil `--line` auf Papier fast verschwindet.
 - **Headless-Chrome meldet immer `(hover: none)` (2026-11-08, #43/#44).** Für Desktop-Prüfungen `--blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4` mitgeben; `Emulation.setEmulatedMedia` mit `features` wechselt die Hover-Fähigkeit *nach* dem Laden nicht zuverlässig zurück. Außerdem cachen feste `--user-data-dir` die Assets: bei CDP-Läufen `Network.setCacheDisabled` setzen oder pro Lauf ein frisches Profil verwenden, sonst misst man alte CSS/JS-Stände.
+- **`new Function(text)` parst ≠ der Block führt aus (2026-11-08, #45).** Ein Inline-Script, das eine Funktion nur *definiert* (fehlendes `()` nach `(function t(){…})`), läuft fehlerfrei durch und tut nichts — kein Request, kein Fehler, `__SITE_ROOT__` bleibt weg. `new Function(text)`/`eval`-Parst-Check beweist nur die Syntax, nicht die Ausführung; der Symptom-Check läuft daher immer am DOM/Netzwerk (Stylesheet da? Request gefeuert?), nicht am Parser.
+- **Vor CDP-Messungen prüfen, wer den Debug-Port hält (2026-11-08, #45).** Ein alter headless Chrome aus der Vorsession hielt Port 9223 ~28 h; jedes Tool, das blind auf einen Debug-Port geht, misst dann die falsche Instanz (inkl. widersprüchlicher „unmöglicher“ Befunde). Vor Browser-Messungen `ss -ltnp | grep 922` bzw. einen freien Port wählen und die Instanz über `/json/version` (Browser-Version, Headless-Status) identifizieren.

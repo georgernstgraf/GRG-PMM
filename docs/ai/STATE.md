@@ -1,8 +1,35 @@
+---
+type: State
+title: STATE — GRG-PMM
+description: Aktueller Projektstatus — Fokus, abgeschlossene Zyklen, offene Punkte
+tags: [pmm, status]
+generated: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
+verified: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
+status: stable
+sources:
+  - id: issue-45
+    resource: https://github.com/georgernstgraf/GRG-PMM/issues/45
+    title: Navigator-Bootstrap index.html
+  - id: issue-46
+    resource: https://github.com/georgernstgraf/GRG-PMM/issues/46
+    title: Lessons — Repo-Pfade durch deutsche Angaben ersetzen
+---
+
 # Project State
 
 Current status as of 2026-11-08.
 
 ## Current Focus
+**Lernplattform-Navigator gerettet (#45) und Pages-Inhalte gesäubert (#46), 2026-11-08:**
+Die Startseite war auf jedem Aufrufweg (`/`, `/index.html`, Pages) unformatiert — die
+Inline-Bootstrap-Probe in `index.html` definierte die innere Suchfunktion, rief sie aber
+nie auf (`})})();` statt `})()})();`). Fix ist ein Zeichenpaar (`222cf38`); Pages-Sweep
+danach 15/15 Seiten grün (Stylesheet, Badge, `__SITE_ROOT__`), Link-Sweep 0 × 404.
+Parallel alle 19 Repo-Pfad-Referenzen in Lesson-Seiten durch deutsche Angaben ersetzt
+(`2dfe1b9`): Semesterplan-Pfade → „Semesterplan 4. Klasse, Wintersemester“,
+Steckbrief-Pfade → „KM7-Steckbrief“, zwei echte 404-Links (KM5-01, SA-03) zu Fließtext,
+`JG3`/`JG4` → „3./4. Klasse“. Pages-Artefakt unverändert 45 Dateien. Details:
+DECISIONS/CONVENTIONS/PITFALLS 2026-11-08.
 **Tabellen mobil (#44, 2026-11-08):** `lesson.css` hat jetzt echte
 Tabellen-Regeln (volles Gitter, Kopfzeile hinterlegt) und
 `assets/tables.js` (neu, vom Loader auf jeder Seite geladen) hüllt jede

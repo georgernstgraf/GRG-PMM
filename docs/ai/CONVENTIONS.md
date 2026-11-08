@@ -1,3 +1,17 @@
+---
+type: Conventions
+title: CONVENTIONS — GRG-PMM
+description: Fortlaufende Regeln — Naming, Language, Git, Repo-Struktur, Quizzes, Lernplattform, Assets, Tabellen, Datenquellen
+tags: [pmm, konventionen, pages, lessons]
+generated: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
+verified: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
+status: stable
+sources:
+  - id: issue-46
+    resource: https://github.com/georgernstgraf/GRG-PMM/issues/46
+    title: Lessons — Repo-Pfade durch deutsche Angaben ersetzen
+---
+
 # Conventions
 
 Coding patterns, naming rules, and style agreements for this project.
@@ -129,6 +143,11 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   direkt in der Zielkohorte entstehen (im README kennzeichnen).
 
 ## Lernplattform (GitHub Pages, #27, 2026-10-05)
+- **Deployter Pfad-Bestand ist die einzige referenzierbare Welt (#46, 2026-11-08):** Lesson-Seiten
+  (`index.html` + `unterricht/`) dürfen nur auf Pfade zeigen, die im Pages-Artefakt liegen
+  (aktuell 45 Dateien: `index.html`, `assets/`, `unterricht/`). Pfade zu `lehrplan/`,
+  `Projekte/`, `docs/`, `selbststudium/`, `Unterlagen/` lösen auf Pages nie auf (404).
+  Prüfung vor dem Commit: `grep -rE 'lehrplan/|Projekte/|docs/|selbststudium/|Unterlagen/' unterricht --include='*.html'` → 0 Treffer; nach dem Deploy Link-Sweep gegen Pages (0 × 404).
 - GitHub Pages ist die **Lernplattform**: veröffentlicht wird **nur `unterricht/`**
   (+ zentrales `assets/` + Navigator `index.html`) über
   `.github/workflows/pages.yml` (rsync). Kohorten-Ordner (`4ahwit-*`, `5ahwit`),
@@ -267,3 +286,13 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   `Rplots.pdf` im Arbeitsverzeichnis landet.
 - **Rückgabewerte aus SQL vor dem Plotten typisieren:** `count(*)` kommt als
   `integer64`, `as.numeric()` verhindert stille Formatierungsfehler.
+
+## Lesson-Sprache: deutsche Angaben statt Repo-Pfade (#46, 2026-11-08)
+- Repo-interne Pfade erscheinen auf Lernplattform-Seiten **nie** — nicht als Link,
+  nicht als Pfad, nicht als `<code>`; stattdessen deutsche, für Schüler:innen lesbare Angaben.
+- Kanonische Formulierungen: `lehrplan/pmm-hwit/jgN-semesterplan-{ws,ss}.md` →
+  „Semesterplan <N>. Klasse, <Winter|Sommer>semester“ (das Wort „Semesterplan“ nicht
+  doppeln, wenn es im Satz schon steht); `lehrplan/kompetenzmodule/kmN.md` →
+  „KM<N>-Steckbrief“; interne Bau-Skripte → „Bau-Skripte hinter den Übungsmaterialien“.
+- Jahrgangsangaben in Lesson-Prosa: „3./4./5. Klasse“ („4. Jahrgang“ ist ebenfalls
+  etabliert) — **keine** `JG<N>`-Kürzel auf Lernplattform-Seiten.
