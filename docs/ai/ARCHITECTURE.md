@@ -14,7 +14,7 @@ GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturaf
 | `lehrplan/` | Curriculum layer — **Fach-Ebene** (root): `METADATA.md` (legal basis, RIS refs, amendment history, class mapping), `RIS/` (RIS law-text PDFs only, ISO-date prefix), `kompetenzmodule/` (didactic KM-Steckbriefe km3–km9b), `ressourcen-matrix.md`, `r4ds-abdeckung.md` (KM-keyed resources) |
 | `lehrplan/pmm-hwit/` | Curriculum layer — **Zweig-Ebene**: `LEHRPLAN.md` (full extract JG1–JG5), `RIS.md` (legal status/amendments), `4HWIT/`+`5HWIT/` (class extracts), semester plans `jg{3,4,5}-semesterplan-{ws,ss}.md` (`jg3` = Vorwissen-/Selbststudiums-Planung) |
 | `unterricht/` | Teaching layer: prepared units **flat at root** as `<PREFIX>-<NN>-<slug>/` (`KM<#>` = Kompetenzmodul, `SA` = schulautonom; `<NN>` runs per KM) each with `lesson.html` (= presentation, no separate deck), `aufgabe.md` (Beispiel 1–3), optional `daten/` subfolder for student downloads (#37); no day-README template since #40. **No Zweig-Fach folder** — plans live in `lehrplan/pmm-hwit/` |
-| `assets/` | **Single shared asset folder** (repo root): `lesson.css`, `style.css`, `theme.js`, `quiz.js` (Lernquiz Format 2.1 + Radio-Altmodus), `loader.js` (root resolver + injector), `site.js` (per-repo config: Pages base + badge label), `github-pages-link.js` (badge), `betriebsdaten.csv` |
+| `assets/` | **Single shared asset folder** (repo root): `lesson.css`, `style.css`, `theme.js`, `quiz.js` (Lernquiz Format 2.1 + Radio-Altmodus), `tables.js` (Tabellen-Querscroll, hüllt jede Tabelle in `.tabelle-scroll`), `loader.js` (root resolver + injector), `site.js` (per-repo config: Pages base + badge label), `github-pages-link.js` (badge), `betriebsdaten.csv` |
 | `4ahwit-x/`, `4ahwit-y/` | Root cohort folders (lowercase = cohort storage). Hub `README.md` + `MISSION/RESOURCES/NOTES.md`, `YYYY-MM-DD__thema/lesson.html` (dated lessons). Undated lessons are canonical under `unterricht/`; cohort `prepared-lessons/` dissolved 2026-09-28 (#20) |
 | `5ahwit/` | Root cohort folder in SWP pattern: hub-README + `teach/` (`MISSION/NOTES/RESOURCES`, `reference/`, `learning-records/`), `hausaufgaben/`, date folders; R-On-Ramp lessons referenced from `unterricht/SA-01…SA-03` |
 | `selbststudium/` | Self-study workspace (teach skill): `MISSION.md`, `RESOURCES.md`, `NOTES.md`, `prepared-lessons/` (two-digit), `reference/` (glossar, jg3-/km7-verlaufsmap, r-setup), `learning-records/` |
@@ -30,7 +30,7 @@ GRG-PMM is a teaching repository for the subject Prozessmanagement (PMM, Maturaf
 ## HTML Page Anatomy (all pages)
 
 1. Generic inline bootstrap in `<head>` (walks ancestor dirs, probes `assets/loader.js`; no repo name).
-2. `assets/loader.js` resolves the root from its own URL, injects `data-css`/`data-js`, plus `site.js` and `github-pages-link.js`.
+2. `assets/loader.js` resolves the root from its own URL, injects `data-css`/`data-js`, plus `site.js`, `tables.js` (Tabellen-Querscroll) and `github-pages-link.js`.
 3. Badge „Auf GitHub Pages ansehen" (fixed, `no-print`).
 4. All **non-asset** links stay relative; no `<base>`.
 

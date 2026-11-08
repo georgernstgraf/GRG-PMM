@@ -178,10 +178,37 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   Der Radio-Altmodus bleibt in `quiz.js` für alte Kohorten-Kopien lesbar,
   wird aber nicht mehr neu gebaut.
 - Initialisierung in über `loader.js` geladenen Skripten (`quiz.js`,
-  `theme.js`, …) läuft über einen **`readyState`-Guard**, nicht über einen
-  bloßen `DOMContentLoaded`-Listener:
+  `theme.js`, `tables.js`, …) läuft über einen **`readyState`-Guard**, nicht
+  über einen bloßen `DOMContentLoaded`-Listener:
   `if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", start); } else { start(); }`
   — der Loader injiziert die Skripte asynchron nach dem Parsen (siehe PITFALLS).
+
+## Tabellen (#44, 2026-11-08)
+
+- **Volles Gitter:** `th`/`td` tragen `1px solid var(--line)`, die Kopfzeile
+  ist mit `var(--code-bg)` hinterlegt und mit `2px solid var(--muted)`
+  abgesetzt; mobil (≤480px) kompaktere Zellen. Kein Zebra-Streifen.
+- **Querscroll nur in der Tabelle:** `assets/tables.js` (vom Loader auf
+  jeder Seite geladen) hüllt jede `<table>` in `div.tabelle-scroll`.
+  Die Hülle scrollt waagrecht (`overscroll-behavior-x: contain`), die
+  Tabelle behält ihre natürlichen Spaltenbreiten:
+  `width: max-content; min-width: 100%; max-width: 150%`. Der Deckel bei
+  150 % verhindert, dass textlastige Tabellen mehrere Bildschirme breit
+  werden — sie brechen dann um.
+- **Nie die Seite scrollen lassen:** Eine überbreite Tabelle darf
+  `documentElement.scrollWidth` nicht vergrößern; sonst verkleinert der
+  mobile Browser die ganze Lesson (Schrift!) und rechts bleibt ein leerer
+  Streifen (siehe PITFALLS). Prüfbefehl-Skizze: bei 360 px Breite muss
+  `documentElement.scrollWidth === window.innerWidth` gelten.
+- **Affordanz:** `.tabelle-scroll.ist-breit` (nur wenn wirklich scrollbar)
+  malt einen Randschatten und setzt `tabindex="0"` + `role="region"` —
+  Android zeigt Scrollbalken nur während des Scrollens. Nicht scrollende
+  Tabellen bekommen keinen Tab-Stopp.
+- **Druck:** `@media print` setzt `display: table`, `width: 100%`,
+  `overflow: visible` und dunklere Linien (`#8a8a8a`) — sonst schneidet der
+  Querscroll die rechten Spalten ab.
+- `assets/style.css` (Selbststudium/Referenzseiten) bleibt bewusst bei
+  seinen einfachen Trennlinien; das Gitter gilt nur für die Lernplattform.
 
 ## Folien / reveal.js — BEENDET (#42, 2026-11-07)
 

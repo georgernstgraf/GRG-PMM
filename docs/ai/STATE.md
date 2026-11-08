@@ -3,6 +3,19 @@
 Current status as of 2026-11-08.
 
 ## Current Focus
+**Tabellen mobil (#44, 2026-11-08):** `lesson.css` hat jetzt echte
+Tabellen-Regeln (volles Gitter, Kopfzeile hinterlegt) und
+`assets/tables.js` (neu, vom Loader auf jeder Seite geladen) hüllt jede
+Tabelle in `.tabelle-scroll`: Der Querscroll bleibt in der Tabelle, die
+Seite bleibt Viewport-breit. Vorher zog eine breite Tabelle die Seite auf
+bis zu 495 px bei 360 px Gerätebreite — mobiles Chrome/Brave skalierte die
+ganze Lesson herunter und ließ rechts einen leeren Streifen. Deckel
+`max-width: 150%`, Randschatten als Scroll-Hinweis, `tabindex`/`region`
+nur bei echtem Querscroll, Druck zurück auf `display:table` mit dunkleren
+Linien. Verifiziert: Sweep über alle 14 Lessons bei 360/393 px, Touch-Swipe
+per CDP, Desktop 900 px, Druck-Emulation; Quiz-Touch-Tests (#43) weiter
+grün. Details: DECISIONS/PITFALLS 2026-11-08.
+
 **Infokugeln touch-fähig (#43, 2026-11-08):** Die Quiz-Infokugeln waren auf
 dem Handy nur über „wildes Herumrühren" erreichbar, weil Touch `mouseenter`
 und `focus` **vor** `click` feuert und der Toggle die Blase damit sofort

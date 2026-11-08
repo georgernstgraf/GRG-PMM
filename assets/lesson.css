@@ -56,6 +56,10 @@ body {
   padding: 2.5rem 1.25rem 5rem;
   line-height: 1.55;
   font-size: 1.05rem;
+  /* Lange Pfade/URLs in <code> dürfen die Seite nicht über die
+     Viewport-Breite hinausziehen — sonst scrollt auf dem Handy die
+     ganze Seite (siehe Tabellen-Regel und PITFALLS). */
+  overflow-wrap: break-word;
 }
 
 header.meta {
@@ -116,6 +120,67 @@ code, pre, .out, .cmt {
 code { font-size: 0.88em; background: var(--code-bg); padding: 0.1em 0.3em; }
 .out { color: var(--out); }
 .cmt { color: var(--cmt); font-style: italic; }
+
+/* Tabellen: volles Gitter, und der Querscroll bleibt IN der Tabelle.
+   Eine breite Tabelle darf das Dokument nie über die Viewport-Breite
+   hinausziehen — sonst scrollt auf dem Handy die ganze Seite und der
+   Browser verkleinert zusätzlich die Schrift (siehe PITFALLS).
+   `assets/tables.js` hüllt jede Tabelle in .tabelle-scroll; die Tabelle
+   behält darin ihre natürlichen Spaltenbreiten. Ohne das Skript greift
+   der Fallback direkt an der table-Regel (block + overflow): keine
+   Seiten-Überbreite, dafür gestauchte Spalten. */
+table {
+  display: block;          /* Fallback ohne JS */
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border-collapse: collapse;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.tabelle-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  margin: 1.2rem 0;
+  padding-bottom: 0.15rem;
+}
+/* Mit Hülle: echte Tabelle mit natürlichen Spaltenbreiten. Der Deckel bei
+   150 % verhindert, dass textlastige Tabellen drei Bildschirme breit
+   werden — sie brechen dann um, statt den Leser durchs Querscrollen zu
+   schicken. */
+.tabelle-scroll > table {
+  display: table;
+  width: max-content;
+  min-width: 100%;
+  max-width: 150%;
+  margin: 0;
+  overflow: visible;
+}
+/* Sichtbarer Hinweis, dass waagrecht mehr Tabelle wartet: Android zeigt
+   Scrollbalken nur während des Scrollens, deshalb ein Randschatten. */
+.tabelle-scroll.ist-breit { box-shadow: inset -1rem 0 0.9rem -0.8rem rgba(0, 0, 0, 0.5); }
+:root[data-theme="dark"] .tabelle-scroll.ist-breit {
+  box-shadow: inset -1rem 0 0.9rem -0.8rem rgba(255, 255, 255, 0.22);
+}
+.tabelle-scroll:focus-visible { outline: 2px solid var(--muted); outline-offset: 3px; }
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--line);
+  /* Kein break-word in Zellen: ein langer Pfad soll die Tabelle verbreitern
+     (sie scrollt selbst), nicht die Spalte zusammendrücken und die Zeile
+     in die Höhe reißen. */
+  overflow-wrap: normal;
+}
+th { background: var(--code-bg); font-weight: bold; }
+tr:first-child th { border-bottom: 2px solid var(--muted); }
+
+@media (max-width: 480px) {
+  table { font-size: 0.9rem; }
+  th, td { padding: 0.35rem 0.45rem; }
+}
 
 /* Quiz (nutzt assets/quiz.js) */
 .quiz { border: 1px solid var(--line); border-radius: 4px; padding: 1rem 1.1rem; margin: 1.4rem 0; }
@@ -336,6 +401,19 @@ footer.navi {
   pre { break-inside: avoid; }
   pre { white-space: pre-wrap; }
   .theme-toggle { display: none; }
+  /* Querscroll ist ein Bildschirm-Komfort: auf Papier würde er abschneiden */
+  .tabelle-scroll { overflow: visible; margin: 1.2rem 0; }
+  table,
+  .tabelle-scroll > table {
+    display: table;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    overflow: visible;
+    font-size: 9.5pt;
+  }
+  th, td { padding: 0.25rem 0.35rem; border-color: #8a8a8a; }
+  tr { break-inside: avoid; }
   .quiz--lern .quiz-pruefen,
   .quiz--lern .infokugel,
   .quiz--lern .infoblase { display: none !important; }

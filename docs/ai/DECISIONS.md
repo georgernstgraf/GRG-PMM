@@ -3,6 +3,30 @@
 Architectural and technical decisions made in this project.
 Each entry documents WHAT was decided and WHY.
 
+## 2026-11-08: Tabellen — Gitter, Querscroll im Container, 150-%-Deckel (#44)
+
+- **Choice:** `th`/`td` bekommen ein volles 1px-Gitter (`--line`), die
+  Kopfzeile `--code-bg` + 2px-Unterkante. `assets/tables.js` hüllt jede
+  Tabelle in `div.tabelle-scroll` (Querscroll, `overscroll-behavior-x:
+  contain`); darin `display: table; width: max-content; min-width: 100%;
+  max-width: 150%`. Randschatten + `tabindex`/`role="region"` nur bei
+  tatsächlich scrollenden Tabellen. Druck setzt alles zurück.
+- **Why:** Zwei getrennte Befunde. (1) `lesson.css` hatte **keine**
+  Tabellen-Regel — kein Gitter. (2) Eine zu breite Tabelle zog die
+  Seitenbreite hoch (bei 360 px bis 495 px), mobiles Chrome/Brave skalierte
+  die *ganze* Lesson herunter und ließ rechts einen leeren Streifen; genau
+  das war das gemeldete Layout-Problem. `display:block` auf der Tabelle
+  (naheliegender Null-JS-Trick) verhindert zwar den Seiten-Überlauf,
+  staucht aber die Spalten auf min-content (Zeilen 3× hoch) — deshalb der
+  Wrapper. Der 150-%-Deckel ist der Kompromiss: natürliche Spaltenbreiten
+  statt Wortbruch, aber kein Drei-Bildschirm-Querscroll bei Fließtext-Zellen.
+- **Konsequenz:** Neues Asset `assets/tables.js` (Loader lädt es wie
+  `site.js` auf jeder Seite); `assets/style.css` bleibt unangetastet
+  (Selbststudium/Referenz). Verifikation: Sweep über alle 14
+  `unterricht/`-Lessons bei 360/393 px (`scrollWidth === innerWidth`),
+  CDP-Touch-Swipe (Tabelle scrollt, Seite bleibt), Desktop 900 px,
+  Druck-Medien-Emulation. Doku: CONVENTIONS „Tabellen", PITFALLS.
+
 ## 2026-11-08: Infokugeln — Tap toggelt, kein Long-Press, 28-px-Kugel auf Touch (#43)
 
 - **Choice:** Auf Touch öffnet **ein Tap** die Begründungsblase und lässt
