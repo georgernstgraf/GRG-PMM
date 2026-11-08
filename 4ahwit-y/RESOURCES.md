@@ -14,8 +14,8 @@
 - [Betriebsdaten (`assets/betriebsdaten.csv`)](../assets/betriebsdaten.csv)
   Synthetische Fertigungsdaten (120 Teile, 10 Chargen × 3 Maschinen,
   Soll 10,00 ± 0,15 mm). Daten für UE 3.
-- [Statistik für Human- und Sozialwissenschaftler (Navarro, deutsch)](https://learningstatisticswithr.com/book/)
-  Rückfallebene für Statistik-Begriffe auf Deutsch. Kap. 9–10
+- [Learning Statistics with R (Navarro, englisch)](https://learningstatisticswithr.com/)
+  Hauptlehrbuch Statistik (englisch). Kap. 9–10
   (Verteilungen, Schätzen — UE 4, KM5-Recap), Kap. 11–13 (Tests, t-Test —
   UE 6), Kap. 12 (χ² — UE 7), Kap. 14+16 (ANOVA — UE 8).
 - [ModernDive](https://moderndive.com/v2)

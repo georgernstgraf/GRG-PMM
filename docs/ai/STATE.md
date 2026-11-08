@@ -3,8 +3,8 @@ type: State
 title: STATE — GRG-PMM
 description: Aktueller Projektstatus — Fokus, abgeschlossene Zyklen, offene Punkte
 tags: [pmm, status]
-generated: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
-verified: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
+generated: { by: opencode/knowledge-persistence, at: 2026-11-08T14:00:00Z }
+verified: { by: opencode/knowledge-persistence, at: 2026-11-08T14:00:00Z }
 status: stable
 sources:
   - id: issue-45
@@ -13,6 +13,9 @@ sources:
   - id: issue-46
     resource: https://github.com/georgernstgraf/GRG-PMM/issues/46
     title: Lessons — Repo-Pfade durch deutsche Angaben ersetzen
+  - id: issue-47
+    resource: https://github.com/georgernstgraf/GRG-PMM/issues/47
+    title: Tote externe Links reparieren + Link-Check-Skript
 ---
 
 # Project State
@@ -20,6 +23,22 @@ sources:
 Current status as of 2026-11-08.
 
 ## Current Focus
+**Tote externe Links repariert + Link-Check-Skript (#47, 2026-11-08):**
+Alle externen Link-Ziele in `unterricht/` per `curl` geprüft — eine tote URL,
+18× in 6 Lessons: `learningstatisticswithr.com/book/` (404). Das Navarro-Buch
+liegt seit der Quarto-Portierung am Site-Root, Kapitel als `NN-slug.html`;
+alle Verweise zeigen jetzt auf die passende Kapitelseite (KM5-01/02/03 →
+`09-probability.html`, KM7-01 → `13-ttest.html`, KM7-02 → `12-chisquare.html`,
+KM7-03 → Kap. 11 + 13). Mitkorrigiert: der falsche deutsche Bortz-Titel in
+5 Lessons, die Kapitelangabe in KM7-03 (Kap. 16 → 11) und 8 Treffer im
+Kohorten-Archiv (`4ahwit-x/`, `4ahwit-y/`, `5ahwit/`). Neu:
+`Unterlagen/check-links.sh` (getrackte `href`/`](…)`-Ziele, `--all`,
+`--strict`; 403/429/5xx = WARN, 404/410/000 = FAIL, Exit 1) — Standardlauf
+24 URLs grün, `--all` deckt zusätzlich zwei Altlasten in
+`selbststudium/RESOURCES.md` auf (Kaggle-R-Kurs weg, `adv-r`-DSL-Kapitel
+verschoben), beide ersetzt. Offen: erfundener YouTube-Playlist-Link in
+`selbststudium/prepared-lessons/02-daten-einlesen-deskriptiv.html`.
+
 **Lernplattform-Navigator gerettet (#45) und Pages-Inhalte gesäubert (#46), 2026-11-08:**
 Die Startseite war auf jedem Aufrufweg (`/`, `/index.html`, Pages) unformatiert — die
 Inline-Bootstrap-Probe in `index.html` definierte die innere Suchfunktion, rief sie aber

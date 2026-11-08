@@ -2,7 +2,7 @@
 
 Name: _____________ &nbsp;&nbsp;&nbsp; Abgabe: _____________
 
-**Lektüre:** Navarro, [Statistik für Human- und Sozialwissenschaftler](https://learningstatisticswithr.com/book/)
+**Lektüre:** Navarro, [Learning Statistics with R](https://learningstatisticswithr.com/12-chisquare.html)
 (Pflicht) — **Kap. 12, Chi-Quadrat-Tests**. Aufgaben 4 und 6 beziehen sich
 auf das Kapitel. Voraussetzung ist
 [Lektion KM5-02](../../unterricht/KM5-02-binomialverteilung-und-annahmeschwelle/lesson.html)

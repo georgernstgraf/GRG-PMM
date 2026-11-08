@@ -54,6 +54,10 @@ This repository contains coursework for **Prozessmanagement (PMM)** at HTL Speng
   mitgepflegt.
 - All non-asset links stay **relative**; do not use `<base>` or root-absolute
   asset paths.
+- **Externe Links prüfen:** `Unterlagen/check-links.sh` testet die Link-Ziele
+  im deployten Set (`index.html` + `unterricht/`), `--all` das ganze Repo,
+  `--strict` wertet WARN als Fehler. Exit 1 = toter Link; vor jedem Commit an
+  Lessons laufen lassen.
 
 ## 4. Language
 

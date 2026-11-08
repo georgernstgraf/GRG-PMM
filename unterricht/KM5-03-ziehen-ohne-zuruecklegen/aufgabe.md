@@ -2,7 +2,7 @@
 
 Name: _____________ &nbsp;&nbsp;&nbsp; Abgabe: _____________
 
-**Lektüre:** Navarro, [Statistik für Human- und Sozialwissenschaftler](https://learningstatisticswithr.com/book/)
+**Lektüre:** Navarro, [Learning Statistics with R](https://learningstatisticswithr.com/09-probability.html)
 (Pflicht) — **Kap. 9, Probability**. Voraussetzung:
 [Lektion KM5-01](../KM5-01-binomialkoeffizient-pascalsches-dreieck/lesson.html)
 (`choose()`, Wege zählen) und

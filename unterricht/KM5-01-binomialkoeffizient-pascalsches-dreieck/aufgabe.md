@@ -2,7 +2,7 @@
 
 Name: _____________ &nbsp;&nbsp;&nbsp; Abgabe: _____________
 
-**Lektüre:** Navarro, [Learning Statistics with R](https://learningstatisticswithr.com/book/)
+**Lektüre:** Navarro, [Learning Statistics with R](https://learningstatisticswithr.com/09-probability.html)
 (englisch) — **Kap. 9, Probability** (Pflicht, wie in der Lektion).
 
 > **Setup-Ritual:** RStudio-Projekt `pmm-km5-01`, Skript `analyse.R`.

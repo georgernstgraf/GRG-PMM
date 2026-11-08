@@ -3,8 +3,8 @@ type: Pitfalls
 title: PITFALLS — GRG-PMM
 description: Fehlbarkeitserfahrung — CDP-/Messfallen, Pages-Fallen, Datenquellen-Fallen, R-Stolpersteine
 tags: [pmm, cdp, pages, lehrplan, r]
-generated: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
-verified: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
+generated: { by: opencode/knowledge-persistence, at: 2026-11-08T14:00:00Z }
+verified: { by: opencode/knowledge-persistence, at: 2026-11-08T14:00:00Z }
 status: stable
 sources:
   - id: issue-45
@@ -13,6 +13,9 @@ sources:
   - id: issue-46
     resource: https://github.com/georgernstgraf/GRG-PMM/issues/46
     title: Lessons — Repo-Pfade durch deutsche Angaben ersetzen
+  - id: issue-47
+    resource: https://github.com/georgernstgraf/GRG-PMM/issues/47
+    title: Tote externe Links reparieren + Link-Check-Skript
 ---
 
 # Pitfalls
@@ -245,3 +248,5 @@ Read this file carefully before making changes in affected areas.
 - **Headless-Chrome meldet immer `(hover: none)` (2026-11-08, #43/#44).** Für Desktop-Prüfungen `--blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4` mitgeben; `Emulation.setEmulatedMedia` mit `features` wechselt die Hover-Fähigkeit *nach* dem Laden nicht zuverlässig zurück. Außerdem cachen feste `--user-data-dir` die Assets: bei CDP-Läufen `Network.setCacheDisabled` setzen oder pro Lauf ein frisches Profil verwenden, sonst misst man alte CSS/JS-Stände.
 - **`new Function(text)` parst ≠ der Block führt aus (2026-11-08, #45).** Ein Inline-Script, das eine Funktion nur *definiert* (fehlendes `()` nach `(function t(){…})`), läuft fehlerfrei durch und tut nichts — kein Request, kein Fehler, `__SITE_ROOT__` bleibt weg. `new Function(text)`/`eval`-Parst-Check beweist nur die Syntax, nicht die Ausführung; der Symptom-Check läuft daher immer am DOM/Netzwerk (Stylesheet da? Request gefeuert?), nicht am Parser.
 - **Vor CDP-Messungen prüfen, wer den Debug-Port hält (2026-11-08, #45).** Ein alter headless Chrome aus der Vorsession hielt Port 9223 ~28 h; jedes Tool, das blind auf einen Debug-Port geht, misst dann die falsche Instanz (inkl. widersprüchlicher „unmöglicher“ Befunde). Vor Browser-Messungen `ss -ltnp | grep 922` bzw. einen freien Port wählen und die Instanz über `/json/version` (Browser-Version, Headless-Status) identifizieren.
+- **Navarro-Buch: `/book/` ist tot, Kapitel liegen am Site-Root (2026-11-08, #47).** `https://learningstatisticswithr.com/book/` liefert 404 — das Buch wurde auf Quarto portiert und wird jetzt direkt von der Domain-Wurzel ausgeliefert. Kapitel-URLs folgen dem Muster `NN-slug.html` (`09-probability.html`, `11-hypothesisting.html`, `12-chisquare.html`, `13-ttest.html`, `16-anova2.html`), Anker wie `#sec-errortypes` funktionieren. Die Altversion lebt nur unter `old.learningstatisticswithr.com` und wird laut Autorin abgeschaltet — nicht als Ersatzziel verwenden. Beim Zitieren zusätzlich prüfen, *welches* Kapitel: Fehler 1./2. Art und Teststärke stehen in **Kap. 11** (`sec-errortypes`, „The power function"), nicht in Kap. 16 (Factorial ANOVA). Ein falscher Titel schleicht sich mit: „Statistik für Human- und Sozialwissenschaftler" ist Bortz, Navarros Buch heißt „Learning Statistics with R" und ist englisch.
+- **Link-Check nur auf echten Link-Zielen, nicht auf Prosa-URLs (2026-11-08, #47).** Ein `grep 'https\?://…'` über Doku-Dateien zieht URLs aus Code-Spans, Ellipsen (`…/analysis/…`), Templates (`$d.csv`) und kaputten Markdown-Links mit — jedes davon erzeugt einen Falsch-404. `Unterlagen/check-links.sh` extrahiert deshalb nur `href="…"` und `](…)`, prüft nur getrackte Dateien (`git ls-files`, sonst landen `.opencode/node_modules`-READMEs im Sweep) und wertet 403/429 sowie 5xx als WARN statt FAIL (Bot-Blocker; github.com antwortet von diesem Host sporadisch mit 504, obwohl die Repos erreichbar sind). Verbindungsresets (curl-Exit 35, Code 000) brauchen einen eigenen Retry-Loop — `--retry` von curl greift dort nicht.

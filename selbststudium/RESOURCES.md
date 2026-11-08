@@ -30,8 +30,9 @@
 - [Exercism R Track](https://exercism.org/tracks/r)
   Coding-Aufgaben mit menschlichem Mentor-Feedback. Kostenlos. Einzigartig fuer Code-Qualitaet.
 
-- [Kaggle Learn: R](https://www.kaggle.com/learn/r)
-  3-4h Micro-Kurs im Live-Notebook. Kostenlos. Sofort auf echten Datasets uebbar.
+- [Kaggle Learn — Kurskatalog](https://www.kaggle.com/learn)
+  Kostenlose Micro-Kurse im Live-Notebook (Python, SQL, ML). Ein R-Kurs ist
+  derzeit nicht im Programm — R-Material siehe die Buecher unten.
 
 ### Deutschsprachige Kurse
 
@@ -87,8 +88,8 @@ einem separaten Parser.
 | **rlang (Meta-DSL)** | Quosures, Data Masks, `enquo()` | Basis-Engine hinter den obigen |
 
 Relevante Kapitel:
-- **Advanced R:** [Metaprogramming (Kap. 17–21)](https://adv-r.hadley.nz/metaprogramming.html) – Expressions, Quasiquotation, Evaluation
-- **Advanced R:** [Domain-Specific Languages (Kap. 22)](https://adv-r.hadley.nz/dsl.html) – Wie diese DSLs gebaut werden
+- **Advanced R:** [Metaprogramming (Kap. 17–20)](https://adv-r.hadley.nz/metaprogramming.html) – Expressions, Quasiquotation, Evaluation
+- **Advanced R:** [Translating R code — DSLs (Kap. 21)](https://adv-r.hadley.nz/translation.html) – Wie diese DSLs gebaut werden
 - **rlang Vignette:** `vignette("tidy-eval")` – Data Masks und Tidy Evaluation im Detail
 
 ## Wisdom (Communities)

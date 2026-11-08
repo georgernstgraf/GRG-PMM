@@ -2,6 +2,17 @@
 
 ## Open Tasks
 
+### Erfundener YouTube-Link in Selbststudium-Lesson 02 (#47)
+**Priority:** low
+**Context:** `Unterlagen/check-links.sh --all` meldet als einzigen echten
+404 `https://www.youtube.com/playlist?list=PL8+z9X2Mm7m9z2Mm8mD_8Qz3Q3J3J3J3`
+in `selbststudium/prepared-lessons/02-daten-einlesen-deskriptiv.html:558`
+(Primärquellen-Callout, „Statistik mit R — YouTube-Kurs"). Die ID ist
+offensichtlich erfunden, nicht nur verschoben.
+**Action:** Entweder durch einen real existierenden deutschsprachigen
+R-/Statistik-Kurs ersetzen (Link vor dem Einbau per `check-links.sh` prüfen)
+oder den Satz streichen — nicht auf Verdacht raten.
+
 ### Lektionsserie Datenaufbereitung: SA-05–SA-07 (#37)
 **Priority:** medium (Reihe läuft nach Bedarf, eine Lesson pro Sitzung)
 **Context:** SA-04 gebaut (`7f70261`). Offen: **SA-05** JSON & APIs

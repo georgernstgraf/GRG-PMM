@@ -2,9 +2,9 @@
 
 Name: _____________ &nbsp;&nbsp;&nbsp; Abgabe: _____________
 
-**Lektüre:** Navarro, [Statistik für Human- und Sozialwissenschaftler](https://learningstatisticswithr.com/book/)
-(Pflicht) — **Kap. 13** (Teststärke beim t-Test) und **Kap. 16**
-(Fehler 1. und 2. Art). Voraussetzung ist
+**Lektüre:** Navarro, [Learning Statistics with R](https://learningstatisticswithr.com/11-hypothesistesting.html#sec-errortypes)
+(Pflicht) — **Kap. 11** (Fehler 1. und 2. Art, Teststärke) und
+[**Kap. 13**](https://learningstatisticswithr.com/13-ttest.html) (t-Test). Voraussetzung ist
 [Lektion KM7-01](../KM7-01-mittelwertsvergleich-t-test/lesson.html).
 
 > **Setup-Ritual:** RStudio-Projekt `pmm-km7-03`, Skript `analyse.R`.
@@ -201,7 +201,7 @@ Werkzeug: ____________________
 
 ---
 
-## 7. Kapitel-Check (Navarro Kap. 13 + 16)
+## 7. Kapitel-Check (Navarro Kap. 11 + 13)
 
 **a)** Nenne die fünf Argumente von `power.t.test()` und sag, welches
 <strong>genau eine</strong> weggelassen werden muss, damit R rechnen kann.

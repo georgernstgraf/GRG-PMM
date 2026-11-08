@@ -2,7 +2,7 @@
 
 Name: _____________ &nbsp;&nbsp;&nbsp; Abgabe: _____________
 
-**Lektüre:** Navarro, [Statistik für Human- und Sozialwissenschaftler](https://learningstatisticswithr.com/book/)
+**Lektüre:** Navarro, [Learning Statistics with R](https://learningstatisticswithr.com/13-ttest.html)
 (Pflicht) — **Kap. 13, t-Tests**. Die Fragen in Aufgabe 4 beziehen sich auf
 das Kapitel. Ergänzend NIST/SEMATECH e-Handbook, Kap. 7.
 
