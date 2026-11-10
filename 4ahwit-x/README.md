@@ -1,5 +1,9 @@
 # 4AHWIT-X — PMM Unterlagen
 
+## online lernen (handy-tauglich)
+
+<https://georgernstgraf.github.io/GRG-PMM/>
+
 ## Aufgaben
 
 - 2026-10-06: SA-01 ggplot als Selbststudium-Aufgabe, ins persönliche git pushen → [unterricht/SA-01-datenvisualisierung-ggplot/](../unterricht/SA-01-datenvisualisierung-ggplot/)
