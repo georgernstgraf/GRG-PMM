@@ -5,7 +5,14 @@
 <https://georgernstgraf.github.io/GRG-PMM/>
 
 ## Aufgaben
-
+- 2026-11-10_rtooling: Recherchiere eigenständig, wie du
+das eingelesene Betriebsdaten‑File
+als Excel wieder in das R‑Projekt
+zurückschreiben kannst. Erweitere
+das in der Schule erstellte Skript
+dahingehend, dass CSV eingelesen
+und im Excel‑Format ausgegeben
+wird.
 - 2026-10-06: SA-01 ggplot als Selbststudium-Aufgabe, ins persönliche git pushen → [unterricht/SA-01-datenvisualisierung-ggplot/](../unterricht/SA-01-datenvisualisierung-ggplot/)
 - 2026-09-22: HÜ-Kontrolle Setup (git/VS Code/R/RStudio) + Start R-Basics UE 1 → [2026-09-22_git_vscode_Rstudio_installation/](./2026-09-22_git_vscode_Rstudio_installation/)
 - 2026-09-15: Setup-HÜ — R/RStudio/Git installieren, eigenes PMM-Repo anlegen, Lektionen in RStudio ausführen → [2026-09-22_git_vscode_Rstudio_installation/](./2026-09-22_git_vscode_Rstudio_installation/)
