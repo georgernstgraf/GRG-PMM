@@ -119,7 +119,7 @@ qbinom(0.95, size = 100, prob = 0.02) <span class="cmt"># 5 → P(X ≤ 5) = 0,9
   <div class="quiz" data-loesung="2">
     <p class="frage">Was berechnet <code>pbinom(2, 100, 0.02)</code>?</p>
     <label><input type="radio" name="q2" value="0" data-grund="Falsch, weil genau zwei defekte dbinom liefert; pbinom ist kumuliert."> P(X = 2) — genau zwei defekte</label>
-    <label><input type="radio" name="q2" value="1" data-grund="Falsch, weil pbinom die Fläche bis x (P(X ≤ x)) angibt; für mindestens x bräuchte man lower.tail = FALSE."> P(X ≥ 2) — mindestens zwei defekte</label>
+    <label><input type="radio" name="q2" value="1" data-grund="Falsch, weil pbinom bis zur Grenze inklusive kumuliert (P(X ≤ 2)); „mindestens zwei“ wäre 1 − P(X ≤ 1)."> P(X ≥ 2) — mindestens zwei defekte</label>
     <label><input type="radio" name="q2" value="2" data-grund="Richtig, weil p = F(x) = P(X ≤ x) = höchstens zwei defekte."> P(X ≤ 2) — höchstens zwei defekte</label>
     <label><input type="radio" name="q2" value="3" data-grund="Falsch, weil der Erwartungswert n·p = 2 ist, pbinom aber eine kumulierte Wahrscheinlichkeit liefert."> Den Erwartungswert 2</label>
     <p class="feedback" aria-live="polite"></p>

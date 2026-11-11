@@ -232,7 +232,7 @@ dpois(2, lambda = 3)
     <p class="frage"><code>pbinom(2, size = 10, prob = 0.3)</code> liefert 0.3828. Was bedeutet das?</p>
     <label><input type="radio" name="q4" value="0" data-grund="Richtig, weil p kumulativ ist: P(X ≤ 2), also 0 + 1 + 2 Treffer zusammen."> die Wahrscheinlichkeit für höchstens zwei Treffer</label>
     <label><input type="radio" name="q4" value="1" data-grund="Falsch, weil genau zwei Treffer dbinom(2, …) = 0.2335 wären; pbinom ist die kumulierte Fläche."> die Wahrscheinlichkeit für genau zwei Treffer</label>
-    <label><input type="radio" name="q4" value="2" data-grund="Falsch, weil pbinom(2, …) die Fläche P(X ≤ 2) ist; null Treffer sind darin bereits enthalten."> die Wahrscheinlichkeit für weniger als null Treffer</label>
+    <label><input type="radio" name="q4" value="2" data-grund="Falsch, weil die Kumulation bei 0 Treffern beginnt (0 + 1 + 2) — „weniger als null Treffer“ hat die Wahrscheinlichkeit 0, nicht 0.3828."> die Wahrscheinlichkeit für weniger als null Treffer</label>
     <label><input type="radio" name="q4" value="3" data-grund="Falsch, weil pbinom bis x kumuliert (P(X ≤ x)), nicht die Wahrscheinlichkeit für mehr als zwei Treffer liefert."> die Wahrscheinlichkeit für mehr als zwei Treffer</label>
     <p class="feedback" aria-live="polite"></p>
   </div>

@@ -156,8 +156,8 @@ t.test(masse_mm ~ maschine, data = ...,
       <div class="optionen">
         <label><input type="checkbox" data-richtig name="km7-01-q2" value="0" data-grund="Richtig — geprüft wird ausschließlich H0; H1 ist die Gegenhypothese, die die Abweichung beschreibt."> Geprüft wird H0; H1 ist die Gegenhypothese</label>
         <label><input type="checkbox" name="km7-01-q2" value="1" data-grund="Falsch — ein p-Wert ≥ 0,05 ist kein Beweis für Gleichheit, nur fehlende Evidenz dagegen."> Ein p-Wert ≥ 0,05 beweist, dass die Mittelwerte gleich sind</label>
-        <label><input type="checkbox" name="km7-01-q2" value="2" data-grund="Falsch — der p-Wert ist die Wahrscheinlichkeit der Daten unter H0, nicht die Wahrscheinlichkeit von H0."> Der p-Wert ist die Wahrscheinlichkeit, dass H0 wahr ist</label>
-        <label><input type="checkbox" data-richtig name="km7-01-q2" value="3" data-grund="Richtig — „nicht nachweisbar" ist die korrekte Lesart; mehr sagt der Test nicht."> Ein p-Wert ≥ 0,05 heißt: mit diesen Daten nicht nachweisbar</label>
+        <label><input type="checkbox" name="km7-01-q2" value="2" data-grund="Falsch — ein Test kann nur das Gegenteil der Arbeitshypothese belegen; der p-Wert sagt nichts darüber, wie wahrscheinlich H0 selbst ist."> Der p-Wert ist die Wahrscheinlichkeit, dass H0 wahr ist</label>
+        <label><input type="checkbox" data-richtig name="km7-01-q2" value="3" data-grund="Richtig — „nicht nachweisbar“ ist die korrekte Lesart; mehr sagt der Test nicht."> Ein p-Wert ≥ 0,05 heißt: mit diesen Daten nicht nachweisbar</label>
       </div>
     </fieldset>
 
@@ -167,7 +167,7 @@ t.test(masse_mm ~ maschine, data = ...,
       Welcher Test ist passend?</legend>
       <div class="optionen">
         <label><input type="checkbox" data-richtig name="km7-01-q3" value="0" data-grund="Richtig — beide Richtungen zählen, also zweiseitig; das ist in R der Standard."> Zweiseitig, weil beide Richtungen zählen</label>
-        <label><input type="checkbox" name="km7-01-q3" value="1" data-grund="Falsch — einseitig prüft nur eine Richtung (z. B. „größer"); eine Veränderung nach unten würde übersehen."> Einseitig, weil nur „zu groß" zählt</label>
+        <label><input type="checkbox" name="km7-01-q3" value="1" data-grund="Falsch — einseitig prüft nur eine Richtung (z. B. „größer“); eine Veränderung nach unten würde übersehen."> Einseitig, weil nur „zu groß" zählt</label>
         <label><input type="checkbox" name="km7-01-q3" value="2" data-grund="Falsch — die Testrichtung hängt von der Frage ab, nicht von der Stichprobengröße."> Einseitig, weil die Stichprobe klein ist</label>
         <label><input type="checkbox" name="km7-01-q3" value="3" data-grund="Falsch — die Richtung legt man vor dem Test fest; der p-Wert entscheidet nicht über das Design."> Das entscheidet der p-Wert</label>
       </div>
@@ -383,7 +383,7 @@ t = mean(d) / (sd(d) / sqrt(length(d)))
         <label><input type="checkbox" data-richtig name="km7-01-q8" value="0" data-grund="Richtig — dieselbe Einheit wird zweimal gemessen; die Differenz pro Paar entfernt die gemeinsame Streuung."> Dieselbe Einheit wird zweimal gemessen (vorher/nachher)</label>
         <label><input type="checkbox" name="km7-01-q8" value="1" data-grund="Falsch — gleiche Gruppengröße ist weder notwendig noch hinreichend für Paarung."> Beide Gruppen sind gleich groß</label>
         <label><input type="checkbox" data-richtig name="km7-01-q8" value="2" data-grund="Richtig — nur wenn sich die Werte sinnvoll zu Paaren zuordnen lassen, darf gepaart gerechnet werden."> Die Werte lassen sich sinnvoll zu Paaren zuordnen</label>
-        <label><input type="checkbox" name="km7-01-q8" value="3" data-grund="Falsch — Normalverteilung ist eine Voraussetzung, aber kein Kriterium für Paarung."> Beide Gruppen sind normalverteilt</label>
+        <label><input type="checkbox" name="km7-01-q8" value="3" data-grund="Falsch — ob die Gruppen normalverteilt sind, sagt nichts über die Paarung; entscheidend ist, ob sich die Werte sinnvoll zu Paaren zuordnen lassen."> Beide Gruppen sind normalverteilt</label>
       </div>
     </fieldset>
 

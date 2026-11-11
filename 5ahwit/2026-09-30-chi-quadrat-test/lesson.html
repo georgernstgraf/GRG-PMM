@@ -85,8 +85,8 @@ tab
   <div class="quiz" data-loesung="0">
     <p class="frage">Warum steht in der Bedingung ausdrücklich
     <code>is.na(masse_mm)</code> zuerst?</p>
-    <label><input type="radio" name="q0" value="0" data-grund="Richtig — if_else() braucht für jeden Zweig einen Wert. Ohne den NA-Zweig würden die vier fehlenden Messungen still zu „in Toleranz" und die Tabelle hätte 120 statt 116 Fälle."> Damit fehlende Werte nicht versehentlich als „in Toleranz" gezählt werden</label>
-    <label><input type="radio" name="q0" value="1" data-grund="Falsch — R wirft NA-Zeilen beim tabulieren nicht weg. Entscheidend ist die Kategorie, in die sie fallen, nicht ob sie in der Tabelle erscheinen."> Weil R sonst die fehlenden Werte aus der Tabelle wirft</label>
+    <label><input type="radio" name="q0" value="0" data-grund="Richtig — if_else() braucht für jeden Zweig einen Wert. Ohne den NA-Zweig würden die vier fehlenden Messungen still zu „in Toleranz“ und die Tabelle hätte 120 statt 116 Fälle."> Damit fehlende Werte nicht versehentlich als „in Toleranz" gezählt werden</label>
+    <label><input type="radio" name="q0" value="1" data-grund="Falsch — die Gefahr ist keine Löschung, sondern eine falsche Kategorie: die vier fehlenden Messungen landen ohne NA-Zweig bei „in Toleranz“ (120 statt 116 Fälle)."> Weil R sonst die fehlenden Werte aus der Tabelle wirft</label>
     <label><input type="radio" name="q0" value="2" data-grund="Falsch — die Reihenfolge ist hier unkritisch; entscheidend ist, dass NA-Fälle überhaupt behandelt werden, nicht ob sie zuerst geprüft werden."> Weil die Reihenfolge der Bedingungen in if_else() das Ergebnis verändert</label>
     <p class="feedback" aria-live="polite"></p>
   </div>
@@ -237,9 +237,9 @@ chisq.test(c(in_Toleranz = 37, ausserhalb = 0), p = c(0.9, 0.1))
     <p class="frage">Eine Maschine hat 0 Ausschusteile in 37 Messungen, der
     Sollwert sind 10 %. Der Anpassungstest ergibt p = 0,043. Was
     bedeutet das?</p>
-    <label><input type="radio" name="q2" value="0" data-grund="Falsch — der Test unterscheidet nicht „besser" von „schlechter", er unterscheidet nur „wie erwartet" von „anders". Beide Richtungen lösen ihn aus."> Die Maschine ist besser als die Vorgabe, der Test bestätigt das</label>
+    <label><input type="radio" name="q2" value="0" data-grund="Falsch — der Test unterscheidet nicht „besser“ von „schlechter“, er unterscheidet nur „wie erwartet“ von „anders“. Beide Richtungen lösen ihn aus."> Die Maschine ist besser als die Vorgabe, der Test bestätigt das</label>
     <label><input type="radio" name="q2" value="1" data-grund="Richtig — erwartet waren 3,7 Fehler, beobachtet 0. Das ist eine Abweichung, deshalb wird H0 verworfen. Ob sie gut oder schlecht ist, sagt der Test nicht."> Die Maschine weicht statistisch von der Vorgabe ab — in welche Richtung, sagt der Test nicht</label>
-    <label><input type="radio" name="q2" value="2" data-grund="Falsch — p = 0,043 liegt unter 0,05, die Nullhypothese wird also verworfen. Er wird nicht abgelehnt."> H0 wird nicht verworfen, weil 0 Fehler die Vorgabe übertreffen</label>
+    <label><input type="radio" name="q2" value="2" data-grund="Falsch — p = 0,043 liegt unter 0,05, H0 wird also verworfen; 0 Fehler sind eine signifikante Abweichung, keine Bestätigung."> H0 wird nicht verworfen, weil 0 Fehler die Vorgabe übertreffen</label>
     <p class="feedback" aria-live="polite"></p>
   </div>
 </section>

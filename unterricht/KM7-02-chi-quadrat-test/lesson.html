@@ -102,7 +102,7 @@ tab
         <label><input type="checkbox" name="km7-02-q2" value="0" data-grund="Falsch — is.na() markiert fehlende Werte, nicht die Toleranzlage."> <code>is.na(masse_mm)</code></label>
         <label><input type="checkbox" data-richtig name="km7-02-q2" value="1" data-grund="Richtig — Sollmaß 10,00 mm mit ± 0,15 mm Toleranz: der Abstand zum Sollmaß darf höchstens 0,15 sein."> <code>abs(masse_mm - 10) &lt;= 0.15</code></label>
         <label><input type="checkbox" name="km7-02-q2" value="2" data-grund="Falsch — das wäre eine einseitige Grenze; die Toleranz gilt in beide Richtungen."> <code>masse_mm &gt; 10</code></label>
-        <label><input type="checkbox" name="km7-02-q2" value="3" data-grund="Falsch — 9 bis 11 wäre ± 1 mm, also die zehnfache Toleranz."> <code>masse_mm</code> zwischen 9 und 11</label>
+        <label><input type="checkbox" name="km7-02-q2" value="3" data-grund="Falsch — 9 bis 11 mm wären ± 1 mm um das Sollmaß, also rund siebenmal die Toleranz von ± 0,15 mm."> <code>masse_mm</code> zwischen 9 und 11</label>
       </div>
     </fieldset>
 
@@ -124,10 +124,10 @@ tab
       <legend class="frage-text">Warum steht
       in der Bedingung ausdrücklich <code>is.na(masse_mm)</code> zuerst?</legend>
       <div class="optionen">
-        <label><input type="checkbox" data-richtig name="km7-02-q4" value="0" data-grund="Richtig — if_else() braucht für jeden Zweig einen Wert. Ohne den NA-Zweig würden die vier fehlenden Messungen still zu „in Toleranz" und die Tabelle hätte 120 statt 116 Fälle."> Damit fehlende Werte nicht versehentlich als „in Toleranz" gezählt werden</label>
-        <label><input type="checkbox" name="km7-02-q4" value="1" data-grund="Falsch — R wirft NA-Zeilen beim Tabulieren nicht weg. Entscheidend ist, in welche Kategorie sie fallen."> Weil R die fehlenden Werte sonst aus der Tabelle wirft</label>
+        <label><input type="checkbox" data-richtig name="km7-02-q4" value="0" data-grund="Richtig — if_else() braucht für jeden Zweig einen Wert. Ohne den NA-Zweig würden die vier fehlenden Messungen still zu „in Toleranz“ und die Tabelle hätte 120 statt 116 Fälle."> Damit fehlende Werte nicht versehentlich als „in Toleranz" gezählt werden</label>
+        <label><input type="checkbox" name="km7-02-q4" value="1" data-grund="Falsch — der NA-Zweig verhindert, dass die vier fehlenden Messungen in den „in Toleranz“-Zweig rutschen; sonst stünden 120 statt 116 Fälle in der Tabelle."> Weil R die fehlenden Werte sonst aus der Tabelle wirft</label>
         <label><input type="checkbox" name="km7-02-q4" value="2" data-grund="Falsch — die Reihenfolge der Bedingungen ändert das Ergebnis hier nicht; entscheidend ist, dass NA-Fälle überhaupt behandelt werden."> Weil die Reihenfolge der Bedingungen das Ergebnis verändert</label>
-        <label><input type="checkbox" name="km7-02-q4" value="3" data-grund="Falsch — die Tabelle hat 116 gültige Fälle; 110 ist nur die Spaltensumme von „in Toleranz"."> Damit die Tabelle am Ende nur 110 Fälle hat</label>
+        <label><input type="checkbox" name="km7-02-q4" value="3" data-grund="Falsch — die Tabelle hat 116 gültige Fälle; die Spalte „in Toleranz“ summiert sich auf 112 (37 + 39 + 36)."> Damit die Tabelle am Ende nur 110 Fälle hat</label>
       </div>
     </fieldset>
   </div>
@@ -367,7 +367,7 @@ chisq.test(c(in_Toleranz = 37, ausserhalb = 0), p = c(0.9, 0.1))
       40 Ausschussteilen, die Sollquote ist 10 %. Der Anpassungstest ergibt
       <code>p = 1</code>. Was heißt das?</legend>
       <div class="optionen">
-        <label><input type="checkbox" name="km7-02-q11" value="0" data-grund="Falsch — der Test ist nicht „kaputt": 4 von 40 sind exakt 10 %, deshalb ist die Abweichung null."> Der Test ist unbrauchbar, weil p = 1 kein Zufall sein kann</label>
+        <label><input type="checkbox" name="km7-02-q11" value="0" data-grund="Falsch — der Test ist nicht „kaputt“: 4 von 40 sind exakt 10 %, deshalb ist die Abweichung null."> Der Test ist unbrauchbar, weil p = 1 kein Zufall sein kann</label>
         <label><input type="checkbox" data-richtig name="km7-02-q11" value="1" data-grund="Richtig — 4 von 40 sind exakt 10 %; die beobachtete Quote entspricht der Vorgabe, es gibt keine Abweichung zu finden."> Die beobachtete Quote entspricht exakt der Vorgabe</label>
         <label><input type="checkbox" name="km7-02-q11" value="2" data-grund="Falsch — p = 1 ist das Gegenteil eines signifikanten Befunds."> M3 liegt signifikant über der Sollquote</label>
         <label><input type="checkbox" name="km7-02-q11" value="3" data-grund="Falsch — p = 1 bezieht sich auf diese Stichprobe; über künftige Chargen sagt der Test nichts."> Künftige Chargen halten die Quote mit Sicherheit ein</label>
@@ -437,7 +437,7 @@ fisher.test(tab)
       du in der Konsole, dass die Chi-Näherung wackelig ist?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km7-02-q13" value="0" data-grund="Falsch — es ist eine Warnung, kein Fehler; R rechnet weiter und liefert trotzdem ein Ergebnis."> An einer Fehlermeldung, die R abbricht</label>
-        <label><input type="checkbox" data-richtig name="km7-02-q13" value="1" data-grund="Richtig — „Chi-squared approximation may be incorrect" ist der einzige Hinweis, dass die Näherung nicht trägt."> An der Warning „Chi-squared approximation may be incorrect"</label>
+        <label><input type="checkbox" data-richtig name="km7-02-q13" value="1" data-grund="Richtig — „Chi-squared approximation may be incorrect“ ist der einzige Hinweis, dass die Näherung nicht trägt."> An der Warning „Chi-squared approximation may be incorrect"</label>
         <label><input type="checkbox" name="km7-02-q13" value="2" data-grund="Falsch — R korrigiert nichts automatisch; der p-Wert trägt die Näherung unverändert."> Daran, dass R den p-Wert automatisch korrigiert</label>
         <label><input type="checkbox" name="km7-02-q13" value="3" data-grund="Falsch — die Freiheitsgrade stehen korrekt in der Ausgabe; die Warnung betrifft die Näherung, nicht df."> Daran, dass df = 0 in der Ausgabe steht</label>
       </div>
@@ -637,7 +637,7 @@ read_csv("ergebnisse/kreuztabelle.csv") |&gt;
       Fehler. Was ist trotzdem falsch?</legend>
       <div class="optionen">
         <label><input type="checkbox" name="km7-02-q19" value="0" data-grund="Falsch — die Zahlen selbst sind korrekt; sie stehen nur ohne ihre Beschriftung da."> Die Häufigkeiten sind falsch berechnet</label>
-        <label><input type="checkbox" name="km7-02-q19" value="1" data-grund="Falsch — der Fehler wäre laut, nicht still: write_csv() auf einer table bricht mit einer Meldung ab."> Es hätte ein Fehler kommen müssen</label>
+        <label><input type="checkbox" name="km7-02-q19" value="1" data-grund="Falsch — write.csv() meldet hier nichts; der Verlust passiert still: die Zeilennamen mit M1/M2/M3 sind einfach weg."> Es hätte ein Fehler kommen müssen</label>
         <label><input type="checkbox" data-richtig name="km7-02-q19" value="2" data-grund="Richtig — die Maschinennamen stecken in den Zeilennamen; row.names = FALSE wirft sie weg, die Tabelle ist danach anonym."> Die Maschinennamen fehlen, weil sie nur in den Zeilennamen steckten</label>
         <label><input type="checkbox" name="km7-02-q19" value="3" data-grund="Falsch — Trennzeichen und Dezimalpunkt sind bei write.csv() in Ordnung; das Problem ist die fehlende Beschriftung."> Das Trennzeichen ist falsch, Excel liest alles in einer Spalte</label>
       </div>

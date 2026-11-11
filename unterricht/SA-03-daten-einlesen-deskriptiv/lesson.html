@@ -120,7 +120,7 @@ summary(fertigung)
       <legend class="frage-text"><code>summary()</code> meldet für
       <code>masse_mm</code> „NA's: 4“. Was bedeutet die 4?</legend>
       <div class="optionen">
-        <label><input type="checkbox" name="sa-03-q2" value="0" data-richtig data-grund="Richtig — 4 der 120 Messungen sind als NA gelandet (Sensor hat ausgeworfen, Teil trotzdem gefertigt); genau deshalb braucht jede Kennzahl na.rm = TRUE."> Vier Messwerte fehlen — der Sensor hat ausgeworfen</label>
+        <label><input type="checkbox" name="sa-03-q2" value="0" data-richtig data-grund="Richtig — vier der 120 Messwerte fehlen in der Spalte masse_mm; genau deshalb braucht jede Kennzahl na.rm = TRUE."> Vier Messwerte fehlen — der Sensor hat ausgeworfen</label>
         <label><input type="checkbox" name="sa-03-q2" value="1" data-grund="Falsch — Ausschuss zählst du über die Toleranz (6 Teile); NA's zählt fehlende Messwerte, keine schlechten."> Vier Teile sind Ausschuss</label>
         <label><input type="checkbox" name="sa-03-q2" value="2" data-grund="Falsch — die 4 zählt fehlende Messwerte; welche Chargen davon berührt sind, zeigt erst group_by(charge)."> Vier Chargen sind betroffen</label>
         <label><input type="checkbox" name="sa-03-q2" value="3" data-grund="Falsch — es gibt nur drei Maschinen; die 4 gehört zur Spalte masse_mm, nicht zu maschine."> Vier Maschinen wurden geprüft</label>

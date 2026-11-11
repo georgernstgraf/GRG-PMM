@@ -150,7 +150,7 @@ pbinom(1, size = 5, prob = 0.1, lower.tail = FALSE)
         <label><input type="checkbox" data-richtig name="km5-02-q3" value="0" data-grund="Richtig — pbinom(1, 10, 0.05) ist genau die Wahrscheinlichkeit für höchstens einen Fehler bei 10 geprüften Teilen (0,9139)."> <code>pbinom(1, size = 10, prob = 0.05)</code></label>
         <label><input type="checkbox" name="km5-02-q3" value="1" data-grund="Falsch — dbinom fragt nach genau k (0,3151), nicht nach höchstens k. Die Akzeptannahme umfasst aber 0 <em>oder</em> 1 Fehler."> <code>dbinom(1, size = 10, prob = 0.05)</code></label>
         <label><input type="checkbox" name="km5-02-q3" value="2" data-grund="Falsch — qbinom invertiert die Verteilung: Es liefert den k-Wert (hier 2) zur Quantile, nicht die Wahrscheinlichkeit."> <code>qbinom(0.95, size = 10, prob = 0.05)</code></label>
-        <label><input type="checkbox" name="km5-02-q3" value="3" data-grund="Falsch — mit lower.tail = FALSE zählst du mindestens 2 Fehler (0,0815); angenommen wird aber bei höchstens 1."> <code>pbinom(1, size = 10, prob = 0.05, lower.tail = FALSE)</code></label>
+        <label><input type="checkbox" name="km5-02-q3" value="3" data-grund="Falsch — mit lower.tail = FALSE zählst du mindestens 2 Fehler (1 − 0,9139 = 0,0861); angenommen wird aber bei höchstens 1."> <code>pbinom(1, size = 10, prob = 0.05, lower.tail = FALSE)</code></label>
       </div>
     </fieldset>
 
@@ -158,7 +158,7 @@ pbinom(1, size = 5, prob = 0.1, lower.tail = FALSE)
       <legend class="frage-text">Wie wahrscheinlich sind
       <strong>mindestens 2</strong> Fehler bei n = 5 und p = 0,1?</legend>
       <div class="optionen">
-        <label><input type="checkbox" data-richtig name="km5-02-q4" value="0" data-grund="Richtig — 0,0815: pbinom zählt von unten, „mindestens" dreht den Schwanz um — keine Rundungsfehler."> <code>pbinom(1, 5, 0.1, lower.tail = FALSE)</code> → 0,0815</label>
+        <label><input type="checkbox" data-richtig name="km5-02-q4" value="0" data-grund="Richtig — 0,0815: pbinom zählt von unten, „mindestens“ dreht den Schwanz um — keine Rundungsfehler."> <code>pbinom(1, 5, 0.1, lower.tail = FALSE)</code> → 0,0815</label>
         <label><input type="checkbox" name="km5-02-q4" value="1" data-grund="Falsch — 0,9914 ist P(X ≤ 2): höchstens 2 Fehler, nicht mindestens 2."> <code>pbinom(2, 5, 0.1)</code> → 0,9914</label>
         <label><input type="checkbox" name="km5-02-q4" value="2" data-grund="Falsch — 0,0086 = 1 − P(X ≤ 2) ist P(X ≥ 3): mindestens 3 Fehler, einer zu viel ausgeschlossen."> <code>1 - pbinom(2, 5, 0.1)</code> → 0,0086</label>
         <label><input type="checkbox" name="km5-02-q4" value="3" data-grund="Falsch — 0,0729 ist dbinom(2, …): nur genau 2 Fehler; der 0- und der 1-Fehler-Fall fehlen."> <code>dbinom(2, 5, 0.1)</code> → 0,0729</label>
@@ -220,7 +220,7 @@ sapply(0:2, function(c) round(pbinom(c, 10, pfehler), 4))
       <div class="optionen">
         <label><input type="checkbox" name="km5-02-q5" value="0" data-grund="Falsch — 0,5443 ist gerade die schlechte Seite. Bei 5 % Fehlerquote ist der Plan großzügig (0,9139), bei 15 % sehr schwach."> 5,4 % der guten Lose werden fälschlich zurückgewiesen</label>
         <label><input type="checkbox" data-richtig name="km5-02-q5" value="1" data-grund="Richtig — der Plan kann die beiden Prozesse kaum trennen. 54 % der schlechten Lose passieren die Prüfung; das ist das Warenrisiko."> 54,4 % der Lose mit 15 % Fehlerquote werden angenommen — der Plan erkennt den schlechten Prozess kaum</label>
-        <label><input type="checkbox" name="km5-02-q5" value="2" data-grund="Falsch — der Vergleich P(annehmen | gut) gegen P(annehmen | schlecht) ist genau die Trennung des Plans; sie ist hier schwach."> Der Plan trennt die beiden Prozesse um 54,4 Prozentpunkte</label>
+        <label><input type="checkbox" name="km5-02-q5" value="2" data-grund="Falsch — die Trennung ist die Differenz 0,9139 − 0,5443 = 0,3696, also rund 37 Prozentpunkte; 0,5443 allein ist nur die Akzeptwahrscheinlichkeit bei p = 0,15."> Der Plan trennt die beiden Prozesse um 54,4 Prozentpunkte</label>
         <label><input type="checkbox" name="km5-02-q5" value="3" data-grund="Falsch — vertauschte Zeilen: bei p = 0,05 liegt die Akzeptwahrscheinlichkeit bei 0,9139, nicht bei 0,5443."> Der Plan nimmt 54,4 % der Lose mit 5 % Fehlerquote an</label>
       </div>
     </fieldset>
@@ -316,8 +316,8 @@ plan
       <div class="optionen">
         <label><input type="checkbox" data-richtig name="km5-02-q8" value="0" data-grund="Richtig — bei n = 25 erwartet man bei p = 0,05 schon 1,25 Fehler im Mittel; c = 1 würde gute Lose massenhaft zurückweisen. Die Schwelle muss mitwachsen."> weil bei größerem n im Mittel mehr Fehler auftauchen — c muss mitwachsen</label>
         <label><input type="checkbox" name="km5-02-q8" value="1" data-grund="Falsch — c ist eine Regel für die Entscheidung, sie ändert nichts an der wahren Fehlerquote des Prozesses."> weil ein größeres c die wahre Fehlerquote des Prozesses senkt</label>
-        <label><input type="checkbox" name="km5-02-q8" value="2" data-grund="Falsch — das ist die dbinom-Falle (Fehler 1); hier geht es um die Schwelle, nicht um genau-gegen-höchstens."> weil pbinom bei c = 1 den 0-Fehler-Fall vergisst</label>
-        <label><input type="checkbox" name="km5-02-q8" value="3" data-grund="Falsch — Zeile 2 der Tabelle zeigt das Gegenteil: n = 25 mit c = 1 hat die schlechteste Trennung der drei Pläne für den Produzenten."> weil n = 25 die Trennung bringt — c ist dabei egal</label>
+        <label><input type="checkbox" name="km5-02-q8" value="2" data-grund="Falsch — pbinom zählt den 0-Fehler-Fall mit („höchstens c“ sind c + 1 Möglichkeiten); nur dbinom(c, …) vergisst ihn — das ist Fehler 1."> weil pbinom bei c = 1 den 0-Fehler-Fall vergisst</label>
+        <label><input type="checkbox" name="km5-02-q8" value="3" data-grund="Falsch — Zeile 2 zeigt das Gegenteil: mit c = 1 kommen nur 64,2 % der guten Lose durch (Zeile 3 mit c = 3: 96,6 %). n allein bringt nichts, die Schwelle muss mitwachsen."> weil n = 25 die Trennung bringt — c ist dabei egal</label>
       </div>
     </fieldset>
   </div>
@@ -355,7 +355,7 @@ dbinom(6, size = 40, prob = 0.10)
       <legend class="frage-text"><code>pbinom(6, 40, 0.10)</code> = 0,9005
       — was bedeutet das für die 6 Teile von M3?</legend>
       <div class="optionen">
-        <label><input type="checkbox" data-richtig name="km5-02-q9" value="0" data-grund="Richtig — bei einer 10-%-Quote liegt „6 oder weniger" mit 90 % im üblichen Bereich; das Ergebnis ist kein Signal."> Bei 10 % Quote ist „6 oder weniger defekte Teile" mit 90 % völlig normal</label>
+        <label><input type="checkbox" data-richtig name="km5-02-q9" value="0" data-grund="Richtig — bei einer 10-%-Quote liegt „6 oder weniger“ mit 90 % im üblichen Bereich; das Ergebnis ist kein Signal."> Bei 10 % Quote ist „6 oder weniger defekte Teile" mit 90 % völlig normal</label>
         <label><input type="checkbox" name="km5-02-q9" value="1" data-grund="Falsch — die 0,9005 ist eine Wahrscheinlichkeit über Lose, nicht der Anteil defekter Teile (der wäre p = 10 %)."> 90 % der geprüften Teile sind defekt</label>
         <label><input type="checkbox" name="km5-02-q9" value="2" data-grund="Falsch — die Verteilung sagt nur, was bei 10 % üblich ist; ob M3 wirklich schlechter ist, klärt erst ein Test (KM7-02)."> Mit 90 % Sicherheit ist M3 schlechter als 10 %</label>
         <label><input type="checkbox" name="km5-02-q9" value="3" data-grund="Falsch — der Erwartungswert ist E(X) = n · p = 4; genau 6 Treffer haben nur rund 10,7 % (dbinom)."> 6 ist der Erwartungswert bei n = 40, p = 0,10</label>
@@ -370,7 +370,7 @@ dbinom(6, size = 40, prob = 0.10)
         <label><input type="checkbox" data-richtig name="km5-02-q10" value="0" data-grund="Richtig — genau 6 Treffer haben bei 10 % Quote rund 10,7 % (dbinom); der Wert liegt im normalen Schwankungsbereich."> weil 6 Treffer bei 10 % Quote häufig vorkommen</label>
         <label><input type="checkbox" data-richtig name="km5-02-q10" value="1" data-grund="Richtig — die Verteilung sagt nur, was bei 10 % zu erwarten war; der Vergleich gegen eine Alternative ist eine Testfrage (KM7-02)."> weil erst ein Test die Quote gegen eine Alternative klärt</label>
         <label><input type="checkbox" name="km5-02-q10" value="2" data-grund="Falsch — die 6 Teile lagen tatsächlich außerhalb der Toleranz; daran zweifeln hieße die Ausgangslage leugnen."> weil die 6 Teile streng genommen innerhalb der Toleranz lagen</label>
-        <label><input type="checkbox" name="km5-02-q10" value="3" data-grund="Falsch — pbinom rechnet eine Wahrscheinlichkeit aus; Schwankungen „korrigiert" es nicht weg."> weil pbinom die Stichprobenschwankungen automatisch herausrechnet</label>
+        <label><input type="checkbox" name="km5-02-q10" value="3" data-grund="Falsch — pbinom rechnet eine Wahrscheinlichkeit aus; Schwankungen „korrigiert“ es nicht weg."> weil pbinom die Stichprobenschwankungen automatisch herausrechnet</label>
       </div>
     </fieldset>
   </div>

@@ -418,7 +418,7 @@ $ ./scripts/maschine.R M1
         <label><input type="checkbox" data-richtig name="km7-05-q14" value="0" data-grund="Richtig — die Shebang-Zeile sagt Linux/macOS: führe diese Datei mit dem Programm Rscript aus."> Die Shebang-Zeile <code>#!/usr/bin/env Rscript</code> in Zeile 1</label>
         <label><input type="checkbox" data-richtig name="km7-05-q14" value="1" data-grund="Richtig — mit chmod +x wird die Datei ausführbar; danach genügt der direkte Aufruf."> <code>chmod +x scripts/maschine.R</code> — die Datei wird ausführbar</label>
         <label><input type="checkbox" name="km7-05-q14" value="2" data-grund="Falsch — unter Windows funktioniert der Shebang nicht; dort ruft man Rscript direkt auf."> Der Shebang funktioniert unter Windows genauso</label>
-        <label><input type="checkbox" name="km7-05-q14" value="3" data-grund="Falsch — R CMD BATCH ist der historische Vorgänger von Rscript (schreibt eine .Rout-Datei); modern ist Rscript."> <code>R CMD BATCH</code> muss zusätzlich installiert werden</label>
+        <label><input type="checkbox" name="km7-05-q14" value="3" data-grund="Falsch — R CMD BATCH ist der historische Vorgänger von Rscript; zum Starten genügen Shebang-Zeile und chmod +x, er ist dafür nicht nötig."> <code>R CMD BATCH</code> muss zusätzlich installiert werden</label>
       </div>
     </fieldset>
   </div>
