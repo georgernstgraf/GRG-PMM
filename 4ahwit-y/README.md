@@ -2,6 +2,10 @@
 
 ## Aufgaben
 
+## 2026-11-13
+
+Themenwünsche — Auswertung der Ferien-HÜ (Abgabequote 2/14): [REPORT.md](2026-11-13__themenwuensche/REPORT.md)
+
 ## 2026-11-06_chisq:
 
 siehe entsprechender Projekt-Ordner
