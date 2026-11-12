@@ -166,7 +166,7 @@ haushalt &lt;- strom |&gt;
       <tr><td><code>KWH2500-4999</code></td><td>das Band eines typischen österreichischen Haushalts — nicht das kleinste, nicht das größte</td></tr>
       <tr><td><code>X_TAX</code></td><td>ohne Steuern, sonst vergleicht man Steuersysteme statt Strompreise</td></tr>
       <tr><td><code>EUR</code></td><td>ohne Währungsumrechnung; <code>PPS</code> und <code>NAC</code> sind andere Einheiten</td></tr>
-      <tr><td><code>2025-S2</code></td><td>das neueste Halbjahr — ein Zeitpunkt, kein Zeitraum</td></tr>
+      <tr><td><code>2025-S2</code></td><td>ein einzelnes Halbjahr — ein Zeitpunkt statt eines Zeitraums. Welches du nimmst, ändert wenig (der Mittelwert liegt über die drei Halbjahre zwischen 0,171 und 0,173), aber du <em>musst</em> eines wählen</td></tr>
       <tr><td><code>!is.na(preis)</code></td><td>Island, Ukraine und das Vereinigte Königreich melden dieses Band nicht</td></tr>
     </tbody>
   </table>
@@ -224,8 +224,8 @@ ggplot(haushalt, aes(x = preis)) +
 </pre>
   <p>Die rote Linie ist Österreich. Was du siehst:</p>
   <ul>
-    <li><strong>Zentrum</strong> bei etwa 0,17 EUR/kWh — der größte Teil
-      der Länder liegt zwischen 0,10 und 0,25.</li>
+    <li><strong>Zentrum</strong> bei etwa 0,17 EUR/kWh — gut die Hälfte
+      der Länder (24 von 40) liegt zwischen 0,10 und 0,25.</li>
     <li><strong>Streuung</strong> von 0,057 (Türkiye) bis 0,361 (Irland) —
       der teuerste Strom ist <em>sechsmal</em> so teuer wie der
       billigste.</li>
