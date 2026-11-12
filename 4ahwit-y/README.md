@@ -6,6 +6,12 @@
 
 Themenwünsche — Auswertung der Ferien-HÜ (Abgabequote 2/14): [REPORT.md](2026-11-13__themenwuensche/REPORT.md)
 
+Unterricht: [KM7-06 — Strompreise: Verteilung beschreiben](../unterricht/KM7-06-strompreise-verteilung/lesson.html)
+
+### Zwischenaufgabe, bis 2026-11-20
+
+Eigenes R-Projekt unter `2026-11-13_strompreise/` (`.Rproj`, `data/`, `analyse.R`, `output/histogramm.png`, `README.md`) — anderer Schnitt als in der Stunde, begründet, plus Shapiro-Befund. Details: [aufgabe.md](../unterricht/KM7-06-strompreise-verteilung/aufgabe.md)
+
 ## 2026-11-06_chisq:
 
 siehe entsprechender Projekt-Ordner

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion KM7-07 — Liegt Österreich signifikant höher?</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","quiz.js,theme.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+</head>
+<body>
+
+<header class="meta">
+  <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-pressed="false">Dunkel</button>
+  <span class="kicker">Lektion KM7-07 · Mittelwerte testen</span>
+  <h1>Liegt Österreich signifikant höher?</h1>
+  <p class="subtitle">Ein Test, eine Voraussetzung — und ein Fall, in dem
+  genau diese Voraussetzung kippt.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>Navarro, <a href="https://learningstatisticswithr.com/13-ttest.html">Learning
+     Statistics with R</a> (englisch) — Kap. 13 (t-Tests). Ergänzend
+     NIST/SEMATECH e-Handbook,
+     <a href="https://www.itl.nist.gov/div898/handbook/ppc/ppc.htm">Kap. 7</a>
+     (Product and Process Comparisons).</p>
+  <p>Voraussetzung: <a href="../KM7-01-mittelwertsvergleich-t-test/lesson.html">KM7-01</a>
+     (t-Test, gepaart/ungepaart) und
+     <a href="../KM7-06-strompreise-verteilung/lesson.html">KM7-06</a>
+     (Verteilung beschreiben, Normalverteilung prüfen).</p>
+</div>
+
+<section>
+  <div class="baustein">Einstieg — eure Schnitte</div>
+  <p>In der Zwischenaufgabe hat jede:r einen eigenen Schnitt gewählt. Drei
+  davon stehen jetzt an der Wand.</p>
+  <p>Die Leitfrage: <strong>Was ändert sich, wenn man anders
+  schneidet?</strong> Und was bleibt gleich?</p>
+  <p>Was gleich bleibt, ist die Größenordnung: Die billigsten Länder liegen
+  bei 6 bis 8 Cent, die teuersten bei 28 bis 36 Cent — unabhängig davon,
+  welches Band oder welche Steuerart man wählt. Was sich ändert, ist der
+  <em>Mittelwert</em> und die <em>Breite</em>.</p>
+  <p>Und damit zur Frage der Stunde. Unser Schnitt aus KM7-06:</p>
+<pre>
+Österreich            0,2539 EUR/kWh
+Mittel der 39 anderen 0,1711 EUR/kWh
+<span class="cmt"># → Österreich liegt 48 % über dem Mittel</span>
+</pre>
+  <p><strong>Ist dieser Unterschied signifikant — oder Zufall?</strong></p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+<pre>
+rest &lt;- haushalt |&gt; filter(geo != "AT")
+
+t.test(rest$preis, mu = 0.2539)
+<span class="cmt"># → One Sample t-test
+#
+#   t = -7.4082, df = 38, p-value = 6.94e-09
+#   95 percent confidence interval:
+#     0.1484902 0.1937354
+#   mean of x: 0.1711128</span>
+</pre>
+  <p>Ein Aufruf, vier Zahlen. Was jede davon bedeutet — und warum dieser
+  Test hier eigentlich <em>nicht</em> der ganzen Wahrheit entspricht —
+  bauen wir jetzt auf.</p>
+</section>
+
+<section>
+  <h2>Schritt 1 — Die Hypothesen</h2>
+  <p>Der Test vergleicht <strong>einen Mittelwert mit einem festen
+  Wert</strong>. Der feste Wert ist Österreichs Preis — die Frage lautet
+  also: „Ist der Preis der anderen Länder mit dem österreichischen
+  vereinbar?"</p>
+<pre>
+H0:  Der mittlere Preis der übrigen 39 Länder ist 0,2539 EUR/kWh
+     (Österreich ist ein typisches Land)
+
+H1:  Der mittlere Preis der übrigen 39 Länder ist nicht 0,2539 EUR/kWh
+     (Österreich liegt außerhalb des Üblichen)
+</pre>
+  <p>Das ist ein <strong>Einstichproben-t-Test</strong> — die einfachste
+  Form. In KM7-01 hast du zwei Gruppen verglichen; hier vergleichst du eine
+  Gruppe mit einer Zahl.</p>
+
+  <div class="callout">
+    <span class="label">Warum nicht AT gegen den Rest?</span>
+    <p>Weil Österreich <em>in</em> den 40 Ländern steckt. Würde man AT
+    gegen den Rest testen, wäre AT auf beiden Seiten der Rechnung — ein
+    klassischer Denkfehler. Deshalb: AT herausnehmen, den Rest als Gruppe
+    behandeln und gegen ATs Wert prüfen.</p>
+  </div>
+
+  <div class="quiz" data-titel="Quiz: hypothesen">
+    <fieldset class="frage">
+      <legend class="frage-text">Warum nimmt man Österreich aus der
+      Vergleichsgruppe heraus?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-07-q1" value="0" data-grund="Richtig — sonst steckt Österreichs Wert auf beiden Seiten der Rechnung und zieht den Vergleichswert in seine eigene Richtung."> Sonst wäre Österreich auf beiden Seiten der Rechnung</label>
+        <label><input type="checkbox" name="km7-07-q1" value="1" data-grund="Falsch — die Fallzahl ist kein Problem; 39 Länder reichen für einen t-Test."> Weil 40 Länder zu wenige für einen t-Test sind</label>
+        <label><input type="checkbox" name="km7-07-q1" value="2" data-grund="Falsch — Österreich ist keine Ausreißer-Beobachtung, sondern der Vergleichspunkt der Fragestellung."> Weil Österreich ein Ausreißer ist</label>
+        <label><input type="checkbox" name="km7-07-q1" value="3" data-grund="Falsch — der Test funktioniert unabhängig davon, ob Österreich in der EU ist."> Weil Österreich nicht in der EU ist</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was prüft der Einstichproben-t-Test
+      hier?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-07-q2" value="0" data-grund="Richtig — verglichen wird der Mittelwert der 39 Länder mit dem festen Wert 0,2539."> Ob der Mittelwert der 39 Länder mit 0,2539 vereinbar ist</label>
+        <label><input type="checkbox" name="km7-07-q2" value="1" data-grund="Falsch — zwei Gruppen zu vergleichen wäre der Zweistichproben-Test; hier gibt es nur eine Gruppe und einen festen Wert."> Ob sich zwei Ländergruppen unterscheiden</label>
+        <label><input type="checkbox" name="km7-07-q2" value="2" data-grund="Falsch — ob die Daten normalverteilt sind, prüft der Shapiro-Test, nicht der t-Test."> Ob die Preise normalverteilt sind</label>
+        <label><input type="checkbox" name="km7-07-q2" value="3" data-grund="Falsch — der t-Test vergleicht Mittelwerte, keine Streuungen; dafür gäbe es den F-Test oder Levene."> Ob die Streuungen gleich sind</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 2 — Die Teststatistik</h2>
+  <p>Der t-Wert ist wieder ein Verhältnis: <strong>Effekt durch
+  Rauschen</strong>. Der Effekt ist der Abstand des Gruppenmittels vom
+  geprüften Wert; das Rauschen ist der Standardfehler.</p>
+<pre>
+t = (Mittelwert - geprüfter Wert)
+    -----------------------------
+         Standardfehler
+</pre>
+  <p>Die Bausteine, alle aus den Daten:</p>
+<pre>
+n      &lt;- 39
+mittel &lt;- 0.171113
+s      &lt;- 0.069788
+
+se &lt;- s / sqrt(n)
+<span class="cmt"># → 0.011175</span>
+
+t &lt;- (mittel - 0.2539) / se
+<span class="cmt"># → -7.4082</span>
+</pre>
+  <p>Der Zähler ist −0,0828 EUR — Österreich liegt 8,3 Cent über dem
+  Mittel der anderen. Der Nenner ist 0,0112 EUR. Das Verhältnis ist
+  <strong>−7,4</strong>: Der Effekt ist mehr als siebenmal so groß wie
+  sein eigener Standardfehler.</p>
+
+  <div class="callout">
+    <span class="label">Das negative Vorzeichen</span>
+    <p>Es bedeutet nur die Richtung: Der Gruppenmittelwert liegt
+    <em>unter</em> dem geprüften Wert. Wer das Vorzeichen als „Österreich
+    ist billiger" liest, hat die Seiten vertauscht.</p>
+  </div>
+
+  <h3>Die Freiheitsgrade</h3>
+  <p><code>df = 38</code> — also n − 1. Bei einer Gruppe gibt es nur eine
+  Unsicherheit zu schätzen (die Streuung), deshalb ein Freiheitsgrad
+  weniger als Beobachtungen. Bei 39 Ländern ist die t-Verteilung schon
+  fast die Normalverteilung.</p>
+
+  <div class="quiz" data-titel="Quiz: teststatistik">
+    <fieldset class="frage">
+      <legend class="frage-text">Der t-Wert ist −7,41. Wie liest man
+      das?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-07-q3" value="0" data-grund="Falsch — das Vorzeichen zeigt nur die Richtung, nicht die Größe des Effekts."> Der Effekt ist 7,41-mal kleiner als das Rauschen</label>
+        <label><input type="checkbox" data-richtig name="km7-07-q3" value="1" data-grund="Richtig — der Abstand ist rund 7,4 Standardfehler groß; das Vorzeichen zeigt, dass das Gruppenmittel unter dem geprüften Wert liegt."> Der Abstand beträgt rund 7,4 Standardfehler, und das Mittel liegt unter dem geprüften Wert</label>
+        <label><input type="checkbox" name="km7-07-q3" value="2" data-grund="Falsch — 7,41 ist keine Prozentzahl und kein Anteil."> 7,41 % der Länder liegen über Österreich</label>
+        <label><input type="checkbox" name="km7-07-q3" value="3" data-grund="Falsch — der t-Wert ist eine Prüfgröße, keine Wahrscheinlichkeit."> Die Wahrscheinlichkeit, dass H0 stimmt, ist 7,41 %</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Warum ist <code>df = 38</code> und nicht
+      <code>39</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-07-q4" value="0" data-grund="Richtig — eine Größe (die Streuung) wird aus den Daten geschätzt, deshalb n − 1."> Weil eine Größe geschätzt wird: df = n − 1</label>
+        <label><input type="checkbox" name="km7-07-q4" value="1" data-grund="Falsch — R rundet Freiheitsgrade nicht; bei Welch entstehen sie aus einer Gewichtung, hier sind sie ganzzahlig."> Weil R die Freiheitsgrade abrundet</label>
+        <label><input type="checkbox" name="km7-07-q4" value="2" data-grund="Falsch — Österreich wird herausgenommen, aber das erklärt nicht die −1; die kommt aus der Schätzung der Streuung."> Weil Österreich aus der Gruppe entfernt wurde</label>
+        <label><input type="checkbox" name="km7-07-q4" value="3" data-grund="Falsch — df hängt an der Zahl der Beobachtungen, nicht an der Zahl der Länder in der EU."> Weil 38 EU-Mitglieder im Datensatz sind</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 3 — Den p-Wert lesen</h2>
+<pre>
+t = -7.4082, df = 38, p-value = 6.94e-09
+</pre>
+  <p>0,00000000694. Ausgeschrieben: <strong>sieben Millionstel
+  Prozent</strong>. Wenn Österreich ein typisches Land wäre, wäre ein
+  Abstand dieser Größe praktisch nie zu beobachten.</p>
+  <p>Also: H0 verwerfen. Aber was heißt das <em>genau</em>?</p>
+  <table>
+    <thead>
+      <tr><th scope="col">Aussage</th><th scope="col">Stimmt?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Österreichs Strompreis unterscheidet sich vom Mittel der anderen Länder</td><td>ja — das sagt der Test</td></tr>
+      <tr><td>Die Wahrscheinlichkeit, dass H0 wahr ist, beträgt 0,0000007 %</td><td><strong>nein</strong> — der p-Wert ist keine H0-Wahrscheinlichkeit</td></tr>
+      <tr><td>Der Unterschied ist wirtschaftlich relevant</td><td><strong>nein</strong> — das sagt der Test nicht</td></tr>
+      <tr><td>In 99,9999993 % der Fälle wäre der Effekt reproduzierbar</td><td><strong>nein</strong> — so funktioniert ein p-Wert nicht</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout achtung">
+    <span class="label">Der Satz, den man aufsagen können muss</span>
+    <p>„Wenn Österreich ein typisches Land wäre, wäre ein so großer
+    Abstand mit einer Wahrscheinlichkeit von 7 · 10⁻⁹ zu beobachten. Also
+    ist Österreich kein typisches Land." — Mehr sagt der p-Wert nicht.</p>
+  </div>
+
+  <div class="quiz" data-titel="Quiz: p-wert-lesen">
+    <fieldset class="frage">
+      <legend class="frage-text"><code>p = 6,94 · 10⁻⁹</code>. Welche zwei
+      Aussagen stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-07-q5" value="0" data-grund="Richtig — der p-Wert ist die Wahrscheinlichkeit der Daten unter H0, nicht die von H0."> Unter H0 wäre ein so großer Abstand praktisch nie zu beobachten</label>
+        <label><input type="checkbox" data-richtig name="km7-07-q5" value="1" data-grund="Richtig — H0 wird verworfen; der Unterschied ist statistisch nachgewiesen."> H0 wird verworfen</label>
+        <label><input type="checkbox" name="km7-07-q5" value="2" data-grund="Falsch — das ist der klassische Umkehrfehler: der p-Wert ist keine Wahrscheinlichkeit für H0."> Die Wahrscheinlichkeit, dass H0 stimmt, ist 6,94 · 10⁻⁹</label>
+        <label><input type="checkbox" name="km7-07-q5" value="3" data-grund="Falsch — der Test sagt nichts über die wirtschaftliche Bedeutung; 8 Cent Unterschied können viel oder wenig sein, je nach Kontext."> Der Unterschied ist wirtschaftlich bedeutsam</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was wäre ein Fehler 1. Art in dieser
+      Fragestellung?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-07-q6" value="0" data-grund="Richtig — H0 verwerfen, obwohl Österreich eigentlich ein typisches Land ist."> H0 verwerfen, obwohl Österreich ein typisches Land ist</label>
+        <label><input type="checkbox" name="km7-07-q6" value="1" data-grund="Falsch — das wäre der Fehler 2. Art: H0 behalten, obwohl ein Unterschied besteht."> H0 behalten, obwohl Österreich teurer ist</label>
+        <label><input type="checkbox" name="km7-07-q6" value="2" data-grund="Falsch — ein Rechenfehler ist kein statistischer Fehlertyp."> Sich beim Ablesen des p-Werts vertun</label>
+        <label><input type="checkbox" name="km7-07-q6" value="3" data-grund="Falsch — die Wahl des Schnitts ist eine Designentscheidung, kein Fehler 1. Art."> Den falschen Schnitt gewählt haben</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche vier Aussagen über den p-Wert
+      stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-07-q13" value="0" data-grund="Richtig — der p-Wert ist die Wahrscheinlichkeit der beobachteten Daten unter H0."> Er ist die Wahrscheinlichkeit der Daten unter H0</label>
+        <label><input type="checkbox" data-richtig name="km7-07-q13" value="1" data-grund="Richtig — ein kleiner p-Wert sagt nichts über die Höhe des Effekts oder seine praktische Bedeutung."> Er sagt nichts über die wirtschaftliche Relevanz</label>
+        <label><input type="checkbox" data-richtig name="km7-07-q13" value="2" data-grund="Richtig — bei größerem n wird derselbe Effekt leichter signifikant; der p-Wert hängt an der Fallzahl."> Er hängt an der Stichprobengröße</label>
+        <label><input type="checkbox" data-richtig name="km7-07-q13" value="3" data-grund="Richtig — ein Test kann H0 nur verwerfen, nie bestätigen."> Ein kleiner p-Wert kann H0 verwerfen, sie aber nie bestätigen</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 4 — Effektgröße und Konfidenzintervall</h2>
+  <p>Ein p-Wert von 7 · 10⁻⁹ klingt nach einer großen Sache. Aber er hängt
+  an n — und n ist hier klein. Die ehrlichere Zahl ist der
+  <strong>Effekt</strong> und sein <strong>Unsicherheitsbereich</strong>.</p>
+<pre>
+Cohen's d = (0.2539 - 0.1711) / 0.0698
+<span class="cmt"># → 1.19</span>
+</pre>
+  <p>d = 1,19 bedeutet: Österreich liegt <strong>1,2
+  Standardabweichungen</strong> über dem Mittel der anderen Länder. Nach
+  der üblichen Einordnung ist das ein <em>großer</em> Effekt (ab 0,8).</p>
+
+  <h3>Das Konfidenzintervall</h3>
+<pre>
+95 percent confidence interval:
+  0.1484902 0.1937354
+</pre>
+  <p>Das ist das Intervall für den <strong>Mittelwert der 39 Länder</strong>
+  — nicht für die Differenz. Es sagt: Der wahre Mittelwert der anderen
+  Länder liegt mit 95 % Sicherheit zwischen 14,8 und 19,4 Cent.</p>
+  <p>Und der entscheidende Satz: <strong>0,2539 liegt weit außerhalb
+  dieses Intervalls.</strong> Das ist dieselbe Information wie der
+  p-Wert, nur in einer Form, die man lesen kann, ohne die Testlogik zu
+  kennen.</p>
+
+  <div class="callout tipp">
+    <span class="label">Warum das Intervall die bessere Zahl ist</span>
+    <p>Der p-Wert sagt „signifikant" — und sonst nichts. Das Intervall
+    sagt, <em>wie groß</em> der Effekt sein könnte: mindestens 6 Cent
+    Abstand nach unten, bis zu 10,5 Cent nach oben. Diese Bandbreite ist
+    die Information, mit der man weiterarbeitet.</p>
+  </div>
+
+  <div class="quiz" data-titel="Quiz: effektgroesse">
+    <fieldset class="frage">
+      <legend class="frage-text">Cohen's d = 1,19. Was bedeutet das?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-07-q7" value="0" data-grund="Richtig — der Abstand entspricht 1,19 Standardabweichungen; ab 0,8 spricht man von einem großen Effekt."> Der Abstand ist 1,19 Standardabweichungen groß — ein großer Effekt</label>
+        <label><input type="checkbox" name="km7-07-q7" value="1" data-grund="Falsch — d ist keine Prozentzahl; 1,19 sind nicht 1,19 %."> 1,19 % der Länder liegen über Österreich</label>
+        <label><input type="checkbox" name="km7-07-q7" value="2" data-grund="Falsch — d ist ein standardisiertes Maß, keine Wahrscheinlichkeit."> Die Irrtumswahrscheinlichkeit beträgt 1,19 %</label>
+        <label><input type="checkbox" name="km7-07-q7" value="3" data-grund="Falsch — d beschreibt den Abstand der Mittelwerte in Einheiten der Streuung, nicht das Verhältnis zweier Preise."> Der Strompreis ist 1,19-mal so hoch</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Das 95-%-Intervall lautet [0,1485;
+      0,1937]. Welche Aussagen stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-07-q8" value="0" data-grund="Richtig — 0,2539 liegt außerhalb; das ist die Intervall-Lesart desselben Tests."> 0,2539 liegt außerhalb — dasselbe Ergebnis wie p &lt; 0,05</label>
+        <label><input type="checkbox" data-richtig name="km7-07-q8" value="1" data-grund="Richtig — das Intervall gilt für den Mittelwert der 39 Länder, nicht für einzelne Länderpreise."> Das Intervall beschreibt den Mittelwert der 39 Länder</label>
+        <label><input type="checkbox" name="km7-07-q8" value="2" data-grund="Falsch — 95 % der Länderpreise liegen viel weiter auseinander als dieses enge Intervall."> 95 % der Länderpreise liegen in diesem Intervall</label>
+        <label><input type="checkbox" name="km7-07-q8" value="3" data-grund="Falsch — das Intervall ist die Schätzung des Mittelwerts; es sagt nichts über künftige Preise."> Mit 95 % Sicherheit kostet Strom künftig 15 bis 19 Cent</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — Wenn die Voraussetzung kippt</h2>
+  <p>Bis hierher war alles bequem: Die Daten waren normalverteilt, der Test
+  war erlaubt, das Ergebnis eindeutig. Jetzt kommt der Gegenfall.</p>
+
+  <h3>Die neue Frage</h3>
+  <p>Zahlt ein Haushalt mit sehr hohem Verbrauch pro Kilowattstunde
+  weniger als einer mit sehr niedrigem? Das ist eine <strong>gepaarte</strong>
+  Frage: Beide Werte stammen aus demselben Land, gehören also zusammen.</p>
+<pre>
+paare &lt;- strom |&gt;
+  filter(tax == "X_TAX", currency == "EUR",
+         jahr_halbjahr == "2025-S2",
+         nrg_cons %in% c("KWH_LT1000", "KWH_GE15000")) |&gt;
+  select(geo, geo_name, nrg_cons, preis) |&gt;
+  pivot_wider(names_from = nrg_cons, values_from = preis) |&gt;
+  filter(!is.na(KWH_LT1000), !is.na(KWH_GE15000))
+
+paare |&gt; summarise(n = n(),
+                   klein = mean(KWH_LT1000),
+                   gross = mean(KWH_GE15000))
+<span class="cmt"># → n = 40 · klein = 0.3008 · gross = 0.1543</span>
+</pre>
+  <p>Fast doppelt so teuer pro Kilowattstunde bei kleinen Haushalten:
+  30,1 gegen 15,4 Cent. In <strong>36 von 40 Ländern</strong> ist der
+  Großverbraucher-Preis niedriger.</p>
+
+  <h3>Erst prüfen, dann testen</h3>
+  <p>Bei gepaarten Daten prüft man die Normalität der
+  <strong>Differenzen</strong> — nicht der beiden Messreihen:</p>
+<pre>
+d &lt;- paare$KWH_GE15000 - paare$KWH_LT1000
+
+shapiro.test(d)
+<span class="cmt"># → W = 0.91363, p-value = 0.004882</span>
+</pre>
+  <p><strong>p = 0,0049.</strong> Diesmal wird H0 verworfen: Die Differenzen
+  sind <em>nicht</em> normalverteilt. Die Schiefe ist −1,19 — ein langer
+  Schweif nach unten, weil in vier Ländern der Großverbrauch
+  <em>teurer</em> ist als der Kleinverbrauch.</p>
+
+  <div class="callout achtung">
+    <span class="label">Genau das ist der Punkt der Stunde</span>
+    <p>In KM7-06 waren die <em>Länderpreise</em> normalverteilt. Jetzt sind
+    die <em>Differenzen</em> es nicht. Die Normalverteilung ist keine
+    Eigenschaft des Datensatzes — sie ist eine Eigenschaft
+    <strong>der Größe, die im Test steckt</strong>. Wer das verwechselt,
+    prüft die falsche Sache und merkt es nie.</p>
+  </div>
+
+  <h3>Was jetzt?</h3>
+  <p>Zwei Wege, beide legitim:</p>
+<pre>
+<span class="cmt"># a) trotzdem rechnen — mit Vorsicht</span>
+t.test(paare$KWH_GE15000, paare$KWH_LT1000, paired = TRUE)
+<span class="cmt"># → t = -6.8973, df = 39, p-value = 2.966e-08</span>
+
+<span class="cmt"># b) voraussetzungsfreier Test</span>
+wilcox.test(paare$KWH_GE15000, paare$KWH_LT1000, paired = TRUE)
+<span class="cmt"># → V = 19, p-value = 2.337e-07</span>
+</pre>
+  <p>Beide kommen zum selben Schluss. Der Wilcoxon-Test arbeitet mit
+  <strong>Rängen</strong> statt mit Werten — er interessiert sich nicht
+  dafür, wie weit die Differenzen auseinanderliegen, nur für ihre
+  Reihenfolge. Deshalb braucht er keine Normalverteilung.</p>
+
+  <div class="callout">
+    <span class="label">Die ehrliche Antwort</span>
+    <p>Wenn beide Tests dasselbe sagen, ist die Voraussetzungsverletzung
+      hier <em>harmlos</em>. Das ist keine Garantie: Bei kleinen
+      Stichproben und starken Schiefen können t-Test und Wilcoxon
+      auseinanderlaufen. Dann entscheidet die Voraussetzung, nicht der
+      Geschmack.</p>
+  </div>
+
+  <div class="quiz" data-titel="Quiz: voraussetzung-kippt">
+    <fieldset class="frage">
+      <legend class="frage-text">Bei gepaarten Daten prüft man die
+      Normalverteilung woran?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-07-q9" value="0" data-grund="Richtig — der Test rechnet mit den Differenzen; deren Verteilung entscheidet über die Zulässigkeit."> An den Differenzen der Paare</label>
+        <label><input type="checkbox" name="km7-07-q9" value="1" data-grund="Falsch — beide Messreihen können normal sein, während die Differenzen es nicht sind."> An beiden Messreihen getrennt</label>
+        <label><input type="checkbox" name="km7-07-q9" value="2" data-grund="Falsch — die Gesamtverteilung über beide Bedingungen ist für den gepaarten Test nicht die relevante Größe."> An allen 80 Werten gemeinsam</label>
+        <label><input type="checkbox" name="km7-07-q9" value="3" data-grund="Falsch — bei gepaarten Daten ist die Prüfung der Differenzen gerade der Kern; ohne sie rechnet man blind."> Gar nicht, weil der gepaarte Test robust ist</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Wann ist der Wilcoxon-Test die bessere
+      Wahl?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-07-q10" value="0" data-grund="Richtig — er arbeitet mit Rängen und braucht keine Normalverteilung."> Wenn die Voraussetzung der Normalverteilung verletzt ist</label>
+        <label><input type="checkbox" data-richtig name="km7-07-q10" value="1" data-grund="Richtig — bei wenigen Beobachtungen und schiefen Daten ist die Ranginformation verlässlicher als der Mittelwert."> Wenn die Stichprobe klein und die Verteilung schief ist</label>
+        <label><input type="checkbox" name="km7-07-q10" value="2" data-grund="Falsch — bei normalverteilten Daten ist der t-Test der stärkere Test; Wilcoxon verschenkt Information."> Immer, weil er moderner ist als der t-Test</label>
+        <label><input type="checkbox" name="km7-07-q10" value="3" data-grund="Falsch — Wilcoxon vergleicht Lage/Rang, nicht Streuungen."> Wenn man Streuungen vergleichen will</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Was ist die Lehre aus dem Vergleich der
+      beiden Beispiele?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-07-q11" value="0" data-grund="Richtig — die Annahme gilt für die Größe im Test, nicht für den Datensatz als Ganzes."> Die Voraussetzung gilt für die Größe, die im Test steckt</label>
+        <label><input type="checkbox" name="km7-07-q11" value="1" data-grund="Falsch — ein Datensatz ist nicht „normal" oder „nicht normal"; das gilt immer nur für eine konkrete Variable oder Differenz."> Ein Datensatz ist entweder normalverteilt oder nicht</label>
+        <label><input type="checkbox" name="km7-07-q11" value="2" data-grund="Falsch — der t-Test ist bei erfüllter Voraussetzung der stärkere Test; Wilcoxon ist kein Ersatz aus Prinzip."> Der Wilcoxon-Test ist immer die sicherere Wahl</label>
+        <label><input type="checkbox" name="km7-07-q11" value="3" data-grund="Falsch — die Voraussetzung ist keine Formalie, sondern entscheidet über die Gültigkeit des p-Werts."> Voraussetzungen prüft man nur bei kleinen Stichproben</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 6 — Projekt abschließen</h2>
+  <p>Dein Projekt aus KM7-06 bekommt jetzt den Test dazu. Die README
+  beantwortet am Ende vier Fragen:</p>
+  <ol>
+    <li><strong>Was war meine Frage?</strong> (ein Satz, mit Land und
+      Verbrauchsband)</li>
+    <li><strong>Was sagen die Zahlen?</strong> (Mittelwert, Streuung,
+      Rang)</li>
+    <li><strong>Durfte ich testen?</strong> (Shapiro-p-Wert und was er
+      bedeutet)</li>
+    <li><strong>Was kam heraus?</strong> (Test, p-Wert, ein Satz
+      Interpretation — und was der Test <em>nicht</em> sagt)</li>
+  </ol>
+<pre>
+ggsave("output/histogramm.png",   p1, width = 7, height = 4, dpi = 150)
+ggsave("output/verteilung.png",   p2, width = 7, height = 4, dpi = 150)
+</pre>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du!</div>
+  <ol>
+    <li><strong>Vorhersage zuerst.</strong> Du testest Deutschland
+      (0,2625 EUR/kWh) gegen die übrigen Länder. Wird p größer oder
+      kleiner als bei Österreich? Schreib es auf, dann rechne.</li>
+    <li><strong>Zweiseitig oder einseitig?</strong> Die Frage lautet
+      „Liegt Österreich <em>über</em> dem Mittel?" — welches
+      <code>alternative =</code> gehört dazu, und wie ändert sich der
+      p-Wert?</li>
+    <li><strong>Der Gegenfall.</strong> Prüfe mit
+      <code>shapiro.test()</code>, ob die Differenzen zwischen
+      <code>KWH1000-2499</code> und <code>KWH2500-4999</code>
+      normalverteilt sind. Was folgt daraus für den Test?</li>
+    <li><strong>Deine eigene Frage.</strong> Nimm den Schnitt aus deiner
+      Zwischenaufgabe und teste ihn gegen ein Nachbarland deiner Wahl.
+      Begründe, warum genau dieser Test passt.</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+
+  <h3>Fehler 1 — Österreich im Vergleichswert lassen</h3>
+<pre>
+t.test(haushalt$preis, mu = 0.2539)
+<span class="cmt"># ✗ Österreich steckt in haushalt$preis mit drin</span>
+</pre>
+  <p>Dann prüft man 40 Länder gegen einen Wert, der aus diesen 40 Ländern
+  stammt. Der Test wird dadurch konservativer und die Interpretation
+  schief.</p>
+
+  <h3>Fehler 2 — p-Wert als Wahrscheinlichkeit für H0 lesen</h3>
+  <p><code>p = 7 · 10⁻⁹</code> heißt <em>nicht</em> „H0 ist zu
+  99,9999993 % falsch". Es heißt: „Wenn H0 gilt, sind diese Daten
+  praktisch unmöglich." Das ist die umgekehrte Richtung.</p>
+
+  <h3>Fehler 3 — Normalität am Datensatz statt an der Testgröße prüfen</h3>
+  <p>Bei gepaarten Daten sind die <strong>Differenzen</strong> zu prüfen.
+  Bei zwei Gruppen jede Gruppe einzeln. Der Datensatz als Ganzes ist nie
+  die relevante Einheit.</p>
+
+  <h3>Fehler 4 — Wilcoxon als „besseren t-Test" verwenden</h3>
+  <p>Der Wilcoxon-Test ist nicht moderner, sondern <em>robuster</em> — und
+  das kostet: Er nutzt nur die Ränge, nicht die Abstände. Bei erfüllter
+  Voraussetzung ist der t-Test der stärkere Test. Wer immer Wilcoxon
+  rechnet, verschenkt Trennschärfe.</p>
+
+  <div class="quiz" data-titel="Quiz: typische-fehlschluesse">
+    <fieldset class="frage">
+      <legend class="frage-text">Ein Kollege sagt: „p = 7 · 10⁻⁹ heißt,
+      H0 ist zu 99,9999993 % falsch." Was ist daran falsch?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-07-q12" value="0" data-grund="Richtig — der p-Wert ist die Wahrscheinlichkeit der Daten unter H0, nicht die Wahrscheinlichkeit von H0."> Der p-Wert ist keine Wahrscheinlichkeit für H0</label>
+        <label><input type="checkbox" name="km7-07-q12" value="1" data-grund="Falsch — die Zahl selbst ist korrekt abgelesen; der Fehler liegt in der Deutung."> Die Zahl ist falsch abgelesen</label>
+        <label><input type="checkbox" name="km7-07-q12" value="2" data-grund="Falsch — die Rechnung ist in Ordnung; das Problem ist die Umkehrung der Bedingung."> Der Test wurde falsch gerechnet</label>
+        <label><input type="checkbox" name="km7-07-q12" value="3" data-grund="Falsch — ein so kleiner p-Wert ist bei 39 Beobachtungen und einem Effekt von 1,2 sd plausibel."> Ein so kleiner p-Wert ist unmöglich</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <thead>
+      <tr><th scope="col">Baustein</th><th scope="col">Wofür</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Einstichproben-t-Test</td><td>Ein Mittelwert gegen einen festen Wert — hier: Österreichs Preis</td></tr>
+      <tr><td>t = Effekt / Standardfehler</td><td>−7,41 heißt: 7,4 Standardfehler Abstand</td></tr>
+      <tr><td>df = n − 1</td><td>Eine geschätzte Größe (Streuung) kostet einen Freiheitsgrad</td></tr>
+      <tr><td>p-Wert</td><td>Wahrscheinlichkeit der Daten unter H0 — <em>nicht</em> die von H0</td></tr>
+      <tr><td>Cohen's d</td><td>Effekt in Standardabweichungen; 1,19 ist groß</td></tr>
+      <tr><td>Konfidenzintervall</td><td>Die lesbare Form desselben Ergebnisses</td></tr>
+      <tr><td>Gepaarter Test</td><td>Differenzen pro Paar; Normalität der <em>Differenzen</em> prüfen</td></tr>
+      <tr><td>Wilcoxon</td><td>Rangbasierter Ersatz ohne Normalitätsannahme</td></tr>
+      <tr><td>Voraussetzung</td><td>Gilt für die Testgröße, nicht für den Datensatz</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Ausblick:</strong> Du hast jetzt zwei Gruppen verglichen. Was,
+  wenn es drei oder mehr sind — etwa sechs Berufsgruppen oder elf
+  Verbrauchsbänder auf einmal? Dafür gibt es die <strong>ANOVA</strong>,
+  und die kommt als nächstes.</p>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Bearbeite die <a href="aufgabe.md">Aufgabe KM7-07 — Österreich testen</a>:
+  Hypothesen formulieren, den Test von Hand nachrechnen, den p-Wert
+  deuten, den Gegenfall mit den gepaarten Bändern prüfen und das Projekt
+  aus KM7-06 abschließen.</p>
+  <p><strong>Abgabe:</strong> Commit in deinem PMM-Repo unter
+  <code>2026-11-13_strompreise/</code> (dasselbe Projekt, jetzt mit Test),
+  bis <strong>2026-11-27</strong>.</p>
+</section>
+
+<details class="lehrplan">
+  <summary>Lehrplan &amp; Einordnung</summary>
+  <ul>
+    <li><strong>Lehrplan:</strong> PMM (HWIT), 4. Jahrgang — Statistische
+      Tests, Semesterplan 4. Klasse, Wintersemester (UE 6–8)</li>
+    <li><strong>KM-Bezug:</strong> KM7 (Statistische Tests) —
+      Einstichproben-t-Test, Effektstärke, Voraussetzungsprüfung,
+      nichtparametrische Alternative; Querbezug zu KM7-01, KM7-03
+      (Teststärke), KM7-06 (Verteilung)</li>
+    <li><strong>Daten:</strong> Eurostat <code>nrg_pc_204</code>, CC BY 4.0
+      — Namensnennung „Eurostat (nrg_pc_204)"</li>
+    <li><strong>Runtime:</strong> R 4.5 / tidyverse,
+      <code>t.test()</code>, <code>wilcox.test()</code>,
+      <code>shapiro.test()</code>, <code>pivot_wider()</code></li>
+  </ul>
+</details>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> Navarro,
+  <a href="https://learningstatisticswithr.com/13-ttest.html">Kap. 13</a>
+  (Hauptlektüre) · NIST/SEMATECH e-Handbook,
+  <a href="https://www.itl.nist.gov/div898/handbook/ppc/ppc.htm">Kap. 7</a>
+  (Product and Process Comparisons). · Datensatz:
+  <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204">Eurostat nrg_pc_204</a>.</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Zurück: <a href="../KM7-06-strompreise-verteilung/lesson.html">Lektion KM7-06 —
+  Was kostet Strom in Europa?</a></p>
+</footer>
+
+</body>
+</html>

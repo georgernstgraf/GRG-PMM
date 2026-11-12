@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion KM7-06 — Strompreise: wie sind sie verteilt?</title>
+<script>(function(){var s=location.pathname.split("/");s.pop();(function t(){if(!s.length)return;var r=s.join("/")+"/",e=document.createElement("script");e.src=r+"assets/loader.js";e.setAttribute("data-css","lesson.css");e.setAttribute("data-js","quiz.js,theme.js");e.onerror=function(){s.pop();t()};e.onload=function(){if(!window.__SITE_ROOT__){s.pop();t()}};document.head.appendChild(e)})()})();</script>
+
+</head>
+<body>
+
+<header class="meta">
+  <button type="button" class="theme-toggle" id="theme-toggle"
+          aria-pressed="false">Dunkel</button>
+  <span class="kicker">Lektion KM7-06 · Verteilungen beschreiben</span>
+  <h1>Was kostet Strom in Europa?</h1>
+  <p class="subtitle">Erst schneiden, dann zeichnen — und am Ende die Frage,
+  ob man mit diesen Daten überhaupt rechnen darf.</p>
+</header>
+
+<div class="callout tipp">
+  <span class="label">Lektüre</span>
+  <p>Navarro, <a href="https://learningstatisticswithr.com/09-probability.html">Learning
+     Statistics with R</a> (englisch) — Kap. 9 (Wahrscheinlichkeit und
+     Verteilungen). Ergänzend NIST/SEMATECH e-Handbook,
+     <a href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm">Kap. 1.3.5.11</a>
+     (Schiefe und Kurtosis) und
+     <a href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda366.htm">Kap. 1.3.6.6</a>
+     (Galerie der Verteilungen).</p>
+  <p>Voraussetzung: <a href="../SA-03-daten-einlesen-deskriptiv/lesson.html">SA-03</a>
+     (Histogramm, Lagemaße, Streuungsmaße) und
+     <a href="../KM6-01-boxplot-und-grafikwahl/lesson.html">KM6-01</a>
+     (Boxplot). Hier wird beides zum ersten Mal auf einen echten,
+     unbequemen Datensatz angewendet.</p>
+</div>
+
+<section>
+  <div class="baustein">Einstiegsfrage</div>
+  <p>Ein österreichischer Haushalt zahlt im zweiten Halbjahr 2025
+  <strong>25,4 Cent pro Kilowattstunde</strong> — ohne Steuern und ohne
+  Abgaben. Ist das viel?</p>
+  <p>Die Frage klingt beantwortbar. Sie ist es nicht, solange kein
+  Vergleich daneben steht. Und der Vergleich liegt vor: Eurostat
+  veröffentlicht dieselbe Zahl für <strong>43 Länder</strong>.</p>
+  <p>Was du in dieser Stunde lernst: wie man aus 12.771 Zeilen
+  <em>eine</em> Zahl macht, die man verteidigen kann — und wie man prüft,
+  ob man mit ihr überhaupt rechnen darf.</p>
+</section>
+
+<section>
+  <div class="baustein">Ziel-Artefakt</div>
+  <p>Das ist der Code, den du am Ende selbst schreibst:</p>
+<pre>
+haushalt &lt;- strom |&gt;
+  filter(nrg_cons      == "KWH2500-4999",
+         tax           == "X_TAX",
+         currency      == "EUR",
+         jahr_halbjahr == "2025-S2") |&gt;
+  filter(!is.na(preis))
+
+haushalt |&gt; summarise(n = n(), mittel = mean(preis), sd = sd(preis))
+<span class="cmt"># → n = 40, mittel = 0.173, sd = 0.0701</span>
+
+shapiro.test(haushalt$preis)
+<span class="cmt"># → W = 0.97085, p-value = 0.3828</span>
+</pre>
+  <p>Vier Zeilen bis zur Zahl, eine Zeile bis zum Urteil. Der Rest der
+  Stunde erklärt, warum jede davon genau so aussieht — und warum die
+  Reihenfolge nicht beliebig ist.</p>
+</section>
+
+<section>
+  <div class="baustein">Schritt 1 — Der Datensatz ist ein Würfel</div>
+  <p>Lade den Datensatz und schau auf die Maße, nicht auf die Zeilen:</p>
+<pre>
+library(tidyverse)
+
+strom &lt;- read_csv("data/strompreise-eu-haushalte.csv")
+<span class="cmt"># → Rows: 12,771  Columns: 10</span>
+
+strom |&gt; summarise(
+  laender    = n_distinct(geo),
+  baender    = n_distinct(nrg_cons),
+  steuerarten = n_distinct(tax),
+  waehrungen = n_distinct(currency),
+  halbjahre  = n_distinct(jahr_halbjahr)
+)
+<span class="cmt"># → 43 Länder · 11 Verbrauchsbänder · 3 Steuerarten
+#    · 3 Währungen · 3 Halbjahre</span>
+</pre>
+  <p>Das Raster ist vollständig: 43 · 11 · 3 · 3 · 3 = <strong>12.771</strong>.
+  Jede Kombination existiert als Zeile. Aber in <strong>6.642</strong>
+  davon steht <code>NA</code> — nicht jedes Land meldet jedes Band in jeder
+  Steuerart.</p>
+
+  <h3>Was passiert, wenn du nicht schneidest</h3>
+  <p>Ein naheliegender Fehler: das Band wählen, alles andere offen lassen
+  und den Mittelwert bilden.</p>
+<pre>
+strom |&gt;
+  filter(nrg_cons == "KWH2500-4999",
+         currency == "EUR",
+         jahr_halbjahr == "2025-S2") |&gt;
+  filter(!is.na(preis)) |&gt;
+  summarise(n = n(), mittel = mean(preis))
+<span class="cmt"># → n = 120, mittel = 0.1963</span>
+</pre>
+  <p>120 Zeilen — dreimal so viele wie Länder. Der Mittelwert 0,1963 ist
+  ein Durchschnitt über drei <em>verschiedene Fragen</em>:</p>
+<pre>
+<span class="cmt"># I_TAX (mit Steuern)     0.2236
+# X_VAT (ohne MwSt)       0.1923
+# X_TAX (ohne alles)      0.1732</span>
+</pre>
+  <div class="callout achtung">
+    <span class="label">Die eigentliche Lektion</span>
+    <p>0,1963 ist keine falsche Rechnung — es ist eine Rechnung auf die
+    falsche Frage. Jede der drei Steuerarten beantwortet etwas anderes:
+    „Was zahlt der Haushalt?", „Was kostet der Strom?", „Was bleibt beim
+    Versorger?". Wer sie mittelt, hat keine der drei beantwortet.</p>
+  </div>
+
+  <div class="quiz" data-titel="Quiz: der-datensatz-ist-ein-wuerfel">
+    <fieldset class="frage">
+      <legend class="frage-text">Der Datensatz hat 12.771 Zeilen. Wie viele
+      <em>verschiedene</em> Preisinformationen stecken darin?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-06-q1" value="0" data-grund="Falsch — die Zeilenzahl entsteht aus dem Kreuzprodukt der Dimensionen; dieselbe Information steht in vielen Zeilen."> Genau 12.771 — jede Zeile ist ein Preis</label>
+        <label><input type="checkbox" data-richtig name="km7-06-q1" value="1" data-grund="Richtig — 43 Länder × 11 Bänder × 3 Steuerarten × 3 Währungen × 3 Halbjahre; erst der Schnitt macht daraus eine Zahl pro Land."> 43 Länder, jeweils in vielen Kombinationen — erst der Schnitt ergibt eine Zahl pro Land</label>
+        <label><input type="checkbox" name="km7-06-q1" value="2" data-grund="Falsch — 43 ist die Zahl der Länder, aber jedes Land hat mehrere Bänder, Steuerarten, Währungen und Halbjahre."> 43 — ein Preis pro Land</label>
+        <label><input type="checkbox" name="km7-06-q1" value="3" data-grund="Falsch — die NA-Zeilen sind Teil des Rasters; sie sind keine Information über einen Preis, aber sie sind Zeilen."> 6.129 — die Zeilen ohne NA</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Warum liefert der Mittelwert ohne
+      Steuer-Filter 0,1963 statt 0,1732?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-06-q2" value="0" data-grund="Falsch — die Rechnung ist korrekt; das Problem ist die Auswahl der Zeilen, nicht die Formel."> Weil <code>mean()</code> bei gemischten Gruppen falsch rechnet</label>
+        <label><input type="checkbox" data-richtig name="km7-06-q2" value="1" data-grund="Richtig — mit Steuern (I_TAX) liegt der Preis höher; wer die Steuerarten mischt, mittelt über drei verschiedene Preise."> Weil mit Steuern (I_TAX) ein höherer Preis in den Mittelwert eingeht</label>
+        <label><input type="checkbox" name="km7-06-q2" value="2" data-grund="Falsch — es fehlen keine Werte; die 120 Zeilen sind vollständig, nur inhaltlich nicht vergleichbar."> Weil durch die fehlenden NA-Werte mehr Gewicht auf hohe Preise fällt</label>
+        <label><input type="checkbox" data-richtig name="km7-06-q2" value="3" data-grund="Richtig — die drei Steuerarten beantworten unterschiedliche Fragen; ein gemeinsamer Mittelwert beantwortet keine davon."> Weil die drei Steuerarten drei verschiedene Fragen sind</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 2 — Schneiden: aus 12.771 werden 40</h2>
+  <p>Jeder <code>filter()</code> ist eine Entscheidung, die man begründen
+  muss. Hier sind es vier:</p>
+<pre>
+haushalt &lt;- strom |&gt;
+  filter(nrg_cons      == "KWH2500-4999") |&gt;   <span class="cmt"># 1.161 Zeilen</span>
+  filter(tax           == "X_TAX")        |&gt;   <span class="cmt">#   387</span>
+  filter(currency      == "EUR")          |&gt;   <span class="cmt">#   129</span>
+  filter(jahr_halbjahr == "2025-S2")      |&gt;   <span class="cmt">#    43</span>
+  filter(!is.na(preis))                        <span class="cmt">#    40</span>
+</pre>
+  <p>Die Begründung für jede Stufe:</p>
+  <table>
+    <thead>
+      <tr><th scope="col">Filter</th><th scope="col">Warum genau dieser Wert</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>KWH2500-4999</code></td><td>das Band eines typischen österreichischen Haushalts — nicht das kleinste, nicht das größte</td></tr>
+      <tr><td><code>X_TAX</code></td><td>ohne Steuern, sonst vergleicht man Steuersysteme statt Strompreise</td></tr>
+      <tr><td><code>EUR</code></td><td>ohne Währungsumrechnung; <code>PPS</code> und <code>NAC</code> sind andere Einheiten</td></tr>
+      <tr><td><code>2025-S2</code></td><td>das neueste Halbjahr — ein Zeitpunkt, kein Zeitraum</td></tr>
+      <tr><td><code>!is.na(preis)</code></td><td>Island, Ukraine und das Vereinigte Königreich melden dieses Band nicht</td></tr>
+    </tbody>
+  </table>
+  <p>Übrig bleiben <strong>40 Länder</strong>. Nicht 43 — und das ist
+  wichtig: Die drei fehlenden sind nicht zufällig, sondern melden schlicht
+  nicht.</p>
+
+  <div class="quiz" data-titel="Quiz: schneiden">
+    <fieldset class="frage">
+      <legend class="frage-text">Warum filtert man auf <code>currency == "EUR"</code>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-06-q3" value="0" data-grund="Richtig — PPS und NAC sind andere Einheiten; ohne Filter würde man Beträge in verschiedenen Maßstäben addieren."> Weil PPS und NAC andere Einheiten sind und nicht in denselben Mittelwert gehören</label>
+        <label><input type="checkbox" name="km7-06-q3" value="1" data-grund="Falsch — der Filter hat nichts mit der EU-Mitgliedschaft zu tun; die Spalte heißt currency und beschreibt die Preiseinheit."> Weil nur EU-Mitglieder in Euro abrechnen</label>
+        <label><input type="checkbox" name="km7-06-q3" value="2" data-grund="Falsch — Eurostat liefert die Werte bereits in EUR; es wird nichts umgerechnet."> Weil Eurostat nur Euro-Werte korrekt umrechnet</label>
+        <label><input type="checkbox" name="km7-06-q3" value="3" data-grund="Falsch — EUR ist die Preiseinheit, nicht die Währung des Landes; auch Nicht-Euro-Länder melden in EUR."> Weil nur Euroraum-Länder einen EUR-Wert haben</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Nach dem Halbjahres-Filter stehen 43
+      Zeilen da, nach <code>!is.na(preis)</code> nur noch 40. Was ist
+      passiert?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-06-q4" value="0" data-grund="Falsch — der Filter entfernt keine Duplikate; 43 Länder sind 43 verschiedene Länder."> Drei Länder waren doppelt vorhanden</label>
+        <label><input type="checkbox" data-richtig name="km7-06-q4" value="1" data-grund="Richtig — Island, Ukraine und das Vereinigte Königreich haben für dieses Band keinen Wert gemeldet."> Drei Länder haben für dieses Band keinen Wert gemeldet</label>
+        <label><input type="checkbox" name="km7-06-q4" value="2" data-grund="Falsch — der Datensatz enthält keine Zeitreihen-Duplikate; jede Zeile ist eine eigene Kombination."> Drei Zeilen waren ältere Halbjahre, die nicht gefiltert wurden</label>
+        <label><input type="checkbox" name="km7-06-q4" value="3" data-grund="Falsch — R entfernt NA nicht automatisch; ohne den expliziten Filter bleiben die Zeilen mit NA im Datensatz."> R hat die NA-Zeilen von selbst entfernt</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche vier Aussagen über den Datensatz
+      stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-06-q14" value="0" data-grund="Richtig — 43 · 11 · 3 · 3 · 3 = 12.771; das Raster ist vollständig."> Das Raster ist vollständig: 43 · 11 · 3 · 3 · 3 = 12.771</label>
+        <label><input type="checkbox" data-richtig name="km7-06-q14" value="1" data-grund="Richtig — 6.642 der 12.771 Zeilen haben keinen Preiswert."> 6.642 Zeilen enthalten keinen Preis</label>
+        <label><input type="checkbox" data-richtig name="km7-06-q14" value="2" data-grund="Richtig — ohne Schnitt mittelt man über Steuerarten, Währungen und Verbrauchsbänder gleichzeitig."> Ohne Schnitt mittelt man über Steuerarten, Währungen und Bänder</label>
+        <label><input type="checkbox" data-richtig name="km7-06-q14" value="3" data-grund="Richtig — Island, Ukraine und das Vereinigte Königreich melden dieses Band nicht."> Drei Länder melden das Band 2500–4999 kWh nicht</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 3 — Häufigkeitsverteilung: wie sehen die 40 Preise aus?</h2>
+  <p>Jetzt darf gezeichnet werden. Ein Histogramm beantwortet vier Fragen
+  auf einmal: <em>Wo liegt das Zentrum? Wie breit ist die Streuung? Ist die
+  Form symmetrisch? Gibt es Ausreißer?</em></p>
+<pre>
+ggplot(haushalt, aes(x = preis)) +
+  geom_histogram(binwidth = 0.02, boundary = 0, colour = "white") +
+  geom_vline(xintercept = 0.2539, colour = "firebrick", linewidth = 1) +
+  labs(x = "Strompreis in EUR/kWh (ohne Steuern)",
+       y = "Anzahl Länder")
+</pre>
+  <p>Die rote Linie ist Österreich. Was du siehst:</p>
+  <ul>
+    <li><strong>Zentrum</strong> bei etwa 0,17 EUR/kWh — der größte Teil
+      der Länder liegt zwischen 0,10 und 0,25.</li>
+    <li><strong>Streuung</strong> von 0,057 (Türkiye) bis 0,361 (Irland) —
+      der teuerste Strom ist <em>sechsmal</em> so teuer wie der
+      billigste.</li>
+    <li><strong>Form</strong> annähernd symmetrisch, mit einem leichten
+      Zug nach rechts: Irland und Luxemburg liegen allein im oberen
+      Bereich.</li>
+    <li><strong>Österreich</strong> liegt rechts vom Zentrum — aber wie
+      weit rechts, sagt das Auge ungenau. Dafür gibt es Zahlen.</li>
+  </ul>
+
+  <div class="callout">
+    <span class="label">Merke dir</span>
+    <p>Ein Histogramm ist keine Dekoration. Es ist die Prüfung, ob der
+      Mittelwert überhaupt etwas Sinnvolles beschreibt. Bei zwei Gipfeln
+      oder einem langen Schweif ist der Mittelwert eine Zahl ohne
+      Geschichte.</p>
+  </div>
+
+  <div class="quiz" data-titel="Quiz: histogramm-lesen">
+    <fieldset class="frage">
+      <legend class="frage-text">Was sagt ein Histogramm <em>nicht</em>?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-06-q5" value="0" data-grund="Falsch — die Lage des Zentrums ist genau das, was man am Histogramm zuerst abliest."> Wo ungefähr der Mittelwert liegt</label>
+        <label><input type="checkbox" name="km7-06-q5" value="1" data-grund="Falsch — die Breite der Verteilung ist direkt sichtbar: wie weit die Balken auseinanderliegen."> Wie breit die Werte streuen</label>
+        <label><input type="checkbox" data-richtig name="km7-06-q5" value="2" data-grund="Richtig — ob ein Unterschied statistisch bedeutsam ist, entscheidet erst ein Test; das Histogramm zeigt nur die Form."> Ob ein Unterschied statistisch signifikant ist</label>
+        <label><input type="checkbox" data-richtig name="km7-06-q5" value="3" data-grund="Richtig — Ausreißer sieht man als einzelne Balken am Rand, aber ob sie Fehler oder echte Werte sind, sagt das Bild nicht."> Ob ein Wert am Rand ein Fehler oder eine echte Beobachtung ist</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Der teuerste Wert ist sechsmal so groß
+      wie der billigste. Welche Konsequenz hat das für den Mittelwert?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-06-q6" value="0" data-grund="Richtig — bei einer so großen Spannweite ziehen die oberen Werte den Mittelwert nach oben; der Median ist robuster."> Der Mittelwert wird von den hohen Werten nach oben gezogen — der Median ist robuster</label>
+        <label><input type="checkbox" name="km7-06-q6" value="1" data-grund="Falsch — der Mittelwert reagiert stärker auf Extremwerte als der Median, nicht schwächer."> Der Mittelwert ist unempfindlich dagegen, der Median nicht</label>
+        <label><input type="checkbox" name="km7-06-q6" value="2" data-grund="Falsch — eine große Spannweite allein macht den Mittelwert nicht ungültig; sie macht ihn nur empfindlicher."> Der Mittelwert ist ungültig und darf nicht verwendet werden</label>
+        <label><input type="checkbox" name="km7-06-q6" value="3" data-grund="Falsch — der Mittelwert bleibt berechenbar; die Frage ist, ob er die Verteilung gut beschreibt."> Der Mittelwert ist dann immer größer als der Median</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 4 — Streuungsmaße: wie breit liegt das Zentrum?</h2>
+  <p>Vier Zahlen beschreiben die Verteilung. Sie beantworten nicht dieselbe
+  Frage:</p>
+<pre>
+haushalt |&gt;
+  summarise(n      = n(),
+            mittel = mean(preis),
+            median = median(preis),
+            sd     = sd(preis),
+            iqr    = IQR(preis),
+            min    = min(preis),
+            max    = max(preis))
+<span class="cmt"># → # A tibble: 1 × 7
+#        n mittel median     sd    iqr    min   max
+#    &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+# 1     40  0.173  0.172 0.0701 0.0974 0.0569 0.361</span>
+</pre>
+
+  <table>
+    <thead>
+      <tr><th scope="col">Maß</th><th scope="col">Wert</th><th scope="col">Was es sagt</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Mittelwert</td><td>0,1732</td><td>das arithmetische Zentrum — empfindlich gegen Ausreißer</td></tr>
+      <tr><td>Median</td><td>0,1719</td><td>die mittlere Beobachtung — robust</td></tr>
+      <tr><td>Standardabweichung</td><td>0,0701</td><td>typischer Abstand vom Mittelwert, in EUR</td></tr>
+      <tr><td>Interquartilsabstand</td><td>0,0974</td><td>Breite der mittleren 50 % der Länder</td></tr>
+      <tr><td>Spannweite</td><td>0,3039</td><td>vom billigsten bis zum teuersten — enthält die Extremfälle</td></tr>
+    </tbody>
+  </table>
+
+  <p>Mittelwert und Median liegen fast gleichauf (0,1732 gegen 0,1719).
+  Das ist der Beleg für die Symmetrie, die das Histogramm schon zeigte —
+  <strong>zwei Zahlen bestätigen, was das Bild nahelegt</strong>.</p>
+
+  <h3>Wo steht Österreich?</h3>
+<pre>
+haushalt |&gt;
+  arrange(preis) |&gt;
+  mutate(rang = row_number()) |&gt;
+  filter(geo == "AT") |&gt;
+  select(geo_name, preis, rang)
+<span class="cmt"># → Austria  0.254  34</span>
+
+haushalt |&gt; filter(geo != "AT") |&gt; summarise(mittel = mean(preis))
+<span class="cmt"># → 0.1711</span>
+</pre>
+  <p>Österreich liegt auf <strong>Rang 34 von 40</strong> und damit
+  <strong>48 % über</strong> dem Mittel der übrigen 39 Länder. Das ist
+  keine Nuance mehr — das ist ein Befund.</p>
+
+  <p>Und als Bild, mit allen Ländern:</p>
+<pre>
+ggplot(haushalt, aes(x = preis, y = fct_reorder(geo_name, preis))) +
+  geom_point() +
+  geom_point(data = filter(haushalt, geo == "AT"),
+             colour = "firebrick", size = 3) +
+  labs(x = "EUR/kWh (ohne Steuern)", y = NULL)
+</pre>
+
+  <div class="callout tipp">
+    <span class="label">sd oder IQR?</span>
+    <p>Die Standardabweichung ist in EUR — sie ist mitsprechbar („die
+      Länder liegen im Schnitt 7 Cent auseinander"). Der IQR ist robuster,
+      aber in Prozent der Verteilung. Nimm <strong>beide</strong>, wenn sie
+      sich widersprechen, und dann schau nach, warum.</p>
+  </div>
+
+  <div class="quiz" data-titel="Quiz: streuungsmasse">
+    <fieldset class="frage">
+      <legend class="frage-text">Mittelwert 0,1732 und Median 0,1719 liegen
+      fast gleichauf. Was heißt das?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-06-q7" value="0" data-grund="Richtig — bei symmetrischen Verteilungen fallen Mittelwert und Median zusammen; die kleine Abweichung passt zur leichten Rechtsschiefe."> Die Verteilung ist annähernd symmetrisch</label>
+        <label><input type="checkbox" name="km7-06-q7" value="1" data-grund="Falsch — bei einer rechtsschiefen Verteilung liegt der Mittelwert deutlich über dem Median."> Die Verteilung ist stark rechtsschief</label>
+        <label><input type="checkbox" name="km7-06-q7" value="2" data-grund="Falsch — die Nähe der beiden Maße sagt nichts über die Streuung; dafür braucht man sd oder IQR."> Die Streuung ist klein</label>
+        <label><input type="checkbox" name="km7-06-q7" value="3" data-grund="Falsch — ein Vergleich zweier Lagemaße sagt nichts über die Fallzahl."> Die Stichprobe ist zu klein für ein Urteil</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche zwei Aussagen über die Streuungsmaße
+      stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-06-q8" value="0" data-grund="Richtig — der IQR deckt die mittleren 50 % ab und ignoriert die Extremwerte."> Der IQR ist robuster gegen Ausreißer als die Standardabweichung</label>
+        <label><input type="checkbox" data-richtig name="km7-06-q8" value="1" data-grund="Richtig — sd hat dieselbe Einheit wie die Daten und ist deshalb direkt interpretierbar."> Die Standardabweichung hat dieselbe Einheit wie die Daten</label>
+        <label><input type="checkbox" name="km7-06-q8" value="2" data-grund="Falsch — die Spannweite nutzt nur zwei Werte und ist deshalb besonders empfindlich, nicht robust."> Die Spannweite ist das robusteste Streuungsmaß</label>
+        <label><input type="checkbox" name="km7-06-q8" value="3" data-grund="Falsch — der IQR enthält per Definition die mittleren 50 %, nicht 95 %."> Der IQR enthält 95 % aller Werte</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 5 — Normalverteilung: darf ich damit rechnen?</h2>
+  <p>Jetzt kommt der Schritt, der in der nächsten Stunde alles entscheidet.
+  Der t-Test setzt voraus, dass die Werte <em>annähernd normalverteilt</em>
+  sind. Prüfen kann man das auf zwei Arten — mit dem Auge und mit einer
+  Zahl.</p>
+
+  <h3>Mit dem Auge: der QQ-Plot</h3>
+<pre>
+qqnorm(haushalt$preis)
+qqline(haushalt$preis)
+</pre>
+  <p>Der QQ-Plot trägt die beobachteten Werte gegen die Werte auf, die bei
+  einer perfekten Normalverteilung zu erwarten wären. <strong>Liegen die
+  Punkte auf der Geraden, ist die Verteilung normal.</strong> Biegt die
+  Kurve an den Enden ab, ist sie schief oder hat schwere Ränder.</p>
+  <p>Hier liegen die Punkte eng an der Linie. Nur ganz rechts hebt sich
+  ein Punkt leicht ab — Irland mit 0,361.</p>
+
+  <h3>Mit einer Zahl: der Shapiro-Wilk-Test</h3>
+<pre>
+shapiro.test(haushalt$preis)
+<span class="cmt"># → Shapiro-Wilk normality test
+#
+#   data:  haushalt$preis
+#   W = 0.97085, p-value = 0.3828</span>
+</pre>
+  <p>Die Hypothesen sind hier <strong>umgekehrt</strong> zu allem, was du
+  bisher kennst:</p>
+<pre>
+H0:  Die Daten sind normalverteilt
+H1:  Die Daten sind nicht normalverteilt
+</pre>
+  <p>Ein p-Wert von 0,38 heißt also: <strong>kein Hinweis gegen die
+  Normalverteilung</strong>. H0 bleibt stehen. Die Voraussetzung für den
+  t-Test ist erfüllt.</p>
+
+  <div class="callout achtung">
+    <span class="label">Der häufigste Denkfehler der ganzen Stunde</span>
+    <p><code>p = 0,38</code> heißt <strong>nicht</strong> „die Daten sind
+    normalverteilt". Es heißt: „Mit diesen 40 Werten konnte ich die
+    Normalverteilung nicht widerlegen." Das ist derselbe Unterschied wie
+    bei jedem anderen Test — ein Test kann nur H0 verwerfen, nie
+    bestätigen. Bei 40 Ländern ist die Prüfung außerdem nicht besonders
+    scharf: Grobe Verletzungen findet sie, feine nicht.</p>
+  </div>
+
+  <h3>Die Schiefe als dritte Meinung</h3>
+<pre>
+<span class="cmt"># Schiefe = mittleres (x - mean)^3 / sd^3
+# → 0.34</span>
+</pre>
+  <p>0,34 ist eine leichte Rechtsschiefe — bei 0 wäre es perfekt
+  symmetrisch. Alle drei Prüfungen sagen dasselbe: <em>annähernd normal,
+  mit einem leichten Zug nach rechts.</em> Genau das ist die Situation, in
+  der ein t-Test gut funktioniert.</p>
+
+  <div class="quiz" data-titel="Quiz: normalverteilung">
+    <fieldset class="frage">
+      <legend class="frage-text">Was bedeutet <code>p = 0,3828</code> beim
+      Shapiro-Wilk-Test?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-06-q9" value="0" data-grund="Falsch — genau umgekehrt: H0 behauptet hier Normalverteilung, ein kleiner p-Wert würde sie verwerfen."> Die Daten sind mit 38 % Wahrscheinlichkeit nicht normalverteilt</label>
+        <label><input type="checkbox" data-richtig name="km7-06-q9" value="1" data-grund="Richtig — H0 lautet „normalverteilt"; p = 0,38 gibt keinen Anlass, sie zu verwerfen."> Es gibt keinen Hinweis gegen die Normalverteilung</label>
+        <label><input type="checkbox" name="km7-06-q9" value="2" data-grund="Falsch — ein Test bestätigt H0 nie; er verwirft sie nur oder eben nicht."> Die Daten sind zu 38 % normalverteilt</label>
+        <label><input type="checkbox" name="km7-06-q9" value="3" data-grund="Falsch — p ≥ 0,05 heißt nicht, dass der Test versagt hat, sondern dass kein Widerspruch gefunden wurde."> Der Test ist ungültig, weil p über 0,05 liegt</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Welche zwei Aussagen über den QQ-Plot
+      stimmen?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-06-q10" value="0" data-grund="Richtig — Punkte auf der Geraden bedeuten Übereinstimmung mit der Normalverteilung."> Punkte nahe der Geraden sprechen für Normalverteilung</label>
+        <label><input type="checkbox" data-richtig name="km7-06-q10" value="1" data-grund="Richtig — ein S-förmiger Verlauf oder abbiegende Enden zeigen Schiefe bzw. schwere Ränder."> Abbiegende Enden zeigen Schiefe oder schwere Ränder</label>
+        <label><input type="checkbox" name="km7-06-q10" value="2" data-grund="Falsch — der QQ-Plot zeigt keine zeitliche Reihenfolge; dafür bräuchte man einen Zeitreihen-Plot."> Der QQ-Plot zeigt den zeitlichen Verlauf der Werte</label>
+        <label><input type="checkbox" name="km7-06-q10" value="3" data-grund="Falsch — der QQ-Plot ist gerade für kleine Stichproben nützlich, weil er die Form zeigt statt nur einen p-Wert."> Der QQ-Plot ist nur bei mehr als 1.000 Werten sinnvoll</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Warum prüft man die Normalverteilung
+      überhaupt, bevor man einen t-Test rechnet?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-06-q11" value="0" data-grund="Richtig — der t-Test leitet seinen p-Wert aus der Annahme normalverteilter Daten ab; hält sie nicht, ist der p-Wert eine Näherung."> Weil der p-Wert des t-Tests auf dieser Annahme beruht</label>
+        <label><input type="checkbox" name="km7-06-q11" value="1" data-grund="Falsch — R rechnet den t-Test auch bei nicht normalverteilten Daten; er warnt nur nicht."> Weil R den t-Test sonst mit einer Fehlermeldung abbricht</label>
+        <label><input type="checkbox" name="km7-06-q11" value="2" data-grund="Falsch — die Normalverteilung ist keine Voraussetzung für den Mittelwert selbst, sondern für die Verteilung der Teststatistik."> Weil man ohne Normalverteilung keinen Mittelwert berechnen darf</label>
+        <label><input type="checkbox" name="km7-06-q11" value="3" data-grund="Falsch — der t-Test vergleicht Mittelwerte; Normalverteilung ist eine Annahme über die Daten, keine Alternative zum Test."> Weil die Normalverteilung den t-Test ersetzt</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Schritt 6 — Das R-Projekt</h2>
+  <p>Ab jetzt arbeitest du wie in <a href="../KM7-04-rstudio-projekt-und-skript/lesson.html">KM7-04</a>
+  beschrieben — nur zum ersten Mal mit einem echten Datensatz:</p>
+<pre>
+2026-11-13_strompreise/
+├── 2026-11-13_strompreise.Rproj    <span class="cmt"># RStudio: File → New Project</span>
+├── data/
+│   └── strompreise-eu-haushalte.csv
+├── analyse.R                        <span class="cmt"># der ganze Code von heute</span>
+├── output/                          <span class="cmt"># hier landen die Plots</span>
+└── README.md                        <span class="cmt"># deine Frage, dein Befund</span>
+</pre>
+  <p>Plots werden <strong>im Skript</strong> gespeichert, nicht per
+  Screenshot:</p>
+<pre>
+ggsave("output/histogramm.png", width = 7, height = 4, dpi = 150)
+</pre>
+  <p>Das <code>.Rproj</code> sorgt dafür, dass „data/…" immer relativ zum
+  Projektordner aufgelöst wird — egal, von wo du RStudio startest.</p>
+</section>
+
+<section>
+  <div class="baustein">Jetzt du!</div>
+  <ol>
+    <li><strong>Vorhersage zuerst, ohne R.</strong> Schreib auf: Wird der
+      Mittelwert über alle 40 Länder <em>über</em> oder <em>unter</em>
+      0,1732 liegen, wenn du statt <code>X_TAX</code> die Steuerart
+      <code>I_TAX</code> nimmst? Und was passiert mit der
+      Standardabweichung? Führe es dann aus.</li>
+    <li><strong>Anderes Band.</strong> Wiederhole die Kennzahlen für
+      <code>KWH_GE15000</code> (Haushalte mit sehr hohem Verbrauch). Sind
+      die Preise höher oder niedriger? Ist die Verteilung noch normal —
+      was sagt <code>shapiro.test()</code>?</li>
+    <li><strong>Zeitvergleich.</strong> Nimm <code>2025-S1</code> statt
+      <code>2025-S2</code>. Wie stark hat sich der Mittelwert bewegt? Ist
+      das mehr oder weniger als die Streuung zwischen den Ländern?</li>
+    <li><strong>Dein eigener Schnitt.</strong> Wähle eine Kombination, die
+      wir noch nicht hatten, und begründe sie in einem Satz. Das ist die
+      Zwischenaufgabe.</li>
+  </ol>
+</section>
+
+<section>
+  <div class="baustein">Typische Fehler</div>
+
+  <h3>Fehler 1 — <code>filter()</code> vergessen</h3>
+<pre>
+strom |&gt; summarise(mittel = mean(preis, na.rm = TRUE))
+<span class="cmt"># → 0.2 — ein Mittelwert über Steuerarten, Währungen
+#   und Verbrauchsbänder gleichzeitig</span>
+</pre>
+  <p>Die Zahl ist berechenbar und bedeutungslos. Der Datensatz ist ein
+  Würfel; ohne Schnitt mittelst du über seine Kanten.</p>
+
+  <h3>Fehler 2 — <code>na.rm</code> vergessen</h3>
+<pre>
+mean(haushalt$preis)
+<span class="cmt"># → NA — sobald ein NA im Vektor ist, ist das Ergebnis NA</span>
+</pre>
+  <p>Zwei Auswege: vorher <code>filter(!is.na(preis))</code> (was wir
+  tun) oder <code>na.rm = TRUE</code>. Beides ist richtig — aber nur
+  eines davon dokumentiert die Entscheidung im Code.</p>
+
+  <h3>Fehler 3 — „p &gt; 0,05 heißt: normalverteilt"</h3>
+  <p>Nein. Es heißt: <em>nicht widerlegt</em>. Bei 40 Werten ist der
+  Shapiro-Test nicht sehr scharf. Ein p-Wert von 0,38 ist ein Freibrief
+  für den t-Test, kein Beweis über die Natur der Daten.</p>
+
+  <h3>Fehler 4 — Normalität an der falschen Stelle prüfen</h3>
+  <p>Der t-Test setzt nicht voraus, dass die <em>Länderpreise</em> normal
+  sind, sondern dass die <strong>Differenz der Mittelwerte</strong> unter
+  H0 normalverteilt ist. Bei zwei Gruppen prüft man deshalb beide Gruppen
+  getrennt — oder, bei gepaarten Daten, die <strong>Differenzen</strong>.
+  Das ist der Stoff der nächsten Stunde.</p>
+
+  <div class="quiz" data-titel="Quiz: typische-fehlschluesse">
+    <fieldset class="frage">
+      <legend class="frage-text">Was liefert
+      <code>mean(haushalt$preis)</code>, wenn eine Zeile
+      <code>NA</code> enthält?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" data-richtig name="km7-06-q12" value="0" data-grund="Richtig — ein einziges NA im Vektor macht das gesamte Ergebnis NA."> <code>NA</code></label>
+        <label><input type="checkbox" name="km7-06-q12" value="1" data-grund="Falsch — R ignoriert fehlende Werte nicht still; ohne na.rm wird das Ergebnis NA."> Den Mittelwert der übrigen Werte</label>
+        <label><input type="checkbox" name="km7-06-q12" value="2" data-grund="Falsch — es ist kein Fehler; R liefert NA und läuft weiter."> Eine Fehlermeldung, die das Skript abbricht</label>
+        <label><input type="checkbox" name="km7-06-q12" value="3" data-grund="Falsch — mean() liefert einen einzelnen Wert, keine Liste."> Eine Liste mit den gültigen Werten</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="frage">
+      <legend class="frage-text">Du willst zwei Gruppen mit dem t-Test
+      vergleichen. Wo prüfst du die Normalverteilung?</legend>
+      <div class="optionen">
+        <label><input type="checkbox" name="km7-06-q13" value="0" data-grund="Falsch — die Gesamtverteilung kann normal aussehen, obwohl beide Gruppen es nicht sind (und umgekehrt)."> Am gesamten Datensatz ohne Gruppentrennung</label>
+        <label><input type="checkbox" data-richtig name="km7-06-q13" value="1" data-grund="Richtig — die Annahme betrifft die Verteilung innerhalb jeder Gruppe; bei gepaarten Daten die Differenzen."> In jeder Gruppe getrennt — bei gepaarten Daten an den Differenzen</label>
+        <label><input type="checkbox" name="km7-06-q13" value="2" data-grund="Falsch — der t-Test selbst prüft keine Voraussetzungen; er rechnet sie stillschweigend voraus."> Der t-Test prüft das automatisch mit</label>
+        <label><input type="checkbox" name="km7-06-q13" value="3" data-grund="Falsch — die Normalverteilung ist keine Voraussetzung für den Chi-Quadrat-Test; der arbeitet mit Häufigkeiten."> Gar nicht, weil der Chi-Quadrat-Test das übernimmt</label>
+      </div>
+    </fieldset>
+  </div>
+</section>
+
+<section>
+  <h2>Zusammenfassung</h2>
+  <table>
+    <thead>
+      <tr><th scope="col">Baustein</th><th scope="col">Wofür</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Dimensionen prüfen</td><td>43 · 11 · 3 · 3 · 3 = 12.771 — erst die Maße verstehen, dann filtern</td></tr>
+      <tr><td>Schnitt begründen</td><td>Jeder <code>filter()</code> ist eine inhaltliche Entscheidung, keine Technik</td></tr>
+      <tr><td>Histogramm</td><td>Zentrum, Breite, Form, Ausreißer — vier Fragen auf einmal</td></tr>
+      <tr><td>Mittelwert vs. Median</td><td>Liegen sie gleichauf, ist die Verteilung symmetrisch</td></tr>
+      <tr><td>sd vs. IQR</td><td>sd ist mitsprechbar in EUR, IQR ist robuster</td></tr>
+      <tr><td>QQ-Plot</td><td>Punkte auf der Geraden = normal; abbiegende Enden = schief</td></tr>
+      <tr><td>Shapiro-Wilk</td><td>H0 = normalverteilt; p &gt; 0,05 heißt <em>nicht widerlegt</em></td></tr>
+      <tr><td>Voraussetzung prüfen</td><td>Sie entscheidet, welcher Test in der nächsten Stunde erlaubt ist</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Ausblick:</strong> Die Daten sind normalverteilt, Österreich
+  liegt 48 % über dem Mittel — damit ist die Frage „ist das signifikant?"
+  noch nicht beantwortet, aber sie ist jetzt <em>beantwortbar</em>. In
+  <a href="../KM7-07-strompreise-mittelwertsvergleich/lesson.html">KM7-07</a>
+  rechnen wir den Test — und sehen, was passiert, wenn die Voraussetzung
+  einmal <em>nicht</em> hält.</p>
+</section>
+
+<section>
+  <div class="baustein">Aufgabe</div>
+  <p>Bearbeite die <a href="aufgabe.md">Aufgabe KM7-06 — Strompreise
+  beschreiben</a>: eigener Schnitt, Kennzahlen, Histogramm, QQ-Plot und
+  Shapiro-Test — und die <strong>Zwischenaufgabe</strong>, in der du ein
+  eigenes R-Projekt dafür anlegst.</p>
+  <p><strong>Abgabe:</strong> Commit in deinem PMM-Repo unter
+  <code>2026-11-13_strompreise/</code>, bis <strong>2026-11-20</strong>.</p>
+</section>
+
+<details class="lehrplan">
+  <summary>Lehrplan &amp; Einordnung</summary>
+  <ul>
+    <li><strong>Lehrplan:</strong> PMM (HWIT), 4. Jahrgang — Statistische
+      Methoden, Semesterplan 4. Klasse, Wintersemester (UE 4–5:
+      Verteilungen, UE 6–8: Tests)</li>
+    <li><strong>KM-Bezug:</strong> KM7 (Statistische Tests) — Voraussetzung
+      für t-Test und ANOVA; Querbezug zu SA-03 (Deskriptiv), KM6-01
+      (Boxplot), KM7-01 (t-Test), KM7-04 (R-Projekt)</li>
+    <li><strong>Daten:</strong> Eurostat <code>nrg_pc_204</code>
+      („Electricity prices for household consumers — bi-annual data"),
+      CC BY 4.0 — Namensnennung „Eurostat (nrg_pc_204)"</li>
+    <li><strong>Runtime:</strong> R 4.5 / tidyverse,
+      <code>summarise()</code>, <code>IQR()</code>,
+      <code>qqnorm()</code>, <code>shapiro.test()</code></li>
+  </ul>
+</details>
+
+<footer class="navi">
+  <p><strong>Quelle zum Weiterlesen:</strong> Navarro,
+  <a href="https://learningstatisticswithr.com/09-probability.html">Kap. 9</a>
+  (Hauptlektüre) · NIST/SEMATECH e-Handbook,
+  <a href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm">Kap. 1.3.5.11</a>
+  (Schiefe) und
+  <a href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda366.htm">Kap. 1.3.6.6</a>
+  (Verteilungen). · Datensatz:
+  <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204">Eurostat nrg_pc_204</a>.</p>
+  <p>Fragen? Frag Georg im Unterricht oder per Mail/Teams — keine Frage
+  ist zu klein, solange du den Code dabei hast.</p>
+  <p>Weiter: <a href="../KM7-07-strompreise-mittelwertsvergleich/lesson.html">Lektion KM7-07 —
+  Liegt Österreich signifikant höher?</a></p>
+</footer>
+
+</body>
+</html>

@@ -5,6 +5,14 @@
 **Datenstand:** 2026-11-12, alle 14 Schüler-Repos frisch gepullt
 **Issue:** [#50](https://github.com/georgernstgraf/GRG-PMM/issues/50)
 
+> **Nachtrag 2026-11-12:** Die Empfehlung in Abschnitt 8 („Erhebung in der
+> Stunde") wurde verworfen. Statt zu erheben, werden die beiden einzigen
+> Abgaben direkt zu einer Lektionsreihe verarbeitet:
+> [KM7-06](../../unterricht/KM7-06-strompreise-verteilung/lesson.html) und
+> [KM7-07](../../unterricht/KM7-07-strompreise-mittelwertsvergleich/lesson.html)
+> (Issue [#51](https://github.com/georgernstgraf/GRG-PMM/issues/51)).
+> Der Befund unten bleibt als Momentaufnahme stehen.
+
 ---
 
 ## 1. Was aufgegeben war
