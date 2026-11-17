@@ -7,12 +7,13 @@
 ## 2026-11-17_selbststudium_t_test
 
 - <unterricht/KM7-01-mittelwertsvergleich-t-test>
-- feedback zu dieser Lektion
+- feedback zu dieser Lektion geben
 - bitte in Deinem Repo ISO-8601 Ordnernamen verwenden
 - so ein Ordner IST ein R-projektordner.
 
 ## Aufgaben ganzes Semester
 
+- 2026-11-17: Schulübung zu Hause fertig machen
 - 2026-11-10_rtooling: Recherchiere eigenständig, wie du
 das eingelesene Betriebsdaten‑File
 als Excel wieder in das R‑Projekt
