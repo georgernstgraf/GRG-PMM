@@ -1,5 +1,9 @@
 # 4AHWIT PMMy
 
+## 2026-11-20
+
+- ifelse in excel (excel ins repo!)
+
 ## Aufgaben
 
 ## 2026-11-13
