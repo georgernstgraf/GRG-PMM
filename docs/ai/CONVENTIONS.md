@@ -229,6 +229,20 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
 - `assets/style.css` (Selbststudium/Referenzseiten) bleibt bewusst bei
   seinen einfachen Trennlinien; das Gitter gilt nur für die Lernplattform.
 
+## Abgedruckter Code-Output (#53, 2026-11-20)
+
+- **Der gezeigte Output muss aus dem gezeigten Code stammen** — wörtlich aus
+  einem echten Lauf, nie aus dem Gedächtnis und nie „schöner" formatiert.
+  Fundstelle #53: `aufgabe.md` druckte unter `tab` eine Zeile `Sum 4 112`,
+  die nur `addmargins()` erzeugt; die 112 wurde daraufhin für die Gesamtzahl
+  gehalten.
+- **Kreuztabellen-Beispiele zeigen die Randsummen** (`addmargins(tab)`) und
+  benennen die Gesamtsumme im Eck ausdrücklich („116 — nicht 112"). Der
+  Chi-Test rechnet mit allen auswertbaren Fällen; die NA-Fälle fehlen in der
+  Tabelle, sie werden nicht „abgezogen" — `table()` lässt sie weg.
+- Die führende Leerzeile der R-Ausgabe (bei `print()` einer Tabelle) wird beim
+  Abdruck weggelassen, der Rest ist zeichengleich.
+
 ## Folien / reveal.js — BEENDET (#42, 2026-11-07)
 
 > Alle `praesentation.html`-Dateien sind gelöscht, `assets/slides.css`

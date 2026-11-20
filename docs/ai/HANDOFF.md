@@ -107,6 +107,12 @@ auf ✅; danach L05 bauen.
 
 
 ## Erledigt (dieser Zyklus)
+- **GRG-PMM #53 (2026-11-20):** KM7-02 — Kreuztabellen-Beispiele zeigen jetzt
+  Randsummen (`addmargins`), Callout „116 — nicht 112", Zeilensummen in
+  Schritt 1 vor gerechnet, `aufgabe.md` 1a mit korrektem, reproduzierbarem
+  Output, neue Quizfrage q5 (112-Verwechslung; Fragen q5–q24 → q6–q25
+  umnummeriert), CONVENTIONS-Abschnitt „Abgedruckter Code-Output".
+  Issue geschlossen. #52 (`tab` als Name vs. Wert) bleibt offen.
 - **GRG-PMM-T #5 (2026-11-07):** Alle drei WÜ korrigiert — 4ahwit-x/2026-10-20
   (14), 5ahwit/2026-10-21 (17), 4ahwit-y/2026-10-23 (12): je Schüler
   grading.md + email.json, Aggregate CLASS.md/GRADINGS.md/EMAIL.json.

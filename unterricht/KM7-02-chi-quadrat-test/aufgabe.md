@@ -24,19 +24,34 @@ daten <- read_csv("daten/betriebsdaten.csv") |>
                       "ausserhalb", "in_Toleranz")))
 tab <- table(daten$maschine, daten$iok)
 tab
+addmargins(tab)      # dieselbe Tabelle mit Randsummen
 ```
 
 ```
-          ausserhalb  in_Toleranz
-M1                0           37
-M2                0           39
-M3                4           36
-Sum               4          112
+     ausserhalb in_Toleranz
+  M1          0          37
+  M2          0          39
+  M3          4          36
 ```
+
+```
+      ausserhalb in_Toleranz Sum
+  M1           0          37  37
+  M2           0          39  39
+  M3           4          36  40
+  Sum          4         112 116
+```
+
+> **Lies die Gesamtsumme an der richtigen Stelle:** unten rechts stehen
+> **116** (alle auswertbaren Messungen). Die **112** in derselben Zeile ist
+> die *Spaltensumme* „in Toleranz" (37 + 39 + 36), die **4** die
+> Spaltensumme „ausserhalb". Die vier fehlenden Messungen stehen gar nicht
+> in der Tabelle — `table()` lässt sie weg.
 
 ### 1b. Vorhersagen (ohne R — erst hinschreiben!)
 
-1. Wie viele gültige Messungen hat die Tabelle insgesamt? Warum nicht 120?
+1. Wie viele Messungen wertet der Test insgesamt aus? Warum nicht 120 — und
+   warum ist die 112 aus der Spalte „in Toleranz" nicht die Gesamtzahl?
 2. Wie viele Ausschusteile wären bei **Unabhängigkeit** (H0) in Zeile M1
    zu erwarten? Rechne die Formel von Hand:
    erwartet = (Zeilensumme · Spaltensumme) / Gesamtsumme.
