@@ -233,10 +233,38 @@ X&sup2; = &Sigma; (Beobachtet - Erwartet)&sup2; / Erwartet
 M1:  (0 - 1.28)&sup2; / 1.28 = 1.28
 M2:  (0 - 1.34)&sup2; / 1.34 = 1.34
 M3:  (4 - 1.38)&sup2; = 6.86   &rarr;   6.86 / 1.38 = 4.98
+Summe ausserhalb:  1.28 + 1.34 + 4.98 = 7.60
 </pre>
-  <p>Zusammen mit den drei Zellen der Spalte „in Toleranz" (0,05 + 0,05 +
-  0,18) ergeben <strong>alle sechs Zellen</strong> 7,87 — genau der Wert,
-  den R ausweist. Und jetzt:</p>
+  <p>Und dasselbe für die drei Zellen der Spalte „in Toleranz". Hier sind
+  die Erwartungen groß — 112 von 116 Teilen liegen in der Toleranz, das
+  sind 96,55 % —, deshalb fallen die Beiträge klein aus:</p>
+<pre>
+M1:  (37 - 35.72)&sup2; / 35.72 = 0.0456
+M2:  (39 - 37.66)&sup2; / 37.66 = 0.0480
+M3:  (36 - 38.62)&sup2; / 38.62 = 0.1778
+Summe in Toleranz:  0.0456 + 0.0480 + 0.1778 = 0.2714
+</pre>
+  <p>Beide Spalten zusammen ergeben <strong>alle sechs Zellen</strong> —
+  genau der Wert, den R ausweist:</p>
+<pre>
+X&sup2; = 7.6000 + 0.2714 = 7.8714
+</pre>
+  <p>Dieselbe Rechnung als Formel-Tabelle:
+  <a href="daten/chi-quadrat-explained.xlsx">daten/chi-quadrat-explained.xlsx</a>
+  — jede Zahl ist anklickbar, die beiden Spaltensummen stehen in der gelben
+  Zeile. Dort (und in R) wird mit den ungerundeten Werten gerechnet und erst
+  am Schluss auf 7,87 gerundet — wer die angezeigten 0,05 + 0,05 + 0,18
+  addiert, landet wegen der Rundung bei 0,28.</p>
+
+  <div class="callout">
+    <span class="label">Merke — beobachtet 0? Beitrag = Erwartungswert</span>
+    <p>Bei einer Zelle mit <strong>0 beobachteten</strong> Fällen kürzt sich
+      die Erwartung heraus: (0 − e)&sup2; / e = e&sup2; / e = e. M1 und M2
+      tragen in der Spalte „außerhalb" deshalb genau ihre Erwartungswerte
+      bei: 1,28 und 1,34.</p>
+  </div>
+
+  <p>Und jetzt rechnet R dasselbe in einem Aufruf:</p>
 <pre>
 tab &lt;- table(daten$maschine, daten$iok)
 chisq.test(tab)
