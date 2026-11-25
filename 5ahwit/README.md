@@ -17,6 +17,8 @@
 - 2026-09-23: Setup-HÜ — PMM-Repo auf GitHub anlegen (public, mit README) + Wiederholungswünsche der 4. Klasse im Repo-README festhalten → [2026-09-23__setup_fertig/](./2026-09-23__setup_fertig/)
 - 2026-09-16: Lektion SA-01 durcharbeiten + Hausaufgabe UE 1 → [unterricht/SA-01-datenvisualisierung-ggplot/](../unterricht/SA-01-datenvisualisierung-ggplot/aufgabe.md)
 
+## 2026-11-25 festigung chi-sqared
+
 ## 2026-10-14_chi_quadrat_schulübung
 
 ## 2026-09-23__git/vscode/Rstudio Installation
