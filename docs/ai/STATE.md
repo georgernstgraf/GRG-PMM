@@ -177,7 +177,7 @@ unterricht ohne Zweig-Fach-Ordner).
       7,6000 + 0,2714 = 7,8714 (R: 7.871), plus Merk-Kasten „beobachtet 0 ⇒
       Beitrag = Erwartungswert". Der Satz „0,05 + 0,05 + 0,18" aus der
       Lesson wurde durch die exakten Werte ersetzt (Rundungsfalle, siehe
-      PITFALLS).
+      PITFALLS). Issue geschlossen.
 - [x] 2026-11-07 — **Quiz-2.1-Sechser-Batch** (#42, Subagent-Batch nach
       Context-Economy-Regel, Commits `8d1d60a` KM5-01 (+aufgabe.md),
       `9dd5a07` KM5-02 (2→10 Fragen), `6c696a6` KM5-03 (+Datenfehler
