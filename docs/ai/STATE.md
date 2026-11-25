@@ -3,7 +3,7 @@ type: State
 title: STATE — GRG-PMM
 description: Aktueller Projektstatus — Fokus, abgeschlossene Zyklen, offene Punkte
 tags: [pmm, status]
-generated: { by: opencode/knowledge-persistence, at: 2026-11-08T14:00:00Z }
+generated: { by: opencode/knowledge-persistence, at: 2026-11-25T09:19:24Z }
 verified: { by: opencode/knowledge-persistence, at: 2026-11-08T14:00:00Z }
 status: stable
 sources:
@@ -16,6 +16,9 @@ sources:
   - id: issue-47
     resource: https://github.com/georgernstgraf/GRG-PMM/issues/47
     title: Tote externe Links reparieren + Link-Check-Skript
+  - id: issue-54
+    resource: https://github.com/georgernstgraf/GRG-PMM/issues/54
+    title: KM7-02 — Excel-Handrechnung als Kopie, Beitragssummen in der Lesson
 ---
 
 # Project State
@@ -163,6 +166,18 @@ opencode-helpers (#92) entsprechend umgebaut (Fach-Ebene vs. Zweig-Ebene,
 unterricht ohne Zweig-Fach-Ordner).
 
 ## Completed (this cycle)
+- [x] 2026-11-25 — **KM7-02: Excel-Handrechnung als bereinigte Kopie (#54,
+      Commit `bf47e6c`).** Neue Formel-Tabelle
+      `unterricht/KM7-02-chi-quadrat-test/daten/chi-quadrat-explained.xlsx`
+      (leere R-Import-Sheets weg, Sheet `chi-quadrat`, Titelzeile, Anteile
+      unter H0 als Prozent 3,45 %/96,55 %, gelbe Summenzeile 7,60/0,27,
+      Zeile `X² = F7+H7`). `lesson.html` Schritt 2 rechnet jetzt beide
+      Spalten vor: Summe „außerhalb" 1,28 + 1,34 + 4,98 = 7,60, zweiter
+      Block „in Toleranz" 0,0456 + 0,0480 + 0,1778 = 0,2714, zusammen
+      7,6000 + 0,2714 = 7,8714 (R: 7.871), plus Merk-Kasten „beobachtet 0 ⇒
+      Beitrag = Erwartungswert". Der Satz „0,05 + 0,05 + 0,18" aus der
+      Lesson wurde durch die exakten Werte ersetzt (Rundungsfalle, siehe
+      PITFALLS).
 - [x] 2026-11-07 — **Quiz-2.1-Sechser-Batch** (#42, Subagent-Batch nach
       Context-Economy-Regel, Commits `8d1d60a` KM5-01 (+aufgabe.md),
       `9dd5a07` KM5-02 (2→10 Fragen), `6c696a6` KM5-03 (+Datenfehler

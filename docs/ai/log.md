@@ -1,5 +1,9 @@
 # Persistence Log
 
+## 2026-11-25
+* **Update**: [PITFALLS.md](PITFALLS.md) — 2 Einträge (Rundungsfalle bei kleinen Chi-Quadrat-Beiträgen; xlsx mit openpyxl bauen, gecachte Werte per LibreOffice-Recalc, Fit-to-Page) (#54).
+* **Update**: [STATE.md](STATE.md) — Completed-Eintrag KM7-02: bereinigte Excel-Kopie + Beitragssummen in der Lesson (#54).
+
 ## 2026-11-08
 * **Update**: [PITFALLS.md](PITFALLS.md) — 2 Einträge (Navarro-`/book/` tot + Kapitel-URL-Schema; Link-Check nur auf echten Link-Zielen, WARN-Semantik, Retry-Loop) (#47).
 * **Update**: [STATE.md](STATE.md) — Current Focus um #47 ergänzt (Link-Reparatur, `Unterlagen/check-links.sh`).

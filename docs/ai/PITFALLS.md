@@ -3,7 +3,7 @@ type: Pitfalls
 title: PITFALLS — GRG-PMM
 description: Fehlbarkeitserfahrung — CDP-/Messfallen, Pages-Fallen, Datenquellen-Fallen, R-Stolpersteine
 tags: [pmm, cdp, pages, lehrplan, r]
-generated: { by: opencode/knowledge-persistence, at: 2026-11-08T14:00:00Z }
+generated: { by: opencode/knowledge-persistence, at: 2026-11-25T09:19:24Z }
 verified: { by: opencode/knowledge-persistence, at: 2026-11-08T14:00:00Z }
 status: stable
 sources:
@@ -16,6 +16,9 @@ sources:
   - id: issue-47
     resource: https://github.com/georgernstgraf/GRG-PMM/issues/47
     title: Tote externe Links reparieren + Link-Check-Skript
+  - id: issue-54
+    resource: https://github.com/georgernstgraf/GRG-PMM/issues/54
+    title: KM7-02 — Excel-Handrechnung als Kopie, Beitragssummen in der Lesson
 ---
 
 # Pitfalls
@@ -251,3 +254,5 @@ Read this file carefully before making changes in affected areas.
 - **Navarro-Buch: `/book/` ist tot, Kapitel liegen am Site-Root (2026-11-08, #47).** `https://learningstatisticswithr.com/book/` liefert 404 — das Buch wurde auf Quarto portiert und wird jetzt direkt von der Domain-Wurzel ausgeliefert. Kapitel-URLs folgen dem Muster `NN-slug.html` (`09-probability.html`, `11-hypothesisting.html`, `12-chisquare.html`, `13-ttest.html`, `16-anova2.html`), Anker wie `#sec-errortypes` funktionieren. Die Altversion lebt nur unter `old.learningstatisticswithr.com` und wird laut Autorin abgeschaltet — nicht als Ersatzziel verwenden. Beim Zitieren zusätzlich prüfen, *welches* Kapitel: Fehler 1./2. Art und Teststärke stehen in **Kap. 11** (`sec-errortypes`, „The power function"), nicht in Kap. 16 (Factorial ANOVA). Ein falscher Titel schleicht sich mit: „Statistik für Human- und Sozialwissenschaftler" ist Bortz, Navarros Buch heißt „Learning Statistics with R" und ist englisch.
 - **Offene Hausübung ohne Format und Termin liefert 2/14 Abgaben (2026-11-12, #50).** Die Ferien-HÜ vom 2026-10-23 („nenne als Abgabe in Deinem Repo Wunschthemen") hatte weder Abgabepfad noch Dateinamen noch Termin. Ergebnis nach drei Wochen: 2 von 14 Repos enthielten eine Abgabe, in zwei völlig verschiedenen Formen (ausgearbeitetes Katalog-Format vs. drei Stichwörter in einer Datei ohne Endung). Die 12 Fehlenden waren **nicht** inaktiv — 9 von ihnen hatten die Chi²-HÜ vom 2026-11-06 abgegeben. Merke: Erhebungen, die eine Themenwahl vorbereiten sollen, gehören in die Stunde (Katalog als Menü zeigen), nicht als offene HÜ; und wenn doch als HÜ, dann mit explizitem Pfad, Dateinamen und Datum.
 - **Link-Check nur auf echten Link-Zielen, nicht auf Prosa-URLs (2026-11-08, #47).** Ein `grep 'https\?://…'` über Doku-Dateien zieht URLs aus Code-Spans, Ellipsen (`…/analysis/…`), Templates (`$d.csv`) und kaputten Markdown-Links mit — jedes davon erzeugt einen Falsch-404. `Unterlagen/check-links.sh` extrahiert deshalb nur `href="…"` und `](…)`, prüft nur getrackte Dateien (`git ls-files`, sonst landen `.opencode/node_modules`-READMEs im Sweep) und wertet 403/429 sowie 5xx als WARN statt FAIL (Bot-Blocker; github.com antwortet von diesem Host sporadisch mit 504, obwohl die Repos erreichbar sind). Verbindungsresets (curl-Exit 35, Code 000) brauchen einen eigenen Retry-Loop — `--retry` von curl greift dort nicht.
+- **Gerundete Handrechnungs-Beiträge addieren sich nicht auf die Summe (2026-11-25, #54).** In KM7-02 sind die drei Beiträge der Spalte „in Toleranz" 0,0456 / 0,0480 / 0,1778; auf zwei Stellen angezeigt ergibt „0,05 + 0,05 + 0,18" die Summe 0,28, gerechnet ist es 0,2714 → 0,27. Eine Lesson, die genau diese Zeile zeigt, produziert einen scheinbaren Rechenfehler. Lösung in KM7-02: kleine Beiträge mit vier Nachkommastellen zeigen und die Spaltensumme exakt bilden (`7,6000 + 0,2714 = 7,8714`), dann erst auf 7,87 runden — plus ein Satz, dass Excel/R ungerundet rechnen. Regel: Beiträge, die kleiner als 0,1 sind, nicht auf zwei Stellen zeigen, ohne die Rundung zu benennen.
+- **xlsx mit Formeln bauen: openpyxl schreibt keine gecachten Werte (2026-11-25, #54).** `openpyxl` speichert nur `<f>`, kein `<v>` — Excel rechnet beim Öffnen, aber `readxl`, LibreOffice-Vorschau und GitHub-Vorschauen liefern `NA`. Recalc: die Datei einmal durch `soffice --headless --convert-to xlsx:"Calc MS Excel 2007 XML"` schicken; das behält Formeln, Zahlenformate, Merges und die Print-Area und legt die Ergebnisse ab. Auf dell fehlt `python3-venv` (ensurepip blockiert) → `python3 -m pip install --target /tmp/opencode/pylib openpyxl` und `PYTHONPATH` setzen. Zwei Stolpersteine dabei: (1) Text, der mit `=` beginnt, wird als Formel gelesen und rendert `Err:509` — kein `=` am Textanfang; (2) ohne `sheet_properties.pageSetUpPr.fitToPage` + `page_setup.fitToWidth = 1` fällt beim PDF/Druck die letzte Spalte raus (im Ausgangsblatt war das `chisq gut`, also genau die zweite Beitragsspalte).
