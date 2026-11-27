@@ -10,4 +10,7 @@ transcript.md
 selbststudium/last.R
 .Rproj.user/
 .Rproj.user
-4ahwit-y/2026-11-20_rbasics_chisq/.~lock.demo_if_else.xlsx#
+
+# Office-Lockdateien (LibreOffice `.~lock.datei#`, MS Excel `~$datei.xlsx`) — projektweit
+.~lock.*#
+~$*
