@@ -4,7 +4,7 @@ title: CONVENTIONS — GRG-PMM
 description: Fortlaufende Regeln — Naming, Language, Git, Repo-Struktur, Quizzes, Lernplattform, Assets, Tabellen, Datenquellen
 tags: [pmm, konventionen, pages, lessons]
 generated: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
-verified: { by: opencode/knowledge-persistence, at: 2026-11-08T09:26:51Z }
+verified: { by: opencode/knowledge-persistence, at: 2026-11-27T10:27:30Z }
 status: stable
 sources:
   - id: issue-46
@@ -33,6 +33,7 @@ Follow these without question. Do not deviate unless explicitly told.
 - Every commit must reference a GitHub issue number (e.g., `Thema: Beschreibung (#1)`)
 - Use the `issue-workflow` skill for all commits
 - No commit of temporary files, IDE directories, or binary artifacts
+- Office-Lockdateien werden **projektweit** ignoriert (`.~lock.*#` für LibreOffice, `~$*` für MS Excel), nie pfadgenau — echte `.xlsx`-Lehrmaterialien bleiben getrackt (#55)
 - Push only the current branch
 
 ## Repo Structure

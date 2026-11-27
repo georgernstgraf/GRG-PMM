@@ -1,5 +1,8 @@
 # Persistence Log
 
+## 2026-11-27
+* **Update**: [CONVENTIONS.md](CONVENTIONS.md) — Git-Regel: Office-Lockdateien projektweit statt pfadgenau ignorieren (`.~lock.*#`, `~$*`); echte `.xlsx`-Lehrmaterialien bleiben getrackt (#55).
+
 ## 2026-11-25
 * **Update**: [PITFALLS.md](PITFALLS.md) — 2 Einträge (Rundungsfalle bei kleinen Chi-Quadrat-Beiträgen; xlsx mit openpyxl bauen, gecachte Werte per LibreOffice-Recalc, Fit-to-Page) (#54).
 * **Update**: [STATE.md](STATE.md) — Completed-Eintrag KM7-02: bereinigte Excel-Kopie + Beitragssummen in der Lesson (#54).
