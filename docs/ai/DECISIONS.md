@@ -718,3 +718,39 @@ Each entry documents WHAT was decided and WHY.
 - **Tradeoff:** Historische Prüfungs- und Kohortendateien behalten die
   alten 6er-Zahlen als Beleg; sie werden nicht rückdatiert. Der Nachweis
   der neuen Werte steht in `KM6-01`/`KM7-02` und im Issue #42.
+
+## 2026-11-27: Nachträge zu Lessons — Slot `beispiele/<slug>/` + Hellwig-Regel (#56)
+
+- **Choice:** Eine fertige Lesson darf nachträglich um Zusatzbeispiele
+  erweitert werden — in **einem** festen Slot je Lesson:
+  `unterricht/<LESSON>/beispiele/<slug>/`, self-contained (eigene `README.md`,
+  eigenes `daten/` mit `README.md`, bei R `.here` + `runbook.R` mit
+  `source(here::here(...))`). Grenze zwischen Lesson und Projekt-Ablage ist
+  die **Hellwig-Regel:** *installationsfrei → darf in die Lesson,
+  installierbar → muss nach `Projekte/<km#>-<NN>-<slug>/`.*
+  Installationsfrei = Skripte (R/Python/SQL) + Daten + Markdown, keine
+  Manifeste, kein Build, kein Server.
+- **Why:** Der Vorgang „Lesson ist gebaut, ein gutes Zusatzbeispiel entsteht
+  erst danach" ist Normalfall, nicht Ausnahme — er scheiterte bisher an der
+  Formulierung „kein lauffähiger Code unter `unterricht/`" im
+  `create-lesson`-Skill. Dessen Absicht ist „keine installierbaren
+  Scaffolds"; ein R-Skript plus CSV verletzt nur den Wortlaut, nicht den
+  Zweck. Ein fester Slot ersetzt Ad-hoc-Ordnernamen (`femizide/`) und macht
+  die Ablage ohne neue Entscheidung wählbar; `Projekte/` bleibt der Ort für
+  alles, was Abhängigkeiten verwaltet.
+- **Nachtrags-Checkliste (6 Punkte, keine Einzelfall-Entscheidung mehr):**
+  1. Slot `beispiele/<slug>/` mit eigener `README.md`, von dort ausführbar.
+  2. `daten/README.md` mit Quelle, Stand, Lizenz; keine fremden PDFs, nur
+     Fakten-CSVs + Quellenlink (nur `unterricht/` wird deployt).
+  3. Installationsfreiheit geprüft, Einzeiler zum Ausführen im README.
+  4. Verlinkung aus `lesson.html` (relativer Link) und `aufgabe.md`
+     (Aufgabenblock); Root-`index.html` bleibt unverändert.
+  5. `Unterlagen/check-links.sh` grün; nicht deployte Pfade (`Projekte/`,
+     `docs/`) nur per GitHub-URL.
+  6. Ein Commit mit Issue-Referenz; die Konventionsabweichung steht hier —
+     **nicht** pro Nachtrag erneut.
+- **Tradeoff:** Die Grenze „installationsfrei" ist eine Urteilsentscheidung
+  (ein R-Skript mit `renv.lock` kippt auf die Projekt-Seite). Dafür ist die
+  Regel absichtsbasiert statt wortlautgebunden und hält die
+  Lernplattform frei von Build-Artefakten. Erstanwendung:
+  `KM7-02-chi-quadrat-test/beispiele/femizide/` (#36).

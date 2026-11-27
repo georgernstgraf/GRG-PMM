@@ -130,6 +130,24 @@ teach-skill lesson quizzes (`quiz.js`, single-correct) in `selbststudium/`.
   Lektionen liegen im Datums-Ordner
   `<klasse>/YYYY-MM-DD__thema/lesson.html`; das README dazu schreibt die
   Lehrperson.
+- **Lesson-Nachtrag `beispiele/<slug>/` (2026-11-27, #56):** Eine gebaute
+  Lesson darf **nachträglich** um Zusatzbeispiele/Projekte erweitert werden.
+  Ablage ist dafür **ein** fester Slot je Lesson:
+  `unterricht/<LESSON>/beispiele/<slug>/` — self-contained mit eigener
+  `README.md` (Auftrag, Ausführung, erwartetes Ergebnis), eigenem `daten/`
+  (inkl. `daten/README.md`: Quelle, Stand, Lizenz) und bei R zusätzlich
+  `.here` (ankert `here::here()` im Projekt) sowie `runbook.R` mit
+  `source(here::here("R", "01_….R"))`. Es gilt die **Hellwig-Regel:**
+  *installationsfrei → darf in die Lesson, installierbar → muss nach
+  `Projekte/<km#>-<NN>-<slug>/`.* Installationsfrei heißt: nur Skripte
+  (R/Python/SQL) + Daten + Markdown, **keine** Manifeste (`package.json`,
+  `renv.lock`, `requirements.txt`), kein Build, kein Server. Der Slot ist
+  **verlinkungspflichtig**: ein Satz + relativer Link in `lesson.html`, ein
+  Aufgabenblock in `aufgabe.md`; der Root-`index.html` bleibt unverändert
+  (er listet Lessons, keine Zusatzprojekte). Keine fremden PDFs ins Repo —
+  nur Fakten-CSVs plus Quellenlink im `daten/README.md`; keine
+  personenbezogenen Daten. Ein Nachtrag braucht **keine neue Entscheidung**,
+  nur die Checkliste in `DECISIONS.md` („Nachträge zu Lessons").
 - **lehrplan-Ebenen (2026-09-29, #21):** **Fach-Ebene** am `lehrplan/`-Root =
   `METADATA.md`, `RIS/`, `kompetenzmodule/` (KM-Steckbriefe) und KM-keyed
   Ressourcen (`ressourcen-matrix.md`, `r4ds-abdeckung.md`) — formunabhängig.

@@ -148,6 +148,13 @@ user wants to learn R, statistics, or any PMM-relevant topic.
 - Selbststudium-Bestand (`selbststudium/prepared-lessons/`, `learning-records/`)
   ist **zweistellig** nummeriert (`01`–`99`) — eigene fortlaufende Zählung mit
   Querverweisen; bei Erreichen der Grenze (100) erneuter Umbau.
+- **Nachträge zu einer fertigen Lesson** liegen in dem einen Slot
+  `unterricht/<LESSON>/beispiele/<slug>/` (self-contained, eigene
+  `README.md` + `daten/`; bei R `.here` + `runbook.R`). Es gilt die
+  Hellwig-Regel: *installationsfrei → darf in die Lesson, installierbar →
+  nach `Projekte/<km#>-<NN>-<slug>/`.* Ein Nachtrag ist aus `lesson.html`
+  und `aufgabe.md` zu verlinken; Details und Checkliste:
+  `docs/ai/CONVENTIONS.md` / `docs/ai/DECISIONS.md` (#56).
 
 ## Knowledge Bootstrap
 Before starting any task, read the following files in order:
