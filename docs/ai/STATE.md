@@ -26,6 +26,19 @@ sources:
 Current status as of 2026-11-08.
 
 ## Current Focus
+**Nachtrag-Slot für Lessons + Femizid-Projekt (#56, #36, 2026-11-27):**
+Lessons dürfen nachträglich um Zusatzbeispiele wachsen — in **einem** Slot
+`unterricht/<LESSON>/beispiele/<slug>/`, mit der Hellwig-Regel als Grenze
+(*installationsfrei → Lesson, installierbar → `Projekte/`*). Regelwerk:
+`CONVENTIONS.md` (Lektionsablage), `AGENTS.md` §10, ADR in `DECISIONS.md`,
+`create-lesson`-Skill (opencode-helpers `7234ae1`). Erstanwendung:
+`KM7-02-chi-quadrat-test/beispiele/femizide/` — zwei Rohdatensätze
+(PKS-Beilage 17838/AB: 793 Zeilen; AÖF-Listen 2019–2026: 200 Zeilen),
+`runbook.R` + fünf Skripte, drei Kreuztafeln, ein Anpassungstest.
+`Rscript runbook.R` läuft grün: Herkunft × Delikt X² 13,678 / p 0,0011,
+Bundesland × Jahr p 0,48 **mit** Voraussetzungsverstoß (23/45 Zellen < 5),
+Beziehung × Herkunft p 0,26 (Fisher 0,24), Anpassungstest X² 199,1.
+
 **Tote externe Links repariert + Link-Check-Skript (#47, 2026-11-08):**
 Alle externen Link-Ziele in `unterricht/` per `curl` geprüft — eine tote URL,
 18× in 6 Lessons: `learningstatisticswithr.com/book/` (404). Das Navarro-Buch

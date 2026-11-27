@@ -250,7 +250,7 @@ Summe in Toleranz:  0.0456 + 0.0480 + 0.1778 = 0.2714
 X&sup2; = 7.6000 + 0.2714 = 7.8714
 </pre>
   <p>Dieselbe Rechnung als Formel-Tabelle:
-  <a href="daten/chi-quadrat-explained.xlsx">daten/chi-quadrat-explained.xlsx</a>
+  <a href="chi-quadrat-explained.xlsx">chi-quadrat-explained.xlsx</a>
   — jede Zahl ist anklickbar, die beiden Spaltensummen stehen in der gelben
   Zeile. Dort (und in R) wird mit den ungerundeten Werten gerechnet und erst
   am Schluss auf 7,87 gerundet — wer die angezeigten 0,05 + 0,05 + 0,18
@@ -823,6 +823,56 @@ chisq.test(tab, correct = FALSE)
 </section>
 
 <section>
+  <h2>Schritt 8 — Ein echter Datensatz (Zusatzprojekt)</h2>
+  <p>Die Betriebsdaten waren eine Tabelle mit sechs Zahlen. Die Wirklichkeit
+  kommt als Datei mit tausend Zeilen, gemischten Einheiten und einer
+  Definition, über die sich drei Institutionen uneinig sind. Genau dafür
+  gibt es das Zusatzprojekt
+  <a href="beispiele/femizide/README.md">beispiele/femizide/</a>.</p>
+  <p>Die Daten stammen aus der Beilage zur Anfragebeantwortung
+  <a href="https://www.parlament.gv.at/gegenstand/XXVII/AB/17838">17838/AB</a>
+  (Polizeiliche Kriminalstatistik, Morde und Mordversuche an Frauen
+  2019–2023) und aus den Jahreslisten des Vereins Autonome Österreichische
+  Frauenhäuser. Ein Aufruf, dann läuft die Kette:</p>
+<pre>
+cd beispiele/femizide
+Rscript runbook.R
+</pre>
+  <p>Heraus kommt unter anderem diese Tafel — Tatverdächtige nach Herkunft
+  und Delikt, 2019–2023, ohne die 12 Fälle mit ungeklärter
+  Staatsangehörigkeit:</p>
+<pre>
+             vollendet  versuch
+Österreich        118      142
+EU                 17       35
+Drittstaat         23       71
+</pre>
+  <p>Der Test dazu:</p>
+<pre>
+chisq.test(tab)   <span class="cmt"># X-squared = 13.678, df = 2, p-value = 0.001071</span>
+</pre>
+  <p><code>p = 0,001</code> heißt: Wäre die Herkunft für die Art des Delikts
+  ohne Bedeutung, wäre eine so ungleiche Verteilung in rund einem von
+  tausend Fällen zu erwarten. Der Test sagt <strong>nicht</strong>, warum —
+  und Cramér's V von <strong>0,18</strong> sagt zusätzlich, dass der
+  Zusammenhang schwach ist. Signifikant und bedeutsam sind zwei Fragen.</p>
+
+  <div class="callout achtung">
+    <span class="label">Dieselbe Zahl, drei Antworten</span>
+    <p>Für 2023 nennt die PKS <strong>42</strong> getötete Frauen, der AÖF
+      <strong>26</strong> Femizide, und das Innenministerium schreibt in der
+      Beantwortung, der Begriff „Femizid" sei „dem Strafgesetzbuch fremd".
+      Alle drei haben recht: Sie zählen Verschiedenes. Wer eine Kreuztabelle
+      baut, entscheidet mit, was herauskommt — das ist keine Statistik mehr,
+      das ist Operationalisierung.</p>
+  </div>
+
+  <p>Das Projekt ist selbsttragend: Rohdaten, Runbook, fünf Skripte, ein
+  Quellen-README. Die Aufgaben dazu stehen als
+  <a href="aufgabe.md">Zusatzprojekt 4a–4g</a> in der Aufgabe.</p>
+</section>
+
+<section>
   <h2>Zusammenfassung</h2>
   <table>
     <tr><th>Baustein</th><th>Wofür</th></tr>
@@ -860,6 +910,10 @@ chisq.test(tab, correct = FALSE)
     <li><strong>Beispiel 3 — Transfer:</strong> Anpassungstest an einer
       Sollverteilung und Unabhängigkeitstest im Wareneingang.</li>
   </ol>
+  <p><strong>Zusatzprojekt:</strong> Femizide in Österreich — zwei Rohdateien
+  aufbereiten, drei Kreuztabellen bauen, vier Tests fahren; alles in
+  <a href="beispiele/femizide/README.md">beispiele/femizide/</a>
+  (Aufgaben 4a–4g).</p>
   <p><strong>Abgabe:</strong> Commit in deinem PMM-Repo nach Vorgabe deiner
   Lehrperson.</p>
 </section>

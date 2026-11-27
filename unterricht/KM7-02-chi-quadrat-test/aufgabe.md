@@ -283,3 +283,60 @@ Voraussetzung verletzt ist — und warum?
 C sei der schlechteste. Nimm in drei Sätzen Stellung: Was sagt der Test,
 was nicht — und welche Zusatzinformation bräuchtest du für ein
 Lieferantenurteil?
+
+---
+
+## Zusatzprojekt: Femizide in Österreich
+
+Ein echtes Projekt statt einer Übungstabelle: zwei Rohdatensätze, knapp
+1 000 Zeilen Schmutz, drei Kreuztabellen und am Ende dieselben Tests wie in
+Beispiel 1 — nur dass die Zahlen aus einer parlamentarischen Anfrage und
+einer NGO-Zählung kommen und nicht aus einer Werkhalle.
+
+Alles liegt in [`beispiele/femizide/`](beispiele/femizide/README.md), mit
+eigenem Runbook:
+
+```bash
+cd beispiele/femizide
+Rscript runbook.R
+```
+
+**4a) Starten und lesen.** Führe `runbook.R` aus. Notiere: Wie viele Zeilen
+haben die Rohdaten, wie viele Fälle bleiben am Ende für jede der drei
+Tafeln übrig — und welche Zeilen fallen unterwegs weg? Warum?
+
+**4b) Die Einrückung.** Öffne `R/01_einlesen.R` und entferne testweise
+`trim_ws = FALSE`. Was passiert mit der Summenprobe in `R/02_tidy.R`?
+Erkläre in zwei Sätzen, warum `str_count(zeile, "^\\s+")` ohne diese Option
+immer 0 liefert.
+
+**4c) Von Hand nachrechnen.** Nimm Tafel 1 (Herkunft × Delikt). Berechne die
+erwartete Häufigkeit für die Zelle „Drittstaat / vollendet" von Hand und
+vergleiche mit `chisq.test(...)$expected`. Der Test liefert
+`X² = 13,678`, `df = 2`, `p = 0,0011`.
+
+**4d) Die 80-%-Regel auf drei Tafeln.** Prüfe für alle drei Tafeln den
+Anteil der Zellen mit Erwartungswert < 5. Wo hält die Voraussetzung, wo
+nicht? Was folgt daraus für das jeweilige Testverfahren — und warum ist
+`fisher.test()` bei Tafel 3 die ehrlichere Wahl?
+
+**4e) Der Anpassungstest.** Vergleiche die Herkunftsverteilung der
+Tatverdächtigen mit den Bevölkerungsanteilen. Formuliere das Ergebnis in
+einem Satz — und dann in einem zweiten Satz, was der Test **nicht** sagt.
+Denke an Anzeigequote, Aufklärungsquote und daran, wer überhaupt in der
+Polizeilichen Kriminalstatistik landet.
+
+**4f) Cramér's V.** Berechne für alle drei Tafeln Cramér's V. Ordne die
+Werte ein: Was heißt „signifikant, aber schwach"? Warum kann ein Test bei
+n = 187 signifikant sein, ohne dass der Zusammenhang praktisch bedeutsam
+ist?
+
+**4g) Operationalisierung.** Für 2023 nennt die PKS 42 getötete Frauen, der
+AÖF 26 Femizide, und das BMI schreibt, „Femizid" sei dem Strafgesetzbuch
+fremd. Alle drei haben recht. Erkläre in fünf Sätzen, warum — und was das
+für jede Tabelle bedeutet, die man aus diesen Zahlen baut.
+
+> **Hinweis zur Sprache:** In den Daten stehen Fälle und Tatverdächtige,
+> keine „Täter" und keine Nationalitäten als Eigenschaft von Menschen. Die
+> Studie, aus der die Vergleichszahlen stammen, warnt ausdrücklich davor,
+> aus der Nationalität eine Risikogruppe zu konstruieren.

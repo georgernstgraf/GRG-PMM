@@ -2,6 +2,17 @@
 
 ## Open Tasks
 
+### `chi-quadrat-explained.xlsx` liegt im Lesson-Root statt in `daten/` (#54)
+**Priority:** low
+**Context:** `lesson.html` verlinkte `daten/chi-quadrat-explained.xlsx`,
+die Datei liegt aber direkt in `KM7-02-chi-quadrat-test/` — auf der
+Lernplattform war das ein 404. Der Link zeigt seit 2026-11-27 auf den
+tatsächlichen Ort; **verschoben** wurde die Datei nicht, weil sie beim
+Bearbeiten in LibreOffice geöffnet war (`soffice`, Lock-Datei aktiv).
+**Action:** Wenn niemand mehr daran arbeitet: `git mv` nach `daten/` und den
+Link in `lesson.html` zurückdrehen — dann stimmt die Ablage wieder mit der
+Konvention „Schüler-Downloads nach `daten/`" überein.
+
 ### Erfundener YouTube-Link in Selbststudium-Lesson 02 (#47)
 **Priority:** low
 **Context:** `Unterlagen/check-links.sh --all` meldet als einzigen echten
@@ -41,8 +52,7 @@ kuratierte CSVs gesamt). Vierte Erweiterung (`5587a60`, 2026-10-21):
 `kuriose-quellen.md` (F-C1…F-C16) + 7 CSVs (22 gesamt);
 `build_data4.R`. Offen: Eigenmaterial-Blöcke
 (Annahmestichproben ISO-Tabellen/Simulation, RSM-sequenziell,
-FM-Instandhaltung), AÖF-Femizid-Listen digitalisieren (bewusst als
-Schüler-Aufgabe konzipiert), Eurostat-CSVs vor Unterricht frisch ziehen
+FM-Instandhaltung), Eurostat-CSVs vor Unterricht frisch ziehen
 (`lastTimePeriod=3`-Filter veraltet), altersstratifizierte AT-Impfdaten
 (F-C3) bei Aufgaben-Bau kuratieren, GeoSphere-Stations-CSV (F-K3) bei
 Aufgaben-Bau ziehen, AMS-Zeitreihe (nationale Quote, F-W3) bzw.

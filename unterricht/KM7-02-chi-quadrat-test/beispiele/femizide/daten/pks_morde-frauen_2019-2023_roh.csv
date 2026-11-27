@@ -1,0 +1,794 @@
+abschnitt,zeile,jahr_2019,jahr_2020,jahr_2021,jahr_2022,jahr_2023
+mord_vollendet_opfer,                      Burgenland,1,2,1,1,1
+mord_vollendet_opfer_geklaert,                      Burgenland,1,1,1,1,1
+mord_vollendet_opfer,                      Kärnten,4,3,2,2,2
+mord_vollendet_opfer_geklaert,                      Kärnten,4,2,2,2,1
+mord_vollendet_opfer,                      Niederösterreich,14,8,4,7,9
+mord_vollendet_opfer_geklaert,                      Niederösterreich,14,7,4,7,5
+mord_vollendet_opfer,                      Oberösterreich,2,2,4,1,5
+mord_vollendet_opfer_geklaert,                      Oberösterreich,2,2,4,1,4
+mord_vollendet_opfer,                      Salzburg,2,3,4,5,1
+mord_vollendet_opfer_geklaert,                      Salzburg,2,3,3,4,1
+mord_vollendet_opfer,                      Steiermark,2,4,4,5,11
+mord_vollendet_opfer_geklaert,                      Steiermark,2,4,3,5,10
+mord_vollendet_opfer,                      Tirol,1,3,5,5,2
+mord_vollendet_opfer_geklaert,                      Tirol,1,2,2,5,2
+mord_vollendet_opfer,                      Vorarlberg,1,0,1,3,1
+mord_vollendet_opfer_geklaert,                      Vorarlberg,1,0,1,2,1
+mord_vollendet_opfer,                      Wien,12,6,11,10,10
+mord_vollendet_opfer_geklaert,                      Wien,12,5,9,6,7
+mord_vollendet_opfer,                      Österreich,39,31,36,39,42
+mord_vollendet_opfer_geklaert,                      Österreich,39,26,29,33,32
+mord_vollendet_beziehung_taeter,                      Burgenland,0,1,1,1,1
+mord_vollendet_beziehung_opfer,                      Burgenland,0,2,1,1,1
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,0,1,1,1,1
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,0,2,1,1,1
+mord_vollendet_beziehung_taeter,                      Kärnten,1,1,2,1,0
+mord_vollendet_beziehung_opfer,                      Kärnten,1,2,2,1,0
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,1,1,2,1,0
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,1,2,2,1,0
+mord_vollendet_beziehung_taeter,                      Niederösterreich,10,6,4,6,4
+mord_vollendet_beziehung_opfer,                      Niederösterreich,9,7,4,6,5
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,9,5,4,4,3
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,8,6,4,4,4
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung ohne Hausgemeinschaft,1,1,0,2,1
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung ohne Hausgemeinschaft,1,1,0,2,1
+mord_vollendet_beziehung_taeter,                      Oberösterreich,1,2,4,1,2
+mord_vollendet_beziehung_opfer,                      Oberösterreich,1,2,4,1,2
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,1,1,2,1,2
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,1,1,2,1,2
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung ohne Hausgemeinschaft,0,1,2,0,0
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung ohne Hausgemeinschaft,0,1,2,0,0
+mord_vollendet_beziehung_taeter,                      Salzburg,0,3,3,3,1
+mord_vollendet_beziehung_opfer,                      Salzburg,0,3,4,4,1
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,0,2,1,2,1
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,0,2,1,3,1
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung ohne Hausgemeinschaft,0,1,2,3,0
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung ohne Hausgemeinschaft,0,1,3,4,0
+mord_vollendet_beziehung_taeter,                      Steiermark,1,2,2,4,10
+mord_vollendet_beziehung_opfer,                      Steiermark,1,2,2,4,10
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,1,2,2,4,8
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,1,2,2,4,8
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung ohne Hausgemeinschaft,0,0,0,0,2
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung ohne Hausgemeinschaft,0,0,0,0,2
+mord_vollendet_beziehung_taeter,                      Tirol,1,1,2,4,1
+mord_vollendet_beziehung_opfer,                      Tirol,1,1,3,4,1
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,0,1,2,3,1
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,0,1,3,3,1
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung ohne Hausgemeinschaft,1,0,0,2,0
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung ohne Hausgemeinschaft,1,0,0,2,0
+mord_vollendet_beziehung_taeter,                      Vorarlberg,1,0,0,2,1
+mord_vollendet_beziehung_opfer,                      Vorarlberg,1,0,0,3,1
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,1,0,0,1,0
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,1,0,0,1,0
+mord_vollendet_beziehung_taeter,                        familiäre Beziehung ohne Hausgemeinschaft,0,0,0,1,1
+mord_vollendet_beziehung_opfer,                        familiäre Beziehung ohne Hausgemeinschaft,0,0,0,2,1
+mord_vollendet_beziehung_taeter,                      Wien,6,3,5,5,6
+mord_vollendet_beziehung_opfer,                      Wien,6,4,5,7,7
+mord_vollendet_beziehung_taeter,                       familiäre Beziehung in Hausgemeinschaft,5,2,3,5,5
+mord_vollendet_beziehung_opfer,                       familiäre Beziehung in Hausgemeinschaft,5,3,3,7,6
+mord_vollendet_beziehung_taeter,                       familiäre Beziehung ohne Hausgemeinschaft,1,1,2,2,1
+mord_vollendet_beziehung_opfer,                       familiäre Beziehung ohne Hausgemeinschaft,1,1,2,4,1
+mord_vollendet_beziehung_taeter,                      Österreich,21,19,23,27,26
+mord_vollendet_beziehung_opfer,                      Österreich,20,23,25,31,28
+mord_vollendet_opfer_alter_nation,                      Burgenland,1,2,1,1,1
+mord_vollendet_opfer_alter_nation,                       40 bis unter 65 J.,0,1,0,0,1
+mord_vollendet_opfer_alter_nation,                         Österreich,0,1,0,0,1
+mord_vollendet_opfer_alter_nation,                       65 und älter,1,1,1,1,0
+mord_vollendet_opfer_alter_nation,                         Österreich,1,1,1,1,0
+mord_vollendet_opfer_alter_nation,                      Kärnten,4,3,2,2,2
+mord_vollendet_opfer_alter_nation,                       25 bis unter 40 J.,1,1,0,1,0
+mord_vollendet_opfer_alter_nation,                         Österreich,1,1,0,0,0
+mord_vollendet_opfer_alter_nation,                         Rumänien,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                       40 bis unter 65 J.,2,2,0,1,2
+mord_vollendet_opfer_alter_nation,                         Italien,0,0,0,0,2
+mord_vollendet_opfer_alter_nation,                         Österreich,2,2,0,0,0
+mord_vollendet_opfer_alter_nation,                         Rumänien,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                       65 und älter,1,0,2,0,0
+mord_vollendet_opfer_alter_nation,                         Österreich,1,0,2,0,0
+mord_vollendet_opfer_alter_nation,                      Niederösterreich,14,8,4,7,9
+mord_vollendet_opfer_alter_nation,                       unter 6 J.,0,1,1,0,1
+mord_vollendet_opfer_alter_nation,                         Österreich,0,1,1,0,1
+mord_vollendet_opfer_alter_nation,                       6 bis unter 10 J.,0,0,0,1,1
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,0,1,1
+mord_vollendet_opfer_alter_nation,                       10 bis unter 14 J.,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                         Deutschland,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                       14 bis unter 18 J.,1,0,0,1,2
+mord_vollendet_opfer_alter_nation,                         Österreich,1,0,0,0,2
+mord_vollendet_opfer_alter_nation,                         Ungarn,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                       18 bis unter 21 J.,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                       25 bis unter 40 J.,2,1,0,0,0
+mord_vollendet_opfer_alter_nation,                         Nordmazedonien,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,1,0,0,0
+mord_vollendet_opfer_alter_nation,                         Slowakei,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                       40 bis unter 65 J.,6,3,2,1,4
+mord_vollendet_opfer_alter_nation,                         Österreich,6,2,2,1,4
+mord_vollendet_opfer_alter_nation,                         Rumänien,0,1,0,0,0
+mord_vollendet_opfer_alter_nation,                       65 und älter,4,3,1,3,1
+mord_vollendet_opfer_alter_nation,                         Österreich,4,3,1,3,1
+mord_vollendet_opfer_alter_nation,                      Oberösterreich,2,2,4,1,5
+mord_vollendet_opfer_alter_nation,                       14 bis unter 18 J.,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                         Österreich,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                       18 bis unter 21 J.,0,0,0,0,1
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,0,0,1
+mord_vollendet_opfer_alter_nation,                       21 bis unter 25 J.,0,0,0,0,1
+mord_vollendet_opfer_alter_nation,                         Rumänien,0,0,0,0,1
+mord_vollendet_opfer_alter_nation,                       25 bis unter 40 J.,0,0,1,0,0
+mord_vollendet_opfer_alter_nation,                         Honduras,0,0,1,0,0
+mord_vollendet_opfer_alter_nation,                       40 bis unter 65 J.,0,1,0,1,1
+mord_vollendet_opfer_alter_nation,                         Österreich,0,1,0,1,0
+mord_vollendet_opfer_alter_nation,                         Rumänien,0,0,0,0,1
+mord_vollendet_opfer_alter_nation,                       65 und älter,1,1,3,0,2
+mord_vollendet_opfer_alter_nation,                         Österreich,1,1,3,0,2
+mord_vollendet_opfer_alter_nation,                      Salzburg,2,3,4,5,1
+mord_vollendet_opfer_alter_nation,                       6 bis unter 10 J.,0,1,0,0,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,1,0,0,0
+mord_vollendet_opfer_alter_nation,                       18 bis unter 21 J.,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                         Österreich,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                       21 bis unter 25 J.,0,0,1,0,0
+mord_vollendet_opfer_alter_nation,                         Rumänien,0,0,1,0,0
+mord_vollendet_opfer_alter_nation,                        25 bis unter 40 J.,0,0,0,1,1
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,0,1,1
+mord_vollendet_opfer_alter_nation,                        40 bis unter 65 J.,1,0,2,2,0
+mord_vollendet_opfer_alter_nation,                         Österreich,1,0,2,2,0
+mord_vollendet_opfer_alter_nation,                        65 und älter,0,2,1,2,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,2,1,2,0
+mord_vollendet_opfer_alter_nation,                      Steiermark,2,4,4,5,11
+mord_vollendet_opfer_alter_nation,                        10 bis unter 14 J.,0,0,1,0,0
+mord_vollendet_opfer_alter_nation,                         Ungeklärte Staatsangehörigkeit,0,0,1,0,0
+mord_vollendet_opfer_alter_nation,                        14 bis unter 18 J.,1,0,1,0,0
+mord_vollendet_opfer_alter_nation,                         Österreich,1,0,1,0,0
+mord_vollendet_opfer_alter_nation,                        21 bis unter 25 J.,0,0,0,0,1
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,0,0,1
+mord_vollendet_opfer_alter_nation,                        25 bis unter 40 J.,1,3,1,0,3
+mord_vollendet_opfer_alter_nation,                         Afghanistan,0,1,1,0,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,2,0,0,3
+mord_vollendet_opfer_alter_nation,                         Rumänien,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                        40 bis unter 65 J.,0,0,1,1,4
+mord_vollendet_opfer_alter_nation,                         Deutschland,0,0,0,0,1
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,1,1,3
+mord_vollendet_opfer_alter_nation,                        65 und älter,0,1,0,4,3
+mord_vollendet_opfer_alter_nation,                         Österreich,0,1,0,4,3
+mord_vollendet_opfer_alter_nation,                      Tirol,1,3,5,5,2
+mord_vollendet_opfer_alter_nation,                        unter 6 J.,0,0,2,0,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,2,0,0
+mord_vollendet_opfer_alter_nation,                        14 bis unter 18 J.,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                        18 bis unter 21 J.,0,1,0,0,1
+mord_vollendet_opfer_alter_nation,                         Österreich,0,1,0,0,1
+mord_vollendet_opfer_alter_nation,                       21 bis unter 25 J.,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                         Syrien,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                       25 bis unter 40 J.,0,0,1,1,1
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,1,1,1
+mord_vollendet_opfer_alter_nation,                       40 bis unter 65 J.,0,2,2,2,0
+mord_vollendet_opfer_alter_nation,                         Albanien,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,2,2,1,0
+mord_vollendet_opfer_alter_nation,                       65 und älter,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                      Vorarlberg,1,0,1,3,1
+mord_vollendet_opfer_alter_nation,                       21 bis unter 25 J.,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                         Armenien,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                       25 bis unter 40 J.,0,0,1,1,1
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,1,0,0
+mord_vollendet_opfer_alter_nation,                         Rumänien,0,0,0,0,1
+mord_vollendet_opfer_alter_nation,                         Ungarn,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                       40 bis unter 65 J.,0,0,0,2,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,0,2,0
+mord_vollendet_opfer_alter_nation,                      Wien,12,6,11,10,10
+mord_vollendet_opfer_alter_nation,                       unter 6 J.,1,1,0,1,0
+mord_vollendet_opfer_alter_nation,                         Nepal,0,1,0,0,0
+mord_vollendet_opfer_alter_nation,                         Nigeria,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                       6 bis unter 10 J.,0,1,0,0,0
+mord_vollendet_opfer_alter_nation,                         Nepal,0,1,0,0,0
+mord_vollendet_opfer_alter_nation,                       10 bis unter 14 J.,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                       14 bis unter 18 J.,0,0,0,0,1
+mord_vollendet_opfer_alter_nation,                         Ungarn,0,0,0,0,1
+mord_vollendet_opfer_alter_nation,                       18 bis unter 21 J.,0,1,0,2,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,1,0,1,0
+mord_vollendet_opfer_alter_nation,                         Syrien,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                       21 bis unter 25 J.,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                         Österreich,0,0,0,1,0
+mord_vollendet_opfer_alter_nation,                       25 bis unter 40 J.,8,2,6,2,3
+mord_vollendet_opfer_alter_nation,                         Österreich,3,2,3,2,1
+mord_vollendet_opfer_alter_nation,                         Polen,0,0,1,0,0
+mord_vollendet_opfer_alter_nation,                         Rumänien,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                         Somalia,0,0,1,0,0
+mord_vollendet_opfer_alter_nation,                         Spanien,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                         Syrien,1,0,0,0,1
+mord_vollendet_opfer_alter_nation,                         Ungarn,1,0,0,0,1
+mord_vollendet_opfer_alter_nation,                         Ungeklärte Staatsangehörigkeit,0,0,1,0,0
+mord_vollendet_opfer_alter_nation,                         Vereinigte Staaten von Amerika,1,0,0,0,0
+mord_vollendet_opfer_alter_nation,                       40 bis unter 65 J.,2,1,2,1,2
+mord_vollendet_opfer_alter_nation,                         Österreich,2,0,1,1,2
+mord_vollendet_opfer_alter_nation,                         Syrien,0,0,1,0,0
+mord_vollendet_opfer_alter_nation,                         Ungeklärte Staatsangehörigkeit,0,1,0,0,0
+mord_vollendet_opfer_alter_nation,                       65 und älter,1,0,3,2,4
+mord_vollendet_opfer_alter_nation,                         Österreich,1,0,3,2,4
+mord_vollendet_opfer_alter_nation,                      Österreich,39,31,36,39,42
+mord_vollendet_taeter_geschlecht_alter_nation,                      Burgenland,1,1,1,1,1
+mord_vollendet_taeter_geschlecht_alter_nation,                       männlich,1,1,1,1,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,1,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                          Österreich,1,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         40 und älter,0,1,1,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Österreich,0,1,1,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                      Kärnten,5,2,2,2,1
+mord_vollendet_taeter_geschlecht_alter_nation,                       männlich,3,2,2,1,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         21 bis unter 25 J.,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Österreich,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,1,1,0,1,1
+mord_vollendet_taeter_geschlecht_alter_nation,                          Marokko,0,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                          Österreich,1,1,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Rumänien,0,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         40 und älter,1,1,2,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Österreich,1,1,2,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                       weiblich,2,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,0,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Rumänien,0,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         40 und älter,2,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Österreich,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Ungarn,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                      Niederösterreich,15,7,4,7,5
+mord_vollendet_taeter_geschlecht_alter_nation,                       männlich,13,7,2,7,4
+mord_vollendet_taeter_geschlecht_alter_nation,                         14 bis unter 18 J.,1,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                          Österreich,1,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                        18 bis unter 21 J.,1,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         Ungarn,0,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         Ungeklärte Staatsangehörigkeit,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                        21 bis unter 25 J.,0,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         Österreich,0,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                        25 bis unter 40 J.,5,2,0,1,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         Deutschland,2,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         Österreich,1,2,0,1,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         Rumänien,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         Ungeklärte Staatsangehörigkeit,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                        40 und älter,6,5,2,4,2
+mord_vollendet_taeter_geschlecht_alter_nation,                         Österreich,5,4,2,4,2
+mord_vollendet_taeter_geschlecht_alter_nation,                         Ungarn,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         Ungeklärte Staatsangehörigkeit,0,1,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                       weiblich,2,0,2,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                        25 bis unter 40 J.,1,0,1,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         Deutschland,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         Österreich,0,0,1,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                        40 und älter,1,0,1,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         Österreich,1,0,1,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                      Oberösterreich,2,2,4,1,4
+mord_vollendet_taeter_geschlecht_alter_nation,                       männlich,2,2,4,1,4
+mord_vollendet_taeter_geschlecht_alter_nation,                        14 bis unter 18 J.,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         Afghanistan,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                        18 bis unter 21 J.,0,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         Österreich,0,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                        25 bis unter 40 J.,0,0,1,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         Honduras,0,0,1,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         Österreich,0,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                        40 und älter,1,2,3,1,2
+mord_vollendet_taeter_geschlecht_alter_nation,                           Deutschland,0,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                           Österreich,1,2,3,0,2
+mord_vollendet_taeter_geschlecht_alter_nation,                      Salzburg,3,3,3,4,1
+mord_vollendet_taeter_geschlecht_alter_nation,                       männlich,3,2,3,4,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         14 bis unter 18 J.,2,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                           Österreich,2,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         21 bis unter 25 J.,0,1,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                           Österreich,0,1,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,0,0,1,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                           Serbien,0,0,1,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         40 und älter,1,1,2,4,1
+mord_vollendet_taeter_geschlecht_alter_nation,                           Bosnien-Herzegowina,0,0,1,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                           Deutschland,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                           Österreich,0,1,1,4,1
+mord_vollendet_taeter_geschlecht_alter_nation,                       weiblich,0,1,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         40 und älter,0,1,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                           Österreich,0,1,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                      Steiermark,2,4,3,6,11
+mord_vollendet_taeter_geschlecht_alter_nation,                       männlich,2,4,3,6,11
+mord_vollendet_taeter_geschlecht_alter_nation,                         18 bis unter 21 J.,0,0,1,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                           Österreich,0,0,1,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         21 bis unter 25 J.,0,0,0,1,2
+mord_vollendet_taeter_geschlecht_alter_nation,                           Österreich,0,0,0,0,2
+mord_vollendet_taeter_geschlecht_alter_nation,                           Rumänien,0,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,1,3,0,1,3
+mord_vollendet_taeter_geschlecht_alter_nation,                           Afghanistan,0,1,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                           Österreich,1,2,0,1,3
+mord_vollendet_taeter_geschlecht_alter_nation,                         40 und älter,1,1,2,4,6
+mord_vollendet_taeter_geschlecht_alter_nation,                           Afghanistan,0,0,1,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                           Österreich,1,1,1,4,5
+mord_vollendet_taeter_geschlecht_alter_nation,                      Tirol,1,2,2,5,2
+mord_vollendet_taeter_geschlecht_alter_nation,                        männlich,1,2,2,4,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         18 bis unter 21 J.,0,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                            Deutschland,0,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,1,1,2,1,1
+mord_vollendet_taeter_geschlecht_alter_nation,                            Österreich,0,1,2,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                            Syrien,1,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         40 und älter,0,1,0,2,0
+mord_vollendet_taeter_geschlecht_alter_nation,                            Österreich,0,1,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                            Ungeklärte Staatsangehörigkeit,0,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                        weiblich,0,0,0,1,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         21 bis unter 25 J.,0,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                            Österreich,0,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,0,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                            Österreich,0,0,0,1,0
+mord_vollendet_taeter_geschlecht_alter_nation,                      Vorarlberg,1,0,1,2,1
+mord_vollendet_taeter_geschlecht_alter_nation,                        männlich,1,0,1,2,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         21 bis unter 25 J.,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                            Armenien,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,0,0,1,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                            Deutschland,0,0,1,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                            Türkei,0,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                         40 und älter,0,0,0,2,0
+mord_vollendet_taeter_geschlecht_alter_nation,                            Österreich,0,0,0,2,0
+mord_vollendet_taeter_geschlecht_alter_nation,                      Wien,13,5,9,7,7
+mord_vollendet_taeter_geschlecht_alter_nation,                        männlich,10,4,9,7,6
+mord_vollendet_taeter_geschlecht_alter_nation,                         21 bis unter 25 J.,3,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                            Gambia,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                            Österreich,1,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                            Spanien,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                        25 bis unter 40 J.,2,2,4,2,1
+mord_vollendet_taeter_geschlecht_alter_nation,                          Afghanistan,0,1,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Kosovo,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Österreich,1,1,3,2,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Syrien,0,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                          Ungeklärte Staatsangehörigkeit,0,0,1,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                        40 und älter,5,2,5,5,4
+mord_vollendet_taeter_geschlecht_alter_nation,                          Irak,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Kanada,0,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                          Österreich,2,1,4,5,1
+mord_vollendet_taeter_geschlecht_alter_nation,                          Polen,0,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                          Staatenlos,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Syrien,0,0,1,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Tunesien,0,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                          Ungeklärte Staatsangehörigkeit,1,1,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                       weiblich,3,1,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                        21 bis unter 25 J.,2,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Nigeria,2,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                        25 bis unter 40 J.,1,1,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Nepal,0,1,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                          Rumänien,1,0,0,0,0
+mord_vollendet_taeter_geschlecht_alter_nation,                        40 und älter,0,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                          Österreich,0,0,0,0,1
+mord_vollendet_taeter_geschlecht_alter_nation,                      Gesamt,43,26,29,35,33
+mordversuch_opfer,                      Burgenland,1,1,1,1,5
+mordversuch_opfer,                       Österreich,1,1,1,1,5
+mordversuch_opfer,                         18 bis unter 21 J.,0,0,0,0,1
+mordversuch_opfer,                         25 bis unter 40 J.,1,1,0,1,2
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,1,0,0
+mordversuch_opfer,                         65 und älter,0,0,0,0,2
+mordversuch_opfer,                      Kärnten,2,1,0,4,2
+mordversuch_opfer,                       Afghanistan,0,0,0,1,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,0,0,1,0
+mordversuch_opfer,                       Österreich,2,1,0,2,1
+mordversuch_opfer,                         18 bis unter 21 J.,1,0,0,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,1,0,0,1
+mordversuch_opfer,                         40 bis unter 65 J.,1,0,0,2,0
+mordversuch_opfer,                       Rumänien,0,0,0,0,1
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,0,1
+mordversuch_opfer,                       Slowenien,0,0,0,1,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,1,0
+mordversuch_opfer,                      Niederösterreich,13,13,8,8,8
+mordversuch_opfer,                       Bulgarien,0,0,0,0,1
+mordversuch_opfer,                         21 bis unter 25 J.,0,0,0,0,1
+mordversuch_opfer,                       Deutschland,0,1,0,0,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,1,0,0,0
+mordversuch_opfer,                       Georgien,0,0,0,1,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,1,0
+mordversuch_opfer,                       Kroatien,0,0,0,1,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,1,0
+mordversuch_opfer,                       Mongolei,1,0,0,0,0
+mordversuch_opfer,                         40 bis unter 65 J.,1,0,0,0,0
+mordversuch_opfer,                       Österreich,12,11,6,3,7
+mordversuch_opfer,                         6 bis unter 10 J.,0,0,0,0,1
+mordversuch_opfer,                         10 bis unter 14 J.,1,0,0,1,0
+mordversuch_opfer,                         14 bis unter 18 J.,1,0,0,0,0
+mordversuch_opfer,                         18 bis unter 21 J.,0,0,1,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,2,1,1,0,1
+mordversuch_opfer,                         40 bis unter 65 J.,4,6,2,2,4
+mordversuch_opfer,                         65 und älter,4,4,2,0,1
+mordversuch_opfer,                       Pakistan,0,0,1,0,0
+mordversuch_opfer,                         65 und älter,0,0,1,0,0
+mordversuch_opfer,                       Russische Föderation,0,1,0,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,1,0,0,0
+mordversuch_opfer,                       Serbien,0,0,0,1,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,1,0
+mordversuch_opfer,                       Slowakei,0,0,0,1,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,0,0,1,0
+mordversuch_opfer,                       Ukraine,0,0,0,1,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,1,0
+mordversuch_opfer,                       Ungarn,0,0,1,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,0,1,0,0
+mordversuch_opfer,                      Oberösterreich,1,5,4,3,5
+mordversuch_opfer,                       Afghanistan,0,0,1,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,0,1,0,0
+mordversuch_opfer,                       Bosnien-Herzegowina,0,1,0,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,1,0,0,0
+mordversuch_opfer,                       China,0,0,0,0,1
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,0,1
+mordversuch_opfer,                       Honduras,0,0,1,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,0,1,0,0
+mordversuch_opfer,                       Österreich,0,4,2,2,3
+mordversuch_opfer,                         unter 6 J.,0,1,0,0,0
+mordversuch_opfer,                         18 bis unter 21 J.,0,1,0,0,0
+mordversuch_opfer,                         21 bis unter 25 J.,0,0,0,1,1
+mordversuch_opfer,                         25 bis unter 40 J.,0,2,2,0,1
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,1,1
+mordversuch_opfer,                       Rumänien,0,0,0,0,1
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,0,1
+mordversuch_opfer,                       Slowakei,1,0,0,0,0
+mordversuch_opfer,                         40 bis unter 65 J.,1,0,0,0,0
+mordversuch_opfer,                       Ungeklärte Staatsangehörigkeit,0,0,0,1,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,1,0
+mordversuch_opfer,                      Salzburg,2,1,6,0,1
+mordversuch_opfer,                       Deutschland,0,1,0,0,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,1,0,0,0
+mordversuch_opfer,                       Österreich,1,0,6,0,0
+mordversuch_opfer,                         21 bis unter 25 J.,0,0,1,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,0,1,0,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,4,0,0
+mordversuch_opfer,                         65 und älter,1,0,0,0,0
+mordversuch_opfer,                       Rumänien,1,0,0,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,1,0,0,0,0
+mordversuch_opfer,                       Somalia,0,0,0,0,1
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,0,1
+mordversuch_opfer,                      Steiermark,12,3,3,11,7
+mordversuch_opfer,                       Belarus,1,0,0,0,0
+mordversuch_opfer,                         40 bis unter 65 J.,1,0,0,0,0
+mordversuch_opfer,                       Irak,1,0,0,0,0
+mordversuch_opfer,                         40 bis unter 65 J.,1,0,0,0,0
+mordversuch_opfer,                        Kirgistan,0,0,1,0,0
+mordversuch_opfer,                          25 bis unter 40 J.,0,0,1,0,0
+mordversuch_opfer,                        Mongolei,0,0,0,0,1
+mordversuch_opfer,                          40 bis unter 65 J.,0,0,0,0,1
+mordversuch_opfer,                        Österreich,10,2,0,10,6
+mordversuch_opfer,                          10 bis unter 14 J.,0,0,0,0,1
+mordversuch_opfer,                          14 bis unter 18 J.,1,0,0,0,0
+mordversuch_opfer,                          18 bis unter 21 J.,0,0,0,1,0
+mordversuch_opfer,                          21 bis unter 25 J.,1,0,0,0,1
+mordversuch_opfer,                          25 bis unter 40 J.,1,1,0,2,0
+mordversuch_opfer,                          40 bis unter 65 J.,6,1,0,4,3
+mordversuch_opfer,                          65 und älter,1,0,0,3,1
+mordversuch_opfer,                        Rumänien,0,0,2,0,0
+mordversuch_opfer,                          25 bis unter 40 J.,0,0,2,0,0
+mordversuch_opfer,                        Slowakei,0,1,0,0,0
+mordversuch_opfer,                          25 bis unter 40 J.,0,1,0,0,0
+mordversuch_opfer,                        Slowenien,0,0,0,1,0
+mordversuch_opfer,                          25 bis unter 40 J.,0,0,0,1,0
+mordversuch_opfer,                      Tirol,6,1,4,8,2
+mordversuch_opfer,                        Afghanistan,0,0,0,1,0
+mordversuch_opfer,                          unter 6 J.,0,0,0,1,0
+mordversuch_opfer,                        Bosnien-Herzegowina,1,0,0,0,0
+mordversuch_opfer,                          40 bis unter 65 J.,1,0,0,0,0
+mordversuch_opfer,                        Deutschland,1,0,0,0,0
+mordversuch_opfer,                          40 bis unter 65 J.,1,0,0,0,0
+mordversuch_opfer,                        Griechenland,0,0,1,0,0
+mordversuch_opfer,                          65 und älter,0,0,1,0,0
+mordversuch_opfer,                        Österreich,4,1,1,5,2
+mordversuch_opfer,                          unter 6 J.,1,0,0,0,0
+mordversuch_opfer,                          21 bis unter 25 J.,0,1,0,2,0
+mordversuch_opfer,                         25 bis unter 40 J.,1,0,0,2,0
+mordversuch_opfer,                         40 bis unter 65 J.,2,0,1,1,1
+mordversuch_opfer,                         65 und älter,0,0,0,0,1
+mordversuch_opfer,                       Rumänien,0,0,1,0,0
+mordversuch_opfer,                         18 bis unter 21 J.,0,0,1,0,0
+mordversuch_opfer,                       Serbien,0,0,0,1,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,0,0,1,0
+mordversuch_opfer,                       Slowakei,0,0,0,1,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,1,0
+mordversuch_opfer,                       Syrien,0,0,1,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,0,1,0,0
+mordversuch_opfer,                      Vorarlberg,1,3,1,0,0
+mordversuch_opfer,                       Österreich,1,1,1,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,0,1,0,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,1,0,0,0
+mordversuch_opfer,                         65 und älter,1,0,0,0,0
+mordversuch_opfer,                       Rumänien,0,1,0,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,1,0,0,0
+mordversuch_opfer,                       Türkei,0,1,0,0,0
+mordversuch_opfer,                         65 und älter,0,1,0,0,0
+mordversuch_opfer,                      Wien,27,23,11,20,12
+mordversuch_opfer,                       Afghanistan,0,1,0,1,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,1,0,1,0
+mordversuch_opfer,                       Armenien,0,0,0,1,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,0,0,1,0
+mordversuch_opfer,                       Bosnien-Herzegowina,0,0,0,0,1
+mordversuch_opfer,                         25 bis unter 40 J.,0,0,0,0,1
+mordversuch_opfer,                       Deutschland,0,0,0,1,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,1,0
+mordversuch_opfer,                       Frankreich,0,1,0,0,0
+mordversuch_opfer,                        25 bis unter 40 J.,0,1,0,0,0
+mordversuch_opfer,                      Italien,0,2,0,0,0
+mordversuch_opfer,                        unter 6 J.,0,1,0,0,0
+mordversuch_opfer,                        25 bis unter 40 J.,0,1,0,0,0
+mordversuch_opfer,                      Kroatien,0,1,0,0,0
+mordversuch_opfer,                        25 bis unter 40 J.,0,1,0,0,0
+mordversuch_opfer,                      Luxemburg,1,0,0,0,0
+mordversuch_opfer,                        18 bis unter 21 J.,1,0,0,0,0
+mordversuch_opfer,                      Nigeria,0,0,1,0,0
+mordversuch_opfer,                        25 bis unter 40 J.,0,0,1,0,0
+mordversuch_opfer,                      Nordmazedonien,0,1,0,1,0
+mordversuch_opfer,                        40 bis unter 65 J.,0,1,0,1,0
+mordversuch_opfer,                      Österreich,19,9,7,11,8
+mordversuch_opfer,                        unter 6 J.,0,0,0,0,1
+mordversuch_opfer,                        14 bis unter 18 J.,1,0,0,0,0
+mordversuch_opfer,                        18 bis unter 21 J.,1,0,0,0,0
+mordversuch_opfer,                        21 bis unter 25 J.,1,0,1,2,0
+mordversuch_opfer,                        25 bis unter 40 J.,9,6,1,1,3
+mordversuch_opfer,                        40 bis unter 65 J.,6,2,5,8,3
+mordversuch_opfer,                        65 und älter,1,1,0,0,1
+mordversuch_opfer,                      Polen,0,1,0,2,0
+mordversuch_opfer,                        40 bis unter 65 J.,0,1,0,2,0
+mordversuch_opfer,                      Rumänien,1,0,0,0,2
+mordversuch_opfer,                        25 bis unter 40 J.,1,0,0,0,1
+mordversuch_opfer,                        40 bis unter 65 J.,0,0,0,0,1
+mordversuch_opfer,                      Russische Föderation,0,1,0,0,0
+mordversuch_opfer,                        14 bis unter 18 J.,0,1,0,0,0
+mordversuch_opfer,                      Serbien,3,1,1,1,0
+mordversuch_opfer,                        21 bis unter 25 J.,0,0,0,1,0
+mordversuch_opfer,                        25 bis unter 40 J.,0,1,0,0,0
+mordversuch_opfer,                         40 bis unter 65 J.,3,0,1,0,0
+mordversuch_opfer,                       Slowakei,0,0,1,0,1
+mordversuch_opfer,                         25 bis unter 40 J.,0,0,0,0,1
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,1,0,0
+mordversuch_opfer,                       Somalia,0,0,1,0,0
+mordversuch_opfer,                         21 bis unter 25 J.,0,0,1,0,0
+mordversuch_opfer,                       Staatenlos,1,0,0,0,0
+mordversuch_opfer,                         unter 6 J.,1,0,0,0,0
+mordversuch_opfer,                       Türkei,0,0,0,2,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,0,0,2,0
+mordversuch_opfer,                       Ungarn,0,1,0,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,0,1,0,0,0
+mordversuch_opfer,                       Ungeklärte Staatsangehörigkeit,2,4,0,0,0
+mordversuch_opfer,                         18 bis unter 21 J.,0,1,0,0,0
+mordversuch_opfer,                         21 bis unter 25 J.,1,1,0,0,0
+mordversuch_opfer,                         25 bis unter 40 J.,1,1,0,0,0
+mordversuch_opfer,                         40 bis unter 65 J.,0,1,0,0,0
+mordversuch_opfer,                      Gesamt,65,51,38,55,42
+mordversuch_taeter_geschlecht_alter_nation,                      Burgenland,3,1,1,1,6
+mordversuch_taeter_geschlecht_alter_nation,                       männlich,3,1,1,1,3
+mordversuch_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,3,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,2,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Slowakei,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,0,0,1,1,3
+mordversuch_taeter_geschlecht_alter_nation,                          Kroatien,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,0,0,1,1,2
+mordversuch_taeter_geschlecht_alter_nation,                       weiblich,0,0,0,0,3
+mordversuch_taeter_geschlecht_alter_nation,                         14 bis unter 18 J.,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,0,0,0,0,2
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,0,0,0,0,2
+mordversuch_taeter_geschlecht_alter_nation,                      Kärnten,2,2,0,4,2
+mordversuch_taeter_geschlecht_alter_nation,                       männlich,1,2,0,4,2
+mordversuch_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,0,2,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                          Armenien,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,0,2,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,1,0,0,3,2
+mordversuch_taeter_geschlecht_alter_nation,                          Afghanistan,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,0,0,0,1,1
+mordversuch_taeter_geschlecht_alter_nation,                          Rumänien,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                          Slowenien,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                          Ungarn,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                       weiblich,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                      Niederösterreich,12,14,8,7,8
+mordversuch_taeter_geschlecht_alter_nation,                       männlich,10,12,7,6,8
+mordversuch_taeter_geschlecht_alter_nation,                         14 bis unter 18 J.,0,0,1,0,1
+mordversuch_taeter_geschlecht_alter_nation,                          Nordmazedonien,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Slowakei,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                         18 bis unter 21 J.,2,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,2,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,2,2,1,1,2
+mordversuch_taeter_geschlecht_alter_nation,                          Israel,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Mongolei,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,1,1,0,0,2
+mordversuch_taeter_geschlecht_alter_nation,                          Pakistan,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Ukraine,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,6,10,4,5,5
+mordversuch_taeter_geschlecht_alter_nation,                          Bulgarien,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Deutschland,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Georgien,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,6,7,2,3,5
+mordversuch_taeter_geschlecht_alter_nation,                          Pakistan,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Russische Föderation,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Serbien,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                          Slowakei,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                       weiblich,2,2,1,1,0
+mordversuch_taeter_geschlecht_alter_nation,                         14 bis unter 18 J.,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,2,1,1,1,0
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,2,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Rumänien,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Ungarn,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                      Oberösterreich,1,4,4,2,7
+mordversuch_taeter_geschlecht_alter_nation,                       männlich,1,3,4,2,5
+mordversuch_taeter_geschlecht_alter_nation,                         14 bis unter 18 J.,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                         21 bis unter 25 J.,0,2,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,0,2,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,0,0,3,0,1
+mordversuch_taeter_geschlecht_alter_nation,                           Afghanistan,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Honduras,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,0,0,1,0,1
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,1,1,1,1,3
+mordversuch_taeter_geschlecht_alter_nation,                           Irak,0,0,0,0,2
+mordversuch_taeter_geschlecht_alter_nation,                           Kroatien,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,0,1,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                           Slowakei,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Syrien,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                       weiblich,0,1,0,0,2
+mordversuch_taeter_geschlecht_alter_nation,                         14 bis unter 18 J.,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                      Salzburg,2,1,5,0,1
+mordversuch_taeter_geschlecht_alter_nation,                       männlich,2,1,4,0,1
+mordversuch_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,1,1,3,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Rumänien,1,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Syrien,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Türkei,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,1,0,1,0,1
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,1,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Somalia,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                       weiblich,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Serbien,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                      Steiermark,12,3,4,12,6
+mordversuch_taeter_geschlecht_alter_nation,                       männlich,10,3,4,12,4
+mordversuch_taeter_geschlecht_alter_nation,                         14 bis unter 18 J.,2,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,2,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Slowenien,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                         21 bis unter 25 J.,1,0,0,2,0
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,1,0,0,2,0
+mordversuch_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,3,0,3,3,1
+mordversuch_taeter_geschlecht_alter_nation,                           Algerien,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Irak,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Kroatien,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,1,0,0,1,1
+mordversuch_taeter_geschlecht_alter_nation,                           Rumänien,0,0,3,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Türkei,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,4,3,1,6,3
+mordversuch_taeter_geschlecht_alter_nation,                           Mongolei,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,3,3,0,5,2
+mordversuch_taeter_geschlecht_alter_nation,                           Rumänien,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Staatenlos,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                           Türkei,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                       weiblich,2,0,0,0,2
+mordversuch_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                           Österreich,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,2,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                            Österreich,2,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                      Tirol,6,1,4,8,2
+mordversuch_taeter_geschlecht_alter_nation,                        männlich,5,1,4,8,2
+mordversuch_taeter_geschlecht_alter_nation,                         21 bis unter 25 J.,0,0,0,4,0
+mordversuch_taeter_geschlecht_alter_nation,                            Afghanistan,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                            Libyen,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                            Österreich,0,0,0,2,0
+mordversuch_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,2,1,2,2,1
+mordversuch_taeter_geschlecht_alter_nation,                            Bosnien-Herzegowina,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                            Mexiko,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                            Österreich,1,0,1,1,0
+mordversuch_taeter_geschlecht_alter_nation,                            Serbien,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                            Syrien,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                            Türkei,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,3,0,2,2,1
+mordversuch_taeter_geschlecht_alter_nation,                            Afghanistan,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                            Deutschland,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                            Österreich,2,0,0,1,1
+mordversuch_taeter_geschlecht_alter_nation,                            Serbien,1,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                        weiblich,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                            Österreich,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                      Vorarlberg,1,3,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                        männlich,1,3,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         21 bis unter 25 J.,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                            Schweiz,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         25 bis unter 40 J.,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                            Syrien,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         40 und älter,1,2,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Österreich,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Serbien,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Türkei,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                      Wien,27,22,11,18,13
+mordversuch_taeter_geschlecht_alter_nation,                       männlich,23,22,10,17,10
+mordversuch_taeter_geschlecht_alter_nation,                        14 bis unter 18 J.,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Österreich,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                        18 bis unter 21 J.,2,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Afghanistan,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Österreich,2,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                        21 bis unter 25 J.,4,4,2,1,0
+mordversuch_taeter_geschlecht_alter_nation,                         Afghanistan,1,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Äthiopien,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Irak,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Österreich,1,0,1,1,0
+mordversuch_taeter_geschlecht_alter_nation,                         Polen,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Serbien,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Somalia,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Tschechien,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                        25 bis unter 40 J.,7,5,4,5,5
+mordversuch_taeter_geschlecht_alter_nation,                         Afghanistan,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Bulgarien,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Japan,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                         Kosovo,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                         Nordmazedonien,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                         Österreich,4,3,3,2,1
+mordversuch_taeter_geschlecht_alter_nation,                         Polen,1,1,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                         Serbien,0,0,1,1,1
+mordversuch_taeter_geschlecht_alter_nation,                         Türkei,0,0,0,1,1
+mordversuch_taeter_geschlecht_alter_nation,                        40 und älter,10,11,4,11,5
+mordversuch_taeter_geschlecht_alter_nation,                          Afghanistan,0,2,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                          Armenien,0,0,0,1,0
+mordversuch_taeter_geschlecht_alter_nation,                          Bosnien-Herzegowina,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Bulgarien,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Italien,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Liberia,0,0,0,0,1
+mordversuch_taeter_geschlecht_alter_nation,                          Nordmazedonien,0,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,6,3,1,3,3
+mordversuch_taeter_geschlecht_alter_nation,                          Polen,0,1,1,1,0
+mordversuch_taeter_geschlecht_alter_nation,                          Serbien,0,1,0,2,1
+mordversuch_taeter_geschlecht_alter_nation,                          Slowenien,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Somalia,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Staatenlos,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Türkei,0,0,0,3,0
+mordversuch_taeter_geschlecht_alter_nation,                          Ungarn,0,1,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Ungeklärte Staatsangehörigkeit,1,0,1,0,0
+mordversuch_taeter_geschlecht_alter_nation,                       weiblich,4,0,1,1,3
+mordversuch_taeter_geschlecht_alter_nation,                        25 bis unter 40 J.,1,0,0,0,2
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,1,0,0,0,2
+mordversuch_taeter_geschlecht_alter_nation,                        40 und älter,3,0,1,1,1
+mordversuch_taeter_geschlecht_alter_nation,                          Belarus,1,0,0,0,0
+mordversuch_taeter_geschlecht_alter_nation,                          Österreich,2,0,1,1,1
+mordversuch_taeter_geschlecht_alter_nation,                      Gesamtergebnis,66,51,38,52,45
+mordversuch_beziehung_taeter,                      Burgenland,0,0,1,0,4
+mordversuch_beziehung_opfer,                      Burgenland,0,0,1,0,2
+mordversuch_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,0,0,0,0,4
+mordversuch_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,0,0,0,0,2
+mordversuch_beziehung_taeter,                        familiäre Beziehung ohne Hausgemeinschaft,0,0,1,0,0
+mordversuch_beziehung_opfer,                        familiäre Beziehung ohne Hausgemeinschaft,0,0,1,0,0
+mordversuch_beziehung_taeter,                      Kärnten,1,0,0,2,0
+mordversuch_beziehung_opfer,                      Kärnten,1,0,0,2,0
+mordversuch_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,1,0,0,2,0
+mordversuch_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,1,0,0,2,0
+mordversuch_beziehung_taeter,                      Niederösterreich,8,10,5,3,5
+mordversuch_beziehung_opfer,                      Niederösterreich,9,10,5,4,5
+mordversuch_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,4,9,4,2,1
+mordversuch_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,4,9,4,3,1
+mordversuch_beziehung_taeter,                        familiäre Beziehung ohne Hausgemeinschaft,4,1,1,1,4
+mordversuch_beziehung_opfer,                        familiäre Beziehung ohne Hausgemeinschaft,5,1,1,1,4
+mordversuch_beziehung_taeter,                      Oberösterreich,1,2,2,2,4
+mordversuch_beziehung_opfer,                      Oberösterreich,1,3,2,3,3
+mordversuch_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,1,1,1,2,3
+mordversuch_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,1,2,1,3,2
+mordversuch_beziehung_taeter,                        familiäre Beziehung ohne Hausgemeinschaft,0,1,1,0,1
+mordversuch_beziehung_opfer,                        familiäre Beziehung ohne Hausgemeinschaft,0,1,1,0,1
+mordversuch_beziehung_taeter,                      Salzburg,2,1,2,0,1
+mordversuch_beziehung_opfer,                      Salzburg,2,1,2,0,1
+mordversuch_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,1,1,2,0,0
+mordversuch_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,1,1,2,0,0
+mordversuch_beziehung_taeter,                        familiäre Beziehung ohne Hausgemeinschaft,1,0,0,0,1
+mordversuch_beziehung_opfer,                        familiäre Beziehung ohne Hausgemeinschaft,1,0,0,0,1
+mordversuch_beziehung_taeter,                      Steiermark,6,2,3,8,3
+mordversuch_beziehung_opfer,                      Steiermark,6,2,2,7,3
+mordversuch_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,3,2,1,5,2
+mordversuch_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,3,2,1,5,2
+mordversuch_beziehung_taeter,                        familiäre Beziehung ohne Hausgemeinschaft,3,0,2,3,1
+mordversuch_beziehung_opfer,                        familiäre Beziehung ohne Hausgemeinschaft,3,0,1,2,1
+mordversuch_beziehung_taeter,                      Tirol,4,0,4,5,2
+mordversuch_beziehung_opfer,                      Tirol,4,0,4,5,2
+mordversuch_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,4,0,1,3,2
+mordversuch_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,4,0,1,3,2
+mordversuch_beziehung_taeter,                        familiäre Beziehung ohne Hausgemeinschaft,0,0,3,2,0
+mordversuch_beziehung_opfer,                        familiäre Beziehung ohne Hausgemeinschaft,0,0,3,2,0
+mordversuch_beziehung_taeter,                      Vorarlberg,1,2,0,0,0
+mordversuch_beziehung_opfer,                      Vorarlberg,1,2,0,0,0
+mordversuch_beziehung_taeter,                        familiäre Beziehung in Hausgemeinschaft,1,2,0,0,0
+mordversuch_beziehung_opfer,                        familiäre Beziehung in Hausgemeinschaft,1,2,0,0,0
+mordversuch_beziehung_taeter,                      Wien,17,11,6,15,9
+mordversuch_beziehung_opfer,                      Wien,14,11,6,16,7
+mordversuch_beziehung_taeter,                       familiäre Beziehung in Hausgemeinschaft,12,8,4,9,7
+mordversuch_beziehung_opfer,                       familiäre Beziehung in Hausgemeinschaft,10,8,4,9,5
+mordversuch_beziehung_taeter,                       familiäre Beziehung ohne Hausgemeinschaft,5,3,2,6,2
+mordversuch_beziehung_opfer,                       familiäre Beziehung ohne Hausgemeinschaft,4,3,2,7,2
+mordversuch_beziehung_taeter,                      Gesamt,40,28,23,35,28
+mordversuch_beziehung_opfer,                      Gesamt,38,29,22,37,23
