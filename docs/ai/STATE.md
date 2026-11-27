@@ -26,7 +26,7 @@ sources:
 Current status as of 2026-11-08.
 
 ## Current Focus
-**Nachtrag-Slot für Lessons + Femizid-Projekt (#56, #36, 2026-11-27):**
+**Nachtrag-Slot für Lessons + Femizid-Projekt (#56 geschlossen, #36 offen, 2026-11-27):**
 Lessons dürfen nachträglich um Zusatzbeispiele wachsen — in **einem** Slot
 `unterricht/<LESSON>/beispiele/<slug>/`, mit der Hellwig-Regel als Grenze
 (*installationsfrei → Lesson, installierbar → `Projekte/`*). Regelwerk:
